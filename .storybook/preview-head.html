@@ -5,8 +5,13 @@
     background-color: var(--background) !important;
     color: var(--foreground);
   }
-  /* Docs tables: neutral striping instead of Storybook's blue-grey. */
-  .sbdocs-wrapper tr:nth-of-type(2n):not(.docs-story *) {
+  /* Docs tables: neutral striping instead of Storybook's blue-grey. Tables
+     inside stories and <Unstyled> blocks keep the theme's own look. */
+  .sbdocs-wrapper tr:nth-of-type(2n):not(.docs-story *, .sb-unstyled *) {
     background-color: #171717 !important;
+  }
+  /* Tailwind's reset removes list numbers; bring them back in docs text. */
+  .sbdocs-content ol:not(.docs-story *, .sb-unstyled *) {
+    list-style: decimal;
   }
 </style>

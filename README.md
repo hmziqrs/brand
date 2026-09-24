@@ -2,10 +2,11 @@
 
 The shared look for every hmziq site: one theme, one set of fonts, one set of writing rules, all shown in a Storybook.
 
-- **Theme**: [`theme.css`](./theme.css). Tailwind v4 + shadcn/ui tokens, dark by default, oxide orange as the only brand color.
+- **Theme**: [`theme.css`](./theme.css). Tailwind v4 + shadcn/ui tokens, dark by default, oxide orange as the brand color, seven supporting colors for status, categories, charts and code, and the icon line weight.
 - **Type**: Onest for everything people read, JetBrains Mono for code. Both self-hosted via Fontsource.
 - **Components**: every shadcn/ui component (Base UI, Vega style), each with stories from the Base UI edition of the [shadcn Storybook Registry](https://registry.lloydrichards.dev/).
-- **Guidelines**: the `Brand` section in Storybook (colors, typography, writing, motion).
+- **Guidelines**: the `Brand` section in Storybook (colors, typography, icons, writing, custom components, motion).
+- **Custom components**: the brand's own pieces (Tag, IconTile, Notice, CodeBlock with Shiki highlighting, BrandIcon for company logos) in `src/components/brand/`, under `Custom` in Storybook.
 - **Brand kit**: [`BRAND.md`](./BRAND.md), the whole brand in one file for AI agents doing migrations and redesigns. Also served at `/BRAND.md` on the published Storybook.
 - **Sites**: a landing page for every hmziq site (hmziq.rs, blog, labs, freeoxide, gpui-starter, gpui-query, claude-multi, oxlabs), built only from the theme and shadcn components. Source in `src/sites/`.
 
@@ -25,7 +26,10 @@ Other scripts:
 | `pnpm build-storybook` | Static build into `storybook-static/` |
 | `pnpm typecheck` | TypeScript check across components and stories |
 | `pnpm check:motion` | Fails if anything moves on hover, press or focus (brand rule) |
-| `pnpm check:brand-kit` | Fails if the copy of `theme.css` in `BRAND.md` is out of date (`pnpm brand-kit:sync` fixes it) |
+| `pnpm check:colors` | Fails if custom components or pages use a color that isn't a theme token (hex, `bg-green-500`, `bg-white`…) |
+| `pnpm check:contrast` | Measures every text/background pair in `theme.css` in both modes; fails below WCAG AA |
+| `pnpm check:brand-kit` | Fails if the generated parts of `BRAND.md` (theme copy, colors, contrast) are out of date (`pnpm brand-kit:sync` fixes it) |
+| `pnpm check` | All of the above plus lint and typecheck |
 | `pnpm lint` | oxlint |
 | `pnpm dev` | Each site full-window at http://localhost:5173, picked by hash: `#freeoxide`, `#gpui-starter`, `#gpui-query`, `#claude-multi`, `#oxlabs`, `#blog`, `#labs` (default: hmziq) |
 
@@ -52,7 +56,7 @@ Put `class="dark"` on `<html>` so dark is the default.
 
 ## Change the brand color
 
-Edit `--primary` and `--primary-foreground` in both the `:root` (light) and `.dark` blocks of `theme.css`. `--ring`, `--chart-1` and the `--sidebar-*` primary values follow it. Every story updates on reload. Then run `pnpm brand-kit:sync` to update `BRAND.md`.
+`--primary` points at `--orange` in both the `:root` (light) and `.dark` blocks of `theme.css`. Point it at another color (`var(--blue)`), or change the colors themselves in part 2 of the file. The ring, `chart-1`, the sidebar and code keywords follow. Every story updates on reload. Then run `pnpm check:contrast` and `pnpm brand-kit:sync`.
 
 ## Adding components and stories
 

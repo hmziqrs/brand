@@ -8,19 +8,12 @@ import {
   RefreshCw,
   ShieldCheck,
 } from "lucide-react"
+import { siGithub } from "simple-icons"
+import { BrandIcon } from "@/components/brand/brand-icon"
 import { Badge } from "@/components/ui/badge"
 import { Kbd } from "@/components/ui/kbd"
-import {
-  ButtonLink,
-  CodeBlock,
-  CtaBand,
-  FeatureGrid,
-  Hero,
-  InlineCode,
-  Section,
-  SiteShell,
-  Steps,
-} from "./shared/site"
+import { CodeBlock, InlineCode } from "@/components/brand/code-block"
+import { ButtonLink, CtaBand, FeatureGrid, Hero, Section, SiteShell, Steps } from "./shared/site"
 
 const features = [
   {
@@ -172,6 +165,7 @@ export function GpuiStarterPage() {
               Get started
             </ButtonLink>
             <ButtonLink href="#" size="lg" variant="outline" className="px-5">
+              <BrandIcon icon={siGithub} data-icon="inline-start" />
               View on GitHub
             </ButtonLink>
           </>
@@ -214,7 +208,7 @@ export function GpuiStarterPage() {
       </Section>
 
       <Section title="Adding a page takes one line" intro="Register it once, and the sidebar, the launcher and links to it all update.">
-        <CodeBlock label="src/shell/route.rs" code={routeExample} />
+        <CodeBlock label="src/shell/route.rs" code={routeExample} lang="rust" />
       </Section>
 
       <CtaBand
@@ -229,6 +223,7 @@ export function GpuiStarterPage() {
           <>
             <ButtonLink href="#">Read the quickstart</ButtonLink>
             <ButtonLink href="#" variant="outline">
+              <BrandIcon icon={siGithub} data-icon="inline-start" />
               View on GitHub
             </ButtonLink>
           </>

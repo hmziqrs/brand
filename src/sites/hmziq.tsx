@@ -1,4 +1,5 @@
 import { Star } from "lucide-react"
+import { Tag } from "@/components/brand/tag"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { ButtonLink, Hero, Section, SiteShell } from "./shared/site"
@@ -109,9 +110,11 @@ export function HmziqPage() {
       <Section title="What I'm working on">
         <div className="grid gap-4 md:grid-cols-3">
           {initiatives.map((i) => (
-            <Card key={i.name} className={i.status === "Active" ? "border-primary/40" : undefined}>
+            <Card key={i.name}>
               <CardHeader className="gap-3">
-                <Badge variant={i.status === "Active" ? "default" : "outline"}>{i.status}</Badge>
+                <Tag tone={i.status === "Active" ? "success" : undefined} dot={i.status === "Active"}>
+                  {i.status}
+                </Tag>
                 <CardTitle className="text-lg font-medium">{i.name}</CardTitle>
                 <CardDescription className="leading-relaxed">{i.body}</CardDescription>
               </CardHeader>

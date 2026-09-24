@@ -1,6 +1,9 @@
 import { Archive, Ban, Database, Infinity as InfinityIcon, ListRestart, Sparkles } from "lucide-react"
+import { siGithub } from "simple-icons"
+import { BrandIcon } from "@/components/brand/brand-icon"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { ButtonLink, CodeBlock, CtaBand, FeatureGrid, Hero, InlineCode, Section, SiteShell } from "./shared/site"
+import { CodeBlock, InlineCode } from "@/components/brand/code-block"
+import { ButtonLink, CtaBand, FeatureGrid, Hero, Section, SiteShell } from "./shared/site"
 
 const features = [
   {
@@ -149,6 +152,7 @@ export function GpuiQueryPage() {
               Get started
             </ButtonLink>
             <ButtonLink href="#" size="lg" variant="outline" className="px-5">
+              <BrandIcon icon={siGithub} data-icon="inline-start" />
               View on GitHub
             </ButtonLink>
           </>
@@ -174,7 +178,7 @@ export function GpuiQueryPage() {
           </TabsList>
           {samples.map((s) => (
             <TabsContent key={s.value} value={s.value}>
-              <CodeBlock label={s.fn} code={s.code} />
+              <CodeBlock label={s.fn} code={s.code} lang="rust" />
             </TabsContent>
           ))}
         </Tabs>
@@ -187,11 +191,11 @@ export function GpuiQueryPage() {
         <div className="grid gap-4 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
           <div className="flex flex-col gap-2">
             <p className="text-sm text-muted-foreground">By hand · 28 lines of code</p>
-            <CodeBlock code={byHand} className="text-[13px]" />
+            <CodeBlock code={byHand} lang="rust" copy={false} className="text-[13px]" />
           </div>
           <div className="flex flex-col gap-2">
             <p className="text-sm text-muted-foreground">With gpui-query · 7 lines of code</p>
-            <CodeBlock code={withQuery} className="text-[13px]" />
+            <CodeBlock code={withQuery} lang="rust" copy={false} className="text-[13px]" />
           </div>
         </div>
       </Section>
@@ -207,6 +211,7 @@ export function GpuiQueryPage() {
           <>
             <ButtonLink href="#">Read the guide</ButtonLink>
             <ButtonLink href="#" variant="outline">
+              <BrandIcon icon={siGithub} data-icon="inline-start" />
               View on GitHub
             </ButtonLink>
           </>

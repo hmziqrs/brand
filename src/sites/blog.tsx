@@ -1,4 +1,5 @@
 import { PenLine } from "lucide-react"
+import { Tag } from "@/components/brand/tag"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
@@ -8,11 +9,14 @@ import { Container, Hero, SiteShell } from "./shared/site"
 
 const post = {
   date: "10 May 2026",
-  category: "Engineering",
+  category: "Engineering" as const,
   title: "Vibe coding my blog in Astro, deployed on Cloudflare",
   summary: "Third attempt at a blog. Finally got this one built.",
   tags: ["Astro", "Cloudflare", "Vibe coding", "Blog", "Web dev"],
 }
+
+// Each category keeps one color on every page it appears.
+const categoryTone = { Engineering: "blue", Design: "pink", Notes: "teal" } as const
 
 export function BlogPage() {
   return (
@@ -36,9 +40,10 @@ export function BlogPage() {
         <h2 className="text-sm text-muted-foreground">Latest post</h2>
         <Card className="transition-colors hover:border-primary/50">
           <CardHeader className="gap-3">
-            <p className="text-sm text-muted-foreground">
-              {post.date} · {post.category}
-            </p>
+            <div className="flex items-center gap-3 text-sm text-muted-foreground">
+              <Tag tone={categoryTone[post.category]}>{post.category}</Tag>
+              {post.date}
+            </div>
             <CardTitle className="text-2xl font-medium tracking-tight text-balance md:text-3xl">
               <a href="#" className="hover:text-primary">
                 {post.title}

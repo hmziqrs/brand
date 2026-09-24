@@ -1,5 +1,6 @@
 import type { ComponentProps, ReactNode } from "react"
 import { cn } from "cn"
+import { IconTile } from "@/components/brand/icon-tile"
 import { Button } from "@/components/ui/button"
 import { family, type FamilyName } from "./family"
 
@@ -155,11 +156,7 @@ export function FeatureGrid({ items, columns = 3 }: { items: Feature[]; columns?
     <div className={cn("grid gap-x-10 gap-y-10 sm:grid-cols-2", columns === 3 && "lg:grid-cols-3")}>
       {items.map((f) => (
         <div key={f.title} className="flex flex-col gap-3">
-          {f.icon && (
-            <div className="flex size-9 items-center justify-center rounded-md border bg-card text-primary [&_svg]:size-4.5">
-              {f.icon}
-            </div>
-          )}
+          {f.icon && <IconTile>{f.icon}</IconTile>}
           <h3 className="font-medium">{f.title}</h3>
           <p className="text-sm leading-relaxed text-muted-foreground">{f.body}</p>
         </div>
@@ -185,21 +182,6 @@ export function Steps({ items }: { items: Step[] }) {
       ))}
     </ol>
   )
-}
-
-export function CodeBlock({ code, label, className }: { code: string; label?: string; className?: string }) {
-  return (
-    <div className="overflow-hidden rounded-xl border bg-card">
-      {label && <div className="border-b px-4 py-2.5 font-mono text-xs text-muted-foreground">{label}</div>}
-      <pre className={cn("overflow-x-auto p-4 font-mono text-sm leading-relaxed", className)}>
-        <code>{code}</code>
-      </pre>
-    </div>
-  )
-}
-
-export function InlineCode({ children }: { children: ReactNode }) {
-  return <code className="rounded-sm bg-muted px-1.5 py-0.5 font-mono text-[0.9em] text-foreground">{children}</code>
 }
 
 type CtaBandProps = { title: string; body: ReactNode; actions: ReactNode }

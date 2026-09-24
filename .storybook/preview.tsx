@@ -1,8 +1,19 @@
 import type { Preview } from '@storybook/react-vite'
 import { withThemeByClassName } from '@storybook/addon-themes'
+import { addons } from 'storybook/preview-api'
+import { GLOBALS_UPDATED, SET_GLOBALS } from 'storybook/internal/core-events'
 import { TooltipProvider } from '@/components/ui/tooltip'
 import { brandDark } from './brand-theme'
 import '../src/index.css'
+
+// The theme decorator only runs when a story renders. Docs pages made only of
+// MDX follow the toolbar switch through this listener instead.
+const applyTheme = (theme?: string) => document.documentElement.classList.toggle('dark', theme !== 'light')
+applyTheme('dark')
+const channel = addons.getChannel()
+for (const event of [SET_GLOBALS, GLOBALS_UPDATED]) {
+  channel.on(event, ({ globals }: { globals: { theme?: string } }) => applyTheme(globals.theme))
+}
 
 const preview: Preview = {
   parameters: {
@@ -21,7 +32,8 @@ const preview: Preview = {
       storySort: {
         order: [
           'Brand',
-          ['Introduction', 'Colors', 'Typography', 'Writing', 'Brand kit for AI agents'],
+          ['Introduction', 'Colors', 'Typography', 'Icons', 'Writing', 'Custom components', 'Brand kit for AI agents'],
+          'Custom',
           'Sites',
           'design',
           'ui',

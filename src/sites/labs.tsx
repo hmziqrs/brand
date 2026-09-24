@@ -1,4 +1,6 @@
 import { GitCommitHorizontal, Globe } from "lucide-react"
+import { siGithub } from "simple-icons"
+import { BrandIcon } from "@/components/brand/brand-icon"
 import {
   Item,
   ItemContent,
@@ -35,6 +37,7 @@ export function LabsPage() {
               Explore the experiments
             </ButtonLink>
             <ButtonLink href="#" size="lg" variant="outline" className="px-5">
+              <BrandIcon icon={siGithub} data-icon="inline-start" />
               Follow on GitHub
             </ButtonLink>
           </>

@@ -59,7 +59,7 @@ export function OxlabsPage() {
         }
         note={
           <span className="inline-flex items-center gap-2">
-            <span className="size-2 rounded-full bg-primary" aria-hidden="true" />
+            <span className="size-2 rounded-full bg-success" aria-hidden="true" />
             Taking on new projects
           </span>
         }

@@ -1,0 +1,76 @@
+import { Meta, Unstyled } from '@storybook/addon-docs/blocks'
+import { Strokes, Sizes, Glossary, InUse } from './icon-blocks'
+
+<Meta title="Brand/Icons" />
+
+# Icons
+
+Simple line icons from [Lucide](https://lucide.dev), drawn a little lighter than Lucide's default so they sit well next to Onest.
+
+## One set
+
+- **Lucide** for every icon: `lucide-react`, `@lucide/svelte`, `@lucide/astro`, or the plain SVG files in `lucide-static` for anything else (like Dioxus). It's the set shadcn uses, so components and pages match.
+- **Simple Icons** for other companies' logos (GitHub, X, Bluesky). Lucide has none.
+- Nothing else: no second icon set, no filled or two-tone icons, and no emoji as icons.
+
+## Line weight: 1.75
+
+Lucide draws at 2 by default, which looks heavier than Onest's regular text. At 1.75, an icon's lines are about as thick as the letters beside it.
+
+<Unstyled>
+  <Strokes />
+</Unstyled>
+
+`theme.css` sets this once for every icon with the `lucide` class, through `--icon-stroke`. Don't set `strokeWidth` on single icons.
+
+## Sizes
+
+<Unstyled>
+  <Sizes />
+</Unstyled>
+
+shadcn components already size the icons inside them to 16px. Only set a size when an icon stands on its own.
+
+## Color
+
+Icons take the color of the text around them. That means grey (`text-muted-foreground`) next to secondary text, the text color inside buttons, and orange inside an icon tile. An icon gets a status color only when the icon *is* the status: a green check for "done", a yellow triangle for a warning.
+
+## Icons and words
+
+- **An icon goes with a word.** It helps people scan; the word says what it means.
+- **Icon-only buttons** are for actions everyone knows: search, close, menu, copy, light/dark. Each needs an `aria-label` and a tooltip with the same words.
+- **Icons go before the label**, with `data-icon="inline-start"`. Arrows that mean "go" go after, with `data-icon="inline-end"`.
+- **Decorative icons are hidden** from screen readers. Lucide does this by default when there's no label.
+- **Not as bullets.** A list doesn't need an icon on every line, and a feature has one icon at most.
+
+## What each icon means
+
+Use the same icon for the same meaning on every site.
+
+<Unstyled>
+  <Glossary />
+</Unstyled>
+
+## Company logos
+
+Use `simple-icons` through the `BrandIcon` component. Logos are solid shapes, so they sit one step smaller than line icons (14px next to 16px) to look the same weight. They're always in the current text color, never the company's own color. If a logo isn't in Simple Icons (LinkedIn asked to be removed), write the name as text instead.
+
+## In use
+
+<Unstyled>
+  <InUse />
+</Unstyled>
+
+## When Lucide doesn't have it
+
+Draw the icon the way Lucide does, so it matches: a 24×24 grid, 2px lines at that size, round ends and corners, no fills, and 1px of space around the edge. Then turn it into a component with Lucide's own `createLucideIcon`. It gets the `lucide` class, the brand line weight and the same props as every other icon. Keep custom icons in `src/components/icons/`.
+
+```tsx
+import { createLucideIcon } from "lucide-react"
+
+// Two stacked windows, for "opens in a new window". Lines only, on the 24×24 grid.
+export const Windows = createLucideIcon("windows", [
+  ["rect", { x: "3", y: "7", width: "14", height: "14", rx: "2", key: "front" }],
+  ["path", { d: "M7 3h12a2 2 0 0 1 2 2v12", key: "back" }],
+])
+```

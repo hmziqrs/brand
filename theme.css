@@ -16,13 +16,22 @@
  *
  * Dark is the default: ship <html class="dark"> and remove the class for light.
  *
- * Greys are shadcn "neutral" (zero chroma, no tint). The only brand color is
- * --primary ("oxide" orange); everything else is neutral. To retheme, change
- * --primary / --primary-foreground (and the rings and chart-1 that follow it)
- * in both blocks.
+ * The file has three parts:
+ *   1. shadcn's tokens, in shadcn's layout. Greys are shadcn "neutral" (zero
+ *      chroma, no tint). A theme tool's output can replace these two blocks.
+ *   2. The colors: oxide orange plus seven supporting colors, tuned per mode
+ *      so each one reads as text on a card and on its own soft fill (AA).
+ *   3. Roles that point at those colors: status, code and icons.
+ *
+ * --primary points at --orange. To try another brand color, point it at
+ * another color (e.g. var(--blue)) in both blocks; everything that follows
+ * the brand (ring, chart-1, sidebar, code keywords) follows it.
+ * `pnpm check:contrast` measures every pair after a change.
  */
 
 @custom-variant dark (&:is(.dark *));
+
+/* 1. shadcn tokens ---------------------------------------------------------- */
 
 :root {
   --radius: 0.625rem;
@@ -34,8 +43,7 @@
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
 
-  /* oxide, light: #B05400. White text on it 4.9:1, as link text on white 5.1:1 */
-  --primary: oklch(0.55 0.142 52);
+  --primary: var(--orange);
   --primary-foreground: oklch(0.985 0 0);
 
   --secondary: oklch(0.97 0 0);
@@ -45,25 +53,25 @@
   --muted-foreground: oklch(0.54 0 0);
   --accent: oklch(0.97 0 0);
   --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
+  --destructive: var(--red);
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
-  --ring: oklch(0.55 0.142 52);
+  --ring: var(--primary);
 
-  --chart-1: oklch(0.55 0.142 52);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
+  --chart-1: var(--primary);
+  --chart-2: var(--blue);
+  --chart-3: var(--green);
+  --chart-4: var(--purple);
+  --chart-5: var(--yellow);
 
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.55 0.142 52);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
   --sidebar-accent: oklch(0.97 0 0);
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.55 0.142 52);
+  --sidebar-ring: var(--primary);
 }
 
 .dark {
@@ -74,8 +82,7 @@
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
 
-  /* oxide, dark: #F38230. Dark text on it 7.6:1, as link text on background 7.6:1 */
-  --primary: oklch(0.72 0.165 52);
+  --primary: var(--orange);
   --primary-foreground: oklch(0.145 0 0);
 
   --secondary: oklch(0.269 0 0);
@@ -84,25 +91,87 @@
   --muted-foreground: oklch(0.708 0 0);
   --accent: oklch(0.269 0 0);
   --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
+  --destructive: var(--red);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.72 0.165 52);
+  --ring: var(--primary);
 
-  --chart-1: oklch(0.72 0.165 52);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
+  --chart-1: var(--primary);
+  --chart-2: var(--blue);
+  --chart-3: var(--green);
+  --chart-4: var(--purple);
+  --chart-5: var(--yellow);
 
   --sidebar: oklch(0.205 0 0);
   --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.72 0.165 52);
-  --sidebar-primary-foreground: oklch(0.145 0 0);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
   --sidebar-accent: oklch(0.269 0 0);
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.72 0.165 52);
+  --sidebar-ring: var(--primary);
+}
+
+/* 2. Colors ----------------------------------------------------------------
+ * Oxide orange is the brand. The other seven carry meaning: status,
+ * categories, charts and code. Only orange is ever a solid fill behind text;
+ * the rest appear as text, icons, dots, lines and soft fills
+ * (bg-green/10 text-green dark:bg-green/20).
+ * Light shades sit around L 0.53 and dark shades around L 0.72–0.80, so
+ * every color passes AA as text on a card and on its own soft fill.
+ */
+
+:root {
+  --red: oklch(0.54 0.21 26);
+  --orange: oklch(0.54 0.135 52);
+  --yellow: oklch(0.53 0.11 75);
+  --green: oklch(0.51 0.14 150);
+  --teal: oklch(0.515 0.09 185);
+  --blue: oklch(0.53 0.175 255);
+  --purple: oklch(0.55 0.2 300);
+  --pink: oklch(0.55 0.19 350);
+}
+
+.dark {
+  --red: oklch(0.704 0.191 22.216);
+  --orange: oklch(0.72 0.165 52);
+  --yellow: oklch(0.8 0.14 85);
+  --green: oklch(0.75 0.15 150);
+  --teal: oklch(0.75 0.12 185);
+  --blue: oklch(0.72 0.15 255);
+  --purple: oklch(0.72 0.16 300);
+  --pink: oklch(0.73 0.16 350);
+}
+
+/* 3. Roles -----------------------------------------------------------------
+ * Listed under both selectors so a nested .dark area resolves them again.
+ */
+
+:root,
+.dark {
+  /* Status. Always soft or as text, never a solid fill. */
+  --success: var(--green);
+  --warning: var(--yellow);
+  --info: var(--blue);
+
+  /* Code highlighting: Shiki's css-variables theme with variablePrefix "--code-". */
+  --code-foreground: var(--foreground);
+  --code-background: var(--card);
+  --code-token-keyword: var(--primary);
+  --code-token-function: var(--blue);
+  --code-token-string: var(--green);
+  --code-token-string-expression: var(--green);
+  --code-token-constant: var(--purple);
+  --code-token-parameter: var(--foreground);
+  --code-token-comment: var(--muted-foreground);
+  --code-token-punctuation: var(--muted-foreground);
+  --code-token-link: var(--blue);
+  --code-token-inserted: var(--green);
+  --code-token-deleted: var(--red);
+  --code-token-changed: var(--yellow);
+
+  /* Icon line weight, matched to Onest at 400. Lucide's default is 2. */
+  --icon-stroke: 1.75;
 }
 
 @theme inline {
@@ -134,6 +203,9 @@
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-info: var(--info);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
@@ -150,6 +222,15 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+
+  --color-red: var(--red);
+  --color-orange: var(--orange);
+  --color-yellow: var(--yellow);
+  --color-green: var(--green);
+  --color-teal: var(--teal);
+  --color-blue: var(--blue);
+  --color-purple: var(--purple);
+  --color-pink: var(--pink);
 }
 
 @layer base {
@@ -161,5 +242,9 @@
   }
   body {
     @apply bg-background text-foreground font-sans;
+  }
+  /* Every lucide icon uses the brand line weight. Change one with stroke-[2]. */
+  .lucide {
+    stroke-width: var(--icon-stroke);
   }
 }

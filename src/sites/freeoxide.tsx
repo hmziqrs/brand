@@ -1,9 +1,14 @@
 import { BookOpenText, FolderTree, GitBranch, ListChecks, ScanSearch } from "lucide-react"
-import { Badge } from "@/components/ui/badge"
+import { siGithub } from "simple-icons"
+import { BrandIcon } from "@/components/brand/brand-icon"
+import { Tag } from "@/components/brand/tag"
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { ButtonLink, Container, CtaBand, FeatureGrid, Hero, Section, SiteShell } from "./shared/site"
 
 type Status = "Shipped" | "In progress" | "Planned"
+
+// Status colors: green for done, yellow for work in progress, grey for later.
+const statusTone = { Shipped: "success", "In progress": "warning", Planned: undefined } as const
 
 const projects: { name: string; status: Status; body: string; meta: string }[] = [
   {
@@ -101,6 +106,7 @@ export function FreeoxidePage() {
               Browse the projects
             </ButtonLink>
             <ButtonLink href="#" size="lg" variant="outline" className="px-5">
+              <BrandIcon icon={siGithub} data-icon="inline-start" />
               View on GitHub
             </ButtonLink>
           </>
@@ -126,7 +132,9 @@ export function FreeoxidePage() {
           {projects.map((p) => (
             <Card key={p.name} className="transition-colors hover:border-primary/50">
               <CardHeader className="gap-3">
-                <Badge variant={p.status === "Shipped" ? "secondary" : "outline"}>{p.status}</Badge>
+                <Tag tone={statusTone[p.status]} dot={p.status !== "Planned"}>
+                  {p.status}
+                </Tag>
                 <CardTitle className="text-lg font-medium">{p.name}</CardTitle>
                 <CardDescription className="leading-relaxed">{p.body}</CardDescription>
               </CardHeader>

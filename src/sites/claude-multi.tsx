@@ -1,7 +1,10 @@
 import { Blocks, FolderLock, KeyRound, Puzzle, SquareTerminal } from "lucide-react"
+import { siGithub } from "simple-icons"
+import { BrandIcon } from "@/components/brand/brand-icon"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { ButtonLink, CodeBlock, CtaBand, FeatureGrid, Hero, InlineCode, Section, SiteShell, Steps } from "./shared/site"
+import { CodeBlock, InlineCode } from "@/components/brand/code-block"
+import { ButtonLink, CtaBand, FeatureGrid, Hero, Section, SiteShell, Steps } from "./shared/site"
 
 const installs = [
   { value: "npm", code: "npm install -g claude-multi" },
@@ -76,6 +79,7 @@ export function ClaudeMultiPage() {
               Get started
             </ButtonLink>
             <ButtonLink href="#" size="lg" variant="outline" className="px-5">
+              <BrandIcon icon={siGithub} data-icon="inline-start" />
               View source
             </ButtonLink>
           </>
@@ -94,7 +98,7 @@ export function ClaudeMultiPage() {
           </TabsList>
           {installs.map((i) => (
             <TabsContent key={i.value} value={i.value}>
-              <CodeBlock code={i.code} />
+              <CodeBlock code={i.code} lang="bash" />
             </TabsContent>
           ))}
         </Tabs>
