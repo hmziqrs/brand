@@ -6,6 +6,8 @@
 
 /** Gamma-encoded sRGB, each channel 0–1. */
 export type Rgb = [number, number, number]
+/** OKLab: lightness 0–1, then the a and b axes. */
+type Lab = [number, number, number]
 export type Color = { rgb: Rgb; alpha: number }
 export type Mode = "dark" | "light"
 export type Tokens = Record<string, string>
@@ -31,9 +33,13 @@ export const softAlpha: Record<Mode, number> = { light: 0.1, dark: 0.2 }
 
 // --- color math ---------------------------------------------------------------
 
-function oklchToRgb(l: number, c: number, h: number): Rgb {
-  const a = c * Math.cos((h * Math.PI) / 180)
-  const b = c * Math.sin((h * Math.PI) / 180)
+const oklch = /^oklch\(\s*([\d.]+)(%?)\s+([\d.]+)\s+([\d.]+)\s*(?:\/\s*([\d.]+)(%?))?\s*\)$/
+
+function oklchToLab(l: number, c: number, h: number): Lab {
+  return [l, c * Math.cos((h * Math.PI) / 180), c * Math.sin((h * Math.PI) / 180)]
+}
+
+function labToRgb([l, a, b]: Lab): Rgb {
   const l_ = (l + 0.3963377774 * a + 0.2158037573 * b) ** 3
   const m_ = (l - 0.1055613458 * a - 0.0638541728 * b) ** 3
   const s_ = (l - 0.0894841775 * a - 1.291485548 * b) ** 3
@@ -51,11 +57,11 @@ function oklchToRgb(l: number, c: number, h: number): Rgb {
 /** Parses `oklch(L C H)`, `oklch(L C H / A%)` and `#rrggbb`. */
 export function parseColor(value: string): Color | null {
   const v = value.trim()
-  const ok = v.match(/^oklch\(\s*([\d.]+)(%?)\s+([\d.]+)\s+([\d.]+)\s*(?:\/\s*([\d.]+)(%?))?\s*\)$/)
+  const ok = v.match(oklch)
   if (ok) {
     const l = Number(ok[1]) / (ok[2] ? 100 : 1)
     const alpha = ok[5] === undefined ? 1 : Number(ok[5]) / (ok[6] ? 100 : 1)
-    return { rgb: oklchToRgb(l, Number(ok[3]), Number(ok[4])), alpha }
+    return { rgb: labToRgb(oklchToLab(l, Number(ok[3]), Number(ok[4]))), alpha }
   }
   const hex = v.match(/^#([0-9a-f]{6})$/i)
   if (hex) {
@@ -122,8 +128,28 @@ export function resolve(tokens: Tokens, name: string, seen = new Set<string>()):
   return ref ? resolve(tokens, ref[1], seen) : value
 }
 
+function lab(tokens: Tokens, name: string): Lab {
+  const value = resolve(tokens, name)
+  const ok = value.match(oklch)
+  if (!ok) throw new Error(`Can't mix --${name}: ${value}`)
+  return oklchToLab(Number(ok[1]) / (ok[2] ? 100 : 1), Number(ok[3]), Number(ok[4]))
+}
+
+// color-mix(in oklab, var(--a) N%, var(--b)) or color-mix(in oklab, var(--a) N%, transparent)
+const mix = /^color-mix\(\s*in oklab\s*,\s*var\((--[\w-]+)\)\s+([\d.]+)%\s*,\s*(?:var\((--[\w-]+)\)|transparent)\s*\)$/
+
 export function color(tokens: Tokens, name: string): Color {
   const value = resolve(tokens, name)
+  const m = value.match(mix)
+  if (m) {
+    const t = Number(m[2]) / 100
+    if (!m[3]) {
+      const top = color(tokens, m[1])
+      return { rgb: top.rgb, alpha: top.alpha * t }
+    }
+    const [a, b] = [lab(tokens, m[1]), lab(tokens, m[3])]
+    return { rgb: labToRgb(a.map((v, i) => v * t + b[i] * (1 - t)) as Lab), alpha: 1 }
+  }
   const parsed = parseColor(value)
   if (!parsed) throw new Error(`Can't read --${name}: ${value}`)
   return parsed
@@ -153,6 +179,10 @@ export const pairs: Pair[] = [
   { group: "Oxide", label: "Oxide links on the page", fg: "primary", bg: "background", min: 4.5 },
   { group: "Oxide", label: "Oxide text on a card", fg: "primary", bg: "card", min: 4.5 },
   { group: "Oxide", label: "Focus ring on the page", fg: "ring", bg: "background", min: 3 },
+  { group: "Oxide", label: "Text on the orange band", fg: "on-orange", bg: "orange", min: 4.5 },
+  { group: "Oxide", label: "Code and hover on the orange band", fg: "on-orange", bg: "band-orange-muted", min: 4.5 },
+  { group: "Text", label: "Text on a gray band", fg: "foreground", bg: "band", min: 4.5 },
+  { group: "Text", label: "Secondary text on a gray band", fg: "muted-foreground", bg: "band", min: 4.5 },
   ...hues.flatMap((hue): Pair[] => [
     { group: "Colors", label: `${title(hue)} text on a card`, fg: hue, bg: "card", min: 4.5 },
     { group: "Colors", label: `${title(hue)} text on its soft fill`, fg: hue, bg: "card", soft: true, min: 4.5 },

@@ -32,7 +32,7 @@ const preview: Preview = {
       storySort: {
         order: [
           'Brand',
-          ['Introduction', 'Colors', 'Typography', 'Icons', 'Writing', 'Custom components', 'Brand kit for AI agents'],
+          ['Introduction', 'Signature', 'Colors', 'Typography', 'Icons', 'Writing', 'Custom components', 'Brand kit for AI agents'],
           'Custom',
           'Sites',
           'design',

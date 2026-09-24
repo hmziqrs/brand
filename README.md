@@ -6,7 +6,9 @@ The shared look for every hmziq site: one theme, one set of fonts, one set of wr
 - **Type**: Onest for everything people read, JetBrains Mono for code. Both self-hosted via Fontsource.
 - **Components**: every shadcn/ui component (Base UI, Vega style), each with stories from the Base UI edition of the [shadcn Storybook Registry](https://registry.lloydrichards.dev/).
 - **Guidelines**: the `Brand` section in Storybook (colors, typography, icons, writing, custom components, motion).
-- **Custom components**: the brand's own pieces (Tag, IconTile, Notice, CodeBlock with Shiki highlighting, BrandIcon for company logos) in `src/components/brand/`, under `Custom` in Storybook.
+- **Signature**: the wordmark and marks, the ring marker, ring art drawn from each site's name, and the orange and grey bands. `Brand/Signature` in Storybook.
+- **Custom components**: the brand's own pieces (Wordmark, Mark, Marker, Rings, Tag, IconTile, Notice, CodeBlock with Shiki highlighting, BrandIcon for company logos) in `src/components/brand/`, under `Custom` in Storybook.
+- **Explorations**: [`explorations/brand-directions.html`](./explorations/brand-directions.html), the playground where the signature and every page pattern were picked. Open it in a browser.
 - **Brand kit**: [`BRAND.md`](./BRAND.md), the whole brand in one file for AI agents doing migrations and redesigns. Also served at `/BRAND.md` on the published Storybook.
 - **Sites**: a landing page for every hmziq site (hmziq.rs, blog, labs, freeoxide, gpui-starter, gpui-query, claude-multi, oxlabs), built only from the theme and shadcn components. Source in `src/sites/`.
 

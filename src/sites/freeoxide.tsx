@@ -1,51 +1,73 @@
 import { BookOpenText, FolderTree, GitBranch, ListChecks, ScanSearch } from "lucide-react"
 import { siGithub } from "simple-icons"
 import { BrandIcon } from "@/components/brand/brand-icon"
-import { Tag } from "@/components/brand/tag"
-import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { ButtonLink, Container, CtaBand, FeatureGrid, Hero, Section, SiteShell } from "./shared/site"
+import { Marker } from "@/components/brand/marker"
+import { Rings } from "@/components/brand/rings"
+import { ButtonLink, CtaBand, ElementCard, FeatureGrid, Hero, RingStats, Section, SiteShell } from "./shared/site"
 
-type Status = "Shipped" | "In progress" | "Planned"
+// Each kind of project keeps one color everywhere: the symbol, the rings and the marker.
+const kinds = {
+  library: { label: "Library", color: "var(--blue)", tone: "blue" },
+  cli: { label: "Command-line tool", color: "var(--teal)", tone: "teal" },
+  app: { label: "Desktop app", color: "var(--purple)", tone: "purple" },
+} as const
 
-// Status colors: green for done, yellow for work in progress, grey for later.
-const statusTone = { Shipped: "success", "In progress": "warning", Planned: undefined } as const
+// Status colors: green for done, yellow for work in progress, plain for later.
+const status = {
+  shipped: { label: "Shipped", tone: "success" },
+  building: { label: "In progress", tone: "warning" },
+  planned: { label: "Planned" },
+} as const
 
-const projects: { name: string; status: Status; body: string; meta: string }[] = [
+// Numbered like elements: 1–8 are the hmziq sites, the projects carry on from there.
+const projects = [
   {
+    n: 5,
+    symbol: "Gs",
     name: "gpui-starter",
-    status: "Shipped",
+    kind: kinds.app,
+    status: status.shipped,
     body: "Start a desktop app with the boring parts already built: windows, themes, settings and updates.",
-    meta: "Desktop app starter",
   },
   {
+    n: 6,
+    symbol: "Gq",
     name: "gpui-query",
-    status: "Shipped",
+    kind: kinds.library,
+    status: status.shipped,
     body: "Load data in desktop apps without writing the plumbing. Fetching, caching and retries are handled for you.",
-    meta: "Library",
   },
   {
+    n: 9,
+    symbol: "Tn",
     name: "tunnel",
-    status: "Shipped",
+    kind: kinds.cli,
+    status: status.shipped,
     body: "Share a folder on your computer at a public web address in a few seconds. No account or setup needed.",
-    meta: "Command-line tool",
   },
   {
+    n: 10,
+    symbol: "Wk",
     name: "wake",
-    status: "Shipped",
+    kind: kinds.cli,
+    status: status.shipped,
     body: "Keeps your computer awake for as long as you ask. If the system refuses, it tells you instead of failing quietly.",
-    meta: "Command-line tool",
   },
   {
+    n: 11,
+    symbol: "Vh",
     name: "vps-harden",
-    status: "In progress",
+    kind: kinds.cli,
+    status: status.building,
     body: "Lock down a new server with one command you can read before you run it. Every change can be undone.",
-    meta: "Command-line tool",
   },
   {
+    n: 12,
+    symbol: "Ac",
     name: "agent-config",
-    status: "Planned",
+    kind: kinds.app,
+    status: status.planned,
     body: "A desktop app to see and manage your AI agents' settings and usage, built on gpui-starter.",
-    meta: "Desktop app",
   },
 ]
 
@@ -78,25 +100,14 @@ const standards = [
 ]
 
 const facts = [
-  { value: "100%", label: "free and open source" },
-  { value: "90%+", label: "of the code covered by tests" },
-  { value: "5", label: "review rounds before release" },
+  { value: "100%", label: "free and open source", ring: 1 },
+  { value: "90%+", label: "of the code covered by tests", ring: 0.9 },
+  { value: "5", label: "review rounds before release", ring: 5 },
 ]
 
 export function FreeoxidePage() {
   return (
-    <SiteShell
-      site="freeoxide"
-      maker="by hmziq"
-      nav={["Projects", "How I work", "About"]}
-      cta={{ label: "Browse projects" }}
-      footerLinks={[
-        { title: "freeoxide", links: ["About", "Activity", "Standards"] },
-        { title: "Code", links: ["GitHub", "All projects"] },
-        { title: "Contact", links: ["Get in touch", "Privacy"] },
-        { title: "License", links: ["MIT", "Apache-2.0"] },
-      ]}
-    >
+    <SiteShell site="freeoxide" maker="by hmziq" nav={["Projects", "How I work", "About"]} cta={{ label: "Browse projects" }}>
       <Hero
         title="Free Rust tools, finished before they ship."
         lede="Open-source software made by one person. I build the tools I wish existed, test them properly, and give them away."
@@ -111,42 +122,28 @@ export function FreeoxidePage() {
             </ButtonLink>
           </>
         }
+        note={
+          <>
+            <Marker className="text-primary" />
+            Free and open source. MIT or Apache-2.0.
+          </>
+        }
+        aside={<Rings seed="freeoxide" />}
       />
 
-      <Container>
-        <dl className="grid gap-px overflow-hidden rounded-xl border bg-border sm:grid-cols-3">
-          {facts.map((f) => (
-            <div key={f.label} className="flex flex-col gap-1 bg-background p-6">
-              <dt className="order-2 text-sm text-muted-foreground">{f.label}</dt>
-              <dd className="order-1 text-3xl font-medium tracking-tight">{f.value}</dd>
-            </div>
-          ))}
-        </dl>
-      </Container>
+      <RingStats items={facts} />
 
-      <Section
-        title="The projects"
-        intro="A short list on purpose. Each one ships only when it meets every standard below."
-      >
+      <Section title="The projects" intro="A short list on purpose. Each one ships only when it meets every standard below.">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {projects.map((p) => (
-            <Card key={p.name} className="transition-colors hover:border-primary/50">
-              <CardHeader className="gap-3">
-                <Tag tone={statusTone[p.status]} dot={p.status !== "Planned"}>
-                  {p.status}
-                </Tag>
-                <CardTitle className="text-lg font-medium">{p.name}</CardTitle>
-                <CardDescription className="leading-relaxed">{p.body}</CardDescription>
-              </CardHeader>
-              <CardFooter className="mt-auto text-sm text-muted-foreground">{p.meta} · Rust</CardFooter>
-            </Card>
+            <ElementCard key={p.name} {...p} />
           ))}
         </div>
       </Section>
 
       <Section
         title="How every project is made"
-        intro="I handle the architecture myself. For reviews and testing I use AI across several separate sessions, because each one catches different things. Five rounds is the sweet spot."
+        intro="I handle the architecture myself. For reviews and testing I use AI across several separate sessions, because each one catches different things."
       >
         <FeatureGrid items={standards} />
       </Section>
@@ -156,8 +153,10 @@ export function FreeoxidePage() {
         body="I'm hmziq. I write Rust, ship the tools and open-source the results. Everything under freeoxide is built, tested and reviewed by me."
         actions={
           <>
-            <ButtonLink href="#">Read the full story</ButtonLink>
-            <ButtonLink href="#" variant="outline">
+            <ButtonLink href="#" size="lg" className="px-5">
+              Read the full story
+            </ButtonLink>
+            <ButtonLink href="#" size="lg" variant="outline" className="px-5">
               Get in touch
             </ButtonLink>
           </>

@@ -6,15 +6,15 @@ import { softTone, type Tone } from "./tones"
 type TagProps = useRender.ComponentProps<"span"> & {
   /** A supporting color or a status. Leave it out for a plain grey tag. */
   tone?: Tone
-  /** A small dot before the label, for live states like "Shipped" or "Available". */
-  dot?: boolean
+  /** A ring marker before the label, for live states like "Shipped" or "Available". */
+  marker?: boolean
 }
 
 /**
  * A small colored label for a status or a category. Same size as shadcn's
  * Badge, but filled softly with one of the brand colors.
  */
-function Tag({ tone, dot, className, render, children, ...props }: TagProps) {
+function Tag({ tone, marker, className, render, children, ...props }: TagProps) {
   return useRender({
     defaultTagName: "span",
     props: mergeProps<"span">(
@@ -26,7 +26,7 @@ function Tag({ tone, dot, className, render, children, ...props }: TagProps) {
         ),
         children: (
           <>
-            {dot && <span className="size-1.5 shrink-0 rounded-full bg-current" aria-hidden="true" />}
+            {marker && <i className="size-1.75 shrink-0 rounded-full border-[1.5px] border-current" aria-hidden="true" />}
             {children}
           </>
         ),

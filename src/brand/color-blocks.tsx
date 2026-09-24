@@ -124,10 +124,10 @@ export function SoftFills() {
   return (
     <Panel className="flex flex-col gap-4">
       <div className="flex flex-wrap gap-2">
-        <Tag tone="success" dot>
+        <Tag tone="success" marker>
           Shipped
         </Tag>
-        <Tag tone="warning" dot>
+        <Tag tone="warning" marker>
           In progress
         </Tag>
         <Tag>Planned</Tag>

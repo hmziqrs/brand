@@ -1,0 +1,81 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks'
+import * as Logo from '../components/brand/wordmark.stories'
+import * as RingStories from '../components/brand/rings.stories'
+import * as MarkerStories from '../components/brand/marker.stories'
+
+<Meta title="Brand/Signature" />
+
+# Signature
+
+The theme makes a page tidy. These pieces make it look like hmziq: the wordmark and its square, the marks, the ring marker, the rings, and the bands. Every site uses all of them. To see them together, open **Sites → freeoxide.com**.
+
+They were picked in a long round of explorations, kept at `explorations/brand-directions.html`. Open it in a browser to compare every option you tried; your picks are loaded as "your mix". `BRAND.md` (section 7) has the recipes, and the pattern picked for each kind of page.
+
+## Wordmark
+
+The site's name in Onest 600, ending in a small orange square. It's the only logo in the header, followed by the maker line in small grey text.
+
+<Canvas of={Logo.WithMaker} />
+
+## Mark
+
+For favicons, app icons, avatars and the "More from hmziq" row. The site's two letters and the square, on a rounded tile in the opposite of the page color: white on dark pages, black on light ones. The square stays bright orange in both modes. No rings in logos.
+
+<Canvas of={Logo.Marks} />
+
+| # | Site | Mark |
+| --- | --- | --- |
+| 1 | hmziq | Hq |
+| 2 | Blog | Bl |
+| 3 | Labs | Lb |
+| 4 | freeoxide | Fx |
+| 5 | gpui-starter | Gs |
+| 6 | gpui-query | Gq |
+| 7 | claude-multi | Cm |
+| 8 | oxlabs | Ox |
+
+Projects carry the numbers on from 9 (tunnel is 09, Tn).
+
+## Signature
+
+Every footer ends with a giant `hmziq■` that fills the width.
+
+<Canvas of={Logo.Signature} />
+
+## Marker
+
+A hollow ring is the brand's bullet: status tags, the note under a hero, kinds of project, list bullets. Filled means on, open, done or selected. Never a solid dot, a square or an emoji.
+
+<Canvas of={MarkerStories.Filled} />
+
+## Rings
+
+Thin circles with one gap each, like layers of oxide: faint ones in the text color, one accent with a dot where it ends. Each picture is drawn from a name, so every site and project gets its own and it never changes.
+
+<Canvas of={RingStories.Seeds} />
+
+On a project card, its own rings sit in the corner in the color of its kind: its fingerprint. Library is blue, Command-line tool teal, Desktop app purple.
+
+<Canvas of={RingStories.Fingerprint} />
+
+Key numbers get a ring that draws them.
+
+<Canvas of={RingStories.Gauges} />
+
+Rings are never used in a logo, on a cover image, or behind text.
+
+## Bands
+
+Full-width sections, edge to edge, that break up a page. The classes in `theme.css` switch every token inside them, so buttons and text just work.
+
+| Class | For |
+| --- | --- |
+| `band-orange` | The closing call to action and the newsletter band. At most one per page. |
+| `band-gray` | A quiet band for numbers or a group of cards. |
+| `light` / `dark` | The other mode inside a page. |
+
+<Canvas of={RingStories.OnTheBand} />
+
+## No grey fills
+
+Cards and icon tiles in the page are a thin line with no fill. `bg-card` is for things that float over the page: menus, popovers, dialogs.

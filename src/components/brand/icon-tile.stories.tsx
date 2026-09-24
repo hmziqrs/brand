@@ -11,7 +11,7 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-/** Orange icon on a neutral tile: the default for features. */
+/** Orange icon in a thin outline, no fill: the default for features. */
 export const Default: Story = {}
 
 /** A soft color, only when the color means something. */

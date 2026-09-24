@@ -5,7 +5,7 @@ import { Tag } from "./tag"
 const meta = {
   title: "Custom/Tag",
   component: Tag,
-  args: { children: "Shipped", tone: "success", dot: true },
+  args: { children: "Shipped", tone: "success", marker: true },
   argTypes: {
     tone: {
       control: "select",
@@ -23,8 +23,8 @@ export const Default: Story = {}
 export const Status: Story = {
   render: () => (
     <div className="flex flex-wrap gap-2">
-      <Tag tone="success" dot>Shipped</Tag>
-      <Tag tone="warning" dot>In progress</Tag>
+      <Tag tone="success" marker>Shipped</Tag>
+      <Tag tone="warning" marker>In progress</Tag>
       <Tag>Planned</Tag>
       <Tag tone="info">Tip</Tag>
       <Tag tone="destructive">Failed</Tag>

@@ -54,10 +54,10 @@ export function SoftNotSolid() {
     <div className="grid gap-4 md:grid-cols-2">
       <Example good caption="Status colors are soft: a light fill with text in the same color.">
         <div className="flex flex-wrap gap-2">
-          <Tag tone="success" dot>
+          <Tag tone="success" marker>
             Shipped
           </Tag>
-          <Tag tone="warning" dot>
+          <Tag tone="warning" marker>
             In progress
           </Tag>
           <Tag>Planned</Tag>

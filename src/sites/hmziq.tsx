@@ -112,7 +112,7 @@ export function HmziqPage() {
           {initiatives.map((i) => (
             <Card key={i.name}>
               <CardHeader className="gap-3">
-                <Tag tone={i.status === "Active" ? "success" : undefined} dot={i.status === "Active"}>
+                <Tag tone={i.status === "Active" ? "success" : undefined} marker={i.status === "Active"}>
                   {i.status}
                 </Tag>
                 <CardTitle className="text-lg font-medium">{i.name}</CardTitle>

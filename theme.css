@@ -21,7 +21,9 @@
  *      chroma, no tint). A theme tool's output can replace these two blocks.
  *   2. The colors: oxide orange plus seven supporting colors, tuned per mode
  *      so each one reads as text on a card and on its own soft fill (AA).
- *   3. Roles that point at those colors: status, code and icons.
+ *   3. Roles that point at those colors: status, code, icons, the logo
+ *      square and the faint line used by ring art.
+ *   4. Bands: full-width sections that change the colors inside them.
  *
  * --primary points at --orange. To try another brand color, point it at
  * another color (e.g. var(--blue)) in both blocks; everything that follows
@@ -29,11 +31,13 @@
  * `pnpm check:contrast` measures every pair after a change.
  */
 
-@custom-variant dark (&:is(.dark *));
+/* `dark:` applies inside .dark, but not inside a .light band placed in a dark page. */
+@custom-variant dark (&:is(.dark *):not(.light *));
 
 /* 1. shadcn tokens ---------------------------------------------------------- */
 
-:root {
+:root,
+.light {
   --radius: 0.625rem;
 
   --background: oklch(1 0 0);
@@ -119,9 +123,11 @@
  * (bg-green/10 text-green dark:bg-green/20).
  * Light shades sit around L 0.53 and dark shades around L 0.72–0.80, so
  * every color passes AA as text on a card and on its own soft fill.
+ * --band is the gray of a full-width band; --on-orange is text on orange.
  */
 
-:root {
+:root,
+.light {
   --red: oklch(0.54 0.21 26);
   --orange: oklch(0.54 0.135 52);
   --yellow: oklch(0.53 0.11 75);
@@ -130,6 +136,8 @@
   --blue: oklch(0.53 0.175 255);
   --purple: oklch(0.55 0.2 300);
   --pink: oklch(0.55 0.19 350);
+  --band: oklch(0.97 0 0);
+  --on-orange: oklch(0.985 0 0);
 }
 
 .dark {
@@ -141,14 +149,18 @@
   --blue: oklch(0.72 0.15 255);
   --purple: oklch(0.72 0.16 300);
   --pink: oklch(0.73 0.16 350);
+  --band: oklch(0.205 0 0);
+  --on-orange: oklch(0.145 0 0);
 }
 
 /* 3. Roles -----------------------------------------------------------------
- * Listed under both selectors so a nested .dark area resolves them again.
+ * Listed under every mode selector so a nested .dark or .light area
+ * resolves them again.
  */
 
 :root,
-.dark {
+.dark,
+.light {
   /* Status. Always soft or as text, never a solid fill. */
   --success: var(--green);
   --warning: var(--yellow);
@@ -172,6 +184,55 @@
 
   /* Icon line weight, matched to Onest at 400. Lucide's default is 2. */
   --icon-stroke: 1.75;
+
+  /* The logo's square keeps the bright orange in both modes. */
+  --mark-square: oklch(0.72 0.165 52);
+  /* Hairlines in ring art: the text color, faint. */
+  --line: color-mix(in oklab, var(--foreground) 22%, transparent);
+  /* A quiet surface on the orange band (inline code, hover): orange, nudged
+     toward the page's text color so the band's text stays readable on it. */
+  --band-orange-muted: color-mix(in oklab, var(--foreground) 12%, var(--orange));
+}
+
+/* 4. Bands -----------------------------------------------------------------
+ * .band-orange  the closing band: solid orange; buttons and text flip to
+ *               the text-on-orange color, so the main button stays readable.
+ * .band-gray    a quiet full-width band, for numbers or a group of cards.
+ * .light / .dark  the other mode inside a page, for an inverse band.
+ */
+
+.band-orange {
+  --background: var(--orange);
+  --foreground: var(--on-orange);
+  --card: var(--orange);
+  --card-foreground: var(--on-orange);
+  --muted: var(--band-orange-muted);
+  --muted-foreground: var(--on-orange);
+  --primary: var(--on-orange);
+  --primary-foreground: var(--orange);
+  --border: color-mix(in oklab, var(--on-orange) 22%, transparent);
+  --input: color-mix(in oklab, var(--on-orange) 45%, transparent);
+  --ring: var(--on-orange);
+  --line: color-mix(in oklab, var(--on-orange) 20%, transparent);
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+/* On orange an outline button is only its line; a fill turns muddy. */
+.band-orange [data-slot="button"][data-variant="outline"]:not(:hover) {
+  background-color: transparent;
+}
+
+.band-gray {
+  --background: var(--band);
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+.light,
+.dark .dark {
+  background-color: var(--background);
+  color: var(--foreground);
 }
 
 @theme inline {
@@ -231,6 +292,10 @@
   --color-blue: var(--blue);
   --color-purple: var(--purple);
   --color-pink: var(--pink);
+  --color-band: var(--band);
+  --color-on-orange: var(--on-orange);
+  --color-mark-square: var(--mark-square);
+  --color-line: var(--line);
 }
 
 @layer base {

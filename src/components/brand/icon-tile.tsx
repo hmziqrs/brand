@@ -3,7 +3,7 @@ import { cn } from "cn"
 import { softTone, type Tone } from "./tones"
 
 type IconTileProps = ComponentProps<"div"> & {
-  /** Leave it out for the default: an orange icon in a bordered neutral box. */
+  /** Leave it out for the default: an orange icon in a thin outline, no fill. */
   tone?: Tone
 }
 
@@ -15,7 +15,7 @@ function IconTile({ tone, className, ...props }: IconTileProps) {
       aria-hidden="true"
       className={cn(
         "flex size-9 shrink-0 items-center justify-center rounded-md [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4.5",
-        tone ? softTone[tone] : "border bg-card text-primary",
+        tone ? softTone[tone] : "border text-primary",
         className,
       )}
       {...props}

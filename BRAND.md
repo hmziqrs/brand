@@ -17,6 +17,8 @@ Live reference: the Storybook in the `hmziq/brand` repo (`pnpm storybook`), whic
 | Mode | **Dark by default** (`<html class="dark">`). Light mode must also work. |
 | Radius | `--radius: 0.625rem`. |
 | Icons | **Lucide**, at line weight 1.75 (set by `theme.css`). Other companies' logos from **Simple Icons**. |
+| Signature | The **wordmark** ends in an orange square (`freeoxide■`). **Rings** drawn from each site's name: hero art, card fingerprints, number gauges. A hollow **ring marker** for bullets and status. An **orange closing band** and a giant `hmziq■` signing off every footer (section 7). |
+| Surfaces | Outline cards and tiles: a thin line, no grey fill. |
 | Code | Highlighted with **Shiki**, using the `--code-*` colors from `theme.css`. |
 | Motion | Nothing moves on hover, press or focus. Feedback is color only. |
 | Words | Plain language for people, not jargon for developers. |
@@ -69,7 +71,7 @@ Dark is the default. A theme toggle removes or adds the `dark` class and remembe
 
 - Point `tailwind.css` at the **main stylesheet, never at `theme.css`**. `shadcn init` rewrites the file it's pointed at and will replace the oxide colors with its defaults.
 - Initialise with `pnpm dlx shadcn@latest init --base base --preset vega`, then restore `theme.css` if it was touched.
-- After adding any shadcn component, **remove `active:translate-y-px`** (and any other hover/press transform) from it. See section 9.
+- After adding any shadcn component, **remove `active:translate-y-px`** (and any other hover/press transform) from it. See section 10.
 
 ### Per framework
 
@@ -126,7 +128,9 @@ The real file lives at `theme.css` in the brand repo. This block is checked agai
  *      chroma, no tint). A theme tool's output can replace these two blocks.
  *   2. The colors: oxide orange plus seven supporting colors, tuned per mode
  *      so each one reads as text on a card and on its own soft fill (AA).
- *   3. Roles that point at those colors: status, code and icons.
+ *   3. Roles that point at those colors: status, code, icons, the logo
+ *      square and the faint line used by ring art.
+ *   4. Bands: full-width sections that change the colors inside them.
  *
  * --primary points at --orange. To try another brand color, point it at
  * another color (e.g. var(--blue)) in both blocks; everything that follows
@@ -134,11 +138,13 @@ The real file lives at `theme.css` in the brand repo. This block is checked agai
  * `pnpm check:contrast` measures every pair after a change.
  */
 
-@custom-variant dark (&:is(.dark *));
+/* `dark:` applies inside .dark, but not inside a .light band placed in a dark page. */
+@custom-variant dark (&:is(.dark *):not(.light *));
 
 /* 1. shadcn tokens ---------------------------------------------------------- */
 
-:root {
+:root,
+.light {
   --radius: 0.625rem;
 
   --background: oklch(1 0 0);
@@ -224,9 +230,11 @@ The real file lives at `theme.css` in the brand repo. This block is checked agai
  * (bg-green/10 text-green dark:bg-green/20).
  * Light shades sit around L 0.53 and dark shades around L 0.72–0.80, so
  * every color passes AA as text on a card and on its own soft fill.
+ * --band is the gray of a full-width band; --on-orange is text on orange.
  */
 
-:root {
+:root,
+.light {
   --red: oklch(0.54 0.21 26);
   --orange: oklch(0.54 0.135 52);
   --yellow: oklch(0.53 0.11 75);
@@ -235,6 +243,8 @@ The real file lives at `theme.css` in the brand repo. This block is checked agai
   --blue: oklch(0.53 0.175 255);
   --purple: oklch(0.55 0.2 300);
   --pink: oklch(0.55 0.19 350);
+  --band: oklch(0.97 0 0);
+  --on-orange: oklch(0.985 0 0);
 }
 
 .dark {
@@ -246,14 +256,18 @@ The real file lives at `theme.css` in the brand repo. This block is checked agai
   --blue: oklch(0.72 0.15 255);
   --purple: oklch(0.72 0.16 300);
   --pink: oklch(0.73 0.16 350);
+  --band: oklch(0.205 0 0);
+  --on-orange: oklch(0.145 0 0);
 }
 
 /* 3. Roles -----------------------------------------------------------------
- * Listed under both selectors so a nested .dark area resolves them again.
+ * Listed under every mode selector so a nested .dark or .light area
+ * resolves them again.
  */
 
 :root,
-.dark {
+.dark,
+.light {
   /* Status. Always soft or as text, never a solid fill. */
   --success: var(--green);
   --warning: var(--yellow);
@@ -277,6 +291,55 @@ The real file lives at `theme.css` in the brand repo. This block is checked agai
 
   /* Icon line weight, matched to Onest at 400. Lucide's default is 2. */
   --icon-stroke: 1.75;
+
+  /* The logo's square keeps the bright orange in both modes. */
+  --mark-square: oklch(0.72 0.165 52);
+  /* Hairlines in ring art: the text color, faint. */
+  --line: color-mix(in oklab, var(--foreground) 22%, transparent);
+  /* A quiet surface on the orange band (inline code, hover): orange, nudged
+     toward the page's text color so the band's text stays readable on it. */
+  --band-orange-muted: color-mix(in oklab, var(--foreground) 12%, var(--orange));
+}
+
+/* 4. Bands -----------------------------------------------------------------
+ * .band-orange  the closing band: solid orange; buttons and text flip to
+ *               the text-on-orange color, so the main button stays readable.
+ * .band-gray    a quiet full-width band, for numbers or a group of cards.
+ * .light / .dark  the other mode inside a page, for an inverse band.
+ */
+
+.band-orange {
+  --background: var(--orange);
+  --foreground: var(--on-orange);
+  --card: var(--orange);
+  --card-foreground: var(--on-orange);
+  --muted: var(--band-orange-muted);
+  --muted-foreground: var(--on-orange);
+  --primary: var(--on-orange);
+  --primary-foreground: var(--orange);
+  --border: color-mix(in oklab, var(--on-orange) 22%, transparent);
+  --input: color-mix(in oklab, var(--on-orange) 45%, transparent);
+  --ring: var(--on-orange);
+  --line: color-mix(in oklab, var(--on-orange) 20%, transparent);
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+/* On orange an outline button is only its line; a fill turns muddy. */
+.band-orange [data-slot="button"][data-variant="outline"]:not(:hover) {
+  background-color: transparent;
+}
+
+.band-gray {
+  --background: var(--band);
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+.light,
+.dark .dark {
+  background-color: var(--background);
+  color: var(--foreground);
 }
 
 @theme inline {
@@ -336,6 +399,10 @@ The real file lives at `theme.css` in the brand repo. This block is checked agai
   --color-blue: var(--blue);
   --color-purple: var(--purple);
   --color-pink: var(--pink);
+  --color-band: var(--band);
+  --color-on-orange: var(--on-orange);
+  --color-mark-square: var(--mark-square);
+  --color-line: var(--line);
 }
 
 @layer base {
@@ -469,6 +536,10 @@ Generated from `theme.css`. `pnpm check:contrast` fails the build if any pair dr
 | Oxide links on the page | 7.6:1 | 5.3:1 | 4.5:1 |
 | Oxide text on a card | 6.9:1 | 5.3:1 | 4.5:1 |
 | Focus ring on the page | 7.6:1 | 5.3:1 | 3:1 |
+| Text on the orange band | 7.6:1 | 5.1:1 | 4.5:1 |
+| Code and hover on the orange band | 8.6:1 | 6.2:1 | 4.5:1 |
+| Text on a gray band | 17.2:1 | 18.1:1 | 4.5:1 |
+| Secondary text on a gray band | 6.9:1 | 4.6:1 | 4.5:1 |
 | Red text on a card | 6.2:1 | 5.6:1 | 4.5:1 |
 | Red text on its soft fill | 4.6:1 | 4.8:1 | 4.5:1 |
 | Orange text on a card | 6.9:1 | 5.3:1 | 4.5:1 |
@@ -575,7 +646,105 @@ When Lucide doesn't have an icon, draw it like Lucide (24×24 grid, 2px lines at
 
 ---
 
-## 7. Layout and components
+## 7. Signature: logo, rings and bands
+
+The theme makes a page look tidy; these pieces make it look like hmziq. Every site uses all of them. They were picked in a long round of explorations, kept in the brand repo at `explorations/brand-directions.html`. Open it in a browser to compare every option; the picks below are loaded as "your mix".
+
+### Wordmark
+
+The site's name in Onest 600, ending in a small orange square. It's the only logo in the header.
+
+```html
+<span class="font-semibold leading-none tracking-[-0.02em] whitespace-nowrap">freeoxide<i aria-hidden="true" class="ml-[0.07em] inline-block size-[0.36em] bg-primary"></i></span>
+```
+
+- Size it with a text size; the square scales with it. Header: `text-lg`, then the maker line (`by hmziq`) in `text-[0.78em] text-muted-foreground`.
+- No icon before the name, no other color on the letters.
+- **Signature:** every footer ends with a giant `hmziq■` that fills the container: a `@container` wrapper with `overflow-hidden border-t pt-10`, and the wordmark at `block text-[33cqw] leading-[0.74] tracking-[-0.05em] pb-[0.2em]`.
+
+### Mark
+
+For favicons, app icons, avatars and the "More from hmziq" row. The site's two-letter symbol (section 12) and the square, on a rounded tile in the opposite of the page color: white on dark pages, black on light pages. The square is always the bright orange `--mark-square` (`#F38230`), in both modes.
+
+```html
+<span aria-hidden="true" style="font-size:20px" class="inline-grid size-[1em] shrink-0 place-items-center rounded-[22%] bg-foreground leading-none font-semibold tracking-[-0.02em] text-background">
+  <span class="inline-flex items-baseline text-[0.42em]">Fx<i class="ml-[0.07em] inline-block size-[0.3em] bg-mark-square"></i></span>
+</span>
+```
+
+- No rings, outlines or textures on the mark.
+- Favicon and app icon files: dark is the default, so draw the white tile (`#FAFAFA`, letters `#0A0A0A`, square `#F38230`).
+
+### Marker
+
+A small hollow ring is the brand's bullet: `inline-block size-2.25 shrink-0 rounded-full border-[1.75px] border-current`, plus `bg-current` when it's filled. It takes the text color.
+
+- Status tags (`<Tag tone="success" marker>`), the note under the hero (`text-primary`), a project's kind (in the kind's color), list bullets.
+- **Filled** means on, open, done or selected: the current page in a contents list, an open question, a copied step.
+- Never a solid dot, a square or an emoji as a bullet.
+
+### Rings
+
+Thin circles, each with one gap, like layers of oxide. Faint rings use `--line` (the text color, faint); one ring is the accent, with a dot where it ends. They're drawn from a name with a seeded random generator, so each site, project and post gets its own picture and it never changes between visits. Copy `src/lib/rings.ts` (the hash and generator, no dependencies) and `src/components/brand/rings.tsx`.
+
+| Piece | Where | Recipe |
+| --- | --- | --- |
+| Hero rings | Right of the hero text (under it on phones) | viewBox `0 0 520 440`, 11 rings around (440, 225), radius `34 + 34·i`. Seed `hash(site) + 7`. The accent is ring `3 + ⌊r()·3⌋`: `--primary`, width 3, a 52% gap, a dot of radius 7 at its end. The rest: `--line`, width 1.25, a gap of 6–36%. Every ring turned `r()·360°`, round caps. |
+| Corner rings | Top-right corner of a project card, 70% of its width | viewBox 100, 9 rings around (100, 0), radius `11 + 11·i`. Seed `hash(name) + 23`. The accent is ring `3 + hash(name) % 3`, in the kind's color, width 1, a 50% gap, a dot of radius 1.8. The rest: `--line`, width 0.5, a gap of 10–40%. |
+| Band arcs | Right side of the orange band, from `md` up | viewBox 400, 8 rings around (400, 200), radius `60 + 44·i`, turned `150 + 23·i°`. Ring 3 in `--primary` (dark on the band), width 3, a 60% gap; the rest `--line`, width 1.25, a 20% gap. `absolute top-1/2 -right-[10%] h-[170%] -translate-y-1/2`. |
+| Ring gauge | Key numbers | 72×72, radius 30, stroke 5, starting at the top. A share (0–1): a `--border` track and a `--primary` arc of that share with a round cap. A count (n > 1): n `--primary` segments with 5-unit gaps. The number beside it in `text-[1.75rem] font-medium tracking-[-0.03em]`, the label under it in `text-sm text-muted-foreground`. |
+
+Rings are always `--line` plus one accent. Nothing else is drawn with rings: not the logo, not cover images, not backgrounds behind text.
+
+### Bands
+
+Full-width sections that break up the page, edge to edge (no border, no rounded corners), with their content in the normal container. These classes (in `theme.css`) redefine the tokens, so shadcn components inside them work without changes.
+
+| Class | For |
+| --- | --- |
+| `.band-orange` | The closing call to action, and the newsletter at the end of a post. Solid orange; text and buttons switch to `--on-orange`, so the main button turns dark with orange text and outline buttons lose their fill. Band arcs on the right. At most one per page. |
+| `.band-gray` | A quiet band (`--band`) for numbers or a group of cards. |
+| `.light` / `.dark` | The other mode inside a page, e.g. a white band on a dark page. |
+
+### Project cards (elements)
+
+Projects are drawn like elements of the periodic table. The hmziq sites are numbered 1–8 (section 12); projects carry on from 9. Each kind of project keeps one color everywhere: Library blue, Command-line tool teal, Desktop app purple.
+
+- shadcn Card as an outline card: `relative gap-3 bg-transparent px-6 shadow-none hover:ring-primary/50`.
+- Corner rings first, in the kind's color. Everything else gets `relative` so it sits above them.
+- Top row: the number (`text-[0.8125rem] text-muted-foreground tabular-nums`, two digits) and the status tag.
+- The symbol in the kind's color: `text-[2.75rem] leading-none font-medium tracking-[-0.04em]`.
+- The name (`text-lg font-medium`), one or two sentences (`text-[0.9rem] leading-relaxed text-muted-foreground`), then a marker and the kind at the bottom (`mt-auto text-[0.8125rem] text-muted-foreground`).
+
+Cards and icon tiles have **no grey fill**: a thin line only.
+
+### Page patterns
+
+What each kind of page uses. Each one is in the explorations file, working.
+
+| Page | Pattern |
+| --- | --- |
+| Landing | Clean header (no line) · standard headline with hero rings · numbers as ring gauges · projects as element cards · standards as an icon-tile grid · headings stacked above content · orange closing band · signature footer. |
+| Product | Hero stacked: the words, then the live demo at full width · features in outline cards (no fill, no rings) · quick start stacked: the steps, then the session under them. |
+| Install and commands | Install steps as a stepper: numbered rings joined by a line; copying a step fills its ring · a command to copy sits in a bar as wide as the command, with a Copy button · a real terminal sits on a full-width orange band · no copy button on aliases or text people only read. |
+| Code and comparisons | A code editor with a tab per version, line numbers and a status line · before and after: the by-hand way struck through, then what the tool does instead. |
+| Tables | Boxed, with the column that matters in a soft orange wash (the accent column). Docs tables: a strong line under the headings, thin lines between rows. |
+| Pricing | Three outline cards; the recommended one gets a fingerprint (corner rings). |
+| Questions | An accordion; the open question's ring fills in. On a FAQ page: one numbered list with the topic on each question, and a search box. |
+| Interactive demos | Fixed height, so clicking around never moves the page. Split panes: the app on the left, what it runs and the file it writes on the right. A graph where you pick one item: its line lights up and a panel shows what's inside. |
+| Blog index | Plain top (title and intro) · the newest post large, the rest as cards · topic chips · search. |
+| Blog post | The post's own cover image · contents at the top, in two columns · TL;DR in an orange outline box with a marker · pull quote as a margin note (beside the text on wide screens, above the paragraph on phones) · a link bar to share: the address, Copy link, then the networks as small round buttons in the text color · newsletter on the orange band. |
+| About | Plain intro · principles in four outline cards · how it works: the real command, then what it does · big numbers under a strong line · the author in an outline card with their mark. |
+| Changelog | Past releases on a timeline (rings joined by a line, newest first) · big numbers · each release shows its first change and a button to show the rest. |
+| Privacy and terms | Contents in a side column that follows you down · sections numbered 01, 02… in orange, each with a thin line above · the one-paragraph short version in the TL;DR box. |
+| Providers | An outline card per provider, with how you pay · notes with a thin line and an icon, in two columns. |
+| Contact | Words on the left, channels on the right · who replies in an outline card. |
+| Docs | A thin line down the side menu that the current page lights orange · "On this page" in a right column with markers · quiet notes (a thin line in the note color and a colored icon) · outline code blocks · the page's own rings faintly beside the title · previous and next as two outline cards. |
+| 404 | The rings beside the words. |
+
+---
+
+## 8. Layout and components
 
 Build pages from shadcn components (Button, Card, Badge, Tabs, Table, Accordion, Input, Empty, Item, Kbd…) plus these patterns.
 
@@ -583,20 +752,20 @@ Build pages from shadcn components (Button, Card, Badge, Tabs, Table, Accordion,
 | --- | --- |
 | Container | `mx-auto w-full max-w-5xl px-6` |
 | Page rhythm | `main`: `flex flex-col gap-24 md:gap-32 py-16 md:py-24` |
-| Header | `border-b`, `h-16`, wordmark + small maker line (`by hmziq` / `by freeoxide`), ghost `sm` nav buttons in `text-muted-foreground`, one primary `sm` button |
-| Hero | h1 + lede + primary `lg` button + outline `lg` button + optional one-line note (`text-sm text-muted-foreground`). Optional product preview on the right at `lg`. No code in the hero. |
+| Header | Clean: no line under it, `h-19`. The wordmark (section 7) + small maker line (`by hmziq` / `by freeoxide`), ghost `sm` nav buttons in `text-muted-foreground`, one primary `sm` button |
+| Hero | h1 (`leading-[1.02] font-medium tracking-[-0.035em]`) + lede + primary `lg` button + outline `lg` button + optional one-line note with a ring marker. Hero rings on the right from `md` (a product page may show its product there instead). No code in the hero. |
 | Section | h2 + one-sentence intro (`text-muted-foreground`), then content, `gap-10` |
-| Feature grid | 2–3 columns; each item: an icon tile (section 8), `font-medium` title, `text-sm text-muted-foreground` body. All tiles in a grid are the same color. |
-| Cards | shadcn Card; hover = `hover:border-primary/50` only |
-| Stats / facts | `grid gap-px overflow-hidden rounded-xl border bg-border`, cells `bg-background p-6`, value `text-3xl font-medium tracking-tight` |
+| Feature grid | 2–3 columns; each item: an icon tile (section 9), `font-medium` title, `text-sm text-muted-foreground` body. All tiles in a grid are the same color. |
+| Cards | shadcn Card as an outline card (`bg-transparent shadow-none`); hover = `hover:ring-primary/50` only. Projects: element cards (section 7). |
+| Stats / facts | Ring gauges: `grid gap-8 sm:grid-cols-3`, each a gauge beside the number and its label (section 7). On an About or Changelog page: big numbers under a strong line. |
 | Steps | Numbered only when the order is real. Same joined grid as stats, number in a `size-7 rounded-full bg-muted font-mono text-xs` circle |
 | Code block | `rounded-xl border bg-(--code-background)`, optional file label bar `h-10 border-b font-mono text-xs text-muted-foreground`, `pre` with `p-4 font-mono text-sm`, highlighted with Shiki (section 2), copy button (ghost `icon-sm`, `Copy` → `Check`) in the label bar or top right. No copy button on code people only read. |
-| Closing call to action | `rounded-2xl border bg-card p-8 md:p-12`, heading + one sentence + two buttons |
-| Footer | link columns, then **"More from hmziq"**: a row linking every other hmziq site (section 11), then `© 2026 hmziq.` |
+| Closing call to action | The orange band: `band-orange relative overflow-hidden`, band arcs, then in the container a heading (`text-4xl md:text-[3.25rem] leading-[1.02] font-medium tracking-[-0.04em]`) + one sentence + two `lg` buttons, `py-16 md:py-24` |
+| Footer | `border-t`, no fill. Optional link columns, then **"More from hmziq"**: each other hmziq site with its 20px mark (section 12), then the giant `hmziq■` signature, then `© 2026 hmziq.` |
 
 Buttons: one `default` (primary) button per view for the main action; `outline` for the second; `ghost` for navigation; `link` inside text. Labels say what happens ("Get started", "Read the blog", "Subscribe"). A link that looks like a button is a Base UI Button with `nativeButton={false} render={<a href="…" />}`.
 
-Badges and tags: sentence case. Status is a soft **tag** in its role color with a dot for live states: `success` for "Shipped" / "Active", `warning` for "In progress", plain grey for "Planned" / "Coming soon". Blog categories are soft tags, one color per category. Tech names and topic lists are `outline` or `secondary` badges, never colored.
+Badges and tags: sentence case. Status is a soft **tag** in its role color with a ring marker for live states: `success` for "Shipped" / "Active", `warning` for "In progress", plain grey for "Planned" / "Coming soon". Blog categories are soft tags, one color per category. Tech names and topic lists are `outline` or `secondary` badges, never colored.
 
 Links to GitHub: an outline button with the GitHub logo from Simple Icons before the label.
 
@@ -605,17 +774,20 @@ Icons: see section 6.
 ### Landing page template
 
 1. Header
-2. Hero: the outcome for the reader, one-paragraph lede, two buttons, optional note
-3. Optional product preview (a real screenshot or a small mock built from components)
-4. Features: 6–8 items with icons
-5. How it works: steps, only if it really is a sequence
-6. Details: code sample (developer products only), table, tabs
-7. Closing call to action
-8. Footer with "More from hmziq"
+2. Hero: the outcome for the reader, one-paragraph lede, two buttons, optional note, hero rings
+3. Key numbers as ring gauges (only real numbers)
+4. Optional product preview (a real screenshot or a small mock built from components)
+5. Features: 6–8 items with icons, or projects as element cards
+6. How it works: steps, only if it really is a sequence
+7. Details: code sample (developer products only), table, tabs
+8. The orange closing band
+9. Footer with "More from hmziq" and the signature
+
+The freeoxide page in the Storybook (`Sites/Landing pages`) is the reference.
 
 ---
 
-## 8. Custom components
+## 9. Custom components
 
 ### First, try not to build one
 
@@ -629,17 +801,17 @@ Icons: see section 6.
 | Folder | What | Rule |
 | --- | --- | --- |
 | `components/ui` | shadcn components | Keep as shadcn ships them. The only edit: remove hover/press movement. |
-| `components/brand` | small brand pieces (Tag, IconTile, Notice, CodeBlock, BrandIcon) | Tokens only. Copy them from the brand repo's `src/components/brand`. |
-| `sites/shared` or `components/site` | page blocks (SiteShell, Hero, Section, FeatureGrid, Steps, CtaBand) | Same on every site. |
+| `components/brand` | small brand pieces (Wordmark, Mark, Marker, Rings, Tag, IconTile, Notice, CodeBlock, BrandIcon) | Tokens only. Copy them from the brand repo's `src/components/brand`, with `src/lib/rings.ts`. |
+| `sites/shared` or `components/site` | page blocks (SiteShell, Hero, RingStats, Section, ElementCard, FeatureGrid, Steps, CtaBand) | Same on every site. |
 | pages | one per route | Put blocks together; no new styles. |
 
 ### The rules
 
 | | Rule |
 | --- | --- |
-| Color | Tokens only. Surfaces: `bg-background` page, `bg-card` raised, `bg-muted` quiet. Supporting colors per section 4. |
+| Color | Tokens only. Surfaces: `bg-background` page, `bg-card` for things that float over it, `bg-muted` for hover and selected. Cards and tiles in the page have no fill. Supporting colors per section 4. |
 | Lines | 1px `border`. Between items `divide-y` or a `gap-px` grid on `bg-border`. Never two borders side by side. |
-| Corners | `rounded-md` controls and icon tiles, `rounded-xl` cards and panels, `rounded-2xl` large bands, `rounded-full` dots and tags. |
+| Corners | `rounded-md` controls and icon tiles, `rounded-xl` cards and panels, `rounded-full` rings and tags. Bands are full width with square edges. |
 | Shadows | None on things in the page. Floating things (menus, popovers, dialogs) get shadcn's. |
 | Spacing | Tailwind's 4px steps. Inside a component `gap-1.5`–`gap-3`, `p-4`–`p-6`. Between components `gap-4`–`gap-10`. Between sections `gap-24` / `md:gap-32`. |
 | Heights | `h-5` tags, `h-8` small controls, `h-9` default, `h-10` large. Nothing clickable under 32px. |
@@ -657,12 +829,12 @@ React conventions (follow shadcn's shape): a function component that spreads oth
 | Piece | Classes |
 | --- | --- |
 | Tag (status or category) | `inline-flex h-5 w-fit items-center gap-1.5 rounded-4xl px-2 text-xs font-medium whitespace-nowrap` + tone `bg-success/10 text-success dark:bg-success/20` (any role or supporting color), or `bg-secondary text-secondary-foreground` for grey. Links: `hover:underline`. |
-| Tag dot | `size-1.5 shrink-0 rounded-full bg-current`, before the label, for live states |
-| Status dot with text | `size-2 rounded-full bg-success` + the words in `text-sm text-muted-foreground` |
-| Icon tile | `flex size-9 items-center justify-center rounded-md [&_svg]:size-4.5` + `border bg-card text-primary` (default), or a tone's soft fill without the border when the color means something |
+| Tag marker | `size-1.75 shrink-0 rounded-full border-[1.5px] border-current`, before the label, for live states |
+| Status with text | the marker (section 7) in `text-success` + the words in `text-sm text-muted-foreground` |
+| Icon tile | `flex size-9 items-center justify-center rounded-md [&_svg]:size-4.5` + `border text-primary` (default: a line, no fill), or a tone's soft fill without the border when the color means something |
 | Notice | shadcn Alert with `role="note"` + `border-warning/40 *:[svg]:text-warning` (`/30` for info, success, destructive). Icons: `Info`, `CircleCheck`, `TriangleAlert`, `OctagonAlert`. Title and text stay in the normal text colors. |
 | Company logo | inline `<svg viewBox="0 0 24 24" fill="currentColor" class="size-3.5 shrink-0" aria-hidden="true">` with the Simple Icons path |
-| Code block | see section 7 |
+| Code block | see section 8 |
 
 ### Before it ships
 
@@ -674,7 +846,7 @@ React conventions (follow shadcn's shape): a function component that spreads oth
 
 ---
 
-## 9. Motion
+## 10. Motion
 
 - Buttons, cards, links, tabs and menu items **never move, lift, shrink, grow or rotate** on hover, press or focus. No `translate-*`, `scale-*` or `rotate-*` under `hover:`, `active:`, `focus:` or `pressed` variants.
 - Feedback is color only: background, border, underline or the focus ring.
@@ -687,7 +859,7 @@ Check (from the brand repo): `pnpm check:motion`, or search the code for `(hover
 
 ---
 
-## 10. Writing
+## 11. Writing
 
 These sites are for people, not only developers. The words must make sense to someone who has never opened a terminal.
 
@@ -715,26 +887,26 @@ Before → after (real lines from the old sites):
 
 ---
 
-## 11. The sites
+## 12. The sites
 
-Every site's footer links to all the others under "More from hmziq". Approved headlines:
+Every site's footer links to all the others under "More from hmziq". Each site has a number and a two-letter symbol for its mark, like an element; projects carry the numbers on from 9. Approved headlines:
 
-| Site | URL | Headline |
-| --- | --- | --- |
-| hmziq (personal) | https://hmziq.rs | I build apps for phones, computers, the web and the terminal. |
-| Blog | https://blog.hmziq.rs | Notes from building software. |
-| Labs | https://hmziq.xyz | Experiments, in the open. |
-| freeoxide | https://freeoxide.com | Free Rust tools, finished before they ship. |
-| gpui-starter | https://gpui-starter.freeoxide.com | Start your desktop app with the boring parts done. |
-| gpui-query | https://gpui-query.freeoxide.com | Load data in GPUI apps without writing the plumbing. |
-| claude-multi | https://claude-multi.hmziq.xyz | Use Claude Code with any AI provider. |
-| oxlabs | https://oxlabs.dev | Web, mobile and desktop apps, built and shipped by a small team. |
+| # | Site | Mark | URL | Headline |
+| --- | --- | --- | --- | --- |
+| 1 | hmziq (personal) | Hq | https://hmziq.rs | I build apps for phones, computers, the web and the terminal. |
+| 2 | Blog | Bl | https://blog.hmziq.rs | Notes from building software. |
+| 3 | Labs | Lb | https://hmziq.xyz | Experiments, in the open. |
+| 4 | freeoxide | Fx | https://freeoxide.com | Free Rust tools, finished before they ship. |
+| 5 | gpui-starter | Gs | https://gpui-starter.freeoxide.com | Start your desktop app with the boring parts done. |
+| 6 | gpui-query | Gq | https://gpui-query.freeoxide.com | Load data in GPUI apps without writing the plumbing. |
+| 7 | claude-multi | Cm | https://claude-multi.hmziq.xyz | Use Claude Code with any AI provider. |
+| 8 | oxlabs | Ox | https://oxlabs.dev | Web, mobile and desktop apps, built and shipped by a small team. |
 
 Maker lines next to the wordmark: `by hmziq` (blog, labs, freeoxide, claude-multi), `by freeoxide` (gpui-starter, gpui-query), `studio` (oxlabs). hmziq.rs has none.
 
 ---
 
-## 12. Never do this
+## 13. Never do this
 
 These made the old sites look like every other developer site:
 
@@ -749,12 +921,14 @@ These made the old sites look like every other developer site:
 - Emoji as icons or bullet markers. A second icon set, or filled icons.
 - A rainbow: a different color per feature, card or nav item when the colors mean nothing.
 - Solid fills in any color but orange behind text (solid green badges, blue buttons).
-- Colored paragraphs, tinted notice boxes, colored card or section backgrounds.
+- Colored paragraphs, tinted notice boxes, colored card backgrounds. The only colored section backgrounds are the bands in section 7.
+- Grey-filled cards, tiles or panels sitting in the page.
+- Rings in a logo or mark, or rings behind text. A solid dot as a bullet.
 - Tailwind's numbered palette (`bg-green-500`) or hex values in components.
 
 ---
 
-## 13. Migration checklist
+## 14. Migration checklist
 
 For each existing site:
 
@@ -763,8 +937,8 @@ For each existing site:
 3. **Map colors to tokens.** Every color becomes a token utility (`bg-background`, `text-foreground`, `text-muted-foreground`, `border-border`, `bg-card`, `bg-primary`…). No hex values in components.
 4. **Components.** Replace hand-made UI with shadcn components (Base UI, Vega). Remove hover/press transforms. Statuses become soft tags in their role color; feature icons go in icon tiles.
 5. **Icons and code.** Swap every icon to Lucide (section 6's table), logos to Simple Icons, and highlight code with Shiki and the `--code-*` tokens (section 2).
-6. **Copy.** Rewrite the headline, intro and buttons under section 10. Keep facts and numbers exactly as they were.
-7. **Structure.** Header, hero, sections and footer per section 7. Add the "More from hmziq" row.
+6. **Copy.** Rewrite the headline, intro and buttons under section 11. Keep facts and numbers exactly as they were.
+7. **Structure.** Header, hero, sections and footer per section 8, with the signature pieces from section 7. Add the "More from hmziq" row with each site's mark.
 8. **Dark default.** `<html class="dark">`, with light mode working too.
 9. **Check.**
    - Contrast: run axe (e.g. Storybook's accessibility panel or `@axe-core`) in dark and light. Zero `color-contrast` failures.

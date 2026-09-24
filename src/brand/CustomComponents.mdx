@@ -19,23 +19,23 @@ How to build something shadcn doesn't have, so it still looks like it belongs.
 | Folder | What's in it | Rules |
 | --- | --- | --- |
 | `src/components/ui` | shadcn's components | Keep them as shadcn ships them, so they can be updated with the CLI. The one change: remove any movement on hover or press. |
-| `src/components/brand` | Small brand pieces: `Tag`, `IconTile`, `Notice`, `CodeBlock`, `BrandIcon` | Built only from theme tokens. Each has a story under **Custom**. |
-| `src/sites/shared` | Page blocks: `SiteShell`, `Hero`, `Section`, `FeatureGrid`, `Steps`, `CtaBand` | Shared by every site, so every site has the same rhythm. |
+| `src/components/brand` | Small brand pieces: `Wordmark`, `Mark`, `Marker`, `Rings`, `Tag`, `IconTile`, `Notice`, `CodeBlock`, `BrandIcon` | Built only from theme tokens. Each has a story under **Custom**. |
+| `src/sites/shared` | Page blocks: `SiteShell`, `Hero`, `RingStats`, `Section`, `ElementCard`, `FeatureGrid`, `Steps`, `CtaBand` | Shared by every site, so every site has the same rhythm. |
 | `src/sites/*` | One page per site | Pages put blocks together. They don't add new styles. |
 
 ## The rules
 
 | | Rule |
 | --- | --- |
-| Color | Theme tokens only. Surfaces: `bg-background` for the page, `bg-card` for raised things, `bg-muted` for quiet things. Supporting colors follow the rules on the Colors page. `pnpm check:colors` fails on anything else. |
+| Color | Theme tokens only. Surfaces: `bg-background` for the page, `bg-card` for things that float over it (menus, popovers), `bg-muted` for hover and selected. Cards and tiles in the page are a line with no fill. Supporting colors follow the rules on the Colors page. `pnpm check:colors` fails on anything else. |
 | Lines | 1px `border`. Between items, use `divide-y`, or a `gap-px` grid on `bg-border`. Never two borders side by side. |
-| Corners | `rounded-md` for controls and icon tiles, `rounded-xl` for cards and panels, `rounded-2xl` for large bands, `rounded-full` for dots and tags. |
+| Corners | `rounded-md` for controls and icon tiles, `rounded-xl` for cards and panels, `rounded-full` for rings and tags. Bands run full width with square edges. |
 | Shadows | None on things that sit in the page. shadcn already adds them to things that float: menus, popovers and dialogs. |
 | Spacing | Tailwind's 4px steps. Inside a component `gap-1.5` to `gap-3` and `p-4` to `p-6`. Between components `gap-4` to `gap-10`. Between sections, `gap-24` (`gap-32` on wide screens). |
 | Heights | Match shadcn: `h-5` tags, `h-8` small controls, `h-9` default, `h-10` large. Nothing clickable under 32px. |
 | Type | `text-sm` inside components; `text-xs` only for tags, captions and file names. Titles are `font-medium`, and nothing is ever above `font-semibold`. Sentence case everywhere. |
 | Icons | Lucide at the brand line weight, sized per the Icons page. |
-| Hover | A color change: a background (`hover:bg-muted`), the text (`hover:text-foreground`) or the border (`hover:border-primary/50`). |
+| Hover | A color change: a background (`hover:bg-muted`), the text (`hover:text-foreground`) or the edge (`hover:border-primary/50`, `hover:ring-primary/50` on a Card). |
 | Focus | shadcn's ring: `outline-none focus-visible:ring-3 focus-visible:ring-ring/50`. |
 | Selected | `bg-muted`, or `border-primary/60 bg-primary/10` when it must stand out. |
 | Disabled | `disabled:pointer-events-none disabled:opacity-50`. |
