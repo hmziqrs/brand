@@ -1,0 +1,57 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+
+<Meta title="Brand/Introduction" />
+
+# hmziq brand
+
+One look for every hmziq site: the blog, the personal site, freeoxide, oxlabs, gpui-query, gpui-starter, claude-multi and labs.
+
+Everything in this Storybook uses the real theme from `theme.css`. Use the sun/moon switch in the toolbar to see light and dark. **Dark is the default** for every site.
+
+## The short version
+
+| | |
+| --- | --- |
+| Typeface | Onest for everything people read. JetBrains Mono only for code. |
+| Weights | 400 for text, 500 for headings, 600 for the wordmark. Nothing heavier. |
+| Color | Plain neutral greys, plus one brand color: **oxide orange**. |
+| Mode | Dark by default, light available. Both pass readability checks. |
+| Corners | `0.625rem` radius, the shadcn default. |
+| Motion | Nothing moves when you hover, press or focus it. Only colors change. |
+| Components | shadcn/ui on Tailwind v4, Vega style, built on Base UI. |
+| Words | Plain language. Say what a thing does for the person reading. |
+
+## Motion
+
+Buttons, cards, links and menu items never shift, lift, shrink or grow when you hover, press or focus them. Feedback is a change of color only: a slightly different background, a border, an underline or the focus ring.
+
+Things that open and close (dialogs, drawers, menus, popovers) may fade and slide in, because that shows where they came from. Once they're on screen, they stay put.
+
+`pnpm check:motion` fails if a component adds movement on hover, press or focus. It runs on every deploy.
+
+## What's in here
+
+- **Brand**: these pages.
+- **Sites**: a landing page for every hmziq site, built only from the theme and the real components.
+- **Brand kit for AI agents**: everything on these pages in one markdown file, `BRAND.md`, for agents doing migrations and redesigns. The published Storybook also serves it at `/BRAND.md`.
+- **design**: live views of the tokens (color, radius, shadow, spacing, type).
+- **ui**: every shadcn component, each with its stories, rendered in the hmziq theme.
+
+## Using the theme in a site
+
+Every site loads Tailwind, shadcn's base CSS and the fonts, then the theme:
+
+```css
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/onest";
+@import "@fontsource-variable/jetbrains-mono";
+@import "./theme.css";
+```
+
+Put `class="dark"` on `<html>` so dark is the default, and remove it for light.
+
+## Changing the brand color later
+
+The brand color lives in `--primary` in `theme.css`, once for light (`:root`) and once for dark (`.dark`). The focus ring, `--chart-1` and the sidebar colors follow it. Change those lines and every site and every component in this Storybook updates.

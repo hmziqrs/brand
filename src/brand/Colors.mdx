@@ -1,0 +1,53 @@
+import { Meta, ColorPalette, ColorItem } from '@storybook/addon-docs/blocks'
+
+<Meta title="Brand/Colors" />
+
+# Colors
+
+Plain neutral greys with no tint, and one brand color. That's the whole palette.
+
+## Oxide orange
+
+The brand color. It's called oxide because rust is iron oxide, and it's the orange people already know from freeoxide and oxlabs. It uses two tuned shades, so text on it and links in it stay readable in both modes.
+
+<ColorPalette>
+  <ColorItem
+    title="primary"
+    subtitle="Buttons, links, focus rings"
+    colors={{ 'Dark mode': '#F38230', 'Light mode': '#B05400' }}
+  />
+</ColorPalette>
+
+**Use it for** the main action on a page, links, the focus ring, and small highlights.
+
+**Don't use it for** large backgrounds, body text, or more than one main button per view. When everything is orange, nothing stands out.
+
+## Neutrals
+
+These are shadcn's neutral greys, with one change: light-mode secondary text is a touch darker (`0.54` instead of `0.556`) so it stays readable on grey surfaces like code blocks. They have no color in them on purpose. A tint doesn't improve readability, and it makes the greys look muddy next to the orange.
+
+<ColorPalette>
+  <ColorItem title="background" subtitle="The page" colors={{ Dark: '#0A0A0A', Light: '#FFFFFF' }} />
+  <ColorItem title="card" subtitle="Cards and popovers" colors={{ Dark: '#171717', Light: '#FFFFFF' }} />
+  <ColorItem title="muted / secondary / accent" subtitle="Quiet surfaces and hover states" colors={{ Dark: '#262626', Light: '#F5F5F5' }} />
+  <ColorItem title="foreground" subtitle="Main text" colors={{ Dark: '#FAFAFA', Light: '#0A0A0A' }} />
+  <ColorItem title="muted-foreground" subtitle="Secondary text, captions, dates" colors={{ Dark: '#A1A1A1', Light: '#6F6F6F' }} />
+  <ColorItem title="destructive" subtitle="Deleting things and errors only" colors={{ Dark: '#FF6467', Light: '#E7000B' }} />
+</ColorPalette>
+
+In shadcn, `accent` means the grey hover background. It is not the brand color; the brand color is `primary`.
+
+## Readability
+
+Contrast ratios for the pairs people actually read. 4.5:1 is the minimum for comfortable reading (WCAG AA).
+
+| Pair | Dark | Light |
+| --- | --- | --- |
+| Body text on the page | 19.0:1 | 19.8:1 |
+| Secondary text on the page | 7.6:1 | 5.1:1 |
+| Secondary text on a card | 6.9:1 | 5.1:1 |
+| Secondary text on a muted surface | 5.8:1 | 4.6:1 |
+| Button text on oxide | 7.6:1 | 4.9:1 |
+| Oxide links on the page | 7.6:1 | 5.1:1 |
+
+The `design/base/Color` stories show every token live, straight from the CSS, so they always match the current theme.

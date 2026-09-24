@@ -1,0 +1,12 @@
+<style>
+  /* Docs pages: the story preview area uses the theme's own page color, so the
+     light/dark toolbar switch changes the whole preview, not just the component. */
+  .docs-story {
+    background-color: var(--background) !important;
+    color: var(--foreground);
+  }
+  /* Docs tables: neutral striping instead of Storybook's blue-grey. */
+  .sbdocs-wrapper tr:nth-of-type(2n):not(.docs-story *) {
+    background-color: #171717 !important;
+  }
+</style>
