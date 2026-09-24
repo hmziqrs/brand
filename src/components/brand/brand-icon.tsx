@@ -3,8 +3,8 @@ import type { SimpleIcon } from "simple-icons"
 import { cn } from "cn"
 
 type BrandIconProps = Omit<ComponentProps<"svg">, "children"> & {
-  /** An icon from `simple-icons`, e.g. `siGithub`. */
-  icon: SimpleIcon
+  /** An icon from `simple-icons`, e.g. `siGithub`, or any `{ path }` in its 24×24 box. */
+  icon: Pick<SimpleIcon, "path">
   /** Give a label when the logo stands alone; leave it out next to text. */
   label?: string
 }

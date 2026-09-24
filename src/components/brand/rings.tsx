@@ -43,6 +43,8 @@ type CornerRingsProps = SvgProps & {
   seed: string
   /** The accent ring's color, e.g. the project's kind: "var(--teal)". */
   color?: string
+  /** Eight quieter rings with no dot, for cards that hold more text: the latest release, a featured post. */
+  quiet?: boolean
 }
 
 /**
@@ -50,12 +52,14 @@ type CornerRingsProps = SvgProps & {
  * the card's color. Put it first inside a `relative overflow-hidden` card and
  * give the card's content `relative`.
  */
-function CornerRings({ seed, color = "var(--primary)", className, ...props }: CornerRingsProps) {
-  const random = rng(hash(seed) + 23)
-  const list = arcs(random, { cx: 100, cy: 0, radii: Array.from({ length: 9 }, (_, i) => 11 + i * 11), accent: 3 + (hash(seed) % 3), accentGap: 0.5, gap: [0.1, 0.3] })
+function CornerRings({ seed, color = "var(--primary)", quiet, className, ...props }: CornerRingsProps) {
+  const random = rng(hash(seed) + (quiet ? 29 : 23))
+  const list = quiet
+    ? arcs(random, { cx: 100, cy: 0, radii: Array.from({ length: 8 }, (_, i) => 12 + i * 12), accent: 2 + (hash(seed) % 3), accentGap: 0.5, gap: [0.1, 0.3] }).map((a) => ({ ...a, end: undefined }))
+    : arcs(random, { cx: 100, cy: 0, radii: Array.from({ length: 9 }, (_, i) => 11 + i * 11), accent: 3 + (hash(seed) % 3), accentGap: 0.5, gap: [0.1, 0.3] })
   return (
     <svg data-slot="corner-rings" viewBox="0 0 100 100" aria-hidden="true" className={cn("pointer-events-none absolute top-0 right-0 h-auto w-[70%]", className)} {...props}>
-      <Circles list={list} cx={100} cy={0} color={color} width={[0.5, 1]} dot={1.8} />
+      <Circles list={list} cx={100} cy={0} color={color} width={quiet ? [0.5, 0.75] : [0.5, 1]} dot={1.8} />
     </svg>
   )
 }

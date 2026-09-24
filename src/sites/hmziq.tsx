@@ -1,8 +1,9 @@
 import { Star } from "lucide-react"
+import { Marker } from "@/components/brand/marker"
+import { CornerRings, Rings } from "@/components/brand/rings"
 import { Tag } from "@/components/brand/tag"
 import { Badge } from "@/components/ui/badge"
-import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { ButtonLink, Hero, Section, SiteShell } from "./shared/site"
+import { ButtonLink, CtaBand, Hero, OutlineCard, Section, SiteShell } from "./shared/site"
 
 const initiatives = [
   {
@@ -81,6 +82,7 @@ const tools = [
   "Rust", "Axum", "Dioxus", "GPUI", "Ratatui", "Docker", "Cloudflare",
 ]
 
+/** hmziq.rs */
 export function HmziqPage() {
   return (
     <SiteShell site="hmziq" nav={["Work", "Writing", "Labs", "About"]} cta={{ label: "Get in touch" }}>
@@ -98,27 +100,28 @@ export function HmziqPage() {
           </>
         }
         note={
-          <span className="flex flex-wrap gap-x-5 gap-y-1">
-            <a href="#" className="hover:text-foreground">GitHub</a>
-            <a href="#" className="hover:text-foreground">LinkedIn</a>
-            <a href="#" className="hover:text-foreground">X</a>
-            <a href="#" className="hover:text-foreground">Email</a>
-          </span>
+          <>
+            {["GitHub", "LinkedIn", "X", "Email"].map((l) => (
+              <a key={l} href="#" className="hover:text-foreground">
+                {l}
+              </a>
+            ))}
+          </>
         }
+        aside={<Rings seed="hmziq" />}
       />
 
       <Section title="What I'm working on">
         <div className="grid gap-4 md:grid-cols-3">
           {initiatives.map((i) => (
-            <Card key={i.name}>
-              <CardHeader className="gap-3">
-                <Tag tone={i.status === "Active" ? "success" : undefined} marker={i.status === "Active"}>
-                  {i.status}
-                </Tag>
-                <CardTitle className="text-lg font-medium">{i.name}</CardTitle>
-                <CardDescription className="leading-relaxed">{i.body}</CardDescription>
-              </CardHeader>
-            </Card>
+            <OutlineCard key={i.name}>
+              <CornerRings seed={i.name} quiet className="w-1/2" />
+              <Tag tone={i.status === "Active" ? "success" : undefined} marker={i.status === "Active"} className="relative">
+                {i.status}
+              </Tag>
+              <h3 className="relative text-lg font-medium">{i.name}</h3>
+              <p className="relative text-[0.9rem] leading-relaxed text-muted-foreground">{i.body}</p>
+            </OutlineCard>
           ))}
         </div>
       </Section>
@@ -126,30 +129,31 @@ export function HmziqPage() {
       <Section title="Things I've made" intro="Open source, with the number of people who starred them on GitHub.">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {projects.map((p) => (
-            <Card key={p.name} className="transition-colors hover:border-primary/50">
-              <CardHeader className="gap-2">
-                <div className="flex items-start justify-between gap-3">
-                  <CardTitle className="text-lg font-medium">{p.name}</CardTitle>
-                  {p.stars !== null && (
-                    <span className="flex shrink-0 items-center gap-1 text-sm text-muted-foreground tabular-nums">
-                      <Star className="size-3.5" aria-hidden="true" />
-                      {p.stars}
-                      <span className="sr-only">stars</span>
-                    </span>
-                  )}
-                </div>
-                <CardDescription className="leading-relaxed">{p.body}</CardDescription>
-              </CardHeader>
-              <CardFooter className="mt-auto text-sm text-muted-foreground">{p.tools}</CardFooter>
-            </Card>
+            <OutlineCard key={p.name} href="#">
+              <div className="flex items-start justify-between gap-3">
+                <h3 className="text-lg font-medium">{p.name}</h3>
+                {p.stars !== null && (
+                  <span className="flex shrink-0 items-center gap-1 text-sm text-muted-foreground tabular-nums">
+                    <Star className="size-3.5" aria-hidden="true" />
+                    {p.stars}
+                    <span className="sr-only">stars</span>
+                  </span>
+                )}
+              </div>
+              <p className="text-[0.9rem] leading-relaxed text-muted-foreground">{p.body}</p>
+              <p className="mt-auto flex items-center gap-2 pt-2 text-[0.8125rem] text-muted-foreground">
+                <Marker className="text-primary" />
+                {p.tools}
+              </p>
+            </OutlineCard>
           ))}
         </div>
       </Section>
 
       <Section title="Experience">
-        <ol className="flex flex-col divide-y rounded-xl border">
+        <ol className="border-t">
           {experience.map((e) => (
-            <li key={e.company} className="grid gap-2 p-6 md:grid-cols-[12rem_1fr] md:gap-8">
+            <li key={e.company} className="grid gap-2 border-b py-6 md:grid-cols-[12rem_1fr] md:gap-8">
               <div className="flex flex-col gap-0.5">
                 <span className="font-medium">{e.company}</span>
                 <span className="text-sm text-muted-foreground">{e.dates}</span>
@@ -174,6 +178,21 @@ export function HmziqPage() {
           ))}
         </ul>
       </Section>
+
+      <CtaBand
+        title="Have something to build?"
+        body="Email is the most direct line. GitHub and the socials work too, and every message gets a real reply."
+        actions={
+          <>
+            <ButtonLink href="#" size="lg" className="px-5">
+              Get in touch
+            </ButtonLink>
+            <ButtonLink href="#" size="lg" variant="outline" className="px-5">
+              Read my CV
+            </ButtonLink>
+          </>
+        }
+      />
     </SiteShell>
   )
 }

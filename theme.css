@@ -218,8 +218,9 @@
   color: var(--foreground);
 }
 
-/* On orange an outline button is only its line; a fill turns muddy. */
-.band-orange [data-slot="button"][data-variant="outline"]:not(:hover) {
+/* Outline buttons are only their line, like cards and tiles: no grey fill
+   at rest (shadcn fills them in dark mode). Hover still tints them. */
+[data-slot="button"][data-variant="outline"]:not(:hover, [aria-expanded="true"]) {
   background-color: transparent;
 }
 
@@ -229,8 +230,10 @@
   color: var(--foreground);
 }
 
+/* An island in the other mode paints its own background: a white band on a
+   dark page, or a terminal that stays dark on a light page. */
 .light,
-.dark .dark {
+.dark {
   background-color: var(--background);
   color: var(--foreground);
 }

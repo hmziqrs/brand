@@ -1,9 +1,8 @@
 import { BookOpenText, FolderTree, GitBranch, ListChecks, ScanSearch } from "lucide-react"
 import { siGithub } from "simple-icons"
 import { BrandIcon } from "@/components/brand/brand-icon"
-import { Marker } from "@/components/brand/marker"
 import { Rings } from "@/components/brand/rings"
-import { ButtonLink, CtaBand, ElementCard, FeatureGrid, Hero, RingStats, Section, SiteShell } from "./shared/site"
+import { ButtonLink, CtaBand, ElementCard, FeatureGrid, Hero, HeroNote, RingStats, Section, SiteShell } from "./shared/site"
 
 // Each kind of project keeps one color everywhere: the symbol, the rings and the marker.
 const kinds = {
@@ -122,12 +121,7 @@ export function FreeoxidePage() {
             </ButtonLink>
           </>
         }
-        note={
-          <>
-            <Marker className="text-primary" />
-            Free and open source. MIT or Apache-2.0.
-          </>
-        }
+        note={<HeroNote>Free and open source. MIT or Apache-2.0.</HeroNote>}
         aside={<Rings seed="freeoxide" />}
       />
 

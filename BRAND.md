@@ -325,8 +325,9 @@ The real file lives at `theme.css` in the brand repo. This block is checked agai
   color: var(--foreground);
 }
 
-/* On orange an outline button is only its line; a fill turns muddy. */
-.band-orange [data-slot="button"][data-variant="outline"]:not(:hover) {
+/* Outline buttons are only their line, like cards and tiles: no grey fill
+   at rest (shadcn fills them in dark mode). Hover still tints them. */
+[data-slot="button"][data-variant="outline"]:not(:hover, [aria-expanded="true"]) {
   background-color: transparent;
 }
 
@@ -336,8 +337,10 @@ The real file lives at `theme.css` in the brand repo. This block is checked agai
   color: var(--foreground);
 }
 
+/* An island in the other mode paints its own background: a white band on a
+   dark page, or a terminal that stays dark on a light page. */
 .light,
-.dark .dark {
+.dark {
   background-color: var(--background);
   color: var(--foreground);
 }
@@ -720,7 +723,7 @@ Cards and icon tiles have **no grey fill**: a thin line only.
 
 ### Page patterns
 
-What each kind of page uses. Each one is in the explorations file, working.
+What each kind of page uses. Each one is in the explorations file, working, and built in the Storybook: **Sites → Landing pages** for every site's front page, **Sites → Pages** for the rest (claude-multi's about, providers, FAQ, changelog, blog, privacy, terms and 404; gpui-query's docs; a blog post; oxlabs' contact page; and hmziq.rs/components, a catalog of the interactive pieces). Copy from `src/sites/`.
 
 | Page | Pattern |
 | --- | --- |
@@ -758,8 +761,14 @@ Build pages from shadcn components (Button, Card, Badge, Tabs, Table, Accordion,
 | Feature grid | 2–3 columns; each item: an icon tile (section 9), `font-medium` title, `text-sm text-muted-foreground` body. All tiles in a grid are the same color. |
 | Cards | shadcn Card as an outline card (`bg-transparent shadow-none`); hover = `hover:ring-primary/50` only. Projects: element cards (section 7). |
 | Stats / facts | Ring gauges: `grid gap-8 sm:grid-cols-3`, each a gauge beside the number and its label (section 7). On an About or Changelog page: big numbers under a strong line. |
-| Steps | Numbered only when the order is real. Same joined grid as stats, number in a `size-7 rounded-full bg-muted font-mono text-xs` circle |
-| Code block | `rounded-xl border bg-(--code-background)`, optional file label bar `h-10 border-b font-mono text-xs text-muted-foreground`, `pre` with `p-4 font-mono text-sm`, highlighted with Shiki (section 2), copy button (ghost `icon-sm`, `Copy` → `Check`) in the label bar or top right. No copy button on code people only read. |
+| Steps | Numbered only when the order is real. The stepper: numbered rings (`size-9 rounded-full border-[1.75px]`) joined by a 1px line; a done step fills orange and the line below it turns orange. `Stepper` + `Step` in `components/brand`. |
+| Code block | An outline, no fill: `rounded-xl border`. A bar `h-10 border-b` with the file label (`text-xs text-muted-foreground`) or tabs for versions of the same thing (Terminal / Cargo.toml), and the copy button (ghost `icon-sm`, `Copy` → `Check`) on the right. `pre` with `px-4.5 py-4 font-mono text-[0.8125rem] leading-[1.7]`, highlighted with Shiki (section 2). No copy button on code people only read. |
+| Command to copy | `CommandBar`: `w-fit max-w-full rounded-xl border`, as wide as the command, `$` prompt in orange, the program in the function color and flags in the keyword color, an outline `sm` Copy button. Commands people shouldn't paste as they are (an alias they name themselves, an example) get no button. |
+| Terminal | `TerminalWindow`: always dark (`dark` class, even on light pages), `rounded-xl border`, a `h-10` title bar with a terminal icon, mono `text-[0.8125rem] leading-[1.9]` lines: `$ command`, `# note` in grey, `▸ step › answer`, `✓ result`. |
+| Tables | `DataTable`. On landing and product pages the accent style: boxed (`rounded-xl border`), the last column in a soft orange wash (`bg-primary/7`, heading `text-primary`). In docs the lines style: a strong line under the headings (`border-foreground`), thin lines between rows. Names in the first columns stay in the text color. |
+| Switches | `Segmented`: a thin outline around a few buttons; the picked one gets a soft orange fill (`bg-primary/10 text-primary`, `/20` in dark). For package managers, billing periods, notes. |
+| Questions | `Question` in `Questions`: `<details>` rows with a line between them; a grey ring that fills orange when open, a plus that turns to a minus. FAQ pages number them 01, 02… in orange with the topic as a grey tag. |
+| Interactive demos | A fixed height, so clicking around never moves the page. |
 | Closing call to action | The orange band: `band-orange relative overflow-hidden`, band arcs, then in the container a heading (`text-4xl md:text-[3.25rem] leading-[1.02] font-medium tracking-[-0.04em]`) + one sentence + two `lg` buttons, `py-16 md:py-24` |
 | Footer | `border-t`, no fill. Optional link columns, then **"More from hmziq"**: each other hmziq site with its 20px mark (section 12), then the giant `hmziq■` signature, then `© 2026 hmziq.` |
 
@@ -801,8 +810,8 @@ The freeoxide page in the Storybook (`Sites/Landing pages`) is the reference.
 | Folder | What | Rule |
 | --- | --- | --- |
 | `components/ui` | shadcn components | Keep as shadcn ships them. The only edit: remove hover/press movement. |
-| `components/brand` | small brand pieces (Wordmark, Mark, Marker, Rings, Tag, IconTile, Notice, CodeBlock, BrandIcon) | Tokens only. Copy them from the brand repo's `src/components/brand`, with `src/lib/rings.ts`. |
-| `sites/shared` or `components/site` | page blocks (SiteShell, Hero, RingStats, Section, ElementCard, FeatureGrid, Steps, CtaBand) | Same on every site. |
+| `components/brand` | small brand pieces (Wordmark, Mark, Marker, Rings, Tag, IconTile, Notice, CodeBlock, CodeLines, CopyButton, CommandBar, TerminalWindow, Stepper, Segmented, Question, Toc, DataTable, BrandIcon) | Tokens only. Copy them from the brand repo's `src/components/brand`, with `src/lib/rings.ts`, `src/lib/highlight-shell.tsx` and `src/lib/scroll-spy.ts`. |
+| `sites/shared` or `components/site` | page blocks (SiteShell, Hero, HeroNote, PageIntro, RingStats, Section, OutlineCard, ElementCard, FeatureCards, FeatureGrid, Steps, CtaBand) and content pieces (Prose, Bullets, SummaryBox, BigNumbers, SearchBox, TopicChips, EmptyNote) | Same on every site. |
 | pages | one per route | Put blocks together; no new styles. |
 
 ### The rules
@@ -832,7 +841,10 @@ React conventions (follow shadcn's shape): a function component that spreads oth
 | Tag marker | `size-1.75 shrink-0 rounded-full border-[1.5px] border-current`, before the label, for live states |
 | Status with text | the marker (section 7) in `text-success` + the words in `text-sm text-muted-foreground` |
 | Icon tile | `flex size-9 items-center justify-center rounded-md [&_svg]:size-4.5` + `border text-primary` (default: a line, no fill), or a tone's soft fill without the border when the color means something |
-| Notice | shadcn Alert with `role="note"` + `border-warning/40 *:[svg]:text-warning` (`/30` for info, success, destructive). Icons: `Info`, `CircleCheck`, `TriangleAlert`, `OctagonAlert`. Title and text stay in the normal text colors. |
+| Notice | shadcn Alert with `role="note"` + `bg-transparent border-warning/40 *:[svg]:text-warning` (same for info, success, destructive). A line in the note color, no fill. Icons: `Info`, `CircleCheck`, `TriangleAlert`, `OctagonAlert`. Title and text stay in the normal text colors. |
+| Outline button | shadcn's `outline` variant. `theme.css` keeps it unfilled at rest (shadcn fills it in dark mode); hover still tints it. |
+| Text field | shadcn Input or InputGroup with `shadow-none dark:bg-transparent`: a line, no fill. |
+| TL;DR box | `rounded-xl border border-primary/45 px-5 py-4.5`, a label with a ring in `text-[0.8125rem] font-medium text-primary`. Also "The short version" on legal pages. |
 | Company logo | inline `<svg viewBox="0 0 24 24" fill="currentColor" class="size-3.5 shrink-0" aria-hidden="true">` with the Simple Icons path |
 | Code block | see section 8 |
 

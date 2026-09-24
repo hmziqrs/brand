@@ -3,6 +3,7 @@ import { cn } from "cn"
 import { IconTile } from "@/components/brand/icon-tile"
 import { Marker } from "@/components/brand/marker"
 import { BandArcs, CornerRings, RingGauge } from "@/components/brand/rings"
+import { Step, Stepper } from "@/components/brand/stepper"
 import { Tag } from "@/components/brand/tag"
 import type { Tone } from "@/components/brand/tones"
 import { Card } from "@/components/ui/card"
@@ -21,8 +22,11 @@ export function ButtonLink({ href, ...props }: ComponentProps<typeof Button> & {
   return <Button nativeButton={false} render={<a href={href} />} {...props} />
 }
 
-export function Container({ className, ...props }: ComponentProps<"div">) {
-  return <div className={cn("mx-auto w-full max-w-5xl px-6", className)} {...props} />
+const widths = { narrow: "max-w-[46rem]", default: "max-w-5xl", wide: "max-w-[82rem]" }
+
+/** The page's column. Narrow for reading (posts, legal), wide for docs. */
+export function Container({ size = "default", className, ...props }: ComponentProps<"div"> & { size?: keyof typeof widths }) {
+  return <div className={cn("mx-auto w-full px-6", widths[size], className)} {...props} />
 }
 
 type SiteShellProps = {
@@ -30,36 +34,58 @@ type SiteShellProps = {
   /** Shown after the wordmark in small text, e.g. "by freeoxide". */
   maker?: string
   nav: string[]
+  /** The nav item for the page you're on. */
+  current?: string
   cta?: { label: string; href?: string }
+  /** Right after the wordmark, e.g. the docs search. */
+  lead?: ReactNode
+  /** Right before the button, e.g. the version tag or a GitHub link. */
+  extra?: ReactNode
+  /** "page" for inner pages: less space between sections than a landing page. */
+  layout?: "landing" | "page"
+  /** A wider header, for docs. */
+  wide?: boolean
+  mainClassName?: string
   children: ReactNode
   footerLinks?: { title: string; links: string[] }[]
 }
 
-export function SiteShell({ site, maker, nav, cta, children, footerLinks }: SiteShellProps) {
+export function SiteShell({ site, maker, nav, current, cta, lead, extra, layout = "landing", wide, mainClassName, children, footerLinks }: SiteShellProps) {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <header>
-        <Container className="flex h-19 items-center gap-6">
-          <a href="#" className="flex items-baseline gap-[0.35em] text-lg">
+        <Container size={wide ? "wide" : "default"} className="flex h-19 items-center gap-4 md:gap-6">
+          <a href="#" className="flex shrink-0 items-baseline gap-[0.35em] text-lg">
             <Wordmark name={site} />
             {maker && <span className="hidden text-[0.78em] text-muted-foreground sm:inline">{maker}</span>}
           </a>
+          {lead}
           <nav className="ml-auto hidden items-center gap-1 md:flex" aria-label="Main">
             {nav.map((item) => (
-              <ButtonLink key={item} href="#" variant="ghost" size="sm" className="text-muted-foreground">
+              <ButtonLink
+                key={item}
+                href="#"
+                variant="ghost"
+                size="sm"
+                aria-current={item === current ? "page" : undefined}
+                className="text-muted-foreground aria-[current=page]:text-foreground"
+              >
                 {item}
               </ButtonLink>
             ))}
           </nav>
+          {extra && <div className="ml-auto flex items-center gap-3 md:ml-0">{extra}</div>}
           {cta && (
-            <ButtonLink href={cta.href ?? "#"} size="sm" className="ml-auto px-3 md:ml-0">
+            <ButtonLink href={cta.href ?? "#"} size="sm" className={cn("px-3 md:ml-0", !extra && "ml-auto")}>
               {cta.label}
             </ButtonLink>
           )}
         </Container>
       </header>
 
-      <main className="flex flex-col gap-24 py-16 md:gap-32 md:py-24">{children}</main>
+      <main className={cn(layout === "landing" ? "flex flex-col gap-24 py-16 md:gap-32 md:py-24" : "flex flex-col gap-10 pt-12 pb-16 md:pt-20", mainClassName)}>
+        {children}
+      </main>
 
       <SiteFooter site={site} links={footerLinks} />
     </div>
@@ -116,39 +142,81 @@ function SiteFooter({ site, links = [] }: { site: FamilyName; links?: { title: s
 }
 
 type HeroProps = {
+  /** A small grey word above the title: "About", "FAQ". */
+  kicker?: ReactNode
   title: ReactNode
   lede: ReactNode
   actions?: ReactNode
   note?: ReactNode
   aside?: ReactNode
+  /** Under the text at full width, e.g. a live demo. */
+  below?: ReactNode
 }
 
-export function Hero({ title, lede, actions, note, aside }: HeroProps) {
+export function Hero({ kicker, title, lede, actions, note, aside, below }: HeroProps) {
   return (
-    <Container
-      className={cn("grid items-center gap-10 md:gap-12", aside && "md:grid-cols-2")}
-    >
+    <Container className={cn("grid items-center gap-10 md:gap-12", aside && "md:grid-cols-2")}>
       <div className="flex max-w-xl flex-col gap-6">
+        {kicker && <p className="-mb-2 text-[0.8125rem] text-muted-foreground">{kicker}</p>}
         <h1 className="text-4xl leading-[1.02] font-medium tracking-[-0.035em] text-balance sm:text-5xl lg:text-[3.9rem]">{title}</h1>
         <p className="max-w-prose text-lg leading-relaxed text-muted-foreground">{lede}</p>
         {actions && <div className="flex flex-wrap gap-3 pt-2">{actions}</div>}
-        {note && <p className="flex items-center gap-2.5 text-sm text-muted-foreground">{note}</p>}
+        {note && <div className="flex flex-wrap items-center gap-x-5 gap-y-1.5 text-sm text-muted-foreground">{note}</div>}
       </div>
       {aside}
+      {below && <div className="mt-2 min-w-0 md:col-span-full">{below}</div>}
     </Container>
   )
 }
 
+/** One line of the note under a hero, with an orange ring before it. */
+export function HeroNote({ children }: { children: ReactNode }) {
+  return (
+    <span className="inline-flex items-center gap-2.5">
+      <Marker className="text-primary" />
+      {children}
+    </span>
+  )
+}
+
+type PageIntroProps = {
+  kicker?: ReactNode
+  title: ReactNode
+  lede?: ReactNode
+  children?: ReactNode
+  className?: string
+}
+
+/** The top of an inner page: a small grey word, the title and one paragraph. */
+export function PageIntro({ kicker, title, lede, children, className }: PageIntroProps) {
+  return (
+    <div className={cn("flex max-w-xl flex-col gap-6", className)}>
+      {kicker && <p className="-mb-2 text-[0.8125rem] text-muted-foreground">{kicker}</p>}
+      <h1 className="text-[2.4rem] leading-[1.02] font-medium tracking-[-0.035em] text-balance sm:text-5xl lg:text-[3.6rem]">{title}</h1>
+      {lede && <p className="max-w-[34rem] text-lg leading-relaxed text-muted-foreground">{lede}</p>}
+      {children}
+    </div>
+  )
+}
+
 type SectionProps = {
+  /** A small orange label above the title, for catalogs: "Install steps · claude-multi". */
+  caption?: ReactNode
   title: ReactNode
   intro?: ReactNode
   children: ReactNode
   className?: string
 }
 
-export function Section({ title, intro, children, className }: SectionProps) {
+export function Section({ caption, title, intro, children, className }: SectionProps) {
   return (
     <Container className={cn("flex flex-col gap-10", className)}>
+      {caption && (
+        <p className="-mb-5 flex items-center gap-2 text-[0.8125rem] font-medium text-primary">
+          <Marker />
+          {caption}
+        </p>
+      )}
       <div className="flex max-w-2xl flex-col gap-3">
         <h2 className="text-3xl font-medium tracking-tight text-balance">{title}</h2>
         {intro && <p className="leading-relaxed text-muted-foreground">{intro}</p>}
@@ -220,7 +288,47 @@ export function ElementCard({ n, symbol, name, body, kind, status }: ElementCard
   )
 }
 
+type OutlineCardProps = ComponentProps<"div"> & { href?: string }
+
+/**
+ * The brand's card: a thin line, no fill. With `href` the whole card is a
+ * link, and hovering tints the line orange.
+ */
+export function OutlineCard({ href, className, children, ...props }: OutlineCardProps) {
+  const cls = cn(
+    "relative flex flex-col gap-3 overflow-hidden rounded-xl p-6 text-sm text-foreground ring-1 ring-foreground/10",
+    href && "no-underline transition-colors outline-none hover:ring-primary/50 focus-visible:ring-3 focus-visible:ring-ring/50",
+    className,
+  )
+  if (href)
+    return (
+      <a href={href} className={cls}>
+        {children}
+      </a>
+    )
+  return (
+    <div className={cls} {...props}>
+      {children}
+    </div>
+  )
+}
+
 type Feature = { icon?: ReactNode; title: string; body: ReactNode }
+
+/** Features in outline cards: a thin line, no fill, an icon tile on top. */
+export function FeatureCards({ items, className }: { items: Feature[]; className?: string }) {
+  return (
+    <div className={cn("grid gap-4 sm:grid-cols-2 lg:grid-cols-3", className)}>
+      {items.map((f) => (
+        <Card key={f.title} className="gap-3 bg-transparent px-6 shadow-none">
+          {f.icon && <IconTile>{f.icon}</IconTile>}
+          <h3 className="text-lg font-medium tracking-[-0.01em]">{f.title}</h3>
+          <p className="text-[0.9rem] leading-relaxed text-muted-foreground">{f.body}</p>
+        </Card>
+      ))}
+    </div>
+  )
+}
 
 export function FeatureGrid({ items, columns = 3 }: { items: Feature[]; columns?: 2 | 3 }) {
   return (
@@ -236,38 +344,41 @@ export function FeatureGrid({ items, columns = 3 }: { items: Feature[]; columns?
   )
 }
 
-type Step = { title: string; body: ReactNode }
+type StepItem = { title: string; body: ReactNode }
 
-/** Numbered steps. Only for things that really happen in order. */
-export function Steps({ items }: { items: Step[] }) {
+/** Numbered steps joined by a line. Only for things that really happen in order. */
+export function Steps({ items }: { items: StepItem[] }) {
   return (
-    <ol className="grid gap-px overflow-hidden rounded-xl border bg-border md:grid-flow-col md:auto-cols-fr">
+    <Stepper>
       {items.map((s, i) => (
-        <li key={s.title} className="flex flex-col gap-3 bg-background p-6">
-          <span className="flex size-7 items-center justify-center rounded-full bg-muted font-mono text-xs tabular-nums">
-            {i + 1}
-          </span>
-          <h3 className="font-medium">{s.title}</h3>
-          <p className="text-sm leading-relaxed text-muted-foreground">{s.body}</p>
-        </li>
+        <Step key={s.title} n={i + 1} done>
+          <h3 className="text-[1.0625rem] font-medium">{s.title}</h3>
+          <p className="text-[0.9rem] leading-relaxed text-muted-foreground">{s.body}</p>
+        </Step>
       ))}
-    </ol>
+    </Stepper>
   )
 }
 
-type CtaBandProps = { title: string; body: ReactNode; actions: ReactNode }
+type CtaBandProps = {
+  title: string
+  body: ReactNode
+  actions: ReactNode
+  /** A smaller title, for a band that isn't the page's last word (a newsletter under a post). */
+  compact?: boolean
+}
 
 /**
  * The closing band: full width, in orange, with the band arcs on the right.
  * `band-orange` (theme.css) repaints everything inside it, buttons included.
  */
-export function CtaBand({ title, body, actions }: CtaBandProps) {
+export function CtaBand({ title, body, actions, compact }: CtaBandProps) {
   return (
     <section className="band-orange relative overflow-hidden">
       <BandArcs />
       <Container className="relative flex flex-col gap-7 py-16 md:flex-row md:items-end md:justify-between md:gap-12 md:py-24">
         <div className="flex max-w-xl flex-col gap-4">
-          <h2 className="text-4xl leading-[1.02] font-medium tracking-[-0.04em] text-balance md:text-[3.25rem]">{title}</h2>
+          <h2 className={cn("font-medium text-balance", compact ? "text-[1.6rem] tracking-[-0.03em] md:text-4xl" : "text-4xl leading-[1.02] tracking-[-0.04em] md:text-[3.25rem]")}>{title}</h2>
           <p className="text-[1.0625rem] leading-relaxed text-muted-foreground">{body}</p>
         </div>
         <div className="flex shrink-0 flex-wrap gap-3">{actions}</div>

@@ -1,6 +1,7 @@
+import { Marker } from "@/components/brand/marker"
+import { Rings } from "@/components/brand/rings"
 import { Badge } from "@/components/ui/badge"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { ButtonLink, CtaBand, Hero, Section, SiteShell, Steps } from "./shared/site"
+import { ButtonLink, CtaBand, Hero, OutlineCard, Section, SiteShell, Steps } from "./shared/site"
 
 const services = [
   {
@@ -58,29 +59,28 @@ export function OxlabsPage() {
           </>
         }
         note={
-          <span className="inline-flex items-center gap-2">
-            <span className="size-2 rounded-full bg-success" aria-hidden="true" />
+          <span className="inline-flex items-center gap-2.5">
+            <Marker filled className="text-success" />
             Taking on new projects
           </span>
         }
+        aside={<Rings seed="oxlabs" />}
       />
 
       <Section title="Four kinds of work, one small studio" intro="We build the whole thing end to end, so nothing gets lost between teams.">
         <div className="grid gap-4 sm:grid-cols-2">
           {services.map((s) => (
-            <Card key={s.title}>
-              <CardHeader className="gap-2">
-                <CardTitle className="text-lg font-medium">{s.title}</CardTitle>
-                <CardDescription className="leading-relaxed">{s.body}</CardDescription>
-              </CardHeader>
-              <CardContent className="mt-auto flex-row flex-wrap gap-1.5">
+            <OutlineCard key={s.title}>
+              <h3 className="text-lg font-medium tracking-[-0.01em]">{s.title}</h3>
+              <p className="text-[0.9rem] leading-relaxed text-muted-foreground">{s.body}</p>
+              <div className="mt-auto flex flex-wrap gap-1.5 pt-2">
                 {s.tools.map((t) => (
                   <Badge key={t} variant="outline">
                     {t}
                   </Badge>
                 ))}
-              </CardContent>
-            </Card>
+              </div>
+            </OutlineCard>
           ))}
         </div>
       </Section>
@@ -123,8 +123,10 @@ export function OxlabsPage() {
         body="A person reads every message and replies. No sales calls, no slide decks."
         actions={
           <>
-            <ButtonLink href="#">Start a project</ButtonLink>
-            <ButtonLink href="#" variant="outline">
+            <ButtonLink href="#" size="lg" className="px-5">
+              Start a project
+            </ButtonLink>
+            <ButtonLink href="#" size="lg" variant="outline" className="px-5">
               See past work
             </ButtonLink>
           </>

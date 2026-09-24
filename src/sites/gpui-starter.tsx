@@ -13,7 +13,7 @@ import { BrandIcon } from "@/components/brand/brand-icon"
 import { Badge } from "@/components/ui/badge"
 import { Kbd } from "@/components/ui/kbd"
 import { CodeBlock, InlineCode } from "@/components/brand/code-block"
-import { ButtonLink, CtaBand, FeatureGrid, Hero, Section, SiteShell, Steps } from "./shared/site"
+import { ButtonLink, CtaBand, FeatureGrid, Hero, HeroNote, Section, SiteShell, Steps } from "./shared/site"
 
 const features = [
   {
@@ -85,7 +85,7 @@ function AppPreview() {
   const nav = ["Home", "Form", "Settings", "About"]
   const themes = ["Catppuccin", "Tokyo Night", "Dracula", "One Dark"]
   return (
-    <div className="overflow-hidden rounded-xl border bg-card shadow-sm" aria-label="Preview of the starter app">
+    <div className="overflow-hidden rounded-xl border" role="img" aria-label="Preview of the starter app: a sidebar, a welcome page and a theme picker">
       <div className="flex h-9 items-center gap-2 border-b px-3">
         <span className="flex gap-1.5" aria-hidden="true">
           <span className="size-2.5 rounded-full bg-muted-foreground/40" />
@@ -101,7 +101,7 @@ function AppPreview() {
               key={item}
               className={
                 i === 0
-                  ? "rounded-md bg-muted px-2.5 py-1.5 text-foreground"
+                  ? "rounded-md bg-primary/10 px-2.5 py-1.5 text-primary dark:bg-primary/20"
                   : "px-2.5 py-1.5 text-muted-foreground"
               }
             >
@@ -115,9 +115,9 @@ function AppPreview() {
             <p className="text-sm text-muted-foreground">A starting point for desktop apps.</p>
           </div>
           <div className="flex flex-wrap gap-1.5">
-            <Badge variant="secondary">24 themes</Badge>
-            <Badge variant="secondary">2 languages</Badge>
-            <Badge variant="secondary">100% Rust</Badge>
+            <Badge variant="outline">24 themes</Badge>
+            <Badge variant="outline">2 languages</Badge>
+            <Badge variant="outline">100% Rust</Badge>
           </div>
           <div className="flex flex-col gap-2 rounded-lg border p-3">
             <p className="text-xs text-muted-foreground">Theme</p>
@@ -170,7 +170,7 @@ export function GpuiStarterPage() {
             </ButtonLink>
           </>
         }
-        note="Free and open source. Works on macOS, Windows and Linux."
+        note={<HeroNote>Free and open source. Works on macOS, Windows and Linux.</HeroNote>}
         aside={<AppPreview />}
       />
 
@@ -221,8 +221,10 @@ export function GpuiStarterPage() {
         }
         actions={
           <>
-            <ButtonLink href="#">Read the quickstart</ButtonLink>
-            <ButtonLink href="#" variant="outline">
+            <ButtonLink href="#" size="lg" className="px-5">
+              Read the quickstart
+            </ButtonLink>
+            <ButtonLink href="#" size="lg" variant="outline" className="px-5">
               <BrandIcon icon={siGithub} data-icon="inline-start" />
               View on GitHub
             </ButtonLink>

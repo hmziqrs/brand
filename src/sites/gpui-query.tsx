@@ -1,9 +1,11 @@
 import { Archive, Ban, Database, Infinity as InfinityIcon, ListRestart, Sparkles } from "lucide-react"
 import { siGithub } from "simple-icons"
 import { BrandIcon } from "@/components/brand/brand-icon"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { CodeBlock, InlineCode } from "@/components/brand/code-block"
-import { ButtonLink, CtaBand, FeatureGrid, Hero, Section, SiteShell } from "./shared/site"
+import { CommandBar } from "@/components/brand/command"
+import { Rings } from "@/components/brand/rings"
+import { CodeEditor, Comparison, GpuiQueryQuestions } from "./gpui-query/blocks"
+import { ButtonLink, CtaBand, FeatureGrid, Hero, HeroNote, Section, SiteShell } from "./shared/site"
 
 const features = [
   {
@@ -86,49 +88,7 @@ mutate_with_callbacks(
   },
 ]
 
-const byHand = `struct UserList {
-    users: Option<Vec<User>>,
-    error: Option<String>,
-    loading: bool,
-    generation: u64,
-}
-
-impl UserList {
-    fn fetch(&mut self, cx: &mut Context<Self>) {
-        self.loading = true;
-        self.generation += 1;
-        let generation = self.generation;
-        cx.spawn(async move |this, cx| {
-            let result = fetch_users().await;
-            this.update(cx, |this, cx| {
-                if this.generation != generation {
-                    return; // replaced by a newer request
-                }
-                this.loading = false;
-                match result {
-                    Ok(users) => this.users = Some(users),
-                    Err(err) => this.error = Some(err.to_string()),
-                }
-                cx.notify();
-            })
-        })
-        .detach();
-    }
-}
-
-// still missing: caching, expiry, retries, sharing between views…`
-
-const withQuery = `let (users, _sub) = use_query(
-    "users",
-    |signal| async move {
-        fetch_users(&signal).await
-    },
-    cx,
-);
-
-// cached, retried, shared,
-// refreshed and cancellable`
-
+/** gpui-query.freeoxide.com */
 export function GpuiQueryPage() {
   return (
     <SiteShell
@@ -157,8 +117,13 @@ export function GpuiQueryPage() {
             </ButtonLink>
           </>
         }
-        note="Free and open source, MIT licensed."
+        note={<HeroNote>Free and open source, MIT licensed.</HeroNote>}
+        aside={<Rings seed="gpui-query" />}
       />
+
+      <Section title="Add it to your app" intro="One command in your crate. The hook feature gives you use_query and use_mutation.">
+        <CommandBar command="cargo add gpui-query --features hook" />
+      </Section>
 
       <Section title="Everything loading data needs" intro="The full set of TanStack Query ideas, rebuilt around how GPUI works.">
         <FeatureGrid items={features} />
@@ -168,36 +133,22 @@ export function GpuiQueryPage() {
         title="Three functions. That's the whole API."
         intro="Loading, saving and paging all work the same way: a name for the data, a function that gets it, and your context."
       >
-        <Tabs defaultValue="query" className="gap-4">
-          <TabsList>
-            {samples.map((s) => (
-              <TabsTrigger key={s.value} value={s.value}>
-                {s.label}
-              </TabsTrigger>
-            ))}
-          </TabsList>
-          {samples.map((s) => (
-            <TabsContent key={s.value} value={s.value}>
-              <CodeBlock label={s.fn} code={s.code} lang="rust" />
-            </TabsContent>
-          ))}
-        </Tabs>
+        <CodeBlock files={samples.map((s) => ({ label: s.label, code: s.code, lang: "rust" as const }))} />
       </Section>
 
       <Section
-        title="The code you stop writing"
-        intro="The same thing, a list of users that's loaded and kept, written both ways."
+        title="The same view, both ways"
+        intro="A view that loads one user. By hand it has no cache and no retry, and it still has a bug. With gpui-query it has all of that, in fewer lines."
       >
-        <div className="grid gap-4 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
-          <div className="flex flex-col gap-2">
-            <p className="text-sm text-muted-foreground">By hand · 28 lines of code</p>
-            <CodeBlock code={byHand} lang="rust" copy={false} className="text-[13px]" />
-          </div>
-          <div className="flex flex-col gap-2">
-            <p className="text-sm text-muted-foreground">With gpui-query · 7 lines of code</p>
-            <CodeBlock code={withQuery} lang="rust" copy={false} className="text-[13px]" />
-          </div>
-        </div>
+        <CodeEditor />
+      </Section>
+
+      <Section title="What gpui-query takes off your plate" intro="Everything a data-loading view needs, written by hand or handled for you.">
+        <Comparison />
+      </Section>
+
+      <Section title="Questions people ask" intro="Straight answers, grouped by topic.">
+        <GpuiQueryQuestions />
       </Section>
 
       <CtaBand
@@ -209,8 +160,10 @@ export function GpuiQueryPage() {
         }
         actions={
           <>
-            <ButtonLink href="#">Read the guide</ButtonLink>
-            <ButtonLink href="#" variant="outline">
+            <ButtonLink href="#" size="lg" className="px-5">
+              Read the guide
+            </ButtonLink>
+            <ButtonLink href="#" size="lg" variant="outline" className="px-5">
               <BrandIcon icon={siGithub} data-icon="inline-start" />
               View on GitHub
             </ButtonLink>

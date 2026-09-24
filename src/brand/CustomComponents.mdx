@@ -19,8 +19,8 @@ How to build something shadcn doesn't have, so it still looks like it belongs.
 | Folder | What's in it | Rules |
 | --- | --- | --- |
 | `src/components/ui` | shadcn's components | Keep them as shadcn ships them, so they can be updated with the CLI. The one change: remove any movement on hover or press. |
-| `src/components/brand` | Small brand pieces: `Wordmark`, `Mark`, `Marker`, `Rings`, `Tag`, `IconTile`, `Notice`, `CodeBlock`, `BrandIcon` | Built only from theme tokens. Each has a story under **Custom**. |
-| `src/sites/shared` | Page blocks: `SiteShell`, `Hero`, `RingStats`, `Section`, `ElementCard`, `FeatureGrid`, `Steps`, `CtaBand` | Shared by every site, so every site has the same rhythm. |
+| `src/components/brand` | Small brand pieces: `Wordmark`, `Mark`, `Marker`, `Rings`, `Tag`, `IconTile`, `Notice`, `CodeBlock`, `CommandBar`, `TerminalWindow`, `Stepper`, `Segmented`, `Question`, `Toc`, `DataTable`, `BrandIcon` | Built only from theme tokens. The signature pieces have stories under **Custom**; the rest are shown working in **Sites → Pages → Components**. |
+| `src/sites/shared` | Page blocks: `SiteShell`, `Hero`, `PageIntro`, `RingStats`, `Section`, `OutlineCard`, `ElementCard`, `FeatureCards`, `FeatureGrid`, `Steps`, `CtaBand`, and content pieces for inner pages (`Prose`, `Bullets`, `SummaryBox`, `BigNumbers`, `SearchBox`, `TopicChips`) | Shared by every site, so every site has the same rhythm. |
 | `src/sites/*` | One page per site | Pages put blocks together. They don't add new styles. |
 
 ## The rules
