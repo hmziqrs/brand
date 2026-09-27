@@ -121,7 +121,7 @@ function Overview({ range }: { range: Range }) {
           {pages.map(([path, share]) => (
             <li key={path} className="grid grid-cols-[minmax(0,1fr)_3rem] items-center gap-3 text-xs">
               <span className="relative flex h-6 items-center overflow-hidden rounded-sm px-2">
-                <i className="absolute inset-y-0 left-0 rounded-sm bg-primary/12 dark:bg-primary/20" style={{ width: `${share * 250}%` }} aria-hidden="true" />
+                <i className="absolute inset-y-0 left-0 rounded-sm bg-primary/10 dark:bg-primary/20" style={{ width: `${share * 250}%` }} aria-hidden="true" />
                 <span className="relative truncate font-mono">{path}</span>
               </span>
               <span className="text-right text-muted-foreground tabular-nums">{fmt(Math.round(total * share))}</span>

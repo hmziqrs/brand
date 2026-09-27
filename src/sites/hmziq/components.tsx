@@ -3,18 +3,16 @@ import { RotateCcw } from "lucide-react"
 import { highlightShell } from "@/lib/highlight-shell"
 import { CopyButton } from "@/components/brand/code-block"
 import { CommandBar, CommandBox } from "@/components/brand/command"
-import { Marker } from "@/components/brand/marker"
-import { BandArcs, CornerRings } from "@/components/brand/rings"
+import { BandArcs } from "@/components/brand/rings"
 import { Segmented } from "@/components/brand/segmented"
 import { Step, Stepper } from "@/components/brand/stepper"
 import { Tag } from "@/components/brand/tag"
 import { TerminalBody, TerminalLine, TerminalWindow } from "@/components/brand/terminal"
 import { Button } from "@/components/ui/button"
-import { cn } from "cn"
 import { InstanceGraph, MenuDemo, ProvidersTable } from "../claude-multi/blocks"
 import { installs, type PackageManager } from "../claude-multi/data"
 import { CodeEditor, Comparison, GpuiQueryQuestions } from "../gpui-query/blocks"
-import { ButtonLink, OutlineCard, Section, SiteShell } from "../shared/site"
+import { PricingPlans, Section, SiteShell, type Plan } from "../shared/site"
 
 // ---------- install steps ----------
 
@@ -112,60 +110,11 @@ function TypingTerminal() {
 
 // ---------- pricing ----------
 
-const tiers = [
-  { name: "Free", m: 0, y: 0, blurb: "For trying it out.", feats: ["One project", "Help from the community", "Every core feature"] },
-  { name: "Pro", m: 12, y: 120, blurb: "For one person shipping real work.", feats: ["Unlimited projects", "Email help within a day", "Everything in Free"], pick: true },
-  { name: "Team", m: 39, y: 390, blurb: "For a small team working together.", feats: ["Up to 10 people", "Shared settings", "Everything in Pro"] },
+const tiers: Plan[] = [
+  { name: "Free", price: 0, blurb: "For trying it out.", features: ["One project", "Help from the community", "Every core feature"], cta: "Choose Free" },
+  { name: "Pro", price: 12, yearly: 120, blurb: "For one person shipping real work.", features: ["Unlimited projects", "Email help within a day", "Everything in Free"], cta: "Choose Pro", pick: true },
+  { name: "Team", price: 39, yearly: 390, blurb: "For a small team working together.", features: ["Up to 10 people", "Shared settings", "Everything in Pro"], cta: "Choose Team" },
 ]
-
-function Pricing() {
-  const [billing, setBilling] = useState<"monthly" | "yearly">("monthly")
-  const yearly = billing === "yearly"
-  return (
-    <div className="flex flex-col items-start gap-6">
-      <Segmented
-        label="Billing"
-        value={billing}
-        onValueChange={setBilling}
-        options={[
-          { value: "monthly", label: "Monthly" },
-          { value: "yearly", label: "Yearly, 2 months free" },
-        ]}
-      />
-      <div className="grid w-full gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {tiers.map((t) => (
-          <OutlineCard key={t.name} className={cn("gap-4", t.pick && "ring-primary/55")}>
-            {t.pick && <CornerRings seed={`pricing ${t.name}`} quiet />}
-            <div className="relative flex items-center justify-between gap-2">
-              <h3 className="text-lg font-medium">{t.name}</h3>
-              {t.pick && (
-                <Tag tone="orange" marker>
-                  Recommended
-                </Tag>
-              )}
-            </div>
-            <p className="relative">
-              <b className="text-[2.5rem] font-medium tracking-[-0.04em]">{t.m === 0 ? "$0" : `$${yearly ? t.y : t.m}`}</b>{" "}
-              <span className="text-[0.9rem] text-muted-foreground">{t.m === 0 ? "forever" : yearly ? "a year" : "a month"}</span>
-            </p>
-            <p className="relative text-[0.9rem] text-muted-foreground">{t.blurb}</p>
-            <ul className="relative mb-2 flex flex-col gap-3">
-              {t.feats.map((f) => (
-                <li key={f} className="grid grid-cols-[0.55rem_minmax(0,1fr)] items-baseline gap-3 text-sm text-muted-foreground">
-                  <Marker filled className="text-primary" />
-                  <span>{f}</span>
-                </li>
-              ))}
-            </ul>
-            <ButtonLink href="#" size="lg" variant={t.pick ? "default" : "outline"} className="relative mt-auto">
-              Choose {t.name}
-            </ButtonLink>
-          </OutlineCard>
-        ))}
-      </div>
-    </div>
-  )
-}
 
 // ---------- the page ----------
 
@@ -238,7 +187,7 @@ export function HmziqComponents() {
         }
         intro="Made-up numbers to show the layout. None of your sites sell anything yet."
       >
-        <Pricing />
+        <PricingPlans plans={tiers} />
       </Section>
 
       <Section caption="Questions · gpui-query" title="Questions people ask" intro="Straight answers, grouped by topic.">

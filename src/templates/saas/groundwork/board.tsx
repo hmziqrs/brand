@@ -15,8 +15,8 @@ import { Progress, ProgressLabel, ProgressValue } from "@/components/ui/progress
 type Column = "todo" | "doing" | "done"
 type Team = "Design" | "Web" | "Marketing"
 
-// One color per team, the same everywhere on the page.
-const teams: Record<Team, Tone> = { Design: "pink", Web: "blue", Marketing: "teal" }
+// One color per team, the same everywhere on the page (the templates below use the same ones).
+const teams: Record<Team, Tone> = { Design: "purple", Web: "blue", Marketing: "pink" }
 
 type Task = { id: number; title: string; team: Team; who: string; due: string; column: Column }
 

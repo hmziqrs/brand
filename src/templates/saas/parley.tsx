@@ -9,7 +9,7 @@ import { Step, Stepper } from "@/components/brand/stepper"
 import { Tag } from "@/components/brand/tag"
 import type { Tone } from "@/components/brand/tones"
 import { BigNumbers } from "@/sites/shared/content"
-import { ButtonLink, Container, CtaBand, HeroNote, OutlineCard, Section } from "@/sites/shared/site"
+import { ButtonLink, Container, CtaBand, Hero, HeroNote, OutlineCard, Section } from "@/sites/shared/site"
 import { Faq, Person } from "./blocks"
 import { Channels } from "./parley/channels"
 import { SupportChat } from "./parley/chat"
@@ -71,7 +71,7 @@ function Column({ title, items, ours }: { title: string; items: string[]; ours?:
       </h3>
       <ul className="flex flex-col divide-y border-t">
         {items.map((t) => (
-          <li key={t} className={cn("py-3.5 text-[0.9375rem] leading-relaxed", !ours && "text-muted-foreground")}>
+          <li key={t} className={cn("py-3.5 text-[0.9rem] leading-relaxed", !ours && "text-muted-foreground")}>
             {t}
           </li>
         ))}
@@ -105,7 +105,7 @@ export function ParleyPage() {
       tagline="An assistant that answers your customers the way your team would."
       nav={["How it works", "Channels", "Pricing", "Security"]}
       cta="Start a free trial"
-      signature={27}
+      signature={31.5}
       footer={[
         { title: "Product", links: ["How it works", "Channels", "Answer check", "Pricing"] },
         { title: "Works with", links: ["Zendesk", "Intercom", "HubSpot", "Shopify"] },
@@ -113,28 +113,29 @@ export function ParleyPage() {
         { title: "Trust", links: ["Security", "Privacy", "Data processing"] },
       ]}
     >
+      {/* The hero on the grey band, starting right under the header. */}
       <section className="band-gray -mt-16 py-16 md:-mt-24 md:py-24">
-        <Container className="grid items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.95fr)]">
-          <div className="flex max-w-xl flex-col gap-6">
-            <h1 className="text-4xl leading-[1.02] font-medium tracking-[-0.035em] text-balance sm:text-5xl lg:text-[3.6rem]">Answer your customers in seconds, in your own words.</h1>
-            <p className="text-lg leading-relaxed text-muted-foreground">
-              Parley reads your help center and past replies, then answers customer questions the way your team would. When it isn't sure, it hands the chat to a person.
-            </p>
-            <div className="flex flex-wrap gap-3 pt-2">
+        <Hero
+          title="Answer your customers in seconds, in your own words."
+          lede="Parley reads your help center and past replies, then answers customer questions the way your team would. When it isn't sure, it hands the chat to a person."
+          actions={
+            <>
               <ButtonLink href="#" size="lg" className="px-5">
                 Start a free trial
               </ButtonLink>
               <ButtonLink href="#" size="lg" variant="outline" className="px-5">
                 Watch the 2-minute tour
               </ButtonLink>
-            </div>
-            <div className="flex flex-wrap items-center gap-x-5 gap-y-1.5 text-sm text-muted-foreground">
+            </>
+          }
+          note={
+            <>
               <HeroNote>14 days free, no card</HeroNote>
               <HeroNote>Live in an afternoon</HeroNote>
-            </div>
-          </div>
-          <SupportChat />
-        </Container>
+            </>
+          }
+          aside={<SupportChat />}
+        />
       </section>
 
       <Container className="flex flex-col items-center gap-6 text-center">
@@ -186,7 +187,7 @@ export function ParleyPage() {
         </div>
       </Section>
 
-      <Section title="Written for where it's read" intro="The same answer, shaped for the place your customer asked: short in chat, complete in email, shorter still on WhatsApp.">
+      <Section title="Written for where it's read" intro="Parley shapes each answer for the place your customer asked. It keeps chat short, email complete and WhatsApp shorter still.">
         <Channels />
       </Section>
 
@@ -233,7 +234,7 @@ export function ParleyPage() {
         </OutlineCard>
       </Section>
 
-      <Section title="Pay for answers, not for seats" intro="You pay when Parley closes a conversation on its own. Handovers are free, and your whole team is included.">
+      <Section title="Pay only for the answers it gives" intro="You pay when Parley closes a conversation on its own. Handovers are free, and your whole team is included.">
         <div className="flex flex-col gap-6">
           <DataTable
             accent={2}

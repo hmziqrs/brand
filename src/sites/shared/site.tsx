@@ -1,15 +1,18 @@
-import type { ComponentProps, ReactNode } from "react"
+import { useState, type ComponentProps, type ReactNode } from "react"
+import { ArrowRight } from "lucide-react"
 import { cn } from "cn"
 import { IconTile } from "@/components/brand/icon-tile"
 import { Marker } from "@/components/brand/marker"
 import { BandArcs, CornerRings, RingGauge } from "@/components/brand/rings"
+import { Segmented } from "@/components/brand/segmented"
 import { Step, Stepper } from "@/components/brand/stepper"
 import { Tag } from "@/components/brand/tag"
+import { CheckList } from "./content"
 import type { Tone } from "@/components/brand/tones"
 import { Card } from "@/components/ui/card"
 import { Mark, Wordmark } from "@/components/brand/wordmark"
 import { Button } from "@/components/ui/button"
-import { family, type FamilyName } from "./family"
+import { family } from "./family"
 
 /*
  * Building blocks shared by every hmziq site. Each site is a page built from
@@ -30,7 +33,8 @@ export function Container({ size = "default", className, ...props }: ComponentPr
 }
 
 type SiteShellProps = {
-  site: FamilyName
+  /** The site's or product's name, shown as the wordmark. */
+  site: string
   /** Shown after the wordmark in small text, e.g. "by freeoxide". */
   maker?: string
   nav: string[]
@@ -48,11 +52,20 @@ type SiteShellProps = {
   mainClassName?: string
   children: ReactNode
   footerLinks?: { title: string; links: string[] }[]
+  /** A strip above the header, e.g. an announcement. */
+  banner?: ReactNode
+  /** Replaces the "More from hmziq" row, for products outside the family (the SaaS templates). */
+  footerRow?: ReactNode
+  /** The giant name the footer ends on, and its size in % of the footer's width. hmziq by default. */
+  signature?: { name: string; size: number }
+  /** The last line of the footer. */
+  legal?: ReactNode
 }
 
-export function SiteShell({ site, maker, nav, current, cta, lead, extra, layout = "landing", wide, mainClassName, children, footerLinks }: SiteShellProps) {
+export function SiteShell({ site, maker, nav, current, cta, lead, extra, layout = "landing", wide, mainClassName, children, footerLinks, banner, footerRow, signature, legal }: SiteShellProps) {
   return (
     <div className="min-h-screen bg-background text-foreground">
+      {banner}
       <header>
         <Container size={wide ? "wide" : "default"} className="flex h-19 items-center gap-4 md:gap-6">
           <a href="#" className="flex shrink-0 items-baseline gap-[0.35em] text-lg">
@@ -87,12 +100,20 @@ export function SiteShell({ site, maker, nav, current, cta, lead, extra, layout 
         {children}
       </main>
 
-      <SiteFooter site={site} links={footerLinks} />
+      <SiteFooter site={site} links={footerLinks} row={footerRow} signature={signature} legal={legal} />
     </div>
   )
 }
 
-function SiteFooter({ site, links = [] }: { site: FamilyName; links?: { title: string; links: string[] }[] }) {
+type SiteFooterProps = {
+  site: string
+  links?: { title: string; links: string[] }[]
+  row?: ReactNode
+  signature?: { name: string; size: number }
+  legal?: ReactNode
+}
+
+function SiteFooter({ site, links = [], row, signature = { name: "hmziq", size: 33 }, legal = "© 2026 hmziq. Free and open source where it says so." }: SiteFooterProps) {
   return (
     <footer className="border-t">
       <Container className="flex flex-col gap-5 py-11">
@@ -115,27 +136,31 @@ function SiteFooter({ site, links = [] }: { site: FamilyName; links?: { title: s
           </div>
         )}
 
-        <h2 className="text-sm font-medium">More from hmziq</h2>
-        <ul className="flex flex-wrap gap-x-6 gap-y-3 text-sm">
-          {family
-            .filter((f) => f.name !== site)
-            .map((f) => (
-              <li key={f.name}>
-                <a href={f.href} className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground">
-                  <Mark symbol={f.symbol} />
-                  {f.name}
-                  <span className="sr-only"> ({f.note})</span>
-                </a>
-              </li>
-            ))}
-        </ul>
+        {row ?? (
+          <>
+            <h2 className="text-sm font-medium">More from hmziq</h2>
+            <ul className="flex flex-wrap gap-x-6 gap-y-3 text-sm">
+              {family
+                .filter((f) => f.name !== site)
+                .map((f) => (
+                  <li key={f.name}>
+                    <a href={f.href} className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground">
+                      <Mark symbol={f.symbol} />
+                      {f.name}
+                      <span className="sr-only"> ({f.note})</span>
+                    </a>
+                  </li>
+                ))}
+            </ul>
+          </>
+        )}
 
         {/* The signature: every site signs off with the same giant wordmark. */}
         <div className="@container mt-6 overflow-hidden border-t pt-10">
-          <Wordmark name="hmziq" className="block pb-[0.2em] text-[33cqw] leading-[0.74] tracking-[-0.05em]" />
+          <Wordmark name={signature.name} className="block pb-[0.2em] leading-[0.74] tracking-[-0.05em]" style={{ fontSize: `${signature.size}cqw` }} />
         </div>
 
-        <p className="text-[0.8125rem] text-muted-foreground">© 2026 hmziq. Free and open source where it says so.</p>
+        <div className="text-[0.8125rem] text-muted-foreground">{legal}</div>
       </Container>
     </footer>
   )
@@ -149,24 +174,55 @@ type HeroProps = {
   actions?: ReactNode
   note?: ReactNode
   aside?: ReactNode
+  /** "wide" gives a product beside the words more room than the words, from lg up. */
+  asideSize?: "half" | "wide"
   /** Under the text at full width, e.g. a live demo. */
   below?: ReactNode
 }
 
-export function Hero({ kicker, title, lede, actions, note, aside, below }: HeroProps) {
+export function Hero({ kicker, title, lede, actions, note, aside, asideSize = "half", below }: HeroProps) {
+  const wide = aside && asideSize === "wide"
   return (
-    <Container className={cn("grid items-center gap-10 md:gap-12", aside && "md:grid-cols-2")}>
+    <Container className={cn("grid items-center gap-10 md:gap-12", aside && !wide && "md:grid-cols-2", wide && "lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]")}>
       <div className="flex max-w-xl flex-col gap-6">
         {kicker && <p className="-mb-2 text-[0.8125rem] text-muted-foreground">{kicker}</p>}
-        <h1 className="text-4xl leading-[1.02] font-medium tracking-[-0.035em] text-balance sm:text-5xl lg:text-[3.9rem]">{title}</h1>
-        <p className="max-w-prose text-lg leading-relaxed text-muted-foreground">{lede}</p>
-        {actions && <div className="flex flex-wrap gap-3 pt-2">{actions}</div>}
-        {note && <div className="flex flex-wrap items-center gap-x-5 gap-y-1.5 text-sm text-muted-foreground">{note}</div>}
+        <HeroTitle size={wide ? "compact" : "default"}>{title}</HeroTitle>
+        <HeroLede>{lede}</HeroLede>
+        {actions && <HeroActions>{actions}</HeroActions>}
+        {note && <HeroNotes>{note}</HeroNotes>}
       </div>
-      {aside}
+      {aside && <div className="min-w-0">{aside}</div>}
       {below && <div className="mt-2 min-w-0 md:col-span-full">{below}</div>}
     </Container>
   )
+}
+
+/*
+ * The hero's parts, for heroes laid out another way (centered, on a band,
+ * the headline across the page). Same sizes everywhere.
+ */
+
+/** The page's headline. "compact" (the inner-page size) when a product sits beside it. */
+export function HeroTitle({ size = "default", className, ...props }: ComponentProps<"h1"> & { size?: "default" | "compact" }) {
+  return (
+    <h1
+      className={cn("text-4xl leading-[1.02] font-medium tracking-[-0.035em] text-balance sm:text-5xl", size === "default" ? "lg:text-[3.9rem]" : "lg:text-[3.6rem]", className)}
+      {...props}
+    />
+  )
+}
+
+export function HeroLede({ className, ...props }: ComponentProps<"p">) {
+  return <p className={cn("max-w-prose text-lg leading-relaxed text-muted-foreground", className)} {...props} />
+}
+
+export function HeroActions({ className, ...props }: ComponentProps<"div">) {
+  return <div className={cn("flex flex-wrap gap-3 pt-2", className)} {...props} />
+}
+
+/** The row of notes under the buttons; each one a `HeroNote`. */
+export function HeroNotes({ className, ...props }: ComponentProps<"div">) {
+  return <div className={cn("flex flex-wrap items-center gap-x-5 gap-y-1.5 text-sm text-muted-foreground", className)} {...props} />
 }
 
 /** One line of the note under a hero, with an orange ring before it. */
@@ -387,5 +443,120 @@ export function CtaBand({ title, body, actions, compact }: CtaBandProps) {
         <div className="flex shrink-0 flex-wrap gap-3">{actions}</div>
       </Container>
     </section>
+  )
+}
+
+export type Plan = {
+  name: string
+  /** Dollars a month; 0 is free. A string ("Talk to us") shows as it is. */
+  price: number | string
+  /** Dollars for a year, shown when the switch is on yearly. */
+  yearly?: number
+  /** Who the price is for, before "a month": "per person". */
+  per?: string
+  blurb: string
+  features: string[]
+  /** The button: "Choose Pro", "Start free". */
+  cta: string
+  /** The recommended plan: an orange line, a tag and its fingerprint. */
+  pick?: boolean
+}
+
+type PricingPlansProps = {
+  plans: Plan[]
+  /** The monthly / yearly switch. On by default. */
+  billing?: boolean
+  /** Draw the price yourself, e.g. with a total for the team size. */
+  price?: (plan: Plan, yearly: boolean) => ReactNode
+  className?: string
+}
+
+/**
+ * Plans in outline cards, with a monthly / yearly switch. The recommended
+ * one gets the orange line, a tag and corner rings.
+ */
+export function PricingPlans({ plans, billing: withBilling = true, price, className }: PricingPlansProps) {
+  const [billing, setBilling] = useState<"monthly" | "yearly">("monthly")
+  const yearly = billing === "yearly"
+  return (
+    <div className={cn("flex flex-col items-start gap-6", className)}>
+      {withBilling && (
+        <Segmented
+          label="Billing"
+          value={billing}
+          onValueChange={setBilling}
+          options={[
+            { value: "monthly", label: "Monthly" },
+            { value: "yearly", label: "Yearly, 2 months free" },
+          ]}
+        />
+      )}
+      <div className={cn("grid w-full gap-4 sm:grid-cols-2", plans.length > 2 && "lg:grid-cols-3")}>
+        {plans.map((p) => (
+          <OutlineCard key={p.name} className={cn("gap-4", p.pick && "ring-primary/55")}>
+            {p.pick && <CornerRings seed={`pricing ${p.name}`} quiet />}
+            <div className="relative flex items-center justify-between gap-2">
+              <h3 className="text-lg font-medium">{p.name}</h3>
+              {p.pick && (
+                <Tag tone="orange" marker>
+                  Recommended
+                </Tag>
+              )}
+            </div>
+            <div className="relative">{price ? price(p, yearly) : <Price plan={p} yearly={yearly} />}</div>
+            <p className="relative text-[0.9rem] text-muted-foreground">{p.blurb}</p>
+            <CheckList items={p.features} className="relative mb-2" />
+            <ButtonLink href="#" size="lg" variant={p.pick ? "default" : "outline"} className="relative mt-auto">
+              {p.cta}
+            </ButtonLink>
+          </OutlineCard>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+/** A plan's price: the number large, what it's for in grey. */
+export function Price({ plan, yearly }: { plan: Plan; yearly: boolean }) {
+  if (typeof plan.price === "string") return <b className="text-[2.5rem] font-medium tracking-[-0.04em]">{plan.price}</b>
+  const free = plan.price === 0
+  const amount = yearly && plan.yearly !== undefined ? plan.yearly : plan.price
+  const per = plan.per ? `${plan.per} ` : ""
+  return (
+    <p>
+      <b className="text-[2.5rem] font-medium tracking-[-0.04em]">${amount.toLocaleString("en-US")}</b>{" "}
+      <span className="text-[0.9rem] text-muted-foreground">{free ? "forever" : `${per}${yearly ? "a year" : "a month"}`}</span>
+    </p>
+  )
+}
+
+type BeforeAfterProps = {
+  /** Each row: what it's about, the old way, the new way. */
+  rows: readonly (readonly [what: string, before: ReactNode, after: ReactNode])[]
+  /** For screen readers: "By hand", "With gpui-query". */
+  before: string
+  after: string
+}
+
+/** Before and after: the old way struck through, then what the product does instead. */
+export function BeforeAfter({ rows, before, after }: BeforeAfterProps) {
+  return (
+    <ul className="border-t">
+      {rows.map(([what, raw, ours]) => (
+        <li key={what} className="grid items-baseline gap-x-4 gap-y-1 border-b py-4 text-[0.9rem] lg:grid-cols-[16rem_minmax(0,1fr)_1.25rem_minmax(0,1fr)]">
+          <span className="text-[0.8125rem] text-muted-foreground">{what}</span>
+          <s className="text-muted-foreground decoration-muted-foreground/70">
+            <span className="sr-only">{before}: </span>
+            {raw}
+          </s>
+          <ArrowRight aria-hidden="true" className="hidden size-3.75 text-muted-foreground lg:block" />
+          <span className="inline-flex items-center gap-2">
+            <Marker filled className="shrink-0 text-primary" />
+            <span className="sr-only">{after}: </span>
+            {ours}
+          </span>
+        </li>
+      ))}
+    </ul>
   )
 }

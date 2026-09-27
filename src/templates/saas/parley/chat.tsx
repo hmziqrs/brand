@@ -134,7 +134,7 @@ export function SupportChat({ className }: { className?: string }) {
               type="button"
               disabled={asked.has(q) || writing}
               onClick={() => ask(q, script[q])}
-              className="inline-flex h-8 items-center rounded-full border px-3 text-[0.8125rem] text-muted-foreground transition-colors outline-none hover:border-primary/50 hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50"
+              className="inline-flex h-8 items-center rounded-full border px-3 text-[0.8125rem] font-medium text-muted-foreground transition-colors outline-none hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50"
             >
               {q}
             </button>

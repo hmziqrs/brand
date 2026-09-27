@@ -1,6 +1,7 @@
 import type { ComponentProps, ReactNode } from "react"
 import { Search } from "lucide-react"
 import { cn } from "cn"
+import { CopyButton } from "@/components/brand/code-block"
 import { Marker } from "@/components/brand/marker"
 import type { Tone } from "@/components/brand/tones"
 import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group"
@@ -34,6 +35,30 @@ export function Bullets({ items, className }: { items: ReactNode[]; className?: 
         </li>
       ))}
     </ul>
+  )
+}
+
+/** What's included: a filled orange ring before each item. Plans and "what you get" lists. */
+export function CheckList({ items, className }: { items: ReactNode[]; className?: string }) {
+  return (
+    <ul className={cn("flex flex-col gap-3", className)}>
+      {items.map((f, i) => (
+        <li key={i} className="grid grid-cols-[0.55rem_minmax(0,1fr)] items-baseline gap-3 text-sm text-muted-foreground">
+          <Marker filled className="text-primary" />
+          <span>{f}</span>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+/** A link to copy, in the command bar's outline: the address without https://, then Copy link. */
+export function LinkBar({ url, className }: { url: string; className?: string }) {
+  return (
+    <div data-slot="link-bar" className={cn("flex w-fit max-w-full min-w-0 items-center gap-4 rounded-xl border py-1.5 pr-1.5 pl-4.5", className)}>
+      <code className="min-w-0 flex-1 overflow-x-auto font-mono text-sm whitespace-nowrap">{url.replace("https://", "")}</code>
+      <CopyButton text={url} label="Copy link" />
+    </div>
   )
 }
 

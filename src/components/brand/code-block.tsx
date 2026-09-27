@@ -98,11 +98,13 @@ export function CodeBlock({ code = "", lang = "text", label, files, copy = true,
           <CopyButton text={current.code} />
         </div>
       )}
+      {/* Focusable, so code wider than the box can be scrolled from the keyboard. */}
       <pre
         id={`${id}-panel`}
         role={files ? "tabpanel" : undefined}
         aria-labelledby={files ? `${id}-tab-${index}` : undefined}
-        className={cn("overflow-x-auto px-4.5 py-4 font-mono text-[0.8125rem] leading-[1.7] text-(--code-foreground)", copy && !bar && "pr-12", className)}
+        tabIndex={0}
+        className={cn("overflow-x-auto px-4.5 py-4 font-mono outline-none focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:ring-inset text-[0.8125rem] leading-[1.7] text-(--code-foreground)", copy && !bar && "pr-12", className)}
       >
         <code>
           {lines.map((line, i) => (

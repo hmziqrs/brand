@@ -1,21 +1,17 @@
-import { useState, useSyncExternalStore, type ComponentType, type ReactNode } from "react"
+import { useSyncExternalStore, type ComponentType, type ReactNode } from "react"
 import { Lock } from "lucide-react"
 import type { SimpleIcon } from "simple-icons"
 import { cn } from "cn"
 import { BrandIcon } from "@/components/brand/brand-icon"
-import { CopyButton } from "@/components/brand/code-block"
-import { Marker } from "@/components/brand/marker"
 import { Question, Questions } from "@/components/brand/question"
-import { CornerRings } from "@/components/brand/rings"
-import { Segmented } from "@/components/brand/segmented"
-import { Tag } from "@/components/brand/tag"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
-import { ButtonLink, OutlineCard } from "@/sites/shared/site"
+import { OutlineCard } from "@/sites/shared/site"
 
 /*
  * Blocks every SaaS landing page needs and the hmziq sites don't: a product
- * window, a row of customers, quotes, plans and integrations. All of them are
- * lines with no fill, like the rest of the kit.
+ * window, a row of customers, quotes, integrations and a band in the other
+ * mode. Plans, lists and link bars come from the kit (sites/shared).
+ * All of them are lines with no fill, like the rest of the kit.
  */
 
 type AppWindowProps = {
@@ -41,16 +37,6 @@ export function AppWindow({ url, className, children }: AppWindowProps) {
         </span>
       </div>
       {children}
-    </div>
-  )
-}
-
-/** A link to copy, in the command bar's outline: the address without https://, then Copy link. */
-export function LinkBar({ url, className }: { url: string; className?: string }) {
-  return (
-    <div data-slot="link-bar" className={cn("flex w-fit max-w-full min-w-0 items-center gap-4 rounded-xl border py-1.5 pr-1.5 pl-4.5", className)}>
-      <code className="min-w-0 flex-1 overflow-x-auto font-mono text-sm whitespace-nowrap">{url.replace("https://", "")}</code>
-      <CopyButton text={url} label="Copy link" />
     </div>
   )
 }
@@ -106,91 +92,6 @@ export function QuoteCard({ quote, name, role, className }: Quote & { className?
       <blockquote className="text-[0.95rem] leading-[1.7]">{quote}</blockquote>
       <Person name={name} role={role} />
     </OutlineCard>
-  )
-}
-
-/** Features with a filled orange ring each: what a plan includes. */
-export function CheckList({ items, className }: { items: ReactNode[]; className?: string }) {
-  return (
-    <ul className={cn("flex flex-col gap-3", className)}>
-      {items.map((f, i) => (
-        <li key={i} className="grid grid-cols-[0.55rem_minmax(0,1fr)] items-baseline gap-3 text-sm text-muted-foreground">
-          <Marker filled className="text-primary" />
-          <span>{f}</span>
-        </li>
-      ))}
-    </ul>
-  )
-}
-
-export type Plan = {
-  name: string
-  /** Monthly price in dollars; 0 is free. A string ("Talk to us") is shown as it is. */
-  price: number | string
-  /** Price per month when paid yearly. */
-  yearly?: number
-  /** After the price: "a month", "per person a month". */
-  unit?: string
-  blurb: string
-  features: string[]
-  cta: string
-  /** The recommended plan: an orange line, a tag and its fingerprint. */
-  pick?: boolean
-}
-
-/**
- * Plans in outline cards, with an optional monthly/yearly switch. The
- * recommended plan gets the orange line, a tag and corner rings.
- */
-export function PricingPlans({ plans, billing: withBilling = true, yearlyLabel = "Yearly, 2 months free", price: showPrice, className }: { plans: Plan[]; billing?: boolean; yearlyLabel?: string; price?: (plan: Plan, yearly: boolean) => ReactNode; className?: string }) {
-  const [billing, setBilling] = useState<"monthly" | "yearly">("monthly")
-  const yearly = billing === "yearly"
-  return (
-    <div className={cn("flex flex-col items-start gap-6", className)}>
-      {withBilling && (
-        <Segmented
-          label="Billing"
-          value={billing}
-          onValueChange={setBilling}
-          options={[
-            { value: "monthly", label: "Monthly" },
-            { value: "yearly", label: yearlyLabel },
-          ]}
-        />
-      )}
-      <div className={cn("grid w-full gap-4 sm:grid-cols-2", plans.length > 2 && "lg:grid-cols-3", plans.length > 3 && "xl:grid-cols-4")}>
-        {plans.map((p) => (
-          <OutlineCard key={p.name} className={cn("gap-4", p.pick && "ring-primary/55")}>
-            {p.pick && <CornerRings seed={`plan ${p.name}`} quiet />}
-            <div className="relative flex items-center justify-between gap-2">
-              <h3 className="text-lg font-medium">{p.name}</h3>
-              {p.pick && (
-                <Tag tone="orange" marker>
-                  Most teams pick this
-                </Tag>
-              )}
-            </div>
-            <p className="relative">
-              {showPrice ? (
-                showPrice(p, yearly)
-              ) : typeof p.price === "string" ? (
-                <b className="text-[2.5rem] font-medium tracking-[-0.04em]">{p.price}</b>
-              ) : (
-                <>
-                  <b className="text-[2.5rem] font-medium tracking-[-0.04em]">${yearly && p.yearly !== undefined ? p.yearly : p.price}</b>{" "}
-                  <span className="text-[0.9rem] text-muted-foreground">{p.price === 0 ? "forever" : (p.unit ?? "a month")}</span>
-                </>
-              )}
-            </p>
-            <p className="relative text-[0.9rem] text-muted-foreground">{p.blurb}</p>
-            <CheckList items={p.features} className="relative mb-2" />
-            <ButtonLink href="#" size="lg" variant={p.pick ? "default" : "outline"} className="relative mt-auto">
-              {p.cta}
-            </ButtonLink>
-          </OutlineCard>
-        ))}
-      </div>
-    </div>
   )
 }
 

@@ -1,9 +1,11 @@
-import { BellRing, CalendarCheck, CalendarClock, Code2, CreditCard, Globe, Hourglass, Mail, MessageSquare, Repeat, Timer, Users } from "lucide-react"
+import { BellRing, CalendarCheck, CalendarClock, Code2, Hourglass, Mail, MessageSquare, Repeat, Timer, Users } from "lucide-react"
 import { siApple, siGmail, siGooglecalendar, siGooglemeet, siNotion, siStripe, siZapier, siZoom } from "simple-icons"
 import { BrandIcon } from "@/components/brand/brand-icon"
+import { IconTile } from "@/components/brand/icon-tile"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { ButtonLink, Container, CtaBand, FeatureGrid, HeroNote, OutlineCard, RingStats, Section } from "@/sites/shared/site"
-import { CheckList, Faq, InverseBand, LinkBar, PricingPlans, QuoteCard, type Plan, type Quote } from "./blocks"
+import { CheckList, LinkBar } from "@/sites/shared/content"
+import { ButtonLink, Container, CtaBand, FeatureCards, FeatureGrid, HeroActions, HeroLede, HeroNote, HeroNotes, HeroTitle, OutlineCard, PricingPlans, RingStats, Section, type Plan } from "@/sites/shared/site"
+import { Faq, InverseBand, QuoteCard, type Quote } from "./blocks"
 import { Booking } from "./openslot/booking"
 import { TimeZones } from "./openslot/timezones"
 import { SaasShell } from "./shell"
@@ -83,7 +85,7 @@ const quotes: Quote[] = [
 
 const plans: Plan[] = [
   { name: "Free", price: 0, blurb: "For one person with one kind of meeting.", features: ["One booking page", "One calendar checked", "Email reminders"], cta: "Get your link" },
-  { name: "Pro", price: 12, yearly: 10, unit: "a month", blurb: "For people whose calendar is their job.", features: ["Unlimited booking pages", "Every calendar checked", "Text reminders and payments", "Your logo, no Openslot branding"], cta: "Try Pro free for 14 days", pick: true },
+  { name: "Pro", price: 12, yearly: 120, blurb: "For people whose calendar is their job.", features: ["Unlimited booking pages", "Every calendar checked", "Text reminders and payments", "Your logo, no Openslot branding"], cta: "Try Pro free for 14 days", pick: true },
 ]
 
 const faq = [
@@ -103,7 +105,7 @@ export function OpenslotPage() {
       tagline="Scheduling links that check every calendar you have, in every time zone."
       nav={["Features", "Use cases", "Pricing", "For teams"]}
       cta="Get your link"
-      signature={22}
+      signature={23.8}
       footer={[
         { title: "Product", links: ["Booking pages", "Time zones", "Reminders", "Payments", "Pricing"] },
         { title: "Use cases", links: ["Sales", "Recruiting", "Teaching", "Clinics"] },
@@ -113,24 +115,24 @@ export function OpenslotPage() {
     >
       <div className="flex flex-col gap-14 md:gap-20">
         <Container className="flex flex-col gap-10">
-          <h1 className="max-w-[60rem] text-[2.6rem] leading-[1] font-medium tracking-[-0.045em] text-balance sm:text-6xl lg:text-[5.4rem]">Let people book time with you. Skip the back-and-forth.</h1>
+          <HeroTitle className="max-w-[46rem]">Let people book time with you. Skip the back-and-forth.</HeroTitle>
           <div className="flex flex-col gap-8 border-t pt-8 md:flex-row md:items-end md:justify-between">
-            <p className="max-w-[34rem] text-lg leading-relaxed text-muted-foreground">
+            <HeroLede className="max-w-[34rem]">
               Share one link. People see when you're free, pick a time that suits them and get the invite. Openslot checks all your calendars, so you're never booked twice.
-            </p>
+            </HeroLede>
             <div className="flex shrink-0 flex-col gap-4 md:items-end">
-              <div className="flex flex-wrap gap-3">
+              <HeroActions className="pt-0">
                 <ButtonLink href="#" size="lg" className="px-5">
                   Get your free link
                 </ButtonLink>
                 <ButtonLink href="#" size="lg" variant="outline" className="px-5">
                   See it in action
                 </ButtonLink>
-              </div>
-              <div className="flex flex-wrap items-center gap-x-5 gap-y-1.5 text-sm text-muted-foreground">
+              </HeroActions>
+              <HeroNotes>
                 <HeroNote>Free forever for one person</HeroNote>
                 <HeroNote>Works with Google and iCloud</HeroNote>
-              </div>
+              </HeroNotes>
             </div>
           </div>
         </Container>
@@ -149,15 +151,7 @@ export function OpenslotPage() {
       <Section title="One link, wherever people find you" intro="Your link never changes. Put it everywhere once, and it keeps showing your real free times.">
         <div className="flex flex-col gap-8">
           <LinkBar url="https://openslot.com/lena/intro" />
-          <div className="grid gap-4 md:grid-cols-3">
-            {share.map((s) => (
-              <OutlineCard key={s.title} className="gap-2">
-                <span className="text-primary [&_svg]:size-5">{s.icon}</span>
-                <h3 className="mt-2 font-medium">{s.title}</h3>
-                <p className="leading-relaxed text-muted-foreground">{s.body}</p>
-              </OutlineCard>
-            ))}
-          </div>
+          <FeatureCards items={share} />
         </div>
       </Section>
 
@@ -173,7 +167,7 @@ export function OpenslotPage() {
         <Tabs defaultValue="sales" className="gap-8">
           <TabsList variant="line" className="w-full justify-start overflow-x-auto border-b pb-1">
             {uses.map((u) => (
-              <TabsTrigger key={u.value} value={u.value} className="flex-none px-3">
+              <TabsTrigger key={u.value} value={u.value} className="flex-none px-3 after:bg-primary">
                 {u.label}
               </TabsTrigger>
             ))}
@@ -217,9 +211,9 @@ export function OpenslotPage() {
               <ul className="flex flex-col gap-3">
                 {c.items.map((it) => (
                   <li key={it.name} className="flex items-center gap-3 font-medium">
-                    <span className="grid size-9 place-items-center rounded-md border">
+                    <IconTile className="text-foreground">
                       <BrandIcon icon={it.icon} className="size-4" />
-                    </span>
+                    </IconTile>
                     {it.name}
                   </li>
                 ))}
@@ -237,7 +231,7 @@ export function OpenslotPage() {
         ]}
       />
 
-      <Section title="People who stopped emailing about times">
+      <Section title="People who stopped emailing about times" intro="Sales teams, clinics, recruiters and teachers, a month after they switched.">
         <div className="columns-1 gap-4 sm:columns-2 lg:columns-3 [&>*]:mb-4 [&>*]:break-inside-avoid">
           {quotes.map((q) => (
             <QuoteCard key={q.name} {...q} />
@@ -249,22 +243,23 @@ export function OpenslotPage() {
         <div className="flex flex-col gap-4">
           <PricingPlans plans={plans} />
           <OutlineCard className="flex-row flex-wrap items-center justify-between gap-4">
-            <span className="flex items-center gap-3">
-              <Globe className="size-5 text-primary" />
-              <span className="flex flex-col">
-                <span className="font-medium">Teams</span>
-                <span className="text-muted-foreground">Round robin, shared links and one bill, from $10 per person.</span>
+            <span className="flex items-center gap-4">
+              <IconTile>
+                <Users />
+              </IconTile>
+              <span className="flex flex-col gap-0.5">
+                <span className="text-lg font-medium tracking-[-0.01em]">Teams</span>
+                <span className="text-[0.9rem] text-muted-foreground">Round robin, shared links and one bill, from $10 per person.</span>
               </span>
             </span>
             <ButtonLink href="#" variant="outline" size="lg" className="px-5">
-              <CreditCard data-icon="inline-start" />
               See team pricing
             </ButtonLink>
           </OutlineCard>
         </div>
       </Section>
 
-      <Section title="Questions people ask">
+      <Section title="Questions people ask" intro="Straight answers about calendars, guests and payments.">
         <Faq items={faq} />
       </Section>
 
