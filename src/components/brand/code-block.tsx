@@ -4,8 +4,10 @@ import { createCssVariablesTheme, createHighlighterCoreSync } from "shiki/core"
 import { createJavaScriptRegexEngine } from "shiki/engine/javascript"
 import bash from "shiki/langs/bash.mjs"
 import json from "shiki/langs/json.mjs"
+import python from "shiki/langs/python.mjs"
 import rust from "shiki/langs/rust.mjs"
 import toml from "shiki/langs/toml.mjs"
+import typescript from "shiki/langs/typescript.mjs"
 import { cn } from "cn"
 import { Button } from "@/components/ui/button"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
@@ -18,11 +20,11 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip
 const theme = createCssVariablesTheme({ name: "hmziq", variablePrefix: "--code-" })
 const highlighter = createHighlighterCoreSync({
   themes: [theme],
-  langs: [bash, json, rust, toml],
+  langs: [bash, json, python, rust, toml, typescript],
   engine: createJavaScriptRegexEngine(),
 })
 
-export type CodeLanguage = "bash" | "json" | "rust" | "toml" | "text"
+export type CodeLanguage = "bash" | "json" | "python" | "rust" | "toml" | "typescript" | "text"
 
 type Token = { content: string; color?: string }
 

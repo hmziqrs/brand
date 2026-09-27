@@ -6,7 +6,7 @@
 import { readdirSync, readFileSync, statSync } from "node:fs"
 import { join } from "node:path"
 
-const roots = ["src/components/brand", "src/sites", "src/brand"]
+const roots = ["src/components/brand", "src/sites", "src/templates", "src/brand"]
 const property = "(?:bg|text|border(?:-[xytrbls])?|ring|ring-offset|outline|fill|stroke|from|via|to|decoration|divide|shadow|accent|caret|placeholder)"
 const tailwindHues = "slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose"
 const rules = [

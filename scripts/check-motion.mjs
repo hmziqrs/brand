@@ -4,7 +4,7 @@
 import { readdirSync, readFileSync, statSync } from "node:fs"
 import { join } from "node:path"
 
-const roots = ["src/components", "src/brand"]
+const roots = ["src/components", "src/brand", "src/sites", "src/templates"]
 const interaction = /(^|-)(hover|active|focus|focus-visible|focus-within|pressed)$/
 const movement = /^-?(translate|scale|rotate)-/
 

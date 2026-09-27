@@ -10,6 +10,7 @@ The shared look for every hmziq site: one theme, one set of fonts, one set of wr
 - **Custom components**: the brand's own pieces (Wordmark, Mark, Marker, Rings, Tag, IconTile, Notice, CodeBlock with Shiki highlighting, BrandIcon for company logos) in `src/components/brand/`, under `Custom` in Storybook.
 - **Explorations**: [`explorations/brand-directions.html`](./explorations/brand-directions.html), the playground where the signature and every page pattern were picked. Open it in a browser.
 - **Brand kit**: [`BRAND.md`](./BRAND.md), the whole brand in one file for AI agents doing migrations and redesigns. Also served at `/BRAND.md` on the published Storybook.
+- **Templates**: five landing pages for SaaS products that aren't hmziq sites (analytics, a developer API, team planning, AI support, scheduling), each laid out differently and each with a demo you can click. Everything on them is example content. Storybook: `Templates → SaaS landing pages`. Source in `src/templates/saas/`.
 - **Sites**: a landing page for every hmziq site (hmziq.rs, blog, labs, freeoxide, gpui-starter, gpui-query, claude-multi, oxlabs), and the other pages picked in the explorations (about, providers, FAQ, changelog, blog index, privacy, terms, 404, docs, a blog post, contact, and a components catalog), built only from the theme and shadcn components. Source in `src/sites/`.
 
 ## Run it
@@ -33,7 +34,7 @@ Other scripts:
 | `pnpm check:brand-kit` | Fails if the generated parts of `BRAND.md` (theme copy, colors, contrast) are out of date (`pnpm brand-kit:sync` fixes it) |
 | `pnpm check` | All of the above plus lint and typecheck |
 | `pnpm lint` | oxlint |
-| `pnpm dev` | Each site full-window at http://localhost:5173, picked by hash: `#freeoxide`, `#gpui-starter`, `#gpui-query`, `#claude-multi`, `#oxlabs`, `#blog`, `#labs` (default: hmziq) |
+| `pnpm dev` | Each site full-window at http://localhost:5173, picked by hash: `#freeoxide`, `#gpui-starter`, `#gpui-query`, `#claude-multi`, `#oxlabs`, `#blog`, `#labs` (default: hmziq). The SaaS templates: `#saas-sightline`, `#saas-hookline`, `#saas-groundwork`, `#saas-parley`, `#saas-openslot` |
 
 ## Use the theme in a site
 
