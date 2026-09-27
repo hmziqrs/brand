@@ -6,13 +6,14 @@ import { BrandIcon } from "@/components/brand/brand-icon"
 import { CodeBlock } from "@/components/brand/code-block"
 import { CommandBar } from "@/components/brand/command"
 import { DataTable } from "@/components/brand/data-table"
+import { IconTile } from "@/components/brand/icon-tile"
 import { Marker } from "@/components/brand/marker"
 import { Rings } from "@/components/brand/rings"
 import { Segmented } from "@/components/brand/segmented"
 import { Tag } from "@/components/brand/tag"
 import { TerminalBody, TerminalLine, TerminalWindow, type TerminalLineData } from "@/components/brand/terminal"
 import { Slider } from "@/components/ui/slider"
-import { ButtonLink, CtaBand, FeatureGrid, Hero, HeroNote, OutlineCard, RingStats, Section } from "@/sites/shared/site"
+import { BeforeAfter, ButtonLink, CtaBand, FeatureGrid, Hero, HeroNote, OutlineCard, RingStats, Section } from "@/sites/shared/site"
 import { Faq } from "./blocks"
 import { DeliveryLog } from "./hookline/delivery"
 import { SaasShell } from "./shell"
@@ -208,7 +209,7 @@ export function HooklinePage() {
       nav={["Docs", "Pricing", "Changelog", "Status"]}
       cta="Get an API key"
       status="Every region delivering"
-      signature={21}
+      signature={24.5}
       footer={[
         { title: "Product", links: ["Delivery", "Portal", "Command line", "Pricing"] },
         { title: "Developers", links: ["Docs", "API reference", "SDKs", "Status"] },
@@ -279,24 +280,8 @@ export function HooklinePage() {
         <FeatureGrid items={features} />
       </Section>
 
-      <Section title="Building it yourself, or not" intro="What each problem looks like with a homemade queue, and with Hookline.">
-        <ul className="border-t">
-          {comparison.map(([what, raw, ours]) => (
-            <li key={what} className="grid items-baseline gap-x-4 gap-y-1 border-b py-4 text-[0.9rem] lg:grid-cols-[15rem_minmax(0,1fr)_1.25rem_minmax(0,1fr)]">
-              <span className="text-[0.8125rem] text-muted-foreground">{what}</span>
-              <s className="text-muted-foreground decoration-muted-foreground/70">
-                <span className="sr-only">Building it yourself: </span>
-                {raw}
-              </s>
-              <ArrowRight aria-hidden="true" className="hidden size-3.75 text-muted-foreground lg:block" />
-              <span className="inline-flex items-center gap-2">
-                <Marker filled className="shrink-0 text-primary" />
-                <span className="sr-only">With Hookline: </span>
-                {ours}
-              </span>
-            </li>
-          ))}
-        </ul>
+      <Section title="What you'd otherwise build yourself" intro="What each problem looks like with a homemade queue, and with Hookline.">
+        <BeforeAfter rows={comparison} before="Building it yourself" after="With Hookline" />
       </Section>
 
       <Section title="Pay for what you send" intro="One price per event, whatever the language or the number of endpoints. Slide to your volume.">
@@ -306,16 +291,20 @@ export function HooklinePage() {
       <Section title="Start with a guide" intro="Short guides for the first hour, and the full reference for everything after.">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {guides.map((g) => (
-            <OutlineCard key={g.title} href="#" className="gap-3">
-              <span className="text-primary [&_svg]:size-5">{g.icon}</span>
-              <h3 className="mt-2 font-medium">{g.title}</h3>
-              <p className="leading-relaxed text-muted-foreground">{g.body}</p>
+            <OutlineCard key={g.title} href="#">
+              <IconTile>{g.icon}</IconTile>
+              <h3 className="text-lg font-medium tracking-[-0.01em]">{g.title}</h3>
+              <p className="text-[0.9rem] leading-relaxed text-muted-foreground">{g.body}</p>
+              <span className="mt-auto inline-flex items-center gap-1.5 pt-2 text-[0.8125rem] font-medium text-primary">
+                Read the guide
+                <ArrowRight className="size-3.75" />
+              </span>
             </OutlineCard>
           ))}
         </div>
       </Section>
 
-      <Section title="Questions people ask">
+      <Section title="Questions people ask" intro="Straight answers about events, retries and where your data lives.">
         <Faq items={faq} />
       </Section>
 

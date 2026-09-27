@@ -1,8 +1,7 @@
 import { useId, useState } from "react"
-import { ArrowRight } from "lucide-react"
 import { CodeLines, CopyButton } from "@/components/brand/code-block"
-import { Marker } from "@/components/brand/marker"
 import { Question, Questions } from "@/components/brand/question"
+import { BeforeAfter } from "../shared/site"
 import { byHand, comparison, faq, withQuery } from "./data"
 
 const files = [
@@ -50,25 +49,7 @@ export function CodeEditor() {
 
 /** Before and after: the by-hand way struck through, then what gpui-query does instead. */
 export function Comparison() {
-  return (
-    <ul className="border-t">
-      {comparison.map(([what, raw, lib]) => (
-        <li key={what} className="grid items-baseline gap-x-4 gap-y-1 border-b py-4 text-[0.9rem] lg:grid-cols-[16rem_minmax(0,1fr)_1.25rem_minmax(0,1fr)]">
-          <span className="text-[0.8125rem] text-muted-foreground">{what}</span>
-          <s className="text-muted-foreground decoration-muted-foreground/70">
-            <span className="sr-only">By hand: </span>
-            {raw}
-          </s>
-          <ArrowRight aria-hidden="true" className="hidden size-3.75 text-muted-foreground lg:block" />
-          <span className="inline-flex items-center gap-2">
-            <Marker filled className="text-primary" />
-            <span className="sr-only">With gpui-query: </span>
-            {lib}
-          </span>
-        </li>
-      ))}
-    </ul>
-  )
+  return <BeforeAfter rows={comparison} before="By hand" after="With gpui-query" />
 }
 
 /** gpui-query's questions, the first one open. */

@@ -1,6 +1,7 @@
-import type { ComponentProps } from "react"
+import type { ComponentProps, CSSProperties } from "react"
 import { cn } from "cn"
-import { arcs, hash, rng, type Arc } from "@/lib/rings"
+import { arcs, hash, ringMoves, ringPresets, rng, type Arc, type Move, type RingMotion, type RingMove, type RingPreset } from "@/lib/rings"
+import "./rings.css"
 
 /*
  * The ring art: layers of oxide. Every picture is drawn from a name, so each
@@ -10,11 +11,18 @@ import { arcs, hash, rng, type Arc } from "@/lib/rings"
 
 type SvgProps = Omit<ComponentProps<"svg">, "children">
 
-function Circles({ list, cx, cy, color, width, dot }: { list: Arc[]; cx: number; cy: number; color: string; width: [line: number, accent: number]; dot: number }) {
-  return list.map((a) => (
-    <g key={a.r}>
-      <circle cx={cx} cy={cy} r={a.r} fill="none" stroke={a.accent ? color : "var(--line)"} strokeWidth={a.accent ? width[1] : width[0]} strokeLinecap="round" strokeDasharray={a.dash} transform={`rotate(${a.rotate} ${cx} ${cy})`} />
-      {a.end && <circle cx={a.end[0]} cy={a.end[1]} r={dot} fill={color} />}
+/** The attributes rings.css reads: which way it moves, and its timing. */
+const moving = (m?: Move) => m && { "data-move": m.kind, style: m.vars as CSSProperties }
+
+function Circles({ list, cx, cy, color, width, dot, moves = [] }: { list: Arc[]; cx: number; cy: number; color: string; width: [line: number, accent: number]; dot: number; moves?: RingMove[] }) {
+  return list.map((a, i) => (
+    <g key={a.r} {...moving(moves[i]?.ring)}>
+      <circle cx={cx} cy={cy} r={a.r} fill="none" stroke={a.accent ? color : "var(--line)"} strokeWidth={a.accent ? width[1] : width[0]} strokeLinecap="round" strokeDasharray={a.dash} transform={`rotate(${a.rotate} ${cx} ${cy})`} {...moving(moves[i]?.circle)} />
+      {a.end && (
+        <g {...moving(moves[i]?.dot)}>
+          <circle cx={a.end[0]} cy={a.end[1]} r={dot} fill={color} />
+        </g>
+      )}
     </g>
   ))
 }
@@ -24,16 +32,29 @@ type RingsProps = SvgProps & {
   seed: string
   /** What the picture shows, for screen readers. */
   label?: string
+  /**
+   * A little movement: a preset ("ripple-turn", "turn", …) or your own mix of
+   * the orange ring and the gray rings. Still by default, and always still
+   * for visitors who ask for reduced motion.
+   */
+  motion?: RingPreset | RingMotion
+  /** Stops the movement where it is. */
+  paused?: boolean
+  /** 1 as designed; 2 takes twice as long, 0.5 half as long. */
+  speed?: number
 }
 
 /** The hero picture: eleven rings coming in from the right edge, one in orange with a dot where it ends. */
-function Rings({ seed, label = "Rings like layers of oxide, one of them orange", className, ...props }: RingsProps) {
+function Rings({ seed, label = "Rings like layers of oxide, one of them orange", motion = "still", paused, speed = 1, className, style, ...props }: RingsProps) {
   const random = rng(hash(seed) + 7)
   const accent = 3 + Math.floor(random() * 3)
   const list = arcs(random, { cx: 440, cy: 225, radii: Array.from({ length: 11 }, (_, i) => 34 + i * 34), accent, accentGap: 0.52, gap: [0.06, 0.3] })
+  const center = { "--cx": "440px", "--cy": "225px", "--ring-speed": speed } as CSSProperties
+  const { moves, css } = ringMoves(typeof motion === "string" ? ringPresets[motion] : motion, list, seed)
   return (
-    <svg data-slot="rings" viewBox="0 0 520 440" role="img" aria-label={label} className={cn("h-auto w-full", className)} {...props}>
-      <Circles list={list} cx={440} cy={225} color="var(--primary)" width={[1.25, 3]} dot={7} />
+    <svg data-slot="rings" data-paused={paused || undefined} viewBox="0 0 520 440" role="img" aria-label={label} className={cn("h-auto w-full", className)} style={{ ...center, ...style }} {...props}>
+      {css && <style>{css}</style>}
+      <Circles list={list} cx={440} cy={225} color="var(--primary)" width={[1.25, 3]} dot={7} moves={moves} />
     </svg>
   )
 }

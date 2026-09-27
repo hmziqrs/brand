@@ -697,6 +697,8 @@ Thin circles, each with one gap, like layers of oxide. Faint rings use `--line` 
 | Band arcs | Right side of the orange band, from `md` up | viewBox 400, 8 rings around (400, 200), radius `60 + 44·i`, turned `150 + 23·i°`. Ring 3 in `--primary` (dark on the band), width 3, a 60% gap; the rest `--line`, width 1.25, a 20% gap. `absolute top-1/2 -right-[10%] h-[170%] -translate-y-1/2`. |
 | Ring gauge | Key numbers | 72×72, radius 30, stroke 5, starting at the top. A share (0–1): a `--border` track and a `--primary` arc of that share with a round cap. A count (n > 1): n `--primary` segments with 5-unit gaps. The number beside it in `text-[1.75rem] font-medium tracking-[-0.03em]`, the label under it in `text-sm text-muted-foreground`. |
 
+**Movement.** The hero rings can move a little, in two layers that combine: the **orange ring** (still, turns, breathes, or its dot goes round) and the **gray rings** (still, ripple, one at a time, or one turns). The gray rings have no dot, so light shows on them better than movement: a ripple lights them one after another without moving anything. Use a preset (`<Rings seed="…" motion="ripple-turn" />`) or your own settings (`motion={{ orange: { kind: "turn", seconds: 120 }, gray: { kind: "ripple", every: 10 } }}`), usually exported from the tweaker as JSON (`{ "rings": { "motion": … } }`). The movement is plain CSS (`src/components/brand/rings.css`, copy it with the component) plus keyframes that `ringMoves` in `src/lib/rings.ts` makes from the settings. Only one or two rings ever move; the rest of the picture stays exactly as drawn. `paused` stops it; visitors who ask for reduced motion always get the still picture. Tune it in Storybook under **Custom → Ring motion → Tweaker**: it exports the settings as JSON (copy or download) and loads pasted settings back; **Side by side** shows the presets together. Until settings are picked, the default is still.
+
 Rings are always `--line` plus one accent. Nothing else is drawn with rings: not the logo, not cover images, not backgrounds behind text.
 
 ### Bands
@@ -721,6 +723,57 @@ Projects are drawn like elements of the periodic table. The hmziq sites are numb
 
 Cards and icon tiles have **no grey fill**: a thin line only.
 
+### 3D scenes (optional)
+
+Most pages don't need one. When a page wants something moving, it can have **one** 3D scene, drawn with three.js in the rings' language: thin lines in the text color, one thing in orange, and the same picture every time for the same name. The scenes come from freeoxide's lattice and oxlabs' scenes, redrawn in the kit's colors. Source: `src/lib/scenes/` (plain TypeScript and three.js, no framework) and the React wrapper `src/components/brand/scene.tsx`. Storybook: **Custom → Scenes (3D)**.
+
+| Scene | Where | What it shows |
+| --- | --- | --- |
+| `lattice` | Beside the hero words (freeoxide) | Iron oxide's crystal (hematite) as a small ball, turning: iron atoms in orange, oxygen in grey, faint bonds and the six-sided cell. Every part is a setting (how many atoms, the room between them, each atom's size, the bond and cell lines, the fade, the turn): tune it on **Custom → Lattice → Tweaker**, export the settings as JSON and pass them as `settings`. Without settings it's the version from the freeoxide landing page. |
+| `network` | Beside the hero words (oxlabs) | Points joined to their nearest neighbours, a few in orange, with short orange pulses running along the links. |
+| `layers` | Beside a "how it works" section | A stack of outline cards filled with the page color, one outlined in orange, breathing one after another. |
+| `helix` | A thin band between sections | A twisting ribbon: one orange edge, one grey, faint rungs. |
+| `tiles` | A thin band | Square outlines on a slow wave, one of them the wordmark's solid orange square. |
+| `thread` | A thin band, or a contact page | Three faint threads drifting, with a short orange piece and a dot moving back and forth along the middle one. |
+
+- **One per page**, beside the words or in its own band. Never behind text.
+- **The box sets the size.** Hero scenes: `aspect-[520/440] w-full` in the hero's aside. Bands: `h-40` to `h-44 w-full border-y`, edge to edge. Band scenes run past both edges at any width.
+- **Colors come from the theme**, read from wherever the scene sits, so it follows dark and light, bands and `.light`/`.dark` islands: `--foreground`, `--muted-foreground`, `--primary`, and the first solid background above it. Faint lines are the text color mixed 22% into that background, like `--line`. Never pass colors in.
+- **Seed with the site or project name**, as with the rings.
+- **Slow and on its own.** A full turn takes more than a minute. Scenes never follow the pointer and never react to hover (section 10). No glow, bloom or particles.
+- **Stops when it should:** off screen, in a hidden tab, and when the visitor presses pause. Visitors who ask for reduced motion get one still picture and no button.
+- **A pause button** in the bottom-right corner: a ghost icon button with Pause/Play icons, labelled "Pause the animation" / "Play the animation". The canvas itself is `aria-hidden`.
+- **Loads only when used.** Import the scenes with `import()` so pages without one never download three.js. With no WebGL, a slow device or a visitor saving data, show the fallback: the flat `Rings` in a hero, nothing in a band.
+- Line widths match the flat art: 1 to 1.25px for faint lines, 2 to 3px for orange (fat lines, `Line2`/`LineSegments2`, because WebGL's own lines are always one pixel).
+
+The rings themselves stay flat: for a little movement in the hero rings, use `Rings` with `motion` (see Rings above), not a 3D scene.
+
+React:
+
+```tsx
+import settings from "./lattice.json" // exported from Custom → Lattice → Tweaker
+
+<Scene kind="lattice" seed="freeoxide" settings={settings.lattice} fallback={<Rings seed="freeoxide" />} className="aspect-[520/440] w-full" />
+```
+
+Svelte (Astro and plain HTML work the same way). Show the pause button only when `scene.moving`, and call `scene.pause()` / `scene.play()` from it:
+
+```svelte
+<script>
+  import { onMount } from "svelte"
+  import { canRunScenes } from "$lib/scenes/support"
+  let host
+  onMount(() => {
+    if (!canRunScenes()) return
+    let scene
+    import("$lib/scenes").then(({ mountScene }) => (scene = mountScene(host, "lattice", { seed: "freeoxide" })))
+    return () => scene?.dispose()
+  })
+</script>
+
+<div bind:this={host} aria-hidden="true" class="relative aspect-[520/440] w-full"></div>
+```
+
 ### Page patterns
 
 What each kind of page uses. Each one is in the explorations file, working, and built in the Storybook: **Sites → Landing pages** for every site's front page, **Sites → Pages** for the rest (claude-multi's about, providers, FAQ, changelog, blog, privacy, terms and 404; gpui-query's docs; a blog post; oxlabs' contact page; and hmziq.rs/components, a catalog of the interactive pieces). Copy from `src/sites/`.
@@ -744,7 +797,7 @@ What each kind of page uses. Each one is in the explorations file, working, and 
 | Contact | Words on the left, channels on the right · who replies in an outline card. |
 | Docs | A thin line down the side menu that the current page lights orange · "On this page" in a right column with markers · quiet notes (a thin line in the note color and a colored icon) · outline code blocks · the page's own rings faintly beside the title · previous and next as two outline cards. |
 | 404 | The rings beside the words. |
-| SaaS landing (templates) | The same header, rhythm, orange close and signature footer, signed with the product's own name instead of the "More from hmziq" row · a product demo you can click in the hero or right under it, at a fixed height · customers as plain grey wordmarks · quotes in outline cards with a hollow ring for the person · plans in outline cards (the recommended one with its fingerprint) or as an accent table · at most one orange band: a terminal or a second band goes on grey. Five of them in the Storybook under **Templates → SaaS landing pages**, all with example content. |
+| SaaS landing (templates) | The sites' own `SiteShell`: the same header, rhythm, orange close and signature footer, signed with the product's name, with the product's mark and one line in place of the "More from hmziq" row · the kit's hero parts, so headlines stay at the landing size · a product demo you can click in the hero or right under it, at a fixed height · customers as plain grey wordmarks · quotes in outline cards with a hollow ring for the person · plans in outline cards (the recommended one with its fingerprint) or as an accent table · at most one orange band: a terminal or a second band goes on grey. Five of them in the Storybook under **Templates → SaaS landing pages**, all with example content. |
 
 The five SaaS templates, so a new product can start from the closest one (`src/templates/saas/`):
 
@@ -754,7 +807,7 @@ The five SaaS templates, so a new product can start from the closest one (`src/t
 | Hookline | Developer API | The kit's own landing layout: hero rings, ring gauges, install switch, SDK tabs · a delivery log you can play · terminal on grey · before and after · a usage slider with the price, and the plans as an accent table |
 | Groundwork | Team planning | Split hero with a board you can use · four views picked from a list · templates as element cards · integrations in a grid of hairlines · per-person pricing with a team-size counter · security on grey |
 | Parley | AI support | Hero on a grey band with a chat you can try · set-up steps beside an answer check · before and after as two outline columns · the same answer per channel · guardrails as notices · a customer story with its numbers · plans as an accent table · numbered FAQ |
-| Openslot | Scheduling | Editorial hero: a very large headline, then the words and buttons on one line · the booking page on a band in the other mode (white on dark pages, dark on light ones) · time zones · use cases in tabs · integrations grouped by kind · a wall of short quotes · two plans |
+| Openslot | Scheduling | Editorial hero: the headline across the page, then a line, then the words and buttons side by side · the booking page on a band in the other mode (white on dark pages, dark on light ones) · time zones · use cases in tabs · integrations grouped by kind · a wall of short quotes · two plans |
 
 ---
 
@@ -821,9 +874,9 @@ The freeoxide page in the Storybook (`Sites/Landing pages`) is the reference.
 | Folder | What | Rule |
 | --- | --- | --- |
 | `components/ui` | shadcn components | Keep as shadcn ships them. The only edit: remove hover/press movement. |
-| `components/brand` | small brand pieces (Wordmark, Mark, Marker, Rings, Tag, IconTile, Notice, CodeBlock, CodeLines, CopyButton, CommandBar, TerminalWindow, Stepper, Segmented, Question, Toc, DataTable, BrandIcon) | Tokens only. Copy them from the brand repo's `src/components/brand`, with `src/lib/rings.ts`, `src/lib/highlight-shell.tsx` and `src/lib/scroll-spy.ts`. |
-| `sites/shared` or `components/site` | page blocks (SiteShell, Hero, HeroNote, PageIntro, RingStats, Section, OutlineCard, ElementCard, FeatureCards, FeatureGrid, Steps, CtaBand) and content pieces (Prose, Bullets, SummaryBox, BigNumbers, SearchBox, TopicChips, EmptyNote) | Same on every site. |
-| `templates/saas` | SaaS page blocks (SaasShell, CenteredHero, AppWindow, LinkBar, LogoCloud, Person, QuoteCard, CheckList, PricingPlans, IntegrationGrid, Faq, InverseBand) | For products outside the hmziq family. Same rules. |
+| `components/brand` | small brand pieces (Wordmark, Mark, Marker, Rings, Scene, Tag, IconTile, Notice, CodeBlock, CodeLines, CopyButton, CommandBar, TerminalWindow, Stepper, Segmented, Question, Toc, DataTable, BrandIcon) | Tokens only. Copy them from the brand repo's `src/components/brand`, with `src/lib/rings.ts`, `src/lib/highlight-shell.tsx` and `src/lib/scroll-spy.ts` (and `src/lib/scenes/` plus the `three` package if a site uses a 3D scene). |
+| `sites/shared` or `components/site` | page blocks (SiteShell, Hero and its parts HeroTitle, HeroLede, HeroActions, HeroNotes, HeroNote, PageIntro, RingStats, Section, OutlineCard, ElementCard, FeatureCards, FeatureGrid, Steps, PricingPlans, Price, BeforeAfter, CtaBand) and content pieces (Prose, Bullets, CheckList, LinkBar, SummaryBox, BigNumbers, SearchBox, TopicChips, EmptyNote) | Same on every site. |
+| `templates/saas` | SaaS-only blocks (SaasShell, a thin wrapper around SiteShell; CenteredHero, built from the hero parts; AppWindow, LogoCloud, Person, QuoteCard, IntegrationGrid, Faq, InverseBand) | For products outside the hmziq family. Anything the sites also need lives in `sites/shared`. |
 | pages | one per route | Put blocks together; no new styles. |
 
 ### The rules
@@ -878,6 +931,7 @@ React conventions (follow shadcn's shape): a function component that spreads oth
 - Switch thumbs slide; that is the control working, not drift.
 - shadcn's Button ships with `active:not-aria-[haspopup]:translate-y-px`. Remove it.
 - Respect `prefers-reduced-motion`.
+- The optional 3D scenes (section 7) drift slowly on their own. They never follow the pointer, stop when off screen, show one still picture for reduced motion, and have a pause button.
 
 Check (from the brand repo): `pnpm check:motion`, or search the code for `(hover|active|focus|pressed)[^ ]*:-?(translate|scale|rotate)-`.
 
@@ -939,6 +993,7 @@ These made the old sites look like every other developer site:
 - Spaced-out uppercase mono labels (`// CAPABILITIES`, `SENIOR SOFTWARE ENGINEER`).
 - Wide, condensed, stencil, heavy (700+) or novelty display fonts. Handwriting fonts.
 - Background textures, noise, starfields, glows, gradients, tinted greys.
+- A 3D scene behind text, more than one on a page, or one that follows the pointer.
 - Per-site color schemes, theme switchers with many palettes, or more than one brand color.
 - Hover lift, press nudge, scale on hover.
 - Version numbers, star counts or tech-stack lists as the first thing a visitor reads.

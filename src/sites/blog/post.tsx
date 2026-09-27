@@ -1,10 +1,9 @@
 import { BrandIcon } from "@/components/brand/brand-icon"
-import { CopyButton } from "@/components/brand/code-block"
 import { Tag } from "@/components/brand/tag"
 import { Toc } from "@/components/brand/toc"
 import { Mark } from "@/components/brand/wordmark"
 import { slug, useScrollSpy } from "@/lib/scroll-spy"
-import { Prose, SummaryBox } from "../shared/content"
+import { LinkBar, Prose, SummaryBox } from "../shared/content"
 import { Container, OutlineCard } from "../shared/site"
 import cover from "./vibe-coding-cover.jpg"
 import { NewsletterBand, BlogShell } from "./shared"
@@ -47,10 +46,7 @@ function Share() {
   return (
     <div className="mt-10 flex flex-col gap-3.5 border-t pt-6">
       <h3 className="text-sm font-medium text-muted-foreground">Share this post</h3>
-      <div className="flex w-fit max-w-full min-w-0 items-center gap-4 rounded-xl border py-1.5 pr-1.5 pl-4.5">
-        <code className="min-w-0 flex-1 overflow-x-auto font-mono text-sm whitespace-nowrap">{post.url.replace("https://", "")}</code>
-        <CopyButton text={post.url} label="Copy link" />
-      </div>
+      <LinkBar url={post.url} />
       <div className="flex flex-wrap items-center gap-2">
         <span className="mr-1.5 text-[0.8125rem] text-muted-foreground">Or share on</span>
         {networks.map((n) => (

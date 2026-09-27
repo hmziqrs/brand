@@ -1,12 +1,14 @@
 import type { ReactNode } from "react"
-import { Bird, Cloudy, Hexagon, Landmark, Leaf, Mountain, TriangleAlert, Waves } from "lucide-react"
+import { Bird, Cloudy, Hexagon, Landmark, Leaf, Mountain, Waves } from "lucide-react"
 import { cn } from "cn"
 import { CodeBlock } from "@/components/brand/code-block"
 import { Marker } from "@/components/brand/marker"
+import { Notice } from "@/components/brand/notice"
 import { RingGauge } from "@/components/brand/rings"
 import { Step, Stepper } from "@/components/brand/stepper"
-import { ButtonLink, Container, CtaBand, HeroNote, OutlineCard, RingStats, Section } from "@/sites/shared/site"
-import { CheckList, Faq, LinkBar, LogoCloud, PricingPlans, QuoteCard, type Plan, type Quote } from "./blocks"
+import { CheckList, LinkBar } from "@/sites/shared/content"
+import { ButtonLink, Container, CtaBand, HeroNote, OutlineCard, PricingPlans, RingStats, Section, type Plan } from "@/sites/shared/site"
+import { Faq, LogoCloud, QuoteCard, type Quote } from "./blocks"
 import { CenteredHero, SaasShell } from "./shell"
 import { Dashboard } from "./sightline/dashboard"
 
@@ -138,8 +140,8 @@ const quotes: Quote[] = [
 
 const plans: Plan[] = [
   { name: "Free", price: 0, blurb: "For a side project or a first launch.", features: ["10,000 visitors a month", "Every chart, one site", "Data kept for 6 months"], cta: "Start free" },
-  { name: "Growth", price: 39, yearly: 32, unit: "a month", blurb: "For a product with real customers.", features: ["200,000 visitors a month", "Funnels, retention and paths", "Alerts by email and Slack", "Data kept for 3 years"], cta: "Start a free trial", pick: true },
-  { name: "Scale", price: 149, yearly: 124, unit: "a month", blurb: "For teams that live in the numbers.", features: ["2 million visitors a month", "Everything in Growth", "Single sign-on and roles", "Export to your warehouse"], cta: "Talk to us" },
+  { name: "Growth", price: 39, yearly: 390, blurb: "For a product with real customers.", features: ["200,000 visitors a month", "Funnels, retention and paths", "Alerts by email and Slack", "Data kept for 3 years"], cta: "Start a free trial", pick: true },
+  { name: "Scale", price: 149, yearly: 1490, blurb: "For teams that live in the numbers.", features: ["2 million visitors a month", "Everything in Growth", "Single sign-on and roles", "Export to your warehouse"], cta: "Talk to us" },
 ]
 
 const faq = [
@@ -162,7 +164,7 @@ export function SightlinePage() {
       cta="Start free"
       announcement={{ tag: "New", text: "Funnels now show where people leave, step by step.", link: "See what's new" }}
       status="Every system working"
-      signature={20}
+      signature={24.8}
       footer={[
         { title: "Product", links: ["Overview", "Funnels", "Retention", "Live view", "Pricing"] },
         { title: "Resources", links: ["Docs", "Guides", "Changelog", "Status"] },
@@ -173,7 +175,7 @@ export function SightlinePage() {
       <div className="flex flex-col gap-14 md:gap-16">
         <CenteredHero
           title="See which features people use, and where they give up."
-          lede="Sightline turns clicks into plain answers: what brings people in, where they get stuck, and what makes them come back. Add one line to your site and the charts fill in by themselves."
+          lede="Sightline turns clicks into plain answers. It shows what brings people in, where they get stuck and what makes them come back. Add one line to your site and the charts fill in by themselves."
           actions={
             <>
               <ButtonLink href="#" size="lg" className="px-5">
@@ -191,7 +193,7 @@ export function SightlinePage() {
             </>
           }
         />
-        <Container className="max-w-6xl">
+        <Container>
           <Dashboard />
         </Container>
         <Container>
@@ -220,10 +222,7 @@ export function SightlinePage() {
             </div>
           </BentoCard>
           <BentoCard className="lg:col-span-2" title="Alerts" body="An email or a Slack message when something changes that you'd want to know about.">
-            <p className="mt-auto flex gap-2.5 rounded-lg border border-warning/40 px-3.5 py-3 text-[0.8125rem] leading-snug">
-              <TriangleAlert className="mt-px size-4 shrink-0 text-warning" />
-              <span>Sign-ups fell 30% on Tuesday after the 2.4 release.</span>
-            </p>
+            <Notice tone="warning" title="Sign-ups fell 30% on Tuesday, after the 2.4 release." className="mt-auto" />
           </BentoCard>
           <BentoCard className="lg:col-span-6" title="Share a chart with a link" body="Anyone with the link sees the chart as it is right now, without an account. Turn the link off whenever you like.">
             <LinkBar url="https://sightline.io/share/paperplane/pricing-to-team" />
@@ -254,18 +253,12 @@ export function SightlinePage() {
       />
 
       <section className="band-gray py-16 md:py-24">
-        <Container className="grid items-start gap-10 md:grid-cols-2 md:gap-16">
-          <div className="flex flex-col gap-3">
-            <h2 className="text-3xl font-medium tracking-tight text-balance">Your visitors stay anonymous</h2>
-            <p className="leading-relaxed text-muted-foreground">
-              Sightline counts what people do, not who they are. No cookies, no fingerprinting and no personal data, so you can skip the consent banner and your visitors can skip being followed around.
-            </p>
-            <ButtonLink href="#" variant="outline" size="lg" className="mt-3 w-fit px-5">
-              Read how we handle data
-            </ButtonLink>
-          </div>
+        <Section
+          title="Your visitors stay anonymous"
+          intro="Sightline counts what people do and never who they are. With no cookies, fingerprinting or personal data, you can skip the consent banner and your visitors can skip being followed around."
+        >
           <CheckList
-            className="[&_li]:text-[0.9375rem]"
+            className="sm:grid sm:grid-cols-2 sm:gap-x-10"
             items={[
               "No cookies and nothing stored on visitors' devices",
               "Hosted in the EU, on servers we rent, not share",
@@ -274,7 +267,10 @@ export function SightlinePage() {
               "Your data is never sold or used to train anything",
             ]}
           />
-        </Container>
+          <ButtonLink href="#" variant="outline" size="lg" className="w-fit px-5">
+            Read how we handle data
+          </ButtonLink>
+        </Section>
       </section>
 
       <Section title="What product teams say" intro="Three of the teams that moved to Sightline this year.">
@@ -285,11 +281,11 @@ export function SightlinePage() {
         </div>
       </Section>
 
-      <Section title="Pricing that grows with you" intro="Start free. Pay when you have more visitors, not more teammates. Every plan includes unlimited people.">
+      <Section title="Pricing that grows with you" intro="Start free. The price follows your visitors, and every plan includes unlimited people.">
         <PricingPlans plans={plans} />
       </Section>
 
-      <Section title="Questions people ask">
+      <Section title="Questions people ask" intro="Straight answers about privacy, speed and billing.">
         <Faq items={faq} />
       </Section>
 

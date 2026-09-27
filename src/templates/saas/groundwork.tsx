@@ -4,8 +4,8 @@ import { siDiscord, siDropbox, siFigma, siGithub, siGmail, siGooglecalendar, siG
 import { Avatar, AvatarFallback, AvatarGroup } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { BigNumbers } from "@/sites/shared/content"
-import { ButtonLink, Container, CtaBand, ElementCard, FeatureGrid, HeroNote, Section } from "@/sites/shared/site"
-import { Faq, IntegrationGrid, Person, PricingPlans, QuoteCard, type Integration, type Plan } from "./blocks"
+import { ButtonLink, Container, CtaBand, ElementCard, FeatureGrid, Hero, HeroNote, Price, PricingPlans, Section, type Plan } from "@/sites/shared/site"
+import { Faq, IntegrationGrid, Person, QuoteCard, type Integration } from "./blocks"
 import { Board } from "./groundwork/board"
 import { FeatureExplorer } from "./groundwork/explorer"
 import { SaasShell } from "./shell"
@@ -17,7 +17,8 @@ import { SaasShell } from "./shell"
  * hairlines, big numbers, quotes, per-person pricing and security on grey.
  */
 
-// Each kind of template keeps one color everywhere: the symbol, the rings and the marker.
+// One color per kind of work across the whole page: the board's team tags and the templates below.
+// Web and engineering blue, marketing pink, design purple, people teal.
 const kinds = {
   product: { label: "Product and engineering", color: "var(--blue)", tone: "blue" },
   marketing: { label: "Marketing", color: "var(--pink)", tone: "pink" },
@@ -50,8 +51,8 @@ const integrations: Integration[] = [
 
 const plans: Plan[] = [
   { name: "Free", price: 0, blurb: "For a small team getting started.", features: ["Up to 5 people", "Unlimited boards and docs", "Check-ins once a week"], cta: "Start free" },
-  { name: "Team", price: 8, yearly: 6, unit: "per person a month", blurb: "For a team that plans together every week.", features: ["Unlimited people", "Timeline and dependencies", "Integrations and automations", "Guests for free"], cta: "Try Team free for 14 days", pick: true },
-  { name: "Business", price: 14, yearly: 12, unit: "per person a month", blurb: "For companies with more than one team.", features: ["Everything in Team", "Single sign-on and roles", "Audit log and backups", "A person to call"], cta: "Talk to us" },
+  { name: "Team", price: 8, yearly: 80, per: "per person", blurb: "For a team that plans together every week.", features: ["Unlimited people", "Timeline and dependencies", "Integrations and automations", "Guests for free"], cta: "Try Team free for 14 days", pick: true },
+  { name: "Business", price: 14, yearly: 140, per: "per person", blurb: "For companies with more than one team.", features: ["Everything in Team", "Single sign-on and roles", "Audit log and backups", "A person to call"], cta: "Talk to us" },
 ]
 
 function Seats({ value, onChange }: { value: number; onChange: (n: number) => void }) {
@@ -83,24 +84,19 @@ function Pricing() {
       <Seats value={seats} onChange={setSeats} />
       <PricingPlans
         plans={plans}
-        yearlyLabel="Yearly, save 20%"
         price={(p, yearly) => {
-          if (p.price === 0)
-            return (
-              <>
-                <b className="text-[2.5rem] font-medium tracking-[-0.04em]">$0</b> <span className="text-[0.9rem] text-muted-foreground">{seats > 5 ? "up to 5 people" : "forever"}</span>
-              </>
-            )
           const each = yearly && p.yearly !== undefined ? p.yearly : Number(p.price)
           return (
-            <span className="flex flex-col gap-1">
-              <span>
-                <b className="text-[2.5rem] font-medium tracking-[-0.04em]">${each}</b> <span className="text-[0.9rem] text-muted-foreground">{p.unit}</span>
-              </span>
+            <div className="flex flex-col gap-1">
+              <Price plan={p} yearly={yearly} />
               <span className="text-[0.8125rem] text-muted-foreground tabular-nums">
-                ${(each * seats).toLocaleString("en-US")} a month for {seats} {seats === 1 ? "person" : "people"}
+                {p.price === 0
+                  ? seats > 5
+                    ? "Up to 5 people"
+                    : `Free for your ${seats === 1 ? "one person" : `${seats} people`}`
+                  : `$${(each * seats).toLocaleString("en-US")} ${yearly ? "a year" : "a month"} for ${seats} ${seats === 1 ? "person" : "people"}`}
               </span>
-            </span>
+            </div>
           )
         }}
       />
@@ -133,7 +129,7 @@ export function GroundworkPage() {
       tagline="One calm place to plan the week, for teams of 3 to 300."
       nav={["Product", "Templates", "Pricing", "Customers"]}
       cta="Try it free"
-      signature={15.5}
+      signature={17.2}
       footer={[
         { title: "Product", links: ["Board", "Timeline", "Docs", "Check-ins", "Pricing"] },
         { title: "Templates", links: ["Sprint planning", "Launch checklist", "Hiring pipeline", "All templates"] },
@@ -141,33 +137,34 @@ export function GroundworkPage() {
         { title: "Help", links: ["Guides", "Import your work", "Contact", "Status"] },
       ]}
     >
-      <Container className="grid items-center gap-12 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]">
-        <div className="flex max-w-xl flex-col gap-6">
-          <h1 className="text-4xl leading-[1.02] font-medium tracking-[-0.035em] text-balance sm:text-5xl lg:text-[3.25rem]">Plan the week together, in one calm place.</h1>
-          <p className="text-lg leading-relaxed text-muted-foreground">
-            Groundwork puts your team's tasks, plans and deadlines on one board. Everyone can see what's next, so nobody has to ask for a status update.
-          </p>
-          <div className="flex flex-wrap gap-3 pt-2">
+      <Hero
+        title="Plan the week together."
+        lede="Groundwork puts your team's tasks, plans and deadlines on one calm board. Everyone can see what's next, so nobody has to ask for a status update."
+        actions={
+          <>
             <ButtonLink href="#" size="lg" className="px-5">
               Try it free
             </ButtonLink>
             <ButtonLink href="#" size="lg" variant="outline" className="px-5">
               Browse templates
             </ButtonLink>
-          </div>
-          <div className="flex flex-wrap items-center gap-x-5 gap-y-1.5 text-sm text-muted-foreground">
+          </>
+        }
+        note={
+          <>
             <HeroNote>Free for up to 5 people</HeroNote>
             <HeroNote>Set up in two minutes</HeroNote>
-          </div>
-        </div>
-        <Board />
-      </Container>
+          </>
+        }
+        aside={<Board />}
+        asideSize="wide"
+      />
 
       <Container className="flex flex-col items-center gap-4 text-center">
         <AvatarGroup>
           {["AD", "TB", "RO", "KM", "LS", "PN"].map((i) => (
             <Avatar key={i} size="lg">
-              <AvatarFallback className="text-xs font-medium text-foreground">{i}</AvatarFallback>
+              <AvatarFallback className="bg-background text-xs font-medium text-foreground">{i}</AvatarFallback>
             </Avatar>
           ))}
         </AvatarGroup>
@@ -229,7 +226,7 @@ export function GroundworkPage() {
         </Section>
       </section>
 
-      <Section title="Questions people ask">
+      <Section title="Questions people ask" intro="Straight answers about plans, moving your work over and where it's kept.">
         <Faq items={faq} columns />
       </Section>
 
