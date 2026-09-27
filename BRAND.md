@@ -729,7 +729,7 @@ Most pages don't need one. When a page wants something moving, it can have **one
 
 | Scene | Where | What it shows |
 | --- | --- | --- |
-| `lattice` | Beside the hero words (freeoxide) | Iron oxide's crystal (hematite) as a small ball, turning: iron atoms in orange, oxygen in grey, faint bonds and the six-sided cell. Every part is a setting (how many atoms, the room between them, each atom's size, the bond and cell lines, the fade, the turn): tune it on **Custom → Lattice → Tweaker**, export the settings as JSON and pass them as `settings`. Without settings it's the version from the freeoxide landing page. |
+| `lattice` | Beside the hero words (freeoxide) | Iron oxide's crystal (hematite) as a small ball, turning: iron atoms in orange, oxygen in grey, faint bonds, and the cell: a football (twenty six-sided faces, twelve five-sided ones) around the atoms, none poking out, its near edges drawn stronger than the ones behind. Every part is a setting (how many atoms, the room between them, each atom's size, the bond lines, the cell's near and far edges, the fade, the turn): tune it on **Custom → Lattice → Tweaker**, export the settings as JSON and pass them as `settings`. Without settings it uses the tweaker's starting values. |
 | `network` | Beside the hero words (oxlabs) | Points joined to their nearest neighbours, a few in orange, with short orange pulses running along the links. |
 | `layers` | Beside a "how it works" section | A stack of outline cards filled with the page color, one outlined in orange, breathing one after another. |
 | `helix` | A thin band between sections | A twisting ribbon: one orange edge, one grey, faint rungs. |

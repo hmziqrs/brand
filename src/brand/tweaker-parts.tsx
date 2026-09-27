@@ -7,9 +7,25 @@ import { Slider } from "@/components/ui/slider"
 import { Textarea } from "@/components/ui/textarea"
 
 /*
- * Pieces shared by the tweaker pages (rings, lattice): a labelled slider,
- * a titled group of settings, and the box that exports and loads settings.
+ * Pieces shared by the tweaker pages (rings, lattice): the page itself, a
+ * labelled slider, a titled group of settings, and the box that exports and
+ * loads settings.
  */
+
+/**
+ * The preview on the left and the settings on the right, each scrolling on
+ * its own, so the preview stays in sight while you tune it. On narrow
+ * screens they stack and the page scrolls as usual. Fills the window: give
+ * the story `layout: "fullscreen"`.
+ */
+export function TweakerPage({ preview, children }: { preview: ReactNode; children: ReactNode }) {
+  return (
+    <div className="grid gap-10 p-4 lg:h-dvh lg:grid-cols-[minmax(0,1fr)_27rem] lg:gap-0 lg:p-0">
+      <div className="min-w-0 lg:overflow-y-auto lg:p-8">{preview}</div>
+      <div className="flex flex-col gap-8 lg:overflow-y-auto lg:border-l lg:p-8">{children}</div>
+    </div>
+  )
+}
 
 type SettingProps = {
   label: string
