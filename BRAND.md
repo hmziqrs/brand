@@ -744,6 +744,17 @@ What each kind of page uses. Each one is in the explorations file, working, and 
 | Contact | Words on the left, channels on the right · who replies in an outline card. |
 | Docs | A thin line down the side menu that the current page lights orange · "On this page" in a right column with markers · quiet notes (a thin line in the note color and a colored icon) · outline code blocks · the page's own rings faintly beside the title · previous and next as two outline cards. |
 | 404 | The rings beside the words. |
+| SaaS landing (templates) | The same header, rhythm, orange close and signature footer, signed with the product's own name instead of the "More from hmziq" row · a product demo you can click in the hero or right under it, at a fixed height · customers as plain grey wordmarks · quotes in outline cards with a hollow ring for the person · plans in outline cards (the recommended one with its fingerprint) or as an accent table · at most one orange band: a terminal or a second band goes on grey. Five of them in the Storybook under **Templates → SaaS landing pages**, all with example content. |
+
+The five SaaS templates, so a new product can start from the closest one (`src/templates/saas/`):
+
+| Template | Product | What makes it different |
+| --- | --- | --- |
+| Sightline | Analytics | Announcement strip · centered hero with the app underneath, wider than the text (four screens, a date switch, charts) · bento grid of outline cards · set-up steps beside the code · privacy on a grey band |
+| Hookline | Developer API | The kit's own landing layout: hero rings, ring gauges, install switch, SDK tabs · a delivery log you can play · terminal on grey · before and after · a usage slider with the price, and the plans as an accent table |
+| Groundwork | Team planning | Split hero with a board you can use · four views picked from a list · templates as element cards · integrations in a grid of hairlines · per-person pricing with a team-size counter · security on grey |
+| Parley | AI support | Hero on a grey band with a chat you can try · set-up steps beside an answer check · before and after as two outline columns · the same answer per channel · guardrails as notices · a customer story with its numbers · plans as an accent table · numbered FAQ |
+| Openslot | Scheduling | Editorial hero: a very large headline, then the words and buttons on one line · the booking page on a band in the other mode (white on dark pages, dark on light ones) · time zones · use cases in tabs · integrations grouped by kind · a wall of short quotes · two plans |
 
 ---
 
@@ -765,7 +776,7 @@ Build pages from shadcn components (Button, Card, Badge, Tabs, Table, Accordion,
 | Code block | An outline, no fill: `rounded-xl border`. A bar `h-10 border-b` with the file label (`text-xs text-muted-foreground`) or tabs for versions of the same thing (Terminal / Cargo.toml), and the copy button (ghost `icon-sm`, `Copy` → `Check`) on the right. `pre` with `px-4.5 py-4 font-mono text-[0.8125rem] leading-[1.7]`, highlighted with Shiki (section 2). No copy button on code people only read. |
 | Command to copy | `CommandBar`: `w-fit max-w-full rounded-xl border`, as wide as the command, `$` prompt in orange, the program in the function color and flags in the keyword color, an outline `sm` Copy button. Commands people shouldn't paste as they are (an alias they name themselves, an example) get no button. |
 | Terminal | `TerminalWindow`: always dark (`dark` class, even on light pages), `rounded-xl border`, a `h-10` title bar with a terminal icon, mono `text-[0.8125rem] leading-[1.9]` lines: `$ command`, `# note` in grey, `▸ step › answer`, `✓ result`. |
-| Tables | `DataTable`. On landing and product pages the accent style: boxed (`rounded-xl border`), the last column in a soft orange wash (`bg-primary/7`, heading `text-primary`). In docs the lines style: a strong line under the headings (`border-foreground`), thin lines between rows. Names in the first columns stay in the text color. |
+| Tables | `DataTable`. On landing and product pages the accent style: boxed (`rounded-xl border`), the column that matters in a soft orange wash (`bg-primary/7`, heading `text-primary`): the last one, or the one `accent` names, e.g. the recommended plan. In docs the lines style: a strong line under the headings (`border-foreground`), thin lines between rows. Names in the first columns stay in the text color. |
 | Switches | `Segmented`: a thin outline around a few buttons; the picked one gets a soft orange fill (`bg-primary/10 text-primary`, `/20` in dark). For package managers, billing periods, notes. |
 | Questions | `Question` in `Questions`: `<details>` rows with a line between them; a grey ring that fills orange when open, a plus that turns to a minus. FAQ pages number them 01, 02… in orange with the topic as a grey tag. |
 | Interactive demos | A fixed height, so clicking around never moves the page. |
@@ -812,6 +823,7 @@ The freeoxide page in the Storybook (`Sites/Landing pages`) is the reference.
 | `components/ui` | shadcn components | Keep as shadcn ships them. The only edit: remove hover/press movement. |
 | `components/brand` | small brand pieces (Wordmark, Mark, Marker, Rings, Tag, IconTile, Notice, CodeBlock, CodeLines, CopyButton, CommandBar, TerminalWindow, Stepper, Segmented, Question, Toc, DataTable, BrandIcon) | Tokens only. Copy them from the brand repo's `src/components/brand`, with `src/lib/rings.ts`, `src/lib/highlight-shell.tsx` and `src/lib/scroll-spy.ts`. |
 | `sites/shared` or `components/site` | page blocks (SiteShell, Hero, HeroNote, PageIntro, RingStats, Section, OutlineCard, ElementCard, FeatureCards, FeatureGrid, Steps, CtaBand) and content pieces (Prose, Bullets, SummaryBox, BigNumbers, SearchBox, TopicChips, EmptyNote) | Same on every site. |
+| `templates/saas` | SaaS page blocks (SaasShell, CenteredHero, AppWindow, LinkBar, LogoCloud, Person, QuoteCard, CheckList, PricingPlans, IntegrationGrid, Faq, InverseBand) | For products outside the hmziq family. Same rules. |
 | pages | one per route | Put blocks together; no new styles. |
 
 ### The rules

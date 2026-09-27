@@ -204,20 +204,23 @@ type SectionProps = {
   caption?: ReactNode
   title: ReactNode
   intro?: ReactNode
+  /** "center" puts the caption, title and intro in the middle, for pages with a centered hero. */
+  align?: "start" | "center"
   children: ReactNode
   className?: string
 }
 
-export function Section({ caption, title, intro, children, className }: SectionProps) {
+export function Section({ caption, title, intro, align = "start", children, className }: SectionProps) {
+  const center = align === "center"
   return (
     <Container className={cn("flex flex-col gap-10", className)}>
       {caption && (
-        <p className="-mb-5 flex items-center gap-2 text-[0.8125rem] font-medium text-primary">
+        <p className={cn("-mb-5 flex items-center gap-2 text-[0.8125rem] font-medium text-primary", center && "justify-center")}>
           <Marker />
           {caption}
         </p>
       )}
-      <div className="flex max-w-2xl flex-col gap-3">
+      <div className={cn("flex max-w-2xl flex-col gap-3", center && "mx-auto items-center text-center")}>
         <h2 className="text-3xl font-medium tracking-tight text-balance">{title}</h2>
         {intro && <p className="leading-relaxed text-muted-foreground">{intro}</p>}
       </div>

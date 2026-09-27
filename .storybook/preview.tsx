@@ -35,6 +35,7 @@ const preview: Preview = {
           ['Introduction', 'Signature', 'Colors', 'Typography', 'Icons', 'Writing', 'Custom components', 'Brand kit for AI agents'],
           'Custom',
           'Sites',
+          'Templates',
           'design',
           'ui',
         ],
