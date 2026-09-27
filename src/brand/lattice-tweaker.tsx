@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button"
 import { latticeDefaults, latticeModel, type LatticeSettings } from "@/lib/scenes/lattice"
 import { ButtonLink, Hero, HeroNote } from "@/sites/shared/site"
 import { loadSaved, save, within } from "./saved"
-import { ExportBox, Group, Setting } from "./tweaker-parts"
+import { ExportBox, Group, Setting, TweakerPage } from "./tweaker-parts"
 
 /*
  * A page for tuning the lattice: how many atoms, the room between them,
@@ -31,6 +31,8 @@ const ranges: Record<Key, { min: number; max: number; step: number }> = {
   bonds: { min: 0, max: 3, step: 0.25 },
   bondTone: { min: 0.05, max: 0.8, step: 0.01 },
   cell: { min: 0, max: 3, step: 0.25 },
+  cellTone: { min: 0.1, max: 1, step: 0.01 },
+  cellBack: { min: 0, max: 0.6, step: 0.01 },
   fade: { min: 0, max: 1.5, step: 0.05 },
   turn: { min: 0, max: 300, step: 5 },
   tilt: { min: 0, max: 60, step: 1 },
@@ -72,7 +74,7 @@ export function LatticeTweaker() {
   useEffect(() => save(STORE, s), [s])
 
   const set = (patch: Partial<LatticeSettings>) => setS((prev) => ({ ...prev, ...patch }))
-  const counts = useMemo(() => latticeModel({ atoms: s.atoms }), [s.atoms])
+  const counts = useMemo(() => latticeModel(s), [s])
 
   function load(pasted: unknown) {
     const source = (pasted as { lattice?: unknown })?.lattice ?? pasted
@@ -93,7 +95,7 @@ export function LatticeTweaker() {
   const scene = <Scene key={mode} kind="lattice" seed="freeoxide" settings={s} fallback={<Rings seed="freeoxide" />} className="aspect-[520/440] w-full" />
 
   const preview = (
-    <div className={cn("flex flex-col gap-4", view === "lattice" && "lg:sticky lg:top-6")}>
+    <div className="flex flex-col gap-4">
       <div className="flex flex-wrap items-center gap-3">
         <Segmented
           label="Show"
@@ -143,9 +145,9 @@ export function LatticeTweaker() {
     </div>
   )
 
-  const controls = (
-    <div className={cn("flex flex-col gap-8", view === "hero" && "lg:grid lg:grid-cols-3 lg:items-start lg:gap-10")}>
-      <section className={cn("flex flex-col gap-4", view === "hero" && "lg:border-t lg:pt-6")}>
+  return (
+    <TweakerPage preview={preview}>
+      <section className="flex flex-col gap-4">
         <div className="flex items-center justify-between gap-4">
           <h2 className="text-base font-medium">Start from</h2>
           <Button variant="ghost" size="sm" onClick={() => setS(latticeDefaults)} className="text-muted-foreground">
@@ -170,10 +172,12 @@ export function LatticeTweaker() {
         {slider("oxygenTone", "Oxygen grey strength", percent)}
       </Group>
 
-      <Group title="Lines" note="Bonds join each oxygen to its nearest iron. The cell is the six-sided outline.">
+      <Group title="Lines" note="Bonds join each oxygen to its nearest iron. The cell is the football around the atoms: 20 six-sided faces and 12 five-sided ones.">
         {slider("bonds", "Bond thickness", px)}
         {slider("bondTone", "Bond strength", percent)}
         {slider("cell", "Cell outline thickness", px)}
+        {slider("cellTone", "Cell near edges strength", percent)}
+        {slider("cellBack", "Cell far edges strength", (v) => (v === 0 ? "Hidden" : percent(v)))}
         {slider("fade", "Far side fades", percent)}
       </Group>
 
@@ -194,16 +198,7 @@ export function LatticeTweaker() {
         {slider("tilt", "Leans toward you", (v) => `${v}°`)}
       </Group>
 
-      <div className="lg:col-span-full">
-        <ExportBox name="lattice" settings={{ lattice: s }} code={code} onLoad={load} />
-      </div>
-    </div>
-  )
-
-  return (
-    <div className={cn("grid gap-10", view === "lattice" && "lg:grid-cols-[minmax(0,1fr)_24rem]")}>
-      {preview}
-      {controls}
-    </div>
+      <ExportBox name="lattice" settings={{ lattice: s }} code={code} onLoad={load} />
+    </TweakerPage>
   )
 }

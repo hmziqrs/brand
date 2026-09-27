@@ -15,5 +15,7 @@ type Story = StoryObj<typeof meta>
  * previous lattice. Your settings are at the bottom, ready to send.
  */
 export const Tweaker: Story = {
+  // The tweaker fills the window and scrolls its settings on their own.
+  parameters: { layout: "fullscreen" },
   render: () => <LatticeTweaker />,
 }

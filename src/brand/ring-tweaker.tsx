@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button"
 import { motionDefaults, ringPresets, type GrayMotion, type OrangeMotion, type RingMotion, type RingPreset } from "@/lib/rings"
 import { ButtonLink, Hero, HeroNote } from "@/sites/shared/site"
 import { loadSaved, save, within } from "./saved"
-import { ExportBox, Group, Setting } from "./tweaker-parts"
+import { ExportBox, Group, Setting, TweakerPage } from "./tweaker-parts"
 
 /*
  * A page for tuning how the hero rings move. Every setting is live; the
@@ -142,7 +142,7 @@ export function RingTweaker() {
   const moving = t.orange !== "still" || t.gray !== "still"
 
   const preview = (
-    <div className={cn("flex flex-col gap-4", view === "rings" && "lg:sticky lg:top-6")}>
+    <div className="flex flex-col gap-4">
       <div className="flex flex-wrap items-center gap-3">
         <Segmented label="Site" options={sites.map((s) => ({ value: s, label: s }))} value={seed} onValueChange={setSeed} />
         <Segmented
@@ -197,9 +197,9 @@ export function RingTweaker() {
     </div>
   )
 
-  const controls = (
-    <div className={cn("flex flex-col gap-8", view === "hero" && "lg:grid lg:grid-cols-3 lg:items-start lg:gap-10")}>
-      <section className={cn("flex flex-col gap-4", view === "hero" && "lg:border-t lg:pt-6")}>
+  return (
+    <TweakerPage preview={preview}>
+      <section className="flex flex-col gap-4">
         <div className="flex items-center justify-between gap-4">
           <h2 className="text-base font-medium">Start from</h2>
           <Button variant="ghost" size="sm" onClick={() => preset("ripple-turn")} className="text-muted-foreground">
@@ -292,27 +292,18 @@ export function RingTweaker() {
         )}
       </Group>
 
-      <div className="lg:col-span-full">
-        <ExportBox
-          name="ring-motion"
-          settings={{ rings: { motion } }}
-          code={`import settings from "./ring-motion.json"\n\n<Rings\n  seed="${seed}"\n  motion={settings.rings.motion}\n/>`}
-          onLoad={(pasted) => {
-            const next = fromPasted(pasted, t)
-            if (typeof next === "string") return next
-            setT(next)
-            setPaused(false)
-            return undefined
-          }}
-        />
-      </div>
-    </div>
-  )
-
-  return (
-    <div className={cn("grid gap-10", view === "rings" && "lg:grid-cols-[minmax(0,1fr)_24rem]")}>
-      {preview}
-      {controls}
-    </div>
+      <ExportBox
+        name="ring-motion"
+        settings={{ rings: { motion } }}
+        code={`import settings from "./ring-motion.json"\n\n<Rings\n  seed="${seed}"\n  motion={settings.rings.motion}\n/>`}
+        onLoad={(pasted) => {
+          const next = fromPasted(pasted, t)
+          if (typeof next === "string") return next
+          setT(next)
+          setPaused(false)
+          return undefined
+        }}
+      />
+    </TweakerPage>
   )
 }

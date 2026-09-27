@@ -7,7 +7,8 @@
 export function loadSaved<T extends object>(key: string, start: T): T {
   try {
     const saved = JSON.parse(localStorage.getItem(key) ?? "null") as Partial<T> | null
-    return saved ? { ...start, ...saved } : start
+    // Settings the page no longer has are left behind, so they don't turn up in the export.
+    return saved ? { ...start, ...Object.fromEntries(Object.entries(saved).filter(([k]) => k in start)) } : start
   } catch {
     return start
   }

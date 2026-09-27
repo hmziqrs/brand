@@ -21,6 +21,8 @@ type Story = StoryObj<typeof meta>
  * bottom, ready to copy.
  */
 export const Tweaker: Story = {
+  // The tweaker fills the window and scrolls its settings on their own.
+  parameters: { layout: "fullscreen" },
   render: () => <RingTweaker />,
 }
 
