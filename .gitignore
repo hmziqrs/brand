@@ -30,3 +30,6 @@ storybook-static
 storybook-static
 debug-storybook.log
 *.tsbuildinfo
+
+# zflow chain evidence (workflow-only, never committed)
+.zflow/
