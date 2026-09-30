@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite"
+import { LogoTweaker } from "@/brand/logo-tweaker"
 import { family } from "@/sites/shared/family"
 import { Mark, Wordmark } from "./wordmark"
 
@@ -58,4 +59,17 @@ export const Signature: Story = {
       <Wordmark name="hmziq" className="block pb-[0.2em] text-[33cqw] leading-[0.74] tracking-[-0.05em]" />
     </div>
   ),
+}
+
+/**
+ * Tune the logo: the letters, the square (or a dot, diamond or bar), the
+ * mark's tile, a plate behind the wordmark, and how each part moves: pulse,
+ * ripple, blink, spin, bounce, shimmer, wave, type. It starts from the
+ * brand's logo. Your settings are at the bottom, ready to send; pass them to
+ * `<Wordmark look>` and `<Mark look>`.
+ */
+export const Tweaker: Story = {
+  // The tweaker fills the window and scrolls its settings on their own.
+  parameters: { layout: "fullscreen" },
+  render: () => <LogoTweaker />,
 }

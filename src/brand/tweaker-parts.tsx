@@ -1,15 +1,18 @@
-import { useId, useState, type ReactNode } from "react"
-import { Download } from "lucide-react"
+import { useId, useMemo, useState, type ReactNode } from "react"
+import { Ban, Download, Pipette } from "lucide-react"
+import { cn } from "cn"
 import { CodeBlock } from "@/components/brand/code-block"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Slider } from "@/components/ui/slider"
+import { Switch } from "@/components/ui/switch"
 import { Textarea } from "@/components/ui/textarea"
+import { paint } from "@/lib/logo"
 
 /*
- * Pieces shared by the tweaker pages (rings, lattice): the page itself, a
- * labelled slider, a titled group of settings, and the box that exports and
- * loads settings.
+ * Pieces shared by the tweaker pages (rings, lattice, logo): the page
+ * itself, a labelled slider, a color picker, an on/off switch, a titled
+ * group of settings, and the box that exports and loads settings.
  */
 
 /**
@@ -49,6 +52,90 @@ export function Setting({ label, value, min, max, step, format, onChange }: Sett
         <span className="tabular-nums">{format(value)}</span>
       </div>
       <Slider aria-labelledby={id} min={min} max={max} step={step} value={[value]} onValueChange={(v) => onChange(Array.isArray(v) ? v[0] : v)} />
+    </div>
+  )
+}
+
+type ColorSettingProps = {
+  label: string
+  /** A theme color's name, "none", or any CSS color. */
+  value: string
+  /** The theme colors to offer, by name; "none" offers no color. */
+  options: readonly string[]
+  onChange: (value: string) => void
+}
+
+/** A color: a swatch for each theme color offered, then a picker for any other. */
+export function ColorSetting({ label, value, options, onChange }: ColorSettingProps) {
+  const id = useId()
+  const custom = !options.includes(value)
+  // The picker only takes #rrggbb, so it starts from whatever the current color looks like.
+  const start = useMemo(() => (custom && /^#[0-9a-f]{6}$/i.test(value) ? value : toHex(paint(value))), [custom, value])
+  return (
+    <div className="flex flex-col gap-2.5">
+      <div className="flex items-baseline justify-between gap-4 text-sm">
+        <span id={id} className="text-muted-foreground">
+          {label}
+        </span>
+        <span className="font-mono text-[0.8125rem]">{value}</span>
+      </div>
+      <div role="group" aria-labelledby={id} className="flex flex-wrap gap-1.5">
+        {options.map((o) => (
+          <button
+            key={o}
+            type="button"
+            aria-pressed={o === value}
+            aria-label={o === "current" ? "current (the text color around it)" : o}
+            title={o === "current" ? "current (the text color around it)" : o}
+            onClick={() => onChange(o)}
+            style={o === "none" ? undefined : { background: paint(o) }}
+            className="grid size-6 place-items-center rounded-md border ring-offset-2 ring-offset-background outline-none focus-visible:ring-3 focus-visible:ring-ring/50 aria-pressed:ring-2 aria-pressed:ring-foreground"
+          >
+            {o === "none" && <Ban className="size-3.5 text-muted-foreground" />}
+          </button>
+        ))}
+        <label
+          title="Any color"
+          style={custom ? { background: value } : undefined}
+          className={cn("relative grid size-6 cursor-pointer place-items-center rounded-md border ring-offset-2 ring-offset-background has-focus-visible:ring-3 has-focus-visible:ring-ring/50", custom && "ring-2 ring-foreground")}
+        >
+          {!custom && <Pipette className="size-3.5 text-muted-foreground" />}
+          {start && <input type="color" aria-label={`${label}: any color`} value={start} onChange={(e) => onChange(e.target.value)} className="sr-only" />}
+        </label>
+      </div>
+    </div>
+  )
+}
+
+let probe: { el: HTMLElement; ctx: CanvasRenderingContext2D | null } | undefined
+
+/** Any CSS color (theme variables too) as #rrggbb, as it looks on this page. */
+function toHex(color: string) {
+  if (!probe) {
+    const el = document.createElement("span")
+    el.hidden = true
+    document.body.append(el)
+    probe = { el, ctx: document.createElement("canvas").getContext("2d", { willReadFrequently: true }) }
+  }
+  probe.el.style.color = color
+  const { ctx } = probe
+  if (!ctx) return undefined
+  ctx.clearRect(0, 0, 1, 1)
+  ctx.fillStyle = getComputedStyle(probe.el).color
+  ctx.fillRect(0, 0, 1, 1)
+  const [r, g, b] = ctx.getImageData(0, 0, 1, 1).data
+  return `#${[r, g, b].map((v) => v.toString(16).padStart(2, "0")).join("")}`
+}
+
+/** An on/off setting: its name on the left, the switch on the right. */
+export function Toggle({ label, checked, onChange }: { label: string; checked: boolean; onChange: (checked: boolean) => void }) {
+  const id = useId()
+  return (
+    <div className="flex items-center justify-between gap-4 text-sm">
+      <label htmlFor={id} className="text-muted-foreground">
+        {label}
+      </label>
+      <Switch id={id} checked={checked} onCheckedChange={onChange} />
     </div>
   )
 }
