@@ -678,6 +678,12 @@ For favicons, app icons, avatars and the "More from hmziq" row. The site's two-l
 - No rings, outlines or textures on the mark.
 - Favicon and app icon files: dark is the default, so draw the white tile (`#FAFAFA`, letters `#0A0A0A`, square `#F38230`).
 
+### Tuned logos (the logo tweaker)
+
+`Wordmark` and `Mark` take an optional `look`: the letters (Onest or JetBrains Mono, weight 300–600, spacing, lowercase, color), the end mark (square, rounded, dot, diamond, bar or none; its size, gap, lift and color), the mark's tile (colors, corners, sizes), a plate behind the wordmark, and movement: the square pulses, fades, ripples, blinks, spins or bounces; the letters shimmer, wave or type themselves out; the tile or plate shimmers or breathes. Each move has its own length and rest, and the whole look can play once after a delay. Colors are theme colors by name or any CSS color.
+
+Tune it on **Custom → Logo → Tweaker**, export the settings as JSON and pass them as `look` (`src/lib/logo.ts`, `components/brand/logo.css`). Without a look, both are the brand's logo exactly as above. A tuned logo stops for reduced motion and never reacts to hover; pass `paused` to hold it. Ripples are outlines and shimmer is a gradient, so check a tuned look against the rules above and in section 13 before it ships.
+
 ### Marker
 
 A small hollow ring is the brand's bullet: `inline-block size-2.25 shrink-0 rounded-full border-[1.75px] border-current`, plus `bg-current` when it's filled. It takes the text color.
@@ -874,7 +880,7 @@ The freeoxide page in the Storybook (`Sites/Landing pages`) is the reference.
 | Folder | What | Rule |
 | --- | --- | --- |
 | `components/ui` | shadcn components | Keep as shadcn ships them. The only edit: remove hover/press movement. |
-| `components/brand` | small brand pieces (Wordmark, Mark, Marker, Rings, Scene, Tag, IconTile, Notice, CodeBlock, CodeLines, CopyButton, CommandBar, TerminalWindow, Stepper, Segmented, Question, Toc, DataTable, BrandIcon) | Tokens only. Copy them from the brand repo's `src/components/brand`, with `src/lib/rings.ts`, `src/lib/highlight-shell.tsx` and `src/lib/scroll-spy.ts` (and `src/lib/scenes/` plus the `three` package if a site uses a 3D scene). |
+| `components/brand` | small brand pieces (Wordmark, Mark, Marker, Rings, Scene, Tag, IconTile, Notice, CodeBlock, CodeLines, CopyButton, CommandBar, TerminalWindow, Stepper, Segmented, Question, Toc, DataTable, BrandIcon) | Tokens only. Copy them from the brand repo's `src/components/brand`, with `src/lib/rings.ts`, `src/lib/logo.ts` (the Wordmark and Mark use it), `src/lib/highlight-shell.tsx` and `src/lib/scroll-spy.ts` (and `src/lib/scenes/` plus the `three` package if a site uses a 3D scene). |
 | `sites/shared` or `components/site` | page blocks (SiteShell, Hero and its parts HeroTitle, HeroLede, HeroActions, HeroNotes, HeroNote, PageIntro, RingStats, Section, OutlineCard, ElementCard, FeatureCards, FeatureGrid, Steps, PricingPlans, Price, BeforeAfter, CtaBand) and content pieces (Prose, Bullets, CheckList, LinkBar, SummaryBox, BigNumbers, SearchBox, TopicChips, EmptyNote) | Same on every site. |
 | `templates/saas` | SaaS-only blocks (SaasShell, a thin wrapper around SiteShell; CenteredHero, built from the hero parts; AppWindow, LogoCloud, Person, QuoteCard, IntegrationGrid, Faq, InverseBand) | For products outside the hmziq family. Anything the sites also need lives in `sites/shared`. |
 | pages | one per route | Put blocks together; no new styles. |
