@@ -1,0 +1,16 @@
+---
+import { cn, styleText } from "$brand/utils";
+
+/* The inside of a terminal: monospace, a little air between lines. A fixed height (the typing terminal's) arrives as a style string. */
+
+interface Props {
+  class?: string;
+  style?: string | Record<string, string>;
+}
+
+const { class: className, style, ...rest } = Astro.props;
+---
+
+<div class={cn("min-h-50 overflow-x-auto px-5 py-4.5 font-mono text-[0.8125rem] leading-[1.9]", className)} style={styleText(style)} {...rest}>
+  <slot />
+</div>

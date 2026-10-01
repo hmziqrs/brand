@@ -1,0 +1,16 @@
+---
+import type { ComponentProps } from "astro/types";
+import { Button } from "$brand/starwind/button";
+
+/* A Starwind button rendered as a link. */
+
+interface Props extends Omit<ComponentProps<typeof Button>, "as" | "href"> {
+  href: string;
+}
+
+const { href, ...props } = Astro.props;
+---
+
+<Button as="a" href={href} {...props}>
+  <slot />
+</Button>

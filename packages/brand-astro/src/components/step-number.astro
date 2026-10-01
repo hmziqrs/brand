@@ -1,0 +1,31 @@
+---
+import { cn } from "$brand/utils";
+
+/*
+ * A numbered ring. Done steps fill in with orange. The done look follows the
+ * `data-done` attribute rather than a class picked at render time, so a page
+ * (or a block like InstallSteps) can fill a step in after the page has
+ * shipped — copying the step's command, say — without re-rendering it.
+ */
+
+interface Props {
+  n: number;
+  done?: boolean;
+  class?: string;
+}
+
+const { n, done = false, class: className } = Astro.props;
+---
+
+<span
+  data-slot="step-number"
+  data-done={done || undefined}
+  class={cn(
+    "grid size-9 shrink-0 place-items-center rounded-full border-[1.75px] text-sm font-medium transition-colors",
+    "border-border text-muted-foreground",
+    "data-done:border-primary data-done:bg-primary data-done:text-primary-foreground",
+    className,
+  )}
+>
+  {n}
+</span>

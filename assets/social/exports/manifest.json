@@ -1,0 +1,432 @@
+{
+  "target": "social",
+  "command": "pnpm render-assets --only social",
+  "digest": "26f75cf4dddf9978fb94c2c36f86c12b9b1fe6ea4d37d3b2f311832bd44be23f",
+  "renderers": {
+    "@resvg/resvg-js": "2.6.2"
+  },
+  "settings": {
+    "sizes": {
+      "og": {
+        "width": 1200,
+        "height": 630
+      },
+      "xCard": {
+        "width": 1200,
+        "height": 675
+      },
+      "cover": {
+        "width": 1200,
+        "height": 675
+      },
+      "blogOg": {
+        "width": 1200,
+        "height": 630
+      },
+      "avatar": 400,
+      "xHeader": {
+        "width": 1500,
+        "height": 500
+      },
+      "linkedinBackground": {
+        "width": 1584,
+        "height": 396
+      },
+      "githubPreview": {
+        "width": 1280,
+        "height": 640
+      }
+    },
+    "fonts": [
+      "onest-latin-400-normal.ttf",
+      "onest-latin-500-normal.ttf",
+      "onest-latin-600-normal.ttf"
+    ],
+    "headlines": {
+      "hmziq": "I build apps for phones, computers, the web and the terminal.",
+      "blog": "Notes from building software.",
+      "labs": "Experiments, in the open.",
+      "freeoxide": "Free Rust tools, finished before they ship.",
+      "gpui-starter": "Start your desktop app with the boring parts done.",
+      "gpui-query": "Load data in GPUI apps without writing the plumbing.",
+      "claude-multi": "Use Claude Code with any AI provider.",
+      "oxlabs": "Web, mobile and desktop apps, built and shipped by a small team."
+    },
+    "samplePost": {
+      "title": "A cover for every post",
+      "date": "1 October 2026"
+    },
+    "github": [
+      {
+        "id": "claude-multi",
+        "repo": "hmziqrs/claude-multi"
+      },
+      {
+        "id": "freeoxide",
+        "repo": null
+      },
+      {
+        "id": "gpui-starter",
+        "repo": null
+      },
+      {
+        "id": "gpui-query",
+        "repo": null
+      }
+    ],
+    "accounts": {
+      "github": "hmziqrs",
+      "x": "hmziqrs",
+      "linkedin": "in/hmziqrs"
+    }
+  },
+  "inputs": [
+    {
+      "path": "assets/fonts/jetbrains-mono-latin-400-normal.ttf",
+      "sha256": "473c93ad62d89abd8431c8f5d744c83fe2e3f87d05b2f80c06355f240058d813"
+    },
+    {
+      "path": "assets/fonts/onest-latin-400-normal.ttf",
+      "sha256": "a04475f4d20e438b98a17210b3a6f22a5a7379381ac5ce0c8684252e094ba2bb"
+    },
+    {
+      "path": "assets/fonts/onest-latin-500-normal.ttf",
+      "sha256": "8d694ac8c138ca0a9a8e21d7d4826887e6533ab8f80da12bfbf8ae6ad177c48e"
+    },
+    {
+      "path": "assets/fonts/onest-latin-600-normal.ttf",
+      "sha256": "b8fbaa56e4804151b2deadc3b09980c1302855c7e58a0979c761f5cf81038f33"
+    },
+    {
+      "path": "assets/fonts/onest-latin-wght-normal.woff2",
+      "sha256": "052df74533250c2e0ca0c4bdd32de594e107d99c1648e63820ef9c6142067828"
+    },
+    {
+      "path": "assets/social/source/banners.ts",
+      "sha256": "051114343b99a468819857fc67d37b6e886fce741d0f742b6b50c65f2e9ed25a"
+    },
+    {
+      "path": "assets/social/source/og.ts",
+      "sha256": "29d63a1da33a5fef75cec20cfbe617934df08348763e996b9a48340696c4f5e5"
+    },
+    {
+      "path": "assets/social/source/parts.ts",
+      "sha256": "a20e89afea414af6f4052356dba5d281b45b761556a3ec167263845d24a7fa3b"
+    },
+    {
+      "path": "assets/social/source/post-cover.ts",
+      "sha256": "ffde027f76bc6fbe7be7dcfc08dde39a818f1c4b7495fef1e453fb9007187647"
+    },
+    {
+      "path": "assets/social/source/settings.ts",
+      "sha256": "c0b102baaf808ece8e027c8682ce431e5e6a129451f9b0ae3c4131d0f54a1fb5"
+    },
+    {
+      "path": "packages/brand-core/rings.css",
+      "sha256": "cf372353f94b0770ad94ea51a832d2743976773fd46aae6d16f3eb5109b4c6a0"
+    },
+    {
+      "path": "packages/brand-core/src/color.ts",
+      "sha256": "10daad0a78e06212244343dcd7ddc520616b8d0dc19b1696a9196bb71fa0c845"
+    },
+    {
+      "path": "packages/brand-core/src/family.ts",
+      "sha256": "c6f4cf1b6efaa1500ad70ed8d6e16eb329c3404be8d43c9addad6e7da84e5baf"
+    },
+    {
+      "path": "packages/brand-core/src/logo.ts",
+      "sha256": "38420c7f854a4391c2f6e387f72561082b8c3acabb266ce8c2a470e4661a107b"
+    },
+    {
+      "path": "packages/brand-core/src/motion/frame.ts",
+      "sha256": "feb3426b5bd0bf90ae617fd7cd0b6161c64cda73998c7fdf074a2d5e5b04ddf2"
+    },
+    {
+      "path": "packages/brand-core/src/motion/rings.ts",
+      "sha256": "ae3af78132241905cc1dd3b370d913b3623032d16776391b3bb2b01e304a0624"
+    },
+    {
+      "path": "packages/brand-core/src/motion/scenes/helix.ts",
+      "sha256": "05562400e1fd3301177fedf9854f8ef31008cd3f3b218c8082cfd2b9bc29ba7d"
+    },
+    {
+      "path": "packages/brand-core/src/motion/scenes/index.ts",
+      "sha256": "1685e416a4eb3ca5e9e298dda59c7793b5f232f03b6f2b05ff1383414eb335fb"
+    },
+    {
+      "path": "packages/brand-core/src/motion/scenes/lattice.ts",
+      "sha256": "954d30c0d075f369b345234eab99644e220b3c2448c3e2c6dedfe85f9922c757"
+    },
+    {
+      "path": "packages/brand-core/src/motion/scenes/layers.ts",
+      "sha256": "56e70f229ab033ab44bf08ba19ce171d469e8eda089a12a65a2cd3396a30e5c5"
+    },
+    {
+      "path": "packages/brand-core/src/motion/scenes/network.ts",
+      "sha256": "0b79a7456043a6d5922420e14a878545c335651d089d14c4e5e21d272a9da222"
+    },
+    {
+      "path": "packages/brand-core/src/motion/scenes/stage.ts",
+      "sha256": "4dd6f484c6cf604f96039af7c604a1aa92de696a31f09003e3a612b9d095e9c6"
+    },
+    {
+      "path": "packages/brand-core/src/motion/scenes/support.ts",
+      "sha256": "f67dec66d3aef2fdbcbc855f75de2c51ed2fa0a9b9eedc531d98091d96e61b0d"
+    },
+    {
+      "path": "packages/brand-core/src/motion/scenes/thread.ts",
+      "sha256": "052ed93495f56dbca57cd305f5a4d33295aa73fa20a16b1893b2556de385d9e8"
+    },
+    {
+      "path": "packages/brand-core/src/motion/scenes/tiles.ts",
+      "sha256": "3e3cd9ffbdb91d6fbfc68c13222fe6c562ae412274283e37bb6ba87b1c255b88"
+    },
+    {
+      "path": "packages/brand-core/theme.css",
+      "sha256": "b9d163d586bff5532f462a22e57abb46fc3fb821af6017270a16a01ba5f3720a"
+    },
+    {
+      "path": "pnpm-lock.yaml",
+      "sha256": "544643f52a9deb20ae03715d27a058c6c3a39c5b95b89ae7911cd8e90b6ade76"
+    },
+    {
+      "path": "scripts/assets-lib.mjs",
+      "sha256": "1ce03bbb2712149db0f41d8d921e72ebd31cc9cf51e65610c6432be574c15569"
+    },
+    {
+      "path": "scripts/render-assets.mjs",
+      "sha256": "c63cd7e1c5a415dd71a983bd6a080bb0c5b0a9076c264427842587c10bb984a5"
+    }
+  ],
+  "files": [
+    {
+      "path": "sites/hmziq/og-1200x630.png",
+      "sha256": "3b484e0255ed08183ccccd3f2f7c2b58ce49bfe58d4de2f059d94f07a9086b09",
+      "bytes": 43576,
+      "width": 1200,
+      "height": 630
+    },
+    {
+      "path": "sites/hmziq/x-1200x675.png",
+      "sha256": "2ef7c50131b11544321b35f72782ef25380d1024a602d1bcc192e71b2c99c5a5",
+      "bytes": 48957,
+      "width": 1200,
+      "height": 675
+    },
+    {
+      "path": "sites/blog/og-1200x630.png",
+      "sha256": "1bbcaa92dc33400eaf25e45b6d1aef1e855c1ba5788fcbc8f709f3a1e1202d4a",
+      "bytes": 32750,
+      "width": 1200,
+      "height": 630
+    },
+    {
+      "path": "sites/blog/x-1200x675.png",
+      "sha256": "41e53fe880502834613c151bf40c052f345f79e03402e7dffc48e1780e258757",
+      "bytes": 33139,
+      "width": 1200,
+      "height": 675
+    },
+    {
+      "path": "sites/labs/og-1200x630.png",
+      "sha256": "b16d50196d2e5f0ba904f96da565945c3419cef59cd1fe9dfeee170f9197634b",
+      "bytes": 27095,
+      "width": 1200,
+      "height": 630
+    },
+    {
+      "path": "sites/labs/x-1200x675.png",
+      "sha256": "ad2462f66f39f7d126e3596d151a7ec40ca31bf38a67e77af5114c5d6e55beac",
+      "bytes": 27411,
+      "width": 1200,
+      "height": 675
+    },
+    {
+      "path": "sites/freeoxide/og-1200x630.png",
+      "sha256": "166728eb583c682aa8f7bff0a4693d934716c31675f349c9a93170230430e1dd",
+      "bytes": 41115,
+      "width": 1200,
+      "height": 630
+    },
+    {
+      "path": "sites/freeoxide/x-1200x675.png",
+      "sha256": "10935f569ec37f656fa19d96bdc5f39fb1d70857e0f3b2965fe00b7b77e8b850",
+      "bytes": 41919,
+      "width": 1200,
+      "height": 675
+    },
+    {
+      "path": "sites/gpui-starter/og-1200x630.png",
+      "sha256": "d77ba225910b63bd1335e053fc733bad01e5203006725bb9989d7cf2ef113810",
+      "bytes": 50778,
+      "width": 1200,
+      "height": 630
+    },
+    {
+      "path": "sites/gpui-starter/x-1200x675.png",
+      "sha256": "a6225a2ffeba32dd015a55f9288fbea4c75f09231fc7a9e840604c3cfe96e170",
+      "bytes": 51457,
+      "width": 1200,
+      "height": 675
+    },
+    {
+      "path": "sites/gpui-query/og-1200x630.png",
+      "sha256": "fd0fb7d91ebea4ec101992ba2cec2c8f0e315f17d75b6e483f633d2838335bf9",
+      "bytes": 52658,
+      "width": 1200,
+      "height": 630
+    },
+    {
+      "path": "sites/gpui-query/x-1200x675.png",
+      "sha256": "d122c82a81595eec49d647027fe6307cfdb99741adab0537ac78b2d95fd7b1f4",
+      "bytes": 53172,
+      "width": 1200,
+      "height": 675
+    },
+    {
+      "path": "sites/claude-multi/og-1200x630.png",
+      "sha256": "c5f9bab5e27c30d4f3719f6a4129aa085af802fc0e2c7ca27fd5f820d2debc23",
+      "bytes": 42986,
+      "width": 1200,
+      "height": 630
+    },
+    {
+      "path": "sites/claude-multi/x-1200x675.png",
+      "sha256": "1a1f0fb395598ad7a4f69275654398f997e519cebae663073012b28dc75a2b5b",
+      "bytes": 43134,
+      "width": 1200,
+      "height": 675
+    },
+    {
+      "path": "sites/oxlabs/og-1200x630.png",
+      "sha256": "d3769ce0e18fcc992066aa09f46e05e2b21967e98aad53d41d45210db4732a46",
+      "bytes": 53080,
+      "width": 1200,
+      "height": 630
+    },
+    {
+      "path": "sites/oxlabs/x-1200x675.png",
+      "sha256": "621764040a9ca6892457ae5669dbf7bf952ef1c3229daf16359cb04328aa2225",
+      "bytes": 56374,
+      "width": 1200,
+      "height": 675
+    },
+    {
+      "path": "github/claude-multi-1280x640.png",
+      "sha256": "38d4018d811a84ccf3699f5310f9daf10f4be9a018a9706b54e217fea53c9aaf",
+      "bytes": 35384,
+      "width": 1280,
+      "height": 640
+    },
+    {
+      "path": "github/freeoxide-1280x640.png",
+      "sha256": "fdfd0025b7b5004eb98dbc419903f6a9f03a57f16d03564e5dac8940486acc9d",
+      "bytes": 34670,
+      "width": 1280,
+      "height": 640
+    },
+    {
+      "path": "github/gpui-starter-1280x640.png",
+      "sha256": "2ce889c8dfc85748bb1f6ff5e1ac083785c1b65af7163ff0f9ae060f24602538",
+      "bytes": 42924,
+      "width": 1280,
+      "height": 640
+    },
+    {
+      "path": "github/gpui-query-1280x640.png",
+      "sha256": "7ad2af82709435b1ac93e4158bbbddb1297a93afdc3ebf5011b2e3047483aa9a",
+      "bytes": 43637,
+      "width": 1280,
+      "height": 640
+    },
+    {
+      "path": "blog/cover-sample-1200x675.png",
+      "sha256": "b3567be8a47cf49512183e0fe9cec7e7dd067e366d13a0439fd56c279a63a53e",
+      "bytes": 30234,
+      "width": 1200,
+      "height": 675
+    },
+    {
+      "path": "blog/og-sample-1200x630.png",
+      "sha256": "668d2a7ae2e6da9fca5dde69cf09ae1ab5df42ac26043a6964e387c18c4ac9bf",
+      "bytes": 29623,
+      "width": 1200,
+      "height": 630
+    },
+    {
+      "path": "avatars/hmziq-400x400.png",
+      "sha256": "8346259d28a9ea7331c8b5fba0758877aa7ce550f5f3118195e9cdab78eff8b6",
+      "bytes": 4439,
+      "width": 400,
+      "height": 400
+    },
+    {
+      "path": "avatars/blog-400x400.png",
+      "sha256": "3bfe598f247c55d79f8a4b6eec98d884c728f9f38c2d440ba843812fe2cd3122",
+      "bytes": 4082,
+      "width": 400,
+      "height": 400
+    },
+    {
+      "path": "avatars/labs-400x400.png",
+      "sha256": "4eb0744cd8fd1ca14f4bf0938d17b22e1378d7db06126881d81577c58dde26c8",
+      "bytes": 3672,
+      "width": 400,
+      "height": 400
+    },
+    {
+      "path": "avatars/freeoxide-400x400.png",
+      "sha256": "19d6a6ce2187e97eca1e31a78699f6ef52fc8298663b3d44ee2eb3f34c0b4115",
+      "bytes": 4246,
+      "width": 400,
+      "height": 400
+    },
+    {
+      "path": "avatars/gpui-starter-400x400.png",
+      "sha256": "deb321712a2cdbe9dcef740963c3c14536a10112bb8761987e2d4e4ed7bf66fe",
+      "bytes": 4874,
+      "width": 400,
+      "height": 400
+    },
+    {
+      "path": "avatars/gpui-query-400x400.png",
+      "sha256": "42408447b251e529999ab52caa99017c56efad11455addeb97bc63515768924a",
+      "bytes": 4971,
+      "width": 400,
+      "height": 400
+    },
+    {
+      "path": "avatars/claude-multi-400x400.png",
+      "sha256": "29f8e16462a8922ae51cfdde3a1a25c472b3e5608e8bb6e542020d0db764f15a",
+      "bytes": 4799,
+      "width": 400,
+      "height": 400
+    },
+    {
+      "path": "avatars/oxlabs-400x400.png",
+      "sha256": "254929ec082d236be60e5d892d59f29c9b5e78fc1742015fb9e52b09f7d78a5d",
+      "bytes": 5067,
+      "width": 400,
+      "height": 400
+    },
+    {
+      "path": "x/header-1500x500.png",
+      "sha256": "fd8bd4fa7a8776a540209781b7537eb89c5cd99e56e6dcc8740eb571874b6285",
+      "bytes": 22747,
+      "width": 1500,
+      "height": 500
+    },
+    {
+      "path": "linkedin/background-1584x396.png",
+      "sha256": "7f8a021c24bc78767494a43949836e53e95bcaf3a4be6a39fdb081972acd8d5f",
+      "bytes": 19454,
+      "width": 1584,
+      "height": 396
+    },
+    {
+      "path": "upload-list.md",
+      "sha256": "4b86125d83367af11b51ddfb43d3912040f23b4e9e289dc20998a6980e47894e",
+      "bytes": 2112
+    }
+  ]
+}

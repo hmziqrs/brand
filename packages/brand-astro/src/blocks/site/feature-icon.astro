@@ -1,0 +1,15 @@
+---
+import type { AstroPiece } from "$brand/utils";
+
+/* Renders an icon component passed in as a prop (items can't carry slots). */
+
+interface Props {
+  icon?: AstroPiece;
+}
+
+const { icon } = Astro.props;
+
+const Icon = icon;
+---
+
+{Icon && <Icon />}

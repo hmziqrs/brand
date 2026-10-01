@@ -1,0 +1,15 @@
+---
+import { cn } from "$brand/utils";
+
+/* A small grey word for a kind of thing: "Latest release", "Contact". */
+
+interface Props {
+  class?: string;
+}
+
+const { class: className, ...rest } = Astro.props;
+---
+
+<p class={cn("text-[0.8125rem] text-muted-foreground", className)} {...rest}>
+  <slot />
+</p>

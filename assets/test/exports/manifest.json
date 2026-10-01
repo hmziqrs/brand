@@ -1,0 +1,136 @@
+{
+  "target": "test-card",
+  "command": "pnpm render-assets --only test-card",
+  "digest": "8a2f0f06cb7ee2ea05ba727ecd08c1061718dfd61bda0a3564f611789d3aedfa",
+  "renderers": {
+    "@resvg/resvg-js": "2.6.2"
+  },
+  "settings": {
+    "width": 1200,
+    "height": 760,
+    "fonts": [
+      "onest-latin-400-normal.ttf",
+      "onest-latin-500-normal.ttf",
+      "onest-latin-600-normal.ttf",
+      "jetbrains-mono-latin-400-normal.ttf"
+    ]
+  },
+  "inputs": [
+    {
+      "path": "assets/fonts/jetbrains-mono-latin-400-normal.ttf",
+      "sha256": "473c93ad62d89abd8431c8f5d744c83fe2e3f87d05b2f80c06355f240058d813"
+    },
+    {
+      "path": "assets/fonts/onest-latin-400-normal.ttf",
+      "sha256": "a04475f4d20e438b98a17210b3a6f22a5a7379381ac5ce0c8684252e094ba2bb"
+    },
+    {
+      "path": "assets/fonts/onest-latin-500-normal.ttf",
+      "sha256": "8d694ac8c138ca0a9a8e21d7d4826887e6533ab8f80da12bfbf8ae6ad177c48e"
+    },
+    {
+      "path": "assets/fonts/onest-latin-600-normal.ttf",
+      "sha256": "b8fbaa56e4804151b2deadc3b09980c1302855c7e58a0979c761f5cf81038f33"
+    },
+    {
+      "path": "assets/fonts/onest-latin-wght-normal.woff2",
+      "sha256": "052df74533250c2e0ca0c4bdd32de594e107d99c1648e63820ef9c6142067828"
+    },
+    {
+      "path": "assets/test/source/test-card.mjs",
+      "sha256": "5ec5cdce6d7d49073dc53e1e5c23bab09bfc10aae3cfb1288f2693768a70152c"
+    },
+    {
+      "path": "packages/brand-core/rings.css",
+      "sha256": "cf372353f94b0770ad94ea51a832d2743976773fd46aae6d16f3eb5109b4c6a0"
+    },
+    {
+      "path": "packages/brand-core/src/color.ts",
+      "sha256": "10daad0a78e06212244343dcd7ddc520616b8d0dc19b1696a9196bb71fa0c845"
+    },
+    {
+      "path": "packages/brand-core/src/family.ts",
+      "sha256": "c6f4cf1b6efaa1500ad70ed8d6e16eb329c3404be8d43c9addad6e7da84e5baf"
+    },
+    {
+      "path": "packages/brand-core/src/logo.ts",
+      "sha256": "38420c7f854a4391c2f6e387f72561082b8c3acabb266ce8c2a470e4661a107b"
+    },
+    {
+      "path": "packages/brand-core/src/motion/frame.ts",
+      "sha256": "feb3426b5bd0bf90ae617fd7cd0b6161c64cda73998c7fdf074a2d5e5b04ddf2"
+    },
+    {
+      "path": "packages/brand-core/src/motion/rings.ts",
+      "sha256": "ae3af78132241905cc1dd3b370d913b3623032d16776391b3bb2b01e304a0624"
+    },
+    {
+      "path": "packages/brand-core/src/motion/scenes/helix.ts",
+      "sha256": "05562400e1fd3301177fedf9854f8ef31008cd3f3b218c8082cfd2b9bc29ba7d"
+    },
+    {
+      "path": "packages/brand-core/src/motion/scenes/index.ts",
+      "sha256": "1685e416a4eb3ca5e9e298dda59c7793b5f232f03b6f2b05ff1383414eb335fb"
+    },
+    {
+      "path": "packages/brand-core/src/motion/scenes/lattice.ts",
+      "sha256": "954d30c0d075f369b345234eab99644e220b3c2448c3e2c6dedfe85f9922c757"
+    },
+    {
+      "path": "packages/brand-core/src/motion/scenes/layers.ts",
+      "sha256": "56e70f229ab033ab44bf08ba19ce171d469e8eda089a12a65a2cd3396a30e5c5"
+    },
+    {
+      "path": "packages/brand-core/src/motion/scenes/network.ts",
+      "sha256": "0b79a7456043a6d5922420e14a878545c335651d089d14c4e5e21d272a9da222"
+    },
+    {
+      "path": "packages/brand-core/src/motion/scenes/stage.ts",
+      "sha256": "4dd6f484c6cf604f96039af7c604a1aa92de696a31f09003e3a612b9d095e9c6"
+    },
+    {
+      "path": "packages/brand-core/src/motion/scenes/support.ts",
+      "sha256": "f67dec66d3aef2fdbcbc855f75de2c51ed2fa0a9b9eedc531d98091d96e61b0d"
+    },
+    {
+      "path": "packages/brand-core/src/motion/scenes/thread.ts",
+      "sha256": "052ed93495f56dbca57cd305f5a4d33295aa73fa20a16b1893b2556de385d9e8"
+    },
+    {
+      "path": "packages/brand-core/src/motion/scenes/tiles.ts",
+      "sha256": "3e3cd9ffbdb91d6fbfc68c13222fe6c562ae412274283e37bb6ba87b1c255b88"
+    },
+    {
+      "path": "packages/brand-core/theme.css",
+      "sha256": "b9d163d586bff5532f462a22e57abb46fc3fb821af6017270a16a01ba5f3720a"
+    },
+    {
+      "path": "pnpm-lock.yaml",
+      "sha256": "544643f52a9deb20ae03715d27a058c6c3a39c5b95b89ae7911cd8e90b6ade76"
+    },
+    {
+      "path": "scripts/assets-lib.mjs",
+      "sha256": "1ce03bbb2712149db0f41d8d921e72ebd31cc9cf51e65610c6432be574c15569"
+    },
+    {
+      "path": "scripts/render-assets.mjs",
+      "sha256": "c63cd7e1c5a415dd71a983bd6a080bb0c5b0a9076c264427842587c10bb984a5"
+    }
+  ],
+  "files": [
+    {
+      "path": "test-card.svg",
+      "sha256": "9c6507cc1351938a72342b4275f49a0069a137f8c99fe5e489a50db4452cfd8d",
+      "bytes": 10075,
+      "width": 1200,
+      "height": 760
+    },
+    {
+      "path": "test-card.png",
+      "sha256": "fbc09b0593b60ccd12739e28fa74773d1ff7f2de0637e54599a8f5f7832eda81",
+      "bytes": 94893,
+      "width": 1200,
+      "height": 760
+    }
+  ]
+}

@@ -1,0 +1,111 @@
+---
+import { cn } from "$brand/utils";
+import { tokenize, type CodeFile, type CodeLanguage } from "./code-tokenize";
+import { nextCodeId } from "./code-id";
+import CodeTokens from "./code-tokens.astro";
+import CopyButton from "./copy-button.astro";
+
+/*
+ * A block of code in a thin outline, no fill. A label or tabs sit in a bar
+ * above it, with the copy button on the right. Every version is rendered
+ * ahead of time; the tab script only shows and hides them, so switching
+ * costs nothing and works without re-highlighting.
+ */
+
+interface Props {
+  code?: string;
+  lang?: CodeLanguage;
+  /** A file name or short title shown above the code. */
+  label?: string;
+  /** Several versions of the same thing (Terminal / Cargo.toml), as tabs. */
+  files?: CodeFile[];
+  /** Show a copy button. On by default; turn it off for code people only read. */
+  copy?: boolean;
+  class?: string;
+}
+
+const { code = "", lang = "text", label, files, copy = true, class: className } = Astro.props;
+
+const list: CodeFile[] = files ?? [{ label: label ?? "", code, lang }];
+const id = nextCodeId();
+const bar = Boolean(files || label);
+const panels = list.map((f, i) => ({ ...f, lines: tokenize(f.code, f.lang ?? "text"), panelId: `${id}-panel-${i}` }));
+---
+
+<div data-slot="code-block" class={cn("relative overflow-hidden rounded-xl border", className)}>
+  {
+    bar && (
+      <div class="flex h-10 items-center justify-between gap-4 border-b pr-1.5 pl-3.5">
+        {files ? (
+          <div role="tablist" aria-label="Versions" class="-ml-2 flex gap-1">
+            {panels.map((f, i) => (
+              <button
+                type="button"
+                role="tab"
+                data-slot="code-tab"
+                id={`${id}-tab-${i}`}
+                aria-selected={i === 0}
+                aria-controls={f.panelId}
+                class="h-7 rounded-md px-2.5 text-xs text-muted-foreground transition-colors outline-none hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50 aria-selected:bg-foreground/8 aria-selected:text-foreground"
+              >
+                {f.label}
+              </button>
+            ))}
+          </div>
+        ) : (
+          <span class="text-xs text-muted-foreground">{label}</span>
+        )}
+        {copy && <CopyButton text={panels[0].code} />}
+      </div>
+    )
+  }
+  {
+    copy &&
+      !bar && (
+        <div class="absolute top-1.5 right-1.5">
+          <CopyButton text={panels[0].code} />
+        </div>
+      )
+  }
+  <!-- Focusable, so code wider than the box can be scrolled from the keyboard. -->
+  {
+    panels.map((f, i) => (
+      /* Written as one unbroken run: <pre> keeps every whitespace character,
+         so the code must start right after the opening tag. */
+      <pre
+        id={f.panelId}
+        data-slot="code-panel"
+        data-code={f.code}
+        hidden={i !== 0}
+        role={files ? "tabpanel" : undefined}
+        aria-labelledby={files ? `${id}-tab-${i}` : undefined}
+        tabindex="0"
+        class={cn(
+          "overflow-x-auto px-4.5 py-4 font-mono outline-none focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:ring-inset text-[0.8125rem] leading-[1.7] text-(--code-foreground)",
+          copy && !bar && "pr-12",
+        )}
+      ><code>{f.lines.map((line, j) => (<Fragment><CodeTokens line={line} />{j < f.lines.length - 1 ? "\n" : null}</Fragment>))}</code></pre>
+    ))
+  }
+</div>
+
+<script>
+  // Tab switching: show the picked panel, hide the others, and point the
+  // bar's copy button at the picked code. Delegated, so it survives view
+  // transitions.
+  document.addEventListener("click", (event) => {
+    const tab = (event.target as HTMLElement | null)?.closest<HTMLElement>("[data-slot='code-tab']");
+    if (!tab) return;
+    const block = tab.closest<HTMLElement>("[data-slot='code-block']");
+    if (!block) return;
+    const tabs = [...block.querySelectorAll<HTMLElement>("[data-slot='code-tab']")];
+    const panels = [...block.querySelectorAll<HTMLElement>("[data-slot='code-panel']")];
+    const index = tabs.indexOf(tab);
+    if (index < 0) return;
+    tabs.forEach((t, i) => t.setAttribute("aria-selected", String(i === index)));
+    panels.forEach((panel, i) => {
+      panel.hidden = i !== index;
+      if (i === index) block.querySelector<HTMLElement>("[data-slot='copy-button']")?.setAttribute("data-copy-text", panel.dataset.code ?? "");
+    });
+  });
+</script>

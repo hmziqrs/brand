@@ -1,0 +1,46 @@
+---
+import { Minus, Plus } from "@lucide/astro";
+import { cn } from "$brand/utils";
+import Marker from "./marker.astro";
+import Tag from "./tag.astro";
+
+/*
+ * One question that opens to show its answer. The ring fills in when it's
+ * open. Built on <details>, so it works without JavaScript and with
+ * find-in-page.
+ */
+
+interface Props {
+  question: string;
+  /** Opens the answer on the page as it ships; the reader can close it. */
+  open?: boolean;
+  /** Numbered lists show 01, 02… in orange instead of the ring. */
+  number?: number;
+  /** The question's topic, shown as a grey tag on the right. */
+  topic?: string;
+  class?: string;
+}
+
+const { question, open = false, number, topic, class: className, ...rest } = Astro.props;
+---
+
+<details data-slot="question" open={open} class={cn("group/q border-b", className)} {...rest}>
+  <summary class="flex cursor-pointer list-none items-center gap-3 rounded-sm py-4.5 font-medium transition-colors outline-none hover:text-primary focus-visible:ring-3 focus-visible:ring-ring/50 [&::-webkit-details-marker]:hidden">
+    {
+      number === undefined ? (
+        <Marker class="text-muted-foreground group-open/q:bg-current group-open/q:text-primary" />
+      ) : (
+        <span class="min-w-8 tabular-nums text-primary">{String(number).padStart(2, "0")}</span>
+      )
+    }
+    <span>{question}</span>
+    {topic && <Tag class="ml-auto">{topic}</Tag>}
+    <span class={cn("text-muted-foreground", topic ? "ml-3" : "ml-auto")} aria-hidden="true">
+      <Plus class="size-4 group-open/q:hidden" />
+      <Minus class="hidden size-4 group-open/q:block" />
+    </span>
+  </summary>
+  <div class={cn("max-w-2xl pr-8 pb-5 text-[0.9rem] leading-[1.7] text-muted-foreground", number === undefined ? "pl-5.5" : "pl-11")}>
+    <slot />
+  </div>
+</details>

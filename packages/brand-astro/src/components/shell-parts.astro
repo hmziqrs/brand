@@ -1,0 +1,25 @@
+---
+import { highlightShell, type ShellPart } from "./highlight-shell";
+
+/*
+ * One highlighted shell command: the program, its flags and its quoted text,
+ * each in its own --code-* color. Shared by Command, CommandBar, CommandBox
+ * and the terminal's command lines. Class names are written out in full so
+ * Tailwind can see them.
+ */
+
+interface Props {
+  command: string;
+}
+
+const { command } = Astro.props;
+
+const parts: ShellPart[] = highlightShell(command);
+const toneClass: Record<string, string> = {
+  function: "text-(--code-token-function)",
+  string: "text-(--code-token-string)",
+  keyword: "text-(--code-token-keyword)",
+};
+---
+
+{parts.map((part) => part.tone ? <span class={toneClass[part.tone]}>{part.text}</span> : part.text)}

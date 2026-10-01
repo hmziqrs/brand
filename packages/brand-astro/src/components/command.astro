@@ -1,0 +1,13 @@
+---
+import ShellParts from "./shell-parts.astro";
+
+/* A command with its `$` prompt. The prompt can't be selected, so a copy by hand gets only the command. */
+
+interface Props {
+  command: string;
+}
+
+const { command } = Astro.props;
+---
+
+<code class="font-mono"><span class="text-primary select-none">$ </span><ShellParts command={command} /></code>

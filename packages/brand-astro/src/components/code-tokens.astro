@@ -1,0 +1,14 @@
+---
+import { styleText } from "$brand/utils";
+import type { Token } from "./code-tokenize";
+
+/* One line of highlighted code: each token in the color Shiki gave it. */
+
+interface Props {
+  line: Token[];
+}
+
+const { line } = Astro.props;
+---
+
+{line.map((token) => (token.color ? <span style={styleText({ color: token.color })}>{token.content}</span> : token.content))}

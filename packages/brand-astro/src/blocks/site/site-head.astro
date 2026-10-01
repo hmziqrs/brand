@@ -1,0 +1,58 @@
+---
+import { family } from "@hmziq/brand-core/family";
+
+/*
+ * The page head for one site: title, description, canonical URL, the OG and
+ * X tags, the icon links and theme-color. The site's identity comes from its
+ * id in core's family.ts; the page passes in its own title, description and
+ * URL (blocks never read the URL themselves). The tags are the same ones a
+ * site's head.html from assets.md holds.
+ */
+
+export interface Props {
+  /** The site's id in core's family roster: "freeoxide", "blog", … */
+  site: string;
+  /** The page's title, as it should read in a tab and a link card. */
+  title: string;
+  description: string;
+  /** The page's full URL, for the canonical link and the og:url tag. */
+  url: string;
+  /** Which social card this page gets. Sites use the large card; posts and products can too. */
+  card?: "summary" | "summary_large_image";
+  /** The card image, absolute. The site's og.png by default. */
+  image?: string;
+}
+
+const { site, title, description, url, card = "summary_large_image", image } = Astro.props;
+
+const entry = family.find((f) => f.id === site);
+const siteName = entry?.name ?? site;
+const origin = url ? new URL(url).origin : undefined;
+const social = image ?? (origin ? `${origin}/og.png` : undefined);
+/* The page backgrounds, written as rgb() so the color check can tell them
+   from a hand-typed component color (they are the same near-black and
+   white the Svelte kit's SiteHead carries). */
+const theme = { dark: "rgb(10 10 10)", light: "rgb(255 255 255)" };
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={url} />
+
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="icon" href="/favicon.ico" sizes="32x32" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<link rel="manifest" href="/site.webmanifest" />
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content={theme.dark} />
+<meta name="theme-color" media="(prefers-color-scheme: light)" content={theme.light} />
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content={siteName} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={url} />
+{social && <meta property="og:image" content={social} />}
+<meta name="twitter:card" content={card} />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+{social && <meta name="twitter:image" content={social} />}

@@ -1,0 +1,49 @@
+---
+import { cn } from "$brand/utils";
+import Marker from "./marker.astro";
+
+/*
+ * A list of the page's headings. The one you're reading gets an orange ring.
+ *
+ * The current item is carried by `aria-current`, and the colors follow that
+ * attribute rather than a class picked at render time, so a page (or a block
+ * like PostContents or DocsLayout) can move the marker with core's scroll
+ * spy after the page has shipped, without re-rendering the list.
+ */
+
+export type TocItem = { id: string; label: string };
+
+interface Props {
+  items: TocItem[];
+  current?: string;
+  /** 01, 02… in orange instead of the rings, for numbered documents. */
+  numbered?: boolean;
+  class?: string;
+}
+
+const { items, current, numbered = false, class: className } = Astro.props;
+---
+
+<ul data-slot="toc" class={cn("flex flex-col gap-0.5", className)}>
+  {
+    items.map((item, i) => (
+      <li>
+        <a
+          href={`#${item.id}`}
+          aria-current={item.id === current ? "location" : undefined}
+          class={cn(
+            "flex items-center gap-2 rounded-sm py-1 no-underline transition-colors outline-none hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50",
+            "text-muted-foreground aria-[current=location]:text-foreground aria-[current=location]:[&>[data-slot=marker]]:text-primary",
+          )}
+        >
+          {numbered ? (
+            <span class="min-w-6.5 text-xs font-medium tabular-nums text-primary">{String(i + 1).padStart(2, "0")}</span>
+          ) : (
+            <Marker class="text-border" />
+          )}
+          {item.label}
+        </a>
+      </li>
+    ))
+  }
+</ul>

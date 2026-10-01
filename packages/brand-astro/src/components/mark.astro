@@ -1,0 +1,71 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { cn, mergeStyle, styleText } from "$brand/utils";
+import { logoDefaults, logoMotion, paint, type LogoLook } from "@hmziq/brand-core/logo";
+import { letterStyle } from "./logo-style";
+import LogoLetters from "./logo-letters.astro";
+import LogoSquare from "./logo-square.astro";
+import "@hmziq/brand-core/logo.css";
+
+/*
+ * The mark, for favicons, app icons and anywhere the name doesn't fit: the
+ * symbol and the orange square on a tile in the opposite of the page color
+ * (white on dark pages, black on light ones). No rings.
+ */
+
+interface Props extends Omit<HTMLAttributes<"span">, "children" | "style"> {
+  /** The site's two-letter symbol, like Fx for freeoxide. */
+  symbol: string;
+  /** Width and height in pixels. The letters scale with it. */
+  size?: number;
+  /** A look from the logo tweaker. Leave it out for the brand's own mark. */
+  look?: Partial<LogoLook>;
+  /** Holds a moving look still where it is. */
+  paused?: boolean;
+  style?: string | Record<string, string>;
+}
+
+const { symbol, size = 20, look, paused = false, class: className, style, ...rest } = Astro.props;
+
+const l = look ? { ...logoDefaults, ...look } : undefined;
+const motion = l ? logoMotion(l, [...symbol].length) : undefined;
+const lookStyle = l && motion
+  ? mergeStyle({ fontSize: `${size}px`, ...letterStyle(l), color: paint(l.symbol), background: paint(l.tile), borderRadius: `${l.corner}%`, "--logo-color": paint(l.symbol), ...motion.vars }, style)
+  : undefined;
+const plainStyle = mergeStyle({ fontSize: `${size}px` }, style);
+---
+
+{
+  !l ? (
+    <span
+      data-slot="mark"
+      aria-hidden="true"
+      style={plainStyle}
+      class={cn("inline-grid size-[1em] shrink-0 place-items-center rounded-[22%] bg-foreground leading-none font-semibold tracking-[-0.02em] text-background", className)}
+      {...rest}
+    >
+      <span class="inline-flex items-baseline text-[0.42em]">
+        {symbol}
+        <i class="ml-[0.07em] inline-block size-[0.3em] bg-mark-square"></i>
+      </span>
+    </span>
+  ) : (
+    <span
+      data-slot="mark"
+      data-look=""
+      data-paused={paused || undefined}
+      data-surface-move={l.surfaceMove === "breathe" ? "breathe" : undefined}
+      aria-hidden="true"
+      style={lookStyle}
+      class={cn("relative inline-grid size-[1em] shrink-0 place-items-center overflow-hidden leading-none", className)}
+      {...rest}
+    >
+      {motion?.css && <style is:inline set:html={motion.css} />}
+      <span class="inline-flex items-baseline" style={styleText({ fontSize: `${l.symbolSize}em` })}>
+        <LogoLetters text={symbol} look={l} perLetter={motion?.perLetter} />
+        <LogoSquare look={l} size={l.markSize} color={l.markSquare} />
+      </span>
+      {l.tile !== "none" && l.surfaceMove === "shimmer" && <span data-part="sheen" aria-hidden="true" />}
+    </span>
+  )
+}

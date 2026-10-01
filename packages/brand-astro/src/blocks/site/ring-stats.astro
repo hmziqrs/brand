@@ -1,0 +1,35 @@
+---
+import Container from "./container.astro";
+import RingGauge from "$brand/components/ring-gauge.astro";
+
+type Stat = {
+  value: string;
+  label: string;
+  /** 0–1 fills the ring that far; a whole number above 1 splits it into segments. */
+  ring: number;
+};
+
+/* Key numbers, each beside a ring gauge that draws them. */
+
+interface Props {
+  items: Stat[];
+}
+
+const { items } = Astro.props;
+---
+
+<Container>
+  <ul class="grid gap-8 sm:grid-cols-3">
+    {
+      items.map((s) => (
+        <li class="flex items-center gap-4.5">
+          <RingGauge value={s.ring} />
+          <span class="flex flex-col gap-1">
+            <span class="text-[1.75rem] leading-[1.05] font-medium tracking-[-0.03em]">{s.value}</span>
+            <span class="text-sm text-muted-foreground">{s.label}</span>
+          </span>
+        </li>
+      ))
+    }
+  </ul>
+</Container>

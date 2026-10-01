@@ -1,0 +1,62 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { cn, mergeStyle, styleText } from "$brand/utils";
+import { logoDefaults, logoMotion, paint, type LogoLook } from "@hmziq/brand-core/logo";
+import { letterStyle } from "./logo-style";
+import LogoLetters from "./logo-letters.astro";
+import LogoSquare from "./logo-square.astro";
+import "@hmziq/brand-core/logo.css";
+
+/*
+ * The name in Onest 600, ending in the orange square. Every hmziq site signs
+ * this way. With a `look` (from the logo tweaker) the letters, the square and
+ * the plate behind them can be tuned and can move; `logo.css` in core holds
+ * the movement.
+ */
+
+interface Props extends Omit<HTMLAttributes<"span">, "style"> {
+  name: string;
+  /** A look from the logo tweaker: colors, shapes and movement. Leave it out for the brand's own logo. */
+  look?: Partial<LogoLook>;
+  /** Holds a moving look still where it is. */
+  paused?: boolean;
+  style?: string | Record<string, string>;
+}
+
+const { name, look, paused = false, class: className, style, ...rest } = Astro.props;
+
+const l = look ? { ...logoDefaults, ...look } : undefined;
+const motion = l ? logoMotion(l, [...name].length) : undefined;
+const plate = l ? l.plate !== "none" : false;
+const plateStyle = plate && l ? { background: paint(l.plate), padding: `${l.platePad * 0.6}em ${l.platePad}em`, borderRadius: `${l.plateCorner}em` } : undefined;
+const styles = l && motion ? mergeStyle({ ...letterStyle(l), ...plateStyle, "--logo-color": paint(l.color), ...motion.vars }, style) : styleText(style);
+---
+
+{
+  !l ? (
+    <span
+      data-slot="wordmark"
+      class={cn("font-semibold leading-none tracking-[-0.02em] whitespace-nowrap", className)}
+      style={styleText(style)}
+      {...rest}
+    >
+      {name}
+      <i aria-hidden="true" class="ml-[0.07em] inline-block size-[0.36em] bg-primary"></i>
+    </span>
+  ) : (
+    <span
+      data-slot="wordmark"
+      data-look=""
+      data-paused={paused || undefined}
+      data-surface-move={plate && l.surfaceMove === "breathe" ? "breathe" : undefined}
+      class={cn("relative leading-none whitespace-nowrap", className)}
+      style={styles}
+      {...rest}
+    >
+      {motion?.css && <style is:inline set:html={motion.css} />}
+      {plate && l.surfaceMove === "shimmer" && <span data-part="sheen" aria-hidden="true" />}
+      <LogoLetters text={name} look={l} perLetter={motion?.perLetter} />
+      <LogoSquare look={l} size={l.size} color={l.square} />
+    </span>
+  )
+}

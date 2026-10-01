@@ -1,0 +1,19 @@
+---
+import { styleText } from "$brand/utils";
+import type { LogoColor, LogoLook } from "@hmziq/brand-core/logo";
+import { squareStyle } from "./logo-style";
+
+/* The square at the end of the name, drawn by the logo recipe. */
+
+interface Props {
+  look: LogoLook;
+  size: number;
+  color: LogoColor;
+}
+
+const { look, size, color } = Astro.props;
+
+const style = squareStyle(look, size, color);
+---
+
+{style && <i aria-hidden="true" data-part="square" data-move={look.squareMove === "still" ? undefined : look.squareMove} style={styleText(style)}></i>}

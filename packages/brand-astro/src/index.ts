@@ -1,0 +1,72 @@
+// The Astro kit's barrel. Kit files import each other through `$brand/…`;
+// this file is what a project gets from `@hmziq/brand-astro` if it imports
+// the package rather than copying it in.
+
+// Brand pieces (BRAND.md section 9).
+export { default as BandArcs } from "./components/band-arcs.astro";
+export { default as BrandIcon } from "./components/brand-icon.astro";
+export { default as CodeBlock } from "./components/code-block.astro";
+export { default as CodeLines } from "./components/code-lines.astro";
+export { default as Command } from "./components/command.astro";
+export { default as CommandBar } from "./components/command-bar.astro";
+export { default as CommandBox } from "./components/command-box.astro";
+export { default as CopyButton } from "./components/copy-button.astro";
+export { default as CornerRings } from "./components/corner-rings.astro";
+export { default as DataTable } from "./components/data-table.astro";
+export { default as IconTile } from "./components/icon-tile.astro";
+export { default as InlineCode } from "./components/inline-code.astro";
+export { default as Mark } from "./components/mark.astro";
+export { default as Marker } from "./components/marker.astro";
+export { default as Notice } from "./components/notice.astro";
+export { default as Question } from "./components/question.astro";
+export { default as Questions } from "./components/questions.astro";
+export { default as RingGauge } from "./components/ring-gauge.astro";
+export { default as Rings } from "./components/rings.astro";
+export { default as Scene } from "./components/scene.astro";
+export { default as Segmented } from "./components/segmented.astro";
+export { default as Step } from "./components/step.astro";
+export { default as StepNumber } from "./components/step-number.astro";
+export { default as Stepper } from "./components/stepper.astro";
+export { default as Tag } from "./components/tag.astro";
+export { default as TerminalBody } from "./components/terminal-body.astro";
+export { default as TerminalLine } from "./components/terminal-line.astro";
+export { default as TerminalWindow } from "./components/terminal-window.astro";
+export { default as Toc } from "./components/toc.astro";
+export type { TocItem } from "./components/toc.astro";
+export { default as Wordmark } from "./components/wordmark.astro";
+export type { TerminalLineData } from "./components/terminal-line";
+export type { CodeFile, CodeLanguage } from "./components/code-tokenize";
+
+// Site blocks and content pieces.
+export { default as BeforeAfter } from "./blocks/site/before-after.astro";
+export { default as BigNumbers } from "./blocks/site/big-numbers.astro";
+export { default as Bullets } from "./blocks/site/bullets.astro";
+export { default as ButtonLink } from "./blocks/site/button-link.astro";
+export { default as CheckList } from "./blocks/site/check-list.astro";
+export { default as Container } from "./blocks/site/container.astro";
+export { default as CtaBand } from "./blocks/site/cta-band.astro";
+export { default as ElementCard } from "./blocks/site/element-card.astro";
+export { default as EmptyNote } from "./blocks/site/empty-note.astro";
+export { default as FeatureCards } from "./blocks/site/feature-cards.astro";
+export { default as FeatureGrid } from "./blocks/site/feature-grid.astro";
+export { default as Hero } from "./blocks/site/hero.astro";
+export { default as HeroActions } from "./blocks/site/hero-actions.astro";
+export { default as HeroLede } from "./blocks/site/hero-lede.astro";
+export { default as HeroNote } from "./blocks/site/hero-note.astro";
+export { default as HeroNotes } from "./blocks/site/hero-notes.astro";
+export { default as HeroTitle } from "./blocks/site/hero-title.astro";
+export { default as Kicker } from "./blocks/site/kicker.astro";
+export { default as LinkBar } from "./blocks/site/link-bar.astro";
+export { default as PageIntro } from "./blocks/site/page-intro.astro";
+export { default as Price } from "./blocks/site/price.astro";
+export { default as PricingPlans } from "./blocks/site/pricing-plans.astro";
+export { default as Prose } from "./blocks/site/prose.astro";
+export { default as RingStats } from "./blocks/site/ring-stats.astro";
+export { default as SearchBox } from "./blocks/site/search-box.astro";
+export { default as Section } from "./blocks/site/section.astro";
+export { default as SiteHead } from "./blocks/site/site-head.astro";
+export { default as SiteLayout } from "./blocks/site/site-layout.astro";
+export { default as Steps } from "./blocks/site/steps.astro";
+export { default as SummaryBox } from "./blocks/site/summary-box.astro";
+export { default as TopicChips } from "./blocks/site/topic-chips.astro";
+export type { Plan } from "./blocks/site/plan";

@@ -1,0 +1,21 @@
+---
+import { cn } from "$brand/utils";
+import Command from "./command.astro";
+import CopyButton from "./copy-button.astro";
+
+/* A smaller command with an icon copy button, for a step in a list. */
+
+interface Props {
+  command: string;
+  class?: string;
+}
+
+const { command, class: className } = Astro.props;
+---
+
+<div data-slot="command-box" class={cn("flex max-w-[52rem] min-w-0 items-center gap-2 rounded-md border py-1 pr-1 pl-3.5 text-[0.8125rem]", className)}>
+  <div class="min-w-0 flex-1 overflow-x-auto py-1 whitespace-nowrap">
+    <Command command={command} />
+  </div>
+  <CopyButton text={command} />
+</div>

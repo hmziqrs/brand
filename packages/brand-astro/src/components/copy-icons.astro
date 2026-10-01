@@ -1,0 +1,12 @@
+---
+import { Check, Copy } from "@lucide/astro";
+
+/*
+ * The two copy icons. Both are always in the markup; the `data-copied`
+ * attribute the script sets on the button swaps them, so nothing is created
+ * or moved while copying.
+ */
+---
+
+<Copy class="group-data-[copied]/button:hidden" />
+<Check class="hidden text-success group-data-[copied]/button:block" />

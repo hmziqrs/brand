@@ -1,0 +1,46 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { CircleCheck, Info, OctagonAlert, TriangleAlert } from "@lucide/astro";
+import { cn } from "$brand/utils";
+import { Alert, AlertDescription, AlertTitle } from "$brand/starwind/alert";
+
+/*
+ * A short message that sits in the page: a tip, a caveat, a warning. Built
+ * on the Starwind Alert, with no fill. The color goes on the icon and the
+ * line only; the text stays neutral so it's as easy to read as the page
+ * around it. It's a note, not an alert: screen readers read it in place.
+ */
+
+type NoticeTone = "info" | "success" | "warning" | "destructive";
+
+const tones: Record<NoticeTone, { icon: typeof Info; className: string }> = {
+  info: { icon: Info, className: "border-info/40 *:[svg]:text-info" },
+  success: { icon: CircleCheck, className: "border-success/40 *:[svg]:text-success" },
+  warning: { icon: TriangleAlert, className: "border-warning/40 *:[svg]:text-warning" },
+  destructive: { icon: OctagonAlert, className: "border-destructive/40 *:[svg]:text-destructive" },
+};
+
+interface Props extends Omit<HTMLAttributes<"div">, "title" | "children"> {
+  tone?: NoticeTone;
+  title: string;
+}
+
+const { tone = "info", title, class: className, ...rest } = Astro.props;
+
+const t = tones[tone];
+const Icon = t.icon;
+const hasBody = Astro.slots.has("default");
+const hasIcon = Astro.slots.has("icon");
+
+/* The lab's Alert layout (apps/lab/src/components/ui/alert.tsx), carried by
+   the piece: Starwind's stock Alert is one size larger and fills the card
+   color, and the brand's Notice is an outlined, unfilled note. */
+const layout =
+  "group/alert grid gap-0.5 px-4 py-3 text-left text-sm bg-transparent dark:bg-transparent has-data-[slot=alert-action]:relative has-data-[slot=alert-action]:pr-18 has-[>svg]:grid-cols-[auto_1fr] has-[>svg]:gap-x-2.5 *:[svg]:row-span-2 *:[svg]:translate-y-0.5 *:[svg]:text-current *:[svg:not([class*='size-'])]:size-4";
+---
+
+<Alert role="note" class={cn(layout, t.className, className)} {...rest}>
+  {hasIcon ? <slot name="icon" /> : <Icon />}
+  <AlertTitle class="mb-0 text-sm leading-none tracking-normal group-has-[>svg]/alert:col-start-2">{title}</AlertTitle>
+  {hasBody && <AlertDescription class="text-balance md:text-pretty [&_a]:underline [&_a]:underline-offset-3 [&_a:hover]:text-foreground [&_p:not(:last-child)]:mb-4"><slot /></AlertDescription>}
+</Alert>

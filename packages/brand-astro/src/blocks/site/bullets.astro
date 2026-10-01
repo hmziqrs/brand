@@ -1,0 +1,24 @@
+---
+import { cn } from "$brand/utils";
+import Marker from "$brand/components/marker.astro";
+
+/* A list with orange rings for bullets. */
+
+interface Props {
+  items: string[];
+  class?: string;
+}
+
+const { items, class: className } = Astro.props;
+---
+
+<ul class={cn("flex flex-col gap-2.5", className)}>
+  {
+    items.map((item) => (
+      <li class="grid grid-cols-[0.5rem_minmax(0,1fr)] items-baseline gap-3">
+        <Marker class="-translate-y-[0.1em] text-primary" />
+        <span>{item}</span>
+      </li>
+    ))
+  }
+</ul>

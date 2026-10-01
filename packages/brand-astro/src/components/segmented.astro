@@ -1,0 +1,55 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { cn } from "$brand/utils";
+
+/*
+ * A small switch between a few views of the same thing: package managers,
+ * monthly or yearly, one note or another. A thin outline; the picked one
+ * gets a soft orange fill. Nothing moves. Picking a button sets
+ * `aria-pressed` within the group and bubbles a `segmented-change` event
+ * with the value; the page (or a block like PricingPlans) reacts to that.
+ */
+
+interface Props extends Omit<HTMLAttributes<"div">, "children"> {
+  /** What the choice is about, for screen readers: "Package manager", "Billing". */
+  label: string;
+  options: readonly { value: string; label: string }[];
+  value: string;
+}
+
+const { label, options, value, class: className, ...rest } = Astro.props;
+---
+
+<div data-slot="segmented" role="group" aria-label={label} data-value={value} class={cn("inline-flex w-fit flex-wrap gap-1 rounded-[calc(var(--radius-md)+4px)] border p-1", className)} {...rest}>
+  {
+    options.map((o) => (
+      <button
+        type="button"
+        data-segmented-option
+        data-value={o.value}
+        aria-pressed={o.value === value}
+        class="h-7.5 rounded-md px-3 text-[0.8125rem] font-medium text-muted-foreground transition-colors outline-none hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50 aria-pressed:bg-primary/10 aria-pressed:text-primary dark:aria-pressed:bg-primary/20"
+      >
+        {o.label}
+      </button>
+    ))
+  }
+</div>
+
+<script>
+  // Picking an option marks it in the group and tells the page: a
+  // `segmented-change` CustomEvent bubbles from the group with the value.
+  // Delegated, so it survives view transitions.
+  document.addEventListener("click", (event) => {
+    const option = (event.target as HTMLElement | null)?.closest<HTMLElement>("[data-segmented-option]");
+    if (!option) return;
+    const group = option.closest<HTMLElement>("[data-slot='segmented']");
+    if (!group) return;
+    const value = option.dataset.value ?? "";
+    for (const button of group.querySelectorAll<HTMLElement>("[data-segmented-option]")) {
+      button.setAttribute("aria-pressed", String(button === option));
+    }
+    group.dataset.value = value;
+    group.dispatchEvent(new CustomEvent("segmented-change", { detail: { value }, bubbles: true }));
+  });
+</script>

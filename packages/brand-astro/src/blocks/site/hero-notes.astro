@@ -1,0 +1,15 @@
+---
+import { cn } from "$brand/utils";
+
+/* The row of notes under the buttons; each one a HeroNote. */
+
+interface Props {
+  class?: string;
+}
+
+const { class: className, ...rest } = Astro.props;
+---
+
+<div class={cn("flex flex-wrap items-center gap-x-5 gap-y-1.5 text-sm text-muted-foreground", className)} {...rest}>
+  <slot />
+</div>

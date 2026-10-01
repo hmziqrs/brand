@@ -1,0 +1,37 @@
+---
+import type { Plan } from "./plan";
+
+/*
+ * A plan's price: the number large, what it's for in grey. Both billing
+ * periods are rendered; PricingPlans' script shows the one the switch asks
+ * for, so switching costs no re-render.
+ */
+
+interface Props {
+  plan: Pick<Plan, "price" | "yearly" | "per">;
+}
+
+const { plan } = Astro.props;
+
+const free = plan.price === 0;
+const per = plan.per ? `${plan.per} ` : "";
+const monthly = typeof plan.price === "number" ? plan.price : 0;
+const yearly = plan.yearly ?? monthly;
+---
+
+{
+  typeof plan.price === "string" ? (
+    <b class="text-[2.5rem] font-medium tracking-[-0.04em]">{plan.price}</b>
+  ) : (
+    <>
+      <p data-billing="monthly">
+        <b class="text-[2.5rem] font-medium tracking-[-0.04em]">${monthly.toLocaleString("en-US")}</b>{" "}
+        <span class="text-[0.9rem] text-muted-foreground">{free ? "forever" : `${per}a month`}</span>
+      </p>
+      <p data-billing="yearly" hidden>
+        <b class="text-[2.5rem] font-medium tracking-[-0.04em]">${yearly.toLocaleString("en-US")}</b>{" "}
+        <span class="text-[0.9rem] text-muted-foreground">{free ? "forever" : `${per}a year`}</span>
+      </p>
+    </>
+  )
+}

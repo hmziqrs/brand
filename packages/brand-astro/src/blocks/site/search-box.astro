@@ -1,0 +1,29 @@
+---
+import { cn } from "$brand/utils";
+import { Search } from "@lucide/astro";
+import InputGroup from "$brand/starwind/input-group";
+
+/*
+ * A search box that filters as you type. A line, no fill. It ships no
+ * script: the page that filters listens to the input itself (the content
+ * pages wire theirs in content-blocks.md).
+ */
+
+interface Props {
+  label: string;
+  /** The starting value, if the page carries one (from a query param). */
+  value?: string;
+  /** The field's name, when the search is submitted as a form. */
+  name?: string;
+  class?: string;
+}
+
+const { label, value, name, class: className } = Astro.props;
+---
+
+<InputGroup.Root class={cn("h-10 w-full max-w-[26rem] shadow-none dark:bg-transparent", className)}>
+  <InputGroup.Addon>
+    <Search />
+  </InputGroup.Addon>
+  <InputGroup.Input type="search" aria-label={label} placeholder={label} name={name} value={value} />
+</InputGroup.Root>
