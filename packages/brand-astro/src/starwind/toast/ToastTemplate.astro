@@ -1,0 +1,70 @@
+---
+import ToastPrimitive from "@starwind-ui/astro/toast";
+import { CircleCheck, CircleX, Info, LoaderCircle, TriangleAlert, X } from "@lucide/astro";
+import type { HTMLAttributes } from "astro/types";
+import { toastAction, toastClose, toastContent, toastDescription, toastItem, toastTitle } from "./variants";
+
+type Props = HTMLAttributes<"div"> & {
+  variant?: "default" | "error" | "info" | "loading" | "success" | "warning";
+};
+
+const { variant = "default", ...rest } = Astro.props;
+---
+
+<ToastPrimitive.Template variant={variant} {...rest}>
+  <slot>
+    <ToastPrimitive.Root
+      class={toastItem({ variant: variant === "loading" ? "default" : variant })}
+      variant={variant === "loading" ? "default" : variant}
+      data-slot="toast"
+    >
+      <ToastPrimitive.Content class={toastContent()} data-slot="toast-content">
+        <ToastPrimitive.Title class={toastTitle({ variant })} data-slot="toast-title">
+          {
+            variant === "success" && (
+              <CircleCheck />
+            )
+          }
+
+          {
+            variant === "error" && (
+              <CircleX />
+            )
+          }
+
+          {
+            variant === "warning" && (
+              <TriangleAlert />
+            )
+          }
+
+          {
+            variant === "info" && (
+              <Info />
+            )
+          }
+
+          {
+            variant === "loading" && (
+              <LoaderCircle class="animate-spin motion-reduce:animate-none" />
+            )
+          }
+
+          <ToastPrimitive.TitleText data-slot="toast-title-text">Title</ToastPrimitive.TitleText>
+        </ToastPrimitive.Title>
+
+        <ToastPrimitive.Description class={toastDescription()} data-slot="toast-description">
+          Description
+        </ToastPrimitive.Description>
+
+        <ToastPrimitive.Action class={toastAction()} data-slot="toast-action">
+          Action
+        </ToastPrimitive.Action>
+      </ToastPrimitive.Content>
+
+      <ToastPrimitive.Close class={toastClose()} data-slot="toast-close">
+        <X class="size-4" />
+      </ToastPrimitive.Close>
+    </ToastPrimitive.Root>
+  </slot>
+</ToastPrimitive.Template>
