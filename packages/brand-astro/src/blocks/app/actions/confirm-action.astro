@@ -1,0 +1,230 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { LoaderCircle } from "@lucide/astro";
+import { cn } from "$brand/utils";
+import AlertDialog from "$brand/starwind/alert-dialog";
+import { Button } from "$brand/starwind/button";
+import { Input } from "$brand/starwind/input";
+import Notice from "$brand/components/notice.astro";
+
+/*
+ * A step that deserves a second look before it runs (app-blocks.md, phase 8):
+ * the consequences said in words, a confirm button that says what happens,
+ * and — when the action can't be undone — a word the reader has to type
+ * first. While the action runs the dialog holds still; a failure stays open
+ * with the reason, so it can be tried again. Needs JavaScript, and fetches
+ * nothing: the confirm bubbles a `confirm` event and the page answers with
+ * `confirm-settle` ({ ok, message }); success closes the dialog, shows the
+ * toast and returns focus to the trigger — or to the page's h1 when the
+ * trigger is gone with its row.
+ */
+
+interface Props extends Omit<HTMLAttributes<"div">, "title"> {
+  title: string;
+  /** What happens, and whether it can be undone. */
+  description: string;
+  /** "Remove members", never "OK". */
+  confirmLabel: string;
+  cancelLabel?: string;
+  /** "destructive" (the soft red confirm button) or "default". */
+  tone?: "destructive" | "default";
+  /** The reader must type this exactly to enable the confirm button. */
+  confirmText?: string;
+  /** A toast after success. */
+  successMessage?: string;
+}
+
+const {
+  title,
+  description,
+  confirmLabel,
+  cancelLabel = "Cancel",
+  tone = "destructive",
+  confirmText,
+  successMessage,
+  class: className,
+  ...rest
+} = Astro.props;
+---
+
+<AlertDialog.Root data-slot-wrap="confirm-action" data-success-message={successMessage}>
+  {/* asChild, so the page's own button is the trigger rather than a
+      button nested inside one (which HTML refuses to keep). */}
+  <AlertDialog.Trigger asChild class={cn("inline-flex", className)} data-confirm-trigger {...rest}>
+    <slot name="trigger" />
+  </AlertDialog.Trigger>
+  {/* Starwind's stock content owns its data-slot, so the block's own name
+      rides on the wrapper above and this marker here. */}
+  <AlertDialog.Content data-confirm-dialog class={className}>
+    <AlertDialog.Header>
+      <AlertDialog.Title>{title}</AlertDialog.Title>
+      <AlertDialog.Description>{description}</AlertDialog.Description>
+      {
+        confirmText && (
+          /* The word to type, in the header so the dialog reads as one
+             thought; left-aligned even where the header centers. */
+          <div class="mt-2 flex flex-col gap-2 text-left">
+            <label for="confirm-action-word" class="text-sm">
+              Type <strong class="font-medium text-foreground">{confirmText}</strong> to confirm
+            </label>
+            <Input
+              id="confirm-action-word"
+              data-confirm-word={confirmText}
+              autocomplete="off"
+              spellcheck={false}
+              aria-describedby="confirm-action-word-hint"
+            />
+            <p id="confirm-action-word-hint" class="sr-only">
+              The confirm button stays off until this matches.
+            </p>
+          </div>
+        )
+      }
+    </AlertDialog.Header>
+    <div data-confirm-error hidden>
+      <Notice tone="destructive" title="That didn't work. Try again." data-confirm-notice />
+    </div>
+    <AlertDialog.Footer>
+      <AlertDialog.Cancel data-confirm-cancel>{cancelLabel}</AlertDialog.Cancel>
+      <Button
+        type="button"
+        data-confirm-button
+        variant={tone === "destructive" ? "error" : "primary"}
+        disabled={Boolean(confirmText)}
+      >
+        {/* The spinner is here from the start, hidden; the script only
+            flips its hidden class, so nothing is created or moves. */}
+        <LoaderCircle
+          class="lucide size-4 animate-spin motion-reduce:animate-none"
+          data-confirm-spinner
+          aria-hidden="true"
+        />
+        <span data-confirm-label>{confirmLabel}</span>
+      </Button>
+    </AlertDialog.Footer>
+  </AlertDialog.Content>
+</AlertDialog.Root>
+
+<script>
+  import { toast } from "@starwind-ui/astro/toast";
+
+  // The wrapper carries the block's name; everything else hangs off it.
+  const wrapOf = (element: Element | null | undefined) => (element ?? null)?.closest<HTMLElement>("[data-slot-wrap='confirm-action']");
+
+  const face = (root: HTMLElement, pending: boolean) => {
+    const button = root.querySelector<HTMLButtonElement>("[data-confirm-button]");
+    const cancel = root.querySelector<HTMLButtonElement>("[data-confirm-cancel]");
+    const spinner = root.querySelector<HTMLElement>("[data-confirm-spinner]");
+    if (button) {
+      button.disabled = pending || button.dataset.typedOk !== "true";
+      spinner?.classList.toggle("hidden", !pending);
+    }
+    if (cancel) cancel.disabled = pending;
+    // While the action runs the dialog holds still: Escape and outside
+    // clicks close nothing.
+    root.dataset.pending = pending ? "true" : undefined;
+  };
+
+  // Every opening starts clean: nothing typed, nothing failed, and focus
+  // lands where the plan says — on the word to type when there is one, and
+  // on Cancel otherwise.
+  document.addEventListener("click", (event) => {
+    const trigger = (event.target as HTMLElement | null)?.closest<HTMLElement>("[data-confirm-trigger]");
+    if (!trigger) return;
+    const root = wrapOf(trigger);
+    if (!root) return;
+    const word = root.querySelector<HTMLInputElement>("[data-confirm-word]");
+    const error = root.querySelector<HTMLElement>("[data-confirm-error]");
+    if (word) word.value = "";
+    error?.setAttribute("hidden", "");
+    face(root, false);
+    window.requestAnimationFrame(() =>
+      window.requestAnimationFrame(() => {
+        (word ?? root.querySelector<HTMLElement>("[data-confirm-cancel]"))?.focus();
+      }),
+    );
+  });
+
+  // The typed word unlocks the confirm button; Enter confirms once it
+  // matches.
+  document.addEventListener("input", (event) => {
+    const word = event.target as HTMLInputElement | null;
+    if (!word?.matches("[data-confirm-word]")) return;
+    const root = wrapOf(word);
+    const button = root?.querySelector<HTMLButtonElement>("[data-confirm-button]");
+    if (!root || !button) return;
+    button.dataset.typedOk = String(word.value === word.dataset.confirmWord);
+    face(root, root.dataset.pending === "true");
+  });
+
+  document.addEventListener("keydown", (event) => {
+    const word = event.target as HTMLInputElement | null;
+    if (event.key !== "Enter" || !word?.matches("[data-confirm-word]")) return;
+    event.preventDefault();
+    const root = wrapOf(word);
+    const button = root?.querySelector<HTMLButtonElement>("[data-confirm-button]");
+    if (button && !button.disabled) button.click();
+  });
+
+  // The confirm runs the page's work: `confirm` bubbles from the dialog, and
+  // the page answers `confirm-settle` ({ ok, message }). A failure stays
+  // open with the reason; success closes, toasts, and the focus returns to
+  // the trigger — or to the page's h1 when the trigger is gone with its row.
+  document.addEventListener("click", (event) => {
+    const button = (event.target as HTMLElement | null)?.closest<HTMLElement>("[data-confirm-button]");
+    const root = wrapOf(button);
+    if (!button || !root || root.dataset.pending === "true") return;
+
+    face(root, true);
+    // The page answers `confirm-settle` ({ ok, message }) on the dialog when
+    // its work is done; until then the dialog holds still.
+    root.dispatchEvent(new CustomEvent("confirm", { bubbles: true }));
+  });
+
+  document.addEventListener("confirm-settle", (event) => {
+    const root = event.target instanceof HTMLElement ? wrapOf(event.target) : null;
+    if (!root || !(event instanceof CustomEvent)) return;
+    const ok = Boolean(event.detail?.ok);
+    const message = event.detail?.message as string | undefined;
+
+    if (!ok) {
+      face(root, false);
+      const holder = root.querySelector<HTMLElement>("[data-confirm-error]");
+      const notice = root.querySelector<HTMLElement>("[data-slot='alert-title']");
+      if (notice) notice.textContent = message ?? "That didn't work. Try again.";
+      holder?.removeAttribute("hidden");
+      const word = root.querySelector<HTMLInputElement>("[data-confirm-word]");
+      (word ?? root.querySelector<HTMLElement>("[data-confirm-notice]"))?.focus();
+      return;
+    }
+
+    const success = root.dataset.successMessage;
+    root.querySelector<HTMLElement>("[data-confirm-cancel]")?.click();
+    if (success) toast.success(success);
+
+    // When the trigger is gone with its row, focus falls out of the page;
+    // the page's heading is the nearest place for it to land instead.
+    window.requestAnimationFrame(() => {
+      if (document.activeElement && document.activeElement !== document.body) return;
+      const heading = document.querySelector("h1");
+      if (heading instanceof HTMLElement) {
+        heading.tabIndex = -1;
+        heading.focus();
+      }
+    });
+  });
+
+  // Escape holds the dialog open while the action runs.
+  document.addEventListener("starwind:escape-key-down", (event) => {
+    const root = wrapOf(event.target as Element | null);
+    if (root?.dataset.pending === "true") event.preventDefault();
+  });
+
+  // The server render leaves the typed-word state untold; set it once here
+  // so every dialog opens the way the plan says it does.
+  const run = () => {
+    for (const root of document.querySelectorAll<HTMLElement>("[data-slot-wrap='confirm-action']")) face(root, false);
+  };
+  run();
+  document.addEventListener("astro:page-load", run);
+</script>

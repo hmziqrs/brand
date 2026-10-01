@@ -1,0 +1,63 @@
+---
+import { actions } from "astro:actions";
+import AppPage from "$brand/blocks/app/shell/app-page.astro";
+import ErrorState from "$brand/blocks/app/states/error-state.astro";
+import SkeletonSettings from "$brand/blocks/app/states/skeleton-settings.astro";
+import Workspace from "../../../components/app/workspace.astro";
+import WorkspaceForm from "../../../components/app/workspace-form.astro";
+import Deferred from "../../../components/app/deferred.astro";
+import { demoLoad } from "../../../lib/app/demo-state";
+import { deleteWorkspaceFailure, workspace as saved } from "../../../lib/app/settings";
+
+/*
+ * The workspace settings page (app-blocks.md, phase 10): the name and the
+ * address, posted to the saveWorkspace action — the address "taken" is the
+ * scripted field failure — and the destructive section below, whose delete
+ * asks for the word "Paperplane" and fails its first try. Nothing is really
+ * deleted (the workspace is example data), so success is the toast and the
+ * page stays.
+ */
+const load = demoLoad(Astro.url.searchParams.get("state"));
+// The first delete try fails, per visit (the plan's scripted failure).
+deleteWorkspaceFailure.reset();
+const action = Astro.getActionResult(actions.saveWorkspace);
+
+let result: { message: string; field?: string } | undefined;
+let values: Record<string, string> = {};
+let savedOk = false;
+if (action?.data?.ok === false) {
+  result = { message: action.data.message, field: action.data.field };
+  // A failed save keeps what was typed; the saved values sit under them.
+  values = { ...saved, ...(action.data.values ?? {}) };
+} else if (action?.data?.ok) {
+  savedOk = true;
+}
+
+const form = { ...saved, ...values };
+const pending = load.status === "pending" && !action;
+---
+
+<Workspace currentPath={Astro.url.pathname} state={load.state}>
+  {
+    load.status === "error" ? (
+      <AppPage>
+        <div class="mt-8">
+          <ErrorState kind={load.kind} retryHref="/app/settings/workspace" />
+        </div>
+      </AppPage>
+    ) : pending ? (
+      <Deferred server:defer ms={600}>
+        <div slot="fallback">
+          <AppPage>
+            <div class="mt-8">
+              <SkeletonSettings rows={2} />
+            </div>
+          </AppPage>
+        </div>
+        <WorkspaceForm values={form} saved={saved} result={result} savedOk={savedOk} />
+      </Deferred>
+    ) : (
+      <WorkspaceForm values={form} saved={saved} result={result} savedOk={savedOk} />
+    )
+  }
+</Workspace>

@@ -1,0 +1,25 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { cn } from "$brand/utils";
+import { Skeleton } from "$brand/starwind/skeleton";
+
+/*
+ * A skeleton for a run of text: `lines` lines of it, the last one shorter,
+ * the same height and spacing as the paragraph it stands for so nothing
+ * shifts when the text arrives.
+ */
+
+interface Props extends HTMLAttributes<"div"> {
+  lines?: number;
+}
+
+const { lines = 3, class: className, ...rest } = Astro.props;
+---
+
+<div data-slot="skeleton-text" class={cn("flex flex-col gap-2.5", className)} aria-hidden="true" {...rest}>
+  {
+    Array.from({ length: lines }).map((_, at) => (
+      <Skeleton class={cn("h-4", at === lines - 1 && lines > 1 ? "w-2/3" : "w-full")} />
+    ))
+  }
+</div>

@@ -1,0 +1,202 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { cn } from "$brand/utils";
+import Sheet from "$brand/starwind/sheet";
+import AlertDialog from "$brand/starwind/alert-dialog";
+import FormActions from "../settings/form-actions.astro";
+
+/*
+ * A record edited in place (app-blocks.md, phase 8): the page's own form in
+ * a sheet, with a footer that submits it from outside the element through
+ * the same `form` attribute FormActions carries. The page owns the form and
+ * the save; this block owns the sheet — the header and footer stay put while
+ * the body scrolls, and closing it with unsaved changes asks first before
+ * anything is thrown away. The sheet comes in from the right on md and up
+ * (the class overrides below) and rises from the bottom below it. Needs
+ * JavaScript.
+ */
+
+interface Props extends Omit<HTMLAttributes<"div">, "title"> {
+  title: string;
+  description?: string;
+  dirty: boolean;
+  pending: boolean;
+  /** A form-level error from the save. */
+  error?: string;
+  submitLabel?: string;
+  /** The id of the page's <form> in the body; the footer's Save submits it. */
+  formId: string;
+}
+
+const {
+  title,
+  description,
+  dirty,
+  pending,
+  error,
+  submitLabel = "Save changes",
+  formId,
+  class: className,
+  ...rest
+} = Astro.props;
+---
+
+<Sheet.Root data-slot-wrap="record-sheet" data-dirty={dirty ? "true" : "false"} data-pending={pending ? "true" : "false"}>
+  {/* The page never renders this trigger visible; its script clicks it to
+      open the sheet (the drawer runtime opens from a trigger). */}
+  <Sheet.Trigger class="sr-only" data-sheet-trigger>Open</Sheet.Trigger>
+  {/* Starwind's stock content owns its data-slot, so the block's own name
+      rides on the wrapper above and this marker here. */}
+  <Sheet.Content
+    data-record-dialog
+    side="right"
+    class={cn(
+      "data-[side=right]:sm:max-w-md",
+      // Below md the sheet rises from the bottom: the overrides put the
+      // right-side sheet's geometry aside at small widths.
+      "max-md:inset-x-0 max-md:top-auto max-md:bottom-0 max-md:left-0 max-md:h-auto max-md:max-h-[92dvh] max-md:w-full max-md:rounded-t-xl max-md:border-t max-md:border-l-0",
+      "max-md:slide-in-from-bottom max-md:slide-out-to-bottom max-md:slide-in-from-right-0 max-md:slide-out-to-right-0",
+      className,
+    )}
+    {...rest}
+  >
+    <Sheet.Header class="border-b border-border pr-12">
+      <Sheet.Title>{title}</Sheet.Title>
+      {description ? <Sheet.Description>{description}</Sheet.Description> : (
+        /* The sheet's aria-describedby points at the description whether or
+           not one is shown; a hidden one keeps that honest. */
+        <Sheet.Description class="sr-only">{title}</Sheet.Description>
+      )}
+    </Sheet.Header>
+    <!-- The body scrolls; the header and footer above and below it stay. -->
+    <div class="min-h-0 flex-1 overflow-y-auto px-4 sm:px-6">
+      <slot />
+    </div>
+    <Sheet.Footer class="gap-0 p-0">
+      <FormActions dirty={dirty} pending={pending} error={error} submitLabel={submitLabel} form={formId}>
+        <Fragment slot="cancel">
+          <button
+            type="button"
+            data-sheet-cancel
+            disabled={pending}
+            class="inline-flex h-9 items-center justify-center gap-2 rounded-md border border-border bg-background px-4 text-sm font-medium whitespace-nowrap outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50"
+          >
+            Cancel
+          </button>
+        </Fragment>
+      </FormActions>
+    </Sheet.Footer>
+  </Sheet.Content>
+</Sheet.Root>
+
+<!-- The discard question, over the sheet it guards. "Keep editing" returns
+     to the sheet; "Discard" closes both and the changes go with them. -->
+<AlertDialog.Root data-slot-wrap="record-sheet-discard">
+  {/* The page never renders this trigger visible; the script clicks it to
+      ask the discard question over the sheet it guards. */}
+  <AlertDialog.Trigger class="sr-only" data-discard-trigger>Discard your changes?</AlertDialog.Trigger>
+  <AlertDialog.Content data-slot="record-sheet-discard" class="max-w-sm">
+    <AlertDialog.Header>
+      <AlertDialog.Title>Discard your changes?</AlertDialog.Title>
+      <AlertDialog.Description>Your changes will be lost.</AlertDialog.Description>
+    </AlertDialog.Header>
+    <AlertDialog.Footer>
+      <AlertDialog.Cancel data-discard-keep>Keep editing</AlertDialog.Cancel>
+      <AlertDialog.Action variant="error" data-discard-drop>Discard</AlertDialog.Action>
+    </AlertDialog.Footer>
+  </AlertDialog.Content>
+</AlertDialog.Root>
+
+<script>
+  // Closing the sheet, by any of its four doors, comes through one place:
+  // while a save runs nothing closes, and while it's dirty the discard
+  // question comes up first. The page watches the sheet's open state through
+  // the `record-sheet-close` event, which fires only when the sheet really
+  // closes, so it can reset its fields.
+  const sheetOf = (element: Element | null) =>
+    element?.closest<HTMLElement>("[data-slot-wrap='record-sheet']") ?? null;
+
+  const isDirty = (sheet: HTMLElement) => {
+    const wrap = sheet.closest<HTMLElement>("[data-slot-wrap='record-sheet']");
+    return wrap?.dataset.dirty === "true";
+  };
+
+  const isPending = (sheet: HTMLElement) => {
+    const wrap = sheet.closest<HTMLElement>("[data-slot-wrap='record-sheet']");
+    return wrap?.dataset.pending === "true";
+  };
+
+  const reallyClose = (sheet: HTMLElement) => {
+    sheet.dispatchEvent(new CustomEvent("record-sheet-close", { bubbles: true }));
+    // The stock close control sits inside the sheet; clicking it lets the
+    // drawer runtime close the sheet its own way.
+    (sheet.querySelector("[data-sw-drawer-close]") as HTMLElement | null)?.click();
+  };
+
+  const requestClose = (sheet: HTMLElement) => {
+    if (isPending(sheet)) return;
+    if (isDirty(sheet)) {
+      const discard = document.querySelector<HTMLElement>("[data-slot-wrap='record-sheet-discard']");
+      (discard?.querySelector<HTMLElement>("[data-discard-trigger]") as HTMLElement | null)?.click();
+      return;
+    }
+    reallyClose(sheet);
+  };
+
+  document.addEventListener("click", (event) => {
+    const target = event.target as HTMLElement | null;
+    if (!target) return;
+    const cancel = target.closest<HTMLElement>("[data-sheet-cancel]");
+    if (cancel) {
+      const sheet = sheetOf(cancel);
+      if (sheet) requestClose(sheet);
+    }
+  });
+
+  // Escape and outside clicks on the sheet's own layer go through the same
+  // door, so they ask like the buttons do.
+  document.addEventListener("starwind:escape-key-down", (event) => {
+    const sheet = sheetOf(event.target as Element | null);
+    if (!sheet) return;
+    if (isPending(sheet)) {
+      event.preventDefault();
+      return;
+    }
+    if (isDirty(sheet)) {
+      event.preventDefault();
+      requestClose(sheet);
+      return;
+    }
+    // Clean: let the runtime close it, then tell the page.
+    window.requestAnimationFrame(() => {
+      if (sheet.querySelector("[data-record-dialog]")?.getAttribute("data-state") === "closed") {
+        sheet.dispatchEvent(new CustomEvent("record-sheet-close", { bubbles: true }));
+      }
+    });
+  });
+
+  document.addEventListener("starwind:outside-interact", (event) => {
+    const sheet = sheetOf(event.target as Element | null);
+    if (!sheet) return;
+    event.preventDefault();
+    requestClose(sheet);
+  });
+
+  // The discard question: "Keep editing" returns to the sheet, "Discard"
+  // closes both. The listener runs in the capture phase because the alert
+  // dialog's own close handling stops the event before it bubbles.
+  document.addEventListener(
+    "click",
+    (event) => {
+      const target = event.target as HTMLElement | null;
+      if (!target?.closest("[data-discard-drop]")) return;
+      // "Discard" closes both; the question's own close finishes first, so
+      // the sheet's close lands a beat later.
+      window.setTimeout(() => {
+        const sheet = document.querySelector<HTMLElement>("[data-slot-wrap='record-sheet']");
+        if (sheet) reallyClose(sheet);
+      }, 500);
+    },
+    { capture: true },
+  );
+</script>

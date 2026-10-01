@@ -1,0 +1,23 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+/*
+ * One piece's section in the /kit gallery: the anchor the pieces roster
+ * reads (a literal id="piece-<anchor>" on the section, written out at the
+ * call site so `pnpm check:parity` can find it), the piece's name, a line
+ * about it, and every state it ships. Gallery scaffolding, not a piece.
+ */
+
+interface Props extends Omit<HTMLAttributes<"section">, "title"> {
+  title: string;
+  note: string;
+}
+
+const { title, note, class: className, ...rest } = Astro.props;
+---
+
+<section class={className ?? "flex flex-col gap-4 border-t pt-8"} {...rest}>
+  <h2 class="text-lg font-medium">{title}</h2>
+  <p class="text-[0.9375rem]">{note}</p>
+  <slot />
+</section>

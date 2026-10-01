@@ -1,0 +1,494 @@
+---
+import { listHref, type ListState } from "@hmziq/brand-core/app/list-params";
+import type { Member } from "@hmziq/brand-core/app/demo-data";
+import { relativeDate } from "@hmziq/brand-core/app/format";
+import AppPage from "$brand/blocks/app/shell/app-page.astro";
+import AppPageHeader from "$brand/blocks/app/shell/app-page-header.astro";
+import BulkActionBar from "$brand/blocks/app/collection/bulk-action-bar.astro";
+import CollectionToolbar from "$brand/blocks/app/collection/collection-toolbar.astro";
+import FilterChip from "$brand/blocks/app/collection/filter-chip.astro";
+import SortMenu from "$brand/blocks/app/collection/sort-menu.astro";
+import AppTableFrame from "$brand/blocks/app/table/app-table-frame.astro";
+import RowActions from "$brand/blocks/app/table/row-actions.astro";
+import RowCheckbox from "$brand/blocks/app/table/row-checkbox.astro";
+import SelectAllCheckbox from "$brand/blocks/app/table/select-all-checkbox.astro";
+import SortableHead from "$brand/blocks/app/table/sortable-head.astro";
+import TablePagination from "$brand/blocks/app/table/table-pagination.astro";
+import TableStateRow from "$brand/blocks/app/table/table-state-row.astro";
+import EmptyState from "$brand/blocks/app/states/empty-state.astro";
+import NoResults from "$brand/blocks/app/states/no-results.astro";
+import ConfirmAction from "$brand/blocks/app/actions/confirm-action.astro";
+import RecordSheet from "$brand/blocks/app/actions/record-sheet.astro";
+import Tag from "$brand/components/tag.astro";
+import { Avatar, AvatarFallback } from "$brand/starwind/avatar";
+import Dropdown from "$brand/starwind/dropdown";
+import { Button } from "$brand/starwind/button";
+import { Input } from "$brand/starwind/input";
+import { TableBody, TableCell, TableHead, TableHeader, TableRow, Table as TableRoot } from "$brand/starwind/table";
+import { Users } from "@lucide/astro";
+import { allMembers } from "../../lib/app/roster";
+
+/*
+ * The members list (app-blocks.md, phase 10): the same page the SvelteKit
+ * demo has — toolbar, filters, sort, selection, bulk actions, row actions
+ * and paging, all of it URL state through readListParams and listHref, with
+ * the rows rendered on the server and only the selection in a script. The
+ * whole list is one GET form: with JavaScript off, the search submits and
+ * the chips' inputs carry the filters along. The roster lives in the
+ * server's memory, so removals and invites survive a reload.
+ */
+
+interface Props {
+  list: ListState;
+  /** The demo's `state` param, carried along by every list link. */
+  demoState: string;
+  /** Which body the page is showing. */
+  face: "rows" | "empty";
+}
+
+const { list, demoState, face } = Astro.props;
+
+const PATH = "/app/members";
+const roster = allMembers();
+
+// List hrefs carry the demo state along, so a page can be checked in any
+// state while its list is used.
+const hrefOf = (change: Partial<ListState>) => {
+  const href = listHref(PATH, list, change);
+  return demoState && demoState !== "normal" ? `${href}${href.includes("?") ? "&" : "?"}state=${demoState}` : href;
+};
+
+const q = list.q.toLowerCase();
+const filtered = roster.filter(
+  (m) =>
+    (!q || m.name.toLowerCase().includes(q) || m.email.includes(q)) &&
+    (list.filters.role.length === 0 || list.filters.role.includes(m.role.toLowerCase())) &&
+    (list.filters.status.length === 0 || list.filters.status.includes(m.status.toLowerCase())),
+);
+const filtering = list.q !== "" || list.filters.role.length > 0 || list.filters.status.length > 0;
+const pageCount = Math.max(1, Math.ceil(filtered.length / list.perPage));
+// A URL can point past the end once rows are removed; show the last page.
+const currentPage = Math.min(list.page, pageCount);
+
+const SORT_FIELDS: Record<string, keyof Member> = { name: "name", last_active: "lastActive" };
+const toField = (sort: string) => (sort.startsWith("-") ? sort.slice(1) : sort);
+const sorted = [...filtered].sort((a, b) => {
+  const field = SORT_FIELDS[toField(list.sort)];
+  if (!field) return b.joined.localeCompare(a.joined);
+  const desc = list.sort.startsWith("-");
+  const left = String(a[field] ?? "");
+  const right = String(b[field] ?? "");
+  return desc ? right.localeCompare(left) : left.localeCompare(right);
+});
+const pageRows = sorted.slice((currentPage - 1) * list.perPage, currentPage * list.perPage);
+
+// The sort link for a column: none → up → down → back to none.
+const sortedState = (field: string): false | "asc" | "desc" => {
+  if (!list.sort || toField(list.sort) !== field) return false;
+  return list.sort.startsWith("-") ? "desc" : "asc";
+};
+const toggleSortHref = (field: string) => {
+  const current = sortedState(field);
+  return hrefOf({ sort: current === "asc" ? `-${field}` : current === "desc" ? "" : field });
+};
+
+const initials = (name: string) =>
+  name
+    .split(" ")
+    .map((word) => word[0])
+    .slice(0, 2)
+    .join("")
+    .toUpperCase();
+
+const roleOptions = [
+  { value: "owner", label: "Owner", count: roster.filter((m) => m.role === "Owner").length },
+  { value: "admin", label: "Admin", count: roster.filter((m) => m.role === "Admin").length },
+  { value: "member", label: "Member", count: roster.filter((m) => m.role === "Member").length },
+  { value: "viewer", label: "Viewer", count: roster.filter((m) => m.role === "Viewer").length },
+];
+const statusOptions = [
+  { value: "active", label: "Active", count: roster.filter((m) => m.status === "Active").length },
+  { value: "invited", label: "Invited", count: roster.filter((m) => m.status === "Invited").length },
+  { value: "suspended", label: "Suspended", count: roster.filter((m) => m.status === "Suspended").length },
+];
+const sortOptions = [
+  { value: "", label: "Newest joined" },
+  { value: "name", label: "Name (A–Z)" },
+  { value: "-name", label: "Name (Z–A)" },
+  { value: "-last_active", label: "Last active (newest)" },
+  { value: "last_active", label: "Last active (oldest)" },
+];
+---
+
+<AppPage>
+  <AppPageHeader title="Members" description="People who can see this workspace.">
+    <Fragment slot="actions">
+      <Button type="button" data-open-invite>Invite people</Button>
+    </Fragment>
+  </AppPageHeader>
+
+  <form method="GET" action={PATH} class="mt-4">
+    <div class="flex flex-col gap-4">
+      <CollectionToolbar
+        search={{ value: list.q, label: "Search members", placeholder: "Search by name or email…" }}
+        clearFiltersHref={filtering ? hrefOf({ q: "", filters: { role: [], status: [] } }) : undefined}
+      >
+        <Fragment slot="filters">
+          <FilterChip
+            label="Role"
+            name="role"
+            options={roleOptions}
+            value={list.filters.role}
+            removeHref={hrefOf({ filters: { ...list.filters, role: [] } })}
+          />
+          <FilterChip
+            label="Status"
+            name="status"
+            options={statusOptions}
+            value={list.filters.status}
+            removeHref={hrefOf({ filters: { ...list.filters, status: [] } })}
+          />
+        </Fragment>
+        <Fragment slot="sort">
+          <SortMenu options={sortOptions} value={list.sort} hrefFor={(sort) => hrefOf({ sort })} />
+        </Fragment>
+        <Fragment slot="count">
+          {filtered.length === roster.length ? `${roster.length} members` : `${filtered.length} of ${roster.length} members`}
+        </Fragment>
+        <Fragment slot="selection">
+          <BulkActionBar count={0} total={filtered.length}>
+            <Fragment slot="actions">
+              <Dropdown.Root>
+                <Dropdown.Trigger asChild class="inline-flex">
+                  <Button type="button" variant="outline" size="sm">Change role</Button>
+                </Dropdown.Trigger>
+                <Dropdown.Content align="start" class="w-40">
+                  {["Owner", "Admin", "Member", "Viewer"].map((role) => (
+                    <Dropdown.Item data-bulk-role={role}>
+                      <span class="truncate">{role}</span>
+                    </Dropdown.Item>
+                  ))}
+                </Dropdown.Content>
+              </Dropdown.Root>
+              <Button type="button" variant="outline" size="sm" class="text-destructive" data-bulk-remove>
+                Remove <span data-bulk-count>0</span>
+              </Button>
+            </Fragment>
+          </BulkActionBar>
+        </Fragment>
+      </CollectionToolbar>
+
+      <AppTableFrame stickyFirstColumn>
+        <TableRoot>
+          <TableHeader>
+            <TableRow>
+              <SortableHead label="Member" sorted={sortedState("name")} href={toggleSortHref("name")} class="min-w-64">
+                <Fragment slot="leading">
+                  <SelectAllCheckbox checked={false} />
+                </Fragment>
+              </SortableHead>
+              <TableHead>Role</TableHead>
+              <TableHead>Status</TableHead>
+              <SortableHead label="Last active" sorted={sortedState("last_active")} href={toggleSortHref("last_active")} />
+              <TableHead class="w-12"><span class="sr-only">Actions</span></TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {
+              face === "empty" ? (
+                <TableStateRow colSpan={5}>
+                  <EmptyState icon={Users} title="No members yet" description="Invite your team to see the same dashboards.">
+                    <Fragment slot="actions">
+                      <Button type="button" data-open-invite>Invite people</Button>
+                    </Fragment>
+                  </EmptyState>
+                </TableStateRow>
+              ) : pageRows.length === 0 ? (
+                <TableStateRow colSpan={5}>
+                  <NoResults
+                    query={list.q}
+                    filtered={list.filters.role.length + list.filters.status.length > 0 && list.q === ""}
+                    clearHref={hrefOf({ q: "", filters: { role: [], status: [] } })}
+                    noun="members"
+                  />
+                </TableStateRow>
+              ) : (
+                pageRows.map((member) => (
+                  <TableRow data-row-id={member.id} data-member-name={member.name}>
+                    <TableCell class="px-4">
+                      <span class="flex items-center gap-3">
+                        <RowCheckbox checked={false} value={member.id} label={`Select ${member.name}`} />
+                        <Avatar>
+                          <AvatarFallback>{initials(member.name)}</AvatarFallback>
+                        </Avatar>
+                        <span class="flex min-w-0 flex-col">
+                          <a
+                            href={`/app/members/${member.id}`}
+                            class="truncate font-medium outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
+                          >
+                            {member.name}
+                          </a>
+                          <span class="truncate text-muted-foreground">{member.email}</span>
+                        </span>
+                      </span>
+                    </TableCell>
+                    <TableCell class="px-4">{member.role}</TableCell>
+                    <TableCell class="px-4">
+                      {member.status === "Active" ? (
+                        <Tag tone="success" marker>Active</Tag>
+                      ) : member.status === "Invited" ? (
+                        <Tag tone="warning">Invite sent</Tag>
+                      ) : (
+                        <Tag>Suspended</Tag>
+                      )}
+                    </TableCell>
+                    <TableCell class="px-4 text-muted-foreground">
+                      {member.lastActive ? relativeDate(member.lastActive) : "Not yet"}
+                    </TableCell>
+                    <TableCell class="px-4">
+                      <RowActions
+                        label={`Actions for ${member.name}`}
+                        items={[
+                          { label: "View", href: `/app/members/${member.id}` },
+                          // The member page's edit panel (name and role) changes it.
+                          { label: "Change role", href: `/app/members/${member.id}` },
+                          ...(member.status === "Invited" ? [{ label: "Resend invite", action: "resend" }] : []),
+                          { label: "Remove", action: "remove", tone: "destructive" as const },
+                        ]}
+                      />
+                    </TableCell>
+                  </TableRow>
+                ))
+              )
+            }
+          </TableBody>
+        </TableRoot>
+        {
+          filtered.length > list.perPage || list.perPage !== 25 ? (
+            <TablePagination
+              class="border-t border-border"
+              page={currentPage}
+              pageSize={list.perPage}
+              total={filtered.length}
+              pageHref={(next) => hrefOf({ page: next })}
+              pageSizes={[10, 25, 50]}
+            />
+          ) : null
+        }
+      </AppTableFrame>
+    </div>
+  </form>
+
+  <!-- Both overlays sit outside the list's GET form: they're actions, not
+       filters. One confirm dialog serves the row actions and the bulk bar. -->
+  <ConfirmAction
+    title="Remove members?"
+    description="They lose access to everything in Paperplane. You can invite them again later."
+    confirmLabel="Remove members"
+    successMessage="Removed the members."
+    data-remove-confirm
+  >
+    <Fragment slot="trigger">
+      <Button type="button" variant="error" class="sr-only" data-remove-trigger>Remove</Button>
+    </Fragment>
+  </ConfirmAction>
+
+  <!-- The invite sheet: this page's form, which the sheet's footer submits
+       from outside it. -->
+  <RecordSheet
+    title="Invite people"
+    description="They'll get an email with a link to join Paperplane."
+    dirty={false}
+    pending={false}
+    formId="invite-form"
+    submitLabel="Send invites"
+    data-invite-sheet
+  >
+    <form id="invite-form" method="POST" action="/app/members?_action=inviteMembers" class="flex flex-col gap-4 py-4">
+      <div class="flex flex-col gap-2">
+        <label class="text-sm font-medium" for="invite-emails">Emails</label>
+        <Input id="invite-emails" name="emails" placeholder="ada@example.com, grace@example.com" />
+        <p class="text-sm text-destructive hidden" data-invite-error>Enter valid email addresses, like ada@example.com.</p>
+      </div>
+      <div class="flex flex-col gap-2">
+        <label class="text-sm font-medium" for="invite-role">Role</label>
+        <select
+          id="invite-role"
+          name="role"
+          class="h-9 rounded-md border border-border bg-background px-2.5 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
+        >
+          {["Admin", "Member", "Viewer"].map((role) => (
+            <option value={role} selected={role === "Member"}>{role}</option>
+          ))}
+        </select>
+        <p class="text-sm text-muted-foreground">Admins can manage members and settings.</p>
+      </div>
+    </form>
+  </RecordSheet>
+</AppPage>
+
+<script>
+    import { actions } from "astro:actions";
+    import { toast } from "$brand/starwind/toast";
+
+  // Every action answers with the contract's FormResult shape, so a refusal
+  // comes back as data ({ ok: false, message }) rather than a thrown error:
+  // both roads read the same here.
+  const run = async (name: keyof typeof actions, posted: FormData) => {
+    const outcome = await (actions[name] as (input: FormData) => Promise<{ data?: { ok?: boolean; message?: string }; error?: { message: string } }>)(posted);
+    if (outcome.error) throw new Error(outcome.error.message);
+    if (outcome.data && outcome.data.ok === false) throw new Error(outcome.data.message ?? "That didn't work. Try again.");
+    return outcome.data;
+  };
+
+  const selectedIds = (): string[] =>
+    Array.from(document.querySelectorAll<HTMLInputElement>("[data-slot='row-checkbox']:checked")).map((row) => row.value);
+  const selectedNames = (): string[] =>
+    Array.from(document.querySelectorAll<HTMLInputElement>("[data-slot='row-checkbox']:checked")).map(
+      (row) => row.closest<HTMLElement>("[data-member-name]")?.dataset.memberName ?? "",
+    );
+
+  // The invite sheet: its trigger opens it, its fields mark it dirty, and
+  // the format check runs before the form posts (the action runs it again).
+  // The sheet's own state (dirty, pending) lives on its wrapper, where the
+  // block's script reads it.
+  const inviteSheet = () => document.querySelector<HTMLElement>("[data-invite-sheet]")?.closest<HTMLElement>("[data-slot-wrap='record-sheet']") ?? null;
+
+  document.addEventListener("click", (event) => {
+    if (!(event.target as HTMLElement | null)?.closest("[data-open-invite]")) return;
+    document.querySelector<HTMLElement>("[data-slot-wrap='record-sheet'] [data-sheet-trigger]")?.click();
+  });
+
+  for (const content of document.querySelectorAll<HTMLElement>("[data-invite-sheet]")) {
+    const sheet = content.closest<HTMLElement>("[data-slot-wrap='record-sheet']");
+    if (!sheet) continue;
+    const mark = () => {
+      const emails = sheet.querySelector<HTMLInputElement>("#invite-emails")?.value.trim() ?? "";
+      const role = sheet.querySelector<HTMLSelectElement>("#invite-role")?.value ?? "Member";
+      sheet.dataset.dirty = emails !== "" || role !== "Member" ? "true" : "false";
+      const pageForm = document.getElementById("invite-form") as HTMLFormElement | null;
+      if (pageForm) pageForm.dataset.clean = emails === "" && role === "Member" ? "true" : "false";
+      const cancel = sheet.querySelector<HTMLElement>("[data-cancel-slot]");
+      if (cancel) cancel.classList.toggle("hidden", emails === "" && role === "Member");
+    };
+    sheet.querySelector("#invite-emails")?.addEventListener("input", mark);
+    sheet.querySelector("#invite-role")?.addEventListener("change", mark);
+  }
+
+  document.addEventListener("submit", (event) => {
+    const form = event.target as HTMLFormElement | null;
+    if (form?.id !== "invite-form") return;
+    const addresses = (form.querySelector<HTMLInputElement>("#invite-emails")?.value ?? "")
+      .split(",")
+      .map((address) => address.trim())
+      .filter(Boolean);
+    const bad = addresses.length === 0 || addresses.some((address) => !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(address));
+    if (!bad) {
+      const sheet = inviteSheet();
+      if (sheet) sheet.dataset.pending = "true";
+      return;
+    }
+    event.preventDefault();
+    const error = form.querySelector<HTMLElement>("[data-invite-error]");
+    const field = form.querySelector<HTMLInputElement>("#invite-emails");
+    error?.classList.remove("hidden");
+    field?.setAttribute("aria-invalid", "true");
+    field?.focus();
+  });
+
+  // One confirm dialog for every removal: the row actions and the bulk bar
+  // only decide who it's about. The refusal for a selection holding the
+  // owner shows inside the dialog, and a success toasts before the list
+  // reloads with the roster the action changed.
+  // The page's marker sits on the trigger; the dialog hangs off the same
+  // wrapper, which owns the title, the description and the success message.
+  const confirmDialog = () =>
+    document.querySelector<HTMLElement>("[data-remove-confirm]")?.closest<HTMLElement>("[data-slot-wrap='confirm-action']") ?? null;
+
+  // Who the open confirm is about: a row's action or the bulk bar's button
+  // decides, and the confirm handler reads it back.
+  let victims: { ids: string[]; names: string[] } = { ids: [], names: [] };
+
+  const askRemove = (ids: string[], names: string[]) => {
+    const root = confirmDialog();
+    if (!root) return;
+    victims = { ids, names };
+    const one = ids.length === 1;
+    root.querySelector<HTMLElement>("[data-slot='alert-dialog-title']")!.textContent = one
+      ? `Remove ${names[0]}?`
+      : `Remove ${ids.length} members?`;
+    root.querySelector<HTMLElement>("[data-slot='alert-dialog-description']")!.textContent =
+      "They lose access to everything in Paperplane. You can invite them again later.";
+    root.querySelector<HTMLElement>("[data-confirm-label]")!.textContent = one ? "Remove member" : "Remove members";
+    (root.closest("[data-slot-wrap='confirm-action']") as HTMLElement | null)?.setAttribute(
+      "data-success-message",
+      one ? `Removed ${names[0]}.` : `Removed ${ids.length} members.`,
+    );
+    // The row's menu is still closing; the dialog opens a beat later so the
+    // two overlays never fight over the page.
+    window.setTimeout(() => root.querySelector<HTMLElement>("[data-confirm-trigger]")?.click(), 350);
+  };
+
+  document.addEventListener("row-action", (event) => {
+    if (!(event instanceof CustomEvent)) return;
+    const row = (event.target as HTMLElement).closest<HTMLElement>("[data-row-id]");
+    if (!row) return;
+    const id = row.dataset.rowId ?? "";
+    const name = row.dataset.memberName ?? "";
+    if (event.detail?.action === "remove") askRemove([id], [name]);
+    if (event.detail?.action === "resend") toast.success(`Invite sent to ${name}.`);
+  });
+
+  document.addEventListener("click", (event) => {
+    const remove = (event.target as HTMLElement | null)?.closest("[data-bulk-remove]");
+    if (remove) {
+      const ids = selectedIds();
+      const names = selectedNames();
+      if (ids.length > 0) askRemove(ids, names);
+    }
+  });
+
+  document.addEventListener("confirm", async (event) => {
+    const root = event.target as HTMLElement | null;
+    if (!root?.matches("[data-remove-confirm]")) return;
+    const ids = victims.ids;
+    try {
+      const posted = new FormData();
+      posted.set("ids", ids.join(","));
+      await run("removeMembers", posted);
+    } catch (error) {
+      root.dispatchEvent(
+        new CustomEvent("confirm-settle", {
+          detail: { ok: false, message: (error as Error).message },
+          bubbles: false,
+        }),
+      );
+      return;
+    }
+    root.dispatchEvent(new CustomEvent("confirm-settle", { detail: { ok: true }, bubbles: false }));
+    window.setTimeout(() => window.location.reload(), 900);
+  });
+
+  // Bulk "Change role": one of the four roles, applied at once.
+  document.addEventListener("click", async (event) => {
+    const item = (event.target as HTMLElement | null)?.closest<HTMLElement>("[data-bulk-role]");
+    const role = item?.dataset.bulkRole;
+    if (!role) return;
+    const ids = selectedIds();
+    if (ids.length === 0) return;
+    const posted = new FormData();
+    posted.set("ids", ids.join(","));
+    posted.set("role", role);
+    await run("changeRole", posted);
+    toast.success(`Changed role for ${ids.length} ${ids.length === 1 ? "member" : "members"}.`);
+    window.setTimeout(() => window.location.reload(), 600);
+  });
+
+  // The count on the bulk bar's Remove button follows the selection.
+  const paintCount = () => {
+    const count = selectedIds().length;
+    for (const label of document.querySelectorAll<HTMLElement>("[data-bulk-count]")) label.textContent = String(count);
+  };
+  paintCount();
+  document.addEventListener("change", paintCount);
+</script>

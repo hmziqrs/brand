@@ -1,0 +1,61 @@
+---
+import { actions } from "astro:actions";
+import AppPage from "$brand/blocks/app/shell/app-page.astro";
+import ErrorState from "$brand/blocks/app/states/error-state.astro";
+import SkeletonSettings from "$brand/blocks/app/states/skeleton-settings.astro";
+import Workspace from "../../../components/app/workspace.astro";
+import ProfileContent from "../../../components/app/profile-content.astro";
+import Deferred from "../../../components/app/deferred.astro";
+import { demoLoad } from "../../../lib/app/demo-state";
+import { profile as saved } from "../../../lib/app/settings";
+
+/*
+ * The profile settings page (app-blocks.md, phase 10): the same page the
+ * SvelteKit demo has, posted to the saveProfile action with accept: "form",
+ * so the same markup works with JavaScript off and the action's errors land
+ * in the rows. state=pending shows the settings skeleton as a
+ * `server:defer` island's fallback (an action's answer renders the form, so
+ * a post always lands on the content).
+ */
+const load = demoLoad(Astro.url.searchParams.get("state"));
+const action = Astro.getActionResult(actions.saveProfile);
+
+let result: { message: string; field?: string } | undefined;
+let values: Record<string, string> = {};
+let savedOk = false;
+if (action?.data?.ok === false) {
+  result = { message: action.data.message, field: action.data.field };
+  // A failed save keeps what was typed; the saved values sit under them.
+  values = { ...saved, ...(action.data.values ?? {}) };
+} else if (action?.data?.ok) {
+  savedOk = true;
+}
+
+const form = { ...saved, ...values };
+const pending = load.status === "pending" && !action;
+---
+
+<Workspace currentPath={Astro.url.pathname} state={load.state}>
+  {
+    load.status === "error" ? (
+      <AppPage>
+        <div class="mt-8">
+          <ErrorState kind={load.kind} retryHref="/app/settings/profile" />
+        </div>
+      </AppPage>
+    ) : pending ? (
+      <Deferred server:defer ms={600}>
+        <div slot="fallback">
+          <AppPage>
+            <div class="mt-8">
+              <SkeletonSettings rows={3} />
+            </div>
+          </AppPage>
+        </div>
+        <ProfileContent values={form} saved={saved} />
+      </Deferred>
+    ) : (
+      <ProfileContent values={form} saved={saved} result={result} savedOk={savedOk} />
+    )
+  }
+</Workspace>

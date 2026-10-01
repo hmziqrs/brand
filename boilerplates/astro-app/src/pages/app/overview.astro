@@ -1,0 +1,57 @@
+---
+import AppPage from "$brand/blocks/app/shell/app-page.astro";
+import ErrorState from "$brand/blocks/app/states/error-state.astro";
+import SkeletonStats from "$brand/blocks/app/states/skeleton-stats.astro";
+import { Skeleton } from "$brand/starwind/skeleton";
+import Workspace from "../../components/app/workspace.astro";
+import OverviewContent from "../../components/app/overview-content.astro";
+import Deferred from "../../components/app/deferred.astro";
+import { demoLoad } from "../../lib/app/demo-state";
+import type { Range } from "@hmziq/brand-core/app/demo-data";
+
+/*
+ * The overview (app-blocks.md, phase 10): the same page the SvelteKit demo
+ * has, on the Astro blocks. The content renders on the server;
+ * state=pending shows it as a `server:defer` island whose fallback is the
+ * skeleton (the plan's Astro loading story), and state=error/offline the
+ * ErrorState. The retry is the same URL without the state param: the fake
+ * load succeeds, the way the SvelteKit demo's retry does.
+ */
+const load = demoLoad(Astro.url.searchParams.get("state"));
+const range = (["7", "30", "90"] as Range[]).find((value) => value === Astro.url.searchParams.get("range")) ?? "30";
+---
+
+<Workspace currentPath={Astro.url.pathname} state={load.state}>
+  {
+    load.status === "error" ? (
+      <AppPage>
+        <div class="mt-8">
+          <ErrorState kind={load.kind} retryHref={Astro.url.pathname} />
+        </div>
+      </AppPage>
+    ) : load.status === "pending" ? (
+      <Deferred server:defer ms={600}>
+        <div slot="fallback">
+          <AppPage>
+            <div class="flex flex-col gap-6">
+              <SkeletonStats count={4} />
+              <!-- The meters' panel, sketched in the same shape: three ruled
+                   cells, two lines each, where the meters land. -->
+              <div class="grid gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-3">
+                {Array.from({ length: 3 }).map(() => (
+                  <div class="flex flex-col gap-2.5 bg-background px-4 py-4">
+                    <Skeleton class="h-4 w-24" />
+                    <Skeleton class="h-4 w-32" />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </AppPage>
+        </div>
+        <OverviewContent range={range} limit={load.state === "limit"} />
+      </Deferred>
+    ) : (
+      <OverviewContent range={range} limit={load.state === "limit"} />
+    )
+  }
+</Workspace>

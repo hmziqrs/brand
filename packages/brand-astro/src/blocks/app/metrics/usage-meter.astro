@@ -1,0 +1,130 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { CircleAlert } from "@lucide/astro";
+import { cn, styleText } from "$brand/utils";
+import RingGauge from "$brand/components/ring-gauge.astro";
+
+/*
+ * How much of the plan's allowance is used: a bar or a ring, the share in
+ * words, and a warning the moment it matters. The fill follows the
+ * thresholds — primary below warnAt, warning from it, destructive at or over
+ * the limit — and never carries text. The meter itself (label, visual,
+ * words) carries role="meter" with an explicit value text, "7,420 of 10,000
+ * events"; the limit message and its action sit outside it, so the meter
+ * never swallows a focusable control.
+ */
+
+interface Props extends HTMLAttributes<"div"> {
+  label: string;
+  used: number;
+  /** null means no limit: just the count, no meter role. */
+  limit: number | null;
+  unit: string;
+  /** For number formatting; fixed so the server and the browser agree. */
+  locale?: string;
+  resetsOn?: string;
+  variant?: "bar" | "ring";
+  /** The share (0–1) the warning color starts at. */
+  warnAt?: number;
+  limitMessage?: string;
+}
+
+const {
+  label,
+  used,
+  limit,
+  unit,
+  locale = "en-US",
+  resetsOn,
+  variant = "bar",
+  warnAt = 0.8,
+  limitMessage = "You've reached your limit.",
+  class: className,
+  ...rest
+} = Astro.props;
+
+// The label's id names the meter for screen readers (role="meter" has no
+// name of its own otherwise), the way the sections name themselves.
+const labelId = `usage-meter-${crypto.randomUUID().slice(0, 8)}`;
+
+const numbers = new Intl.NumberFormat(locale);
+const ratio = limit === null || limit <= 0 ? 0 : used / limit;
+// The thresholds the plan sets: warning from warnAt, destructive at the
+// limit. The ring follows the same ones through its tone.
+const tone: "primary" | "warning" | "destructive" = ratio >= 1 ? "destructive" : ratio >= warnAt ? "warning" : "primary";
+const fill = tone === "destructive" ? "bg-destructive" : tone === "warning" ? "bg-warning" : "bg-primary";
+const share = `${Math.round(Math.min(ratio, 1) * 100)}%`;
+const words = limit === null ? `${numbers.format(used)} ${unit}` : `${numbers.format(used)} of ${numbers.format(limit)} ${unit}`;
+
+const hasAction = Astro.slots.has("action");
+---
+
+<div data-slot="usage-meter" class={cn("flex min-w-0 flex-col gap-2", className)} {...rest}>
+  {
+    limit === null ? (
+      <p class="text-sm text-muted-foreground">
+        {label}
+        <span> · No limit</span>
+      </p>
+    ) : variant === "ring" ? (
+      <div
+        class="flex items-center gap-4"
+        role="meter"
+        aria-labelledby={labelId}
+        aria-valuemin={0}
+        aria-valuemax={limit}
+        aria-valuenow={Math.min(used, limit)}
+        aria-valuetext={words}
+      >
+        <RingGauge value={Math.min(ratio, 1)} tone={tone} />
+        <div class="flex min-w-0 flex-col gap-1.5">
+          <span id={labelId} class="text-sm text-muted-foreground">
+            {label}
+          </span>
+          <span class="text-sm">
+            <span class="font-medium">{words}</span>
+            {resetsOn && <span class="text-muted-foreground"> · {resetsOn}</span>}
+          </span>
+        </div>
+      </div>
+    ) : (
+      <div
+        class="flex w-full flex-col gap-2"
+        role="meter"
+        aria-labelledby={labelId}
+        aria-valuemin={0}
+        aria-valuemax={limit}
+        aria-valuenow={Math.min(used, limit)}
+        aria-valuetext={words}
+      >
+        <span id={labelId} class="text-sm text-muted-foreground">
+          {label}
+        </span>
+        <!-- The bar never carries text; the words below it do. -->
+        <div class="h-1.5 w-full overflow-hidden rounded-full bg-muted" aria-hidden="true">
+          <div class={cn("h-full rounded-full", fill)} style={styleText({ width: share })}></div>
+        </div>
+        <span class="text-sm">
+          <span class="font-medium">{words}</span>
+          {resetsOn && <span class="text-muted-foreground"> · {resetsOn}</span>}
+        </span>
+      </div>
+    )
+  }
+
+  {
+    limit !== null && ratio >= 1 && (
+      /* At or over the limit: what that means, in destructive words, with
+         the way out beside it — outside the meter itself. */
+      <div class="flex min-w-0 flex-wrap items-center gap-x-3 gap-y-1.5">
+        <span class="inline-flex items-center gap-1.5 text-sm text-destructive">
+          <CircleAlert class="lucide size-4 shrink-0" aria-hidden="true" />
+          {limitMessage}
+        </span>
+        {hasAction && (
+          <slot name="action" />
+        )}
+      </div>
+    )
+  }
+</div>

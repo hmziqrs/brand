@@ -1,0 +1,50 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { ArrowUpDown, Check } from "@lucide/astro";
+import { cn } from "$brand/utils";
+import Dropdown from "$brand/starwind/dropdown";
+import { Button } from "$brand/starwind/button";
+
+/*
+ * How the list is ordered: a dropdown of the sort fields as links, the
+ * current one named on the trigger and checked in the menu. The sort itself
+ * lives in the URL — each link is the same list sorted another way — and a
+ * hidden input keeps it through the form's own submits.
+ */
+
+interface Props extends HTMLAttributes<"span"> {
+  options: { value: string; label: string }[];
+  /** The current sort as the URL spells it, e.g. "-last_active". */
+  value: string;
+  /** What the trigger says when no sort is on. */
+  label?: string;
+  /** The href for the same list sorted another way. */
+  hrefFor: (sort: string) => string;
+}
+
+const { options, value, label = "Sort", hrefFor, class: className, ...rest } = Astro.props;
+
+const current = options.find((option) => option.value === value);
+---
+
+<span data-slot="sort-menu" class={cn("inline-flex", className)} {...rest}>
+  {value && <input type="hidden" name="sort" value={value} />}
+  <Dropdown.Root>
+    <Dropdown.Trigger asChild class="inline-flex">
+      <Button variant="outline" size="sm" class="max-w-44">
+        <ArrowUpDown class="lucide" aria-hidden="true" />
+        <span class="truncate">{current?.label ?? label}</span>
+      </Button>
+    </Dropdown.Trigger>
+    <Dropdown.Content class="w-48">
+      {
+        options.map((option) => (
+          <Dropdown.LinkItem href={hrefFor(option.value)} closeOnClick>
+            <span class="truncate">{option.label}</span>
+            {option.value === value && <Check class="lucide ml-auto" />}
+          </Dropdown.LinkItem>
+        ))
+      }
+    </Dropdown.Content>
+  </Dropdown.Root>
+</span>

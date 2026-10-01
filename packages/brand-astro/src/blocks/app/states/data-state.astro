@@ -1,0 +1,68 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { cn } from "$brand/utils";
+
+/*
+ * The switch every async area of a page hangs on: loading, error, empty or
+ * content, from one status. In Astro the ordinary load is the page's to
+ * render (a `server:defer` island shows the same skeleton as its fallback),
+ * and `state=pending` is what renders the pending branch here — nothing for
+ * `delay` ms, then the loading content, so a fast load never flashes a
+ * skeleton. Refetching with data already on screen is the page's business:
+ * it keeps status="success" and shows a small spinner where the data lives.
+ */
+
+interface Props extends HTMLAttributes<"div"> {
+  status: "pending" | "error" | "success";
+  isEmpty?: boolean;
+  /** Nothing shows while pending has lasted under this long. */
+  delay?: number;
+  /** What screen readers hear while the skeleton shows: "Loading members". */
+  loadingLabel?: string;
+}
+
+const { status, isEmpty = false, delay = 300, loadingLabel = "Loading", class: className, ...rest } = Astro.props;
+---
+
+<div
+  data-slot="data-state"
+  data-delay={delay}
+  class={cn("min-w-0", className)}
+  aria-busy={status === "pending" || undefined}
+  {...rest}
+>
+  {
+    status === "error" ? (
+      <slot name="error" />
+    ) : status === "pending" ? (
+      <>
+        <span class="sr-only" role="status">
+          {loadingLabel}
+        </span>
+        <div data-pending class="hidden">
+          <slot name="loading" />
+        </div>
+      </>
+    ) : isEmpty && Astro.slots.has("empty") ? (
+      <slot name="empty" />
+    ) : (
+      <slot />
+    )
+  }
+</div>
+
+<script>
+  // The delay, as a script concern (APP-BLOCKS.md): the pending content is
+  // already in the DOM, hidden; after `delay` ms of pending it shows. A page
+  // that resolves sooner never sees it.
+  const run = () => {
+    for (const root of document.querySelectorAll<HTMLElement>("[data-slot='data-state'][aria-busy='true']")) {
+      const pending = root.querySelector<HTMLElement>("[data-pending]");
+      if (!pending) continue;
+      const delay = Number(root.dataset.delay ?? "300");
+      window.setTimeout(() => pending.classList.remove("hidden"), delay);
+    }
+  };
+  run();
+  document.addEventListener("astro:page-load", run);
+</script>

@@ -1,0 +1,100 @@
+---
+import { ChartNoAxesColumn, CreditCard, Settings, Users } from "@lucide/astro";
+import { currentWorkspaceId, currentUser, workspaces } from "@hmziq/brand-core/app/demo-data";
+import "../../styles/app.css";
+import AppShell from "$brand/blocks/app/shell/app-shell.astro";
+import WorkspaceSwitcher from "$brand/blocks/app/account/workspace-switcher.astro";
+import UserMenu from "$brand/blocks/app/account/user-menu.astro";
+import { Button } from "$brand/starwind/button";
+import Toaster from "$brand/starwind/toast/Toaster.astro";
+import type { NavGroup } from "$brand/blocks/app/shell/types";
+import DemoStateSwitch from "./demo-state-switch.astro";
+
+/*
+ * The workspace group's shell (app-blocks.md, phase 10): the AppShell block
+ * with the demo's two nav groups, the WorkspaceSwitcher as its brand, the
+ * UserMenu as its account (its theme choice applies and remembers), and the
+ * demo state switch in the top bar. The page owns routing: the shell only
+ * gets the current path. The sidebar's remembered state comes back from the
+ * cookie the Starwind sidebar runtime writes, so the first render is right.
+ */
+
+interface Props {
+  currentPath: string;
+  state: string;
+  breadcrumbs?: { label: string; href?: string }[];
+}
+
+const { currentPath, state, breadcrumbs } = Astro.props;
+
+const groups: NavGroup[] = [
+  {
+    label: "Workspace",
+    items: [
+      { label: "Overview", href: "/app/overview", icon: ChartNoAxesColumn },
+      { label: "Members", href: "/app/members", icon: Users },
+    ],
+  },
+  {
+    label: "Account",
+    items: [{ label: "Settings", href: "/app/settings/profile", icon: Settings }],
+  },
+];
+
+// Switching workspace stays on the overview: the demo has one workspace's
+// worth of data, and the link is what matters.
+const switcherWorkspaces = workspaces.map((workspace) => ({ ...workspace, href: "/app/overview" }));
+
+// The sidebar runtime persists "true"/"false" under its own cookie name.
+const sidebarOpen = Astro.cookies.get("starwind-sidebar-open")?.value !== "false";
+---
+
+<AppShell nav={groups} currentPath={currentPath} breadcrumbs={breadcrumbs} open={sidebarOpen}>
+  <WorkspaceSwitcher slot="brand" workspaces={switcherWorkspaces} currentId={currentWorkspaceId} />
+  <UserMenu
+    slot="account"
+    user={currentUser}
+    theme="dark"
+    onThemeChange
+    items={[
+      { label: "Settings", href: "/app/settings/profile" },
+      { label: "Billing", href: "/app/settings/billing", icon: CreditCard },
+    ]}
+  >
+    <form slot="signOut" method="POST" action="/app/sign-out" class="p-1">
+      <Button type="submit" variant="ghost" size="sm" class="w-full justify-start">Sign out</Button>
+    </form>
+  </UserMenu>
+  <div slot="topbar" class="max-md:-mx-3 max-md:px-3">
+    <DemoStateSwitch state={state} />
+  </div>
+  <slot />
+</AppShell>
+
+<Toaster />
+
+<script>
+  import { applyTheme } from "../../lib/app/theme";
+
+  // The user menu's theme choice, applied and remembered; the starting
+  // choice is what the head script already applied.
+  document.addEventListener("theme-change", (event) => {
+    if (!(event instanceof CustomEvent)) return;
+    const theme = (event.detail as { theme?: string }).theme;
+    if (theme !== "light" && theme !== "dark" && theme !== "system") return;
+    applyTheme(theme);
+  });
+
+  // The menu's checked state starts from the page's render; following the
+  // choice keeps it honest on a page that didn't reload.
+  try {
+    const stored = localStorage.getItem("theme");
+    if (stored === "light" || stored === "dark") {
+      for (const group of document.querySelectorAll<HTMLElement>("[data-user-menu-theme-group]")) {
+        group.setAttribute("value", stored);
+      }
+    }
+  } catch {
+    // Private modes can refuse storage; dark is the default.
+  }
+</script>

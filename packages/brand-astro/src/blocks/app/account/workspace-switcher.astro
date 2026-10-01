@@ -1,0 +1,65 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { Check, ChevronsUpDown, Plus } from "@lucide/astro";
+import { cn } from "$brand/utils";
+import Dropdown from "$brand/starwind/dropdown";
+import Mark from "$brand/components/mark.astro";
+import type { Workspace } from "./types";
+
+/*
+ * The workspace switcher: which workspace you're working in, and links to
+ * the others. The trigger shows the workspace's Mark, its name and a
+ * chevron; inside a collapsed sidebar only the Mark stays. Every workspace
+ * is a link, so switching works with no JavaScript.
+ */
+
+interface Props extends HTMLAttributes<"button"> {
+  workspaces: Workspace[];
+  currentId: string;
+  /** Adds "Create a workspace" at the bottom of the menu. */
+  createHref?: string;
+}
+
+const { workspaces, currentId, createHref, class: className, ...rest } = Astro.props;
+
+const current = workspaces.find((workspace) => workspace.id === currentId) ?? workspaces[0];
+---
+
+{
+  current && (
+    <Dropdown.Root>
+      <Dropdown.Trigger
+        data-slot="workspace-switcher"
+        aria-label={current.name}
+        class={cn(
+          "flex h-12 w-full items-center gap-2.5 rounded-md p-2 text-left text-sm outline-none transition-colors hover:bg-muted hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50 group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:p-0!",
+          className,
+        )}
+        {...rest}
+      >
+        <Mark symbol={current.symbol} size={24} />
+        <span class="truncate font-medium group-data-[collapsible=icon]:hidden">{current.name}</span>
+        <ChevronsUpDown class="lucide ml-auto size-4 shrink-0 text-muted-foreground group-data-[collapsible=icon]:hidden" />
+      </Dropdown.Trigger>
+      <Dropdown.Content side="bottom" align="start" class="w-56">
+        <Dropdown.Label>Workspaces</Dropdown.Label>
+        {workspaces.map((workspace) => (
+          <Dropdown.LinkItem href={workspace.href} closeOnClick class="gap-2.5">
+            <Mark symbol={workspace.symbol} size={16} />
+            <span class="truncate">{workspace.name}</span>
+            {workspace.id === currentId && <Check class="lucide ml-auto" />}
+          </Dropdown.LinkItem>
+        ))}
+        {createHref && (
+          <>
+            <Dropdown.Separator />
+            <Dropdown.LinkItem href={createHref} closeOnClick>
+              <Plus class="lucide" />
+              Create a workspace
+            </Dropdown.LinkItem>
+          </>
+        )}
+      </Dropdown.Content>
+    </Dropdown.Root>
+  )
+}

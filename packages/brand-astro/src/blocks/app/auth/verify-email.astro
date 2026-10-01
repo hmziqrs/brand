@@ -1,0 +1,196 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { LoaderCircle } from "@lucide/astro";
+import { cn } from "$brand/utils";
+import { Button } from "$brand/starwind/button";
+import Notice from "$brand/components/notice.astro";
+import { InputOtp, InputOtpGroup, InputOtpSlot, REGEXP_ONLY_DIGITS } from "$brand/starwind/input-otp";
+import type { FormResult } from "./types";
+
+/*
+ * Email verification: the code entry, its result, and the resend. The page
+ * owns the <form>; the action's FormResult comes back as `result`. The code
+ * goes into Starwind's Input OTP, which submits by itself once the last digit
+ * lands — the submit button stays, for anyone without JavaScript. The resend
+ * carries name="resend", so the page's one action can tell it from the
+ * verify. The countdown runs in the browser only, so a page with no
+ * JavaScript keeps the resend usable.
+ */
+
+interface Props extends HTMLAttributes<"div"> {
+  email: string;
+  status?: "sent" | "verifying" | "verified" | "expired";
+  result?: FormResult;
+  pending?: boolean;
+  /** Seconds the resend waits. */
+  resendAfter?: number;
+  /** The code's length; default 6. */
+  codeLength?: number;
+  /** Verified: the way on in. */
+  continueHref?: string;
+}
+
+const {
+  email,
+  status = "sent",
+  result,
+  pending = false,
+  resendAfter,
+  codeLength = 6,
+  continueHref,
+  class: className,
+  ...rest
+} = Astro.props;
+
+const busy = pending || status === "verifying";
+const formError = result && !result.field ? result.message : undefined;
+---
+
+<div
+  data-pending-label="Verifying…" data-slot="verify-email"
+  data-result={result && !result.field ? "form" : undefined}
+  data-code-length={codeLength}
+  class={cn("flex flex-col gap-4", className)}
+  {...rest}
+>
+  {
+    status === "verified" ? (
+      <>
+        <Notice tone="success" title="Your email is verified">
+          Welcome aboard.
+        </Notice>
+        {continueHref && (
+          <Button href={continueHref} class="mt-2">
+            Continue
+          </Button>
+        )}
+      </>
+    ) : (
+      <>
+        {formError && (
+          <div data-error-notice tabindex="-1">
+            <Notice tone="destructive" title={formError} />
+          </div>
+        )}
+
+        {status === "expired" ? (
+          <>
+            <Notice tone="warning" title="That code has expired">
+              Send a new one and try again.
+            </Notice>
+            <Button type="submit" name="resend" value="1" class="mt-2" disabled={pending}>
+              {pending ? (
+                <>
+                  <LoaderCircle class="lucide size-4 animate-spin motion-reduce:animate-none" aria-hidden="true" />
+                  Sending…
+                </>
+              ) : (
+                "Send a new code"
+              )}
+            </Button>
+          </>
+        ) : (
+          <>
+            <p class="text-sm text-muted-foreground">
+              We sent a {codeLength}-digit code to {email}. Enter it below.
+            </p>
+            <div class="flex flex-col gap-2">
+              <label class="text-sm font-medium" for="code">Code</label>
+              {/* The code submits itself once the last digit lands; the
+                  script below hands the finished code to the page's form. */}
+              <InputOtp
+                id="code"
+                name="code"
+                maxLength={codeLength}
+                pattern={REGEXP_ONLY_DIGITS}
+                disabled={busy}
+                aria-invalid={formError ? true : undefined}
+              >
+                <InputOtpGroup>
+                  {Array.from({ length: codeLength }).map((_, at) => (
+                    <InputOtpSlot index={at} />
+                  ))}
+                </InputOtpGroup>
+              </InputOtp>
+            </div>
+            <Button type="submit" class="mt-2" disabled={busy}>
+              {busy ? (
+                <>
+                  <LoaderCircle class="lucide size-4 animate-spin motion-reduce:animate-none" aria-hidden="true" />
+                  Verifying…
+                </>
+              ) : (
+                "Verify email"
+              )}
+            </Button>
+            <Button
+              type="submit"
+              variant="outline"
+              name="resend"
+              value="1"
+              data-resend
+              data-resend-after={resendAfter}
+              disabled={busy}
+            >
+              <span data-resend-label>Send the code again</span>
+            </Button>
+          </>
+        )}
+      </>
+    )
+  }
+</div>
+
+<script>
+  // The finished code submits its form by itself. A form error clears the
+  // digits (a wrong try starts over) and takes focus in the Notice, so
+  // screen readers read what went wrong with it.
+  document.addEventListener("starwind-input-otp:change", (event) => {
+    const otp = event.target as HTMLElement | null;
+    if (!otp?.closest("[data-slot='verify-email']") || !(event instanceof CustomEvent)) return;
+    const value = String((event.detail as { value?: unknown })?.value ?? "");
+    const root = otp.closest<HTMLElement>("[data-slot='verify-email']")!;
+    if (value.length !== Number(root.dataset.codeLength ?? "6")) return;
+    otp.closest("form")?.requestSubmit();
+  });
+
+  // The resend counts down in the browser only; choosing it restarts the
+  // count. A page with no JavaScript never runs this, so the button stays
+  // usable there.
+  const run = () => {
+    for (const root of document.querySelectorAll<HTMLElement>("[data-slot='verify-email']")) {
+      if (root.dataset.result === "form") {
+        root.querySelector<HTMLElement>("[data-error-notice]")?.focus();
+      }
+
+      for (const button of root.querySelectorAll<HTMLButtonElement>("[data-resend]")) {
+        const wait = Number(button.dataset.resendAfter ?? "0");
+        if (!wait) continue;
+        let remaining = wait;
+        const label = button.querySelector<HTMLElement>("[data-resend-label]");
+        const paint = () => {
+          if (!label) return;
+          if (remaining > 0) {
+            button.disabled = true;
+            label.textContent = `Send again in ${remaining}s`;
+          } else {
+            button.disabled = false;
+            label.textContent = "Send the code again";
+          }
+        };
+        paint();
+        const timer = window.setInterval(() => {
+          remaining = Math.max(0, remaining - 1);
+          paint();
+          if (remaining === 0) window.clearInterval(timer);
+        }, 1000);
+        button.addEventListener("click", () => {
+          remaining = wait;
+          paint();
+        });
+      }
+    }
+  };
+  run();
+  document.addEventListener("astro:page-load", run);
+</script>

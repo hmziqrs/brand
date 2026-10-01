@@ -1,0 +1,288 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { ChevronRight, Menu } from "@lucide/astro";
+import { cn } from "$brand/utils";
+import { isActive } from "@hmziq/brand-core/app/nav";
+import Sidebar from "$brand/starwind/sidebar";
+import Sheet from "$brand/starwind/sheet";
+import ShellToggle from "./shell-toggle.astro";
+import type { Crumb, NavGroup, NavItem } from "./types";
+
+/*
+ * The shell of the app's signed-in side: the nav, the brand and the account,
+ * a content top bar, and the page. Built on Starwind's Sidebar, whose runtime
+ * owns the mobile sheet, collapsing to icons, Ctrl/Cmd+B and remembering the
+ * state in a cookie (the page reads it server-side and hands it back as
+ * `open`, so the first render shows the right state). The top layout replaces
+ * the sidebar with links in the header; below md they fold into a sheet.
+ */
+
+interface Props extends HTMLAttributes<"div"> {
+  nav: NavGroup[];
+  currentPath: string;
+  layout?: "sidebar" | "top";
+  /** Shown in the content's top bar next to the toggle; the page's own header carries its own. */
+  breadcrumbs?: Crumb[];
+  /** The sidebar's remembered state, read from the sidebar cookie by the page. */
+  open?: boolean;
+}
+
+const {
+  nav,
+  currentPath,
+  layout = "sidebar",
+  breadcrumbs = [],
+  open = true,
+  class: className,
+  ...rest
+} = Astro.props;
+
+// The top layout shows one row of links; sub items don't appear in it.
+const links = nav.flatMap((group) => group.items);
+
+/** Whether one of `item`'s sub items is the page you're on. */
+const childActive = (item: NavItem) => (item.items ?? []).some((sub) => isActive(sub.href, currentPath, sub.exact));
+
+/** A section stands open while you're inside it; elsewhere it folds. */
+const sectionOpen = (item: NavItem) =>
+  Boolean(item.items?.length) && (isActive(item.href, currentPath, item.exact) || childActive(item));
+
+/** The section's own row stays quiet while one of its children is active. */
+const selfActive = (item: NavItem) => isActive(item.href, currentPath, item.exact) && !childActive(item);
+
+// The active and hovered surfaces are muted, and the active row's icon goes
+// orange: color only, nothing moves (BRAND.md sections 4 and 8). Both active
+// spellings are here because Starwind marks the row data-[active=true] and
+// the bare form costs nothing.
+const row =
+  "text-muted-foreground hover:bg-muted hover:text-foreground data-active:bg-muted data-active:text-foreground data-[active=true]:bg-muted data-[active=true]:text-foreground";
+
+// The top layout's nav, folded into a sheet below md. Choosing a link closes
+// it, so the page behind is what you land on.
+const menuButton =
+  "inline-flex size-8 shrink-0 items-center justify-center rounded-md outline-none transition-colors hover:bg-muted hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50";
+
+// The top layout's links: ghost sm buttons, the active one muted.
+const topLink =
+  "h-8 gap-1.5 px-2.5 text-muted-foreground hover:bg-muted hover:text-foreground aria-[current=page]:bg-muted aria-[current=page]:text-foreground";
+
+const hasBrand = Astro.slots.has("brand");
+const hasAccount = Astro.slots.has("account");
+const hasTopbar = Astro.slots.has("topbar");
+---
+
+{
+  layout === "top" ? (
+    <div data-slot="app-shell" class={cn("bg-background flex min-h-dvh flex-col", className)} {...rest}>
+      <a
+        href="#app-content"
+        class="bg-background sr-only focus-visible:not-sr-only focus-visible:absolute focus-visible:top-2 focus-visible:left-2 focus-visible:z-50 focus-visible:m-0 focus-visible:rounded-md border px-3 py-2 text-sm outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
+      >
+        Skip to content
+      </a>
+      <header class="sticky top-0 z-10 border-b bg-background">
+        <div class="flex h-14 items-center gap-3 px-4 md:gap-4 md:px-8">
+          {hasBrand && (
+            <div class="min-w-0 shrink-0">
+              <slot name="brand" />
+            </div>
+          )}
+          <Sheet.Root class="md:hidden">
+            <Sheet.Trigger class={menuButton} aria-label="Open menu">
+              <Menu class="lucide" aria-hidden="true" />
+            </Sheet.Trigger>
+            <Sheet.Content side="left" class="w-72 p-0">
+              <Sheet.Header class="sr-only">
+                <Sheet.Title>Menu</Sheet.Title>
+                <Sheet.Description>Where in the workspace you can go.</Sheet.Description>
+              </Sheet.Header>
+              <nav aria-label="Main" class="flex flex-col gap-1 p-2">
+                {links.map((item) => {
+                  const active = isActive(item.href, currentPath, item.exact);
+                  return (
+                    <a
+                      href={item.href}
+                      data-shell-link
+                      aria-current={active ? "page" : undefined}
+                      class={cn(
+                        "flex h-9 w-full shrink-0 items-center gap-2 rounded-md px-2.5 text-sm outline-none transition-colors focus-visible:ring-3 focus-visible:ring-ring/50",
+                        active ? "bg-muted text-foreground" : "text-muted-foreground hover:bg-muted hover:text-foreground",
+                      )}
+                    >
+                      {item.icon && <item.icon class="lucide" aria-hidden="true" />}
+                      {item.label}
+                    </a>
+                  );
+                })}
+              </nav>
+            </Sheet.Content>
+          </Sheet.Root>
+          <nav aria-label="Main" class="hidden min-w-0 flex-1 items-center gap-1 overflow-x-auto md:flex">
+            {links.map((item) => {
+              const active = isActive(item.href, currentPath, item.exact);
+              return (
+                <a
+                  href={item.href}
+                  aria-current={active ? "page" : undefined}
+                  class={cn("shrink-0 rounded-md text-sm outline-none transition-colors focus-visible:ring-3 focus-visible:ring-ring/50", topLink)}
+                >
+                  {item.icon && <item.icon class="lucide" aria-hidden="true" />}
+                  {item.label}
+                </a>
+              );
+            })}
+          </nav>
+          <div class="ml-auto flex min-w-0 items-center gap-2 overflow-x-auto">
+            {hasTopbar && <slot name="topbar" />}
+            {hasAccount && <slot name="account" />}
+          </div>
+        </div>
+      </header>
+      <main id="app-content" tabindex="-1" class="flex-1 outline-none">
+        <slot />
+      </main>
+    </div>
+  ) : (
+    <Sidebar.Root
+      defaultOpen={open}
+      persistOpen
+      persistenceStorage="cookie"
+      data-slot="app-shell"
+      class={className}
+      {...rest}
+    >
+      <a
+        href="#app-content"
+        class="bg-background sr-only focus-visible:not-sr-only focus-visible:absolute focus-visible:top-2 focus-visible:left-2 focus-visible:z-50 focus-visible:m-0 focus-visible:rounded-md border px-3 py-2 text-sm outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
+      >
+        Skip to content
+      </a>
+      <Sidebar.Sidebar collapsible="icon">
+        {hasBrand && (
+          <Sidebar.Header>
+            <slot name="brand" />
+          </Sidebar.Header>
+        )}
+        <Sidebar.Content>
+          {nav.map((group) => (
+            <Sidebar.Group>
+              {group.label && <Sidebar.GroupLabel>{group.label}</Sidebar.GroupLabel>}
+              <Sidebar.Menu>
+                {group.items.map((item) => {
+                  const active = selfActive(item);
+                  return (
+                    <Sidebar.MenuItem>
+                      <Sidebar.MenuButton
+                        href={item.href}
+                        isActive={active}
+                        tooltip={item.label}
+                        aria-current={active ? "page" : undefined}
+                        data-shell-link
+                        class={row}
+                      >
+                        {item.icon && <item.icon class={cn("lucide", active && "text-primary")} aria-hidden="true" />}
+                        <span>{item.label}</span>
+                      </Sidebar.MenuButton>
+                      {item.badge !== undefined && <Sidebar.MenuBadge>{item.badge}</Sidebar.MenuBadge>}
+                      {sectionOpen(item) && (
+                        <Sidebar.MenuSub>
+                          {(item.items ?? []).map((sub) => {
+                            const subActive = isActive(sub.href, currentPath, sub.exact);
+                            return (
+                              <Sidebar.MenuSubItem>
+                                <Sidebar.MenuSubButton
+                                  href={sub.href}
+                                  isActive={subActive}
+                                  aria-current={subActive ? "page" : undefined}
+                                  data-shell-link
+                                  class={row}
+                                >
+                                  <span>{sub.label}</span>
+                                </Sidebar.MenuSubButton>
+                              </Sidebar.MenuSubItem>
+                            );
+                          })}
+                        </Sidebar.MenuSub>
+                      )}
+                    </Sidebar.MenuItem>
+                  );
+                })}
+              </Sidebar.Menu>
+            </Sidebar.Group>
+          ))}
+        </Sidebar.Content>
+        {hasAccount && (
+          <Sidebar.Footer>
+            <slot name="account" />
+          </Sidebar.Footer>
+        )}
+      </Sidebar.Sidebar>
+      {/* The number form of this would be a meaningless attribute; -1 is
+          exactly what a skip link's target wants. */}
+      <Sidebar.Inset id="app-content" tabindex="-1" class="outline-none">
+        <header class="sticky top-0 z-10 flex h-14 items-center gap-2 border-b bg-background px-4 md:gap-4 md:px-8">
+          <ShellToggle />
+          {breadcrumbs.length > 0 && (
+            <nav aria-label="Breadcrumb" class="hidden min-w-0 flex-1 overflow-hidden md:block">
+              <ol class="text-muted-foreground flex flex-nowrap items-center gap-1.5 text-sm sm:gap-2.5 whitespace-nowrap">
+                {breadcrumbs.map((crumb, at) => {
+                  const last = at === breadcrumbs.length - 1;
+                  return (
+                    <>
+                      <li class="inline-flex min-w-0 items-center gap-1.5">
+                        {crumb.href && !last ? (
+                          <a
+                            href={crumb.href}
+                            class="rounded-sm truncate outline-none transition-colors hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50"
+                          >
+                            {crumb.label}
+                          </a>
+                        ) : (
+                          <span aria-current="page" class="truncate text-foreground font-normal">
+                            {crumb.label}
+                          </span>
+                        )}
+                      </li>
+                      {!last && (
+                        <li role="presentation" aria-hidden="true" class="[&>svg]:size-3.5">
+                          <ChevronRight class="lucide" />
+                        </li>
+                      )}
+                    </>
+                  );
+                })}
+              </ol>
+            </nav>
+          )}
+          {hasTopbar && (
+            <div class="ml-auto flex min-w-0 items-center gap-2 overflow-x-auto">
+              <slot name="topbar" />
+            </div>
+          )}
+        </header>
+        <slot />
+      </Sidebar.Inset>
+    </Sidebar.Root>
+  )
+}
+
+<script>
+  // Choosing a nav link closes whatever sheet it sits in: the sidebar's
+  // mobile sheet (through the sidebar runtime's own event) and the top
+  // layout's menu sheet (through its close control). Delegated, so it
+  // survives view transitions.
+  document.addEventListener("click", (event) => {
+    const link = (event.target as Element | null)?.closest?.("a[data-shell-link]");
+    if (!link) return;
+
+    const provider = link.closest("[data-sw-sidebar-provider]");
+    if (provider && link.closest('[data-sidebar="mobile"]')) {
+      provider.dispatchEvent(new CustomEvent("sidebar:close-mobile"));
+    }
+
+    const sheet = link.closest("[data-sw-drawer]");
+    if (sheet && !link.closest("[data-sw-sidebar-provider]")) {
+      (sheet.querySelector("[data-sw-drawer-close]") as HTMLElement | null)?.click();
+    }
+  });
+</script>

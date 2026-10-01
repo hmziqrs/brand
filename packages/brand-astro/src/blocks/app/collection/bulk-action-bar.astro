@@ -1,0 +1,168 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { cn } from "$brand/utils";
+
+/*
+ * What you can do with the rows you picked: the collection toolbar's box,
+ * filled muted, while a selection is on. It comes in through the toolbar's
+ * `selection` slot, so the box and its height never change. Selecting needs
+ * JavaScript, and this is where it lives: the script below reads the row
+ * checkboxes in the surrounding form's table frame, swaps the toolbar's box
+ * for this bar and back, counts the selection into the status line, runs
+ * "Select all" (handing its focus to "Clear selection" when it disappears)
+ * and lets Escape end the selection while focus is in the bar or the table.
+ */
+
+interface Props extends HTMLAttributes<"div"> {
+  count: number;
+  /** Offers "Select all N" when fewer than that are selected. */
+  total?: number;
+}
+
+const { count, total, class: className, ...rest } = Astro.props;
+
+const hasActions = Astro.slots.has("actions");
+---
+
+<div
+  data-slot="bulk-action-bar"
+  data-total={total}
+  role="toolbar"
+  aria-label="Actions for the selected rows"
+  class={cn("flex min-h-14 flex-wrap items-center gap-2 rounded-xl border border-border bg-muted px-3 py-2", className)}
+  {...rest}
+>
+  <!-- role=status makes the count polite: it's announced as it changes. -->
+  <p class="text-sm font-medium whitespace-nowrap" role="status" data-selection-count>
+    {count} selected
+  </p>
+  {
+    total !== undefined && (
+      <button
+        type="button"
+        data-select-all
+        class="rounded-md text-sm whitespace-nowrap text-muted-foreground underline-offset-4 outline-none transition-colors hover:text-foreground hover:underline focus-visible:ring-3 focus-visible:ring-ring/50"
+      >
+        Select all {total}
+      </button>
+    )
+  }
+  <span class="flex flex-wrap items-center gap-2 sm:ml-auto">
+    {hasActions && <slot name="actions" />}
+  </span>
+  <button
+    type="button"
+    data-clear-selection
+    class="rounded-md text-sm whitespace-nowrap text-muted-foreground underline-offset-4 outline-none transition-colors hover:text-foreground hover:underline focus-visible:ring-3 focus-visible:ring-ring/50"
+  >
+    Clear selection
+  </button>
+</div>
+
+<script>
+  // Selection: the row checkboxes in the form's table frame are the truth;
+  // this bar and the toolbar's box swap places as the selection comes and
+  // goes. One delegated pass per page load, so it survives view transitions.
+  type Parts = {
+    bar: HTMLElement;
+    box: HTMLElement | null;
+    frame: HTMLElement | null;
+    rows: HTMLInputElement[];
+    header: HTMLInputElement | null;
+    selectAll: HTMLButtonElement | null;
+    clear: HTMLButtonElement | null;
+    count: HTMLElement | null;
+    total: number | undefined;
+  };
+
+  const partsOf = (bar: HTMLElement): Parts => {
+    const form = bar.closest("form") ?? document;
+    const frame = form.querySelector<HTMLElement>("[data-slot='app-table-frame']");
+    const rows = Array.from(form.querySelectorAll<HTMLInputElement>("[data-slot='row-checkbox']"));
+    return {
+      bar,
+      box: bar.closest<HTMLElement>("[data-slot='collection-toolbar']")?.querySelector<HTMLElement>("[data-toolbar-box]") ?? null,
+      frame,
+      rows,
+      header: form.querySelector<HTMLInputElement>("[data-slot='select-all-checkbox']"),
+      selectAll: bar.querySelector<HTMLButtonElement>("[data-select-all]"),
+      clear: bar.querySelector<HTMLButtonElement>("[data-clear-selection]"),
+      count: bar.querySelector<HTMLElement>("[data-selection-count]"),
+      total: bar.dataset.total ? Number(bar.dataset.total) : undefined,
+    };
+  };
+
+  const paint = (parts: Parts) => {
+    const chosen = parts.rows.filter((row) => row.checked);
+    const count = chosen.length;
+    if (parts.count) parts.count.textContent = `${count} selected`;
+    parts.bar.hidden = count === 0;
+    // The toolbar renders its box and the bar's wrapper both; the wrapper
+    // (which the page's slot content sits in) hides with the bar.
+    const wrap = parts.bar.closest<HTMLElement>("[data-selection-slot]");
+    if (wrap) wrap.hidden = count === 0;
+    if (parts.box) parts.box.hidden = count > 0;
+
+    // The header mirrors the rows: all on, some on, none on.
+    if (parts.header) {
+      parts.header.checked = count > 0 && count === parts.rows.length;
+      parts.header.indeterminate = count > 0 && count < parts.rows.length;
+    }
+
+    // Choosing everything hides "Select all"; the focus it held would fall
+    // out of the bar, so "Clear selection" takes it over.
+    if (parts.selectAll) {
+      const every = parts.total !== undefined && count >= parts.total;
+      parts.selectAll.hidden = every;
+      if (every && document.activeElement === parts.selectAll) parts.clear?.focus();
+    }
+  };
+
+  const clear = (parts: Parts) => {
+    for (const row of parts.rows) row.checked = false;
+    paint(parts);
+  };
+
+  const run = () => {
+    for (const bar of document.querySelectorAll<HTMLElement>("[data-slot='bulk-action-bar']")) {
+      if (bar.dataset.wired === "true") continue;
+      bar.dataset.wired = "true";
+      const parts = partsOf(bar);
+
+      for (const row of parts.rows) row.addEventListener("change", () => paint(parts));
+      parts.header?.addEventListener("change", () => {
+        for (const row of parts.rows) row.checked = parts.header!.checked;
+        paint(parts);
+      });
+      parts.selectAll?.addEventListener("click", () => {
+        for (const row of parts.rows) row.checked = true;
+        paint(parts);
+      });
+      parts.clear?.addEventListener("click", () => clear(parts));
+      paint(parts);
+    }
+
+    // Escape ends the selection while the reader is in the bar or in the
+    // table it belongs to (the frame's data-slot is the family's shared
+    // name). A menu open over either takes the key itself and closes first.
+    document.addEventListener("keydown", (event) => {
+      if (event.key !== "Escape") return;
+      const focused = document.activeElement;
+      if (!focused) return;
+      // The bar, or the table it belongs to (the frame's data-slot is the
+      // family's shared name).
+      const inBar = focused.closest("[data-slot='bulk-action-bar']");
+      const inTable = focused.closest('[data-slot="app-table-frame"]');
+      if (!inBar && !inTable) return;
+      const bar = (inBar as HTMLElement) ?? document.querySelector<HTMLElement>("[data-slot='bulk-action-bar']");
+      if (!bar) return;
+      const parts = partsOf(bar);
+      if (parts.rows.some((row) => row.checked)) {
+        event.preventDefault();
+        clear(parts);
+      }
+    });
+  };
+  run();
+  document.addEventListener("astro:page-load", run);
+</script>

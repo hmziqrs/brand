@@ -1,0 +1,92 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { cn } from "$brand/utils";
+import CopyButton from "$brand/components/copy-button.astro";
+import Tag from "$brand/components/tag.astro";
+import type { DetailItem } from "./types";
+
+/*
+ * A record's facts as a real definition list: one dt and one dd per fact.
+ * A missing value says “Not set” in muted words, machine values (ids, keys)
+ * go mono, a `copy` text puts the copy button beside the value, and a `tag`
+ * puts a small Tag after it. The list brings no panel and no horizontal
+ * padding of its own — DetailSection draws the panel around it, and
+ * SkeletonDetails stands exactly where these rows land while the record
+ * loads.
+ */
+
+interface Props extends HTMLAttributes<"dl"> {
+  items: DetailItem[];
+  /** "rows" puts each label left of its value (stacked below sm); "grid" stacks the label over the value in columns. */
+  layout?: "rows" | "grid";
+  /** The grid's columns from sm: 2 (default) or 3. */
+  columns?: 2 | 3;
+}
+
+const { items, layout = "rows", columns = 2, class: className, ...rest } = Astro.props;
+
+// Written out, not assembled: every class name Tailwind needs is whole
+// in the source.
+const gridColumns = { 2: "sm:grid-cols-2", 3: "sm:grid-cols-3" } as const;
+---
+
+{
+  layout === "grid" ? (
+    <dl data-slot="detail-list" class={cn("grid grid-cols-1 gap-x-8", gridColumns[columns], className)} {...rest}>
+      {items.map((item) => (
+        <div class="flex flex-col gap-1 py-3.5">
+          <dt class="text-sm text-muted-foreground">{item.label}</dt>
+          <dd class={cn("min-w-0 text-sm", item.mono && "font-mono", item.value === undefined && "text-muted-foreground")}>
+            {item.value ?? "Not set"}
+            {item.tag && (
+              <Tag tone={item.tag.tone} marker={item.tag.marker} class="ml-2">
+                {item.tag.label}
+              </Tag>
+            )}
+            {item.copy && <CopyButton text={item.copy} class="ml-1 size-6" />}
+          </dd>
+        </div>
+      ))}
+    </dl>
+  ) : (
+    <dl data-slot="detail-list" class={cn("flex flex-col divide-y divide-border", className)} {...rest}>
+      {items.map((item) => (
+        <div class="flex flex-col gap-1 py-3.5 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
+          <dt class="w-40 shrink-0 text-sm text-muted-foreground">{item.label}</dt>
+          <dd
+            class={cn(
+              "min-w-0 text-sm",
+              item.mono && "font-mono",
+              item.value === undefined && "text-muted-foreground",
+            )}
+          >
+            {
+              item.copy ? (
+                <span class="flex flex-wrap items-center gap-2">
+                  <span class="min-w-0">
+                    {item.value ?? "Not set"}
+                    {item.tag && (
+                      <Tag tone={item.tag.tone} marker={item.tag.marker} class="ml-2">
+                        {item.tag.label}
+                      </Tag>
+                    )}
+                  </span>
+                  <CopyButton text={item.copy} class="size-6" />
+                </span>
+              ) : (
+                <>
+                  {item.value ?? "Not set"}
+                  {item.tag && (
+                    <Tag tone={item.tag.tone} marker={item.tag.marker} class="ml-2">
+                      {item.tag.label}
+                    </Tag>
+                  )}
+                </>
+              )
+            }
+          </dd>
+        </div>
+      ))}
+    </dl>
+  )
+}

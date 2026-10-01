@@ -1,0 +1,104 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { Ellipsis } from "@lucide/astro";
+import { cn } from "$brand/utils";
+import Dropdown from "$brand/starwind/dropdown";
+import { Button } from "$brand/starwind/button";
+import type { AstroPiece } from "$brand/utils";
+
+/*
+ * What one row can do, behind its "more" button: a ghost icon button with
+ * the row's name as its accessible label, opening a dropdown. Items that go
+ * somewhere are links; items that act carry `data-action`, and the page's
+ * script answers the `row-action` event they bubble. Destructive items sit
+ * last, past a separator, in red.
+ */
+
+export type RowAction = {
+  label: string;
+  href?: string;
+  /** Marks the item as one that acts; the `row-action` event carries the name. */
+  action?: string;
+  icon?: AstroPiece;
+  tone?: "destructive";
+  disabled?: boolean;
+};
+
+interface Props extends HTMLAttributes<"div"> {
+  /** The trigger's accessible name: "Actions for Ada Lovelace". */
+  label: string;
+  items: RowAction[];
+}
+
+const { label, items, class: className, ...rest } = Astro.props;
+
+const plain = items.filter((item) => item.tone !== "destructive");
+const destructive = items.filter((item) => item.tone === "destructive");
+---
+
+<div data-slot="row-actions" class={cn("flex justify-end", className)} {...rest}>
+  <Dropdown.Root>
+    <Dropdown.Trigger asChild class="inline-flex">
+      <Button variant="ghost" size="icon-sm" aria-label={label}>
+        <Ellipsis class="lucide" aria-hidden="true" />
+      </Button>
+    </Dropdown.Trigger>
+    <Dropdown.Content align="end" class="w-44">
+      {
+        plain.map((item) =>
+          item.href ? (
+            <Dropdown.LinkItem href={item.href} closeOnClick disabled={item.disabled}>
+              {item.icon && <item.icon class="lucide" aria-hidden="true" />}
+              <span class="truncate">{item.label}</span>
+            </Dropdown.LinkItem>
+          ) : (
+            <Dropdown.Item disabled={item.disabled} data-row-action={item.action}>
+              {item.icon && <item.icon class="lucide" aria-hidden="true" />}
+              <span class="truncate">{item.label}</span>
+            </Dropdown.Item>
+          ),
+        )
+      }
+      {
+        destructive.length > 0 && (
+          <>
+            <Dropdown.Separator />
+            {destructive.map((item) =>
+              item.href ? (
+                <Dropdown.LinkItem href={item.href} closeOnClick disabled={item.disabled} class="text-destructive">
+                  {item.icon && <item.icon class="lucide" aria-hidden="true" />}
+                  <span class="truncate">{item.label}</span>
+                </Dropdown.LinkItem>
+              ) : (
+                <Dropdown.Item disabled={item.disabled} data-row-action={item.action} class="text-destructive">
+                  {item.icon && <item.icon class="lucide" aria-hidden="true" />}
+                  <span class="truncate">{item.label}</span>
+                </Dropdown.Item>
+              ),
+            )}
+          </>
+        )
+      }
+    </Dropdown.Content>
+  </Dropdown.Root>
+</div>
+
+<script>
+  // An item that acts bubbles a `row-action` event with its name, from this
+  // block's root; the page that knows what the action means answers it.
+  document.addEventListener("click", (event) => {
+    const item = (event.target as HTMLElement | null)?.closest<HTMLElement>("[data-row-action]");
+    if (!item) return;
+    const name = item.dataset.rowAction;
+    if (!name) return;
+    // From this block's own root, not the item: the item lives in the menu's
+    // portal, outside the row, so a page could not find its row from there.
+    // The portal's id matches the trigger's aria-controls, which does sit in
+    // the row.
+    const popup = item.closest<HTMLElement>("[data-sw-menu-popup]");
+    const trigger = popup?.id ? document.querySelector<HTMLElement>(`[aria-controls="${popup.id}"]`) : null;
+    const root = trigger?.closest<HTMLElement>("[data-slot='row-actions']");
+    if (!root) return;
+    root.dispatchEvent(new CustomEvent("row-action", { detail: { action: name }, bubbles: true }));
+  });
+</script>

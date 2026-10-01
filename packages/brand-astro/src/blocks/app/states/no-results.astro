@@ -1,0 +1,43 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { FunnelX, SearchX } from "@lucide/astro";
+import { Button } from "$brand/starwind/button";
+import EmptyState from "./empty-state.astro";
+
+/*
+ * An empty list that's the reader's doing: the search found nothing, or the
+ * filters together rule everything out. EmptyState with the list copy and a
+ * "Clear" link back to the plain list; the root re-names the data-slot so
+ * the two states stay tellable apart in the DOM.
+ */
+
+interface Props extends Omit<HTMLAttributes<"div">, "title"> {
+  /** The search text, quoted in the title. */
+  query?: string;
+  /** True when filters, not the search, rule everything out. */
+  filtered?: boolean;
+  /** The same list with no search and no filters. */
+  clearHref: string;
+  /** What the list holds, for the filtered title: "members". */
+  noun?: string;
+}
+
+const { query = "", filtered = false, clearHref, noun = "results", class: className, ...rest } = Astro.props;
+
+// Filters win when both are set: theirs is the copy whose one link clears
+// everything.
+const title = filtered
+  ? `No ${noun} match these filters`
+  : query
+    ? `Nothing matches “${query}”`
+    : "Nothing matches your search";
+const description = filtered ? "Try removing a filter." : "Check the spelling or search for something else.";
+const label = filtered ? "Clear filters" : "Clear search";
+const Icon = filtered ? FunnelX : SearchX;
+---
+
+<EmptyState data-slot="no-results" icon={Icon} title={title} description={description} class={className} {...rest}>
+  <Fragment slot="actions">
+    <Button variant="outline" href={clearHref}>{label}</Button>
+  </Fragment>
+</EmptyState>

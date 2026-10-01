@@ -1,0 +1,29 @@
+---
+import { billing } from "@hmziq/brand-core/app/demo-data";
+
+/*
+ * The demo's download endpoint (app-blocks.md, phase 6): an example text
+ * file, because no PDF exists to fetch and no block fetched anything. An
+ * unknown id is a 404.
+ */
+const invoice = billing.invoices.find((entry) => entry.id === Astro.params.id);
+
+if (!invoice) return new Response("No such invoice.", { status: 404 });
+
+const body = [
+  `Sightline — invoice ${invoice.id}`,
+  `Date:   ${invoice.date}`,
+  `Amount: ${invoice.amount}`,
+  `Status: ${invoice.status}`,
+  "",
+  "Example invoice from the Sightline demo (app-blocks.md, phase 6).",
+  "Nothing was charged; no card was read.",
+].join("\n");
+
+return new Response(body, {
+  headers: {
+    "Content-Type": "text/plain; charset=utf-8",
+    "Content-Disposition": `attachment; filename="sightline-invoice-${invoice.id}.txt"`,
+  },
+});
+---

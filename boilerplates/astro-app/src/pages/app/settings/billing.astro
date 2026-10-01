@@ -1,0 +1,57 @@
+---
+import AppPage from "$brand/blocks/app/shell/app-page.astro";
+import ErrorState from "$brand/blocks/app/states/error-state.astro";
+import DetailSection from "$brand/blocks/app/details/detail-section.astro";
+import SkeletonDetails from "$brand/blocks/app/states/skeleton-details.astro";
+import { Button } from "$brand/starwind/button";
+import Workspace from "../../../components/app/workspace.astro";
+import Billing from "../../../components/app/billing.astro";
+import Deferred from "../../../components/app/deferred.astro";
+import { demoLoad } from "../../../lib/app/demo-state";
+
+/*
+ * The billing settings page (app-blocks.md, phase 10): the same page the
+ * SvelteKit demo has — the one settings page that takes state=denied, which
+ * shows "Back to settings" beside the retry.
+ */
+const load = demoLoad(Astro.url.searchParams.get("state"), { denied: true });
+---
+
+<Workspace currentPath={Astro.url.pathname} state={load.state}>
+  {
+    load.status === "error" ? (
+      <AppPage>
+        <div class="mt-8">
+          <ErrorState kind={load.kind} retryHref="/app/settings/billing">
+            {load.kind === "denied" && (
+              <Fragment slot="actions">
+                <Button variant="outline" href="/app/settings/profile">Back to settings</Button>
+              </Fragment>
+            )}
+          </ErrorState>
+        </div>
+      </AppPage>
+    ) : load.status === "pending" ? (
+      <Deferred server:defer ms={600}>
+        <div slot="fallback">
+          <AppPage>
+            <div class="mt-8 flex flex-col gap-8">
+              <DetailSection title="Plan">
+                <SkeletonDetails rows={4} />
+              </DetailSection>
+              <DetailSection title="Usage">
+                <SkeletonDetails rows={3} />
+              </DetailSection>
+              <DetailSection title="Invoices">
+                <SkeletonDetails rows={6} />
+              </DetailSection>
+            </div>
+          </AppPage>
+        </div>
+        <Billing />
+      </Deferred>
+    ) : (
+      <Billing />
+    )
+  }
+</Workspace>

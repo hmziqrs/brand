@@ -1,0 +1,134 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { ArrowLeft, ChevronRight } from "@lucide/astro";
+import { cn } from "$brand/utils";
+import { isActive } from "@hmziq/brand-core/app/nav";
+import Tag from "$brand/components/tag.astro";
+import type { Crumb } from "./types";
+
+/*
+ * A page's header: where you are (breadcrumbs, or a back link on mobile),
+ * the page's h1 with its description, the actions, and the page's tabs as
+ * links. Everything that goes somewhere is an anchor, so it works with no
+ * JavaScript; which tab is on comes from currentPath through isActive in
+ * brand-core, decided the same way in both boilerplates.
+ */
+
+interface Props extends HTMLAttributes<"header"> {
+  title: string;
+  description?: string;
+  /** The last crumb is the current page, with no href. */
+  breadcrumbs?: Crumb[];
+  /** Mobile shows this instead of the breadcrumbs when set. */
+  back?: { label: string; href: string };
+  /** At most one primary button. */
+  actions?: boolean;
+  tabs?: { label: string; href: string; count?: number }[];
+  currentPath?: string;
+  /** What the tabs nav is called, for screen readers. */
+  tabsLabel?: string;
+}
+
+const {
+  title,
+  description,
+  breadcrumbs,
+  back,
+  tabs,
+  currentPath,
+  tabsLabel = "Tabs",
+  class: className,
+  ...rest
+} = Astro.props;
+
+const hasActions = Astro.slots.has("actions");
+---
+
+<header data-slot="app-page-header" class={cn("flex flex-col gap-4", className)} {...rest}>
+  {
+    back && (
+      <a
+        href={back.href}
+        class="inline-flex w-fit items-center gap-1.5 rounded-md text-sm text-muted-foreground outline-none transition-colors hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50 md:hidden"
+      >
+        <ArrowLeft class="lucide size-4" />
+        {back.label}
+      </a>
+    )
+  }
+
+  {
+    breadcrumbs && breadcrumbs.length > 0 && (
+      <nav aria-label="Breadcrumb" class={back ? "hidden md:block" : undefined}>
+        <ol class="text-muted-foreground flex flex-wrap items-center gap-1.5 text-sm sm:gap-2.5">
+          {breadcrumbs.map((crumb, at) => {
+            const last = at === breadcrumbs.length - 1;
+            return (
+              <>
+                <li data-slot="breadcrumb-item" class="inline-flex items-center gap-1.5">
+                  {crumb.href && !last ? (
+                    <a
+                      href={crumb.href}
+                      data-slot="breadcrumb-link"
+                      class="rounded-sm outline-none transition-colors hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50"
+                    >
+                      {crumb.label}
+                    </a>
+                  ) : (
+                    <span data-slot="breadcrumb-page" aria-current="page" class="text-foreground font-normal">
+                      {crumb.label}
+                    </span>
+                  )}
+                </li>
+                {!last && (
+                  <li role="presentation" aria-hidden="true" data-slot="breadcrumb-separator" class="[&>svg]:size-3.5">
+                    <ChevronRight class="lucide" />
+                  </li>
+                )}
+              </>
+            );
+          })}
+        </ol>
+      </nav>
+    )
+  }
+
+  <div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+    <div class="min-w-0">
+      <h1 class="text-2xl font-medium tracking-tight">{title}</h1>
+      {description && <p class="mt-1.5 max-w-prose text-sm text-muted-foreground">{description}</p>}
+    </div>
+    {hasActions && (
+      <div class="flex flex-wrap items-center gap-2 sm:justify-end">
+        <slot name="actions" />
+      </div>
+    )}
+  </div>
+
+  {
+    tabs && tabs.length > 0 && (
+      <nav aria-label={tabsLabel} class="overflow-x-auto">
+        <ul class="flex items-stretch gap-1 border-b">
+          {tabs.map((tab) => {
+            const active = currentPath ? isActive(tab.href, currentPath) : false;
+            return (
+              <li class="shrink-0">
+                <a
+                  href={tab.href}
+                  aria-current={active ? "page" : undefined}
+                  class={cn(
+                    "-mb-px flex items-center gap-1.5 border-b-2 px-3 pt-2 pb-2.5 text-sm whitespace-nowrap outline-none transition-colors focus-visible:ring-3 focus-visible:ring-ring/50",
+                    active ? "border-primary text-foreground" : "border-transparent text-muted-foreground hover:text-foreground",
+                  )}
+                >
+                  {tab.label}
+                  {tab.count !== undefined && <Tag>{tab.count}</Tag>}
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
+    )
+  }
+</header>

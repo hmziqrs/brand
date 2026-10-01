@@ -1,0 +1,99 @@
+---
+import { overview, usage, type Range, type Stat } from "@hmziq/brand-core/app/demo-data";
+import AppPage from "$brand/blocks/app/shell/app-page.astro";
+import AppPageHeader from "$brand/blocks/app/shell/app-page-header.astro";
+import StatCard from "$brand/blocks/app/metrics/stat-card.astro";
+import StatGrid from "$brand/blocks/app/metrics/stat-grid.astro";
+import UsageMeter from "$brand/blocks/app/metrics/usage-meter.astro";
+import Segmented from "$brand/components/segmented.astro";
+import { Button } from "$brand/starwind/button";
+
+/*
+ * The overview's content (app-blocks.md, phase 7), as the page and its
+ * `server:defer` island share it: four stat cards in a ruled grid, then the
+ * three usage meters. The date range is the header's action and lives in the
+ * `range` URL param, so a shared link shows the same numbers; the trend
+ * colors follow each stat's `good` direction, not its sign. state=limit
+ * shows the events meter full, with the message and the way out.
+ */
+
+interface Props {
+  range: Range;
+  /** The state the URL asked for; "limit" stands the events meter at its limit. */
+  limit: boolean;
+}
+
+const { range, limit } = Astro.props;
+
+const stats: Stat[] = overview[range];
+const events = limit ? usage.events.limit : usage.events.used;
+const ranges: { value: Range; label: string; href: string }[] = [
+  { value: "7", label: "7 days", href: "?range=7" },
+  { value: "30", label: "30 days", href: "?" },
+  { value: "90", label: "90 days", href: "?range=90" },
+];
+---
+
+<AppPage>
+  <AppPageHeader title="Overview">
+    <Fragment slot="actions">
+      <Segmented
+        data-range-picker
+        label="Date range"
+        value={range}
+        options={ranges.map(({ value, label }) => ({ value, label }))}
+      />
+    </Fragment>
+  </AppPageHeader>
+
+  <div class="mt-8 flex flex-col gap-6">
+    <StatGrid>
+      {
+        stats.map((stat) => (
+          <StatCard
+            label={stat.label}
+            value={stat.value}
+            trend={{ change: stat.change, good: stat.good, format: stat.format, comparison: stat.comparison }}
+          />
+        ))
+      }
+    </StatGrid>
+
+    <div class="grid gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-3">
+      <div class="bg-background px-4 py-4">
+        <UsageMeter
+          label="Events this month"
+          used={events}
+          limit={usage.events.limit}
+          unit={usage.events.unit}
+          resetsOn={`Resets on ${usage.events.resetsOn}`}
+          limitMessage="You've used every event this month. New events are dropped until it resets."
+        >
+          <Button slot="action" variant="link" size="sm" class="h-auto p-0" href="/app/settings/billing">
+            Upgrade
+          </Button>
+        </UsageMeter>
+      </div>
+      <div class="bg-background px-4 py-4">
+        <UsageMeter variant="ring" label="Seats" used={usage.seats.used} limit={usage.seats.limit} unit={usage.seats.unit} />
+      </div>
+      <div class="bg-background px-4 py-4">
+        <UsageMeter label="Data kept" used={usage.retention.used} limit={usage.retention.limit} unit={usage.retention.unit} />
+      </div>
+    </div>
+  </div>
+</AppPage>
+
+<script>
+  // The range is URL state like everything else: the link carries the demo
+  // state along, so the switch keeps working through a change.
+  document.addEventListener("segmented-change", (event) => {
+    const group = (event.target as HTMLElement | null)?.closest?.("[data-range-picker]");
+    if (!group || !(event instanceof CustomEvent)) return;
+    const value = String((event.detail as { value?: unknown })?.value ?? "30");
+    const url = new URL(window.location.href);
+    if (value === "30") url.searchParams.delete("range");
+    else url.searchParams.set("range", value);
+    window.location.assign(url);
+  });
+</script>

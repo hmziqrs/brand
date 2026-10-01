@@ -1,0 +1,29 @@
+---
+import { actions } from "astro:actions";
+import VerifyEmail from "$brand/blocks/app/auth/verify-email.astro";
+import AuthFrame from "../../components/app/auth-frame.astro";
+import { currentUser } from "@hmziq/brand-core/app/demo-data";
+import type { FormResult } from "$brand/blocks/app/auth/types";
+
+/*
+ * The verify-email page (app-blocks.md, phase 10): a six-digit code that
+ * submits itself once complete. The code "000000" is the scripted failure and
+ * "123456" verifies. The address comes with the sign-up redirect, or defaults
+ * to the demo's current user.
+ */
+const action = Astro.getActionResult(actions.verifyEmail);
+
+let result: FormResult;
+if (action?.data?.ok === false) {
+  result = { message: action.data.message, field: action.data.field };
+}
+
+const email = Astro.url.searchParams.get("email") ?? currentUser.email;
+const status = action?.data?.ok && action.data.verified ? "verified" : "sent";
+---
+
+<AuthFrame title="Verify your email">
+  <form method="POST" action={actions.verifyEmail}>
+    <VerifyEmail email={email} status={status} result={result} resendAfter={30} continueHref="/app/overview" />
+  </form>
+</AuthFrame>

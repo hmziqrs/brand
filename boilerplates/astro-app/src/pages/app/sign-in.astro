@@ -1,0 +1,35 @@
+---
+import { actions } from "astro:actions";
+import SignInForm from "$brand/blocks/app/auth/sign-in-form.astro";
+import AuthFrame from "../../components/app/auth-frame.astro";
+import type { FormResult } from "$brand/blocks/app/auth/types";
+
+/*
+ * The sign-in page (app-blocks.md, phase 10): the split AuthLayout with the
+ * product's rings, one form around SignInForm, posted to the signIn action
+ * with accept: "form" — so the same markup works with JavaScript off, and
+ * the action's answer maps to the FormResult the block takes. The Google
+ * provider's endpoint turns straight back around with the failure in the
+ * URL, so it shows without JavaScript too.
+ */
+const action = Astro.getActionResult(actions.signIn);
+
+let result: FormResult;
+let values: { email?: string } = {};
+if (action?.data?.ok === false) {
+  result = { message: action.data.message, field: action.data.field };
+  values = action.data.values ?? {};
+} else if (action?.data?.ok) {
+  return Astro.redirect(action.data.redirectTo ?? "/app/overview", 303);
+}
+
+// The Google provider's way back in.
+const google = Astro.url.searchParams.get("provider") === "google";
+if (google && !result) result = { message: "Google sign-in isn't working right now. Try another way." };
+---
+
+<AuthFrame variant="split" title="Sign in" description="Sign in to your Sightline workspace.">
+  <form method="POST" action={actions.signIn}>
+    <SignInForm result={result} values={values} links={{ signUp: "/app/sign-up", forgotPassword: "/app/forgot-password" }} />
+  </form>
+</AuthFrame>

@@ -1,0 +1,140 @@
+---
+import AppPage from "$brand/blocks/app/shell/app-page.astro";
+import AppPageHeader from "$brand/blocks/app/shell/app-page-header.astro";
+import SettingsSection from "$brand/blocks/app/settings/settings-section.astro";
+import SettingRow from "$brand/blocks/app/settings/setting-row.astro";
+import FormActions from "$brand/blocks/app/settings/form-actions.astro";
+import Notice from "$brand/components/notice.astro";
+import { Button } from "$brand/starwind/button";
+import { Input } from "$brand/starwind/input";
+import Combobox from "$brand/starwind/combobox/Combobox.astro";
+import ComboboxContent from "$brand/starwind/combobox/ComboboxContent.astro";
+import ComboboxEmpty from "$brand/starwind/combobox/ComboboxEmpty.astro";
+import ComboboxGroup from "$brand/starwind/combobox/ComboboxGroup.astro";
+import ComboboxInput from "$brand/starwind/combobox/ComboboxInput.astro";
+import ComboboxItem from "$brand/starwind/combobox/ComboboxItem.astro";
+import ComboboxItemText from "$brand/starwind/combobox/ComboboxItemText.astro";
+import ComboboxLabel from "$brand/starwind/combobox/ComboboxLabel.astro";
+import { timeZones } from "@hmziq/brand-core/app/demo-data";
+import { settingsTabs } from "../../lib/app/demo-state";
+
+/*
+ * The profile settings content (app-blocks.md, phase 10), as the page and
+ * its `server:defer` island share it: one form around one SettingsSection,
+ * posted to the saveProfile action. The name "fail" is the scripted save
+ * failure; changing the email says what happens next.
+ */
+
+interface Props {
+  /** The values the fields show: the saved ones, or what a failed post kept. */
+  values: Record<string, string>;
+  /** The saved values, so the page can tell what changed. */
+  saved: Record<string, string>;
+  result?: { message: string; field?: string };
+  savedOk?: boolean;
+}
+
+const { values: form, saved, result, savedOk = false } = Astro.props;
+
+const fieldError = (field: string) => (result?.field === field ? result.message : undefined);
+
+// Changing the email is a two-step thing, so the page says what happens next.
+const emailChanging = form.email !== saved.email;
+---
+
+<AppPage width="narrow">
+  <AppPageHeader
+    title="Settings"
+    description="Your name, email and time zone."
+    tabs={settingsTabs}
+    currentPath="/app/settings/profile"
+    tabsLabel="Settings sections"
+  />
+
+  <form method="POST" action="/app/settings/profile?_action=saveProfile" data-settings-form class="mt-8">
+
+        <SettingsSection
+          title="Profile"
+          description="How you appear in the workspace, and when Sightline counts your day from."
+        >
+          <SettingRow label="Name" description="Shown next to anything you change." for="name" error={fieldError("name")}>
+            <Input
+              id="name"
+              name="name"
+              value={form.name}
+              autocomplete="name"
+              aria-invalid={fieldError("name") ? true : undefined}
+              aria-describedby="name-description name-error"
+            />
+          </SettingRow>
+          <SettingRow label="Email" description="Where sign-ins and notices go." for="email" error={fieldError("email")}>
+            <Input
+              id="email"
+              name="email"
+              type="email"
+              value={form.email}
+              autocomplete="email"
+              aria-invalid={fieldError("email") ? true : undefined}
+              aria-describedby="email-description email-error"
+            />
+          </SettingRow>
+          {
+            emailChanging && (
+              <div class="px-4 py-4 sm:px-6">
+                <Notice tone="info" title="We'll send a link to the new address. The change happens when you open it." />
+              </div>
+            )
+          }
+          <SettingRow label="Time zone" description="Dates and times show in your zone." for="timeZone" error={fieldError("timeZone")}>
+            <Combobox name="timeZone" defaultValue={form.timeZone ?? ""} class="w-full">
+              <ComboboxInput id="timeZone" placeholder="Pick a time zone" aria-label="Time zone" />
+              <ComboboxContent>
+                <ComboboxEmpty>No results.</ComboboxEmpty>
+                <ComboboxGroup>
+                  <ComboboxLabel>Time zones</ComboboxLabel>
+                  {timeZones.map((zone) => (
+                    <ComboboxItem value={zone.value}>
+                      <ComboboxItemText>{zone.label}</ComboboxItemText>
+                    </ComboboxItem>
+                  ))}
+                </ComboboxGroup>
+              </ComboboxContent>
+            </Combobox>
+          </SettingRow>
+          <FormActions slot="footer" dirty={false} pending={false} saved={savedOk} error={result && !result.field ? result.message : undefined} submitLabel="Save changes">
+            <Fragment slot="cancel">
+              <Button type="reset" variant="outline">Cancel</Button>
+            </Fragment>
+          </FormActions>
+        </SettingsSection>
+      
+  </form>
+</AppPage>
+
+<script>
+  // The dirty line and Save's state, as the browser sees them: the form is
+  // clean while its fields hold what the server rendered. Cancel restores
+  // them (a reset button), and leaving with unsaved changes asks first.
+  for (const form of document.querySelectorAll<HTMLFormElement>("[data-settings-form]")) {
+    const fields = Array.from(form.elements).filter((element) => element instanceof HTMLElement && (element as HTMLInputElement).id) as HTMLInputElement[];
+    const initial = new Map(fields.map((field) => [field.id, field.value]));
+    const sync = () => {
+      const dirty = fields.some((field) => field.value !== initial.get(field.id));
+      form.dataset.clean = dirty ? "false" : "true";
+      const foot = form.querySelector<HTMLElement>("[data-slot='form-actions']");
+      if (foot) foot.dataset.dirty = dirty ? "true" : "false";
+      const cancel = foot?.querySelector<HTMLElement>("[data-cancel-slot]");
+      if (cancel) cancel.classList.toggle("hidden", !dirty);
+    };
+    form.addEventListener("input", sync);
+    form.addEventListener("change", sync);
+    form.addEventListener("reset", () => window.setTimeout(sync, 0));
+    form.dataset.clean = "true";
+
+    window.addEventListener("beforeunload", (event) => {
+      if (form.dataset.clean === "false") {
+        event.preventDefault();
+      }
+    });
+  }
+</script>

@@ -1,0 +1,75 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { Inbox } from "@lucide/astro";
+import { cn } from "$brand/utils";
+import IconTile from "$brand/components/icon-tile.astro";
+import Rings from "$brand/components/rings.astro";
+import type { AstroPiece } from "$brand/utils";
+
+/*
+ * Nothing here (yet): art, a title, a line of description and, for a first
+ * run, the one action that starts things. The icon art sits above centered
+ * text; the rings art sits beside it — never behind (BRAND.md section 13).
+ * NoResults builds on this with the copy for an empty list.
+ */
+
+interface Props extends Omit<HTMLAttributes<"div">, "title"> {
+  /** The icon the tile holds, as a Lucide component. Inbox when left out. */
+  icon?: AstroPiece;
+  /** "icon" shows the tile; "rings" shows small faint Rings seeded by `seed` beside the text. */
+  art?: "icon" | "rings";
+  /** The seed the rings draw from, when art is "rings". */
+  seed?: string;
+  title: string;
+  description?: string;
+  /** "page" fills a page's content area, "section" one section, "compact" a slot in a card. */
+  size?: "page" | "section" | "compact";
+}
+
+const { icon, art = "icon", seed = "sightline", title, description, size = "page", class: className, ...rest } = Astro.props;
+
+const Art = icon ?? Inbox;
+
+// The sizes change the padding and the title's size; the shape (art above
+// or beside the text) comes from the art.
+const sizes = { page: "gap-4 py-16", section: "gap-3 py-10", compact: "gap-2.5 py-6" } as const;
+const titleSizes = {
+  page: "text-lg font-medium tracking-tight",
+  section: "text-base font-medium",
+  compact: "text-sm font-medium",
+} as const;
+---
+
+<div
+  data-slot="empty-state"
+  class={cn(
+    "flex w-full min-w-0 flex-1 flex-col items-center justify-center text-center",
+    art === "rings" && "flex-row text-left",
+    sizes[size],
+    className,
+  )}
+  {...rest}
+>
+  {
+    art === "rings" ? (
+      <div class="w-20 shrink-0 opacity-50" aria-hidden="true">
+        <Rings seed={seed} />
+      </div>
+    ) : (
+      <IconTile>
+        <Art class="lucide" />
+      </IconTile>
+    )
+  }
+  <div class={cn("flex min-w-0 max-w-sm flex-col gap-2", art === "rings" && "items-start")}>
+    <p class={titleSizes[size]}>{title}</p>
+    {description && <p class="text-sm/relaxed text-muted-foreground">{description}</p>}
+    {
+      Astro.slots.has("actions") && (
+        <div class={cn("mt-2 flex flex-wrap gap-2", art === "rings" ? "justify-start" : "justify-center")}>
+          <slot name="actions" />
+        </div>
+      )
+    }
+  </div>
+</div>

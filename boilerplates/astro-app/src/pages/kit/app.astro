@@ -1,0 +1,855 @@
+---
+// The /kit gallery's app page: every app block in every state it ships
+// (docs/kits.md, docs/app-blocks.md phase 10). The section ids are the
+// pieces' anchors in scripts/pieces.json, which `pnpm check:parity` reads,
+// so they are written out in full.
+import Container from "$brand/blocks/site/container.astro";
+import PageIntro from "$brand/blocks/site/page-intro.astro";
+import SiteLayout from "$brand/blocks/site/site-layout.astro";
+import Kicker from "$brand/blocks/site/kicker.astro";
+import ThemeInit from "../../components/theme-init.astro";
+import ThemeToggle from "../../components/theme-toggle.astro";
+import Piece from "../../components/app/gallery-piece.astro";
+
+import AppShell from "$brand/blocks/app/shell/app-shell.astro";
+import AppPage from "$brand/blocks/app/shell/app-page.astro";
+import AppPageHeader from "$brand/blocks/app/shell/app-page-header.astro";
+import WorkspaceSwitcher from "$brand/blocks/app/account/workspace-switcher.astro";
+import UserMenu from "$brand/blocks/app/account/user-menu.astro";
+import SettingsSection from "$brand/blocks/app/settings/settings-section.astro";
+import SettingRow from "$brand/blocks/app/settings/setting-row.astro";
+import FormActions from "$brand/blocks/app/settings/form-actions.astro";
+import EmptyState from "$brand/blocks/app/states/empty-state.astro";
+import NoResults from "$brand/blocks/app/states/no-results.astro";
+import ErrorState from "$brand/blocks/app/states/error-state.astro";
+import DataState from "$brand/blocks/app/states/data-state.astro";
+import SkeletonText from "$brand/blocks/app/states/skeleton-text.astro";
+import SkeletonTable from "$brand/blocks/app/states/skeleton-table.astro";
+import SkeletonStats from "$brand/blocks/app/states/skeleton-stats.astro";
+import SkeletonDetails from "$brand/blocks/app/states/skeleton-details.astro";
+import SkeletonSettings from "$brand/blocks/app/states/skeleton-settings.astro";
+import CollectionToolbar from "$brand/blocks/app/collection/collection-toolbar.astro";
+import FilterChip from "$brand/blocks/app/collection/filter-chip.astro";
+import SortMenu from "$brand/blocks/app/collection/sort-menu.astro";
+import BulkActionBar from "$brand/blocks/app/collection/bulk-action-bar.astro";
+import AppTableFrame from "$brand/blocks/app/table/app-table-frame.astro";
+import SortableHead from "$brand/blocks/app/table/sortable-head.astro";
+import SelectAllCheckbox from "$brand/blocks/app/table/select-all-checkbox.astro";
+import RowCheckbox from "$brand/blocks/app/table/row-checkbox.astro";
+import RowActions from "$brand/blocks/app/table/row-actions.astro";
+import TablePagination from "$brand/blocks/app/table/table-pagination.astro";
+import TableStateRow from "$brand/blocks/app/table/table-state-row.astro";
+import TableSkeletonRows from "$brand/blocks/app/table/table-skeleton-rows.astro";
+import PasswordInput from "$brand/blocks/app/auth/password-input.astro";
+import ProviderButtons from "$brand/blocks/app/auth/provider-buttons.astro";
+import SignInForm from "$brand/blocks/app/auth/sign-in-form.astro";
+import SignUpForm from "$brand/blocks/app/auth/sign-up-form.astro";
+import ForgotPasswordForm from "$brand/blocks/app/auth/forgot-password-form.astro";
+import ResetPasswordForm from "$brand/blocks/app/auth/reset-password-form.astro";
+import VerifyEmail from "$brand/blocks/app/auth/verify-email.astro";
+import DetailList from "$brand/blocks/app/details/detail-list.astro";
+import DetailSection from "$brand/blocks/app/details/detail-section.astro";
+import MetricTrend from "$brand/blocks/app/metrics/metric-trend.astro";
+import StatCard from "$brand/blocks/app/metrics/stat-card.astro";
+import StatGrid from "$brand/blocks/app/metrics/stat-grid.astro";
+import UsageMeter from "$brand/blocks/app/metrics/usage-meter.astro";
+import ConfirmAction from "$brand/blocks/app/actions/confirm-action.astro";
+import RecordSheet from "$brand/blocks/app/actions/record-sheet.astro";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "$brand/starwind/table";
+import { Button } from "$brand/starwind/button";
+import { Input } from "$brand/starwind/input";
+import { Switch } from "$brand/starwind/switch";
+import Toaster from "$brand/starwind/toast/Toaster.astro";
+import ComboboxField from "$brand/starwind/combobox/Combobox.astro";
+import ComboboxFieldContent from "$brand/starwind/combobox/ComboboxContent.astro";
+import ComboboxFieldEmpty from "$brand/starwind/combobox/ComboboxEmpty.astro";
+import ComboboxFieldGroup from "$brand/starwind/combobox/ComboboxGroup.astro";
+import ComboboxFieldInput from "$brand/starwind/combobox/ComboboxInput.astro";
+import ComboboxFieldItem from "$brand/starwind/combobox/ComboboxItem.astro";
+import ComboboxFieldItemText from "$brand/starwind/combobox/ComboboxItemText.astro";
+import ComboboxFieldLabel from "$brand/starwind/combobox/ComboboxLabel.astro";
+import Tag from "$brand/components/tag.astro";
+import { currentWorkspaceId, currentUser, timeZones, workspaces } from "@hmziq/brand-core/app/demo-data";
+import { siGithub, siGoogle } from "simple-icons";
+import type { NavGroup } from "$brand/blocks/app/shell/types";
+
+const nav: NavGroup[] = [
+  {
+    label: "Workspace",
+    items: [
+      { label: "Overview", href: "/app/overview" },
+      { label: "Members", href: "/app/members" },
+    ],
+  },
+  {
+    label: "Account",
+    items: [
+      {
+        label: "Settings",
+        href: "/app/settings/profile",
+        items: [
+          { label: "Profile", href: "/app/settings/profile" },
+          { label: "Notifications", href: "/app/settings/notifications" },
+        ],
+      },
+    ],
+  },
+];
+
+const switcherWorkspaces = workspaces.map((workspace) => ({ ...workspace, href: "/kit/app" }));
+const passwordRules = [
+  { label: "At least 8 characters", pattern: ".{8,}" },
+  { label: "One uppercase letter", pattern: "[A-Z]" },
+  { label: "One number", pattern: "\\d" },
+];
+const providers = [
+  { id: "github", label: "GitHub", icon: siGithub, href: "/app/sign-in/github" },
+  { id: "google", label: "Google", icon: siGoogle, href: "/app/sign-in/google" },
+];
+---
+
+<SiteLayout site="example" maker="the kit" layout="page" mainClassName="gap-14 pt-12 pb-20 md:pt-20" head={{ site: "freeoxide", title: "App blocks — the kit", description: "Every app block the Astro kit ships.", url: "https://example.com/kit/app" }}>
+  <ThemeInit slot="head" />
+  <ThemeToggle slot="extra" />
+
+  <Container>
+    <PageIntro class="max-w-2xl">
+      <Fragment slot="kicker">The kit · app blocks</Fragment>
+      <Fragment slot="title">App blocks</Fragment>
+      <Fragment slot="lede">The blocks for app screens — shells, settings, states, lists, tables, auth, details, metrics and the confirm and edit overlays — each in the states it ships. The demo app wears them in context at /app.</Fragment>
+    </PageIntro>
+  </Container>
+
+  <Container size="wide" class="flex flex-col gap-14">
+    <Piece id="piece-app-shell" title="AppShell" note="The frame of the app's signed-in side. The demo app wears it; this is the top layout, and the sidebar one at /app/overview.">
+      <div class="overflow-hidden rounded-xl border">
+        <AppShell nav={nav} currentPath="/kit/app" layout="top" class="min-h-120">
+          <WorkspaceSwitcher slot="brand" workspaces={switcherWorkspaces} currentId={currentWorkspaceId} />
+          <UserMenu slot="account" user={currentUser} />
+          <AppPage>
+            <p class="text-sm text-muted-foreground">The page sits in one centered column, under the top bar.</p>
+          </AppPage>
+        </AppShell>
+      </div>
+    </Piece>
+
+    <Piece id="piece-app-page" title="AppPage" note="The page inside the shell: one centered column, default or narrow.">
+      <div class="grid gap-4 md:grid-cols-2">
+        <div class="rounded-xl border p-4">
+          <Kicker>Default</Kicker>
+          <AppPage class="px-0 py-6">
+            <p class="text-sm text-muted-foreground">max-w-6xl</p>
+          </AppPage>
+        </div>
+        <div class="rounded-xl border p-4">
+          <Kicker>Narrow</Kicker>
+          <AppPage width="narrow" class="px-0 py-6">
+            <p class="text-sm text-muted-foreground">max-w-3xl, for settings and forms.</p>
+          </AppPage>
+        </div>
+      </div>
+    </Piece>
+
+    <Piece id="piece-app-page-header" title="AppPageHeader" note="A page's own header: breadcrumbs (a back link on mobile), title, description, actions and tabs.">
+      <div class="flex flex-col gap-10">
+        <AppPageHeader title="Members" description="People who can see this workspace.">
+          <Fragment slot="actions">
+            <Button>Invite people</Button>
+          </Fragment>
+        </AppPageHeader>
+        <AppPageHeader
+          title="Ada Lovelace"
+          breadcrumbs={[{ label: "Members", href: "/app/members" }, { label: "Ada Lovelace" }]}
+          back={{ label: "Members", href: "/app/members" }}
+        >
+          <Fragment slot="actions">
+            <Button variant="outline">Edit</Button>
+          </Fragment>
+        </AppPageHeader>
+        <AppPageHeader
+          title="Settings"
+          tabs={[
+            { label: "Profile", href: "/app/settings/profile" },
+            { label: "Workspace", href: "/app/settings/workspace" },
+            { label: "Notifications", href: "/app/settings/notifications", count: 3 },
+            { label: "Billing", href: "/app/settings/billing" },
+          ]}
+          currentPath="/app/settings/notifications"
+          tabsLabel="Settings sections"
+        />
+      </div>
+    </Piece>
+
+    <Piece id="piece-workspace-switcher" title="WorkspaceSwitcher" note="Which workspace you're in, and links to the others. The menu is Starwind's dropdown; opening it needs the runtime, nothing else.">
+      <div class="flex flex-wrap gap-4">
+        <div class="w-64 rounded-xl border p-2">
+          <WorkspaceSwitcher workspaces={switcherWorkspaces} currentId={currentWorkspaceId} />
+        </div>
+      </div>
+    </Piece>
+
+    <Piece id="piece-user-menu" title="UserMenu" note="Who's signed in, their settings, the choice of light or dark, and signing out.">
+      <div class="w-64 rounded-xl border p-2">
+        <UserMenu
+          user={currentUser}
+          onThemeChange
+          items={[
+            { label: "Settings", href: "/app/settings/profile" },
+            { label: "Billing", href: "/app/settings/billing" },
+          ]}
+        >
+          <form slot="signOut" method="POST" action="/app/sign-out" class="p-1">
+            <Button type="submit" variant="ghost" size="sm" class="w-full justify-start">Sign out</Button>
+          </form>
+        </UserMenu>
+      </div>
+    </Piece>
+
+    <Piece id="piece-settings-section" title="SettingsSection" note="One titled part of a settings page: the title beside the rows, in an outlined panel; the destructive tone for sections that remove things.">
+      <div class="flex flex-col gap-8">
+        <SettingsSection title="Profile" description="How you appear in the workspace.">
+          <SettingRow label="Name" for="gallery-name" description="Shown next to anything you change.">
+            <Input id="gallery-name" name="name" value={currentUser.name} class="max-w-72" />
+          </SettingRow>
+        </SettingsSection>
+        <SettingsSection tone="destructive" title="Delete this workspace" description="Everything in it goes with it.">
+          <div class="px-4 py-4 sm:px-6">
+            <p class="text-sm text-muted-foreground">The destructive tone draws the panel's outline in border-destructive/40.</p>
+          </div>
+        </SettingsSection>
+      </div>
+    </Piece>
+
+    <Piece id="piece-setting-row" title="SettingRow" note="One setting: label, control, description and error — and, for controls that save on change, the state of that save.">
+      <div class="flex flex-col divide-y divide-border">
+        <SettingRow label="Name" for="row-name" description="A vertical row takes a text field.">
+          <Input id="row-name" name="name" class="max-w-72" />
+        </SettingRow>
+        <SettingRow label="Name" for="row-name-error" error="Enter a name." description="With an error, under the field.">
+          <Input id="row-name-error" name="name" aria-invalid="true" aria-describedby="row-name-error-error" class="max-w-72" />
+        </SettingRow>
+        <SettingRow label="Weekly summary email" for="row-switch-idle" description="A horizontal row takes a switch." orientation="horizontal">
+          <Switch id="row-switch-idle" name="weeklySummary" />
+        </SettingRow>
+        <SettingRow label="When someone joins" for="row-switch-saving" orientation="horizontal" status="saving">
+          <Switch id="row-switch-saving" name="memberJoins" />
+        </SettingRow>
+        <SettingRow label="When usage passes 80%" for="row-switch-saved" orientation="horizontal" status="saved">
+          <Switch id="row-switch-saved" name="usageAt80" checked />
+        </SettingRow>
+        <SettingRow label="A failed save" for="row-switch-error" orientation="horizontal" status="error">
+          <Switch id="row-switch-error" name="failed" />
+        </SettingRow>
+      </div>
+    </Piece>
+
+    <Piece id="piece-form-actions" title="FormActions" note="The foot of a settings form: what state it's in, Cancel and Save. The dirty and saved states here are the browser's own; the server render keeps Save enabled so a page with no JavaScript can still save.">
+      <div class="flex flex-col gap-6">
+        <div class="rounded-xl border">
+          <FormActions dirty={false} pending={false} />
+        </div>
+        <div class="rounded-xl border">
+          <FormActions dirty={true} pending={false}>
+            <Fragment slot="cancel">
+              <Button type="reset" variant="outline">Cancel</Button>
+            </Fragment>
+          </FormActions>
+        </div>
+        <div class="rounded-xl border">
+          <FormActions dirty={true} pending={true}>
+            <Fragment slot="cancel">
+              <Button type="reset" variant="outline" disabled>Cancel</Button>
+            </Fragment>
+          </FormActions>
+        </div>
+        <div class="rounded-xl border">
+          <FormActions dirty={false} pending={false} saved={true} />
+        </div>
+        <div class="rounded-xl border">
+          <FormActions dirty={false} pending={false} error="We couldn't save your changes. Try again." />
+        </div>
+      </div>
+    </Piece>
+
+    <Piece id="piece-empty-state" title="EmptyState" note="Nothing here (yet): art, a title, a line of description and, for a first run, the one action that starts things.">
+      <div class="grid gap-4 md:grid-cols-3">
+        <div class="rounded-xl border">
+          <EmptyState title="No members yet" description="Invite your team to see the same dashboards." size="section">
+            <Fragment slot="actions">
+              <Button>Invite people</Button>
+            </Fragment>
+          </EmptyState>
+        </div>
+        <div class="rounded-xl border">
+          <EmptyState title="Nothing matches “ada”" description="Check the spelling or search for something else." size="section" />
+        </div>
+        <div class="rounded-xl border">
+          <EmptyState art="rings" seed="sightline" title="No dashboards yet" description="Rings art sits beside the text, never behind it." size="section" />
+        </div>
+      </div>
+    </Piece>
+
+    <Piece id="piece-no-results" title="NoResults" note="An empty list that's the reader's doing: the search found nothing, or the filters ruled everything out.">
+      <div class="grid gap-4 md:grid-cols-2">
+        <div class="rounded-xl border">
+          <NoResults query="ada" clearHref="/kit/app" />
+        </div>
+        <div class="rounded-xl border">
+          <NoResults filtered clearHref="/kit/app" noun="members" />
+        </div>
+      </div>
+    </Piece>
+
+    <Piece id="piece-error-state" title="ErrorState" note="A page, or one part of one, that didn't arrive: what went wrong in plain words, and the way out.">
+      <div class="grid gap-4 md:grid-cols-2">
+        <div class="rounded-xl border">
+          <ErrorState size="section" />
+        </div>
+        <div class="rounded-xl border">
+          <ErrorState kind="offline" size="section" />
+        </div>
+        <div class="rounded-xl border">
+          <ErrorState kind="denied" size="section">
+            <Fragment slot="actions">
+              <Button variant="outline">Back to members</Button>
+            </Fragment>
+          </ErrorState>
+        </div>
+        <div class="rounded-xl border">
+          <ErrorState kind="not-found" size="section" retryHref="/kit/app" />
+        </div>
+        <div class="rounded-xl border">
+          <ErrorState size="section" retry retrying details="req_7f3a2b" />
+        </div>
+        <div class="flex flex-col gap-3 rounded-xl border p-4">
+          <Kicker>Compact, inside a card</Kicker>
+          <StatCard label="Page load time" value="1.8 s" status="error" retryHref="/kit/app" />
+        </div>
+      </div>
+    </Piece>
+
+    <Piece id="piece-data-state" title="DataState" note="The switch every async area hangs on: loading, error, empty or content. In Astro the pending state is a `server:defer` island's fallback (the demo pages show it); the delay is a script concern.">
+      <div class="flex flex-col gap-4">
+        <div class="rounded-xl border">
+          <DataState status="success" loadingLabel="Loading members">
+            <div slot="loading" />
+            <div slot="error" />
+            <p class="px-4 py-6 text-sm">Success: the children render.</p>
+          </DataState>
+        </div>
+        <div class="rounded-xl border">
+          <DataState status="success" isEmpty loadingLabel="Loading members">
+            <div slot="loading" />
+            <div slot="error" />
+            <div slot="empty">
+              <EmptyState title="No members yet" description="The empty slot stands in for the children." size="section" />
+            </div>
+            <p class="px-4 py-6 text-sm">Children, hidden by the empty state.</p>
+          </DataState>
+        </div>
+        <div class="rounded-xl border">
+          <DataState status="error" loadingLabel="Loading members" delay={0}>
+            <div slot="loading">
+              <p class="px-4 py-6 text-sm">A skeleton shaped like the content.</p>
+            </div>
+            <div slot="error">
+              <ErrorState size="section" retryHref="/kit/app" />
+            </div>
+          </DataState>
+        </div>
+      </div>
+    </Piece>
+
+    <Piece id="piece-skeleton-text" title="SkeletonText" note="A skeleton for a run of text, the same size as the paragraph it stands for.">
+      <div class="max-w-md rounded-xl border p-4">
+        <SkeletonText lines={3} />
+      </div>
+    </Piece>
+
+    <Piece id="piece-skeleton-table" title="SkeletonTable" note="A skeleton for a whole table, the same shape as the AppTableFrame it stands for.">
+      <SkeletonTable rows={3} columns={["40%", "20%", "20%", "20%"]} />
+    </Piece>
+
+    <Piece id="piece-skeleton-stats" title="SkeletonStats" note="A skeleton for a run of stat cards, in the gap-px grid StatGrid draws.">
+      <div class="flex flex-col gap-6">
+        <SkeletonStats count={4} />
+        <SkeletonStats count={2} />
+      </div>
+    </Piece>
+
+    <Piece id="piece-skeleton-details" title="SkeletonDetails" note="A skeleton for a DetailList, standing exactly where the rows land.">
+      <div class="rounded-xl border px-4 sm:px-6">
+        <SkeletonDetails rows={4} />
+      </div>
+    </Piece>
+
+    <Piece id="piece-skeleton-settings" title="SkeletonSettings" note="A skeleton for a settings section, the same two-column shape SettingsSection draws.">
+      <SkeletonSettings rows={3} />
+    </Piece>
+
+    <Piece id="piece-collection-toolbar" title="CollectionToolbar" note="The bar over a list. Typing in the search navigates once it pauses; the busy spinner is on while the results are on their way.">
+      <div class="flex flex-col gap-6">
+        <CollectionToolbar search={{ value: "", label: "Search members", placeholder: "Search by name or email…" }} clearFiltersHref="/kit/app">
+          <span slot="count" class="text-sm whitespace-nowrap">60 members</span>
+          <Button slot="actions">Invite people</Button>
+        </CollectionToolbar>
+        <CollectionToolbar search={{ value: "ada", label: "Search members" }} busy clearFiltersHref="/kit/app">
+          <span slot="count" class="text-sm whitespace-nowrap">3 of 60 members</span>
+        </CollectionToolbar>
+      </div>
+    </Piece>
+
+    <Piece id="piece-filter-chip" title="FilterChip" note="One filter over a list, as a `<details>` picker that opens without JavaScript: real checkbox and radio inputs, named for the URL param, and an Apply button.">
+      <div class="flex flex-wrap items-center gap-3">
+        <FilterChip label="Role" name="role" value={[]} removeHref="/kit/app" options={[
+          { value: "owner", label: "Owner", count: 1 },
+          { value: "admin", label: "Admin", count: 4 },
+          { value: "member", label: "Member", count: 50 },
+        ]} />
+        <FilterChip label="Status" name="status" value={["invited"]} removeHref="/kit/app" options={[
+          { value: "active", label: "Active", count: 54 },
+          { value: "invited", label: "Invited", count: 5 },
+        ]} />
+        <FilterChip label="Role" name="role2" value={["admin", "member"]} removeHref="/kit/app" options={[
+          { value: "owner", label: "Owner", count: 1 },
+          { value: "admin", label: "Admin", count: 4 },
+          { value: "member", label: "Member", count: 50 },
+        ]} />
+      </div>
+    </Piece>
+
+    <Piece id="piece-sort-menu" title="SortMenu" note="How the list is ordered: a dropdown of the sort fields as links, the current one checked.">
+      <div class="flex flex-wrap gap-4">
+        <SortMenu options={[
+          { value: "", label: "Newest joined" },
+          { value: "name", label: "Name (A–Z)" },
+          { value: "-last_active", label: "Last active (newest)" },
+        ]} value="" hrefFor={(sort) => (sort ? `/kit/app?sort=${sort}` : "/kit/app")} />
+        <SortMenu options={[
+          { value: "", label: "Newest joined" },
+          { value: "name", label: "Name (A–Z)" },
+          { value: "-last_active", label: "Last active (newest)" },
+        ]} value="-last_active" hrefFor={(sort) => (sort ? `/kit/app?sort=${sort}` : "/kit/app")} />
+      </div>
+    </Piece>
+
+    <Piece id="piece-bulk-action-bar" title="BulkActionBar" note="What you can do with the rows you picked: the toolbar's box, filled muted. Escape ends the selection while focus is in the bar or the table it belongs to — here, with no table around it, the buttons still run.">
+      <BulkActionBar count={3} total={60}>
+        <Fragment slot="actions">
+          <Button variant="outline" size="sm">Change role</Button>
+          <Button variant="outline" size="sm" class="text-destructive">Remove 3 members</Button>
+        </Fragment>
+      </BulkActionBar>
+    </Piece>
+
+    <Piece id="piece-app-table-frame" title="AppTableFrame" note="The table's skin: one rounded outline that scrolls sideways inside itself. With `stickyFirstColumn` the first column pins while the rest scroll.">
+      <div class="flex flex-col gap-6">
+        <AppTableFrame>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Member</TableHead>
+                <TableHead>Role</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell class="px-4">Ada Lovelace</TableCell>
+                <TableCell class="px-4">Owner</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </AppTableFrame>
+        <AppTableFrame stickyFirstColumn>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <SortableHead label="Member" sorted="asc" href="/kit/app" class="min-w-64" />
+                <TableHead>Role</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead>Last active</TableHead>
+                <TableHead class="w-12"><span class="sr-only">Actions</span></TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow data-state="selected">
+                <TableCell class="px-4 font-medium">Ada Lovelace</TableCell>
+                <TableCell class="px-4">Owner</TableCell>
+                <TableCell class="px-4"><Tag tone="success" marker>Active</Tag></TableCell>
+                <TableCell class="px-4 text-muted-foreground">2 days ago</TableCell>
+                <TableCell class="px-4 text-right"><span class="text-sm text-muted-foreground">···</span></TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell class="px-4 font-medium">Karim Mansour</TableCell>
+                <TableCell class="px-4">Admin</TableCell>
+                <TableCell class="px-4"><Tag tone="warning">Invite sent</Tag></TableCell>
+                <TableCell class="px-4 text-muted-foreground">Not yet</TableCell>
+                <TableCell class="px-4 text-right"><span class="text-sm text-muted-foreground">···</span></TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </AppTableFrame>
+      </div>
+    </Piece>
+
+    <Piece id="piece-sortable-head" title="SortableHead" note="A column header that sorts: aria-sort and the arrow follow the state, and the link turns the sort.">
+      <AppTableFrame>
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <SortableHead label="Member" sorted={false} href="/kit/app" />
+              <SortableHead label="Role" sorted="asc" href="/kit/app" />
+              <SortableHead label="Status" sorted="desc" href="/kit/app" />
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            <TableRow>
+              <TableCell class="px-4">The header is the story; one row for the shape.</TableCell>
+              <TableCell class="px-4" />
+              <TableCell class="px-4" />
+            </TableRow>
+          </TableBody>
+        </Table>
+      </AppTableFrame>
+    </Piece>
+
+    <Piece id="piece-select-all-checkbox" title="SelectAllCheckbox" note="The checkbox in the header of a selection column: all of the page's rows at once, mixed when only some are on. A native input, as the contract's Astro line says.">
+      <div class="flex items-center gap-8">
+        <SelectAllCheckbox checked={false} />
+        <SelectAllCheckbox checked indeterminate />
+        <SelectAllCheckbox checked />
+      </div>
+    </Piece>
+
+    <Piece id="piece-row-checkbox" title="RowCheckbox" note="The checkbox in one row of a selection column, naming the row it picks.">
+      <div class="flex items-center gap-8">
+        <RowCheckbox checked={false} label="Select Ada Lovelace" />
+        <RowCheckbox checked label="Select Ada Lovelace" />
+      </div>
+    </Piece>
+
+    <Piece id="piece-row-actions" title="RowActions" note="What one row can do, behind its “more” button. Items that act carry their action’s name; destructive ones sit last, past a separator.">
+      <div class="rounded-xl border p-4">
+        <RowActions
+          label="Actions for Ada Lovelace"
+          items={[
+            { label: "View", href: "/app/members/usr_001" },
+            { label: "Change role", href: "/app/members/usr_001" },
+            { label: "Resend invite", action: "resend" },
+            { label: "Remove", action: "remove", tone: "destructive" },
+          ]}
+        />
+      </div>
+    </Piece>
+
+    <Piece id="piece-table-pagination" title="TablePagination" note="The table's foot: which rows are showing, the page size, and the page turns as links.">
+      <div class="flex flex-col gap-4">
+        <div class="rounded-xl border">
+          <TablePagination page={1} pageSize={25} total={60} pageHref={(page) => `/kit/app?page=${page}`} pageSizes={[10, 25, 50]} />
+        </div>
+        <div class="rounded-xl border">
+          <TablePagination page={3} pageSize={25} total={60} pageHref={(page) => `/kit/app?page=${page}`} />
+        </div>
+      </div>
+    </Piece>
+
+    <Piece id="piece-table-state-row" title="TableStateRow" note="One full-width row for a state inside the table: the header stays visible above it.">
+      <AppTableFrame>
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Member</TableHead>
+              <TableHead>Role</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            <TableStateRow colSpan={2}>
+              <NoResults query="ada" clearHref="/kit/app" />
+            </TableStateRow>
+          </TableBody>
+        </Table>
+      </AppTableFrame>
+    </Piece>
+
+    <Piece id="piece-table-skeleton-rows" title="TableSkeletonRows" note="Loading rows for inside a table body, each cell the width of its column.">
+      <AppTableFrame>
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Member</TableHead>
+              <TableHead>Role</TableHead>
+              <TableHead>Status</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            <TableSkeletonRows rows={3} columns={["40%", "30%", "30%"]} />
+          </TableBody>
+        </Table>
+      </AppTableFrame>
+    </Piece>
+
+    <Piece id="piece-table-recipe" title="The table recipe" note="A pattern to copy, not an exported component: the members page in the demo app is the whole recipe — toolbar, chips, sort, selection, bulk bar, row actions and paging, with the rows on the server and only the selection in a script (APP-BLOCKS.md, “The table recipe”).">
+      <p class="max-w-prose text-sm text-muted-foreground">
+        See it working at <a href="/app/members" class="text-primary underline underline-offset-4 hover:underline">/app/members</a>, in every state
+        the demo takes (<code class="font-mono text-xs">?state=empty</code>, <code class="font-mono text-xs">?q=zzz</code>,
+        <code class="font-mono text-xs">?state=pending</code>).
+      </p>
+    </Piece>
+
+    <Piece id="piece-auth-layout" title="AuthLayout" note="The frame of an auth page: no shell, one small column. The split variant holds the rings aside from md.">
+      <div class="grid gap-4 overflow-hidden rounded-xl border md:grid-cols-2">
+        <div class="flex min-h-96 flex-col justify-center p-8">
+          <p class="text-sm text-muted-foreground">Centered: the column, the brand at the top, the footer at the foot.</p>
+        </div>
+        <div class="flex min-h-96 items-center justify-center border-l border-border p-8">
+          <p class="text-sm text-muted-foreground">The split's aside: rings, never text on top. The sign-in page in the demo wears it.</p>
+        </div>
+      </div>
+    </Piece>
+
+    <Piece id="piece-provider-buttons" title="ProviderButtons" note="The outside ways to sign in: full-width outline buttons, each one a link. The chosen one turns a spinner and the others stand down.">
+      <div class="max-w-sm">
+        <ProviderButtons providers={providers} />
+      </div>
+    </Piece>
+
+    <Piece id="piece-password-input" title="PasswordInput" note="A password field with a show/hide button: the only piece of the auth forms that needs JavaScript of its own.">
+      <div class="max-w-sm">
+        <PasswordInput id="gallery-password" name="password" autocomplete="current-password" />
+      </div>
+    </Piece>
+
+    <Piece id="piece-sign-in-form" title="SignInForm" note="The inside of a sign-in form: providers, email and password, the errors, the submit button and the links away.">
+      <div class="grid gap-6 lg:grid-cols-2">
+        <form class="rounded-xl border p-4">
+          <SignInForm links={{ signUp: "/app/sign-up", forgotPassword: "/app/forgot-password" }} providers={providers} />
+        </form>
+        <form class="rounded-xl border p-4">
+          <SignInForm
+            result={{ message: "That email and password don't match. Try again or reset your password." }}
+            values={{ email: "ada@example.com" }}
+            links={{ signUp: "/app/sign-up", forgotPassword: "/app/forgot-password" }}
+          />
+        </form>
+      </div>
+    </Piece>
+
+    <Piece id="piece-sign-up-form" title="SignUpForm" note="Name, email and password, the password rules as a ticking checklist, the terms line and the links away.">
+      <div class="grid gap-6 lg:grid-cols-2">
+        <form class="rounded-xl border p-4">
+          <SignUpForm passwordRules={passwordRules} links={{ signIn: "/app/sign-in", terms: "/terms", privacy: "/privacy" }} providers={providers} />
+        </form>
+        <form class="rounded-xl border p-4">
+          <SignUpForm
+            result={{ field: "email", message: "There's already an account with this email. Sign in instead." }}
+            values={{ name: "Ada Lovelace", email: "taken@example.com" }}
+            passwordRules={passwordRules}
+            links={{ signIn: "/app/sign-in" }}
+          />
+        </form>
+      </div>
+    </Piece>
+
+    <Piece id="piece-forgot-password-form" title="ForgotPasswordForm" note="The email field and the send button; once a link is on its way, the resend counts down.">
+      <div class="grid gap-6 lg:grid-cols-2">
+        <form class="rounded-xl border p-4">
+          <ForgotPasswordForm links={{ signIn: "/app/sign-in" }} />
+        </form>
+        <form class="rounded-xl border p-4">
+          <ForgotPasswordForm sentTo="ada@example.com" resendAfter={30} links={{ signIn: "/app/sign-in" }} />
+        </form>
+      </div>
+    </Piece>
+
+    <Piece id="piece-reset-password-form" title="ResetPasswordForm" note="The new password when the link is good, and the way to a new one when it isn't.">
+      <div class="grid gap-6 md:grid-cols-3">
+        <form class="rounded-xl border p-4">
+          <ResetPasswordForm links={{ forgotPassword: "/app/forgot-password", signIn: "/app/sign-in" }} />
+        </form>
+        <form class="rounded-xl border p-4">
+          <ResetPasswordForm status="expired" links={{ forgotPassword: "/app/forgot-password", signIn: "/app/sign-in" }} />
+        </form>
+        <form class="rounded-xl border p-4">
+          <ResetPasswordForm status="done" links={{ forgotPassword: "/app/forgot-password", signIn: "/app/sign-in" }} />
+        </form>
+      </div>
+    </Piece>
+
+    <Piece id="piece-verify-email" title="VerifyEmail" note="The code entry, its result, and the resend. With the code complete the form submits itself; the resend counts down.">
+      <div class="grid gap-6 md:grid-cols-3">
+        <form class="rounded-xl border p-4">
+          <VerifyEmail email="ada@example.com" resendAfter={30} continueHref="/app/overview" />
+        </form>
+        <form class="rounded-xl border p-4">
+          <VerifyEmail email="ada@example.com" result={{ message: "That code isn't right. Check it and try again." }} resendAfter={30} />
+        </form>
+        <form class="rounded-xl border p-4">
+          <VerifyEmail email="ada@example.com" status="verified" continueHref="/app/overview" />
+        </form>
+      </div>
+    </Piece>
+
+    <Piece id="piece-detail-list" title="DetailList" note="A record’s facts as a real definition list: rows or a grid, “Not set” for a missing value, mono and copy for machine values.">
+      <div class="flex flex-col gap-6">
+        <div class="rounded-xl border px-4 sm:px-6">
+          <DetailList
+            items={[
+              { label: "Name", value: "Ada Lovelace" },
+              { label: "Email", value: "ada@example.com" },
+              { label: "Two-step sign-in", value: "On", tag: { label: "On", tone: "success", marker: true } },
+              { label: "Member ID", value: "usr_001", mono: true, copy: "usr_001" },
+              { label: "Invited by", value: undefined },
+            ]}
+          />
+        </div>
+        <div class="rounded-xl border px-4 sm:px-6">
+          <DetailList
+            layout="grid"
+            columns={3}
+            items={[
+              { label: "Plan", value: "Team" },
+              { label: "Price", value: "$20 per month", tag: { label: "Example price" } },
+              { label: "Card", value: "Visa ending 4242" },
+            ]}
+          />
+        </div>
+      </div>
+    </Piece>
+
+    <Piece id="piece-detail-section" title="DetailSection" note="One titled part of a record's page, the content in an outlined panel; the destructive tone for the section that removes the record.">
+      <div class="flex flex-col gap-6">
+        <DetailSection title="Profile" description="Who they are in the workspace.">
+          <Fragment slot="actions">
+            <Button variant="outline" size="sm">Edit</Button>
+          </Fragment>
+          <DetailList items={[{ label: "Name", value: "Ada Lovelace" }, { label: "Email", value: "ada@example.com" }]} />
+        </DetailSection>
+        <DetailSection tone="destructive" title="Remove from workspace">
+          <div class="flex flex-col gap-3 py-4 sm:flex-row sm:items-center sm:justify-between">
+            <p class="text-sm text-muted-foreground">They lose access to everything in Paperplane.</p>
+            <Button variant="error">Remove from workspace</Button>
+          </div>
+        </DetailSection>
+      </div>
+    </Piece>
+
+    <Piece id="piece-metric-trend" title="MetricTrend" note="Which way a number moved, and whether that's good. The arrow follows the direction, the color follows the meaning, and the words always carry a sign.">
+      <div class="flex flex-wrap gap-x-8 gap-y-4">
+        <MetricTrend change={0.12} comparison="vs last 30 days" />
+        <MetricTrend change={-0.028} good="down" format="points" comparison="vs last 30 days" />
+        <MetricTrend change={0.09} good="down" comparison="vs last 30 days" />
+        <MetricTrend change={0} comparison="vs last 30 days" />
+        <MetricTrend change={0.05} good="neither" />
+        <MetricTrend change={1234} format="number" />
+      </div>
+    </Piece>
+
+    <Piece id="piece-stat-card" title="StatCard" note="One number that matters, with its label and trend; pending holds its size, error keeps the card and offers a retry.">
+      <div class="grid gap-4 sm:grid-cols-3">
+        <div class="rounded-xl border p-4">
+          <StatCard label="Visitors" value="48,210" trend={{ change: 0.12, comparison: "vs last 30 days" }} />
+        </div>
+        <div class="rounded-xl border p-4">
+          <StatCard label="Sign-ups" value="1,204" status="pending" />
+        </div>
+        <div class="rounded-xl border p-4">
+          <StatCard label="Page load time" value="1.8 s" status="error" retryHref="/kit/app" />
+        </div>
+      </div>
+    </Piece>
+
+    <Piece id="piece-stat-grid" title="StatGrid" note="StatCards in one ruled grid, the way Sightline's overview draws it.">
+      <div class="flex flex-col gap-6">
+        <StatGrid columns={4}>
+          <StatCard label="Visitors" value="48,210" trend={{ change: 0.12 }} />
+          <StatCard label="Sign-ups" value="1,204" trend={{ change: 0.08 }} />
+          <StatCard label="Bounce rate" value="42.1%" trend={{ change: -0.028, good: "down", format: "points" }} />
+          <StatCard label="Page load time" value="1.8 s" trend={{ change: 0.09, good: "down" }} />
+        </StatGrid>
+        <StatGrid columns={2}>
+          <StatCard label="Visitors" value="48,210" />
+          <StatCard label="Sign-ups" value="1,204" />
+        </StatGrid>
+      </div>
+    </Piece>
+
+    <Piece id="piece-usage-meter" title="UsageMeter" note="How much of the plan's allowance is used: a bar or a ring, the share in words, and a warning the moment it matters.">
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div class="rounded-xl border p-4">
+          <UsageMeter label="Events this month" used={7420} limit={10000} unit="events" resetsOn="Resets on 1 November 2026" />
+        </div>
+        <div class="rounded-xl border p-4">
+          <UsageMeter label="Seats" used={8} limit={10} unit="seats" variant="ring" />
+        </div>
+        <div class="rounded-xl border p-4">
+          <UsageMeter label="Data kept" used={12} limit={13} unit="months" />
+        </div>
+        <div class="rounded-xl border p-4">
+          <UsageMeter
+            label="Events this month"
+            used={10000}
+            limit={10000}
+            unit="events"
+            limitMessage="You've used every event this month. New events are dropped until it resets."
+          >
+            <Button slot="action" variant="link" size="sm" class="h-auto p-0" href="/app/settings/billing">Upgrade</Button>
+          </UsageMeter>
+        </div>
+      </div>
+      <div class="max-w-sm rounded-xl border p-4">
+        <UsageMeter label="Projects" used={12} limit={null} unit="projects" />
+      </div>
+    </Piece>
+
+    <Piece id="piece-confirm-action" title="ConfirmAction" note="A step that deserves a second look before it runs. The typed word keeps the confirm button off until it matches; a failure stays open with the reason.">
+      <div class="flex flex-wrap gap-4">
+        <ConfirmAction title="Remove 3 members?" description="They lose access to everything in Paperplane. You can invite them again later." confirmLabel="Remove members" successMessage="Removed 3 members.">
+          <Fragment slot="trigger">
+            <Button variant="error">Remove 3 members</Button>
+          </Fragment>
+        </ConfirmAction>
+        <ConfirmAction
+          title="Delete workspace?"
+          description="Everything in Paperplane is deleted: members, dashboards and events. There is no undo."
+          confirmLabel="Delete workspace"
+          confirmText="Paperplane"
+          tone="destructive"
+        >
+          <Fragment slot="trigger">
+            <Button variant="outline">Delete with a typed word</Button>
+          </Fragment>
+        </ConfirmAction>
+      </div>
+    </Piece>
+
+    <Piece id="piece-record-sheet" title="RecordSheet" note="A record edited in place: the page's own form in a sheet, its footer submitting it from outside. Closing it with unsaved changes asks first.">
+      <RecordSheet title="Invite people" description="They'll get an email with a link to join Paperplane." dirty={false} pending={false} formId="gallery-record-form" submitLabel="Send invites">
+        <form id="gallery-record-form" class="flex flex-col gap-4 py-4">
+          <Input name="emails" placeholder="ada@example.com, grace@example.com" aria-label="Emails" />
+        </form>
+      </RecordSheet>
+      <p class="text-sm text-muted-foreground">Open it from the demo's members page, where a real form sits inside.</p>
+    </Piece>
+
+    <Piece id="piece-combobox" title="Combobox" note="Kit plumbing on Starwind's own combobox: a searchable picker for one value out of many. The settings profile page's time zone field wears it.">
+      <div class="max-w-sm">
+        <ComboboxField name="gallery-zone" defaultValue="Europe/Belgrade">
+          <ComboboxFieldInput id="gallery-zone" placeholder="Pick a time zone" aria-label="Time zone" />
+          <ComboboxFieldContent>
+            <ComboboxFieldEmpty>No results.</ComboboxFieldEmpty>
+            <ComboboxFieldGroup>
+              <ComboboxFieldLabel>Time zones</ComboboxFieldLabel>
+              {timeZones.slice(0, 8).map((zone) => (
+                <ComboboxFieldItem value={zone.value}>
+                  <ComboboxFieldItemText>{zone.label}</ComboboxFieldItemText>
+                </ComboboxFieldItem>
+              ))}
+            </ComboboxFieldGroup>
+          </ComboboxFieldContent>
+        </ComboboxField>
+      </div>
+    </Piece>
+  </Container>
+</SiteLayout>
+
+<Toaster />

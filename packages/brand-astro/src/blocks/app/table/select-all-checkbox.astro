@@ -1,0 +1,44 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { Check, Minus } from "@lucide/astro";
+import { cn } from "$brand/utils";
+
+/*
+ * The checkbox in the header of a selection column: all of the page's rows
+ * at once, mixed when only some are on. A native input (the contract's Astro
+ * line), styled like the stock checkbox, so the selection script can set its
+ * checked and indeterminate states and Space toggles it without any runtime.
+ */
+
+interface Props extends Omit<HTMLAttributes<"input">, "type" | "checked"> {
+  checked?: boolean;
+  indeterminate?: boolean;
+  label?: string;
+}
+
+const { checked = false, indeterminate = false, label = "Select all rows on this page", class: className, ...rest } = Astro.props;
+---
+
+<span class="relative inline-flex align-middle">
+  <input
+    type="checkbox"
+    data-slot="select-all-checkbox"
+    checked={checked}
+    aria-label={label}
+    class={cn(
+      "peer size-4 appearance-none rounded-[4px] border border-input bg-background shadow-xs outline-none transition-colors",
+      "checked:border-primary checked:bg-primary indeterminate:border-primary indeterminate:bg-primary",
+      "focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:border-ring",
+      className,
+    )}
+    {...rest}
+  />
+  <Check
+    class="lucide pointer-events-none absolute top-1/2 left-1/2 size-3.5 -translate-x-1/2 -translate-y-1/2 text-primary-foreground opacity-0 peer-checked:opacity-100"
+    aria-hidden="true"
+  />
+  <Minus
+    class="lucide pointer-events-none absolute top-1/2 left-1/2 size-3.5 -translate-x-1/2 -translate-y-1/2 text-primary-foreground opacity-0 peer-indeterminate:opacity-100"
+    aria-hidden="true"
+  />
+</span>

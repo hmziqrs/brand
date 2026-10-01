@@ -1,0 +1,10 @@
+---
+/*
+ * The sign-out endpoint (app-blocks.md, phase 1): a real form posts here
+ * from the user menu, and the browser lands on the sign-in page. A page, not
+ * an action, because the form lives in the shell — which every page renders —
+ * and Astro actions answer the page they were posted from.
+ */
+if (Astro.request.method !== "POST") return Astro.redirect("/app/sign-in", 303);
+return Astro.redirect("/app/sign-in", 303);
+---
