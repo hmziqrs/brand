@@ -1,0 +1,26 @@
+{
+  "name": "@hmziq/brand-video",
+  "version": "0.0.0",
+  "private": true,
+  "description": "The hmziq brand's video and motion exports (docs/assets.md, phases 7–8): the intro and outro MP4s, the YouTube thumbnail template and the ring motion loops, drawn from @hmziq/brand-core by the frame adapter. Remotion renders them; the free Remotion license covers this repo (an individual's).",
+  "type": "module",
+  "scripts": {
+    "studio": "remotion studio",
+    "render:video": "node scripts/render-video.mjs",
+    "render:motion": "node scripts/render-motion.mjs",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@hmziq/brand-core": "workspace:*",
+    "@remotion/bundler": "4.0.531",
+    "@remotion/cli": "4.0.531",
+    "@remotion/renderer": "4.0.531",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "remotion": "4.0.531"
+  },
+  "devDependencies": {
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0"
+  }
+}

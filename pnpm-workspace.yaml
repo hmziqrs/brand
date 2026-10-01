@@ -1,2 +1,59 @@
+packages:
+  # The design lab, the shared core, and the two kit packages.
+  - apps/*
+  - packages/*
+  # The Svelte and Astro starters, and later the Remotion project (assets.md).
+  - boilerplates/*
+  # The Remotion project behind the video and motion exports (assets.md).
+  - assets/video/source
+
 allowBuilds:
   esbuild: true
+  # Astro's image service builds sharp; the kits and the Astro boilerplate
+  # pull it in (docs/kits.md, "Repo setup for the kits").
+  sharp: true
+
+# TypeScript resolves `import "react"` inside third-party d.ts files by walking
+# up from the pnpm store, which only reaches the workspace root. Keep @types/*
+# visible there so packages like input-otp keep their types after @types/react
+# moved into the packages that use it. `astro check` resolves @astrojs/check
+# the same way, from inside the pnpm store.
+publicHoistPattern:
+  - '@types/*'
+  - '@astrojs/check'
+
+minimumReleaseAgeExclude:
+  - '@vitest/mocker@5.0.3'
+  - '@vitest/spy@5.0.3'
+  - vitest@5.0.3
+  - '@lucide/svelte@1.49.0'
+  - '@remotion/bundler@4.0.531'
+  - '@remotion/canvas@4.0.531'
+  - '@remotion/captions@4.0.531'
+  - '@remotion/cli@4.0.531'
+  - '@remotion/codemods@4.0.531'
+  - '@remotion/compositor-darwin-arm64@4.0.531'
+  - '@remotion/compositor-darwin-x64@4.0.531'
+  - '@remotion/compositor-linux-arm64-gnu@4.0.531'
+  - '@remotion/compositor-linux-arm64-musl@4.0.531'
+  - '@remotion/compositor-linux-x64-gnu@4.0.531'
+  - '@remotion/compositor-linux-x64-musl@4.0.531'
+  - '@remotion/compositor-win32-x64-msvc@4.0.531'
+  - '@remotion/elevenlabs@4.0.531'
+  - '@remotion/licensing@4.0.531'
+  - '@remotion/media-parser@4.0.531'
+  - '@remotion/media-utils@4.0.531'
+  - '@remotion/media@4.0.531'
+  - '@remotion/openai-whisper@4.0.531'
+  - '@remotion/paths@4.0.531'
+  - '@remotion/player@4.0.531'
+  - '@remotion/renderer@4.0.531'
+  - '@remotion/streaming@4.0.531'
+  - '@remotion/studio-protocol@4.0.531'
+  - '@remotion/studio-server@4.0.531'
+  - '@remotion/studio-shared@4.0.531'
+  - '@remotion/studio@4.0.531'
+  - '@remotion/timeline-utils@4.0.531'
+  - '@remotion/web-renderer@4.0.531'
+  - '@remotion/zod-types@4.0.531'
+  - remotion@4.0.531
