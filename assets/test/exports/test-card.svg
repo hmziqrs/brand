@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760">
+<rect x="0" y="0" width="1200" height="760" fill="#0A0A0A"/>
+<text x="24" y="52" font-family="Onest" font-weight="600" font-size="26" fill="#FAFAFA">hmziq · render test</text>
+<text x="24" y="76" font-family="JetBrains Mono" font-size="12" fill="#A1A1A1">alpha kept out of the hex · bands resolved from theme.css · static fonts in the renderer</text>
+<rect x="24" y="104" width="568" height="268" rx="14" fill="#0A0A0A" stroke="#FFFFFF" stroke-opacity="0.1" stroke-width="1"/>
+<text x="44" y="136" font-family="Onest" font-weight="500" font-size="16" fill="#FAFAFA">dark page</text>
+<text x="572" y="136" text-anchor="end" font-family="JetBrains Mono" font-size="11" fill="#A1A1A1">--primary #F38230</text>
+<rect x="44" y="152" width="30" height="30" rx="6" fill="#F38230" stroke="#FFFFFF" stroke-opacity="0.1" stroke-width="1"/>
+<rect x="86" y="152" width="30" height="30" rx="6" fill="#F38230" stroke="#FFFFFF" stroke-opacity="0.1" stroke-width="1"/>
+<rect x="128" y="152" width="30" height="30" rx="6" fill="#FAFAFA" stroke="#FFFFFF" stroke-opacity="0.1" stroke-width="1"/>
+<rect x="170" y="152" width="30" height="30" rx="6" fill="#A1A1A1" stroke="#FFFFFF" stroke-opacity="0.1" stroke-width="1"/>
+<rect x="212" y="152" width="30" height="30" rx="6" fill="#171717" stroke="#FFFFFF" stroke-opacity="0.1" stroke-width="1"/>
+<rect x="254" y="152" width="30" height="30" rx="6" fill="#F38230" stroke="#FFFFFF" stroke-opacity="0.1" stroke-width="1"/>
+<text x="44" y="198" font-family="JetBrains Mono" font-size="9" fill="#A1A1A1">primary · mark-square · foreground · muted-foreground · card · orange</text>
+<circle cx="60" cy="236" r="16" fill="none" stroke="#FAFAFA" stroke-opacity="0.22" stroke-width="3.5"/>
+<circle cx="100" cy="236" r="16" fill="none" stroke="#FAFAFA" stroke-opacity="0.22" stroke-width="3.5"/>
+<circle cx="140" cy="236" r="16" fill="none" stroke="#FAFAFA" stroke-opacity="0.22" stroke-width="3.5"/>
+<circle cx="216" cy="236" r="16" fill="none" stroke="#FAFAFA" stroke-width="3.5"/>
+<text x="44" y="270" font-family="JetBrains Mono" font-size="9" fill="#A1A1A1">--line, alpha kept</text>
+<text x="200" y="270" font-family="JetBrains Mono" font-size="9" fill="#A1A1A1">toHex alone</text>
+<text x="44" y="304" font-family="Onest" font-weight="600" font-size="20" fill="#FAFAFA">hmziq Onest 600</text>
+<text x="44" y="328" font-family="Onest" font-weight="500" font-size="15" fill="#FAFAFA">Onest 500, medium</text>
+<text x="44" y="348" font-family="Onest" font-weight="400" font-size="15" fill="#A1A1A1">Onest 400, regular</text>
+<text x="44" y="366" font-family="JetBrains Mono" font-size="12" fill="#FAFAFA">JetBrains Mono 400 const ok = true</text>
+<rect x="608" y="104" width="568" height="268" rx="14" fill="#FFFFFF" stroke="#E5E5E5" stroke-width="1"/>
+<text x="628" y="136" font-family="Onest" font-weight="500" font-size="16" fill="#0A0A0A">light page</text>
+<text x="1156" y="136" text-anchor="end" font-family="JetBrains Mono" font-size="11" fill="#6F6F6F">--primary #AA530A</text>
+<rect x="628" y="152" width="30" height="30" rx="6" fill="#AA530A" stroke="#E5E5E5" stroke-width="1"/>
+<rect x="670" y="152" width="30" height="30" rx="6" fill="#F38230" stroke="#E5E5E5" stroke-width="1"/>
+<rect x="712" y="152" width="30" height="30" rx="6" fill="#0A0A0A" stroke="#E5E5E5" stroke-width="1"/>
+<rect x="754" y="152" width="30" height="30" rx="6" fill="#6F6F6F" stroke="#E5E5E5" stroke-width="1"/>
+<rect x="796" y="152" width="30" height="30" rx="6" fill="#FFFFFF" stroke="#E5E5E5" stroke-width="1"/>
+<rect x="838" y="152" width="30" height="30" rx="6" fill="#AA530A" stroke="#E5E5E5" stroke-width="1"/>
+<text x="628" y="198" font-family="JetBrains Mono" font-size="9" fill="#6F6F6F">primary · mark-square · foreground · muted-foreground · card · orange</text>
+<circle cx="644" cy="236" r="16" fill="none" stroke="#0A0A0A" stroke-opacity="0.22" stroke-width="3.5"/>
+<circle cx="684" cy="236" r="16" fill="none" stroke="#0A0A0A" stroke-opacity="0.22" stroke-width="3.5"/>
+<circle cx="724" cy="236" r="16" fill="none" stroke="#0A0A0A" stroke-opacity="0.22" stroke-width="3.5"/>
+<circle cx="800" cy="236" r="16" fill="none" stroke="#0A0A0A" stroke-width="3.5"/>
+<text x="628" y="270" font-family="JetBrains Mono" font-size="9" fill="#6F6F6F">--line, alpha kept</text>
+<text x="784" y="270" font-family="JetBrains Mono" font-size="9" fill="#6F6F6F">toHex alone</text>
+<text x="628" y="304" font-family="Onest" font-weight="600" font-size="20" fill="#0A0A0A">hmziq Onest 600</text>
+<text x="628" y="328" font-family="Onest" font-weight="500" font-size="15" fill="#0A0A0A">Onest 500, medium</text>
+<text x="628" y="348" font-family="Onest" font-weight="400" font-size="15" fill="#6F6F6F">Onest 400, regular</text>
+<text x="628" y="366" font-family="JetBrains Mono" font-size="12" fill="#0A0A0A">JetBrains Mono 400 const ok = true</text>
+<rect x="24" y="388" width="568" height="268" rx="14" fill="#F38230" stroke="#0A0A0A" stroke-opacity="0.22" stroke-width="1"/>
+<text x="44" y="420" font-family="Onest" font-weight="500" font-size="16" fill="#0A0A0A">band-orange · dark</text>
+<text x="572" y="420" text-anchor="end" font-family="JetBrains Mono" font-size="11" fill="#0A0A0A">--primary #0A0A0A</text>
+<rect x="44" y="436" width="30" height="30" rx="6" fill="#0A0A0A" stroke="#0A0A0A" stroke-opacity="0.22" stroke-width="1"/>
+<rect x="86" y="436" width="30" height="30" rx="6" fill="#F38230" stroke="#0A0A0A" stroke-opacity="0.22" stroke-width="1"/>
+<rect x="128" y="436" width="30" height="30" rx="6" fill="#0A0A0A" stroke="#0A0A0A" stroke-opacity="0.22" stroke-width="1"/>
+<rect x="170" y="436" width="30" height="30" rx="6" fill="#0A0A0A" stroke="#0A0A0A" stroke-opacity="0.22" stroke-width="1"/>
+<rect x="212" y="436" width="30" height="30" rx="6" fill="#F38230" stroke="#0A0A0A" stroke-opacity="0.22" stroke-width="1"/>
+<rect x="254" y="436" width="30" height="30" rx="6" fill="#F38230" stroke="#0A0A0A" stroke-opacity="0.22" stroke-width="1"/>
+<text x="44" y="482" font-family="JetBrains Mono" font-size="9" fill="#0A0A0A">primary · mark-square · foreground · muted-foreground · card · orange</text>
+<circle cx="60" cy="520" r="16" fill="none" stroke="#0A0A0A" stroke-opacity="0.2" stroke-width="3.5"/>
+<circle cx="100" cy="520" r="16" fill="none" stroke="#0A0A0A" stroke-opacity="0.2" stroke-width="3.5"/>
+<circle cx="140" cy="520" r="16" fill="none" stroke="#0A0A0A" stroke-opacity="0.2" stroke-width="3.5"/>
+<circle cx="216" cy="520" r="16" fill="none" stroke="#0A0A0A" stroke-width="3.5"/>
+<text x="44" y="554" font-family="JetBrains Mono" font-size="9" fill="#0A0A0A">--line, alpha kept</text>
+<text x="200" y="554" font-family="JetBrains Mono" font-size="9" fill="#0A0A0A">toHex alone</text>
+<text x="44" y="588" font-family="Onest" font-weight="600" font-size="20" fill="#0A0A0A">hmziq Onest 600</text>
+<text x="44" y="612" font-family="Onest" font-weight="500" font-size="15" fill="#0A0A0A">Onest 500, medium</text>
+<text x="44" y="632" font-family="Onest" font-weight="400" font-size="15" fill="#0A0A0A">Onest 400, regular</text>
+<text x="44" y="650" font-family="JetBrains Mono" font-size="12" fill="#0A0A0A">JetBrains Mono 400 const ok = true</text>
+<rect x="608" y="388" width="568" height="268" rx="14" fill="#AA530A" stroke="#FAFAFA" stroke-opacity="0.22" stroke-width="1"/>
+<text x="628" y="420" font-family="Onest" font-weight="500" font-size="16" fill="#FAFAFA">band-orange · light</text>
+<text x="1156" y="420" text-anchor="end" font-family="JetBrains Mono" font-size="11" fill="#FAFAFA">--primary #FAFAFA</text>
+<rect x="628" y="436" width="30" height="30" rx="6" fill="#FAFAFA" stroke="#FAFAFA" stroke-opacity="0.22" stroke-width="1"/>
+<rect x="670" y="436" width="30" height="30" rx="6" fill="#F38230" stroke="#FAFAFA" stroke-opacity="0.22" stroke-width="1"/>
+<rect x="712" y="436" width="30" height="30" rx="6" fill="#FAFAFA" stroke="#FAFAFA" stroke-opacity="0.22" stroke-width="1"/>
+<rect x="754" y="436" width="30" height="30" rx="6" fill="#FAFAFA" stroke="#FAFAFA" stroke-opacity="0.22" stroke-width="1"/>
+<rect x="796" y="436" width="30" height="30" rx="6" fill="#AA530A" stroke="#FAFAFA" stroke-opacity="0.22" stroke-width="1"/>
+<rect x="838" y="436" width="30" height="30" rx="6" fill="#AA530A" stroke="#FAFAFA" stroke-opacity="0.22" stroke-width="1"/>
+<text x="628" y="482" font-family="JetBrains Mono" font-size="9" fill="#FAFAFA">primary · mark-square · foreground · muted-foreground · card · orange</text>
+<circle cx="644" cy="520" r="16" fill="none" stroke="#FAFAFA" stroke-opacity="0.2" stroke-width="3.5"/>
+<circle cx="684" cy="520" r="16" fill="none" stroke="#FAFAFA" stroke-opacity="0.2" stroke-width="3.5"/>
+<circle cx="724" cy="520" r="16" fill="none" stroke="#FAFAFA" stroke-opacity="0.2" stroke-width="3.5"/>
+<circle cx="800" cy="520" r="16" fill="none" stroke="#FAFAFA" stroke-width="3.5"/>
+<text x="628" y="554" font-family="JetBrains Mono" font-size="9" fill="#FAFAFA">--line, alpha kept</text>
+<text x="784" y="554" font-family="JetBrains Mono" font-size="9" fill="#FAFAFA">toHex alone</text>
+<text x="628" y="588" font-family="Onest" font-weight="600" font-size="20" fill="#FAFAFA">hmziq Onest 600</text>
+<text x="628" y="612" font-family="Onest" font-weight="500" font-size="15" fill="#FAFAFA">Onest 500, medium</text>
+<text x="628" y="632" font-family="Onest" font-weight="400" font-size="15" fill="#FAFAFA">Onest 400, regular</text>
+<text x="628" y="650" font-family="JetBrains Mono" font-size="12" fill="#FAFAFA">JetBrains Mono 400 const ok = true</text>
+<line x1="24" y1="680" x2="1176" y2="680" stroke="#FAFAFA" stroke-opacity="0.22" stroke-width="1"/>
+<text x="24" y="706" font-family="JetBrains Mono" font-size="11" fill="#A1A1A1">fonts: onest 400 500 600 · jetbrains mono 400 (assets/fonts)</text>
+<text x="24" y="730" font-family="JetBrains Mono" font-size="11" fill="#A1A1A1">every color resolved from packages/brand-core/theme.css · rendered with @resvg/resvg-js</text>
+</svg>
