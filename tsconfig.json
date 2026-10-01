@@ -2,17 +2,10 @@
   "files": [],
   "references": [
     {
-      "path": "./tsconfig.app.json"
+      "path": "./apps/lab/tsconfig.json"
     },
     {
-      "path": "./tsconfig.node.json"
+      "path": "./packages/brand-core"
     }
-  ],
-  "compilerOptions": {
-    "paths": {
-      "@/*": [
-        "./src/*"
-      ]
-    }
-  }
+  ]
 }

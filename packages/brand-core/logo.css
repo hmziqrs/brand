@@ -1,0 +1,119 @@
+/*
+ * A tuned logo moving (see src/logo.ts in this package). Only a Wordmark or
+ * Mark given a look has data-look; the brand's own logo never moves.
+ *
+ * logoMotion() puts the keyframes' names and times on the logo's root:
+ * --logo-square-move / --logo-square-time for the square, --logo-text-move /
+ * --logo-text-time for the letters, --logo-surface-move / --logo-surface-time
+ * for the tile and the plate, and --logo-delay and --logo-count for all.
+ * data-paused on the root pauses it. Reduced motion stops it.
+ *
+ * The moving rules sit in :where() so the pause and reduced-motion rules
+ * below win without !important.
+ */
+
+:where([data-look]) [data-part="square"] {
+  position: relative;
+  display: inline-block;
+}
+
+/* The square itself moving. */
+:where([data-look] [data-part="square"]:is([data-move="pulse"], [data-move="fade"], [data-move="blink"], [data-move="spin"], [data-move="bounce"])) {
+  animation: var(--logo-square-move) var(--logo-square-time) ease-in-out var(--logo-delay, 0s) var(--logo-count, infinite) both;
+}
+
+:where([data-look] [data-part="square"][data-move="blink"]) {
+  animation-timing-function: steps(1, end);
+}
+
+/* Ripple: two outlines of the square grow and fade; the square stays put. */
+:where([data-look] [data-part="square"][data-move="ripple"])::before,
+:where([data-look] [data-part="square"][data-move="ripple"])::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: max(1px, 0.02em) solid var(--logo-square-color);
+  opacity: 0;
+  pointer-events: none;
+  animation: var(--logo-square-move) var(--logo-square-time) ease-out var(--logo-delay, 0s) var(--logo-count, infinite) both;
+}
+
+:where([data-look] [data-part="square"][data-move="ripple"])::after {
+  animation-delay: calc(var(--logo-delay, 0s) + var(--logo-square-time) * 0.16);
+}
+
+/*
+ * Shimmer: the letters are painted with a band of the shine color that
+ * crosses them. -webkit-text-fill-color hides the plain letters and keeps
+ * `color`, so a logo in the surrounding text color still works.
+ */
+:where([data-look] [data-part="name"][data-move="shimmer"]) {
+  background-image: linear-gradient(100deg, var(--logo-color) calc(50% - var(--logo-shine-half)), var(--logo-shine) 50%, var(--logo-color) calc(50% + var(--logo-shine-half)));
+  background-size: 300% 100%;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: var(--logo-text-move) var(--logo-text-time) ease-in-out var(--logo-delay, 0s) var(--logo-count, infinite) both;
+}
+
+/* Wave and type: every letter is its own span with --i, its place in the name. */
+:where([data-look] [data-part="name"]:is([data-move="wave"], [data-move="type"])) > span {
+  display: inline-block;
+  white-space: pre;
+}
+
+:where([data-look] [data-part="name"][data-move="wave"]) > span {
+  animation: var(--logo-text-move) var(--logo-text-time) ease-in-out calc(var(--logo-delay, 0s) + var(--i) * var(--logo-stagger)) var(--logo-count, infinite) both;
+}
+
+:where([data-look] [data-part="name"][data-move="type"]) > span {
+  animation: var(--logo-letter) var(--logo-text-time) steps(1, end) var(--logo-delay, 0s) var(--logo-count, infinite) both;
+}
+
+/* The sheen: a band of light crossing the tile or plate, above everything on it. */
+:where([data-look]) [data-part="sheen"] {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+:where([data-look]) [data-part="sheen"]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(115deg, transparent calc(50% - var(--logo-sheen-half)), color-mix(in oklab, var(--logo-sheen) 60%, transparent) 50%, transparent calc(50% + var(--logo-sheen-half)));
+  background-size: 300% 100%;
+  background-position: 100% 0;
+  animation: var(--logo-surface-move) var(--logo-surface-time) ease-in-out var(--logo-delay, 0s) var(--logo-count, infinite) both;
+}
+
+/* Breathe: the whole tile, or the wordmark on its plate, grows a little and back. */
+:where([data-look][data-surface-move="breathe"]) {
+  display: inline-block;
+  animation: var(--logo-surface-move) var(--logo-surface-time) ease-in-out var(--logo-delay, 0s) var(--logo-count, infinite) both;
+}
+
+:where([data-slot="mark"][data-look][data-surface-move="breathe"]) {
+  display: inline-grid;
+}
+
+[data-look][data-paused],
+[data-look][data-paused] *,
+[data-look][data-paused] *::before,
+[data-look][data-paused] *::after {
+  animation-play-state: paused;
+}
+
+/* Last, so it wins over every rule above. */
+@media (prefers-reduced-motion: reduce) {
+  [data-look],
+  [data-look] *,
+  [data-look] *::before,
+  [data-look] *::after {
+    animation: none;
+  }
+}
