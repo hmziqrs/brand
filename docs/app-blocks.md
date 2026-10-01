@@ -215,6 +215,47 @@ Example data:
 
 **Done when:** `pnpm check`, `pnpm build` and `pnpm build-storybook` pass. The demo imports `isActive`, `readListParams`, `listHref` and the demo data from `@hmziq/brand-core`. `/app` in `svelte-app` opens the demo skeleton with the state switch. The Combobox has a story that passes axe. `APP-BLOCKS.md` exists with its shared sections.
 
+**Phase 0 status (updated 2026-10-01).** Done:
+
+- `check-colors` and `check-motion` already scanned `packages/brand-svelte/src/lib`
+  (which holds `blocks/app/`) and `boilerplates/svelte-app`; nothing to add.
+- The stock set is in `ui/`: sidebar, breadcrumb, dropdown-menu, avatar, sheet,
+  alert-dialog, popover, command, checkbox, radio-group, switch, select,
+  input-otp, sonner, skeleton, separator (plus dialog, which command needs).
+  Brand changes applied: the button's two (the CLI overwrites them on every
+  `add` — re-apply after adding), the `lucide` class on every icon the stock
+  files render (theme.css's stroke rule), and `motion-reduce:animate-none` on
+  the skeleton and the Toaster's spinner. The list is in the kit's README.
+  `svelte-sonner` and `mode-watcher` are runtime deps, in `ssr.noExternal`
+  next to bits-ui: they ship `.svelte` files.
+- The `Combobox` is `ui/combobox/`, built from Popover and Command as the docs
+  show. One brand-specific fix: the trigger's `data-slot` is dropped so the
+  button keeps `[data-slot="button"]`, which theme.css's outline rule needs.
+  Stories `App/Combobox` (default, empty, invalid); axe passes (149 stories,
+  0 violations), and driving it works: filter, pick, focus back on the trigger.
+- Core has `app/nav.ts`, `app/list-params.ts`, `app/demo-data.ts` with package
+  exports; 71 Vitest tests pass, including `isActive` (exact, prefix, root,
+  trailing slash), the list params (reading, writing, page reset, unknown
+  params, `+` as space, an encoded comma inside a value) and the demo data's
+  invariants.
+- `blocks/app/state.svelte.ts` holds `delayed`, `debounced` and
+  `unsavedChanges`.
+- The demo skeleton is in `svelte-app`: `(auth)` and `(workspace)` groups, the
+  Toaster in the root layout (it follows the app theme, not the system's),
+  `/app` redirecting to `/app/overview`, and the "Demo state" Segmented in the
+  top bar. Pages are placeholders naming their phase, but the list state is
+  already real: `/app/members` reads the URL through `readListParams` and
+  writes every link through `listHref`. No horizontal scroll at 360px.
+- `scripts/pieces.json` lists all 46 app pieces; the not-yet ones are skipped
+  by `check:parity` (a piece with `svelteFile: "not yet"`), the Combobox is
+  real. `APP-BLOCKS.md` exists with its shared sections.
+
+Still open: `pnpm check` doesn't pass for reasons outside this plan — the
+content-blocks Markdown setup in `boilerplates/svelte-app/vite.config.ts`
+leaves four plugin-typing errors (mdsvex's unified 9 types against core's
+unified 11 plugins), and its stories aren't in the roster yet. Both are
+content-blocks.md work.
+
 ---
 
 ## Phase 1: App shell and page header
@@ -319,6 +360,49 @@ The `(workspace)` layout uses `AppShell` with two groups: "Workspace" (Overview,
 - Mobile at 360px: the menu button opens the sheet, and choosing a link closes it. Header actions wrap under the title. Tabs scroll within their row.
 - `APP-BLOCKS.md` has entries for AppShell, AppPage, AppPageHeader, WorkspaceSwitcher and UserMenu.
 
+**Phase 1 status (updated 2026-10-01).** Done:
+
+- `blocks/app/shell/` holds `AppShell`, `AppPage` and `AppPageHeader`, plus two
+  helpers the shell needs because only a component inside the stock
+  `Sidebar.Provider` can read its context: `shell-toggle.svelte` (the toggle,
+  with this plan's "Open menu" / "Collapse menu" copy instead of the stock
+  "Toggle Sidebar") and `shell-nav.svelte` (the groups, which close the mobile
+  sheet when a link is chosen). `blocks/app/account/` holds
+  `WorkspaceSwitcher` and `UserMenu`. Both folders have an `index.ts`.
+- AppShell notes: `breadcrumbs` and `open` are props beyond the sketch —
+  the top bar holds the breadcrumbs (so they had to come in as data) and the
+  cookie's state has to reach the provider. A section with sub items stands
+  open while you're inside it; no manual toggle, since a parent row is a
+  link. The skip link targets `#app-content` on the Inset's `<main>`
+  (`tabindex={-1}` carries a svelte-ignore: the linter can't read an
+  expression-valued tabindex).
+- The two account triggers keep an accessible name while collapsed (the
+  Mark and the avatar are decorative), which axe asked for: `aria-label`
+  with the workspace's and user's names.
+- Stories: `App/Shell` (sidebar, collapsed, nested active item, top layout,
+  mobile with the sheet open — a play function clicks the toggle where the
+  viewport really is small — page, narrow page, header, header with
+  breadcrumbs and actions, header with tabs, header on mobile) and
+  `App/Account` (both menus, their collapsed and extra states). The
+  Storybook already ships a viewport toolbar (core in v10), so a `phone360`
+  viewport was added to the preview parameters for the mobile stories.
+- The demo: the `(workspace)` layout renders AppShell with the two groups,
+  the switcher as its brand, the user menu as its account (the theme choice
+  runs `applyTheme` in the boilerplate's `theme.svelte.ts`, which now also
+  understands "system", as does `app.html`'s pre-paint script), and the demo
+  state switch in the top bar (one scrolling row below md, no page scroll at
+  360px). Sign-out is a real form posting to `src/routes/app/sign-out/+server.ts`,
+  which redirects to the sign-in page — SvelteKit actions are page-only, so
+  an endpoint it is. `+layout.server.ts` reads the sidebar cookie. Every
+  placeholder page now sits in AppPage with an AppPageHeader; the settings
+  pages already carry their four tabs (phase 2's shape).
+- Checked here: svelte-check clean in both projects; the demo builds; 166
+  stories, 0 axe violations (`pnpm check:a11y`); `check:parity` passes with
+  the five pieces filled in; keyboard flows driven in the running demo
+  (skip link first, Ctrl/Cmd+B, Enter/arrows/Escape with focus back on the
+  trigger, the mobile sheet closing on a chosen link); screenshots at 360px
+  and 1280px with no horizontal page scroll.
+
 ---
 
 ## Phase 2: Settings
@@ -392,6 +476,44 @@ The routes are `/app/settings/*`, using `AppPage width="narrow"` and `AppPageHea
 - Demo: every scripted failure shows the right message in the right place. Cancel restores the saved values. Reloading while dirty shows the browser's leave warning. The forms still save with JS turned off.
 - Keyboard: Enter in a text field submits. After a failed submit, focus is on the first invalid field. Space toggles switches.
 - `APP-BLOCKS.md` has entries for SettingsSection, SettingRow and FormActions, plus the settings pages and their scripted failures.
+
+**Phase 2 status (updated 2026-10-01).** Done:
+
+- `blocks/app/settings/` holds `SettingsSection`, `SettingRow` and
+  `FormActions`, with an `index.ts`. The section's panel writes
+  `border-border` out in full: a bare `border` resolves to the text color in
+  Tailwind v4, and the panel would have gone near-black in light mode while
+  its own dividers stayed grey.
+- The rows link to their controls through `for`, and the description and
+  error ids come from it (`${for}-description`, `${for}-error`), so the page
+  can point the control's `aria-describedby` at them. Both blocks keep the
+  server render of "Saved" (it starts from the prop, not from an effect), so a
+  post with no JavaScript shows it too.
+- FormActions keeps Save enabled in the server render and disables it in the
+  browser once the form is clean: with no JavaScript the page can't know it's
+  dirty, so Save always works and the unsaved line stays hidden.
+- Stories: `App/Settings` (section, destructive section, a full form in each
+  state, the section on a phone-360 viewport, the row vertical, horizontal,
+  with an error and in every save status, and every FormActions state) — 19
+  new ones, 185 in the Storybook, 0 axe violations.
+- The demo pages: profile (name, email with the change note, time zone through
+  the Combobox), workspace (name, address behind `sightline.io/` through
+  InputGroup, and the destructive section with a plain button until phase 8)
+  and notifications (three switches saving on change). Both forms post to
+  `+page.server.ts` actions with `use:enhance`, validated by the same zod
+  schema (`$lib/settings-schemas.ts`) on blur and in the action; the pages'
+  shared form state is `$lib/settings-form.svelte.ts`. Billing keeps its
+  placeholder until phases 6 and 7.
+- Core's demo data grew what the pages read: an `address` on each workspace,
+  `timeZones` (46 zones, the current user's among them) and
+  `notificationPrefs`; 73 Vitest tests pass, including the two new invariants.
+- Checked here: `pnpm check`, `pnpm build` and `pnpm build-storybook` pass;
+  svelte-check is clean in both projects; the scripted failures, the dirty and
+  saved states, blur validation, focus after a failed submit, Enter
+  submitting, the failing switch and its retry, and Space toggling were all
+  driven in the running demo with and without JavaScript; no horizontal scroll
+  at 360px on any settings page; `state=pending` and `state=error` wait for
+  phase 3's skeleton and `ErrorState`.
 
 ---
 
@@ -496,6 +618,48 @@ Every demo page wraps its content in `DataState`. `state=pending|empty|error|den
 - Stories exist for: each EmptyState kind, each ErrorState kind, each size, a retry in progress, each skeleton next to the real content it stands for (the same size), and reduced motion.
 - Demo: every page goes from loading to content with no layout shift, and each `state=` value shows its state in the real layout.
 - `APP-BLOCKS.md` has entries for EmptyState, NoResults, ErrorState, DataState and the skeletons, with all the copy from the tables above.
+
+**Phase 3 status (updated 2026-10-01).** Done:
+
+- `blocks/app/states/` holds `EmptyState`, `NoResults`, `ErrorState`, `DataState`
+  and the five skeletons (`skeleton-text`, `skeleton-table`, `skeleton-stats`,
+  `skeleton-details`, `skeleton-settings`), with an `index.ts`. Two props went
+  beyond the sketches, both noted in the contract: `ErrorState.retryHref`
+  ("Try again" as a link, for no JavaScript) and `DataState.loadingLabel`
+  (the visually hidden "Loading members" label the rules ask for).
+- NoResults is EmptyState with the list copy, and its root re-names the
+  data-slot to `no-results` through EmptyState's prop spread. EmptyState's
+  rings art sits beside the text (never behind, BRAND.md section 13) at
+  `w-20 opacity-50`, decorative. ErrorState's offline kind retries by itself
+  on the browser's `online` event; every retry announces its result from a
+  polite `role="status"` region, and its button says "Trying again…" while it
+  runs.
+- Stories: `App/States` — each empty kind and size, rings art, each error
+  kind (custom copy too), a retry in progress (a play function clicks the
+  button; the story's `onRetry` never settles), with details, each DataState
+  state, each skeleton beside the real content it stands for (the stock
+  Table, a real stat grid, a real `dl`, a real `SettingsSection`), the
+  family at 360px, and reduced motion — 26 new stories, 211 in the
+  Storybook. A story can't flip the OS's reduced-motion setting from inside
+  the browser, so that story asserts the mechanism (every skeleton carries
+  `motion-reduce:animate-none`); the media query itself was checked with
+  Playwright's `emulateMedia({ reducedMotion: "reduce" })`, where the pulse
+  computes to `animation: none`.
+- The demo: every workspace page wraps its content in `DataState`. A new
+  `$lib/demo-load.svelte.ts` holds the fake load — an in-app navigation runs
+  it (skeleton after 300 ms, content at 600 ms) while a hard load paints the
+  server's render complete, and `state=pending` forces the sequence from the
+  first paint. Members shows the first-use empty state (`state=empty`) and
+  `NoResults` when a search or filter matches nobody (its clear link built
+  with `listHref`); billing is the one page that takes `state=denied` (the
+  kind phase 6 builds on). The auth pages don't load anything yet (phase 5).
+- `scripts/pieces.json`: the nine states pieces are filled in;
+  `check:parity` passes with them.
+- Checked here: svelte-check clean in both projects; `check:parity`,
+  `check:colors` and `check:motion` pass; the Storybook builds and axe shows
+  0 violations across 211 stories; the demo builds, and loading → content,
+  each `state=` value and the offline retry were driven in the running demo
+  at 360px and 1280px with no horizontal page scroll.
 
 ---
 
@@ -611,6 +775,56 @@ A full example in `table/table-recipe.stories.svelte` ("App/Table recipe") using
 - The kit's `DataTable` is unchanged.
 - `APP-BLOCKS.md` has entries for every block above, the table recipe in words, and the members page.
 
+**Phase 4 status (updated 2026-10-01).** Done:
+
+- `blocks/app/collection/` holds `CollectionToolbar`, `FilterChip`,
+  `SortMenu` and `BulkActionBar`; `blocks/app/table/` holds the eight parts
+  (`AppTableFrame`, `SortableHead`, `SelectAllCheckbox`, `RowCheckbox`,
+  `RowActions`, `TablePagination`, `TableStateRow`, `TableSkeletonRows`).
+  Both folders have an `index.ts`.
+- Two shapes went beyond the sketches, both noted in the contract: the
+  toolbar's `selection` snippet *replaces* the toolbar's box (the BulkActionBar
+  brings the same box with it, so the table below never moves — passing the
+  snippet as `selection={count > 0 ? bar : undefined}` is the pattern), and
+  `SortableHead` takes a `leading` snippet so the selection column's checkbox
+  and the sortable member column share one pinned cell.
+- FilterChip carries its chosen values as hidden `name`d inputs, so the page's
+  GET form keeps the filters and the sort through its own submits; a popover in
+  Svelte needs JavaScript to open, so "Apply" is belt-and-braces here and real
+  in Astro's `details`-based version. Core's `readListParams` now merges a
+  repeated filter name — which is how a GET form submits a multi-select —
+  and core gained `app/format.ts` (`relativeDate`) for the last-active column.
+- The demo's `/app/members`: the whole list is one GET form; TanStack
+  table-core holds the sorting, selection and paging math with the URL as the
+  source of truth (`autoResetPageIndex: false`; sorting and pagination are
+  translated from the URL into table state, never written back by it). Bulk
+  "Remove" refuses a selection holding the Owner with the scripted toast; bulk
+  and row "Change role" work for real (row Change role points at the member
+  page until phase 8's panel); "Resend invite" shows for invited members only.
+  List navigations keep the demo `state` param, refetches show the busy
+  spinner with rows kept on screen, and a page past the end (after removals)
+  falls back to the last page.
+- Stories: `App/Collection` (toolbar, busy, the bulk bar, chips of each kind,
+  single-choice and searchable chips, the sort menu, the family at 360px) and
+  `App/Table` (frame, sticky first column, skeleton rows, state row, the
+  sortable head's three states, both checkboxes, row actions, pagination and
+  its first page) — 17 new stories across the two, plus `App/Table recipe`
+  with its six (the working list and each state), 234 in the Storybook
+  overall, 0 axe violations.
+- `scripts/pieces.json`: the twelve pieces are filled in, and a thirteenth,
+  `TableRecipe`, claims the recipe's story title for `check:parity` (it's a
+  pattern, not a shipped component; its `svelteFile` is the story itself).
+  Parity passes with them.
+- Checked here: svelte-check clean in both projects; the demo builds; the
+  Storybook builds; a 42-check Playwright drive of the real page covers the
+  Done-when list end to end (search, filters, sort, selection, both bulk
+  actions, row actions, paging, the URL round trip, `/`, Space, Enter,
+  arrows, Escape, the scripted refusal, each `state=`, no-JS GET submits
+  keeping filters and sort, and 360px with the member column pinned), and an
+  11-check drive works the recipe story itself (sort links, the debounced
+  search, page selection, the bulk remove, a page turn, a chip's popover);
+  `check:colors` and `check:motion` pass.
+
 ---
 
 ## Phase 5: Sign-in and account forms
@@ -687,6 +901,56 @@ The auth pages are in the `(auth)` group, with no shell. Scripted results:
 - There's no auth library, no network call and no stored password anywhere in the kit.
 - `APP-BLOCKS.md` has entries for AuthLayout, every form, ProviderButtons and PasswordInput, plus the auth pages and their scripted results.
 
+**Phase 5 status (updated 2026-10-01).** Done:
+
+- `blocks/app/auth-layout/` holds `AuthLayout`; `blocks/app/auth/` holds
+  `PasswordInput`, `ProviderButtons`, `SignInForm`, `SignUpForm`,
+  `ForgotPasswordForm`, `ResetPasswordForm` and `VerifyEmail`, with a shared
+  `auth-field.svelte` helper (label, control, error — the kit has no Field
+  component) and `types.ts` (`FormResult`, `Provider`, `PasswordRule`).
+  Both folders have an `index.ts`.
+- Shapes beyond the sketches, all noted in the contract: the email and name
+  fields are writable deriveds of `values` (a post with no JavaScript hands
+  them back, and typing on top just works), the resend buttons restart their
+  own count when chosen (and only count in the browser, so a page with no
+  JavaScript keeps them usable — FormActions' `inBrowser` trick), and
+  VerifyEmail's resend carries `name="resend"` so one action can tell it
+  from the verify.
+- The forms focus themselves: the first field when one mounts, the refused
+  field after a failed submit — or the password, kept email beside it, for a
+  failed sign-in — and the form Notice, focused, for form errors elsewhere.
+  The OTP submits itself through bits-ui's `onComplete`, and its label
+  reaches the hidden input through bits-ui's `inputId`.
+- Stories: `App/Auth layout` (centered, split with rings, split at 360px —
+  the same mock form inside, so both layouts are checked against real
+  fields) and `App/Auth` (each form in each of its states, its mobile
+  viewport, the password input hidden and shown, the provider buttons) —
+  35 new stories, 269 in the Storybook overall.
+- The demo: the `(auth)` group renders AuthLayout through `$lib/auth-frame`
+  (demo scaffolding holding the shared brand, footer and rings aside — a
+  snippet prop must sit directly under its component, so the aside is always
+  declared and the centered variant simply never renders it). Sign-in takes
+  the split layout; the rest are centered. Providers are real GET endpoints
+  (`/app/sign-in|sign-up/github|google`) that redirect — GitHub into the
+  app, Google back with `provider=google`, which the page seeds like any
+  form error so it shows with JavaScript off too. Forms post to actions
+  with `use:enhance`, validated by `$lib/auth-schemas.ts` (zod, the same
+  rules the sign-up checklist shows).
+- `scripts/pieces.json`: the eight auth pieces are filled in; `check:parity`
+  passes with them.
+- Checked here: `pnpm check` passes end to end (lint, typecheck, core's
+  tests, svelte-check in both projects, motion, colors, contrast,
+  brand-kit, parity) and the demo and the Storybook build; axe shows 0
+  violations across the 269 stories, and the 35 auth stories also pass in
+  light mode; a 44-check Playwright drive of the running demo covers every
+  scripted result with and without JavaScript (wrong, slow, taken, expired,
+  000000 and 123456, both providers), the pending faces, the focus moves,
+  Enter submitting, the show/hide button not submitting, the resend
+  countdown, the rules ticking, and all five pages at 360px with no
+  horizontal scroll; screenshots read at 360, 768 and 1280 in both modes.
+  The actions never hand a password back to a page, and the blocks read no
+  URL and no storage.
+
 ---
 
 ## Phase 6: Record details
@@ -731,6 +995,54 @@ type DetailSectionProps = {
   `state=denied` shows `ErrorState kind="denied"`.
 
 **Done when:** there are stories for both layouts, missing values, copy, loading and mobile. Both demo pages work, including not found and no access. `APP-BLOCKS.md` has entries for DetailList and DetailSection and both demo pages.
+
+**Phase 6 status (updated 2026-10-01).** Done:
+
+- `blocks/app/details/` holds `DetailList`, `DetailSection` and a `types.ts`
+  with `DetailItem`, plus an `index.ts`. One shape went beyond the sketch,
+  noted in the contract: `DetailSection.tone` ("destructive":
+  `border-destructive/40` on the panel), mirroring `SettingsSection` for
+  the "Remove from workspace" section.
+- The section's panel brings the padding (`px-4 sm:px-6`), so `DetailList`
+  lands flush inside it and `SkeletonDetails` stands exactly where the rows
+  land — which is what phase 3's skeleton was drawn against. The loading
+  snippet renders the same sections with skeletons in their panels, so the
+  panels keep their shape through a load.
+- Values are content, not only words: the demo passes a `Tag` (two-step
+  sign-in), and words with a grey `Tag` after them (the price's "Example
+  price" note). The items arrays are built in the template, where snippets
+  are values — no script-side snippet plumbing.
+- Stories: `App/Details` — rows, grid (2 and 3 columns), missing values,
+  copy and mono, a section, the destructive section, loading (DataState
+  pending, the section holding its panel), and the family at 360px — 9 new
+  stories, 278 in the Storybook overall, 0 axe violations.
+- The member page `/app/members/[id]`: Profile and Access sections over the
+  destructive Remove panel (a plain button until phase 8's `ConfirmAction`,
+  as on the members page), "Edit" as the header action (phase 8's
+  `RecordSheet`), the member ID in mono with copy, "Not yet" for an invited
+  member's last active, and `state=denied` — the state this phase owed the
+  demo-state table — alongside `pending`, `error` and `offline`. An unknown
+  id is `ErrorState kind="not-found"` with "Back to members".
+- The billing page: the plan, price (with the "Example price" `Tag`),
+  renewal date and card as detail rows with "Change plan" as the section
+  action, and the six invoices in a small table (Paid success-with-marker,
+  Due warning, "Download" as a link). The demo's download links land on
+  `billing/invoices/[id]/+server.ts`, which hands back an example text
+  file — no PDF exists to fetch, and no block fetched anything. The usage
+  meters remain phase 7's.
+- `scripts/pieces.json`: the two pieces are filled in; `check:parity`
+  passes with them (278 stories).
+- Checked here: svelte-check clean in both projects; the Storybook builds
+  and axe shows 0 violations across the 278 stories; the demo builds;
+  `check:colors`, `check:motion` and `check:parity` pass; and a Playwright
+  drive of the running demo covered both pages end to end — the sections
+  and their facts, both two-step tags, the mono id with its copy button
+  (reached by Tab), the destructive panel, "Not yet" for the invited
+  member, the pending window (two skeletons inside two kept panels,
+  `aria-busy`, content landing after), `error`, `denied` with its ways
+  back, the unknown id, the invoice table's rows and tags, the download
+  endpoint (attachment body, 404 for an unknown id), and all three pages
+  at 360px with no horizontal page scroll.
 
 ---
 
@@ -811,6 +1123,53 @@ type UsageMeterProps = {
 - A falling bounce rate shows green with a down arrow, and a rising load time shows red with an up arrow.
 - `APP-BLOCKS.md` has entries for MetricTrend, StatCard, StatGrid and UsageMeter, plus the overview page.
 
+**Phase 7 status (updated 2026-10-01).** Done:
+
+- `blocks/app/metrics/` holds `MetricTrend`, `StatCard`, `StatGrid` and
+  `UsageMeter`, with a `types.ts` (`MetricTrendProps`) and an `index.ts`.
+  The kit's `RingGauge` grew the `tone` prop (`"primary" | "warning" |
+  "destructive"`, default `primary`); its existing uses are unchanged.
+- Shapes beyond the sketches, all noted in the contract: `StatCard.value`
+  takes a string as well as a snippet, `StatCard.retryHref` carries
+  ErrorState's no-JavaScript retry, the linked card's hover outline is an
+  inset ring (`ring-1 ring-inset ring-primary/50`) because a real border
+  would shift the number by its own pixel, and `UsageMeter.locale` defaults
+  to `"en-US"` — fixed, so the server and the browser render the same group
+  separators — rather than reading the page's language.
+- Stories: `App/Metrics` — the trend in every direction against every
+  meaning of good, no change, and the three formats; the card with a hint
+  and a chart, pending, error, and as a link; the grid at four, three and
+  two columns, and with a pending and an error card among whole ones; the
+  meter below the warning level, at it, at the limit, over it, with no
+  limit, in the ring variant and at its warning level, the demo's row of
+  three, and the family at 360px — 22 new stories, 300 in the Storybook
+  overall, 0 axe violations.
+- The overview demo: the real page replaces the placeholder — the range
+  `Segmented` on the `range` URL param (7/30/90, the default left out of the
+  URL), the four cards from core's `overview` data, the three meters in a
+  ruled panel (events bar, seats ring at the warning level, data kept bar),
+  and `state=limit` standing events at its limit with the message and an
+  "Upgrade" link to billing. Billing grew its "Usage" section between the
+  plan and the invoices, with the same three meters stacked in the panel and
+  a row in its loading skeleton.
+- Core's demo data grew `overview` — the four cards per range, with `Range`
+  and `Stat` types — and 81 Vitest tests pass, two of them new invariants:
+  the four labels in every range, and the plan's own rule that bounce rate
+  falls while page load time rises (in every range).
+- `scripts/pieces.json`: the four pieces are filled in; `check:parity`
+  passes with them.
+- Checked here: svelte-check clean in both projects; the demo and the
+  Storybook build; axe shows 0 violations across the 22 new stories, each in
+  light and dark; `check:colors`, `check:motion` and `check:parity` pass;
+  and the running demo was driven at 360px and 1280px — the range switch and
+  its URL, the four trend colors (bounce green down, load time red up), the
+  meters' thresholds, `state=limit` with its message and link, the billing
+  Usage section, loading to content with the grid keeping its shape, and no
+  horizontal page scroll. Two finds from that axe run, both fixed here and
+  written into the contract: the meter needed a name (its label, through
+  `aria-labelledby`) and the limit message's action had to sit outside the
+  `role="meter"` element (nested interactives).
+
 ---
 
 ## Phase 8: Confirm dialog and edit panel
@@ -873,6 +1232,60 @@ type RecordSheetProps = {
 - Keyboard: Tab stays inside the open dialog or sheet, Escape follows the rules above, and focus returns to the trigger.
 - `APP-BLOCKS.md` has entries for ConfirmAction and RecordSheet, plus their uses in the demo and the scripted failure.
 
+**Phase 8 status (updated 2026-10-01).** Done:
+
+- `blocks/app/actions/` holds `ConfirmAction` and `RecordSheet`, with an
+  `index.ts`. `FormActions` grew a `form` prop — the id its Save submits — so
+  a footer can submit a form it doesn't sit inside, which is RecordSheet's
+  shape.
+- Shapes beyond the sketches, all noted in the contract: `ConfirmAction.open`
+  is bindable and `trigger` optional, so a dropdown's "Remove" opens the same
+  dialog a page-level trigger would (the members page uses one instance for
+  the row actions and the bulk bar); the confirm button is a plain Button
+  rather than bits-ui's Action, whose built-in close would fight the
+  stays-open rules; and RecordSheet's discard question is a small nested
+  alert dialog over the sheet. Close attempts while a save runs are ignored
+  rather than asked about — you can't discard what's being saved. The sheet's
+  side comes from `matchMedia` through `createSubscriber` (bottom below `md`,
+  right at `max-w-md` from it), and its close button sits last in the DOM so
+  bits-ui's default open-focus lands on the first field.
+- Focus, driven in the running demo: the word field (or Cancel) on open, the
+  first field when the sheet opens, the trigger on close, and the page's h1
+  when the trigger is gone with its row (after a bulk remove). Escape on a
+  dialog still opening doesn't run the close-focus path — bits-ui's — so the
+  drives settle a beat before closing.
+- The demo: "Invite people" opens the sheet (emails with a format check — a
+  clean sheet's Save is off, so an empty submit can't happen — and a role,
+  sent as invited members named after their addresses); every removal goes
+  through the one ConfirmAction; "Edit" opens the member page's sheet (name
+  and role, saved into the page's copy of the member); "Remove from
+  workspace" confirms, toasts, and goes back to the list; "Delete this
+  workspace" types "Paperplane", fails once inside the dialog, then works —
+  nothing is really deleted, so success is the toast and the page stays.
+  The owner-refusal scripted failure moved out of its phase 4 toast into the
+  dialog's Notice, where a refused confirm now belongs; the contract's entry
+  says so.
+- Stories: `App/Actions` — both tones, the typed word (off, and on once
+  typed), pending, error, mobile, and the sheet clean, dirty with the discard
+  question up, pending, with an error, and rising from the bottom at 360px —
+  12 new stories, 312 in the Storybook overall. The plays click through real
+  triggers and portaled buttons (found through the document, exact-text, so
+  "Delete this workspace" the trigger never stands in for "Delete workspace"
+  the confirm).
+- `scripts/pieces.json`: the two pieces are filled in; `check:parity` passes
+  with them (135 pieces, 312 stories).
+- Checked here: svelte-check clean in both projects; `check:colors`,
+  `check:motion` and `check:parity` pass; a Playwright drive of the 12
+  stories runs each play and asserts what it should show, with no horizontal
+  scroll and zero axe violations in both dark and light; a 23-check drive of
+  the running demo covers every flow above at 1280 and 360, including Tab
+  staying inside the open dialog and the focus returns; and the plan's source
+  searches (no `fetch(` or `$app/` in the blocks, no `font-bold`, no
+  `uppercase`, no "Submit", "OK" or "An error occurred") come back clean.
+  Not run here: the full `pnpm check`, `pnpm build` and `pnpm build-storybook`
+  gates, and the axe pass over the whole book, which the coordinator runs
+  after this.
+
 ---
 
 ## Phase 9: Final pass on the docs
@@ -888,6 +1301,69 @@ type RecordSheetProps = {
 7. Run `pnpm check` (it includes `check:brand-kit`).
 
 **Done when:** BRAND.md and `APP-BLOCKS.md` agree with each other, and `pnpm check`, `pnpm build` and `pnpm build-storybook` pass.
+
+**Phase 9 status (updated 2026-10-01).** Done:
+
+- Read as the Astro builder: all 47 entries carry their **Astro** line — two
+  had folded theirs away and now say it outright (`SelectAllCheckbox`,
+  `RowCheckbox`: Starwind's checkbox, a real input, set by the selection
+  script) — and the one app piece without an entry, the `Combobox`, got one
+  (kit plumbing rather than a block, on Starwind's combobox), so every piece
+  the app group ships is documented. The table recipe keeps its
+  "**In Astro**" paragraph; it's a pattern, not a block. Every demo page,
+  `state` value and scripted failure in the contract was checked against the
+  demo's code: the seven `state` values and the per-page table match
+  `demo-state.svelte.ts` and each page's `DemoLoad` (billing and the member
+  page take `denied`), and all ten scripted failures match their pages.
+- BRAND.md: "Per framework" now points app screens at `APP-BLOCKS.md`;
+  section 8 gained an "App screens" part with the app type scale; section 9's
+  table lists every app block by group with the contract as its rule; and
+  section 4's "Status" says a trend's color follows good or bad, not up or
+  down (`MetricTrend`). `check:brand-kit` passes — the edits touched no
+  generated block.
+- The Svelte registry: `pnpm registry:generate` re-run for the first time
+  since phase 1, so every app block is now an installable item — 45 piece
+  items, the folder barrels, and a `<folder>-app-blocks-shared` item per
+  folder for its `types.ts` (124 → 180 items). The roster's `svelteItem`
+  fields are filled to match, so `check:parity` now verifies the app items
+  against the registry (the Combobox's is `ui-combobox`, the stock item
+  that owns its file); `astroItem` stays "not yet" for phase 10. Parity
+  passes: 135 pieces, 312 stories.
+- Two generator bugs surfaced once every app block became an item, both
+  fixed in `scripts/generate-registries.mjs` and both proven by
+  `check:fresh-copy svelte` passing end to end (a fresh SvelteKit app
+  installs the whole kit from the served registry and builds):
+  - Piece seeds were shipping stories. The recipe's roster piece points at
+    its story, so the generator made it an item carrying a
+    `.stories.svelte` file that imports Storybook — breaking the engine's
+    own "stories never ship" rule. Piece seeds now skip story files, as the
+    graph always did; the recipe is a pattern to copy from the kit's
+    Storybook, so it keeps no item (`TableRecipe`'s `svelteItem` stays "not
+    yet").
+  - Items cycled, and the CLIs cannot climb out. A shared `types.ts` was
+    claimed by whichever piece's closure ran first, so every sibling
+    importing it depended on that piece — and where the piece imported the
+    sibling back (`sign-in-form` ↔ `provider-buttons` through
+    `auth/types.ts`, `post-header` ↔ `post-meta` through
+    `content/types.ts`), the two items formed a cycle. The shadcn CLIs
+    fetch registry dependencies recursively, so a cycle is an endless walk:
+    the whole-kit install ran out of memory and died. Shared `.ts` files
+    now seed a folder item of their own (`<folder>-app-blocks-shared`,
+    which imports nothing) before the pieces run, and the folder barrel
+    stays with the catch-all so its re-exports can't widen the cycle back.
+  Both registries are cycle-free (checked over every item's dependency
+  graph), and `check:fresh-copy` passes for both kits — a fresh SvelteKit
+  app and a fresh Astro app each install the whole kit from the served
+  registry and build. The first fresh-copy failure on the way — a 404 for
+  `notice.json` no version of the registry lacks — was this run's own
+  doing: a `registry:build` was run under it, rewriting the directory its
+  server serves. Don't rebuild the registries while `check:fresh-copy` is
+  running.
+
+Not run here: the full `pnpm check`, `pnpm build` and `pnpm build-storybook`
+gates, which the coordinator runs after this. The checks this phase's own
+edits could break — `check:brand-kit`, `check:parity`, `check:colors`,
+`check:motion` and both fresh copies — all pass.
 
 ---
 
@@ -914,6 +1390,76 @@ Needs phases 0–9 and kits.md step 2.
 - Forms and lists work with JS turned off; the keyboard behaves as each block's entry says.
 - Pages with no interactive blocks ship no JS.
 - axe shows zero violations on the demo and `/kit` pages.
+
+**Phase 10 status (updated 2026-10-01).** Done:
+
+- The stock set the app blocks need joined the kit's `starwind/`
+  (sidebar, sheet, skeleton, dropdown, alert-dialog, checkbox, combobox,
+  input-otp, toast, with `@tabler/icons` removed again and every icon those
+  files render swapped for Lucide — the kit allows one icon set, and
+  Starwind's icons render no `lucide` class for the brand stroke). The
+  brand's stock changes were applied to each: the toast's and skeleton's
+  spin/pulse carry `motion-reduce:animate-none`, and the alert dialog's
+  solid status variants were softened to the brand recipe (only orange ever
+  fills solid behind text).
+- `packages/brand-astro/src/blocks/app/` holds all 47 pieces in the Svelte
+  kit's folder shape (shell, account, settings, states, collection, table,
+  auth-layout, auth, details, metrics, actions), each with its `types.ts`
+  where the Svelte kit has one, so the registry's folder-shared items line
+  up. `RingGauge` grew the same `tone` prop phase 7 added in Svelte. The
+  Combobox is Starwind's own (`starwind/combobox`), per its contract entry.
+- The port follows each entry's **Astro** line. Static blocks ship no JS.
+  The interactive ones carry a small `<script>` keyed on `data-slot`
+  (rerunning on `astro:page-load`): the shell's nav-link/menus close, the
+  toolbar's debounce, `/`, Escape and busy spinner, the `<details>` chips'
+  apply-on-change and search, the table selection and bulk bar (the
+  contract's "one script around the table body and the bar"), the password
+  show/hide, the sign-up checklist, the resend countdowns, the OTP
+  auto-submit, the save-on-change row faces, FormActions' dirty/saved
+  states, ConfirmAction's typed word/pending/error/toast, and RecordSheet's
+  discard question. Where a block's root is a Starwind popup (the alert
+  dialog, the sheet), the stock keeps its own `data-slot`, so the block's
+  name rides on a `data-slot-wrap` wrapper beside it.
+- The demo in `boilerplates/astro-app/src/pages/app/`: the same routes,
+  data (`@hmziq/brand-core/app/demo-data`) and `state` values. The roster,
+  the settings values and the scripted once-per-visit flags live in the
+  server's memory (`src/lib/app/`), so removals, invites, edits and saves
+  survive a reload the way a real app's database would. Forms post to Astro
+  Actions with `accept: "form"`; every action answers with the contract's
+  FormResult plus the values a failed post keeps, so a page with no
+  JavaScript shows the same states a JavaScript save would. List state is
+  read on the server with `readListParams`, every link built with
+  `listHref`, and the pending state is the `fallback` of a `server:defer`
+  island whose content resolves after the same 600 ms fake load.
+- `/kit/app` shows every app piece with its states (47 anchors, one per
+  roster piece; the table recipe is the section that points at the demo's
+  members page, as the contract describes it in words).
+- `scripts/pieces.json`: every app piece's `astro` anchor and `astroItem`
+  filled in (the Combobox's item is `starwind-combobox`, the stock item
+  that owns its file; the recipe keeps "not yet", a pattern not a
+  component). `pnpm registry:generate` re-run: the Astro registry grew to
+  169 items, cycle-free, with the app pieces and their folder-shared
+  helpers (`shell-app-blocks-shared`, `account-app-blocks-shared`, …) as
+  items of their own.
+- Checked here: `astro check` clean in both the kit and the boilerplate;
+  the boilerplate builds and every route answers (including
+  `?state=pending` as a server island, `?state=empty|error|denied|offline`
+  and `state=limit`, `q=zzz`, `per_page`, an unknown member id and the
+  invoice download); all ten scripted failures show their exact message in
+  their place, with and without JavaScript; `check:parity` passes (135
+  pieces, 312 stories), and `check:colors` and `check:motion` pass; a
+  32-check Playwright drive of the running app covers the shell (skip link
+  first, active item, the toggle and Cmd/Cmd+B), the demo state switch,
+  selection and the bulk bar with Escape, the chips' picker and
+  apply-on-change, the invite sheet (dirty, the discard question, discard),
+  the remove confirm (open, cancel), the sign-in failure (message, kept
+  email, cleared password), the third switch's failing first change with
+  its "Try again", and no horizontal page scroll at 360px on five pages.
+
+Not run here: `pnpm compare` and `pnpm compare --pages` (the side-by-side
+report against the Svelte demo, which the coordinator runs), the axe pass
+over the demo and `/kit` pages, and the full `pnpm check` / `pnpm build`
+gates.
 
 ---
 
