@@ -1,0 +1,4372 @@
+{
+	"$schema": "https://ui.shadcn.com/schema.json",
+	"name": "hmziq-brand-astro",
+	"homepage": "https://hmziqrs.github.io/brand/",
+	"items": [
+		{
+			"name": "account-app-blocks-shared",
+			"type": "registry:file",
+			"title": "account-app-blocks-shared",
+			"description": "Files from \"account-app-blocks-shared\" the pieces roster does not list yet; they become their own items when their plan finishes and this script is re-run.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/app/account/types.ts",
+					"target": "src/components/brand/blocks/app/account/types.ts",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "app-page",
+			"type": "registry:file",
+			"title": "app-page",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/app/shell/app-page.astro",
+					"target": "src/components/brand/blocks/app/shell/app-page.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "app-page-header",
+			"type": "registry:file",
+			"title": "app-page-header",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0",
+				"@lucide/astro@^1.48.0"
+			],
+			"registryDependencies": [
+				"@hmziq/shell-app-blocks-shared",
+				"@hmziq/tag",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/app/shell/app-page-header.astro",
+					"target": "src/components/brand/blocks/app/shell/app-page-header.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "app-shell",
+			"type": "registry:file",
+			"title": "app-shell",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0",
+				"@lucide/astro@^1.48.0"
+			],
+			"registryDependencies": [
+				"@hmziq/shell-app-blocks-shared",
+				"@hmziq/starwind-button",
+				"@hmziq/starwind-sheet",
+				"@hmziq/starwind-sidebar",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/app/shell/app-shell.astro",
+					"target": "src/components/brand/blocks/app/shell/app-shell.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/blocks/app/shell/shell-toggle.astro",
+					"target": "src/components/brand/blocks/app/shell/shell-toggle.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "app-table-frame",
+			"type": "registry:file",
+			"title": "app-table-frame",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/app/table/app-table-frame.astro",
+					"target": "src/components/brand/blocks/app/table/app-table-frame.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "auth-app-blocks-shared",
+			"type": "registry:file",
+			"title": "auth-app-blocks-shared",
+			"description": "Files from \"auth-app-blocks-shared\" the pieces roster does not list yet; they become their own items when their plan finishes and this script is re-run.",
+			"dependencies": [],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/blocks/app/auth/types.ts",
+					"target": "src/components/brand/blocks/app/auth/types.ts",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "auth-layout",
+			"type": "registry:file",
+			"title": "auth-layout",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/app/auth-layout/auth-layout.astro",
+					"target": "src/components/brand/blocks/app/auth-layout/auth-layout.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "band-arcs",
+			"type": "registry:file",
+			"title": "band-arcs",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/components/band-arcs.astro",
+					"target": "src/components/brand/components/band-arcs.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "before-after",
+			"type": "registry:file",
+			"title": "before-after",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/astro@^1.48.0"
+			],
+			"registryDependencies": [
+				"@hmziq/marker"
+			],
+			"files": [
+				{
+					"path": "src/blocks/site/before-after.astro",
+					"target": "src/components/brand/blocks/site/before-after.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "big-numbers",
+			"type": "registry:file",
+			"title": "big-numbers",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/site/big-numbers.astro",
+					"target": "src/components/brand/blocks/site/big-numbers.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "blog-layout",
+			"type": "registry:file",
+			"title": "blog-layout",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/site-head",
+				"@hmziq/site-shell"
+			],
+			"files": [
+				{
+					"path": "src/blocks/content/blog-layout.astro",
+					"target": "src/components/brand/blocks/content/blog-layout.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "brand-icon",
+			"type": "registry:file",
+			"title": "brand-icon",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/components/brand-icon.astro",
+					"target": "src/components/brand/components/brand-icon.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "bulk-action-bar",
+			"type": "registry:file",
+			"title": "bulk-action-bar",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/app/collection/bulk-action-bar.astro",
+					"target": "src/components/brand/blocks/app/collection/bulk-action-bar.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "bullets",
+			"type": "registry:file",
+			"title": "bullets",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/marker",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/site/bullets.astro",
+					"target": "src/components/brand/blocks/site/bullets.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "button-link",
+			"type": "registry:file",
+			"title": "button-link",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/starwind-button"
+			],
+			"files": [
+				{
+					"path": "src/blocks/site/button-link.astro",
+					"target": "src/components/brand/blocks/site/button-link.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "check-list",
+			"type": "registry:file",
+			"title": "check-list",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/marker",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/site/check-list.astro",
+					"target": "src/components/brand/blocks/site/check-list.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "code-block",
+			"type": "registry:file",
+			"title": "code-block",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0",
+				"shiki@4.4.3"
+			],
+			"registryDependencies": [
+				"@hmziq/copy-button",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/components/code-block.astro",
+					"target": "src/components/brand/components/code-block.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/components/code-id.ts",
+					"target": "src/components/brand/components/code-id.ts",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/components/code-tokenize.ts",
+					"target": "src/components/brand/components/code-tokenize.ts",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/components/code-tokens.astro",
+					"target": "src/components/brand/components/code-tokens.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "code-editor",
+			"type": "registry:file",
+			"title": "code-editor",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/code-block",
+				"@hmziq/code-lines",
+				"@hmziq/copy-button",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/content/code-editor.astro",
+					"target": "src/components/brand/blocks/content/code-editor.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "code-lines",
+			"type": "registry:file",
+			"title": "code-lines",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/code-block",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/components/code-lines.astro",
+					"target": "src/components/brand/components/code-lines.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "collection-toolbar",
+			"type": "registry:file",
+			"title": "collection-toolbar",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/astro@^1.48.0"
+			],
+			"registryDependencies": [
+				"@hmziq/starwind-input",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/app/collection/collection-toolbar.astro",
+					"target": "src/components/brand/blocks/app/collection/collection-toolbar.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "command",
+			"type": "registry:file",
+			"title": "command",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/components/command.astro",
+					"target": "src/components/brand/components/command.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/components/highlight-shell.ts",
+					"target": "src/components/brand/components/highlight-shell.ts",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/components/shell-parts.astro",
+					"target": "src/components/brand/components/shell-parts.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "command-bar",
+			"type": "registry:file",
+			"title": "command-bar",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/command",
+				"@hmziq/copy-button",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/components/command-bar.astro",
+					"target": "src/components/brand/components/command-bar.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "command-box",
+			"type": "registry:file",
+			"title": "command-box",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/command",
+				"@hmziq/copy-button",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/components/command-box.astro",
+					"target": "src/components/brand/components/command-box.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "confirm-action",
+			"type": "registry:file",
+			"title": "confirm-action",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/astro@^1.48.0",
+				"@starwind-ui/astro@^1.2.1"
+			],
+			"registryDependencies": [
+				"@hmziq/notice",
+				"@hmziq/starwind-alert-dialog",
+				"@hmziq/starwind-button",
+				"@hmziq/starwind-input",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/app/actions/confirm-action.astro",
+					"target": "src/components/brand/blocks/app/actions/confirm-action.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "contact-channels",
+			"type": "registry:file",
+			"title": "contact-channels",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/astro@^1.48.0"
+			],
+			"registryDependencies": [
+				"@hmziq/brand-icon",
+				"@hmziq/content-blocks-shared",
+				"@hmziq/marker"
+			],
+			"files": [
+				{
+					"path": "src/blocks/content/contact-channels.astro",
+					"target": "src/components/brand/blocks/content/contact-channels.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "container",
+			"type": "registry:file",
+			"title": "container",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/site/container.astro",
+					"target": "src/components/brand/blocks/site/container.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "content-blocks-shared",
+			"type": "registry:file",
+			"title": "content-blocks-shared",
+			"description": "Files from \"content-blocks-shared\" the pieces roster does not list yet; they become their own items when their plan finishes and this script is re-run.",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/blocks/content/share-icons.ts",
+					"target": "src/components/brand/blocks/content/share-icons.ts",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/blocks/content/types.ts",
+					"target": "src/components/brand/blocks/content/types.ts",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "copy-button",
+			"type": "registry:file",
+			"title": "copy-button",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/astro@^1.48.0"
+			],
+			"registryDependencies": [
+				"@hmziq/starwind-button",
+				"@hmziq/starwind-tooltip",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/components/copy-button.astro",
+					"target": "src/components/brand/components/copy-button.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/components/copy-icons.astro",
+					"target": "src/components/brand/components/copy-icons.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "corner-rings",
+			"type": "registry:file",
+			"title": "corner-rings",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"@hmziq/rings",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/components/corner-rings.astro",
+					"target": "src/components/brand/components/corner-rings.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "cta-band",
+			"type": "registry:file",
+			"title": "cta-band",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/band-arcs",
+				"@hmziq/container",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/site/cta-band.astro",
+					"target": "src/components/brand/blocks/site/cta-band.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "data-state",
+			"type": "registry:file",
+			"title": "data-state",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/app/states/data-state.astro",
+					"target": "src/components/brand/blocks/app/states/data-state.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "data-table",
+			"type": "registry:file",
+			"title": "data-table",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/starwind-table",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/components/data-table.astro",
+					"target": "src/components/brand/components/data-table.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "detail-list",
+			"type": "registry:file",
+			"title": "detail-list",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/copy-button",
+				"@hmziq/details-app-blocks-shared",
+				"@hmziq/tag",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/app/details/detail-list.astro",
+					"target": "src/components/brand/blocks/app/details/detail-list.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "detail-section",
+			"type": "registry:file",
+			"title": "detail-section",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/app/details/detail-section.astro",
+					"target": "src/components/brand/blocks/app/details/detail-section.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "details-app-blocks-shared",
+			"type": "registry:file",
+			"title": "details-app-blocks-shared",
+			"description": "Files from \"details-app-blocks-shared\" the pieces roster does not list yet; they become their own items when their plan finishes and this script is re-run.",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/blocks/app/details/types.ts",
+					"target": "src/components/brand/blocks/app/details/types.ts",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "docs-layout",
+			"type": "registry:file",
+			"title": "docs-layout",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0",
+				"@lucide/astro@^1.48.0"
+			],
+			"registryDependencies": [
+				"@hmziq/container",
+				"@hmziq/content-blocks-shared",
+				"@hmziq/docs-search",
+				"@hmziq/site-head",
+				"@hmziq/site-shell",
+				"@hmziq/toc",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/content/docs-layout.astro",
+					"target": "src/components/brand/blocks/content/docs-layout.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "docs-pager",
+			"type": "registry:file",
+			"title": "docs-pager",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/astro@^1.48.0"
+			],
+			"registryDependencies": [
+				"@hmziq/outline-card",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/content/docs-pager.astro",
+					"target": "src/components/brand/blocks/content/docs-pager.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "docs-search",
+			"type": "registry:file",
+			"title": "docs-search",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/astro@^1.48.0"
+			],
+			"registryDependencies": [
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/content/docs-search.astro",
+					"target": "src/components/brand/blocks/content/docs-search.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "docs-title",
+			"type": "registry:file",
+			"title": "docs-title",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/astro@^1.48.0"
+			],
+			"registryDependencies": [
+				"@hmziq/rings",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/content/docs-title.astro",
+					"target": "src/components/brand/blocks/content/docs-title.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "element-card",
+			"type": "registry:file",
+			"title": "element-card",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"@hmziq/corner-rings",
+				"@hmziq/marker",
+				"@hmziq/starwind-card",
+				"@hmziq/tag",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/site/element-card.astro",
+					"target": "src/components/brand/blocks/site/element-card.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "empty-note",
+			"type": "registry:file",
+			"title": "empty-note",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/marker"
+			],
+			"files": [
+				{
+					"path": "src/blocks/site/empty-note.astro",
+					"target": "src/components/brand/blocks/site/empty-note.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "empty-state",
+			"type": "registry:file",
+			"title": "empty-state",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/astro@^1.48.0"
+			],
+			"registryDependencies": [
+				"@hmziq/icon-tile",
+				"@hmziq/rings",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/app/states/empty-state.astro",
+					"target": "src/components/brand/blocks/app/states/empty-state.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "error-state",
+			"type": "registry:file",
+			"title": "error-state",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/astro@^1.48.0"
+			],
+			"registryDependencies": [
+				"@hmziq/copy-button",
+				"@hmziq/icon-tile",
+				"@hmziq/starwind-button",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/app/states/error-state.astro",
+					"target": "src/components/brand/blocks/app/states/error-state.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "faq-list",
+			"type": "registry:file",
+			"title": "faq-list",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/content-blocks-shared",
+				"@hmziq/empty-note",
+				"@hmziq/question",
+				"@hmziq/questions"
+			],
+			"files": [
+				{
+					"path": "src/blocks/content/faq-list.astro",
+					"target": "src/components/brand/blocks/content/faq-list.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "feature-cards",
+			"type": "registry:file",
+			"title": "feature-cards",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/icon-tile",
+				"@hmziq/starwind-card",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/site/feature-cards.astro",
+					"target": "src/components/brand/blocks/site/feature-cards.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/blocks/site/feature-icon.astro",
+					"target": "src/components/brand/blocks/site/feature-icon.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "feature-grid",
+			"type": "registry:file",
+			"title": "feature-grid",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/feature-cards",
+				"@hmziq/icon-tile",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/site/feature-grid.astro",
+					"target": "src/components/brand/blocks/site/feature-grid.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "filter-chip",
+			"type": "registry:file",
+			"title": "filter-chip",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/astro@^1.48.0"
+			],
+			"registryDependencies": [
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/app/collection/filter-chip.astro",
+					"target": "src/components/brand/blocks/app/collection/filter-chip.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "forgot-password-form",
+			"type": "registry:file",
+			"title": "forgot-password-form",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/astro@^1.48.0"
+			],
+			"registryDependencies": [
+				"@hmziq/auth-app-blocks-shared",
+				"@hmziq/notice",
+				"@hmziq/sign-in-form",
+				"@hmziq/starwind-button",
+				"@hmziq/starwind-input",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/app/auth/forgot-password-form.astro",
+					"target": "src/components/brand/blocks/app/auth/forgot-password-form.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "form-actions",
+			"type": "registry:file",
+			"title": "form-actions",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/astro@^1.48.0"
+			],
+			"registryDependencies": [
+				"@hmziq/marker",
+				"@hmziq/notice",
+				"@hmziq/starwind-button",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/app/settings/form-actions.astro",
+					"target": "src/components/brand/blocks/app/settings/form-actions.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "hero",
+			"type": "registry:file",
+			"title": "hero",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/container",
+				"@hmziq/hero-actions",
+				"@hmziq/hero-lede",
+				"@hmziq/hero-notes",
+				"@hmziq/hero-title",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/site/hero.astro",
+					"target": "src/components/brand/blocks/site/hero.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "hero-actions",
+			"type": "registry:file",
+			"title": "hero-actions",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/site/hero-actions.astro",
+					"target": "src/components/brand/blocks/site/hero-actions.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "hero-lede",
+			"type": "registry:file",
+			"title": "hero-lede",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/site/hero-lede.astro",
+					"target": "src/components/brand/blocks/site/hero-lede.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "hero-note",
+			"type": "registry:file",
+			"title": "hero-note",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/marker"
+			],
+			"files": [
+				{
+					"path": "src/blocks/site/hero-note.astro",
+					"target": "src/components/brand/blocks/site/hero-note.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "hero-notes",
+			"type": "registry:file",
+			"title": "hero-notes",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/site/hero-notes.astro",
+					"target": "src/components/brand/blocks/site/hero-notes.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "hero-title",
+			"type": "registry:file",
+			"title": "hero-title",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/site/hero-title.astro",
+					"target": "src/components/brand/blocks/site/hero-title.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "icon-tile",
+			"type": "registry:file",
+			"title": "icon-tile",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/components/icon-tile.astro",
+					"target": "src/components/brand/components/icon-tile.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "install-steps",
+			"type": "registry:file",
+			"title": "install-steps",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/command-box",
+				"@hmziq/content-blocks-shared",
+				"@hmziq/segmented",
+				"@hmziq/step",
+				"@hmziq/stepper"
+			],
+			"files": [
+				{
+					"path": "src/blocks/content/install-steps.astro",
+					"target": "src/components/brand/blocks/content/install-steps.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "kicker",
+			"type": "registry:file",
+			"title": "kicker",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/site/kicker.astro",
+					"target": "src/components/brand/blocks/site/kicker.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "kind-tag",
+			"type": "registry:file",
+			"title": "kind-tag",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"@hmziq/content-blocks-shared",
+				"@hmziq/tag"
+			],
+			"files": [
+				{
+					"path": "src/blocks/content/kind-tag.astro",
+					"target": "src/components/brand/blocks/content/kind-tag.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "kit",
+			"type": "registry:file",
+			"title": "kit",
+			"description": "The kit barrel and stylesheet. Depends on every other item, so installing it installs the whole kit.",
+			"dependencies": [
+				"@tailwindcss/forms@^0.5.11"
+			],
+			"registryDependencies": [
+				"@hmziq/account-app-blocks-shared",
+				"@hmziq/app-page",
+				"@hmziq/app-page-header",
+				"@hmziq/app-shell",
+				"@hmziq/app-table-frame",
+				"@hmziq/auth-app-blocks-shared",
+				"@hmziq/auth-layout",
+				"@hmziq/band-arcs",
+				"@hmziq/before-after",
+				"@hmziq/big-numbers",
+				"@hmziq/blog-layout",
+				"@hmziq/brand-icon",
+				"@hmziq/bulk-action-bar",
+				"@hmziq/bullets",
+				"@hmziq/button-link",
+				"@hmziq/check-list",
+				"@hmziq/code-block",
+				"@hmziq/code-editor",
+				"@hmziq/code-lines",
+				"@hmziq/collection-toolbar",
+				"@hmziq/command",
+				"@hmziq/command-bar",
+				"@hmziq/command-box",
+				"@hmziq/confirm-action",
+				"@hmziq/contact-channels",
+				"@hmziq/container",
+				"@hmziq/content-blocks-shared",
+				"@hmziq/copy-button",
+				"@hmziq/corner-rings",
+				"@hmziq/cta-band",
+				"@hmziq/data-state",
+				"@hmziq/data-table",
+				"@hmziq/detail-list",
+				"@hmziq/detail-section",
+				"@hmziq/details-app-blocks-shared",
+				"@hmziq/docs-layout",
+				"@hmziq/docs-pager",
+				"@hmziq/docs-search",
+				"@hmziq/docs-title",
+				"@hmziq/element-card",
+				"@hmziq/empty-note",
+				"@hmziq/empty-state",
+				"@hmziq/error-state",
+				"@hmziq/faq-list",
+				"@hmziq/feature-cards",
+				"@hmziq/feature-grid",
+				"@hmziq/filter-chip",
+				"@hmziq/forgot-password-form",
+				"@hmziq/form-actions",
+				"@hmziq/hero",
+				"@hmziq/hero-actions",
+				"@hmziq/hero-lede",
+				"@hmziq/hero-note",
+				"@hmziq/hero-notes",
+				"@hmziq/hero-title",
+				"@hmziq/icon-tile",
+				"@hmziq/install-steps",
+				"@hmziq/kicker",
+				"@hmziq/kind-tag",
+				"@hmziq/legal-block",
+				"@hmziq/legal-layout",
+				"@hmziq/legal-section",
+				"@hmziq/link-bar",
+				"@hmziq/mark",
+				"@hmziq/marker",
+				"@hmziq/metric-trend",
+				"@hmziq/metrics-app-blocks-shared",
+				"@hmziq/newsletter-band",
+				"@hmziq/no-results",
+				"@hmziq/not-found",
+				"@hmziq/notice",
+				"@hmziq/outline-card",
+				"@hmziq/page-intro",
+				"@hmziq/password-input",
+				"@hmziq/past-releases",
+				"@hmziq/post-card",
+				"@hmziq/post-contents",
+				"@hmziq/post-header",
+				"@hmziq/post-list",
+				"@hmziq/post-meta",
+				"@hmziq/price",
+				"@hmziq/pricing-plans",
+				"@hmziq/prose",
+				"@hmziq/provider-buttons",
+				"@hmziq/pull-quote",
+				"@hmziq/question",
+				"@hmziq/questions",
+				"@hmziq/record-sheet",
+				"@hmziq/release-head",
+				"@hmziq/release-notes",
+				"@hmziq/release-timeline",
+				"@hmziq/reset-password-form",
+				"@hmziq/ring-gauge",
+				"@hmziq/ring-stats",
+				"@hmziq/rings",
+				"@hmziq/row-actions",
+				"@hmziq/row-checkbox",
+				"@hmziq/scene",
+				"@hmziq/search-box",
+				"@hmziq/section",
+				"@hmziq/segmented",
+				"@hmziq/select-all-checkbox",
+				"@hmziq/setting-row",
+				"@hmziq/settings-section",
+				"@hmziq/share-bar",
+				"@hmziq/shell-app-blocks-shared",
+				"@hmziq/sign-in-form",
+				"@hmziq/sign-up-form",
+				"@hmziq/site-blocks-shared",
+				"@hmziq/site-head",
+				"@hmziq/site-shell",
+				"@hmziq/skeleton-details",
+				"@hmziq/skeleton-settings",
+				"@hmziq/skeleton-stats",
+				"@hmziq/skeleton-table",
+				"@hmziq/skeleton-text",
+				"@hmziq/sort-menu",
+				"@hmziq/sortable-head",
+				"@hmziq/starwind-alert",
+				"@hmziq/starwind-alert-dialog",
+				"@hmziq/starwind-avatar",
+				"@hmziq/starwind-badge",
+				"@hmziq/starwind-button",
+				"@hmziq/starwind-card",
+				"@hmziq/starwind-checkbox",
+				"@hmziq/starwind-combobox",
+				"@hmziq/starwind-dropdown",
+				"@hmziq/starwind-field",
+				"@hmziq/starwind-input",
+				"@hmziq/starwind-input-group",
+				"@hmziq/starwind-input-otp",
+				"@hmziq/starwind-kbd",
+				"@hmziq/starwind-label",
+				"@hmziq/starwind-progress",
+				"@hmziq/starwind-separator",
+				"@hmziq/starwind-sheet",
+				"@hmziq/starwind-sidebar",
+				"@hmziq/starwind-skeleton",
+				"@hmziq/starwind-slider",
+				"@hmziq/starwind-switch",
+				"@hmziq/starwind-table",
+				"@hmziq/starwind-tabs",
+				"@hmziq/starwind-textarea",
+				"@hmziq/starwind-toast",
+				"@hmziq/starwind-tooltip",
+				"@hmziq/stat-card",
+				"@hmziq/stat-grid",
+				"@hmziq/step",
+				"@hmziq/step-number",
+				"@hmziq/stepper",
+				"@hmziq/steps",
+				"@hmziq/summary-box",
+				"@hmziq/table-pagination",
+				"@hmziq/table-skeleton-rows",
+				"@hmziq/table-state-row",
+				"@hmziq/tag",
+				"@hmziq/terminal-body",
+				"@hmziq/terminal-line",
+				"@hmziq/terminal-window",
+				"@hmziq/toc",
+				"@hmziq/topic-chips",
+				"@hmziq/typing-terminal",
+				"@hmziq/usage-meter",
+				"@hmziq/user-menu",
+				"@hmziq/utils",
+				"@hmziq/verify-email",
+				"@hmziq/wordmark",
+				"@hmziq/workspace-switcher"
+			],
+			"files": [
+				{
+					"path": "src/components/inline-code.astro",
+					"target": "src/components/brand/components/inline-code.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/index.ts",
+					"target": "src/components/brand/index.ts",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/styles/kit.css",
+					"target": "src/components/brand/styles/kit.css",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "legal-block",
+			"type": "registry:file",
+			"title": "legal-block",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/bullets",
+				"@hmziq/content-blocks-shared"
+			],
+			"files": [
+				{
+					"path": "src/blocks/content/legal-block.astro",
+					"target": "src/components/brand/blocks/content/legal-block.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "legal-layout",
+			"type": "registry:file",
+			"title": "legal-layout",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"@hmziq/container",
+				"@hmziq/content-blocks-shared",
+				"@hmziq/kicker",
+				"@hmziq/prose",
+				"@hmziq/summary-box",
+				"@hmziq/toc"
+			],
+			"files": [
+				{
+					"path": "src/blocks/content/legal-layout.astro",
+					"target": "src/components/brand/blocks/content/legal-layout.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "legal-section",
+			"type": "registry:file",
+			"title": "legal-section",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/content/legal-section.astro",
+					"target": "src/components/brand/blocks/content/legal-section.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "link-bar",
+			"type": "registry:file",
+			"title": "link-bar",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/copy-button",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/site/link-bar.astro",
+					"target": "src/components/brand/blocks/site/link-bar.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "mark",
+			"type": "registry:file",
+			"title": "mark",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"@hmziq/utils",
+				"@hmziq/wordmark"
+			],
+			"files": [
+				{
+					"path": "src/components/mark.astro",
+					"target": "src/components/brand/components/mark.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "marker",
+			"type": "registry:file",
+			"title": "marker",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/components/marker.astro",
+					"target": "src/components/brand/components/marker.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "metric-trend",
+			"type": "registry:file",
+			"title": "metric-trend",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/astro@^1.48.0"
+			],
+			"registryDependencies": [
+				"@hmziq/metrics-app-blocks-shared",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/app/metrics/metric-trend.astro",
+					"target": "src/components/brand/blocks/app/metrics/metric-trend.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "metrics-app-blocks-shared",
+			"type": "registry:file",
+			"title": "metrics-app-blocks-shared",
+			"description": "Files from \"metrics-app-blocks-shared\" the pieces roster does not list yet; they become their own items when their plan finishes and this script is re-run.",
+			"dependencies": [],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/blocks/app/metrics/types.ts",
+					"target": "src/components/brand/blocks/app/metrics/types.ts",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "newsletter-band",
+			"type": "registry:file",
+			"title": "newsletter-band",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/cta-band",
+				"@hmziq/starwind-button",
+				"@hmziq/starwind-input"
+			],
+			"files": [
+				{
+					"path": "src/blocks/content/newsletter-band.astro",
+					"target": "src/components/brand/blocks/content/newsletter-band.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "no-results",
+			"type": "registry:file",
+			"title": "no-results",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/astro@^1.48.0"
+			],
+			"registryDependencies": [
+				"@hmziq/empty-state",
+				"@hmziq/starwind-button"
+			],
+			"files": [
+				{
+					"path": "src/blocks/app/states/no-results.astro",
+					"target": "src/components/brand/blocks/app/states/no-results.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "not-found",
+			"type": "registry:file",
+			"title": "not-found",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/container",
+				"@hmziq/page-intro",
+				"@hmziq/rings"
+			],
+			"files": [
+				{
+					"path": "src/blocks/content/not-found.astro",
+					"target": "src/components/brand/blocks/content/not-found.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "notice",
+			"type": "registry:file",
+			"title": "notice",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/astro@^1.48.0"
+			],
+			"registryDependencies": [
+				"@hmziq/starwind-alert",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/components/notice.astro",
+					"target": "src/components/brand/components/notice.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "outline-card",
+			"type": "registry:file",
+			"title": "outline-card",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/site/outline-card.astro",
+					"target": "src/components/brand/blocks/site/outline-card.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "page-intro",
+			"type": "registry:file",
+			"title": "page-intro",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/site/page-intro.astro",
+					"target": "src/components/brand/blocks/site/page-intro.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "password-input",
+			"type": "registry:file",
+			"title": "password-input",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/astro@^1.48.0"
+			],
+			"registryDependencies": [
+				"@hmziq/starwind-button",
+				"@hmziq/starwind-input",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/app/auth/password-input.astro",
+					"target": "src/components/brand/blocks/app/auth/password-input.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "past-releases",
+			"type": "registry:file",
+			"title": "past-releases",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/content-blocks-shared",
+				"@hmziq/release-head",
+				"@hmziq/release-notes"
+			],
+			"files": [
+				{
+					"path": "src/blocks/content/past-releases.astro",
+					"target": "src/components/brand/blocks/content/past-releases.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "post-card",
+			"type": "registry:file",
+			"title": "post-card",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0",
+				"@lucide/astro@^1.48.0"
+			],
+			"registryDependencies": [
+				"@hmziq/content-blocks-shared",
+				"@hmziq/corner-rings",
+				"@hmziq/outline-card",
+				"@hmziq/post-meta",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/content/post-card.astro",
+					"target": "src/components/brand/blocks/content/post-card.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "post-contents",
+			"type": "registry:file",
+			"title": "post-contents",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0",
+				"@lucide/astro@^1.48.0"
+			],
+			"registryDependencies": [
+				"@hmziq/toc",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/content/post-contents.astro",
+					"target": "src/components/brand/blocks/content/post-contents.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "post-header",
+			"type": "registry:file",
+			"title": "post-header",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"@hmziq/container",
+				"@hmziq/mark",
+				"@hmziq/post-meta",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/content/post-header.astro",
+					"target": "src/components/brand/blocks/content/post-header.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "post-list",
+			"type": "registry:file",
+			"title": "post-list",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"@hmziq/content-blocks-shared",
+				"@hmziq/empty-note",
+				"@hmziq/post-card",
+				"@hmziq/post-meta",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/content/post-list.astro",
+					"target": "src/components/brand/blocks/content/post-list.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "post-meta",
+			"type": "registry:file",
+			"title": "post-meta",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"@hmziq/content-blocks-shared",
+				"@hmziq/tag",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/content/post-meta.astro",
+					"target": "src/components/brand/blocks/content/post-meta.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "price",
+			"type": "registry:file",
+			"title": "price",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/site-blocks-shared"
+			],
+			"files": [
+				{
+					"path": "src/blocks/site/price.astro",
+					"target": "src/components/brand/blocks/site/price.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "pricing-plans",
+			"type": "registry:file",
+			"title": "pricing-plans",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/button-link",
+				"@hmziq/check-list",
+				"@hmziq/corner-rings",
+				"@hmziq/outline-card",
+				"@hmziq/price",
+				"@hmziq/segmented",
+				"@hmziq/site-blocks-shared",
+				"@hmziq/tag",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/site/pricing-plans.astro",
+					"target": "src/components/brand/blocks/site/pricing-plans.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "prose",
+			"type": "registry:file",
+			"title": "prose",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/site/prose.astro",
+					"target": "src/components/brand/blocks/site/prose.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "provider-buttons",
+			"type": "registry:file",
+			"title": "provider-buttons",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/astro@^1.48.0"
+			],
+			"registryDependencies": [
+				"@hmziq/auth-app-blocks-shared",
+				"@hmziq/brand-icon",
+				"@hmziq/starwind-button",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/app/auth/provider-buttons.astro",
+					"target": "src/components/brand/blocks/app/auth/provider-buttons.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "pull-quote",
+			"type": "registry:file",
+			"title": "pull-quote",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/marker",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/content/pull-quote.astro",
+					"target": "src/components/brand/blocks/content/pull-quote.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "question",
+			"type": "registry:file",
+			"title": "question",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/astro@^1.48.0"
+			],
+			"registryDependencies": [
+				"@hmziq/marker",
+				"@hmziq/tag",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/components/question.astro",
+					"target": "src/components/brand/components/question.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "questions",
+			"type": "registry:file",
+			"title": "questions",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/components/questions.astro",
+					"target": "src/components/brand/components/questions.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "record-sheet",
+			"type": "registry:file",
+			"title": "record-sheet",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/form-actions",
+				"@hmziq/starwind-alert-dialog",
+				"@hmziq/starwind-sheet",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/app/actions/record-sheet.astro",
+					"target": "src/components/brand/blocks/app/actions/record-sheet.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "release-head",
+			"type": "registry:file",
+			"title": "release-head",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/content-blocks-shared",
+				"@hmziq/kicker",
+				"@hmziq/kind-tag",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/content/release-head.astro",
+					"target": "src/components/brand/blocks/content/release-head.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "release-notes",
+			"type": "registry:file",
+			"title": "release-notes",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/content-blocks-shared",
+				"@hmziq/kind-tag",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/content/release-notes.astro",
+					"target": "src/components/brand/blocks/content/release-notes.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "release-timeline",
+			"type": "registry:file",
+			"title": "release-timeline",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/content-blocks-shared",
+				"@hmziq/past-releases",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/content/release-timeline.astro",
+					"target": "src/components/brand/blocks/content/release-timeline.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "reset-password-form",
+			"type": "registry:file",
+			"title": "reset-password-form",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/astro@^1.48.0"
+			],
+			"registryDependencies": [
+				"@hmziq/auth-app-blocks-shared",
+				"@hmziq/notice",
+				"@hmziq/password-input",
+				"@hmziq/sign-in-form",
+				"@hmziq/starwind-button",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/app/auth/reset-password-form.astro",
+					"target": "src/components/brand/blocks/app/auth/reset-password-form.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "ring-gauge",
+			"type": "registry:file",
+			"title": "ring-gauge",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/components/ring-gauge.astro",
+					"target": "src/components/brand/components/ring-gauge.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "ring-stats",
+			"type": "registry:file",
+			"title": "ring-stats",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/container",
+				"@hmziq/ring-gauge"
+			],
+			"files": [
+				{
+					"path": "src/blocks/site/ring-stats.astro",
+					"target": "src/components/brand/blocks/site/ring-stats.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "rings",
+			"type": "registry:file",
+			"title": "rings",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/components/ring-circles.astro",
+					"target": "src/components/brand/components/ring-circles.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/components/rings.astro",
+					"target": "src/components/brand/components/rings.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "row-actions",
+			"type": "registry:file",
+			"title": "row-actions",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/astro@^1.48.0"
+			],
+			"registryDependencies": [
+				"@hmziq/starwind-button",
+				"@hmziq/starwind-dropdown",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/app/table/row-actions.astro",
+					"target": "src/components/brand/blocks/app/table/row-actions.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "row-checkbox",
+			"type": "registry:file",
+			"title": "row-checkbox",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/astro@^1.48.0"
+			],
+			"registryDependencies": [
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/app/table/row-checkbox.astro",
+					"target": "src/components/brand/blocks/app/table/row-checkbox.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "scene",
+			"type": "registry:file",
+			"title": "scene",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0",
+				"@lucide/astro@^1.48.0",
+				"three@^0.184.0"
+			],
+			"registryDependencies": [
+				"@hmziq/starwind-button",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/components/scene.astro",
+					"target": "src/components/brand/components/scene.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "search-box",
+			"type": "registry:file",
+			"title": "search-box",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/astro@^1.48.0"
+			],
+			"registryDependencies": [
+				"@hmziq/starwind-input-group",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/site/search-box.astro",
+					"target": "src/components/brand/blocks/site/search-box.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "section",
+			"type": "registry:file",
+			"title": "section",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/container",
+				"@hmziq/marker",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/site/section.astro",
+					"target": "src/components/brand/blocks/site/section.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "segmented",
+			"type": "registry:file",
+			"title": "segmented",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/components/segmented.astro",
+					"target": "src/components/brand/components/segmented.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "select-all-checkbox",
+			"type": "registry:file",
+			"title": "select-all-checkbox",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/astro@^1.48.0"
+			],
+			"registryDependencies": [
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/app/table/select-all-checkbox.astro",
+					"target": "src/components/brand/blocks/app/table/select-all-checkbox.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "setting-row",
+			"type": "registry:file",
+			"title": "setting-row",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/astro@^1.48.0"
+			],
+			"registryDependencies": [
+				"@hmziq/marker",
+				"@hmziq/starwind-button",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/app/settings/setting-row.astro",
+					"target": "src/components/brand/blocks/app/settings/setting-row.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "settings-section",
+			"type": "registry:file",
+			"title": "settings-section",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/app/settings/settings-section.astro",
+					"target": "src/components/brand/blocks/app/settings/settings-section.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "share-bar",
+			"type": "registry:file",
+			"title": "share-bar",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/brand-icon",
+				"@hmziq/content-blocks-shared",
+				"@hmziq/copy-button",
+				"@hmziq/link-bar",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/content/share-bar.astro",
+					"target": "src/components/brand/blocks/content/share-bar.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "shell-app-blocks-shared",
+			"type": "registry:file",
+			"title": "shell-app-blocks-shared",
+			"description": "Files from \"shell-app-blocks-shared\" the pieces roster does not list yet; they become their own items when their plan finishes and this script is re-run.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/app/shell/types.ts",
+					"target": "src/components/brand/blocks/app/shell/types.ts",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "sign-in-form",
+			"type": "registry:file",
+			"title": "sign-in-form",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/astro@^1.48.0"
+			],
+			"registryDependencies": [
+				"@hmziq/auth-app-blocks-shared",
+				"@hmziq/notice",
+				"@hmziq/password-input",
+				"@hmziq/provider-buttons",
+				"@hmziq/starwind-button",
+				"@hmziq/starwind-input",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/app/auth/auth-field.astro",
+					"target": "src/components/brand/blocks/app/auth/auth-field.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/blocks/app/auth/sign-in-form.astro",
+					"target": "src/components/brand/blocks/app/auth/sign-in-form.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "sign-up-form",
+			"type": "registry:file",
+			"title": "sign-up-form",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/astro@^1.48.0"
+			],
+			"registryDependencies": [
+				"@hmziq/auth-app-blocks-shared",
+				"@hmziq/marker",
+				"@hmziq/notice",
+				"@hmziq/password-input",
+				"@hmziq/provider-buttons",
+				"@hmziq/sign-in-form",
+				"@hmziq/starwind-button",
+				"@hmziq/starwind-input",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/app/auth/sign-up-form.astro",
+					"target": "src/components/brand/blocks/app/auth/sign-up-form.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "site-blocks-shared",
+			"type": "registry:file",
+			"title": "site-blocks-shared",
+			"description": "Files from \"site-blocks-shared\" the pieces roster does not list yet; they become their own items when their plan finishes and this script is re-run.",
+			"dependencies": [],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/blocks/site/plan.ts",
+					"target": "src/components/brand/blocks/site/plan.ts",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "site-head",
+			"type": "registry:file",
+			"title": "site-head",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/blocks/site/site-head.astro",
+					"target": "src/components/brand/blocks/site/site-head.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "site-shell",
+			"type": "registry:file",
+			"title": "site-shell",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"@hmziq/button-link",
+				"@hmziq/container",
+				"@hmziq/mark",
+				"@hmziq/site-head",
+				"@hmziq/utils",
+				"@hmziq/wordmark"
+			],
+			"files": [
+				{
+					"path": "src/blocks/site/site-layout.astro",
+					"target": "src/components/brand/blocks/site/site-layout.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "skeleton-details",
+			"type": "registry:file",
+			"title": "skeleton-details",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/starwind-skeleton",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/app/states/skeleton-details.astro",
+					"target": "src/components/brand/blocks/app/states/skeleton-details.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "skeleton-settings",
+			"type": "registry:file",
+			"title": "skeleton-settings",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/starwind-skeleton",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/app/states/skeleton-settings.astro",
+					"target": "src/components/brand/blocks/app/states/skeleton-settings.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "skeleton-stats",
+			"type": "registry:file",
+			"title": "skeleton-stats",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/starwind-skeleton",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/app/states/skeleton-stats.astro",
+					"target": "src/components/brand/blocks/app/states/skeleton-stats.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "skeleton-table",
+			"type": "registry:file",
+			"title": "skeleton-table",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/starwind-skeleton",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/app/states/skeleton-table.astro",
+					"target": "src/components/brand/blocks/app/states/skeleton-table.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "skeleton-text",
+			"type": "registry:file",
+			"title": "skeleton-text",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/starwind-skeleton",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/app/states/skeleton-text.astro",
+					"target": "src/components/brand/blocks/app/states/skeleton-text.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "sort-menu",
+			"type": "registry:file",
+			"title": "sort-menu",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/astro@^1.48.0"
+			],
+			"registryDependencies": [
+				"@hmziq/starwind-button",
+				"@hmziq/starwind-dropdown",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/app/collection/sort-menu.astro",
+					"target": "src/components/brand/blocks/app/collection/sort-menu.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "sortable-head",
+			"type": "registry:file",
+			"title": "sortable-head",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/astro@^1.48.0"
+			],
+			"registryDependencies": [
+				"@hmziq/starwind-table",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/app/table/sortable-head.astro",
+					"target": "src/components/brand/blocks/app/table/sortable-head.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "starwind-alert",
+			"type": "registry:file",
+			"title": "starwind-alert",
+			"description": "Starwind UI's alert, vendored with the brand's changes (packages/brand-astro/README.md).",
+			"dependencies": [
+				"tailwind-variants@^3.3.1"
+			],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/starwind/alert/Alert.astro",
+					"target": "src/components/brand/starwind/alert/Alert.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/alert/AlertDescription.astro",
+					"target": "src/components/brand/starwind/alert/AlertDescription.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/alert/AlertTitle.astro",
+					"target": "src/components/brand/starwind/alert/AlertTitle.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/alert/index.ts",
+					"target": "src/components/brand/starwind/alert/index.ts",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/alert/variants.ts",
+					"target": "src/components/brand/starwind/alert/variants.ts",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "starwind-alert-dialog",
+			"type": "registry:file",
+			"title": "starwind-alert-dialog",
+			"description": "Starwind UI's alert-dialog, vendored with the brand's changes (packages/brand-astro/README.md).",
+			"dependencies": [
+				"@starwind-ui/astro@^1.2.1",
+				"tailwind-variants@^3.3.1"
+			],
+			"registryDependencies": [
+				"@hmziq/starwind-button"
+			],
+			"files": [
+				{
+					"path": "src/starwind/alert-dialog/AlertDialog.astro",
+					"target": "src/components/brand/starwind/alert-dialog/AlertDialog.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/alert-dialog/AlertDialogAction.astro",
+					"target": "src/components/brand/starwind/alert-dialog/AlertDialogAction.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/alert-dialog/AlertDialogCancel.astro",
+					"target": "src/components/brand/starwind/alert-dialog/AlertDialogCancel.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/alert-dialog/AlertDialogContent.astro",
+					"target": "src/components/brand/starwind/alert-dialog/AlertDialogContent.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/alert-dialog/AlertDialogDescription.astro",
+					"target": "src/components/brand/starwind/alert-dialog/AlertDialogDescription.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/alert-dialog/AlertDialogFooter.astro",
+					"target": "src/components/brand/starwind/alert-dialog/AlertDialogFooter.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/alert-dialog/AlertDialogHeader.astro",
+					"target": "src/components/brand/starwind/alert-dialog/AlertDialogHeader.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/alert-dialog/AlertDialogTitle.astro",
+					"target": "src/components/brand/starwind/alert-dialog/AlertDialogTitle.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/alert-dialog/AlertDialogTrigger.astro",
+					"target": "src/components/brand/starwind/alert-dialog/AlertDialogTrigger.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/alert-dialog/index.ts",
+					"target": "src/components/brand/starwind/alert-dialog/index.ts",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/alert-dialog/variants.ts",
+					"target": "src/components/brand/starwind/alert-dialog/variants.ts",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "starwind-avatar",
+			"type": "registry:file",
+			"title": "starwind-avatar",
+			"description": "Starwind UI's avatar, vendored with the brand's changes (packages/brand-astro/README.md).",
+			"dependencies": [
+				"@starwind-ui/astro@^1.2.1",
+				"tailwind-variants@^3.3.1"
+			],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/starwind/avatar/Avatar.astro",
+					"target": "src/components/brand/starwind/avatar/Avatar.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/avatar/AvatarFallback.astro",
+					"target": "src/components/brand/starwind/avatar/AvatarFallback.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/avatar/AvatarImage.astro",
+					"target": "src/components/brand/starwind/avatar/AvatarImage.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/avatar/index.ts",
+					"target": "src/components/brand/starwind/avatar/index.ts",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/avatar/variants.ts",
+					"target": "src/components/brand/starwind/avatar/variants.ts",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "starwind-badge",
+			"type": "registry:file",
+			"title": "starwind-badge",
+			"description": "Starwind UI's badge, vendored with the brand's changes (packages/brand-astro/README.md).",
+			"dependencies": [
+				"tailwind-variants@^3.3.1"
+			],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/starwind/badge/Badge.astro",
+					"target": "src/components/brand/starwind/badge/Badge.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/badge/index.ts",
+					"target": "src/components/brand/starwind/badge/index.ts",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/badge/variants.ts",
+					"target": "src/components/brand/starwind/badge/variants.ts",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "starwind-button",
+			"type": "registry:file",
+			"title": "starwind-button",
+			"description": "Starwind UI's button, vendored with the brand's changes (packages/brand-astro/README.md).",
+			"dependencies": [
+				"@starwind-ui/astro@^1.2.1",
+				"tailwind-variants@^3.3.1"
+			],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/starwind/button/Button.astro",
+					"target": "src/components/brand/starwind/button/Button.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/button/index.ts",
+					"target": "src/components/brand/starwind/button/index.ts",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/button/variants.ts",
+					"target": "src/components/brand/starwind/button/variants.ts",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "starwind-card",
+			"type": "registry:file",
+			"title": "starwind-card",
+			"description": "Starwind UI's card, vendored with the brand's changes (packages/brand-astro/README.md).",
+			"dependencies": [
+				"tailwind-variants@^3.3.1"
+			],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/starwind/card/Card.astro",
+					"target": "src/components/brand/starwind/card/Card.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/card/CardAction.astro",
+					"target": "src/components/brand/starwind/card/CardAction.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/card/CardContent.astro",
+					"target": "src/components/brand/starwind/card/CardContent.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/card/CardDescription.astro",
+					"target": "src/components/brand/starwind/card/CardDescription.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/card/CardFooter.astro",
+					"target": "src/components/brand/starwind/card/CardFooter.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/card/CardHeader.astro",
+					"target": "src/components/brand/starwind/card/CardHeader.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/card/CardTitle.astro",
+					"target": "src/components/brand/starwind/card/CardTitle.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/card/index.ts",
+					"target": "src/components/brand/starwind/card/index.ts",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/card/variants.ts",
+					"target": "src/components/brand/starwind/card/variants.ts",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "starwind-checkbox",
+			"type": "registry:file",
+			"title": "starwind-checkbox",
+			"description": "Starwind UI's checkbox, vendored with the brand's changes (packages/brand-astro/README.md).",
+			"dependencies": [
+				"@lucide/astro@^1.48.0",
+				"@starwind-ui/astro@^1.2.1",
+				"tailwind-variants@^3.3.1"
+			],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/starwind/checkbox/Checkbox.astro",
+					"target": "src/components/brand/starwind/checkbox/Checkbox.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/checkbox/index.ts",
+					"target": "src/components/brand/starwind/checkbox/index.ts",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/checkbox/styles.css",
+					"target": "src/components/brand/starwind/checkbox/styles.css",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/checkbox/variants.ts",
+					"target": "src/components/brand/starwind/checkbox/variants.ts",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "starwind-combobox",
+			"type": "registry:file",
+			"title": "starwind-combobox",
+			"description": "Starwind UI's combobox, vendored with the brand's changes (packages/brand-astro/README.md).",
+			"dependencies": [
+				"@lucide/astro@^1.48.0",
+				"@starwind-ui/astro@^1.2.1",
+				"tailwind-variants@^3.3.1"
+			],
+			"registryDependencies": [
+				"@hmziq/starwind-input-group"
+			],
+			"files": [
+				{
+					"path": "src/starwind/combobox/Combobox.astro",
+					"target": "src/components/brand/starwind/combobox/Combobox.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/combobox/ComboboxClear.astro",
+					"target": "src/components/brand/starwind/combobox/ComboboxClear.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/combobox/ComboboxContent.astro",
+					"target": "src/components/brand/starwind/combobox/ComboboxContent.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/combobox/ComboboxEmpty.astro",
+					"target": "src/components/brand/starwind/combobox/ComboboxEmpty.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/combobox/ComboboxGroup.astro",
+					"target": "src/components/brand/starwind/combobox/ComboboxGroup.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/combobox/ComboboxGroupLabel.astro",
+					"target": "src/components/brand/starwind/combobox/ComboboxGroupLabel.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/combobox/ComboboxInput.astro",
+					"target": "src/components/brand/starwind/combobox/ComboboxInput.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/combobox/ComboboxInputGroup.astro",
+					"target": "src/components/brand/starwind/combobox/ComboboxInputGroup.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/combobox/ComboboxItem.astro",
+					"target": "src/components/brand/starwind/combobox/ComboboxItem.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/combobox/ComboboxItemIndicator.astro",
+					"target": "src/components/brand/starwind/combobox/ComboboxItemIndicator.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/combobox/ComboboxItemText.astro",
+					"target": "src/components/brand/starwind/combobox/ComboboxItemText.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/combobox/ComboboxLabel.astro",
+					"target": "src/components/brand/starwind/combobox/ComboboxLabel.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/combobox/ComboboxSeparator.astro",
+					"target": "src/components/brand/starwind/combobox/ComboboxSeparator.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/combobox/ComboboxTrigger.astro",
+					"target": "src/components/brand/starwind/combobox/ComboboxTrigger.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/combobox/ComboboxValue.astro",
+					"target": "src/components/brand/starwind/combobox/ComboboxValue.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/combobox/index.ts",
+					"target": "src/components/brand/starwind/combobox/index.ts",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/combobox/variants.ts",
+					"target": "src/components/brand/starwind/combobox/variants.ts",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "starwind-dropdown",
+			"type": "registry:file",
+			"title": "starwind-dropdown",
+			"description": "Starwind UI's dropdown, vendored with the brand's changes (packages/brand-astro/README.md).",
+			"dependencies": [
+				"@lucide/astro@^1.48.0",
+				"@starwind-ui/astro@^1.2.1",
+				"tailwind-variants@^3.3.1"
+			],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/starwind/dropdown/Dropdown.astro",
+					"target": "src/components/brand/starwind/dropdown/Dropdown.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/dropdown/DropdownCheckboxItem.astro",
+					"target": "src/components/brand/starwind/dropdown/DropdownCheckboxItem.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/dropdown/DropdownCheckboxItemIndicator.astro",
+					"target": "src/components/brand/starwind/dropdown/DropdownCheckboxItemIndicator.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/dropdown/DropdownContent.astro",
+					"target": "src/components/brand/starwind/dropdown/DropdownContent.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/dropdown/DropdownGroup.astro",
+					"target": "src/components/brand/starwind/dropdown/DropdownGroup.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/dropdown/DropdownItem.astro",
+					"target": "src/components/brand/starwind/dropdown/DropdownItem.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/dropdown/DropdownLabel.astro",
+					"target": "src/components/brand/starwind/dropdown/DropdownLabel.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/dropdown/DropdownLinkItem.astro",
+					"target": "src/components/brand/starwind/dropdown/DropdownLinkItem.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/dropdown/DropdownRadioGroup.astro",
+					"target": "src/components/brand/starwind/dropdown/DropdownRadioGroup.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/dropdown/DropdownRadioItem.astro",
+					"target": "src/components/brand/starwind/dropdown/DropdownRadioItem.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/dropdown/DropdownRadioItemIndicator.astro",
+					"target": "src/components/brand/starwind/dropdown/DropdownRadioItemIndicator.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/dropdown/DropdownSeparator.astro",
+					"target": "src/components/brand/starwind/dropdown/DropdownSeparator.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/dropdown/DropdownShortcut.astro",
+					"target": "src/components/brand/starwind/dropdown/DropdownShortcut.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/dropdown/DropdownSub.astro",
+					"target": "src/components/brand/starwind/dropdown/DropdownSub.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/dropdown/DropdownSubContent.astro",
+					"target": "src/components/brand/starwind/dropdown/DropdownSubContent.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/dropdown/DropdownSubTrigger.astro",
+					"target": "src/components/brand/starwind/dropdown/DropdownSubTrigger.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/dropdown/DropdownTrigger.astro",
+					"target": "src/components/brand/starwind/dropdown/DropdownTrigger.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/dropdown/index.ts",
+					"target": "src/components/brand/starwind/dropdown/index.ts",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/dropdown/variants.ts",
+					"target": "src/components/brand/starwind/dropdown/variants.ts",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "starwind-field",
+			"type": "registry:file",
+			"title": "starwind-field",
+			"description": "Starwind UI's field, vendored with the brand's changes (packages/brand-astro/README.md).",
+			"dependencies": [
+				"@starwind-ui/astro@^1.2.1",
+				"tailwind-variants@^3.3.1"
+			],
+			"registryDependencies": [
+				"@hmziq/starwind-separator"
+			],
+			"files": [
+				{
+					"path": "src/starwind/field/Field.astro",
+					"target": "src/components/brand/starwind/field/Field.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/field/FieldContent.astro",
+					"target": "src/components/brand/starwind/field/FieldContent.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/field/FieldControl.astro",
+					"target": "src/components/brand/starwind/field/FieldControl.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/field/FieldDescription.astro",
+					"target": "src/components/brand/starwind/field/FieldDescription.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/field/FieldError.astro",
+					"target": "src/components/brand/starwind/field/FieldError.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/field/FieldGroup.astro",
+					"target": "src/components/brand/starwind/field/FieldGroup.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/field/FieldItem.astro",
+					"target": "src/components/brand/starwind/field/FieldItem.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/field/FieldLabel.astro",
+					"target": "src/components/brand/starwind/field/FieldLabel.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/field/FieldLegend.astro",
+					"target": "src/components/brand/starwind/field/FieldLegend.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/field/FieldSeparator.astro",
+					"target": "src/components/brand/starwind/field/FieldSeparator.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/field/FieldSet.astro",
+					"target": "src/components/brand/starwind/field/FieldSet.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/field/FieldTitle.astro",
+					"target": "src/components/brand/starwind/field/FieldTitle.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/field/FieldValidity.astro",
+					"target": "src/components/brand/starwind/field/FieldValidity.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/field/index.ts",
+					"target": "src/components/brand/starwind/field/index.ts",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/field/variants.ts",
+					"target": "src/components/brand/starwind/field/variants.ts",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "starwind-input",
+			"type": "registry:file",
+			"title": "starwind-input",
+			"description": "Starwind UI's input, vendored with the brand's changes (packages/brand-astro/README.md).",
+			"dependencies": [
+				"@starwind-ui/astro@^1.2.1",
+				"tailwind-variants@^3.3.1"
+			],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/starwind/input/Input.astro",
+					"target": "src/components/brand/starwind/input/Input.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/input/index.ts",
+					"target": "src/components/brand/starwind/input/index.ts",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/input/variants.ts",
+					"target": "src/components/brand/starwind/input/variants.ts",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "starwind-input-group",
+			"type": "registry:file",
+			"title": "starwind-input-group",
+			"description": "Starwind UI's input-group, vendored with the brand's changes (packages/brand-astro/README.md).",
+			"dependencies": [
+				"tailwind-variants@^3.3.1"
+			],
+			"registryDependencies": [
+				"@hmziq/starwind-button",
+				"@hmziq/starwind-input",
+				"@hmziq/starwind-textarea"
+			],
+			"files": [
+				{
+					"path": "src/starwind/input-group/InputGroup.astro",
+					"target": "src/components/brand/starwind/input-group/InputGroup.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/input-group/InputGroupAddon.astro",
+					"target": "src/components/brand/starwind/input-group/InputGroupAddon.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/input-group/InputGroupButton.astro",
+					"target": "src/components/brand/starwind/input-group/InputGroupButton.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/input-group/InputGroupInput.astro",
+					"target": "src/components/brand/starwind/input-group/InputGroupInput.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/input-group/InputGroupText.astro",
+					"target": "src/components/brand/starwind/input-group/InputGroupText.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/input-group/InputGroupTextarea.astro",
+					"target": "src/components/brand/starwind/input-group/InputGroupTextarea.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/input-group/index.ts",
+					"target": "src/components/brand/starwind/input-group/index.ts",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/input-group/variants.ts",
+					"target": "src/components/brand/starwind/input-group/variants.ts",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "starwind-input-otp",
+			"type": "registry:file",
+			"title": "starwind-input-otp",
+			"description": "Starwind UI's input-otp, vendored with the brand's changes (packages/brand-astro/README.md).",
+			"dependencies": [
+				"@lucide/astro@^1.48.0",
+				"@starwind-ui/astro@^1.2.1",
+				"tailwind-variants@^3.3.1"
+			],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/starwind/input-otp/InputOtp.astro",
+					"target": "src/components/brand/starwind/input-otp/InputOtp.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/input-otp/InputOtpGroup.astro",
+					"target": "src/components/brand/starwind/input-otp/InputOtpGroup.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/input-otp/InputOtpSeparator.astro",
+					"target": "src/components/brand/starwind/input-otp/InputOtpSeparator.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/input-otp/InputOtpSlot.astro",
+					"target": "src/components/brand/starwind/input-otp/InputOtpSlot.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/input-otp/index.ts",
+					"target": "src/components/brand/starwind/input-otp/index.ts",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/input-otp/variants.ts",
+					"target": "src/components/brand/starwind/input-otp/variants.ts",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "starwind-kbd",
+			"type": "registry:file",
+			"title": "starwind-kbd",
+			"description": "Starwind UI's kbd, vendored with the brand's changes (packages/brand-astro/README.md).",
+			"dependencies": [
+				"tailwind-variants@^3.3.1"
+			],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/starwind/kbd/Kbd.astro",
+					"target": "src/components/brand/starwind/kbd/Kbd.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/kbd/KbdGroup.astro",
+					"target": "src/components/brand/starwind/kbd/KbdGroup.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/kbd/index.ts",
+					"target": "src/components/brand/starwind/kbd/index.ts",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/kbd/variants.ts",
+					"target": "src/components/brand/starwind/kbd/variants.ts",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "starwind-label",
+			"type": "registry:file",
+			"title": "starwind-label",
+			"description": "Starwind UI's label, vendored with the brand's changes (packages/brand-astro/README.md).",
+			"dependencies": [
+				"tailwind-variants@^3.3.1"
+			],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/starwind/label/Label.astro",
+					"target": "src/components/brand/starwind/label/Label.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/label/index.ts",
+					"target": "src/components/brand/starwind/label/index.ts",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/label/variants.ts",
+					"target": "src/components/brand/starwind/label/variants.ts",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "starwind-progress",
+			"type": "registry:file",
+			"title": "starwind-progress",
+			"description": "Starwind UI's progress, vendored with the brand's changes (packages/brand-astro/README.md).",
+			"dependencies": [
+				"@starwind-ui/astro@^1.2.1",
+				"tailwind-variants@^3.3.1"
+			],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/starwind/progress/Progress.astro",
+					"target": "src/components/brand/starwind/progress/Progress.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/progress/index.ts",
+					"target": "src/components/brand/starwind/progress/index.ts",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/progress/variants.ts",
+					"target": "src/components/brand/starwind/progress/variants.ts",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "starwind-separator",
+			"type": "registry:file",
+			"title": "starwind-separator",
+			"description": "Starwind UI's separator, vendored with the brand's changes (packages/brand-astro/README.md).",
+			"dependencies": [
+				"tailwind-variants@^3.3.1"
+			],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/starwind/separator/Separator.astro",
+					"target": "src/components/brand/starwind/separator/Separator.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/separator/index.ts",
+					"target": "src/components/brand/starwind/separator/index.ts",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/separator/variants.ts",
+					"target": "src/components/brand/starwind/separator/variants.ts",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "starwind-sheet",
+			"type": "registry:file",
+			"title": "starwind-sheet",
+			"description": "Starwind UI's sheet, vendored with the brand's changes (packages/brand-astro/README.md).",
+			"dependencies": [
+				"@lucide/astro@^1.48.0",
+				"@starwind-ui/astro@^1.2.1",
+				"tailwind-variants@^3.3.1"
+			],
+			"registryDependencies": [
+				"@hmziq/starwind-button"
+			],
+			"files": [
+				{
+					"path": "src/starwind/sheet/Sheet.astro",
+					"target": "src/components/brand/starwind/sheet/Sheet.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/sheet/SheetClose.astro",
+					"target": "src/components/brand/starwind/sheet/SheetClose.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/sheet/SheetContent.astro",
+					"target": "src/components/brand/starwind/sheet/SheetContent.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/sheet/SheetDescription.astro",
+					"target": "src/components/brand/starwind/sheet/SheetDescription.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/sheet/SheetFooter.astro",
+					"target": "src/components/brand/starwind/sheet/SheetFooter.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/sheet/SheetHeader.astro",
+					"target": "src/components/brand/starwind/sheet/SheetHeader.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/sheet/SheetTitle.astro",
+					"target": "src/components/brand/starwind/sheet/SheetTitle.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/sheet/SheetTrigger.astro",
+					"target": "src/components/brand/starwind/sheet/SheetTrigger.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/sheet/index.ts",
+					"target": "src/components/brand/starwind/sheet/index.ts",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/sheet/variants.ts",
+					"target": "src/components/brand/starwind/sheet/variants.ts",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "starwind-sidebar",
+			"type": "registry:file",
+			"title": "starwind-sidebar",
+			"description": "Starwind UI's sidebar, vendored with the brand's changes (packages/brand-astro/README.md).",
+			"dependencies": [
+				"@lucide/astro@^1.48.0",
+				"@starwind-ui/astro@^1.2.1",
+				"tailwind-variants@^3.3.1"
+			],
+			"registryDependencies": [
+				"@hmziq/starwind-button",
+				"@hmziq/starwind-input",
+				"@hmziq/starwind-separator",
+				"@hmziq/starwind-sheet",
+				"@hmziq/starwind-skeleton",
+				"@hmziq/starwind-tooltip"
+			],
+			"files": [
+				{
+					"path": "src/starwind/sidebar/Sidebar.astro",
+					"target": "src/components/brand/starwind/sidebar/Sidebar.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/sidebar/SidebarContent.astro",
+					"target": "src/components/brand/starwind/sidebar/SidebarContent.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/sidebar/SidebarFooter.astro",
+					"target": "src/components/brand/starwind/sidebar/SidebarFooter.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/sidebar/SidebarGroup.astro",
+					"target": "src/components/brand/starwind/sidebar/SidebarGroup.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/sidebar/SidebarGroupAction.astro",
+					"target": "src/components/brand/starwind/sidebar/SidebarGroupAction.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/sidebar/SidebarGroupContent.astro",
+					"target": "src/components/brand/starwind/sidebar/SidebarGroupContent.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/sidebar/SidebarGroupLabel.astro",
+					"target": "src/components/brand/starwind/sidebar/SidebarGroupLabel.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/sidebar/SidebarHeader.astro",
+					"target": "src/components/brand/starwind/sidebar/SidebarHeader.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/sidebar/SidebarInput.astro",
+					"target": "src/components/brand/starwind/sidebar/SidebarInput.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/sidebar/SidebarInset.astro",
+					"target": "src/components/brand/starwind/sidebar/SidebarInset.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/sidebar/SidebarMenu.astro",
+					"target": "src/components/brand/starwind/sidebar/SidebarMenu.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/sidebar/SidebarMenuAction.astro",
+					"target": "src/components/brand/starwind/sidebar/SidebarMenuAction.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/sidebar/SidebarMenuBadge.astro",
+					"target": "src/components/brand/starwind/sidebar/SidebarMenuBadge.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/sidebar/SidebarMenuButton.astro",
+					"target": "src/components/brand/starwind/sidebar/SidebarMenuButton.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/sidebar/SidebarMenuItem.astro",
+					"target": "src/components/brand/starwind/sidebar/SidebarMenuItem.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/sidebar/SidebarMenuSkeleton.astro",
+					"target": "src/components/brand/starwind/sidebar/SidebarMenuSkeleton.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/sidebar/SidebarMenuSub.astro",
+					"target": "src/components/brand/starwind/sidebar/SidebarMenuSub.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/sidebar/SidebarMenuSubButton.astro",
+					"target": "src/components/brand/starwind/sidebar/SidebarMenuSubButton.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/sidebar/SidebarMenuSubItem.astro",
+					"target": "src/components/brand/starwind/sidebar/SidebarMenuSubItem.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/sidebar/SidebarProvider.astro",
+					"target": "src/components/brand/starwind/sidebar/SidebarProvider.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/sidebar/SidebarRail.astro",
+					"target": "src/components/brand/starwind/sidebar/SidebarRail.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/sidebar/SidebarSeparator.astro",
+					"target": "src/components/brand/starwind/sidebar/SidebarSeparator.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/sidebar/SidebarTrigger.astro",
+					"target": "src/components/brand/starwind/sidebar/SidebarTrigger.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/sidebar/index.ts",
+					"target": "src/components/brand/starwind/sidebar/index.ts",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/sidebar/styles.css",
+					"target": "src/components/brand/starwind/sidebar/styles.css",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/sidebar/variants.ts",
+					"target": "src/components/brand/starwind/sidebar/variants.ts",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "starwind-skeleton",
+			"type": "registry:file",
+			"title": "starwind-skeleton",
+			"description": "Starwind UI's skeleton, vendored with the brand's changes (packages/brand-astro/README.md).",
+			"dependencies": [
+				"tailwind-variants@^3.3.1"
+			],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/starwind/skeleton/Skeleton.astro",
+					"target": "src/components/brand/starwind/skeleton/Skeleton.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/skeleton/index.ts",
+					"target": "src/components/brand/starwind/skeleton/index.ts",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/skeleton/variants.ts",
+					"target": "src/components/brand/starwind/skeleton/variants.ts",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "starwind-slider",
+			"type": "registry:file",
+			"title": "starwind-slider",
+			"description": "Starwind UI's slider, vendored with the brand's changes (packages/brand-astro/README.md).",
+			"dependencies": [
+				"@starwind-ui/astro@^1.2.1",
+				"tailwind-variants@^3.3.1"
+			],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/starwind/slider/Slider.astro",
+					"target": "src/components/brand/starwind/slider/Slider.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/slider/index.ts",
+					"target": "src/components/brand/starwind/slider/index.ts",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/slider/variants.ts",
+					"target": "src/components/brand/starwind/slider/variants.ts",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "starwind-switch",
+			"type": "registry:file",
+			"title": "starwind-switch",
+			"description": "Starwind UI's switch, vendored with the brand's changes (packages/brand-astro/README.md).",
+			"dependencies": [
+				"@starwind-ui/astro@^1.2.1",
+				"tailwind-variants@^3.3.1"
+			],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/starwind/switch/Switch.astro",
+					"target": "src/components/brand/starwind/switch/Switch.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/switch/index.ts",
+					"target": "src/components/brand/starwind/switch/index.ts",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/switch/variants.ts",
+					"target": "src/components/brand/starwind/switch/variants.ts",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "starwind-table",
+			"type": "registry:file",
+			"title": "starwind-table",
+			"description": "Starwind UI's table, vendored with the brand's changes (packages/brand-astro/README.md).",
+			"dependencies": [
+				"tailwind-variants@^3.3.1"
+			],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/starwind/table/Table.astro",
+					"target": "src/components/brand/starwind/table/Table.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/table/TableBody.astro",
+					"target": "src/components/brand/starwind/table/TableBody.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/table/TableCaption.astro",
+					"target": "src/components/brand/starwind/table/TableCaption.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/table/TableCell.astro",
+					"target": "src/components/brand/starwind/table/TableCell.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/table/TableFoot.astro",
+					"target": "src/components/brand/starwind/table/TableFoot.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/table/TableHead.astro",
+					"target": "src/components/brand/starwind/table/TableHead.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/table/TableHeader.astro",
+					"target": "src/components/brand/starwind/table/TableHeader.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/table/TableRow.astro",
+					"target": "src/components/brand/starwind/table/TableRow.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/table/index.ts",
+					"target": "src/components/brand/starwind/table/index.ts",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/table/variants.ts",
+					"target": "src/components/brand/starwind/table/variants.ts",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "starwind-tabs",
+			"type": "registry:file",
+			"title": "starwind-tabs",
+			"description": "Starwind UI's tabs, vendored with the brand's changes (packages/brand-astro/README.md).",
+			"dependencies": [
+				"@starwind-ui/astro@^1.2.1",
+				"tailwind-variants@^3.3.1"
+			],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/starwind/tabs/Tabs.astro",
+					"target": "src/components/brand/starwind/tabs/Tabs.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/tabs/TabsContent.astro",
+					"target": "src/components/brand/starwind/tabs/TabsContent.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/tabs/TabsList.astro",
+					"target": "src/components/brand/starwind/tabs/TabsList.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/tabs/TabsTrigger.astro",
+					"target": "src/components/brand/starwind/tabs/TabsTrigger.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/tabs/index.ts",
+					"target": "src/components/brand/starwind/tabs/index.ts",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/tabs/variants.ts",
+					"target": "src/components/brand/starwind/tabs/variants.ts",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "starwind-textarea",
+			"type": "registry:file",
+			"title": "starwind-textarea",
+			"description": "Starwind UI's textarea, vendored with the brand's changes (packages/brand-astro/README.md).",
+			"dependencies": [
+				"tailwind-variants@^3.3.1"
+			],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/starwind/textarea/Textarea.astro",
+					"target": "src/components/brand/starwind/textarea/Textarea.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/textarea/index.ts",
+					"target": "src/components/brand/starwind/textarea/index.ts",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/textarea/variants.ts",
+					"target": "src/components/brand/starwind/textarea/variants.ts",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "starwind-toast",
+			"type": "registry:file",
+			"title": "starwind-toast",
+			"description": "Starwind UI's toast, vendored with the brand's changes (packages/brand-astro/README.md).",
+			"dependencies": [
+				"@lucide/astro@^1.48.0",
+				"@starwind-ui/astro@^1.2.1",
+				"tailwind-variants@^3.3.1"
+			],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/starwind/toast/ToastAction.astro",
+					"target": "src/components/brand/starwind/toast/ToastAction.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/toast/ToastClose.astro",
+					"target": "src/components/brand/starwind/toast/ToastClose.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/toast/ToastContent.astro",
+					"target": "src/components/brand/starwind/toast/ToastContent.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/toast/ToastDescription.astro",
+					"target": "src/components/brand/starwind/toast/ToastDescription.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/toast/ToastItem.astro",
+					"target": "src/components/brand/starwind/toast/ToastItem.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/toast/ToastTemplate.astro",
+					"target": "src/components/brand/starwind/toast/ToastTemplate.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/toast/ToastTitle.astro",
+					"target": "src/components/brand/starwind/toast/ToastTitle.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/toast/Toaster.astro",
+					"target": "src/components/brand/starwind/toast/Toaster.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/toast/index.ts",
+					"target": "src/components/brand/starwind/toast/index.ts",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/toast/styles.css",
+					"target": "src/components/brand/starwind/toast/styles.css",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/toast/variants.ts",
+					"target": "src/components/brand/starwind/toast/variants.ts",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "starwind-tooltip",
+			"type": "registry:file",
+			"title": "starwind-tooltip",
+			"description": "Starwind UI's tooltip, vendored with the brand's changes (packages/brand-astro/README.md).",
+			"dependencies": [
+				"@starwind-ui/astro@^1.2.1",
+				"tailwind-variants@^3.3.1"
+			],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/starwind/tooltip/Tooltip.astro",
+					"target": "src/components/brand/starwind/tooltip/Tooltip.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/tooltip/TooltipContent.astro",
+					"target": "src/components/brand/starwind/tooltip/TooltipContent.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/tooltip/TooltipTrigger.astro",
+					"target": "src/components/brand/starwind/tooltip/TooltipTrigger.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/tooltip/index.ts",
+					"target": "src/components/brand/starwind/tooltip/index.ts",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/starwind/tooltip/variants.ts",
+					"target": "src/components/brand/starwind/tooltip/variants.ts",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "stat-card",
+			"type": "registry:file",
+			"title": "stat-card",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/error-state",
+				"@hmziq/metric-trend",
+				"@hmziq/metrics-app-blocks-shared",
+				"@hmziq/starwind-skeleton",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/app/metrics/stat-card.astro",
+					"target": "src/components/brand/blocks/app/metrics/stat-card.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "stat-grid",
+			"type": "registry:file",
+			"title": "stat-grid",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/app/metrics/stat-grid.astro",
+					"target": "src/components/brand/blocks/app/metrics/stat-grid.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "step",
+			"type": "registry:file",
+			"title": "step",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/step-number",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/components/step.astro",
+					"target": "src/components/brand/components/step.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "step-number",
+			"type": "registry:file",
+			"title": "step-number",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/components/step-number.astro",
+					"target": "src/components/brand/components/step-number.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "stepper",
+			"type": "registry:file",
+			"title": "stepper",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/components/stepper.astro",
+					"target": "src/components/brand/components/stepper.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "steps",
+			"type": "registry:file",
+			"title": "steps",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/step",
+				"@hmziq/stepper"
+			],
+			"files": [
+				{
+					"path": "src/blocks/site/steps.astro",
+					"target": "src/components/brand/blocks/site/steps.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "summary-box",
+			"type": "registry:file",
+			"title": "summary-box",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/marker",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/site/summary-box.astro",
+					"target": "src/components/brand/blocks/site/summary-box.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "table-pagination",
+			"type": "registry:file",
+			"title": "table-pagination",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/astro@^1.48.0"
+			],
+			"registryDependencies": [
+				"@hmziq/starwind-button",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/app/table/table-pagination.astro",
+					"target": "src/components/brand/blocks/app/table/table-pagination.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "table-skeleton-rows",
+			"type": "registry:file",
+			"title": "table-skeleton-rows",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/starwind-skeleton",
+				"@hmziq/starwind-table"
+			],
+			"files": [
+				{
+					"path": "src/blocks/app/table/table-skeleton-rows.astro",
+					"target": "src/components/brand/blocks/app/table/table-skeleton-rows.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "table-state-row",
+			"type": "registry:file",
+			"title": "table-state-row",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/starwind-table",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/app/table/table-state-row.astro",
+					"target": "src/components/brand/blocks/app/table/table-state-row.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "tag",
+			"type": "registry:file",
+			"title": "tag",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/components/tag.astro",
+					"target": "src/components/brand/components/tag.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "terminal-body",
+			"type": "registry:file",
+			"title": "terminal-body",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/components/terminal-body.astro",
+					"target": "src/components/brand/components/terminal-body.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "terminal-line",
+			"type": "registry:file",
+			"title": "terminal-line",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/command",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/components/terminal-line.astro",
+					"target": "src/components/brand/components/terminal-line.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/components/terminal-line.ts",
+					"target": "src/components/brand/components/terminal-line.ts",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "terminal-window",
+			"type": "registry:file",
+			"title": "terminal-window",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/astro@^1.48.0"
+			],
+			"registryDependencies": [
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/components/terminal-window.astro",
+					"target": "src/components/brand/components/terminal-window.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "toc",
+			"type": "registry:file",
+			"title": "toc",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/marker",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/components/toc.astro",
+					"target": "src/components/brand/components/toc.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "topic-chips",
+			"type": "registry:file",
+			"title": "topic-chips",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"@hmziq/marker",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/site/topic-chips.astro",
+					"target": "src/components/brand/blocks/site/topic-chips.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "typing-terminal",
+			"type": "registry:file",
+			"title": "typing-terminal",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/astro@^1.48.0"
+			],
+			"registryDependencies": [
+				"@hmziq/command",
+				"@hmziq/copy-button",
+				"@hmziq/starwind-button",
+				"@hmziq/terminal-body",
+				"@hmziq/terminal-line",
+				"@hmziq/terminal-window",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/content/typing-terminal.astro",
+					"target": "src/components/brand/blocks/content/typing-terminal.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "usage-meter",
+			"type": "registry:file",
+			"title": "usage-meter",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/astro@^1.48.0"
+			],
+			"registryDependencies": [
+				"@hmziq/ring-gauge",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/app/metrics/usage-meter.astro",
+					"target": "src/components/brand/blocks/app/metrics/usage-meter.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "user-menu",
+			"type": "registry:file",
+			"title": "user-menu",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/astro@^1.48.0"
+			],
+			"registryDependencies": [
+				"@hmziq/account-app-blocks-shared",
+				"@hmziq/starwind-avatar",
+				"@hmziq/starwind-dropdown",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/app/account/user-menu.astro",
+					"target": "src/components/brand/blocks/app/account/user-menu.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "utils",
+			"type": "registry:file",
+			"title": "utils",
+			"description": "The kit's shared utilities: cn() and styleText().",
+			"dependencies": [
+				"cn@^0.4.0"
+			],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/utils.ts",
+					"target": "src/components/brand/utils.ts",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "verify-email",
+			"type": "registry:file",
+			"title": "verify-email",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/astro@^1.48.0"
+			],
+			"registryDependencies": [
+				"@hmziq/auth-app-blocks-shared",
+				"@hmziq/notice",
+				"@hmziq/starwind-button",
+				"@hmziq/starwind-input-otp",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/app/auth/verify-email.astro",
+					"target": "src/components/brand/blocks/app/auth/verify-email.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "wordmark",
+			"type": "registry:file",
+			"title": "wordmark",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/components/logo-letters.astro",
+					"target": "src/components/brand/components/logo-letters.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/components/logo-square.astro",
+					"target": "src/components/brand/components/logo-square.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/components/logo-style.ts",
+					"target": "src/components/brand/components/logo-style.ts",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/components/wordmark.astro",
+					"target": "src/components/brand/components/wordmark.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "workspace-switcher",
+			"type": "registry:file",
+			"title": "workspace-switcher",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/astro@^1.48.0"
+			],
+			"registryDependencies": [
+				"@hmziq/account-app-blocks-shared",
+				"@hmziq/mark",
+				"@hmziq/starwind-dropdown",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/app/account/workspace-switcher.astro",
+					"target": "src/components/brand/blocks/app/account/workspace-switcher.astro",
+					"type": "registry:file"
+				}
+			]
+		}
+	]
+}

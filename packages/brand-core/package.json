@@ -1,0 +1,157 @@
+{
+  "name": "@hmziq/brand-core",
+  "version": "0.0.0",
+  "description": "The hmziq brand, framework-free: theme tokens, color math, the logo recipe, ring art, the Shiki code theme, the Markdown plugins, shared app logic and the site roster. Shared by the Svelte kit, the Astro kit and the design lab.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hmziqrs/brand.git",
+    "directory": "packages/brand-core"
+  },
+  "files": [
+    "theme.css",
+    "rings.css",
+    "logo.css",
+    "src",
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "type": "module",
+  "exports": {
+    "./theme.css": "./theme.css",
+    "./rings.css": "./rings.css",
+    "./logo.css": "./logo.css",
+    "./app/nav": {
+      "types": "./dist/app/nav.d.ts",
+      "default": "./dist/app/nav.js"
+    },
+    "./app/list-params": {
+      "types": "./dist/app/list-params.d.ts",
+      "default": "./dist/app/list-params.js"
+    },
+    "./app/demo-data": {
+      "types": "./dist/app/demo-data.d.ts",
+      "default": "./dist/app/demo-data.js"
+    },
+    "./app/format": {
+      "types": "./dist/app/format.d.ts",
+      "default": "./dist/app/format.js"
+    },
+    "./color": {
+      "types": "./dist/color.d.ts",
+      "default": "./dist/color.js"
+    },
+    "./family": {
+      "types": "./dist/family.d.ts",
+      "default": "./dist/family.js"
+    },
+    "./logo": {
+      "types": "./dist/logo.d.ts",
+      "default": "./dist/logo.js"
+    },
+    "./tones": {
+      "types": "./dist/tones.d.ts",
+      "default": "./dist/tones.js"
+    },
+    "./scroll-spy": {
+      "types": "./dist/scroll-spy.d.ts",
+      "default": "./dist/scroll-spy.js"
+    },
+    "./code-theme": {
+      "types": "./dist/code-theme.d.ts",
+      "default": "./dist/code-theme.js"
+    },
+    "./markdown/callout": {
+      "types": "./dist/markdown/callout.d.ts",
+      "default": "./dist/markdown/callout.js"
+    },
+    "./markdown/code-meta": {
+      "types": "./dist/markdown/code-meta.d.ts",
+      "default": "./dist/markdown/code-meta.js"
+    },
+    "./markdown/heading-anchor": {
+      "types": "./dist/markdown/heading-anchor.d.ts",
+      "default": "./dist/markdown/heading-anchor.js"
+    },
+    "./markdown/table": {
+      "types": "./dist/markdown/table.d.ts",
+      "default": "./dist/markdown/table.js"
+    },
+    "./motion/rings": {
+      "types": "./dist/motion/rings.d.ts",
+      "default": "./dist/motion/rings.js"
+    },
+    "./motion/frame": {
+      "types": "./dist/motion/frame.d.ts",
+      "default": "./dist/motion/frame.js"
+    },
+    "./motion/scenes": {
+      "types": "./dist/motion/scenes/index.d.ts",
+      "default": "./dist/motion/scenes/index.js"
+    },
+    "./motion/scenes/support": {
+      "types": "./dist/motion/scenes/support.d.ts",
+      "default": "./dist/motion/scenes/support.js"
+    },
+    "./motion/scenes/helix": {
+      "types": "./dist/motion/scenes/helix.d.ts",
+      "default": "./dist/motion/scenes/helix.js"
+    },
+    "./motion/scenes/lattice": {
+      "types": "./dist/motion/scenes/lattice.d.ts",
+      "default": "./dist/motion/scenes/lattice.js"
+    },
+    "./motion/scenes/layers": {
+      "types": "./dist/motion/scenes/layers.d.ts",
+      "default": "./dist/motion/scenes/layers.js"
+    },
+    "./motion/scenes/network": {
+      "types": "./dist/motion/scenes/network.d.ts",
+      "default": "./dist/motion/scenes/network.js"
+    },
+    "./motion/scenes/stage": {
+      "types": "./dist/motion/scenes/stage.d.ts",
+      "default": "./dist/motion/scenes/stage.js"
+    },
+    "./motion/scenes/thread": {
+      "types": "./dist/motion/scenes/thread.d.ts",
+      "default": "./dist/motion/scenes/thread.js"
+    },
+    "./motion/scenes/tiles": {
+      "types": "./dist/motion/scenes/tiles.d.ts",
+      "default": "./dist/motion/scenes/tiles.js"
+    }
+  },
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json",
+    "build": "tsup"
+  },
+  "dependencies": {
+    "shiki": "4.4.3",
+    "unist-util-visit": "^5.1.0"
+  },
+  "peerDependencies": {
+    "three": "^0.184.0"
+  },
+  "peerDependenciesMeta": {
+    "three": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/hast": "^3.0.5",
+    "@types/mdast": "^4.0.4",
+    "@types/node": "^24.13.3",
+    "@types/three": "^0.184.1",
+    "@types/unist": "^3.0.3",
+    "rehype-stringify": "^10.0.1",
+    "remark-gfm": "^4.0.1",
+    "remark-parse": "^11.0.0",
+    "remark-rehype": "^11.0.0",
+    "tsup": "8.5.1",
+    "unified": "^11.0.5",
+    "vitest": "^5.0.3"
+  }
+}

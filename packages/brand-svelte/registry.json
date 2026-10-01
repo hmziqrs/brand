@@ -1,0 +1,4576 @@
+{
+	"$schema": "https://shadcn-svelte.com/schema/registry.json",
+	"name": "hmziq-brand",
+	"homepage": "https://hmziqrs.github.io/brand/",
+	"aliases": {
+		"lib": "$brand",
+		"ui": "$brand/ui",
+		"components": "$brand/components",
+		"utils": "$brand/utils",
+		"hooks": "$brand/hooks"
+	},
+	"items": [
+		{
+			"name": "account-app-blocks",
+			"type": "registry:lib",
+			"title": "account-app-blocks",
+			"description": "Files from \"account-app-blocks\" the pieces roster does not list yet; they become their own items when their plan finishes and this script is re-run.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:user-menu",
+				"local:workspace-switcher"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/account/index.ts",
+					"type": "registry:file",
+					"target": "blocks/app/account/index.ts"
+				}
+			]
+		},
+		{
+			"name": "account-app-blocks-shared",
+			"type": "registry:lib",
+			"title": "account-app-blocks-shared",
+			"description": "Files from \"account-app-blocks-shared\" the pieces roster does not list yet; they become their own items when their plan finishes and this script is re-run.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:shell-app-blocks-shared"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/account/types.ts",
+					"type": "registry:file",
+					"target": "blocks/app/account/types.ts"
+				}
+			]
+		},
+		{
+			"name": "actions-app-blocks",
+			"type": "registry:lib",
+			"title": "actions-app-blocks",
+			"description": "Files from \"actions-app-blocks\" the pieces roster does not list yet; they become their own items when their plan finishes and this script is re-run.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:confirm-action",
+				"local:record-sheet"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/actions/index.ts",
+					"type": "registry:file",
+					"target": "blocks/app/actions/index.ts"
+				}
+			]
+		},
+		{
+			"name": "app-blocks-shared",
+			"type": "registry:lib",
+			"title": "app-blocks-shared",
+			"description": "Files from \"app-blocks-shared\" the pieces roster does not list yet; they become their own items when their plan finishes and this script is re-run.",
+			"dependencies": [],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/state.svelte.ts",
+					"type": "registry:file",
+					"target": "blocks/app/state.svelte.ts"
+				}
+			]
+		},
+		{
+			"name": "app-page",
+			"type": "registry:lib",
+			"title": "app-page",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/shell/app-page.svelte",
+					"type": "registry:file",
+					"target": "blocks/app/shell/app-page.svelte"
+				}
+			]
+		},
+		{
+			"name": "app-page-header",
+			"type": "registry:lib",
+			"title": "app-page-header",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0",
+				"@lucide/svelte@^1.49.0"
+			],
+			"registryDependencies": [
+				"local:shell-app-blocks-shared",
+				"local:tag",
+				"local:ui-breadcrumb",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/shell/app-page-header.svelte",
+					"type": "registry:file",
+					"target": "blocks/app/shell/app-page-header.svelte"
+				}
+			]
+		},
+		{
+			"name": "app-shell",
+			"type": "registry:lib",
+			"title": "app-shell",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0",
+				"@lucide/svelte@^1.49.0"
+			],
+			"registryDependencies": [
+				"local:shell-app-blocks-shared",
+				"local:ui-breadcrumb",
+				"local:ui-button",
+				"local:ui-sheet",
+				"local:ui-sidebar",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/shell/app-shell.svelte",
+					"type": "registry:file",
+					"target": "blocks/app/shell/app-shell.svelte"
+				},
+				{
+					"path": "src/lib/blocks/app/shell/shell-nav.svelte",
+					"type": "registry:file",
+					"target": "blocks/app/shell/shell-nav.svelte"
+				},
+				{
+					"path": "src/lib/blocks/app/shell/shell-toggle.svelte",
+					"type": "registry:file",
+					"target": "blocks/app/shell/shell-toggle.svelte"
+				}
+			]
+		},
+		{
+			"name": "app-table-frame",
+			"type": "registry:lib",
+			"title": "app-table-frame",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/table/app-table-frame.svelte",
+					"type": "registry:file",
+					"target": "blocks/app/table/app-table-frame.svelte"
+				}
+			]
+		},
+		{
+			"name": "auth-app-blocks",
+			"type": "registry:lib",
+			"title": "auth-app-blocks",
+			"description": "Files from \"auth-app-blocks\" the pieces roster does not list yet; they become their own items when their plan finishes and this script is re-run.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:forgot-password-form",
+				"local:password-input",
+				"local:provider-buttons",
+				"local:reset-password-form",
+				"local:sign-in-form",
+				"local:sign-up-form",
+				"local:verify-email"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/auth/index.ts",
+					"type": "registry:file",
+					"target": "blocks/app/auth/index.ts"
+				}
+			]
+		},
+		{
+			"name": "auth-app-blocks-shared",
+			"type": "registry:lib",
+			"title": "auth-app-blocks-shared",
+			"description": "Files from \"auth-app-blocks-shared\" the pieces roster does not list yet; they become their own items when their plan finishes and this script is re-run.",
+			"dependencies": [],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/auth/types.ts",
+					"type": "registry:file",
+					"target": "blocks/app/auth/types.ts"
+				}
+			]
+		},
+		{
+			"name": "auth-layout",
+			"type": "registry:lib",
+			"title": "auth-layout",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/auth-layout/auth-layout.svelte",
+					"type": "registry:file",
+					"target": "blocks/app/auth-layout/auth-layout.svelte"
+				}
+			]
+		},
+		{
+			"name": "auth-layout-app-blocks",
+			"type": "registry:lib",
+			"title": "auth-layout-app-blocks",
+			"description": "Files from \"auth-layout-app-blocks\" the pieces roster does not list yet; they become their own items when their plan finishes and this script is re-run.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:auth-layout"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/auth-layout/index.ts",
+					"type": "registry:file",
+					"target": "blocks/app/auth-layout/index.ts"
+				}
+			]
+		},
+		{
+			"name": "band-arcs",
+			"type": "registry:lib",
+			"title": "band-arcs",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/components/band-arcs.svelte",
+					"type": "registry:file",
+					"target": "components/band-arcs.svelte"
+				}
+			]
+		},
+		{
+			"name": "before-after",
+			"type": "registry:lib",
+			"title": "before-after",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/svelte@^1.49.0"
+			],
+			"registryDependencies": [
+				"local:marker"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/site/before-after.svelte",
+					"type": "registry:file",
+					"target": "blocks/site/before-after.svelte"
+				}
+			]
+		},
+		{
+			"name": "big-numbers",
+			"type": "registry:lib",
+			"title": "big-numbers",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/site/big-numbers.svelte",
+					"type": "registry:file",
+					"target": "blocks/site/big-numbers.svelte"
+				}
+			]
+		},
+		{
+			"name": "blog-layout",
+			"type": "registry:lib",
+			"title": "blog-layout",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:site-shell"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/content/blog-layout.svelte",
+					"type": "registry:file",
+					"target": "blocks/content/blog-layout.svelte"
+				}
+			]
+		},
+		{
+			"name": "brand-icon",
+			"type": "registry:lib",
+			"title": "brand-icon",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/components/brand-icon.svelte",
+					"type": "registry:file",
+					"target": "components/brand-icon.svelte"
+				}
+			]
+		},
+		{
+			"name": "bulk-action-bar",
+			"type": "registry:lib",
+			"title": "bulk-action-bar",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/collection/bulk-action-bar.svelte",
+					"type": "registry:file",
+					"target": "blocks/app/collection/bulk-action-bar.svelte"
+				}
+			]
+		},
+		{
+			"name": "bullets",
+			"type": "registry:lib",
+			"title": "bullets",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:marker",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/site/bullets.svelte",
+					"type": "registry:file",
+					"target": "blocks/site/bullets.svelte"
+				}
+			]
+		},
+		{
+			"name": "button-link",
+			"type": "registry:lib",
+			"title": "button-link",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:ui-button"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/site/button-link.svelte",
+					"type": "registry:file",
+					"target": "blocks/site/button-link.svelte"
+				}
+			]
+		},
+		{
+			"name": "check-list",
+			"type": "registry:lib",
+			"title": "check-list",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:marker",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/site/check-list.svelte",
+					"type": "registry:file",
+					"target": "blocks/site/check-list.svelte"
+				}
+			]
+		},
+		{
+			"name": "code-block",
+			"type": "registry:lib",
+			"title": "code-block",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0",
+				"shiki@4.4.3"
+			],
+			"registryDependencies": [
+				"local:copy-button",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/components/code-block.svelte",
+					"type": "registry:file",
+					"target": "components/code-block.svelte"
+				},
+				{
+					"path": "src/lib/components/code-id.ts",
+					"type": "registry:file",
+					"target": "components/code-id.ts"
+				},
+				{
+					"path": "src/lib/components/code-tokenize.ts",
+					"type": "registry:file",
+					"target": "components/code-tokenize.ts"
+				},
+				{
+					"path": "src/lib/components/code-tokens.svelte",
+					"type": "registry:file",
+					"target": "components/code-tokens.svelte"
+				}
+			]
+		},
+		{
+			"name": "code-editor",
+			"type": "registry:lib",
+			"title": "code-editor",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:code-block",
+				"local:code-lines",
+				"local:copy-button",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/content/code-editor.svelte",
+					"type": "registry:file",
+					"target": "blocks/content/code-editor.svelte"
+				}
+			]
+		},
+		{
+			"name": "code-lines",
+			"type": "registry:lib",
+			"title": "code-lines",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:code-block",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/components/code-lines.svelte",
+					"type": "registry:file",
+					"target": "components/code-lines.svelte"
+				}
+			]
+		},
+		{
+			"name": "collection-app-blocks",
+			"type": "registry:lib",
+			"title": "collection-app-blocks",
+			"description": "Files from \"collection-app-blocks\" the pieces roster does not list yet; they become their own items when their plan finishes and this script is re-run.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:bulk-action-bar",
+				"local:collection-toolbar",
+				"local:filter-chip",
+				"local:sort-menu"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/collection/index.ts",
+					"type": "registry:file",
+					"target": "blocks/app/collection/index.ts"
+				}
+			]
+		},
+		{
+			"name": "collection-toolbar",
+			"type": "registry:lib",
+			"title": "collection-toolbar",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/svelte@^1.49.0"
+			],
+			"registryDependencies": [
+				"local:app-blocks-shared",
+				"local:ui-input",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/collection/collection-toolbar.svelte",
+					"type": "registry:file",
+					"target": "blocks/app/collection/collection-toolbar.svelte"
+				}
+			]
+		},
+		{
+			"name": "command",
+			"type": "registry:lib",
+			"title": "command",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/lib/components/command.svelte",
+					"type": "registry:file",
+					"target": "components/command.svelte"
+				},
+				{
+					"path": "src/lib/components/highlight-shell.svelte.ts",
+					"type": "registry:file",
+					"target": "components/highlight-shell.svelte.ts"
+				},
+				{
+					"path": "src/lib/components/shell-parts.svelte",
+					"type": "registry:file",
+					"target": "components/shell-parts.svelte"
+				}
+			]
+		},
+		{
+			"name": "command-bar",
+			"type": "registry:lib",
+			"title": "command-bar",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:command",
+				"local:copy-button",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/components/command-bar.svelte",
+					"type": "registry:file",
+					"target": "components/command-bar.svelte"
+				}
+			]
+		},
+		{
+			"name": "command-box",
+			"type": "registry:lib",
+			"title": "command-box",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:command",
+				"local:copy-button",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/components/command-box.svelte",
+					"type": "registry:file",
+					"target": "components/command-box.svelte"
+				}
+			]
+		},
+		{
+			"name": "confirm-action",
+			"type": "registry:lib",
+			"title": "confirm-action",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/svelte@^1.49.0",
+				"svelte-sonner@^1.2.1"
+			],
+			"registryDependencies": [
+				"local:auth-app-blocks-shared",
+				"local:notice",
+				"local:ui-alert-dialog",
+				"local:ui-button",
+				"local:ui-input"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/actions/confirm-action.svelte",
+					"type": "registry:file",
+					"target": "blocks/app/actions/confirm-action.svelte"
+				}
+			]
+		},
+		{
+			"name": "contact-channels",
+			"type": "registry:lib",
+			"title": "contact-channels",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/svelte@^1.49.0"
+			],
+			"registryDependencies": [
+				"local:brand-icon",
+				"local:content-blocks-shared",
+				"local:marker"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/content/contact-channels.svelte",
+					"type": "registry:file",
+					"target": "blocks/content/contact-channels.svelte"
+				}
+			]
+		},
+		{
+			"name": "container",
+			"type": "registry:lib",
+			"title": "container",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/site/container.svelte",
+					"type": "registry:file",
+					"target": "blocks/site/container.svelte"
+				}
+			]
+		},
+		{
+			"name": "content-blocks-shared",
+			"type": "registry:lib",
+			"title": "content-blocks-shared",
+			"description": "Files from \"content-blocks-shared\" the pieces roster does not list yet; they become their own items when their plan finishes and this script is re-run.",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/lib/blocks/content/share-icons.ts",
+					"type": "registry:file",
+					"target": "blocks/content/share-icons.ts"
+				},
+				{
+					"path": "src/lib/blocks/content/types.ts",
+					"type": "registry:file",
+					"target": "blocks/content/types.ts"
+				}
+			]
+		},
+		{
+			"name": "copy-button",
+			"type": "registry:lib",
+			"title": "copy-button",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/svelte@^1.49.0"
+			],
+			"registryDependencies": [
+				"local:ui-button",
+				"local:ui-tooltip",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/components/copy-button.svelte",
+					"type": "registry:file",
+					"target": "components/copy-button.svelte"
+				}
+			]
+		},
+		{
+			"name": "corner-rings",
+			"type": "registry:lib",
+			"title": "corner-rings",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"local:rings",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/components/corner-rings.svelte",
+					"type": "registry:file",
+					"target": "components/corner-rings.svelte"
+				}
+			]
+		},
+		{
+			"name": "cta-band",
+			"type": "registry:lib",
+			"title": "cta-band",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:band-arcs",
+				"local:container",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/site/cta-band.svelte",
+					"type": "registry:file",
+					"target": "blocks/site/cta-band.svelte"
+				}
+			]
+		},
+		{
+			"name": "data-state",
+			"type": "registry:lib",
+			"title": "data-state",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:app-blocks-shared",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/states/data-state.svelte",
+					"type": "registry:file",
+					"target": "blocks/app/states/data-state.svelte"
+				}
+			]
+		},
+		{
+			"name": "data-table",
+			"type": "registry:lib",
+			"title": "data-table",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:ui-table",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/components/data-table.svelte",
+					"type": "registry:file",
+					"target": "components/data-table.svelte"
+				}
+			]
+		},
+		{
+			"name": "detail-list",
+			"type": "registry:lib",
+			"title": "detail-list",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:copy-button",
+				"local:details-app-blocks-shared",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/details/detail-list.svelte",
+					"type": "registry:file",
+					"target": "blocks/app/details/detail-list.svelte"
+				}
+			]
+		},
+		{
+			"name": "detail-section",
+			"type": "registry:lib",
+			"title": "detail-section",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/details/detail-section.svelte",
+					"type": "registry:file",
+					"target": "blocks/app/details/detail-section.svelte"
+				}
+			]
+		},
+		{
+			"name": "details-app-blocks",
+			"type": "registry:lib",
+			"title": "details-app-blocks",
+			"description": "Files from \"details-app-blocks\" the pieces roster does not list yet; they become their own items when their plan finishes and this script is re-run.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:detail-list",
+				"local:detail-section"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/details/index.ts",
+					"type": "registry:file",
+					"target": "blocks/app/details/index.ts"
+				}
+			]
+		},
+		{
+			"name": "details-app-blocks-shared",
+			"type": "registry:lib",
+			"title": "details-app-blocks-shared",
+			"description": "Files from \"details-app-blocks-shared\" the pieces roster does not list yet; they become their own items when their plan finishes and this script is re-run.",
+			"dependencies": [],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/details/types.ts",
+					"type": "registry:file",
+					"target": "blocks/app/details/types.ts"
+				}
+			]
+		},
+		{
+			"name": "docs-layout",
+			"type": "registry:lib",
+			"title": "docs-layout",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0",
+				"@lucide/svelte@^1.49.0"
+			],
+			"registryDependencies": [
+				"local:container",
+				"local:content-blocks-shared",
+				"local:docs-search",
+				"local:site-shell",
+				"local:toc",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/content/docs-layout.svelte",
+					"type": "registry:file",
+					"target": "blocks/content/docs-layout.svelte"
+				}
+			]
+		},
+		{
+			"name": "docs-pager",
+			"type": "registry:lib",
+			"title": "docs-pager",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/svelte@^1.49.0"
+			],
+			"registryDependencies": [
+				"local:outline-card",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/content/docs-pager.svelte",
+					"type": "registry:file",
+					"target": "blocks/content/docs-pager.svelte"
+				}
+			]
+		},
+		{
+			"name": "docs-search",
+			"type": "registry:lib",
+			"title": "docs-search",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/svelte@^1.49.0"
+			],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/content/docs-search.svelte",
+					"type": "registry:file",
+					"target": "blocks/content/docs-search.svelte"
+				}
+			]
+		},
+		{
+			"name": "docs-title",
+			"type": "registry:lib",
+			"title": "docs-title",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/svelte@^1.49.0"
+			],
+			"registryDependencies": [
+				"local:rings",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/content/docs-title.svelte",
+					"type": "registry:file",
+					"target": "blocks/content/docs-title.svelte"
+				}
+			]
+		},
+		{
+			"name": "element-card",
+			"type": "registry:lib",
+			"title": "element-card",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"local:corner-rings",
+				"local:marker",
+				"local:tag",
+				"local:ui-card",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/site/element-card.svelte",
+					"type": "registry:file",
+					"target": "blocks/site/element-card.svelte"
+				}
+			]
+		},
+		{
+			"name": "empty-note",
+			"type": "registry:lib",
+			"title": "empty-note",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:marker"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/site/empty-note.svelte",
+					"type": "registry:file",
+					"target": "blocks/site/empty-note.svelte"
+				}
+			]
+		},
+		{
+			"name": "empty-state",
+			"type": "registry:lib",
+			"title": "empty-state",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/svelte@^1.49.0"
+			],
+			"registryDependencies": [
+				"local:icon-tile",
+				"local:rings",
+				"local:shell-app-blocks-shared",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/states/empty-state.svelte",
+					"type": "registry:file",
+					"target": "blocks/app/states/empty-state.svelte"
+				}
+			]
+		},
+		{
+			"name": "error-state",
+			"type": "registry:lib",
+			"title": "error-state",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/svelte@^1.49.0"
+			],
+			"registryDependencies": [
+				"local:copy-button",
+				"local:icon-tile",
+				"local:ui-button",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/states/error-state.svelte",
+					"type": "registry:file",
+					"target": "blocks/app/states/error-state.svelte"
+				}
+			]
+		},
+		{
+			"name": "faq-list",
+			"type": "registry:lib",
+			"title": "faq-list",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:content-blocks-shared",
+				"local:empty-note",
+				"local:question",
+				"local:questions"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/content/faq-list.svelte",
+					"type": "registry:file",
+					"target": "blocks/content/faq-list.svelte"
+				}
+			]
+		},
+		{
+			"name": "feature-cards",
+			"type": "registry:lib",
+			"title": "feature-cards",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:icon-tile",
+				"local:ui-card",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/site/feature-cards.svelte",
+					"type": "registry:file",
+					"target": "blocks/site/feature-cards.svelte"
+				}
+			]
+		},
+		{
+			"name": "feature-grid",
+			"type": "registry:lib",
+			"title": "feature-grid",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:icon-tile",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/site/feature-grid.svelte",
+					"type": "registry:file",
+					"target": "blocks/site/feature-grid.svelte"
+				}
+			]
+		},
+		{
+			"name": "filter-chip",
+			"type": "registry:lib",
+			"title": "filter-chip",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/svelte@^1.49.0"
+			],
+			"registryDependencies": [
+				"local:ui-checkbox",
+				"local:ui-command",
+				"local:ui-popover",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/collection/filter-chip.svelte",
+					"type": "registry:file",
+					"target": "blocks/app/collection/filter-chip.svelte"
+				}
+			]
+		},
+		{
+			"name": "forgot-password-form",
+			"type": "registry:lib",
+			"title": "forgot-password-form",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/svelte@^1.49.0"
+			],
+			"registryDependencies": [
+				"local:auth-app-blocks-shared",
+				"local:notice",
+				"local:sign-in-form",
+				"local:ui-button",
+				"local:ui-input",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/auth/forgot-password-form.svelte",
+					"type": "registry:file",
+					"target": "blocks/app/auth/forgot-password-form.svelte"
+				}
+			]
+		},
+		{
+			"name": "form-actions",
+			"type": "registry:lib",
+			"title": "form-actions",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/svelte@^1.49.0"
+			],
+			"registryDependencies": [
+				"local:marker",
+				"local:notice",
+				"local:ui-button",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/settings/form-actions.svelte",
+					"type": "registry:file",
+					"target": "blocks/app/settings/form-actions.svelte"
+				}
+			]
+		},
+		{
+			"name": "hero",
+			"type": "registry:lib",
+			"title": "hero",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:container",
+				"local:hero-actions",
+				"local:hero-lede",
+				"local:hero-notes",
+				"local:hero-title",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/site/hero.svelte",
+					"type": "registry:file",
+					"target": "blocks/site/hero.svelte"
+				}
+			]
+		},
+		{
+			"name": "hero-actions",
+			"type": "registry:lib",
+			"title": "hero-actions",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/site/hero-actions.svelte",
+					"type": "registry:file",
+					"target": "blocks/site/hero-actions.svelte"
+				}
+			]
+		},
+		{
+			"name": "hero-lede",
+			"type": "registry:lib",
+			"title": "hero-lede",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/site/hero-lede.svelte",
+					"type": "registry:file",
+					"target": "blocks/site/hero-lede.svelte"
+				}
+			]
+		},
+		{
+			"name": "hero-note",
+			"type": "registry:lib",
+			"title": "hero-note",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:marker"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/site/hero-note.svelte",
+					"type": "registry:file",
+					"target": "blocks/site/hero-note.svelte"
+				}
+			]
+		},
+		{
+			"name": "hero-notes",
+			"type": "registry:lib",
+			"title": "hero-notes",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/site/hero-notes.svelte",
+					"type": "registry:file",
+					"target": "blocks/site/hero-notes.svelte"
+				}
+			]
+		},
+		{
+			"name": "hero-title",
+			"type": "registry:lib",
+			"title": "hero-title",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/site/hero-title.svelte",
+					"type": "registry:file",
+					"target": "blocks/site/hero-title.svelte"
+				}
+			]
+		},
+		{
+			"name": "icon-tile",
+			"type": "registry:lib",
+			"title": "icon-tile",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/components/icon-tile.svelte",
+					"type": "registry:file",
+					"target": "components/icon-tile.svelte"
+				}
+			]
+		},
+		{
+			"name": "install-steps",
+			"type": "registry:lib",
+			"title": "install-steps",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:command-box",
+				"local:content-blocks-shared",
+				"local:segmented",
+				"local:step",
+				"local:stepper"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/content/install-steps.svelte",
+					"type": "registry:file",
+					"target": "blocks/content/install-steps.svelte"
+				}
+			]
+		},
+		{
+			"name": "kicker",
+			"type": "registry:lib",
+			"title": "kicker",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/site/kicker.svelte",
+					"type": "registry:file",
+					"target": "blocks/site/kicker.svelte"
+				}
+			]
+		},
+		{
+			"name": "kind-tag",
+			"type": "registry:lib",
+			"title": "kind-tag",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"local:content-blocks-shared",
+				"local:tag"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/content/kind-tag.svelte",
+					"type": "registry:file",
+					"target": "blocks/content/kind-tag.svelte"
+				}
+			]
+		},
+		{
+			"name": "kit",
+			"type": "registry:lib",
+			"title": "kit",
+			"description": "The kit barrel and stylesheet. Depends on every other item, so installing it installs the whole kit.",
+			"dependencies": [
+				"shadcn-svelte@^1.7.0"
+			],
+			"registryDependencies": [
+				"local:account-app-blocks",
+				"local:account-app-blocks-shared",
+				"local:actions-app-blocks",
+				"local:app-blocks-shared",
+				"local:app-page",
+				"local:app-page-header",
+				"local:app-shell",
+				"local:app-table-frame",
+				"local:auth-app-blocks",
+				"local:auth-app-blocks-shared",
+				"local:auth-layout",
+				"local:auth-layout-app-blocks",
+				"local:band-arcs",
+				"local:before-after",
+				"local:big-numbers",
+				"local:blog-layout",
+				"local:brand-icon",
+				"local:bulk-action-bar",
+				"local:bullets",
+				"local:button-link",
+				"local:check-list",
+				"local:code-block",
+				"local:code-editor",
+				"local:code-lines",
+				"local:collection-app-blocks",
+				"local:collection-toolbar",
+				"local:command",
+				"local:command-bar",
+				"local:command-box",
+				"local:confirm-action",
+				"local:contact-channels",
+				"local:container",
+				"local:content-blocks-shared",
+				"local:copy-button",
+				"local:corner-rings",
+				"local:cta-band",
+				"local:data-state",
+				"local:data-table",
+				"local:detail-list",
+				"local:detail-section",
+				"local:details-app-blocks",
+				"local:details-app-blocks-shared",
+				"local:docs-layout",
+				"local:docs-pager",
+				"local:docs-search",
+				"local:docs-title",
+				"local:element-card",
+				"local:empty-note",
+				"local:empty-state",
+				"local:error-state",
+				"local:faq-list",
+				"local:feature-cards",
+				"local:feature-grid",
+				"local:filter-chip",
+				"local:forgot-password-form",
+				"local:form-actions",
+				"local:hero",
+				"local:hero-actions",
+				"local:hero-lede",
+				"local:hero-note",
+				"local:hero-notes",
+				"local:hero-title",
+				"local:icon-tile",
+				"local:install-steps",
+				"local:kicker",
+				"local:kind-tag",
+				"local:legal-block",
+				"local:legal-layout",
+				"local:legal-section",
+				"local:link-bar",
+				"local:mark",
+				"local:marker",
+				"local:metric-trend",
+				"local:metrics-app-blocks",
+				"local:metrics-app-blocks-shared",
+				"local:newsletter-band",
+				"local:no-results",
+				"local:not-found",
+				"local:notice",
+				"local:outline-card",
+				"local:page-intro",
+				"local:password-input",
+				"local:past-releases",
+				"local:post-card",
+				"local:post-contents",
+				"local:post-header",
+				"local:post-list",
+				"local:post-meta",
+				"local:price",
+				"local:pricing-plans",
+				"local:prose",
+				"local:provider-buttons",
+				"local:pull-quote",
+				"local:question",
+				"local:questions",
+				"local:record-sheet",
+				"local:release-head",
+				"local:release-notes",
+				"local:release-timeline",
+				"local:reset-password-form",
+				"local:ring-gauge",
+				"local:ring-stats",
+				"local:rings",
+				"local:row-actions",
+				"local:row-checkbox",
+				"local:scene",
+				"local:search-box",
+				"local:section",
+				"local:segmented",
+				"local:select-all-checkbox",
+				"local:setting-row",
+				"local:settings-app-blocks",
+				"local:settings-section",
+				"local:share-bar",
+				"local:shell-app-blocks",
+				"local:shell-app-blocks-shared",
+				"local:sign-in-form",
+				"local:sign-up-form",
+				"local:site-blocks-shared",
+				"local:site-head",
+				"local:site-shell",
+				"local:skeleton-details",
+				"local:skeleton-settings",
+				"local:skeleton-stats",
+				"local:skeleton-table",
+				"local:skeleton-text",
+				"local:sort-menu",
+				"local:sortable-head",
+				"local:stat-card",
+				"local:stat-grid",
+				"local:states-app-blocks",
+				"local:step",
+				"local:step-number",
+				"local:stepper",
+				"local:steps",
+				"local:summary-box",
+				"local:table-app-blocks",
+				"local:table-pagination",
+				"local:table-skeleton-rows",
+				"local:table-state-row",
+				"local:tag",
+				"local:terminal-body",
+				"local:terminal-line",
+				"local:terminal-window",
+				"local:toc",
+				"local:topic-chips",
+				"local:typing-terminal",
+				"local:ui-alert",
+				"local:ui-alert-dialog",
+				"local:ui-avatar",
+				"local:ui-breadcrumb",
+				"local:ui-button",
+				"local:ui-card",
+				"local:ui-checkbox",
+				"local:ui-combobox",
+				"local:ui-command",
+				"local:ui-dialog",
+				"local:ui-dropdown-menu",
+				"local:ui-input",
+				"local:ui-input-group",
+				"local:ui-input-otp",
+				"local:ui-popover",
+				"local:ui-radio-group",
+				"local:ui-select",
+				"local:ui-separator",
+				"local:ui-sheet",
+				"local:ui-sidebar",
+				"local:ui-skeleton",
+				"local:ui-sonner",
+				"local:ui-switch",
+				"local:ui-table",
+				"local:ui-textarea",
+				"local:ui-tooltip",
+				"local:usage-meter",
+				"local:user-menu",
+				"local:utils",
+				"local:verify-email",
+				"local:wordmark",
+				"local:workspace-switcher"
+			],
+			"files": [
+				{
+					"path": "src/lib/components/inline-code.svelte",
+					"type": "registry:file",
+					"target": "components/inline-code.svelte"
+				},
+				{
+					"path": "src/lib/index.ts",
+					"type": "registry:file",
+					"target": "index.ts"
+				},
+				{
+					"path": "src/lib/styles/kit.css",
+					"type": "registry:file",
+					"target": "styles/kit.css"
+				}
+			]
+		},
+		{
+			"name": "legal-block",
+			"type": "registry:lib",
+			"title": "legal-block",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:bullets",
+				"local:content-blocks-shared"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/content/legal-block.svelte",
+					"type": "registry:file",
+					"target": "blocks/content/legal-block.svelte"
+				}
+			]
+		},
+		{
+			"name": "legal-layout",
+			"type": "registry:lib",
+			"title": "legal-layout",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"local:container",
+				"local:content-blocks-shared",
+				"local:kicker",
+				"local:prose",
+				"local:summary-box",
+				"local:toc"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/content/legal-layout.svelte",
+					"type": "registry:file",
+					"target": "blocks/content/legal-layout.svelte"
+				}
+			]
+		},
+		{
+			"name": "legal-section",
+			"type": "registry:lib",
+			"title": "legal-section",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/content/legal-section.svelte",
+					"type": "registry:file",
+					"target": "blocks/content/legal-section.svelte"
+				}
+			]
+		},
+		{
+			"name": "link-bar",
+			"type": "registry:lib",
+			"title": "link-bar",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:copy-button",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/site/link-bar.svelte",
+					"type": "registry:file",
+					"target": "blocks/site/link-bar.svelte"
+				}
+			]
+		},
+		{
+			"name": "mark",
+			"type": "registry:lib",
+			"title": "mark",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"local:utils",
+				"local:wordmark"
+			],
+			"files": [
+				{
+					"path": "src/lib/components/mark.svelte",
+					"type": "registry:file",
+					"target": "components/mark.svelte"
+				}
+			]
+		},
+		{
+			"name": "marker",
+			"type": "registry:lib",
+			"title": "marker",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/components/marker.svelte",
+					"type": "registry:file",
+					"target": "components/marker.svelte"
+				}
+			]
+		},
+		{
+			"name": "metric-trend",
+			"type": "registry:lib",
+			"title": "metric-trend",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/svelte@^1.49.0"
+			],
+			"registryDependencies": [
+				"local:metrics-app-blocks-shared",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/metrics/metric-trend.svelte",
+					"type": "registry:file",
+					"target": "blocks/app/metrics/metric-trend.svelte"
+				}
+			]
+		},
+		{
+			"name": "metrics-app-blocks",
+			"type": "registry:lib",
+			"title": "metrics-app-blocks",
+			"description": "Files from \"metrics-app-blocks\" the pieces roster does not list yet; they become their own items when their plan finishes and this script is re-run.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:metric-trend",
+				"local:metrics-app-blocks-shared",
+				"local:stat-card",
+				"local:stat-grid",
+				"local:usage-meter"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/metrics/index.ts",
+					"type": "registry:file",
+					"target": "blocks/app/metrics/index.ts"
+				}
+			]
+		},
+		{
+			"name": "metrics-app-blocks-shared",
+			"type": "registry:lib",
+			"title": "metrics-app-blocks-shared",
+			"description": "Files from \"metrics-app-blocks-shared\" the pieces roster does not list yet; they become their own items when their plan finishes and this script is re-run.",
+			"dependencies": [],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/metrics/types.ts",
+					"type": "registry:file",
+					"target": "blocks/app/metrics/types.ts"
+				}
+			]
+		},
+		{
+			"name": "newsletter-band",
+			"type": "registry:lib",
+			"title": "newsletter-band",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:cta-band",
+				"local:ui-button",
+				"local:ui-input"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/content/newsletter-band.svelte",
+					"type": "registry:file",
+					"target": "blocks/content/newsletter-band.svelte"
+				}
+			]
+		},
+		{
+			"name": "no-results",
+			"type": "registry:lib",
+			"title": "no-results",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/svelte@^1.49.0"
+			],
+			"registryDependencies": [
+				"local:empty-state",
+				"local:ui-button"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/states/no-results.svelte",
+					"type": "registry:file",
+					"target": "blocks/app/states/no-results.svelte"
+				}
+			]
+		},
+		{
+			"name": "not-found",
+			"type": "registry:lib",
+			"title": "not-found",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:container",
+				"local:page-intro",
+				"local:rings"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/content/not-found.svelte",
+					"type": "registry:file",
+					"target": "blocks/content/not-found.svelte"
+				}
+			]
+		},
+		{
+			"name": "notice",
+			"type": "registry:lib",
+			"title": "notice",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/svelte@^1.49.0"
+			],
+			"registryDependencies": [
+				"local:ui-alert",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/components/notice.svelte",
+					"type": "registry:file",
+					"target": "components/notice.svelte"
+				}
+			]
+		},
+		{
+			"name": "outline-card",
+			"type": "registry:lib",
+			"title": "outline-card",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/site/outline-card.svelte",
+					"type": "registry:file",
+					"target": "blocks/site/outline-card.svelte"
+				}
+			]
+		},
+		{
+			"name": "page-intro",
+			"type": "registry:lib",
+			"title": "page-intro",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/site/page-intro.svelte",
+					"type": "registry:file",
+					"target": "blocks/site/page-intro.svelte"
+				}
+			]
+		},
+		{
+			"name": "password-input",
+			"type": "registry:lib",
+			"title": "password-input",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/svelte@^1.49.0"
+			],
+			"registryDependencies": [
+				"local:ui-button",
+				"local:ui-input",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/auth/password-input.svelte",
+					"type": "registry:file",
+					"target": "blocks/app/auth/password-input.svelte"
+				}
+			]
+		},
+		{
+			"name": "past-releases",
+			"type": "registry:lib",
+			"title": "past-releases",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:content-blocks-shared",
+				"local:release-head",
+				"local:release-notes"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/content/past-releases.svelte",
+					"type": "registry:file",
+					"target": "blocks/content/past-releases.svelte"
+				}
+			]
+		},
+		{
+			"name": "post-card",
+			"type": "registry:lib",
+			"title": "post-card",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/svelte@^1.49.0"
+			],
+			"registryDependencies": [
+				"local:content-blocks-shared",
+				"local:corner-rings",
+				"local:outline-card",
+				"local:post-meta",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/content/post-card.svelte",
+					"type": "registry:file",
+					"target": "blocks/content/post-card.svelte"
+				}
+			]
+		},
+		{
+			"name": "post-contents",
+			"type": "registry:lib",
+			"title": "post-contents",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0",
+				"@lucide/svelte@^1.49.0"
+			],
+			"registryDependencies": [
+				"local:toc",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/content/post-contents.svelte",
+					"type": "registry:file",
+					"target": "blocks/content/post-contents.svelte"
+				}
+			]
+		},
+		{
+			"name": "post-header",
+			"type": "registry:lib",
+			"title": "post-header",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:container",
+				"local:content-blocks-shared",
+				"local:mark",
+				"local:post-meta",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/content/post-header.svelte",
+					"type": "registry:file",
+					"target": "blocks/content/post-header.svelte"
+				}
+			]
+		},
+		{
+			"name": "post-list",
+			"type": "registry:lib",
+			"title": "post-list",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:content-blocks-shared",
+				"local:empty-note",
+				"local:post-card",
+				"local:post-meta",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/content/post-list.svelte",
+					"type": "registry:file",
+					"target": "blocks/content/post-list.svelte"
+				}
+			]
+		},
+		{
+			"name": "post-meta",
+			"type": "registry:lib",
+			"title": "post-meta",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:content-blocks-shared",
+				"local:tag",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/content/post-meta.svelte",
+					"type": "registry:file",
+					"target": "blocks/content/post-meta.svelte"
+				}
+			]
+		},
+		{
+			"name": "price",
+			"type": "registry:lib",
+			"title": "price",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/lib/blocks/site/price.svelte",
+					"type": "registry:file",
+					"target": "blocks/site/price.svelte"
+				}
+			]
+		},
+		{
+			"name": "pricing-plans",
+			"type": "registry:lib",
+			"title": "pricing-plans",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:button-link",
+				"local:check-list",
+				"local:corner-rings",
+				"local:outline-card",
+				"local:price",
+				"local:segmented",
+				"local:site-blocks-shared",
+				"local:tag",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/site/pricing-plans.svelte",
+					"type": "registry:file",
+					"target": "blocks/site/pricing-plans.svelte"
+				}
+			]
+		},
+		{
+			"name": "prose",
+			"type": "registry:lib",
+			"title": "prose",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/site/prose.svelte",
+					"type": "registry:file",
+					"target": "blocks/site/prose.svelte"
+				}
+			]
+		},
+		{
+			"name": "provider-buttons",
+			"type": "registry:lib",
+			"title": "provider-buttons",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/svelte@^1.49.0"
+			],
+			"registryDependencies": [
+				"local:auth-app-blocks-shared",
+				"local:ui-button",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/auth/provider-buttons.svelte",
+					"type": "registry:file",
+					"target": "blocks/app/auth/provider-buttons.svelte"
+				}
+			]
+		},
+		{
+			"name": "pull-quote",
+			"type": "registry:lib",
+			"title": "pull-quote",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:marker",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/content/pull-quote.svelte",
+					"type": "registry:file",
+					"target": "blocks/content/pull-quote.svelte"
+				}
+			]
+		},
+		{
+			"name": "question",
+			"type": "registry:lib",
+			"title": "question",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/svelte@^1.49.0"
+			],
+			"registryDependencies": [
+				"local:marker",
+				"local:tag",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/components/question.svelte",
+					"type": "registry:file",
+					"target": "components/question.svelte"
+				}
+			]
+		},
+		{
+			"name": "questions",
+			"type": "registry:lib",
+			"title": "questions",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/components/questions.svelte",
+					"type": "registry:file",
+					"target": "components/questions.svelte"
+				}
+			]
+		},
+		{
+			"name": "record-sheet",
+			"type": "registry:lib",
+			"title": "record-sheet",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/svelte@^1.49.0"
+			],
+			"registryDependencies": [
+				"local:form-actions",
+				"local:ui-alert-dialog",
+				"local:ui-button",
+				"local:ui-sheet",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/actions/record-sheet.svelte",
+					"type": "registry:file",
+					"target": "blocks/app/actions/record-sheet.svelte"
+				}
+			]
+		},
+		{
+			"name": "release-head",
+			"type": "registry:lib",
+			"title": "release-head",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:content-blocks-shared",
+				"local:kicker",
+				"local:kind-tag",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/content/release-head.svelte",
+					"type": "registry:file",
+					"target": "blocks/content/release-head.svelte"
+				}
+			]
+		},
+		{
+			"name": "release-notes",
+			"type": "registry:lib",
+			"title": "release-notes",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/svelte@^1.49.0"
+			],
+			"registryDependencies": [
+				"local:code-block",
+				"local:content-blocks-shared",
+				"local:kind-tag",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/content/release-notes.svelte",
+					"type": "registry:file",
+					"target": "blocks/content/release-notes.svelte"
+				}
+			]
+		},
+		{
+			"name": "release-timeline",
+			"type": "registry:lib",
+			"title": "release-timeline",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:content-blocks-shared",
+				"local:past-releases",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/content/release-timeline.svelte",
+					"type": "registry:file",
+					"target": "blocks/content/release-timeline.svelte"
+				}
+			]
+		},
+		{
+			"name": "reset-password-form",
+			"type": "registry:lib",
+			"title": "reset-password-form",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/svelte@^1.49.0"
+			],
+			"registryDependencies": [
+				"local:auth-app-blocks-shared",
+				"local:notice",
+				"local:password-input",
+				"local:sign-in-form",
+				"local:ui-button",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/auth/reset-password-form.svelte",
+					"type": "registry:file",
+					"target": "blocks/app/auth/reset-password-form.svelte"
+				}
+			]
+		},
+		{
+			"name": "ring-gauge",
+			"type": "registry:lib",
+			"title": "ring-gauge",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/components/ring-gauge.svelte",
+					"type": "registry:file",
+					"target": "components/ring-gauge.svelte"
+				}
+			]
+		},
+		{
+			"name": "ring-stats",
+			"type": "registry:lib",
+			"title": "ring-stats",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:container",
+				"local:ring-gauge"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/site/ring-stats.svelte",
+					"type": "registry:file",
+					"target": "blocks/site/ring-stats.svelte"
+				}
+			]
+		},
+		{
+			"name": "rings",
+			"type": "registry:lib",
+			"title": "rings",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/components/ring-circles.svelte",
+					"type": "registry:file",
+					"target": "components/ring-circles.svelte"
+				},
+				{
+					"path": "src/lib/components/rings.svelte",
+					"type": "registry:file",
+					"target": "components/rings.svelte"
+				}
+			]
+		},
+		{
+			"name": "row-actions",
+			"type": "registry:lib",
+			"title": "row-actions",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/svelte@^1.49.0"
+			],
+			"registryDependencies": [
+				"local:shell-app-blocks-shared",
+				"local:ui-button",
+				"local:ui-dropdown-menu",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/table/row-actions.svelte",
+					"type": "registry:file",
+					"target": "blocks/app/table/row-actions.svelte"
+				}
+			]
+		},
+		{
+			"name": "row-checkbox",
+			"type": "registry:lib",
+			"title": "row-checkbox",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:ui-checkbox",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/table/row-checkbox.svelte",
+					"type": "registry:file",
+					"target": "blocks/app/table/row-checkbox.svelte"
+				}
+			]
+		},
+		{
+			"name": "scene",
+			"type": "registry:lib",
+			"title": "scene",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0",
+				"@lucide/svelte@^1.49.0",
+				"three@^0.184.0"
+			],
+			"registryDependencies": [
+				"local:ui-button",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/components/scene.svelte",
+					"type": "registry:file",
+					"target": "components/scene.svelte"
+				}
+			]
+		},
+		{
+			"name": "search-box",
+			"type": "registry:lib",
+			"title": "search-box",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/svelte@^1.49.0"
+			],
+			"registryDependencies": [
+				"local:ui-input-group",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/site/search-box.svelte",
+					"type": "registry:file",
+					"target": "blocks/site/search-box.svelte"
+				}
+			]
+		},
+		{
+			"name": "section",
+			"type": "registry:lib",
+			"title": "section",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:container",
+				"local:marker",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/site/section.svelte",
+					"type": "registry:file",
+					"target": "blocks/site/section.svelte"
+				}
+			]
+		},
+		{
+			"name": "segmented",
+			"type": "registry:lib",
+			"title": "segmented",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/components/segmented.svelte",
+					"type": "registry:file",
+					"target": "components/segmented.svelte"
+				}
+			]
+		},
+		{
+			"name": "select-all-checkbox",
+			"type": "registry:lib",
+			"title": "select-all-checkbox",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:ui-checkbox",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/table/select-all-checkbox.svelte",
+					"type": "registry:file",
+					"target": "blocks/app/table/select-all-checkbox.svelte"
+				}
+			]
+		},
+		{
+			"name": "setting-row",
+			"type": "registry:lib",
+			"title": "setting-row",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/svelte@^1.49.0"
+			],
+			"registryDependencies": [
+				"local:marker",
+				"local:ui-button",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/settings/setting-row.svelte",
+					"type": "registry:file",
+					"target": "blocks/app/settings/setting-row.svelte"
+				}
+			]
+		},
+		{
+			"name": "settings-app-blocks",
+			"type": "registry:lib",
+			"title": "settings-app-blocks",
+			"description": "Files from \"settings-app-blocks\" the pieces roster does not list yet; they become their own items when their plan finishes and this script is re-run.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:form-actions",
+				"local:setting-row",
+				"local:settings-section"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/settings/index.ts",
+					"type": "registry:file",
+					"target": "blocks/app/settings/index.ts"
+				}
+			]
+		},
+		{
+			"name": "settings-section",
+			"type": "registry:lib",
+			"title": "settings-section",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/settings/settings-section.svelte",
+					"type": "registry:file",
+					"target": "blocks/app/settings/settings-section.svelte"
+				}
+			]
+		},
+		{
+			"name": "share-bar",
+			"type": "registry:lib",
+			"title": "share-bar",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:brand-icon",
+				"local:content-blocks-shared",
+				"local:copy-button",
+				"local:link-bar",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/content/share-bar.svelte",
+					"type": "registry:file",
+					"target": "blocks/content/share-bar.svelte"
+				}
+			]
+		},
+		{
+			"name": "shell-app-blocks",
+			"type": "registry:lib",
+			"title": "shell-app-blocks",
+			"description": "Files from \"shell-app-blocks\" the pieces roster does not list yet; they become their own items when their plan finishes and this script is re-run.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:app-page",
+				"local:app-page-header",
+				"local:app-shell"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/shell/index.ts",
+					"type": "registry:file",
+					"target": "blocks/app/shell/index.ts"
+				}
+			]
+		},
+		{
+			"name": "shell-app-blocks-shared",
+			"type": "registry:lib",
+			"title": "shell-app-blocks-shared",
+			"description": "Files from \"shell-app-blocks-shared\" the pieces roster does not list yet; they become their own items when their plan finishes and this script is re-run.",
+			"dependencies": [],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/shell/types.ts",
+					"type": "registry:file",
+					"target": "blocks/app/shell/types.ts"
+				}
+			]
+		},
+		{
+			"name": "sign-in-form",
+			"type": "registry:lib",
+			"title": "sign-in-form",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/svelte@^1.49.0"
+			],
+			"registryDependencies": [
+				"local:auth-app-blocks-shared",
+				"local:notice",
+				"local:password-input",
+				"local:provider-buttons",
+				"local:ui-button",
+				"local:ui-input",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/auth/auth-field.svelte",
+					"type": "registry:file",
+					"target": "blocks/app/auth/auth-field.svelte"
+				},
+				{
+					"path": "src/lib/blocks/app/auth/sign-in-form.svelte",
+					"type": "registry:file",
+					"target": "blocks/app/auth/sign-in-form.svelte"
+				}
+			]
+		},
+		{
+			"name": "sign-up-form",
+			"type": "registry:lib",
+			"title": "sign-up-form",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/svelte@^1.49.0"
+			],
+			"registryDependencies": [
+				"local:auth-app-blocks-shared",
+				"local:marker",
+				"local:notice",
+				"local:password-input",
+				"local:provider-buttons",
+				"local:sign-in-form",
+				"local:ui-button",
+				"local:ui-input",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/auth/sign-up-form.svelte",
+					"type": "registry:file",
+					"target": "blocks/app/auth/sign-up-form.svelte"
+				}
+			]
+		},
+		{
+			"name": "site-blocks-shared",
+			"type": "registry:lib",
+			"title": "site-blocks-shared",
+			"description": "Files from \"site-blocks-shared\" the pieces roster does not list yet; they become their own items when their plan finishes and this script is re-run.",
+			"dependencies": [],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/lib/blocks/site/plan.ts",
+					"type": "registry:file",
+					"target": "blocks/site/plan.ts"
+				}
+			]
+		},
+		{
+			"name": "site-head",
+			"type": "registry:lib",
+			"title": "site-head",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/lib/blocks/site/site-head.svelte",
+					"type": "registry:file",
+					"target": "blocks/site/site-head.svelte"
+				}
+			]
+		},
+		{
+			"name": "site-shell",
+			"type": "registry:lib",
+			"title": "site-shell",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"local:button-link",
+				"local:container",
+				"local:mark",
+				"local:utils",
+				"local:wordmark"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/site/site-shell.svelte",
+					"type": "registry:file",
+					"target": "blocks/site/site-shell.svelte"
+				}
+			]
+		},
+		{
+			"name": "skeleton-details",
+			"type": "registry:lib",
+			"title": "skeleton-details",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:ui-skeleton",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/states/skeleton-details.svelte",
+					"type": "registry:file",
+					"target": "blocks/app/states/skeleton-details.svelte"
+				}
+			]
+		},
+		{
+			"name": "skeleton-settings",
+			"type": "registry:lib",
+			"title": "skeleton-settings",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:ui-skeleton",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/states/skeleton-settings.svelte",
+					"type": "registry:file",
+					"target": "blocks/app/states/skeleton-settings.svelte"
+				}
+			]
+		},
+		{
+			"name": "skeleton-stats",
+			"type": "registry:lib",
+			"title": "skeleton-stats",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:ui-skeleton",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/states/skeleton-stats.svelte",
+					"type": "registry:file",
+					"target": "blocks/app/states/skeleton-stats.svelte"
+				}
+			]
+		},
+		{
+			"name": "skeleton-table",
+			"type": "registry:lib",
+			"title": "skeleton-table",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:ui-skeleton",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/states/skeleton-table.svelte",
+					"type": "registry:file",
+					"target": "blocks/app/states/skeleton-table.svelte"
+				}
+			]
+		},
+		{
+			"name": "skeleton-text",
+			"type": "registry:lib",
+			"title": "skeleton-text",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:ui-skeleton",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/states/skeleton-text.svelte",
+					"type": "registry:file",
+					"target": "blocks/app/states/skeleton-text.svelte"
+				}
+			]
+		},
+		{
+			"name": "sort-menu",
+			"type": "registry:lib",
+			"title": "sort-menu",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/svelte@^1.49.0"
+			],
+			"registryDependencies": [
+				"local:ui-button",
+				"local:ui-dropdown-menu",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/collection/sort-menu.svelte",
+					"type": "registry:file",
+					"target": "blocks/app/collection/sort-menu.svelte"
+				}
+			]
+		},
+		{
+			"name": "sortable-head",
+			"type": "registry:lib",
+			"title": "sortable-head",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/svelte@^1.49.0"
+			],
+			"registryDependencies": [
+				"local:ui-table",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/table/sortable-head.svelte",
+					"type": "registry:file",
+					"target": "blocks/app/table/sortable-head.svelte"
+				}
+			]
+		},
+		{
+			"name": "stat-card",
+			"type": "registry:lib",
+			"title": "stat-card",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:error-state",
+				"local:metric-trend",
+				"local:metrics-app-blocks-shared",
+				"local:ui-skeleton",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/metrics/stat-card.svelte",
+					"type": "registry:file",
+					"target": "blocks/app/metrics/stat-card.svelte"
+				}
+			]
+		},
+		{
+			"name": "stat-grid",
+			"type": "registry:lib",
+			"title": "stat-grid",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/metrics/stat-grid.svelte",
+					"type": "registry:file",
+					"target": "blocks/app/metrics/stat-grid.svelte"
+				}
+			]
+		},
+		{
+			"name": "states-app-blocks",
+			"type": "registry:lib",
+			"title": "states-app-blocks",
+			"description": "Files from \"states-app-blocks\" the pieces roster does not list yet; they become their own items when their plan finishes and this script is re-run.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:data-state",
+				"local:empty-state",
+				"local:error-state",
+				"local:no-results",
+				"local:skeleton-details",
+				"local:skeleton-settings",
+				"local:skeleton-stats",
+				"local:skeleton-table",
+				"local:skeleton-text"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/states/index.ts",
+					"type": "registry:file",
+					"target": "blocks/app/states/index.ts"
+				}
+			]
+		},
+		{
+			"name": "step",
+			"type": "registry:lib",
+			"title": "step",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:step-number",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/components/step.svelte",
+					"type": "registry:file",
+					"target": "components/step.svelte"
+				}
+			]
+		},
+		{
+			"name": "step-number",
+			"type": "registry:lib",
+			"title": "step-number",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/components/step-number.svelte",
+					"type": "registry:file",
+					"target": "components/step-number.svelte"
+				}
+			]
+		},
+		{
+			"name": "stepper",
+			"type": "registry:lib",
+			"title": "stepper",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/components/stepper.svelte",
+					"type": "registry:file",
+					"target": "components/stepper.svelte"
+				}
+			]
+		},
+		{
+			"name": "steps",
+			"type": "registry:lib",
+			"title": "steps",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:step",
+				"local:stepper"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/site/steps.svelte",
+					"type": "registry:file",
+					"target": "blocks/site/steps.svelte"
+				}
+			]
+		},
+		{
+			"name": "summary-box",
+			"type": "registry:lib",
+			"title": "summary-box",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:marker",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/site/summary-box.svelte",
+					"type": "registry:file",
+					"target": "blocks/site/summary-box.svelte"
+				}
+			]
+		},
+		{
+			"name": "table-app-blocks",
+			"type": "registry:lib",
+			"title": "table-app-blocks",
+			"description": "Files from \"table-app-blocks\" the pieces roster does not list yet; they become their own items when their plan finishes and this script is re-run.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:app-table-frame",
+				"local:row-actions",
+				"local:row-checkbox",
+				"local:select-all-checkbox",
+				"local:sortable-head",
+				"local:table-pagination",
+				"local:table-skeleton-rows",
+				"local:table-state-row"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/table/index.ts",
+					"type": "registry:file",
+					"target": "blocks/app/table/index.ts"
+				}
+			]
+		},
+		{
+			"name": "table-pagination",
+			"type": "registry:lib",
+			"title": "table-pagination",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/svelte@^1.49.0"
+			],
+			"registryDependencies": [
+				"local:ui-button",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/table/table-pagination.svelte",
+					"type": "registry:file",
+					"target": "blocks/app/table/table-pagination.svelte"
+				}
+			]
+		},
+		{
+			"name": "table-skeleton-rows",
+			"type": "registry:lib",
+			"title": "table-skeleton-rows",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:ui-skeleton",
+				"local:ui-table"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/table/table-skeleton-rows.svelte",
+					"type": "registry:file",
+					"target": "blocks/app/table/table-skeleton-rows.svelte"
+				}
+			]
+		},
+		{
+			"name": "table-state-row",
+			"type": "registry:lib",
+			"title": "table-state-row",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:ui-table",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/table/table-state-row.svelte",
+					"type": "registry:file",
+					"target": "blocks/app/table/table-state-row.svelte"
+				}
+			]
+		},
+		{
+			"name": "tag",
+			"type": "registry:lib",
+			"title": "tag",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/components/tag.svelte",
+					"type": "registry:file",
+					"target": "components/tag.svelte"
+				}
+			]
+		},
+		{
+			"name": "terminal-body",
+			"type": "registry:lib",
+			"title": "terminal-body",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/components/terminal-body.svelte",
+					"type": "registry:file",
+					"target": "components/terminal-body.svelte"
+				}
+			]
+		},
+		{
+			"name": "terminal-line",
+			"type": "registry:lib",
+			"title": "terminal-line",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:command",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/components/terminal-line.svelte",
+					"type": "registry:file",
+					"target": "components/terminal-line.svelte"
+				},
+				{
+					"path": "src/lib/components/terminal-line.ts",
+					"type": "registry:file",
+					"target": "components/terminal-line.ts"
+				}
+			]
+		},
+		{
+			"name": "terminal-window",
+			"type": "registry:lib",
+			"title": "terminal-window",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/svelte@^1.49.0"
+			],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/components/terminal-window.svelte",
+					"type": "registry:file",
+					"target": "components/terminal-window.svelte"
+				}
+			]
+		},
+		{
+			"name": "toc",
+			"type": "registry:lib",
+			"title": "toc",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:marker",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/components/toc.svelte",
+					"type": "registry:file",
+					"target": "components/toc.svelte"
+				}
+			]
+		},
+		{
+			"name": "topic-chips",
+			"type": "registry:lib",
+			"title": "topic-chips",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"local:marker"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/site/topic-chips.svelte",
+					"type": "registry:file",
+					"target": "blocks/site/topic-chips.svelte"
+				}
+			]
+		},
+		{
+			"name": "typing-terminal",
+			"type": "registry:lib",
+			"title": "typing-terminal",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/svelte@^1.49.0"
+			],
+			"registryDependencies": [
+				"local:command",
+				"local:copy-button",
+				"local:terminal-body",
+				"local:terminal-line",
+				"local:terminal-window",
+				"local:ui-button",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/content/typing-terminal.svelte",
+					"type": "registry:file",
+					"target": "blocks/content/typing-terminal.svelte"
+				}
+			]
+		},
+		{
+			"name": "ui-alert",
+			"type": "registry:lib",
+			"title": "ui-alert",
+			"description": "shadcn-svelte's alert, vendored with the brand's changes (packages/brand-svelte/README.md).",
+			"dependencies": [
+				"tailwind-variants@^3.3.1"
+			],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/ui/alert/alert-action.svelte",
+					"type": "registry:file",
+					"target": "ui/alert/alert-action.svelte"
+				},
+				{
+					"path": "src/lib/ui/alert/alert-description.svelte",
+					"type": "registry:file",
+					"target": "ui/alert/alert-description.svelte"
+				},
+				{
+					"path": "src/lib/ui/alert/alert-title.svelte",
+					"type": "registry:file",
+					"target": "ui/alert/alert-title.svelte"
+				},
+				{
+					"path": "src/lib/ui/alert/alert.svelte",
+					"type": "registry:file",
+					"target": "ui/alert/alert.svelte"
+				},
+				{
+					"path": "src/lib/ui/alert/index.ts",
+					"type": "registry:file",
+					"target": "ui/alert/index.ts"
+				}
+			]
+		},
+		{
+			"name": "ui-alert-dialog",
+			"type": "registry:lib",
+			"title": "ui-alert-dialog",
+			"description": "shadcn-svelte's alert-dialog, vendored with the brand's changes (packages/brand-svelte/README.md).",
+			"dependencies": [
+				"bits-ui@^2.18.0"
+			],
+			"registryDependencies": [
+				"local:ui-button",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/ui/alert-dialog/alert-dialog-action.svelte",
+					"type": "registry:file",
+					"target": "ui/alert-dialog/alert-dialog-action.svelte"
+				},
+				{
+					"path": "src/lib/ui/alert-dialog/alert-dialog-cancel.svelte",
+					"type": "registry:file",
+					"target": "ui/alert-dialog/alert-dialog-cancel.svelte"
+				},
+				{
+					"path": "src/lib/ui/alert-dialog/alert-dialog-content.svelte",
+					"type": "registry:file",
+					"target": "ui/alert-dialog/alert-dialog-content.svelte"
+				},
+				{
+					"path": "src/lib/ui/alert-dialog/alert-dialog-description.svelte",
+					"type": "registry:file",
+					"target": "ui/alert-dialog/alert-dialog-description.svelte"
+				},
+				{
+					"path": "src/lib/ui/alert-dialog/alert-dialog-footer.svelte",
+					"type": "registry:file",
+					"target": "ui/alert-dialog/alert-dialog-footer.svelte"
+				},
+				{
+					"path": "src/lib/ui/alert-dialog/alert-dialog-header.svelte",
+					"type": "registry:file",
+					"target": "ui/alert-dialog/alert-dialog-header.svelte"
+				},
+				{
+					"path": "src/lib/ui/alert-dialog/alert-dialog-media.svelte",
+					"type": "registry:file",
+					"target": "ui/alert-dialog/alert-dialog-media.svelte"
+				},
+				{
+					"path": "src/lib/ui/alert-dialog/alert-dialog-overlay.svelte",
+					"type": "registry:file",
+					"target": "ui/alert-dialog/alert-dialog-overlay.svelte"
+				},
+				{
+					"path": "src/lib/ui/alert-dialog/alert-dialog-portal.svelte",
+					"type": "registry:file",
+					"target": "ui/alert-dialog/alert-dialog-portal.svelte"
+				},
+				{
+					"path": "src/lib/ui/alert-dialog/alert-dialog-title.svelte",
+					"type": "registry:file",
+					"target": "ui/alert-dialog/alert-dialog-title.svelte"
+				},
+				{
+					"path": "src/lib/ui/alert-dialog/alert-dialog-trigger.svelte",
+					"type": "registry:file",
+					"target": "ui/alert-dialog/alert-dialog-trigger.svelte"
+				},
+				{
+					"path": "src/lib/ui/alert-dialog/alert-dialog.svelte",
+					"type": "registry:file",
+					"target": "ui/alert-dialog/alert-dialog.svelte"
+				},
+				{
+					"path": "src/lib/ui/alert-dialog/index.ts",
+					"type": "registry:file",
+					"target": "ui/alert-dialog/index.ts"
+				}
+			]
+		},
+		{
+			"name": "ui-avatar",
+			"type": "registry:lib",
+			"title": "ui-avatar",
+			"description": "shadcn-svelte's avatar, vendored with the brand's changes (packages/brand-svelte/README.md).",
+			"dependencies": [
+				"bits-ui@^2.18.0"
+			],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/ui/avatar/avatar-badge.svelte",
+					"type": "registry:file",
+					"target": "ui/avatar/avatar-badge.svelte"
+				},
+				{
+					"path": "src/lib/ui/avatar/avatar-fallback.svelte",
+					"type": "registry:file",
+					"target": "ui/avatar/avatar-fallback.svelte"
+				},
+				{
+					"path": "src/lib/ui/avatar/avatar-group-count.svelte",
+					"type": "registry:file",
+					"target": "ui/avatar/avatar-group-count.svelte"
+				},
+				{
+					"path": "src/lib/ui/avatar/avatar-group.svelte",
+					"type": "registry:file",
+					"target": "ui/avatar/avatar-group.svelte"
+				},
+				{
+					"path": "src/lib/ui/avatar/avatar-image.svelte",
+					"type": "registry:file",
+					"target": "ui/avatar/avatar-image.svelte"
+				},
+				{
+					"path": "src/lib/ui/avatar/avatar.svelte",
+					"type": "registry:file",
+					"target": "ui/avatar/avatar.svelte"
+				},
+				{
+					"path": "src/lib/ui/avatar/index.ts",
+					"type": "registry:file",
+					"target": "ui/avatar/index.ts"
+				}
+			]
+		},
+		{
+			"name": "ui-breadcrumb",
+			"type": "registry:lib",
+			"title": "ui-breadcrumb",
+			"description": "shadcn-svelte's breadcrumb, vendored with the brand's changes (packages/brand-svelte/README.md).",
+			"dependencies": [
+				"@lucide/svelte@^1.49.0"
+			],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/ui/breadcrumb/breadcrumb-ellipsis.svelte",
+					"type": "registry:file",
+					"target": "ui/breadcrumb/breadcrumb-ellipsis.svelte"
+				},
+				{
+					"path": "src/lib/ui/breadcrumb/breadcrumb-item.svelte",
+					"type": "registry:file",
+					"target": "ui/breadcrumb/breadcrumb-item.svelte"
+				},
+				{
+					"path": "src/lib/ui/breadcrumb/breadcrumb-link.svelte",
+					"type": "registry:file",
+					"target": "ui/breadcrumb/breadcrumb-link.svelte"
+				},
+				{
+					"path": "src/lib/ui/breadcrumb/breadcrumb-list.svelte",
+					"type": "registry:file",
+					"target": "ui/breadcrumb/breadcrumb-list.svelte"
+				},
+				{
+					"path": "src/lib/ui/breadcrumb/breadcrumb-page.svelte",
+					"type": "registry:file",
+					"target": "ui/breadcrumb/breadcrumb-page.svelte"
+				},
+				{
+					"path": "src/lib/ui/breadcrumb/breadcrumb-separator.svelte",
+					"type": "registry:file",
+					"target": "ui/breadcrumb/breadcrumb-separator.svelte"
+				},
+				{
+					"path": "src/lib/ui/breadcrumb/breadcrumb.svelte",
+					"type": "registry:file",
+					"target": "ui/breadcrumb/breadcrumb.svelte"
+				},
+				{
+					"path": "src/lib/ui/breadcrumb/index.ts",
+					"type": "registry:file",
+					"target": "ui/breadcrumb/index.ts"
+				}
+			]
+		},
+		{
+			"name": "ui-button",
+			"type": "registry:lib",
+			"title": "ui-button",
+			"description": "shadcn-svelte's button, vendored with the brand's changes (packages/brand-svelte/README.md).",
+			"dependencies": [
+				"tailwind-variants@^3.3.1"
+			],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/ui/button/button.svelte",
+					"type": "registry:file",
+					"target": "ui/button/button.svelte"
+				},
+				{
+					"path": "src/lib/ui/button/index.ts",
+					"type": "registry:file",
+					"target": "ui/button/index.ts"
+				}
+			]
+		},
+		{
+			"name": "ui-card",
+			"type": "registry:lib",
+			"title": "ui-card",
+			"description": "shadcn-svelte's card, vendored with the brand's changes (packages/brand-svelte/README.md).",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/ui/card/card-action.svelte",
+					"type": "registry:file",
+					"target": "ui/card/card-action.svelte"
+				},
+				{
+					"path": "src/lib/ui/card/card-content.svelte",
+					"type": "registry:file",
+					"target": "ui/card/card-content.svelte"
+				},
+				{
+					"path": "src/lib/ui/card/card-description.svelte",
+					"type": "registry:file",
+					"target": "ui/card/card-description.svelte"
+				},
+				{
+					"path": "src/lib/ui/card/card-footer.svelte",
+					"type": "registry:file",
+					"target": "ui/card/card-footer.svelte"
+				},
+				{
+					"path": "src/lib/ui/card/card-header.svelte",
+					"type": "registry:file",
+					"target": "ui/card/card-header.svelte"
+				},
+				{
+					"path": "src/lib/ui/card/card-title.svelte",
+					"type": "registry:file",
+					"target": "ui/card/card-title.svelte"
+				},
+				{
+					"path": "src/lib/ui/card/card.svelte",
+					"type": "registry:file",
+					"target": "ui/card/card.svelte"
+				},
+				{
+					"path": "src/lib/ui/card/index.ts",
+					"type": "registry:file",
+					"target": "ui/card/index.ts"
+				}
+			]
+		},
+		{
+			"name": "ui-checkbox",
+			"type": "registry:lib",
+			"title": "ui-checkbox",
+			"description": "shadcn-svelte's checkbox, vendored with the brand's changes (packages/brand-svelte/README.md).",
+			"dependencies": [
+				"@lucide/svelte@^1.49.0",
+				"bits-ui@^2.18.0"
+			],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/ui/checkbox/checkbox.svelte",
+					"type": "registry:file",
+					"target": "ui/checkbox/checkbox.svelte"
+				},
+				{
+					"path": "src/lib/ui/checkbox/index.ts",
+					"type": "registry:file",
+					"target": "ui/checkbox/index.ts"
+				}
+			]
+		},
+		{
+			"name": "ui-combobox",
+			"type": "registry:lib",
+			"title": "ui-combobox",
+			"description": "shadcn-svelte's combobox, vendored with the brand's changes (packages/brand-svelte/README.md).",
+			"dependencies": [
+				"@lucide/svelte@^1.49.0"
+			],
+			"registryDependencies": [
+				"local:ui-button",
+				"local:ui-command",
+				"local:ui-popover",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/ui/combobox/combobox.svelte",
+					"type": "registry:file",
+					"target": "ui/combobox/combobox.svelte"
+				},
+				{
+					"path": "src/lib/ui/combobox/index.ts",
+					"type": "registry:file",
+					"target": "ui/combobox/index.ts"
+				}
+			]
+		},
+		{
+			"name": "ui-command",
+			"type": "registry:lib",
+			"title": "ui-command",
+			"description": "shadcn-svelte's command, vendored with the brand's changes (packages/brand-svelte/README.md).",
+			"dependencies": [
+				"@lucide/svelte@^1.49.0",
+				"bits-ui@^2.18.0"
+			],
+			"registryDependencies": [
+				"local:ui-dialog",
+				"local:ui-input-group",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/ui/command/command-dialog.svelte",
+					"type": "registry:file",
+					"target": "ui/command/command-dialog.svelte"
+				},
+				{
+					"path": "src/lib/ui/command/command-empty.svelte",
+					"type": "registry:file",
+					"target": "ui/command/command-empty.svelte"
+				},
+				{
+					"path": "src/lib/ui/command/command-group.svelte",
+					"type": "registry:file",
+					"target": "ui/command/command-group.svelte"
+				},
+				{
+					"path": "src/lib/ui/command/command-input.svelte",
+					"type": "registry:file",
+					"target": "ui/command/command-input.svelte"
+				},
+				{
+					"path": "src/lib/ui/command/command-item.svelte",
+					"type": "registry:file",
+					"target": "ui/command/command-item.svelte"
+				},
+				{
+					"path": "src/lib/ui/command/command-link-item.svelte",
+					"type": "registry:file",
+					"target": "ui/command/command-link-item.svelte"
+				},
+				{
+					"path": "src/lib/ui/command/command-list.svelte",
+					"type": "registry:file",
+					"target": "ui/command/command-list.svelte"
+				},
+				{
+					"path": "src/lib/ui/command/command-loading.svelte",
+					"type": "registry:file",
+					"target": "ui/command/command-loading.svelte"
+				},
+				{
+					"path": "src/lib/ui/command/command-separator.svelte",
+					"type": "registry:file",
+					"target": "ui/command/command-separator.svelte"
+				},
+				{
+					"path": "src/lib/ui/command/command-shortcut.svelte",
+					"type": "registry:file",
+					"target": "ui/command/command-shortcut.svelte"
+				},
+				{
+					"path": "src/lib/ui/command/command.svelte",
+					"type": "registry:file",
+					"target": "ui/command/command.svelte"
+				},
+				{
+					"path": "src/lib/ui/command/index.ts",
+					"type": "registry:file",
+					"target": "ui/command/index.ts"
+				}
+			]
+		},
+		{
+			"name": "ui-dialog",
+			"type": "registry:lib",
+			"title": "ui-dialog",
+			"description": "shadcn-svelte's dialog, vendored with the brand's changes (packages/brand-svelte/README.md).",
+			"dependencies": [
+				"@lucide/svelte@^1.49.0",
+				"bits-ui@^2.18.0"
+			],
+			"registryDependencies": [
+				"local:ui-button",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/ui/dialog/dialog-close.svelte",
+					"type": "registry:file",
+					"target": "ui/dialog/dialog-close.svelte"
+				},
+				{
+					"path": "src/lib/ui/dialog/dialog-content.svelte",
+					"type": "registry:file",
+					"target": "ui/dialog/dialog-content.svelte"
+				},
+				{
+					"path": "src/lib/ui/dialog/dialog-description.svelte",
+					"type": "registry:file",
+					"target": "ui/dialog/dialog-description.svelte"
+				},
+				{
+					"path": "src/lib/ui/dialog/dialog-footer.svelte",
+					"type": "registry:file",
+					"target": "ui/dialog/dialog-footer.svelte"
+				},
+				{
+					"path": "src/lib/ui/dialog/dialog-header.svelte",
+					"type": "registry:file",
+					"target": "ui/dialog/dialog-header.svelte"
+				},
+				{
+					"path": "src/lib/ui/dialog/dialog-overlay.svelte",
+					"type": "registry:file",
+					"target": "ui/dialog/dialog-overlay.svelte"
+				},
+				{
+					"path": "src/lib/ui/dialog/dialog-portal.svelte",
+					"type": "registry:file",
+					"target": "ui/dialog/dialog-portal.svelte"
+				},
+				{
+					"path": "src/lib/ui/dialog/dialog-title.svelte",
+					"type": "registry:file",
+					"target": "ui/dialog/dialog-title.svelte"
+				},
+				{
+					"path": "src/lib/ui/dialog/dialog-trigger.svelte",
+					"type": "registry:file",
+					"target": "ui/dialog/dialog-trigger.svelte"
+				},
+				{
+					"path": "src/lib/ui/dialog/dialog.svelte",
+					"type": "registry:file",
+					"target": "ui/dialog/dialog.svelte"
+				},
+				{
+					"path": "src/lib/ui/dialog/index.ts",
+					"type": "registry:file",
+					"target": "ui/dialog/index.ts"
+				}
+			]
+		},
+		{
+			"name": "ui-dropdown-menu",
+			"type": "registry:lib",
+			"title": "ui-dropdown-menu",
+			"description": "shadcn-svelte's dropdown-menu, vendored with the brand's changes (packages/brand-svelte/README.md).",
+			"dependencies": [
+				"@lucide/svelte@^1.49.0",
+				"bits-ui@^2.18.0"
+			],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/ui/dropdown-menu/dropdown-menu-checkbox-group.svelte",
+					"type": "registry:file",
+					"target": "ui/dropdown-menu/dropdown-menu-checkbox-group.svelte"
+				},
+				{
+					"path": "src/lib/ui/dropdown-menu/dropdown-menu-checkbox-item.svelte",
+					"type": "registry:file",
+					"target": "ui/dropdown-menu/dropdown-menu-checkbox-item.svelte"
+				},
+				{
+					"path": "src/lib/ui/dropdown-menu/dropdown-menu-content.svelte",
+					"type": "registry:file",
+					"target": "ui/dropdown-menu/dropdown-menu-content.svelte"
+				},
+				{
+					"path": "src/lib/ui/dropdown-menu/dropdown-menu-group-heading.svelte",
+					"type": "registry:file",
+					"target": "ui/dropdown-menu/dropdown-menu-group-heading.svelte"
+				},
+				{
+					"path": "src/lib/ui/dropdown-menu/dropdown-menu-group.svelte",
+					"type": "registry:file",
+					"target": "ui/dropdown-menu/dropdown-menu-group.svelte"
+				},
+				{
+					"path": "src/lib/ui/dropdown-menu/dropdown-menu-item.svelte",
+					"type": "registry:file",
+					"target": "ui/dropdown-menu/dropdown-menu-item.svelte"
+				},
+				{
+					"path": "src/lib/ui/dropdown-menu/dropdown-menu-label.svelte",
+					"type": "registry:file",
+					"target": "ui/dropdown-menu/dropdown-menu-label.svelte"
+				},
+				{
+					"path": "src/lib/ui/dropdown-menu/dropdown-menu-portal.svelte",
+					"type": "registry:file",
+					"target": "ui/dropdown-menu/dropdown-menu-portal.svelte"
+				},
+				{
+					"path": "src/lib/ui/dropdown-menu/dropdown-menu-radio-group.svelte",
+					"type": "registry:file",
+					"target": "ui/dropdown-menu/dropdown-menu-radio-group.svelte"
+				},
+				{
+					"path": "src/lib/ui/dropdown-menu/dropdown-menu-radio-item.svelte",
+					"type": "registry:file",
+					"target": "ui/dropdown-menu/dropdown-menu-radio-item.svelte"
+				},
+				{
+					"path": "src/lib/ui/dropdown-menu/dropdown-menu-separator.svelte",
+					"type": "registry:file",
+					"target": "ui/dropdown-menu/dropdown-menu-separator.svelte"
+				},
+				{
+					"path": "src/lib/ui/dropdown-menu/dropdown-menu-shortcut.svelte",
+					"type": "registry:file",
+					"target": "ui/dropdown-menu/dropdown-menu-shortcut.svelte"
+				},
+				{
+					"path": "src/lib/ui/dropdown-menu/dropdown-menu-sub-content.svelte",
+					"type": "registry:file",
+					"target": "ui/dropdown-menu/dropdown-menu-sub-content.svelte"
+				},
+				{
+					"path": "src/lib/ui/dropdown-menu/dropdown-menu-sub-trigger.svelte",
+					"type": "registry:file",
+					"target": "ui/dropdown-menu/dropdown-menu-sub-trigger.svelte"
+				},
+				{
+					"path": "src/lib/ui/dropdown-menu/dropdown-menu-sub.svelte",
+					"type": "registry:file",
+					"target": "ui/dropdown-menu/dropdown-menu-sub.svelte"
+				},
+				{
+					"path": "src/lib/ui/dropdown-menu/dropdown-menu-trigger.svelte",
+					"type": "registry:file",
+					"target": "ui/dropdown-menu/dropdown-menu-trigger.svelte"
+				},
+				{
+					"path": "src/lib/ui/dropdown-menu/dropdown-menu.svelte",
+					"type": "registry:file",
+					"target": "ui/dropdown-menu/dropdown-menu.svelte"
+				},
+				{
+					"path": "src/lib/ui/dropdown-menu/index.ts",
+					"type": "registry:file",
+					"target": "ui/dropdown-menu/index.ts"
+				}
+			]
+		},
+		{
+			"name": "ui-input",
+			"type": "registry:lib",
+			"title": "ui-input",
+			"description": "shadcn-svelte's input, vendored with the brand's changes (packages/brand-svelte/README.md).",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/ui/input/index.ts",
+					"type": "registry:file",
+					"target": "ui/input/index.ts"
+				},
+				{
+					"path": "src/lib/ui/input/input.svelte",
+					"type": "registry:file",
+					"target": "ui/input/input.svelte"
+				}
+			]
+		},
+		{
+			"name": "ui-input-group",
+			"type": "registry:lib",
+			"title": "ui-input-group",
+			"description": "shadcn-svelte's input-group, vendored with the brand's changes (packages/brand-svelte/README.md).",
+			"dependencies": [
+				"tailwind-variants@^3.3.1"
+			],
+			"registryDependencies": [
+				"local:ui-button",
+				"local:ui-input",
+				"local:ui-textarea",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/ui/input-group/index.ts",
+					"type": "registry:file",
+					"target": "ui/input-group/index.ts"
+				},
+				{
+					"path": "src/lib/ui/input-group/input-group-addon.svelte",
+					"type": "registry:file",
+					"target": "ui/input-group/input-group-addon.svelte"
+				},
+				{
+					"path": "src/lib/ui/input-group/input-group-button.svelte",
+					"type": "registry:file",
+					"target": "ui/input-group/input-group-button.svelte"
+				},
+				{
+					"path": "src/lib/ui/input-group/input-group-input.svelte",
+					"type": "registry:file",
+					"target": "ui/input-group/input-group-input.svelte"
+				},
+				{
+					"path": "src/lib/ui/input-group/input-group-text.svelte",
+					"type": "registry:file",
+					"target": "ui/input-group/input-group-text.svelte"
+				},
+				{
+					"path": "src/lib/ui/input-group/input-group-textarea.svelte",
+					"type": "registry:file",
+					"target": "ui/input-group/input-group-textarea.svelte"
+				},
+				{
+					"path": "src/lib/ui/input-group/input-group.svelte",
+					"type": "registry:file",
+					"target": "ui/input-group/input-group.svelte"
+				}
+			]
+		},
+		{
+			"name": "ui-input-otp",
+			"type": "registry:lib",
+			"title": "ui-input-otp",
+			"description": "shadcn-svelte's input-otp, vendored with the brand's changes (packages/brand-svelte/README.md).",
+			"dependencies": [
+				"@lucide/svelte@^1.49.0",
+				"bits-ui@^2.18.0"
+			],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/ui/input-otp/index.ts",
+					"type": "registry:file",
+					"target": "ui/input-otp/index.ts"
+				},
+				{
+					"path": "src/lib/ui/input-otp/input-otp-group.svelte",
+					"type": "registry:file",
+					"target": "ui/input-otp/input-otp-group.svelte"
+				},
+				{
+					"path": "src/lib/ui/input-otp/input-otp-separator.svelte",
+					"type": "registry:file",
+					"target": "ui/input-otp/input-otp-separator.svelte"
+				},
+				{
+					"path": "src/lib/ui/input-otp/input-otp-slot.svelte",
+					"type": "registry:file",
+					"target": "ui/input-otp/input-otp-slot.svelte"
+				},
+				{
+					"path": "src/lib/ui/input-otp/input-otp.svelte",
+					"type": "registry:file",
+					"target": "ui/input-otp/input-otp.svelte"
+				}
+			]
+		},
+		{
+			"name": "ui-popover",
+			"type": "registry:lib",
+			"title": "ui-popover",
+			"description": "shadcn-svelte's popover, vendored with the brand's changes (packages/brand-svelte/README.md).",
+			"dependencies": [
+				"bits-ui@^2.18.0"
+			],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/ui/popover/index.ts",
+					"type": "registry:file",
+					"target": "ui/popover/index.ts"
+				},
+				{
+					"path": "src/lib/ui/popover/popover-close.svelte",
+					"type": "registry:file",
+					"target": "ui/popover/popover-close.svelte"
+				},
+				{
+					"path": "src/lib/ui/popover/popover-content.svelte",
+					"type": "registry:file",
+					"target": "ui/popover/popover-content.svelte"
+				},
+				{
+					"path": "src/lib/ui/popover/popover-description.svelte",
+					"type": "registry:file",
+					"target": "ui/popover/popover-description.svelte"
+				},
+				{
+					"path": "src/lib/ui/popover/popover-header.svelte",
+					"type": "registry:file",
+					"target": "ui/popover/popover-header.svelte"
+				},
+				{
+					"path": "src/lib/ui/popover/popover-portal.svelte",
+					"type": "registry:file",
+					"target": "ui/popover/popover-portal.svelte"
+				},
+				{
+					"path": "src/lib/ui/popover/popover-title.svelte",
+					"type": "registry:file",
+					"target": "ui/popover/popover-title.svelte"
+				},
+				{
+					"path": "src/lib/ui/popover/popover-trigger.svelte",
+					"type": "registry:file",
+					"target": "ui/popover/popover-trigger.svelte"
+				},
+				{
+					"path": "src/lib/ui/popover/popover.svelte",
+					"type": "registry:file",
+					"target": "ui/popover/popover.svelte"
+				}
+			]
+		},
+		{
+			"name": "ui-radio-group",
+			"type": "registry:lib",
+			"title": "ui-radio-group",
+			"description": "shadcn-svelte's radio-group, vendored with the brand's changes (packages/brand-svelte/README.md).",
+			"dependencies": [
+				"@lucide/svelte@^1.49.0",
+				"bits-ui@^2.18.0"
+			],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/ui/radio-group/index.ts",
+					"type": "registry:file",
+					"target": "ui/radio-group/index.ts"
+				},
+				{
+					"path": "src/lib/ui/radio-group/radio-group-item.svelte",
+					"type": "registry:file",
+					"target": "ui/radio-group/radio-group-item.svelte"
+				},
+				{
+					"path": "src/lib/ui/radio-group/radio-group.svelte",
+					"type": "registry:file",
+					"target": "ui/radio-group/radio-group.svelte"
+				}
+			]
+		},
+		{
+			"name": "ui-select",
+			"type": "registry:lib",
+			"title": "ui-select",
+			"description": "shadcn-svelte's select, vendored with the brand's changes (packages/brand-svelte/README.md).",
+			"dependencies": [
+				"@lucide/svelte@^1.49.0",
+				"bits-ui@^2.18.0"
+			],
+			"registryDependencies": [
+				"local:ui-separator",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/ui/select/index.ts",
+					"type": "registry:file",
+					"target": "ui/select/index.ts"
+				},
+				{
+					"path": "src/lib/ui/select/select-content.svelte",
+					"type": "registry:file",
+					"target": "ui/select/select-content.svelte"
+				},
+				{
+					"path": "src/lib/ui/select/select-group-heading.svelte",
+					"type": "registry:file",
+					"target": "ui/select/select-group-heading.svelte"
+				},
+				{
+					"path": "src/lib/ui/select/select-group.svelte",
+					"type": "registry:file",
+					"target": "ui/select/select-group.svelte"
+				},
+				{
+					"path": "src/lib/ui/select/select-item.svelte",
+					"type": "registry:file",
+					"target": "ui/select/select-item.svelte"
+				},
+				{
+					"path": "src/lib/ui/select/select-label.svelte",
+					"type": "registry:file",
+					"target": "ui/select/select-label.svelte"
+				},
+				{
+					"path": "src/lib/ui/select/select-portal.svelte",
+					"type": "registry:file",
+					"target": "ui/select/select-portal.svelte"
+				},
+				{
+					"path": "src/lib/ui/select/select-scroll-down-button.svelte",
+					"type": "registry:file",
+					"target": "ui/select/select-scroll-down-button.svelte"
+				},
+				{
+					"path": "src/lib/ui/select/select-scroll-up-button.svelte",
+					"type": "registry:file",
+					"target": "ui/select/select-scroll-up-button.svelte"
+				},
+				{
+					"path": "src/lib/ui/select/select-separator.svelte",
+					"type": "registry:file",
+					"target": "ui/select/select-separator.svelte"
+				},
+				{
+					"path": "src/lib/ui/select/select-trigger.svelte",
+					"type": "registry:file",
+					"target": "ui/select/select-trigger.svelte"
+				},
+				{
+					"path": "src/lib/ui/select/select-value.svelte",
+					"type": "registry:file",
+					"target": "ui/select/select-value.svelte"
+				},
+				{
+					"path": "src/lib/ui/select/select.svelte",
+					"type": "registry:file",
+					"target": "ui/select/select.svelte"
+				}
+			]
+		},
+		{
+			"name": "ui-separator",
+			"type": "registry:lib",
+			"title": "ui-separator",
+			"description": "shadcn-svelte's separator, vendored with the brand's changes (packages/brand-svelte/README.md).",
+			"dependencies": [
+				"bits-ui@^2.18.0"
+			],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/ui/separator/index.ts",
+					"type": "registry:file",
+					"target": "ui/separator/index.ts"
+				},
+				{
+					"path": "src/lib/ui/separator/separator.svelte",
+					"type": "registry:file",
+					"target": "ui/separator/separator.svelte"
+				}
+			]
+		},
+		{
+			"name": "ui-sheet",
+			"type": "registry:lib",
+			"title": "ui-sheet",
+			"description": "shadcn-svelte's sheet, vendored with the brand's changes (packages/brand-svelte/README.md).",
+			"dependencies": [
+				"@lucide/svelte@^1.49.0",
+				"bits-ui@^2.18.0"
+			],
+			"registryDependencies": [
+				"local:ui-button",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/ui/sheet/index.ts",
+					"type": "registry:file",
+					"target": "ui/sheet/index.ts"
+				},
+				{
+					"path": "src/lib/ui/sheet/sheet-close.svelte",
+					"type": "registry:file",
+					"target": "ui/sheet/sheet-close.svelte"
+				},
+				{
+					"path": "src/lib/ui/sheet/sheet-content.svelte",
+					"type": "registry:file",
+					"target": "ui/sheet/sheet-content.svelte"
+				},
+				{
+					"path": "src/lib/ui/sheet/sheet-description.svelte",
+					"type": "registry:file",
+					"target": "ui/sheet/sheet-description.svelte"
+				},
+				{
+					"path": "src/lib/ui/sheet/sheet-footer.svelte",
+					"type": "registry:file",
+					"target": "ui/sheet/sheet-footer.svelte"
+				},
+				{
+					"path": "src/lib/ui/sheet/sheet-header.svelte",
+					"type": "registry:file",
+					"target": "ui/sheet/sheet-header.svelte"
+				},
+				{
+					"path": "src/lib/ui/sheet/sheet-overlay.svelte",
+					"type": "registry:file",
+					"target": "ui/sheet/sheet-overlay.svelte"
+				},
+				{
+					"path": "src/lib/ui/sheet/sheet-portal.svelte",
+					"type": "registry:file",
+					"target": "ui/sheet/sheet-portal.svelte"
+				},
+				{
+					"path": "src/lib/ui/sheet/sheet-title.svelte",
+					"type": "registry:file",
+					"target": "ui/sheet/sheet-title.svelte"
+				},
+				{
+					"path": "src/lib/ui/sheet/sheet-trigger.svelte",
+					"type": "registry:file",
+					"target": "ui/sheet/sheet-trigger.svelte"
+				},
+				{
+					"path": "src/lib/ui/sheet/sheet.svelte",
+					"type": "registry:file",
+					"target": "ui/sheet/sheet.svelte"
+				}
+			]
+		},
+		{
+			"name": "ui-sidebar",
+			"type": "registry:lib",
+			"title": "ui-sidebar",
+			"description": "shadcn-svelte's sidebar, vendored with the brand's changes (packages/brand-svelte/README.md).",
+			"dependencies": [
+				"@lucide/svelte@^1.49.0",
+				"bits-ui@^2.18.0",
+				"tailwind-variants@^3.3.1"
+			],
+			"registryDependencies": [
+				"local:ui-button",
+				"local:ui-input",
+				"local:ui-separator",
+				"local:ui-sheet",
+				"local:ui-skeleton",
+				"local:ui-tooltip",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/hooks/is-mobile.svelte.ts",
+					"type": "registry:file",
+					"target": "hooks/is-mobile.svelte.ts"
+				},
+				{
+					"path": "src/lib/ui/sidebar/constants.ts",
+					"type": "registry:file",
+					"target": "ui/sidebar/constants.ts"
+				},
+				{
+					"path": "src/lib/ui/sidebar/context.svelte.ts",
+					"type": "registry:file",
+					"target": "ui/sidebar/context.svelte.ts"
+				},
+				{
+					"path": "src/lib/ui/sidebar/index.ts",
+					"type": "registry:file",
+					"target": "ui/sidebar/index.ts"
+				},
+				{
+					"path": "src/lib/ui/sidebar/sidebar-content.svelte",
+					"type": "registry:file",
+					"target": "ui/sidebar/sidebar-content.svelte"
+				},
+				{
+					"path": "src/lib/ui/sidebar/sidebar-footer.svelte",
+					"type": "registry:file",
+					"target": "ui/sidebar/sidebar-footer.svelte"
+				},
+				{
+					"path": "src/lib/ui/sidebar/sidebar-group-action.svelte",
+					"type": "registry:file",
+					"target": "ui/sidebar/sidebar-group-action.svelte"
+				},
+				{
+					"path": "src/lib/ui/sidebar/sidebar-group-content.svelte",
+					"type": "registry:file",
+					"target": "ui/sidebar/sidebar-group-content.svelte"
+				},
+				{
+					"path": "src/lib/ui/sidebar/sidebar-group-label.svelte",
+					"type": "registry:file",
+					"target": "ui/sidebar/sidebar-group-label.svelte"
+				},
+				{
+					"path": "src/lib/ui/sidebar/sidebar-group.svelte",
+					"type": "registry:file",
+					"target": "ui/sidebar/sidebar-group.svelte"
+				},
+				{
+					"path": "src/lib/ui/sidebar/sidebar-header.svelte",
+					"type": "registry:file",
+					"target": "ui/sidebar/sidebar-header.svelte"
+				},
+				{
+					"path": "src/lib/ui/sidebar/sidebar-input.svelte",
+					"type": "registry:file",
+					"target": "ui/sidebar/sidebar-input.svelte"
+				},
+				{
+					"path": "src/lib/ui/sidebar/sidebar-inset.svelte",
+					"type": "registry:file",
+					"target": "ui/sidebar/sidebar-inset.svelte"
+				},
+				{
+					"path": "src/lib/ui/sidebar/sidebar-menu-action.svelte",
+					"type": "registry:file",
+					"target": "ui/sidebar/sidebar-menu-action.svelte"
+				},
+				{
+					"path": "src/lib/ui/sidebar/sidebar-menu-badge.svelte",
+					"type": "registry:file",
+					"target": "ui/sidebar/sidebar-menu-badge.svelte"
+				},
+				{
+					"path": "src/lib/ui/sidebar/sidebar-menu-button.svelte",
+					"type": "registry:file",
+					"target": "ui/sidebar/sidebar-menu-button.svelte"
+				},
+				{
+					"path": "src/lib/ui/sidebar/sidebar-menu-item.svelte",
+					"type": "registry:file",
+					"target": "ui/sidebar/sidebar-menu-item.svelte"
+				},
+				{
+					"path": "src/lib/ui/sidebar/sidebar-menu-skeleton.svelte",
+					"type": "registry:file",
+					"target": "ui/sidebar/sidebar-menu-skeleton.svelte"
+				},
+				{
+					"path": "src/lib/ui/sidebar/sidebar-menu-sub-button.svelte",
+					"type": "registry:file",
+					"target": "ui/sidebar/sidebar-menu-sub-button.svelte"
+				},
+				{
+					"path": "src/lib/ui/sidebar/sidebar-menu-sub-item.svelte",
+					"type": "registry:file",
+					"target": "ui/sidebar/sidebar-menu-sub-item.svelte"
+				},
+				{
+					"path": "src/lib/ui/sidebar/sidebar-menu-sub.svelte",
+					"type": "registry:file",
+					"target": "ui/sidebar/sidebar-menu-sub.svelte"
+				},
+				{
+					"path": "src/lib/ui/sidebar/sidebar-menu.svelte",
+					"type": "registry:file",
+					"target": "ui/sidebar/sidebar-menu.svelte"
+				},
+				{
+					"path": "src/lib/ui/sidebar/sidebar-provider.svelte",
+					"type": "registry:file",
+					"target": "ui/sidebar/sidebar-provider.svelte"
+				},
+				{
+					"path": "src/lib/ui/sidebar/sidebar-rail.svelte",
+					"type": "registry:file",
+					"target": "ui/sidebar/sidebar-rail.svelte"
+				},
+				{
+					"path": "src/lib/ui/sidebar/sidebar-separator.svelte",
+					"type": "registry:file",
+					"target": "ui/sidebar/sidebar-separator.svelte"
+				},
+				{
+					"path": "src/lib/ui/sidebar/sidebar-trigger.svelte",
+					"type": "registry:file",
+					"target": "ui/sidebar/sidebar-trigger.svelte"
+				},
+				{
+					"path": "src/lib/ui/sidebar/sidebar.svelte",
+					"type": "registry:file",
+					"target": "ui/sidebar/sidebar.svelte"
+				}
+			]
+		},
+		{
+			"name": "ui-skeleton",
+			"type": "registry:lib",
+			"title": "ui-skeleton",
+			"description": "shadcn-svelte's skeleton, vendored with the brand's changes (packages/brand-svelte/README.md).",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/ui/skeleton/index.ts",
+					"type": "registry:file",
+					"target": "ui/skeleton/index.ts"
+				},
+				{
+					"path": "src/lib/ui/skeleton/skeleton.svelte",
+					"type": "registry:file",
+					"target": "ui/skeleton/skeleton.svelte"
+				}
+			]
+		},
+		{
+			"name": "ui-sonner",
+			"type": "registry:lib",
+			"title": "ui-sonner",
+			"description": "shadcn-svelte's sonner, vendored with the brand's changes (packages/brand-svelte/README.md).",
+			"dependencies": [
+				"@lucide/svelte@^1.49.0",
+				"mode-watcher@^1.1.0",
+				"svelte-sonner@^1.2.1"
+			],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/lib/ui/sonner/index.ts",
+					"type": "registry:file",
+					"target": "ui/sonner/index.ts"
+				},
+				{
+					"path": "src/lib/ui/sonner/sonner.svelte",
+					"type": "registry:file",
+					"target": "ui/sonner/sonner.svelte"
+				}
+			]
+		},
+		{
+			"name": "ui-switch",
+			"type": "registry:lib",
+			"title": "ui-switch",
+			"description": "shadcn-svelte's switch, vendored with the brand's changes (packages/brand-svelte/README.md).",
+			"dependencies": [
+				"bits-ui@^2.18.0"
+			],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/ui/switch/index.ts",
+					"type": "registry:file",
+					"target": "ui/switch/index.ts"
+				},
+				{
+					"path": "src/lib/ui/switch/switch.svelte",
+					"type": "registry:file",
+					"target": "ui/switch/switch.svelte"
+				}
+			]
+		},
+		{
+			"name": "ui-table",
+			"type": "registry:lib",
+			"title": "ui-table",
+			"description": "shadcn-svelte's table, vendored with the brand's changes (packages/brand-svelte/README.md).",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/ui/table/index.ts",
+					"type": "registry:file",
+					"target": "ui/table/index.ts"
+				},
+				{
+					"path": "src/lib/ui/table/table-body.svelte",
+					"type": "registry:file",
+					"target": "ui/table/table-body.svelte"
+				},
+				{
+					"path": "src/lib/ui/table/table-caption.svelte",
+					"type": "registry:file",
+					"target": "ui/table/table-caption.svelte"
+				},
+				{
+					"path": "src/lib/ui/table/table-cell.svelte",
+					"type": "registry:file",
+					"target": "ui/table/table-cell.svelte"
+				},
+				{
+					"path": "src/lib/ui/table/table-footer.svelte",
+					"type": "registry:file",
+					"target": "ui/table/table-footer.svelte"
+				},
+				{
+					"path": "src/lib/ui/table/table-head.svelte",
+					"type": "registry:file",
+					"target": "ui/table/table-head.svelte"
+				},
+				{
+					"path": "src/lib/ui/table/table-header.svelte",
+					"type": "registry:file",
+					"target": "ui/table/table-header.svelte"
+				},
+				{
+					"path": "src/lib/ui/table/table-row.svelte",
+					"type": "registry:file",
+					"target": "ui/table/table-row.svelte"
+				},
+				{
+					"path": "src/lib/ui/table/table.svelte",
+					"type": "registry:file",
+					"target": "ui/table/table.svelte"
+				}
+			]
+		},
+		{
+			"name": "ui-textarea",
+			"type": "registry:lib",
+			"title": "ui-textarea",
+			"description": "shadcn-svelte's textarea, vendored with the brand's changes (packages/brand-svelte/README.md).",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/ui/textarea/index.ts",
+					"type": "registry:file",
+					"target": "ui/textarea/index.ts"
+				},
+				{
+					"path": "src/lib/ui/textarea/textarea.svelte",
+					"type": "registry:file",
+					"target": "ui/textarea/textarea.svelte"
+				}
+			]
+		},
+		{
+			"name": "ui-tooltip",
+			"type": "registry:lib",
+			"title": "ui-tooltip",
+			"description": "shadcn-svelte's tooltip, vendored with the brand's changes (packages/brand-svelte/README.md).",
+			"dependencies": [
+				"bits-ui@^2.18.0"
+			],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/ui/tooltip/index.ts",
+					"type": "registry:file",
+					"target": "ui/tooltip/index.ts"
+				},
+				{
+					"path": "src/lib/ui/tooltip/tooltip-content.svelte",
+					"type": "registry:file",
+					"target": "ui/tooltip/tooltip-content.svelte"
+				},
+				{
+					"path": "src/lib/ui/tooltip/tooltip-portal.svelte",
+					"type": "registry:file",
+					"target": "ui/tooltip/tooltip-portal.svelte"
+				},
+				{
+					"path": "src/lib/ui/tooltip/tooltip-provider.svelte",
+					"type": "registry:file",
+					"target": "ui/tooltip/tooltip-provider.svelte"
+				},
+				{
+					"path": "src/lib/ui/tooltip/tooltip-trigger.svelte",
+					"type": "registry:file",
+					"target": "ui/tooltip/tooltip-trigger.svelte"
+				},
+				{
+					"path": "src/lib/ui/tooltip/tooltip.svelte",
+					"type": "registry:file",
+					"target": "ui/tooltip/tooltip.svelte"
+				}
+			]
+		},
+		{
+			"name": "usage-meter",
+			"type": "registry:lib",
+			"title": "usage-meter",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/svelte@^1.49.0"
+			],
+			"registryDependencies": [
+				"local:ring-gauge",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/metrics/usage-meter.svelte",
+					"type": "registry:file",
+					"target": "blocks/app/metrics/usage-meter.svelte"
+				}
+			]
+		},
+		{
+			"name": "user-menu",
+			"type": "registry:lib",
+			"title": "user-menu",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/svelte@^1.49.0"
+			],
+			"registryDependencies": [
+				"local:account-app-blocks-shared",
+				"local:ui-avatar",
+				"local:ui-dropdown-menu",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/account/user-menu.svelte",
+					"type": "registry:file",
+					"target": "blocks/app/account/user-menu.svelte"
+				}
+			]
+		},
+		{
+			"name": "utils",
+			"type": "registry:lib",
+			"title": "utils",
+			"description": "The kit's shared utilities: cn() and styleText().",
+			"dependencies": [
+				"cn@^0.4.0"
+			],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/lib/utils.ts",
+					"type": "registry:file",
+					"target": "utils.ts"
+				}
+			]
+		},
+		{
+			"name": "verify-email",
+			"type": "registry:lib",
+			"title": "verify-email",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/svelte@^1.49.0"
+			],
+			"registryDependencies": [
+				"local:auth-app-blocks-shared",
+				"local:notice",
+				"local:ui-button",
+				"local:ui-input-otp",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/auth/verify-email.svelte",
+					"type": "registry:file",
+					"target": "blocks/app/auth/verify-email.svelte"
+				}
+			]
+		},
+		{
+			"name": "wordmark",
+			"type": "registry:lib",
+			"title": "wordmark",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/components/logo-letters.svelte",
+					"type": "registry:file",
+					"target": "components/logo-letters.svelte"
+				},
+				{
+					"path": "src/lib/components/logo-square.svelte",
+					"type": "registry:file",
+					"target": "components/logo-square.svelte"
+				},
+				{
+					"path": "src/lib/components/logo-style.ts",
+					"type": "registry:file",
+					"target": "components/logo-style.ts"
+				},
+				{
+					"path": "src/lib/components/wordmark.svelte",
+					"type": "registry:file",
+					"target": "components/wordmark.svelte"
+				}
+			]
+		},
+		{
+			"name": "workspace-switcher",
+			"type": "registry:lib",
+			"title": "workspace-switcher",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [
+				"@lucide/svelte@^1.49.0"
+			],
+			"registryDependencies": [
+				"local:account-app-blocks-shared",
+				"local:mark",
+				"local:ui-dropdown-menu",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/app/account/workspace-switcher.svelte",
+					"type": "registry:file",
+					"target": "blocks/app/account/workspace-switcher.svelte"
+				}
+			]
+		}
+	]
+}

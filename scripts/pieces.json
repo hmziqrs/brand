@@ -1,0 +1,1365 @@
+{
+  "$schema": "./pieces.schema.json",
+  "$comment": [
+    "Every piece the kits ship, once. Groups: brand, site, content, app.",
+    "lab / svelte: the story id that shows the piece in that Storybook (null when it has no story of its own).",
+    "astro: the piece's anchor in the astro-app /kit gallery.",
+    "svelteItem / astroItem: the piece's registry item name in that kit's registry.",
+    "'not yet' marks a field whose plan is still in progress; check:parity skips it until then.",
+    "A piece with svelteFile 'not yet' doesn't exist at all yet (the app blocks before their phase); the whole piece is skipped."
+  ],
+  "pieces": [
+    {
+      "name": "Wordmark",
+      "group": "brand",
+      "lab": "custom-logo--default",
+      "svelte": "custom-logo--default",
+      "astro": "wordmark",
+      "svelteFile": "components/wordmark.svelte",
+      "svelteItem": "wordmark",
+      "astroItem": "wordmark"
+    },
+    {
+      "name": "Mark",
+      "group": "brand",
+      "lab": "custom-logo--marks",
+      "svelte": "custom-logo--marks",
+      "astro": "mark",
+      "svelteFile": "components/mark.svelte",
+      "svelteItem": "mark",
+      "astroItem": "mark"
+    },
+    {
+      "name": "Marker",
+      "group": "brand",
+      "lab": "custom-marker--default",
+      "svelte": "custom-marker--default",
+      "astro": "marker",
+      "svelteFile": "components/marker.svelte",
+      "svelteItem": "marker",
+      "astroItem": "marker"
+    },
+    {
+      "name": "Rings",
+      "group": "brand",
+      "lab": "custom-rings--hero",
+      "svelte": "custom-rings--hero",
+      "astro": "rings",
+      "svelteFile": "components/rings.svelte",
+      "svelteItem": "rings",
+      "astroItem": "rings"
+    },
+    {
+      "name": "CornerRings",
+      "group": "brand",
+      "lab": "custom-rings--fingerprint",
+      "svelte": "custom-rings--fingerprint",
+      "astro": "corner-rings",
+      "svelteFile": "components/corner-rings.svelte",
+      "svelteItem": "corner-rings",
+      "astroItem": "corner-rings"
+    },
+    {
+      "name": "BandArcs",
+      "group": "brand",
+      "lab": "custom-rings--on-the-band",
+      "svelte": "custom-rings--on-the-band",
+      "astro": "band-arcs",
+      "svelteFile": "components/band-arcs.svelte",
+      "svelteItem": "band-arcs",
+      "astroItem": "band-arcs"
+    },
+    {
+      "name": "RingGauge",
+      "group": "brand",
+      "lab": "custom-rings--gauges",
+      "svelte": "custom-rings--gauges",
+      "astro": "ring-gauge",
+      "svelteFile": "components/ring-gauge.svelte",
+      "svelteItem": "ring-gauge",
+      "astroItem": "ring-gauge"
+    },
+    {
+      "name": "Scene",
+      "group": "brand",
+      "lab": "custom-scenes-3d--default",
+      "svelte": "custom-scenes-3d--default",
+      "astro": "scene",
+      "svelteFile": "components/scene.svelte",
+      "svelteItem": "scene",
+      "astroItem": "scene"
+    },
+    {
+      "name": "Tag",
+      "group": "brand",
+      "lab": "custom-tag--default",
+      "svelte": "custom-tag--default",
+      "astro": "tag",
+      "svelteFile": "components/tag.svelte",
+      "svelteItem": "tag",
+      "astroItem": "tag"
+    },
+    {
+      "name": "IconTile",
+      "group": "brand",
+      "lab": "custom-icon-tile--default",
+      "svelte": "custom-icon-tile--default",
+      "astro": "icon-tile",
+      "svelteFile": "components/icon-tile.svelte",
+      "svelteItem": "icon-tile",
+      "astroItem": "icon-tile"
+    },
+    {
+      "name": "Notice",
+      "group": "brand",
+      "lab": "custom-notice--info",
+      "svelte": "custom-notice--info",
+      "astro": "notice",
+      "svelteFile": "components/notice.svelte",
+      "svelteItem": "notice",
+      "astroItem": "notice"
+    },
+    {
+      "name": "CodeBlock",
+      "group": "brand",
+      "lab": "custom-code-block--rust",
+      "svelte": "custom-code-block--rust",
+      "astro": "code-block",
+      "svelteFile": "components/code-block.svelte",
+      "svelteItem": "code-block",
+      "astroItem": "code-block"
+    },
+    {
+      "name": "CodeLines",
+      "group": "brand",
+      "lab": null,
+      "svelte": "custom-code-lines--default",
+      "astro": "code-lines",
+      "svelteFile": "components/code-lines.svelte",
+      "svelteItem": "code-lines",
+      "astroItem": "code-lines"
+    },
+    {
+      "name": "CopyButton",
+      "group": "brand",
+      "lab": null,
+      "svelte": "custom-copy-button--with-label",
+      "astro": "copy-button",
+      "svelteFile": "components/copy-button.svelte",
+      "svelteItem": "copy-button",
+      "astroItem": "copy-button"
+    },
+    {
+      "name": "Command",
+      "group": "brand",
+      "lab": null,
+      "svelte": "custom-command--default",
+      "astro": "command",
+      "svelteFile": "components/command.svelte",
+      "svelteItem": "command",
+      "astroItem": "command"
+    },
+    {
+      "name": "CommandBar",
+      "group": "brand",
+      "lab": null,
+      "svelte": "custom-command--bar",
+      "astro": "command-bar",
+      "svelteFile": "components/command-bar.svelte",
+      "svelteItem": "command-bar",
+      "astroItem": "command-bar"
+    },
+    {
+      "name": "CommandBox",
+      "group": "brand",
+      "lab": null,
+      "svelte": "custom-command--box",
+      "astro": "command-box",
+      "svelteFile": "components/command-box.svelte",
+      "svelteItem": "command-box",
+      "astroItem": "command-box"
+    },
+    {
+      "name": "TerminalWindow",
+      "group": "brand",
+      "lab": null,
+      "svelte": "custom-terminal--window",
+      "astro": "terminal-window",
+      "svelteFile": "components/terminal-window.svelte",
+      "svelteItem": "terminal-window",
+      "astroItem": "terminal-window"
+    },
+    {
+      "name": "TerminalBody",
+      "group": "brand",
+      "lab": null,
+      "svelte": "custom-terminal--window",
+      "astro": "terminal-body",
+      "svelteFile": "components/terminal-body.svelte",
+      "svelteItem": "terminal-body",
+      "astroItem": "terminal-body"
+    },
+    {
+      "name": "TerminalLine",
+      "group": "brand",
+      "lab": null,
+      "svelte": "custom-terminal--lines",
+      "astro": "terminal-line",
+      "svelteFile": "components/terminal-line.svelte",
+      "svelteItem": "terminal-line",
+      "astroItem": "terminal-line"
+    },
+    {
+      "name": "Stepper",
+      "group": "brand",
+      "lab": null,
+      "svelte": "custom-stepper--done",
+      "astro": "stepper",
+      "svelteFile": "components/stepper.svelte",
+      "svelteItem": "stepper",
+      "astroItem": "stepper"
+    },
+    {
+      "name": "Step",
+      "group": "brand",
+      "lab": null,
+      "svelte": "custom-stepper--done",
+      "astro": "step",
+      "svelteFile": "components/step.svelte",
+      "svelteItem": "step",
+      "astroItem": "step"
+    },
+    {
+      "name": "StepNumber",
+      "group": "brand",
+      "lab": null,
+      "svelte": "custom-stepper--done",
+      "astro": "step-number",
+      "svelteFile": "components/step-number.svelte",
+      "svelteItem": "step-number",
+      "astroItem": "step-number"
+    },
+    {
+      "name": "Segmented",
+      "group": "brand",
+      "lab": null,
+      "svelte": "custom-segmented--default",
+      "astro": "segmented",
+      "svelteFile": "components/segmented.svelte",
+      "svelteItem": "segmented",
+      "astroItem": "segmented"
+    },
+    {
+      "name": "Question",
+      "group": "brand",
+      "lab": null,
+      "svelte": "custom-question--default",
+      "astro": "question",
+      "svelteFile": "components/question.svelte",
+      "svelteItem": "question",
+      "astroItem": "question"
+    },
+    {
+      "name": "Questions",
+      "group": "brand",
+      "lab": null,
+      "svelte": "custom-question--default",
+      "astro": "questions",
+      "svelteFile": "components/questions.svelte",
+      "svelteItem": "questions",
+      "astroItem": "questions"
+    },
+    {
+      "name": "Toc",
+      "group": "brand",
+      "lab": null,
+      "svelte": "custom-toc--default",
+      "astro": "toc",
+      "svelteFile": "components/toc.svelte",
+      "svelteItem": "toc",
+      "astroItem": "toc"
+    },
+    {
+      "name": "DataTable",
+      "group": "brand",
+      "lab": null,
+      "svelte": "custom-data-table--accent",
+      "astro": "data-table",
+      "svelteFile": "components/data-table.svelte",
+      "svelteItem": "data-table",
+      "astroItem": "data-table"
+    },
+    {
+      "name": "BrandIcon",
+      "group": "brand",
+      "lab": "custom-brand-icon--default",
+      "svelte": "custom-brand-icon--default",
+      "astro": "brand-icon",
+      "svelteFile": "components/brand-icon.svelte",
+      "svelteItem": "brand-icon",
+      "astroItem": "brand-icon"
+    },
+    {
+      "name": "SiteShell",
+      "group": "site",
+      "lab": null,
+      "svelte": "site-site-shell--landing",
+      "astro": "site-shell",
+      "svelteFile": "blocks/site/site-shell.svelte",
+      "svelteItem": "site-shell",
+      "astroItem": "site-shell",
+      "astroFile": "blocks/site/site-layout.astro"
+    },
+    {
+      "name": "SiteHead",
+      "group": "site",
+      "lab": null,
+      "svelte": "site-site-head--default",
+      "astro": "site-head",
+      "svelteFile": "blocks/site/site-head.svelte",
+      "svelteItem": "site-head",
+      "astroItem": "site-head"
+    },
+    {
+      "name": "Container",
+      "group": "site",
+      "lab": null,
+      "svelte": null,
+      "astro": "container",
+      "svelteFile": "blocks/site/container.svelte",
+      "svelteItem": "container",
+      "astroItem": "container"
+    },
+    {
+      "name": "ButtonLink",
+      "group": "site",
+      "lab": null,
+      "svelte": null,
+      "astro": "button-link",
+      "svelteFile": "blocks/site/button-link.svelte",
+      "svelteItem": "button-link",
+      "astroItem": "button-link"
+    },
+    {
+      "name": "Hero",
+      "group": "site",
+      "lab": null,
+      "svelte": "site-hero--with-rings",
+      "astro": "hero",
+      "svelteFile": "blocks/site/hero.svelte",
+      "svelteItem": "hero",
+      "astroItem": "hero"
+    },
+    {
+      "name": "HeroTitle",
+      "group": "site",
+      "lab": null,
+      "svelte": "site-hero--with-rings",
+      "astro": "hero-title",
+      "svelteFile": "blocks/site/hero-title.svelte",
+      "svelteItem": "hero-title",
+      "astroItem": "hero-title"
+    },
+    {
+      "name": "HeroLede",
+      "group": "site",
+      "lab": null,
+      "svelte": "site-hero--with-rings",
+      "astro": "hero-lede",
+      "svelteFile": "blocks/site/hero-lede.svelte",
+      "svelteItem": "hero-lede",
+      "astroItem": "hero-lede"
+    },
+    {
+      "name": "HeroActions",
+      "group": "site",
+      "lab": null,
+      "svelte": "site-hero--with-rings",
+      "astro": "hero-actions",
+      "svelteFile": "blocks/site/hero-actions.svelte",
+      "svelteItem": "hero-actions",
+      "astroItem": "hero-actions"
+    },
+    {
+      "name": "HeroNotes",
+      "group": "site",
+      "lab": null,
+      "svelte": "site-hero--with-rings",
+      "astro": "hero-notes",
+      "svelteFile": "blocks/site/hero-notes.svelte",
+      "svelteItem": "hero-notes",
+      "astroItem": "hero-notes"
+    },
+    {
+      "name": "HeroNote",
+      "group": "site",
+      "lab": null,
+      "svelte": "site-hero--with-rings",
+      "astro": "hero-note",
+      "svelteFile": "blocks/site/hero-note.svelte",
+      "svelteItem": "hero-note",
+      "astroItem": "hero-note"
+    },
+    {
+      "name": "PageIntro",
+      "group": "site",
+      "lab": null,
+      "svelte": "site-page-intro--default",
+      "astro": "page-intro",
+      "svelteFile": "blocks/site/page-intro.svelte",
+      "svelteItem": "page-intro",
+      "astroItem": "page-intro"
+    },
+    {
+      "name": "RingStats",
+      "group": "site",
+      "lab": null,
+      "svelte": "site-ring-stats--default",
+      "astro": "ring-stats",
+      "svelteFile": "blocks/site/ring-stats.svelte",
+      "svelteItem": "ring-stats",
+      "astroItem": "ring-stats"
+    },
+    {
+      "name": "Section",
+      "group": "site",
+      "lab": null,
+      "svelte": "site-section--default",
+      "astro": "section",
+      "svelteFile": "blocks/site/section.svelte",
+      "svelteItem": "section",
+      "astroItem": "section"
+    },
+    {
+      "name": "OutlineCard",
+      "group": "site",
+      "lab": null,
+      "svelte": "site-outline-card--default",
+      "astro": "outline-card",
+      "svelteFile": "blocks/site/outline-card.svelte",
+      "svelteItem": "outline-card",
+      "astroItem": "outline-card"
+    },
+    {
+      "name": "ElementCard",
+      "group": "site",
+      "lab": null,
+      "svelte": "site-element-card--default",
+      "astro": "element-card",
+      "svelteFile": "blocks/site/element-card.svelte",
+      "svelteItem": "element-card",
+      "astroItem": "element-card"
+    },
+    {
+      "name": "FeatureCards",
+      "group": "site",
+      "lab": null,
+      "svelte": "site-feature-cards--default",
+      "astro": "feature-cards",
+      "svelteFile": "blocks/site/feature-cards.svelte",
+      "svelteItem": "feature-cards",
+      "astroItem": "feature-cards"
+    },
+    {
+      "name": "FeatureGrid",
+      "group": "site",
+      "lab": null,
+      "svelte": "site-feature-grid--default",
+      "astro": "feature-grid",
+      "svelteFile": "blocks/site/feature-grid.svelte",
+      "svelteItem": "feature-grid",
+      "astroItem": "feature-grid"
+    },
+    {
+      "name": "Steps",
+      "group": "site",
+      "lab": null,
+      "svelte": "site-steps--default",
+      "astro": "steps",
+      "svelteFile": "blocks/site/steps.svelte",
+      "svelteItem": "steps",
+      "astroItem": "steps"
+    },
+    {
+      "name": "PricingPlans",
+      "group": "site",
+      "lab": null,
+      "svelte": "site-pricing-plans--default",
+      "astro": "pricing-plans",
+      "svelteFile": "blocks/site/pricing-plans.svelte",
+      "svelteItem": "pricing-plans",
+      "astroItem": "pricing-plans"
+    },
+    {
+      "name": "Price",
+      "group": "site",
+      "lab": null,
+      "svelte": "site-pricing-plans--default",
+      "astro": "price",
+      "svelteFile": "blocks/site/price.svelte",
+      "svelteItem": "price",
+      "astroItem": "price"
+    },
+    {
+      "name": "BeforeAfter",
+      "group": "site",
+      "lab": null,
+      "svelte": "site-before-after--default",
+      "astro": "before-after",
+      "svelteFile": "blocks/site/before-after.svelte",
+      "svelteItem": "before-after",
+      "astroItem": "before-after"
+    },
+    {
+      "name": "CtaBand",
+      "group": "site",
+      "lab": null,
+      "svelte": "site-cta-band--default",
+      "astro": "cta-band",
+      "svelteFile": "blocks/site/cta-band.svelte",
+      "svelteItem": "cta-band",
+      "astroItem": "cta-band"
+    },
+    {
+      "name": "Prose",
+      "group": "content",
+      "lab": null,
+      "svelte": "content-prose--default",
+      "astro": "prose",
+      "svelteFile": "blocks/site/prose.svelte",
+      "svelteItem": "prose",
+      "astroItem": "prose"
+    },
+    {
+      "name": "Bullets",
+      "group": "content",
+      "lab": null,
+      "svelte": "content-bullets--default",
+      "astro": "bullets",
+      "svelteFile": "blocks/site/bullets.svelte",
+      "svelteItem": "bullets",
+      "astroItem": "bullets"
+    },
+    {
+      "name": "CheckList",
+      "group": "content",
+      "lab": null,
+      "svelte": "content-check-list--default",
+      "astro": "check-list",
+      "svelteFile": "blocks/site/check-list.svelte",
+      "svelteItem": "check-list",
+      "astroItem": "check-list"
+    },
+    {
+      "name": "LinkBar",
+      "group": "content",
+      "lab": null,
+      "svelte": "content-link-bar--default",
+      "astro": "link-bar",
+      "svelteFile": "blocks/site/link-bar.svelte",
+      "svelteItem": "link-bar",
+      "astroItem": "link-bar"
+    },
+    {
+      "name": "SummaryBox",
+      "group": "content",
+      "lab": null,
+      "svelte": "content-summary-box--default",
+      "astro": "summary-box",
+      "svelteFile": "blocks/site/summary-box.svelte",
+      "svelteItem": "summary-box",
+      "astroItem": "summary-box"
+    },
+    {
+      "name": "BigNumbers",
+      "group": "content",
+      "lab": null,
+      "svelte": "content-big-numbers--three",
+      "astro": "big-numbers",
+      "svelteFile": "blocks/site/big-numbers.svelte",
+      "svelteItem": "big-numbers",
+      "astroItem": "big-numbers"
+    },
+    {
+      "name": "SearchBox",
+      "group": "content",
+      "lab": null,
+      "svelte": "content-search-box--default",
+      "astro": "search-box",
+      "svelteFile": "blocks/site/search-box.svelte",
+      "svelteItem": "search-box",
+      "astroItem": "search-box"
+    },
+    {
+      "name": "TopicChips",
+      "group": "content",
+      "lab": null,
+      "svelte": "content-topic-chips--default",
+      "astro": "topic-chips",
+      "svelteFile": "blocks/site/topic-chips.svelte",
+      "svelteItem": "topic-chips",
+      "astroItem": "topic-chips"
+    },
+    {
+      "name": "EmptyNote",
+      "group": "content",
+      "lab": null,
+      "svelte": "content-empty-note--default",
+      "astro": "empty-note",
+      "svelteFile": "blocks/site/empty-note.svelte",
+      "svelteItem": "empty-note",
+      "astroItem": "empty-note"
+    },
+    {
+      "name": "Kicker",
+      "group": "content",
+      "lab": null,
+      "svelte": null,
+      "astro": "kicker",
+      "svelteFile": "blocks/site/kicker.svelte",
+      "svelteItem": "kicker",
+      "astroItem": "kicker"
+    },
+    {
+      "name": "Combobox",
+      "group": "app",
+      "lab": null,
+      "svelte": "app-combobox--default",
+      "astro": "combobox",
+      "svelteFile": "ui/combobox/combobox.svelte",
+      "svelteItem": "ui-combobox",
+      "astroItem": "starwind-combobox",
+      "astroFile": "starwind/combobox/Combobox.astro"
+    },
+    {
+      "name": "AppShell",
+      "group": "app",
+      "lab": null,
+      "svelte": "app-shell--sidebar",
+      "astro": "app-shell",
+      "svelteFile": "blocks/app/shell/app-shell.svelte",
+      "svelteItem": "app-shell",
+      "astroItem": "app-shell"
+    },
+    {
+      "name": "AppPage",
+      "group": "app",
+      "lab": null,
+      "svelte": "app-shell--page",
+      "astro": "app-page",
+      "svelteFile": "blocks/app/shell/app-page.svelte",
+      "svelteItem": "app-page",
+      "astroItem": "app-page"
+    },
+    {
+      "name": "AppPageHeader",
+      "group": "app",
+      "lab": null,
+      "svelte": "app-shell--header",
+      "astro": "app-page-header",
+      "svelteFile": "blocks/app/shell/app-page-header.svelte",
+      "svelteItem": "app-page-header",
+      "astroItem": "app-page-header"
+    },
+    {
+      "name": "WorkspaceSwitcher",
+      "group": "app",
+      "lab": null,
+      "svelte": "app-account--workspace-switcher",
+      "astro": "workspace-switcher",
+      "svelteFile": "blocks/app/account/workspace-switcher.svelte",
+      "svelteItem": "workspace-switcher",
+      "astroItem": "workspace-switcher"
+    },
+    {
+      "name": "UserMenu",
+      "group": "app",
+      "lab": null,
+      "svelte": "app-account--user-menu",
+      "astro": "user-menu",
+      "svelteFile": "blocks/app/account/user-menu.svelte",
+      "svelteItem": "user-menu",
+      "astroItem": "user-menu"
+    },
+    {
+      "name": "SettingsSection",
+      "group": "app",
+      "lab": null,
+      "svelte": "app-settings--section",
+      "astro": "settings-section",
+      "svelteFile": "blocks/app/settings/settings-section.svelte",
+      "svelteItem": "settings-section",
+      "astroItem": "settings-section"
+    },
+    {
+      "name": "SettingRow",
+      "group": "app",
+      "lab": null,
+      "svelte": "app-settings--row",
+      "astro": "setting-row",
+      "svelteFile": "blocks/app/settings/setting-row.svelte",
+      "svelteItem": "setting-row",
+      "astroItem": "setting-row"
+    },
+    {
+      "name": "FormActions",
+      "group": "app",
+      "lab": null,
+      "svelte": "app-settings--form-actions",
+      "astro": "form-actions",
+      "svelteFile": "blocks/app/settings/form-actions.svelte",
+      "svelteItem": "form-actions",
+      "astroItem": "form-actions"
+    },
+    {
+      "name": "EmptyState",
+      "group": "app",
+      "lab": null,
+      "svelte": "app-states--empty-first-use",
+      "astro": "empty-state",
+      "svelteFile": "blocks/app/states/empty-state.svelte",
+      "svelteItem": "empty-state",
+      "astroItem": "empty-state"
+    },
+    {
+      "name": "NoResults",
+      "group": "app",
+      "lab": null,
+      "svelte": "app-states--empty-no-results",
+      "astro": "no-results",
+      "svelteFile": "blocks/app/states/no-results.svelte",
+      "svelteItem": "no-results",
+      "astroItem": "no-results"
+    },
+    {
+      "name": "ErrorState",
+      "group": "app",
+      "lab": null,
+      "svelte": "app-states--error-failed",
+      "astro": "error-state",
+      "svelteFile": "blocks/app/states/error-state.svelte",
+      "svelteItem": "error-state",
+      "astroItem": "error-state"
+    },
+    {
+      "name": "DataState",
+      "group": "app",
+      "lab": null,
+      "svelte": "app-states--data-pending",
+      "astro": "data-state",
+      "svelteFile": "blocks/app/states/data-state.svelte",
+      "svelteItem": "data-state",
+      "astroItem": "data-state"
+    },
+    {
+      "name": "SkeletonText",
+      "group": "app",
+      "lab": null,
+      "svelte": "app-states--skeleton-text",
+      "astro": "skeleton-text",
+      "svelteFile": "blocks/app/states/skeleton-text.svelte",
+      "svelteItem": "skeleton-text",
+      "astroItem": "skeleton-text"
+    },
+    {
+      "name": "SkeletonTable",
+      "group": "app",
+      "lab": null,
+      "svelte": "app-states--skeleton-table",
+      "astro": "skeleton-table",
+      "svelteFile": "blocks/app/states/skeleton-table.svelte",
+      "svelteItem": "skeleton-table",
+      "astroItem": "skeleton-table"
+    },
+    {
+      "name": "SkeletonStats",
+      "group": "app",
+      "lab": null,
+      "svelte": "app-states--skeleton-stats",
+      "astro": "skeleton-stats",
+      "svelteFile": "blocks/app/states/skeleton-stats.svelte",
+      "svelteItem": "skeleton-stats",
+      "astroItem": "skeleton-stats"
+    },
+    {
+      "name": "SkeletonDetails",
+      "group": "app",
+      "lab": null,
+      "svelte": "app-states--skeleton-details",
+      "astro": "skeleton-details",
+      "svelteFile": "blocks/app/states/skeleton-details.svelte",
+      "svelteItem": "skeleton-details",
+      "astroItem": "skeleton-details"
+    },
+    {
+      "name": "SkeletonSettings",
+      "group": "app",
+      "lab": null,
+      "svelte": "app-states--skeleton-settings",
+      "astro": "skeleton-settings",
+      "svelteFile": "blocks/app/states/skeleton-settings.svelte",
+      "svelteItem": "skeleton-settings",
+      "astroItem": "skeleton-settings"
+    },
+    {
+      "name": "CollectionToolbar",
+      "group": "app",
+      "lab": null,
+      "svelte": "app-collection--toolbar",
+      "astro": "collection-toolbar",
+      "svelteFile": "blocks/app/collection/collection-toolbar.svelte",
+      "svelteItem": "collection-toolbar",
+      "astroItem": "collection-toolbar"
+    },
+    {
+      "name": "FilterChip",
+      "group": "app",
+      "lab": null,
+      "svelte": "app-collection--filter-chip",
+      "astro": "filter-chip",
+      "svelteFile": "blocks/app/collection/filter-chip.svelte",
+      "svelteItem": "filter-chip",
+      "astroItem": "filter-chip"
+    },
+    {
+      "name": "SortMenu",
+      "group": "app",
+      "lab": null,
+      "svelte": "app-collection--sort-menu",
+      "astro": "sort-menu",
+      "svelteFile": "blocks/app/collection/sort-menu.svelte",
+      "svelteItem": "sort-menu",
+      "astroItem": "sort-menu"
+    },
+    {
+      "name": "BulkActionBar",
+      "group": "app",
+      "lab": null,
+      "svelte": "app-collection--bulk-action-bar",
+      "astro": "bulk-action-bar",
+      "svelteFile": "blocks/app/collection/bulk-action-bar.svelte",
+      "svelteItem": "bulk-action-bar",
+      "astroItem": "bulk-action-bar"
+    },
+    {
+      "name": "AppTableFrame",
+      "group": "app",
+      "lab": null,
+      "svelte": "app-table--frame",
+      "astro": "app-table-frame",
+      "svelteFile": "blocks/app/table/app-table-frame.svelte",
+      "svelteItem": "app-table-frame",
+      "astroItem": "app-table-frame"
+    },
+    {
+      "name": "SortableHead",
+      "group": "app",
+      "lab": null,
+      "svelte": "app-table--sortable-head",
+      "astro": "sortable-head",
+      "svelteFile": "blocks/app/table/sortable-head.svelte",
+      "svelteItem": "sortable-head",
+      "astroItem": "sortable-head"
+    },
+    {
+      "name": "SelectAllCheckbox",
+      "group": "app",
+      "lab": null,
+      "svelte": "app-table--select-all-checkbox",
+      "astro": "select-all-checkbox",
+      "svelteFile": "blocks/app/table/select-all-checkbox.svelte",
+      "svelteItem": "select-all-checkbox",
+      "astroItem": "select-all-checkbox"
+    },
+    {
+      "name": "RowCheckbox",
+      "group": "app",
+      "lab": null,
+      "svelte": "app-table--row-checkbox",
+      "astro": "row-checkbox",
+      "svelteFile": "blocks/app/table/row-checkbox.svelte",
+      "svelteItem": "row-checkbox",
+      "astroItem": "row-checkbox"
+    },
+    {
+      "name": "RowActions",
+      "group": "app",
+      "lab": null,
+      "svelte": "app-table--row-actions",
+      "astro": "row-actions",
+      "svelteFile": "blocks/app/table/row-actions.svelte",
+      "svelteItem": "row-actions",
+      "astroItem": "row-actions"
+    },
+    {
+      "name": "TablePagination",
+      "group": "app",
+      "lab": null,
+      "svelte": "app-table--pagination",
+      "astro": "table-pagination",
+      "svelteFile": "blocks/app/table/table-pagination.svelte",
+      "svelteItem": "table-pagination",
+      "astroItem": "table-pagination"
+    },
+    {
+      "name": "TableStateRow",
+      "group": "app",
+      "lab": null,
+      "svelte": "app-table--state-row",
+      "astro": "table-state-row",
+      "svelteFile": "blocks/app/table/table-state-row.svelte",
+      "svelteItem": "table-state-row",
+      "astroItem": "table-state-row"
+    },
+    {
+      "name": "TableSkeletonRows",
+      "group": "app",
+      "lab": null,
+      "svelte": "app-table--skeleton-rows",
+      "astro": "table-skeleton-rows",
+      "svelteFile": "blocks/app/table/table-skeleton-rows.svelte",
+      "svelteItem": "table-skeleton-rows",
+      "astroItem": "table-skeleton-rows"
+    },
+    {
+      "name": "TableRecipe",
+      "group": "app",
+      "lab": null,
+      "svelte": "app-table-recipe--recipe",
+      "astro": "table-recipe",
+      "svelteFile": "blocks/app/table/table-recipe.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "AuthLayout",
+      "group": "app",
+      "lab": null,
+      "svelte": "app-auth-layout--centered",
+      "astro": "auth-layout",
+      "svelteFile": "blocks/app/auth-layout/auth-layout.svelte",
+      "svelteItem": "auth-layout",
+      "astroItem": "auth-layout"
+    },
+    {
+      "name": "SignInForm",
+      "group": "app",
+      "lab": null,
+      "svelte": "app-auth--sign-in-form",
+      "astro": "sign-in-form",
+      "svelteFile": "blocks/app/auth/sign-in-form.svelte",
+      "svelteItem": "sign-in-form",
+      "astroItem": "sign-in-form"
+    },
+    {
+      "name": "SignUpForm",
+      "group": "app",
+      "lab": null,
+      "svelte": "app-auth--sign-up-form",
+      "astro": "sign-up-form",
+      "svelteFile": "blocks/app/auth/sign-up-form.svelte",
+      "svelteItem": "sign-up-form",
+      "astroItem": "sign-up-form"
+    },
+    {
+      "name": "ForgotPasswordForm",
+      "group": "app",
+      "lab": null,
+      "svelte": "app-auth--forgot-password-form",
+      "astro": "forgot-password-form",
+      "svelteFile": "blocks/app/auth/forgot-password-form.svelte",
+      "svelteItem": "forgot-password-form",
+      "astroItem": "forgot-password-form"
+    },
+    {
+      "name": "ResetPasswordForm",
+      "group": "app",
+      "lab": null,
+      "svelte": "app-auth--reset-password-form",
+      "astro": "reset-password-form",
+      "svelteFile": "blocks/app/auth/reset-password-form.svelte",
+      "svelteItem": "reset-password-form",
+      "astroItem": "reset-password-form"
+    },
+    {
+      "name": "VerifyEmail",
+      "group": "app",
+      "lab": null,
+      "svelte": "app-auth--verify-email",
+      "astro": "verify-email",
+      "svelteFile": "blocks/app/auth/verify-email.svelte",
+      "svelteItem": "verify-email",
+      "astroItem": "verify-email"
+    },
+    {
+      "name": "ProviderButtons",
+      "group": "app",
+      "lab": null,
+      "svelte": "app-auth--provider-buttons",
+      "astro": "provider-buttons",
+      "svelteFile": "blocks/app/auth/provider-buttons.svelte",
+      "svelteItem": "provider-buttons",
+      "astroItem": "provider-buttons"
+    },
+    {
+      "name": "PasswordInput",
+      "group": "app",
+      "lab": null,
+      "svelte": "app-auth--password-input",
+      "astro": "password-input",
+      "svelteFile": "blocks/app/auth/password-input.svelte",
+      "svelteItem": "password-input",
+      "astroItem": "password-input"
+    },
+    {
+      "name": "DetailList",
+      "group": "app",
+      "lab": null,
+      "svelte": "app-details--list-rows",
+      "astro": "detail-list",
+      "svelteFile": "blocks/app/details/detail-list.svelte",
+      "svelteItem": "detail-list",
+      "astroItem": "detail-list"
+    },
+    {
+      "name": "DetailSection",
+      "group": "app",
+      "lab": null,
+      "svelte": "app-details--section",
+      "astro": "detail-section",
+      "svelteFile": "blocks/app/details/detail-section.svelte",
+      "svelteItem": "detail-section",
+      "astroItem": "detail-section"
+    },
+    {
+      "name": "MetricTrend",
+      "group": "app",
+      "lab": null,
+      "svelte": "app-metrics--trend-rising",
+      "astro": "metric-trend",
+      "svelteFile": "blocks/app/metrics/metric-trend.svelte",
+      "svelteItem": "metric-trend",
+      "astroItem": "metric-trend"
+    },
+    {
+      "name": "StatCard",
+      "group": "app",
+      "lab": null,
+      "svelte": "app-metrics--card",
+      "astro": "stat-card",
+      "svelteFile": "blocks/app/metrics/stat-card.svelte",
+      "svelteItem": "stat-card",
+      "astroItem": "stat-card"
+    },
+    {
+      "name": "StatGrid",
+      "group": "app",
+      "lab": null,
+      "svelte": "app-metrics--grid-demo-cards",
+      "astro": "stat-grid",
+      "svelteFile": "blocks/app/metrics/stat-grid.svelte",
+      "svelteItem": "stat-grid",
+      "astroItem": "stat-grid"
+    },
+    {
+      "name": "UsageMeter",
+      "group": "app",
+      "lab": null,
+      "svelte": "app-metrics--meter-below-the-warning-level",
+      "astro": "usage-meter",
+      "svelteFile": "blocks/app/metrics/usage-meter.svelte",
+      "svelteItem": "usage-meter",
+      "astroItem": "usage-meter"
+    },
+    {
+      "name": "ConfirmAction",
+      "group": "app",
+      "lab": null,
+      "svelte": "app-actions--confirm-destructive",
+      "astro": "confirm-action",
+      "svelteFile": "blocks/app/actions/confirm-action.svelte",
+      "svelteItem": "confirm-action",
+      "astroItem": "confirm-action"
+    },
+    {
+      "name": "RecordSheet",
+      "group": "app",
+      "lab": null,
+      "svelte": "app-actions--record-sheet",
+      "astro": "record-sheet",
+      "svelteFile": "blocks/app/actions/record-sheet.svelte",
+      "svelteItem": "record-sheet",
+      "astroItem": "record-sheet"
+    },
+    {
+      "name": "BlogLayout",
+      "group": "content",
+      "lab": null,
+      "svelte": "content-blog-layout--default",
+      "astro": "blog-layout",
+      "svelteFile": "blocks/content/blog-layout.svelte",
+      "svelteItem": "blog-layout",
+      "astroItem": "blog-layout"
+    },
+    {
+      "name": "PostHeader",
+      "group": "content",
+      "lab": "sites-pages--post",
+      "svelte": "content-post-header--with-cover",
+      "astro": "post-header",
+      "svelteFile": "blocks/content/post-header.svelte",
+      "svelteItem": "post-header",
+      "astroItem": "post-header"
+    },
+    {
+      "name": "PostContents",
+      "group": "content",
+      "lab": "sites-pages--post",
+      "svelte": "content-post-contents--inline",
+      "astro": "post-contents",
+      "svelteFile": "blocks/content/post-contents.svelte",
+      "svelteItem": "post-contents",
+      "astroItem": "post-contents"
+    },
+    {
+      "name": "PullQuote",
+      "group": "content",
+      "lab": "sites-pages--post",
+      "svelte": "content-pull-quote--margin",
+      "astro": "pull-quote",
+      "svelteFile": "blocks/content/pull-quote.svelte",
+      "svelteItem": "pull-quote",
+      "astroItem": "pull-quote"
+    },
+    {
+      "name": "ShareBar",
+      "group": "content",
+      "lab": "sites-pages--post",
+      "svelte": "content-share-bar--bar",
+      "astro": "share-bar",
+      "svelteFile": "blocks/content/share-bar.svelte",
+      "svelteItem": "share-bar",
+      "astroItem": "share-bar"
+    },
+    {
+      "name": "NewsletterBand",
+      "group": "content",
+      "lab": "sites-pages--post",
+      "svelte": "content-newsletter-band--default",
+      "astro": "newsletter-band",
+      "svelteFile": "blocks/content/newsletter-band.svelte",
+      "svelteItem": "newsletter-band",
+      "astroItem": "newsletter-band"
+    },
+    {
+      "name": "PostList",
+      "group": "content",
+      "lab": "sites-pages--blog-index",
+      "svelte": "content-post-list--cards",
+      "astro": "post-list",
+      "svelteFile": "blocks/content/post-list.svelte",
+      "svelteItem": "post-list",
+      "astroItem": "post-list"
+    },
+    {
+      "name": "PostCard",
+      "group": "content",
+      "lab": "sites-pages--blog-index",
+      "svelte": "content-post-card--default",
+      "astro": "post-card",
+      "svelteFile": "blocks/content/post-card.svelte",
+      "svelteItem": "post-card",
+      "astroItem": "post-card"
+    },
+    {
+      "name": "PostMeta",
+      "group": "content",
+      "lab": "sites-pages--blog-index",
+      "svelte": "content-post-meta--on-a-card",
+      "astro": "post-meta",
+      "svelteFile": "blocks/content/post-meta.svelte",
+      "svelteItem": "post-meta",
+      "astroItem": "post-meta"
+    },
+    {
+      "name": "DocsLayout",
+      "group": "content",
+      "lab": "sites-pages--docs",
+      "svelte": "content-docs-layout--default",
+      "astro": "docs-layout",
+      "svelteFile": "blocks/content/docs-layout.svelte",
+      "svelteItem": "docs-layout",
+      "astroItem": "docs-layout"
+    },
+    {
+      "name": "DocsSearch",
+      "group": "content",
+      "lab": "sites-pages--docs",
+      "svelte": "content-docs-search--default",
+      "astro": "docs-search",
+      "svelteFile": "blocks/content/docs-search.svelte",
+      "svelteItem": "docs-search",
+      "astroItem": "docs-search"
+    },
+    {
+      "name": "DocsTitle",
+      "group": "content",
+      "lab": "sites-pages--docs",
+      "svelte": "content-docs-title--default",
+      "astro": "docs-title",
+      "svelteFile": "blocks/content/docs-title.svelte",
+      "svelteItem": "docs-title",
+      "astroItem": "docs-title"
+    },
+    {
+      "name": "DocsPager",
+      "group": "content",
+      "lab": "sites-pages--docs",
+      "svelte": "content-docs-pager--default",
+      "astro": "docs-pager",
+      "svelteFile": "blocks/content/docs-pager.svelte",
+      "svelteItem": "docs-pager",
+      "astroItem": "docs-pager"
+    },
+    {
+      "name": "ReleaseTimeline",
+      "group": "content",
+      "lab": "sites-pages--changelog",
+      "svelte": "content-release-timeline--default",
+      "astro": "release-timeline",
+      "svelteFile": "blocks/content/release-timeline.svelte",
+      "svelteItem": "release-timeline",
+      "astroItem": "release-timeline"
+    },
+    {
+      "name": "ReleaseHead",
+      "group": "content",
+      "lab": "sites-pages--changelog",
+      "svelte": "content-release-head--in-a-timeline",
+      "astro": "release-head",
+      "svelteFile": "blocks/content/release-head.svelte",
+      "svelteItem": "release-head",
+      "astroItem": "release-head"
+    },
+    {
+      "name": "KindTag",
+      "group": "content",
+      "lab": "sites-pages--changelog",
+      "svelte": "content-kind-tag--default",
+      "astro": "kind-tag",
+      "svelteFile": "blocks/content/kind-tag.svelte",
+      "svelteItem": "kind-tag",
+      "astroItem": "kind-tag"
+    },
+    {
+      "name": "ReleaseNotes",
+      "group": "content",
+      "lab": "sites-pages--changelog",
+      "svelte": "content-release-notes--grouped",
+      "astro": "release-notes",
+      "svelteFile": "blocks/content/release-notes.svelte",
+      "svelteItem": "release-notes",
+      "astroItem": "release-notes"
+    },
+    {
+      "name": "PastReleases",
+      "group": "content",
+      "lab": "sites-pages--changelog",
+      "svelte": "content-past-releases--default",
+      "astro": "past-releases",
+      "svelteFile": "blocks/content/past-releases.svelte",
+      "svelteItem": "past-releases",
+      "astroItem": "past-releases"
+    },
+    {
+      "name": "FaqList",
+      "group": "content",
+      "lab": "sites-pages--faq",
+      "svelte": "content-faq-list--default",
+      "astro": "faq-list",
+      "svelteFile": "blocks/content/faq-list.svelte",
+      "svelteItem": "faq-list",
+      "astroItem": "faq-list"
+    },
+    {
+      "name": "LegalLayout",
+      "group": "content",
+      "lab": "sites-pages--privacy",
+      "svelte": "content-legal-layout--side",
+      "astro": "legal-layout",
+      "svelteFile": "blocks/content/legal-layout.svelte",
+      "svelteItem": "legal-layout",
+      "astroItem": "legal-layout"
+    },
+    {
+      "name": "LegalSection",
+      "group": "content",
+      "lab": "sites-pages--privacy",
+      "svelte": "content-legal-section--default",
+      "astro": "legal-section",
+      "svelteFile": "blocks/content/legal-section.svelte",
+      "svelteItem": "legal-section",
+      "astroItem": "legal-section"
+    },
+    {
+      "name": "LegalBlock",
+      "group": "content",
+      "lab": "sites-pages--privacy",
+      "svelte": "content-legal-block--default",
+      "astro": "legal-block",
+      "svelteFile": "blocks/content/legal-block.svelte",
+      "svelteItem": "legal-block",
+      "astroItem": "legal-block"
+    },
+    {
+      "name": "ContactChannels",
+      "group": "content",
+      "lab": "sites-pages--contact",
+      "svelte": "content-contact-channels--default",
+      "astro": "contact-channels",
+      "svelteFile": "blocks/content/contact-channels.svelte",
+      "svelteItem": "contact-channels",
+      "astroItem": "contact-channels"
+    },
+    {
+      "name": "NotFound",
+      "group": "content",
+      "lab": "sites-pages--not-found",
+      "svelte": "content-not-found--default",
+      "astro": "not-found",
+      "svelteFile": "blocks/content/not-found.svelte",
+      "svelteItem": "not-found",
+      "astroItem": "not-found"
+    },
+    {
+      "name": "InstallSteps",
+      "group": "content",
+      "lab": "sites-pages--components",
+      "svelte": "content-install-steps--default",
+      "astro": "install-steps",
+      "svelteFile": "blocks/content/install-steps.svelte",
+      "svelteItem": "install-steps",
+      "astroItem": "install-steps"
+    },
+    {
+      "name": "TypingTerminal",
+      "group": "content",
+      "lab": "sites-pages--components",
+      "svelte": "content-typing-terminal--default",
+      "astro": "typing-terminal",
+      "svelteFile": "blocks/content/typing-terminal.svelte",
+      "svelteItem": "typing-terminal",
+      "astroItem": "typing-terminal"
+    },
+    {
+      "name": "CodeEditor",
+      "group": "content",
+      "lab": "sites-pages--components",
+      "svelte": "content-code-editor--default",
+      "astro": "code-editor",
+      "svelteFile": "blocks/content/code-editor.svelte",
+      "svelteItem": "code-editor",
+      "astroItem": "code-editor"
+    }
+  ]
+}
