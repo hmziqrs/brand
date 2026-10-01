@@ -191,6 +191,51 @@ The Svelte Storybook lists the lab's Storybook as a ref, so one sidebar shows bo
 - `svelte-app`'s landing page builds and matches the layout of the lab's landing pages, with no theme flash on load.
 - `rg '\$app/' packages/brand-svelte/src` finds nothing.
 
+**Step 1 status (updated 2026-10-01).** Done, except the deploy (1.12):
+
+- `packages/brand-svelte` is `sv create` (library) + Tailwind 4 + `shadcn-svelte init`
+  (Vega preset, base neutral), with the CSS file at `src/lib/styles/kit.css` and every
+  alias on `$brand/…` (a SvelteKit `kit.alias`, handed to Vite and TypeScript both).
+  The color variables init wrote are deleted; `kit.css` loads the framework CSS and
+  nothing else. The stock set the pieces build on is in `ui/` (button, card, alert,
+  table, tooltip, input-group) with the lab's two changes applied — the list is in the
+  kit's README, with what was compared against what.
+- **Import order matters**: the framework CSS must load before core's `theme.css`, or
+  Tailwind's `@theme inline` utilities don't resolve the tokens (borders came out as
+  `currentColor`). Both app stylesheets — the kit's `src/app.css` and the boilerplate's —
+  load `kit.css` first, then the fonts, then the theme.
+- Every brand piece, site block and content piece from the table is ported, each with a
+  `*.stories.svelte` next to it (96 stories). `SiteHead` is new: the tags a site's
+  `head.html` will hold, for a site's id in `family.ts`, with the theme-color hexes
+  derived from core's `theme.css` at build time (`readTheme` + `toHex`) rather than
+  typed in.
+- `pnpm compare` (new, `scripts/compare.mjs`, Playwright) lays each piece next to its
+  lab story in light and dark at 360px and 1280px. All 13 brand pieces with lab stories
+  are byte-identical screenshots; `Scene` can't be (it animates — the lab differs from
+  itself too) and matches in its `still` story, same canvas size, same pause button.
+  Two real bugs it caught are fixed: a button rendered inside a button (the tooltip
+  trigger now renders through bits-ui's `child` snippet) and a whitespace text node
+  inside `<pre>` adding a line.
+- `scripts/pieces.json` (61 pieces), `check:parity` and the failing/passing example
+  files for `check:colors` and `check:motion` on `.svelte` are in. Astro fields are
+  "not yet" until step 2's gallery exists.
+- axe: 96 stories, 0 violations (`pnpm check:a11y` in the kit, with Storybook running).
+  The two page-scope rules are off in the preview config — a story is a component in an
+  iframe, and the lab's stories report exactly those two and nothing else.
+- `boilerplates/svelte-app` builds: landing page from the site blocks with example copy,
+  the lab's not-found design as `+error.svelte`, dark before first paint with a
+  remembered light toggle, a placeholder icon pack, and `SiteHead` in the layout.
+
+Still open in this step: nothing. 1.12 is wired: `.github/workflows/storybook.yml`
+builds both Storybooks, assembles them into one Pages artifact (the kit's at `/`,
+the lab's copied under `lab/`) and deploys it. Both builds emit relative asset URLs,
+so neither needs a base path. The layout was checked locally by serving that same
+assembled folder: `/` and `/lab/` each load on their own, the `refs.lab` entry shows
+in the root sidebar, and a composed story (`?path=/story/lab_<id>`) renders in a
+`/lab/iframe.html` ref iframe. The workflow also now runs `pnpm check` and
+`pnpm build` instead of the five single checks, which is what "Repo setup for the
+kits" asks CI to run.
+
 ### Step 2: brand-astro and astro-app (work item 3)
 
 Needs only structure.md, so it can run alongside step 1.
@@ -217,6 +262,68 @@ Needs only structure.md, so it can run alongside step 1.
 - `astro-app`'s landing page ships no JS apart from interactive pieces, with no theme flash on load.
 - No Starwind component fills a status color solid.
 
+**Step 2 status (updated 2026-10-01).** The foundation is built; the porting
+and the boilerplate are not. Done:
+
+- Step 2.1's tests, in a scratch Astro 7 app. Starwind 3.3 / registry 2.2 /
+  runtime 1.2.1. Findings, kept in `packages/brand-astro/README.md`:
+  - Buttons carry `data-slot` but not `data-variant`; the kit's Button adds
+    it. `@lucide/astro` icons render the `lucide` class, so the brand stroke
+    applies. `$brand` works for `.astro` files and their `<script>`s.
+  - Installing the kit's own files: Starwind's CLI rejects shadcn-shaped
+    registry items (its manifest schema is its own and undocumented); the
+    shadcn CLI with plain `registry:file` items installs `.astro` files to
+    exact paths. **That is the method for step 3's Astro registry.**
+- `packages/brand-astro` exists: `kit.css` (Starwind's stylesheet minus its
+  colors, plus the 3.1 adapter), the stock set the pieces and blocks build on
+  (alert, avatar, badge, button, card, field, input, input-group, kbd, label,
+  progress, separator, slider, switch, table, tabs, textarea, tooltip) with
+  the brand's changes, `starwind.config.json` recording versions, and
+  `astro check` wired into root `pnpm typecheck`.
+- The 3.1 adapter was tested in a real build. It is correct as written. Two
+  of Starwind's own lines must be deleted from `kit.css` alongside its
+  colors, or they override core: the `@custom-variant dark` line (core's
+  keeps `.light` bands working) and the `--radius-*` scale above `xs`. Both
+  are done; step 2.8's BRAND.md update should say so.
+- `check-colors` and `check-motion` read `.astro` files and scan
+  `packages/brand-astro/src` (stock `starwind/` exempt from colors only) and
+  `boilerplates/astro-app/src`, with self-testing examples in
+  `scripts/examples/`. A scan folder that doesn't exist yet is warned about,
+  not fatal, so the checks pass before the boilerplate exists.
+
+Still open in this step: `astro-app` with its `/kit` gallery (2.6), the root
+build script (2.7), the BRAND.md edits (2.8), `check:parity` and
+`pnpm compare`, and `.astro` in `.gitignore` (repo setup).
+
+**Step 2.5 status (updated 2026-10-01).** The pieces are ported. Every brand
+piece from the kits.md table is in `packages/brand-astro/src/components/`,
+the site blocks and content pieces in `src/blocks/site/`, with
+`SiteLayout` (the lab's SiteShell, rendering the whole document) and
+`SiteHead`; `src/index.ts` is the barrel. `astro check` (0 errors),
+`check:colors` and `check-motion` pass, and a throwaway page rendering every
+piece once was built with `astro build` to prove they all render — then
+deleted. Findings, kept in the kit's README:
+
+- ReactNode props became named slots; `style` objects are kebab-cased by
+  `styleText`, because a style attribute ignores React's camelCase names.
+  The Svelte kit's `styleText` (`packages/brand-svelte/src/lib/utils.ts`)
+  has the same camelCase hole and needs the same fix before its looks are
+  compared.
+- Interaction, the Starwind way: delegated scripts keyed on `data-slot`,
+  rerun on `astro:page-load`. `CopyButton` swaps on `data-copied`;
+  `CodeBlock` renders every tab's panel at build time and toggles them;
+  `Segmented` and `TopicChips` set `aria-pressed` and bubble a
+  `segmented-change` / `topic-change` CustomEvent (the stand-in for the
+  lab's callback props), which `PricingPlans` answers by showing the
+  matching `[data-billing]` price. Everything else ships no JS.
+- `Scene` works in a real build: the dynamic import bundles core's scenes
+  plus three as separate chunks, loaded only when a scene is on the page.
+  Projects using Scene install `three` themselves (core's optional peer).
+- Pieces that must match the lab exactly carry the lab's classes on the
+  piece (Notice over Starwind's Alert, cards over Starwind's Card). The
+  side-by-side `pnpm compare` report is still to come (above), so the
+  pixel match is unverified.
+
 ### Step 3: Publish core and the registries (work item 4)
 
 Needs steps 1 and 2.
@@ -239,6 +346,84 @@ Content blocks and app blocks are added to the registries as their plans finish 
 - A fresh SvelteKit app and a fresh Astro app each get the theme from the published core and every component from their registry, and look like the references.
 - `pnpm check:fresh-copy svelte` and `pnpm check:fresh-copy astro` both pass.
 - BRAND.md tells a new site how to install the brand without reading these plans.
+
+**Step 3 status (updated 2026-10-01).** The machinery is built and both
+fresh-copy checks pass against a locally served registry; the actual npm
+publish and the first Pages deploy of the registries are the by-hand release
+steps below. Done:
+
+- LICENSE (MIT) at the root, and `@hmziq/brand-core` is publishable:
+  `license`/`repository` fields, its own README and LICENSE, and a tsup build
+  to `dist/` that the export map points at. Shipping TypeScript source broke
+  the moment a real project imported it: a site's `vite.config.ts` loads
+  core's Markdown plugins in plain Node, and Node refuses to strip types
+  under `node_modules` (`ERR_UNSUPPORTED_NODE_MODULES_TYPE_STRIPPING`).
+  `pnpm check` and `pnpm build` both build core first, so the workspace
+  package stays in step; rebuild after editing `src/`.
+- Changesets (`@changesets/cli` at the root, `.changeset/config.json`):
+  core is versioned and published, the two kits are versioned as private
+  packages (`privatePackages.version: true`, no tag) so each keeps a
+  changelog, and `.changeset/README.md` is the release runbook:
+  `pnpm changeset version` → `pnpm registry:generate` → both fresh copies →
+  `pnpm changeset publish` → push (the Pages workflow then deploys the
+  registries).
+- Both registries, generated from the roster and the kits' source trees by
+  `pnpm registry:generate` (scripts/registry-lib.mjs +
+  scripts/generate-registries.mjs): one item per roster piece, one per
+  vendored stock folder (`ui-*`, `starwind-*`), `utils`, a `kit` item that
+  depends on everything, and a catch-all per blocks folder the roster
+  doesn't list yet (`content-blocks`, `app-blocks`) — pieces become their
+  own items when their plan rosters them and the generator is re-run. Every
+  kit file lands in exactly one item; an item's `registryDependencies` are
+  the items its files import.
+  - Svelte: `packages/brand-svelte/registry.json`, built by the
+    shadcn-svelte CLI's `registry build`. The CLI's alias rewriting does the
+    porting-rule-3 work: kit files import `$brand/…`, and installing into a
+    project whose `components.json` aliases are `$lib/brand/…` rewrites them
+    to `$lib/brand/…`. The CLI's injected `devDependencies` for stock
+    components (storybook and friends) are stripped in the build; the kit's
+    own `dependencies` already carry what the files import.
+  - Astro: `packages/brand-astro/registry.json`, the shadcn CLI's plain
+    file-item format from step 2's test, with exact
+    `src/components/brand/…` targets and `@hmziq/…` registryDependencies
+    resolved through the project's `registries` map.
+  - The Scene items carry `three` (core's optional peer): the kit barrel
+    exports Scene, so every whole-kit install has to build it.
+- `pnpm registry:build` (scripts/build-registries.mjs) writes the Pages
+  layout — `r/svelte/`, `r/astro/`, `theme.css` — into `dist/registries/`
+  (git-ignored), including the `styles/vega/index.json` the shadcn-svelte
+  CLI fetches before every add. The Storybook workflow copies it into the
+  Pages artifact, but only once core's version is not 0.0.0: an unreleased
+  version would send installs to npm for a package that isn't there.
+- `pnpm new-project <svelte|astro> <folder>`
+  (scripts/new-project.mjs): copies the boilerplate, points
+  `@hmziq/brand-core` at the published version (`--core` overrides, e.g. a
+  `pnpm pack` tarball before a release), writes the `components.json` the
+  CLIs need, points `$brand` at the installed kit folder, rewrites the two
+  in-repo-only lines (the Astro stylesheet's `@source` for the kit, and the
+  svelte config's relative imports of core's Markdown plugins, which the
+  config's own comment asks for), installs, and adds the whole kit from the
+  registry. No import in the boilerplate changes.
+- `pnpm check:fresh-copy <svelte|astro>` (scripts/check-fresh-copy.mjs):
+  builds the registries, serves them from `scripts/serve-registries.mjs`
+  (a separate process — the installs run under `spawnSync`), runs
+  `new-project` into a temp folder outside the repo, and builds the copy.
+  While core is unreleased it installs the local `pnpm pack` tarball — the
+  same bytes publish would upload — and says so. Both pass.
+- BRAND.md: section 2 leads with `pnpm new-project` and "The registries"
+  table, section 9's "Where things live" points at the kits, section 14
+  names the registry per framework.
+
+Still open in this step:
+
+- The release itself: `pnpm changeset version` (0.1.0 with the changeset in
+  `.changeset/`), `pnpm changeset publish` (needs npm login; the @hmziq
+  scope has to exist), then push so the Pages workflow ships `/r/svelte/`,
+  `/r/astro/` and `/theme.css`. Until then the registries are not deployed
+  and `check:fresh-copy`'s registry stays local.
+- The "look like the references" half of the done-when: the fresh copies
+  build, but nobody has compared their landing pages side by side with the
+  lab's yet (`pnpm compare --pages`, after the Storybook/registry deploy).
 
 ## Not in this plan
 

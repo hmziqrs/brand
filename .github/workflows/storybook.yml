@@ -1,5 +1,10 @@
-# Builds the Storybook and publishes it to GitHub Pages.
+# Builds both Storybooks and publishes the Pages site.
 # One-time setup: repo Settings → Pages → Source: "GitHub Actions".
+#
+# The site root (kits.md, "Distribution"): the Svelte kit's Storybook at `/`,
+# the lab's React Storybook under `/lab/`, the two registries under `/r/`
+# and core's theme at `/theme.css`. `BRAND.md` is served at the root by the
+# Svelte Storybook's static dirs.
 name: Storybook
 
 on:
@@ -27,16 +32,33 @@ jobs:
           node-version: 24
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm lint
-      - run: pnpm typecheck
-      - run: pnpm check:motion
-      - run: pnpm check:colors
-      - run: pnpm check:contrast
-      - run: pnpm check:brand-kit
+      # kits.md, "Repo setup for the kits": CI runs `pnpm check` (which ends
+      # with `check:parity`) and every build.
+      - run: pnpm check
+      - run: pnpm build
       - run: pnpm build-storybook
+      - run: pnpm registry:build
+      # Assemble the Pages site: the kit's Storybook at the root, the lab's
+      # one level down at /lab/. Both build with relative asset URLs, so
+      # neither needs a base path, and the kit's `refs.lab` url is `/lab/`.
+      # The registries and /theme.css join only once @hmziq/brand-core has a
+      # released version — 0.0.0 means "never released", and until then the
+      # items' core dependency would point at a package that isn't on npm.
+      - name: Assemble the Pages site
+        run: |
+          rm -rf pages
+          mkdir -p pages/lab
+          cp -R packages/brand-svelte/storybook-static/. pages/
+          cp -R apps/lab/storybook-static/. pages/lab/
+          if [ "$(node -p "require('./packages/brand-core/package.json').version")" != "0.0.0" ]; then
+            cp -R dist/registries/r/. pages/r/
+            cp dist/registries/theme.css pages/theme.css
+          else
+            echo "@hmziq/brand-core is 0.0.0 (unreleased); the registries are not deployed yet"
+          fi
       - uses: actions/upload-pages-artifact@v5
         with:
-          path: storybook-static
+          path: pages
 
   deploy:
     needs: build
