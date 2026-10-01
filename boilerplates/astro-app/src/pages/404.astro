@@ -1,0 +1,18 @@
+---
+// The 404, with the lab's not-found design: the words, and rings drawn from
+// "not found" beside them (apps/lab/src/sites/claude-multi/not-found).
+import ButtonLink from "$brand/blocks/site/button-link.astro";
+import NotFound from "$brand/blocks/content/not-found.astro";
+import SiteLayout from "$brand/blocks/site/site-layout.astro";
+import ThemeInit from "../components/theme-init.astro";
+import ThemeToggle from "../components/theme-toggle.astro";
+---
+
+<SiteLayout site="example" layout="page" mainClassName="pb-24" head={{ site: "freeoxide", title: "Page not found — astro-app", description: "This URL doesn't point to anything.", url: "https://example.com/404" }}>
+  <ThemeInit slot="head" />
+  <ThemeToggle slot="extra" />
+  <NotFound title="Page not found" lede="This URL doesn't point to anything. The page probably moved, or the link was wrong.">
+    <ButtonLink href="/" size="lg" class="px-5">Back to home</ButtonLink>
+    <ButtonLink href="/docs/introduction" size="lg" variant="outline" class="px-5">Read the docs</ButtonLink>
+  </NotFound>
+</SiteLayout>

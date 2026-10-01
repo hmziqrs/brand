@@ -1,0 +1,58 @@
+---
+// The changelog: big numbers, the latest release in its own card, then the
+// timeline of past ones. The words are example copy.
+import Container from "$brand/blocks/site/container.astro";
+import OutlineCard from "$brand/blocks/site/outline-card.astro";
+import PageIntro from "$brand/blocks/site/page-intro.astro";
+import Section from "$brand/blocks/site/section.astro";
+import BigNumbers from "$brand/blocks/site/big-numbers.astro";
+import Kicker from "$brand/blocks/site/kicker.astro";
+import CornerRings from "$brand/components/corner-rings.astro";
+import ReleaseHead from "$brand/blocks/content/release-head.astro";
+import ReleaseNotes from "$brand/blocks/content/release-notes.astro";
+import ReleaseTimeline from "$brand/blocks/content/release-timeline.astro";
+import SiteLayout from "$brand/blocks/site/site-layout.astro";
+import ThemeInit from "../components/theme-init.astro";
+import ThemeToggle from "../components/theme-toggle.astro";
+import { releases } from "../lib/example";
+
+const [latest, ...past] = releases;
+const changes = releases.reduce((n, r) => n + r.groups.reduce((m, [, items]) => m + items.length, 0), 0);
+const added = releases.reduce((n, r) => n + (r.groups.find(([kind]) => kind === "Added")?.[1].length ?? 0), 0);
+---
+
+<SiteLayout site="example" maker="by hmziq" nav={["Docs", "Changelog", "Blog"]} current="Changelog" layout="page" head={{ site: "freeoxide", title: "Changelog — astro-app", description: "Every release, every change. Example content.", url: "https://example.com/changelog" }}>
+  <ThemeInit slot="head" />
+  <ThemeToggle slot="extra" />
+
+  <Container>
+    <PageIntro>
+      <Fragment slot="kicker">Changelog</Fragment>
+      <Fragment slot="title">Release history</Fragment>
+      <Fragment slot="lede">Every release, every change. Example content, from v0.1 to today.</Fragment>
+    </PageIntro>
+  </Container>
+
+  <Container>
+    <BigNumbers items={[[String(releases.length), "releases"], [String(added), "features added"], [String(changes - added), "fixes and changes"]]} />
+  </Container>
+
+  <Container>
+    <OutlineCard class="p-6 ring-primary/50 sm:p-9">
+      <CornerRings seed={`v${latest.v}`} quiet />
+      <div class="relative flex flex-col gap-2">
+        <Kicker>Latest release</Kicker>
+        <div>
+          <ReleaseHead release={latest} level={2} />
+          <ReleaseNotes release={latest} />
+        </div>
+      </div>
+    </OutlineCard>
+  </Container>
+
+  <Section>
+    <Fragment slot="title">Past releases</Fragment>
+    <Fragment slot="intro">{past.length} more, newest first. Example content.</Fragment>
+    <ReleaseTimeline releases={releases} skip={1} />
+  </Section>
+</SiteLayout>

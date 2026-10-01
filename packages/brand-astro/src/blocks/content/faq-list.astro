@@ -1,0 +1,42 @@
+---
+import Question from "$brand/components/question.astro";
+import Questions from "$brand/components/questions.astro";
+import EmptyNote from "$brand/blocks/site/empty-note.astro";
+import type { FaqItem } from "./types";
+
+/*
+ * A FAQ page's questions: one numbered list (01, 02… in orange), each with
+ * its topic as a grey tag, built on the Question's details row so it works
+ * without JavaScript and with find-in-page.
+ *
+ * The list ships no script: it renders every question, each carrying its
+ * searchable text, and an empty note that starts hidden. The page that adds
+ * a SearchBox listens to it and filters.
+ */
+
+interface Props {
+  items: FaqItem[];
+  /** The empty note's words, when a search finds nothing. */
+  empty?: string;
+  class?: string;
+}
+
+const { items, empty = "No questions match that. Try another word.", class: className } = Astro.props;
+---
+
+<div data-slot="faq-list" class={className}>
+  <Questions>
+    {
+      items.map(([topic, question, answer], i) => (
+        <div data-question data-search={`${question} ${answer}`.toLowerCase()}>
+          <Question number={i + 1} topic={topic} question={question}>
+            {answer}
+          </Question>
+        </div>
+      ))
+    }
+  </Questions>
+  <div data-empty hidden>
+    <EmptyNote>{empty}</EmptyNote>
+  </div>
+</div>

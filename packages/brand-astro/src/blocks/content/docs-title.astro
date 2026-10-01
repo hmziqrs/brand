@@ -1,0 +1,44 @@
+---
+import { ChevronRight } from "@lucide/astro";
+import { cn } from "$brand/utils";
+import Rings from "$brand/components/rings.astro";
+
+/*
+ * A docs page's own title: the trail of sections above it in small grey
+ * words, the title, one sentence on what the page covers — and the site's
+ * own rings faintly beside it, drawn from the same seed every time.
+ */
+
+interface Props {
+  title: string;
+  /** One sentence on what the page covers. */
+  lede?: string;
+  /** The sections above this page: ["Docs", "Getting Started"]. */
+  trail?: string[];
+  /** The rings' seed: the site's or the product's name. */
+  seed?: string;
+  class?: string;
+}
+
+const { title, lede, trail = [], seed, class: className } = Astro.props;
+---
+
+<div class={cn("relative", className)}>
+  {seed && <Rings seed={seed} aria-hidden="true" class="pointer-events-none absolute -top-10 -right-4 w-60 max-w-[40%] opacity-90" />}
+  <div class="relative">
+    {
+      trail.length > 0 && (
+        <p class="flex items-center gap-1.5 text-[0.8125rem] text-muted-foreground">
+          {trail.map((step, i) => (
+            <>
+              {i > 0 && <ChevronRight class="size-3.5" />}
+              {step}
+            </>
+          ))}
+        </p>
+      )
+    }
+    <h1 class="mt-3 text-[2rem] leading-[1.05] font-medium tracking-[-0.035em] text-balance sm:text-[2.75rem]">{title}</h1>
+    {lede && <p class="mt-3.5 max-w-[34rem] text-lg leading-relaxed text-muted-foreground">{lede}</p>}
+  </div>
+</div>

@@ -1,0 +1,60 @@
+---
+import { Search } from "@lucide/astro";
+import { cn } from "$brand/utils";
+
+/*
+ * The docs search, in the header where the lab puts it: a line with the
+ * icon and the words "Search the docs", which here is a real field. It
+ * filters the pages in the docs menu on the same page as you type, hiding
+ * the groups that run empty. ⌘K (or Ctrl-K) focuses it, the way the kbd on
+ * the right of the field says.
+ */
+
+interface Props {
+  label?: string;
+  class?: string;
+}
+
+const { label = "Search the docs", class: className } = Astro.props;
+---
+
+<div data-slot="docs-search" class={cn("ml-2 hidden h-8.5 min-w-56 items-center gap-2 rounded-md border border-input pr-2 pl-2.75 text-[0.8125rem] transition-colors focus-within:border-foreground/30 md:flex", className)}>
+  <Search class="size-3.75 shrink-0 text-muted-foreground" />
+  <input type="search" data-docs-search aria-label={label} placeholder={label} class="w-full bg-transparent text-foreground outline-none placeholder:text-muted-foreground" />
+  <kbd class="ml-auto hidden shrink-0 rounded border px-1.5 py-px font-sans text-[0.6875rem] text-muted-foreground lg:block">⌘K</kbd>
+</div>
+
+<script>
+  // Filters the docs menu's pages as the reader types. The menu and the
+  // search are far apart in the page (header and side column), so the filter
+  // looks at every menu on the page. Delegated, so it survives view
+  // transitions.
+  const filter = (query: string) => {
+    const q = query.trim().toLowerCase();
+    for (const menu of document.querySelectorAll<HTMLElement>("[data-slot='docs-menu']")) {
+      for (const item of menu.querySelectorAll<HTMLElement>("[data-docs-page]")) {
+        const hit = !q || (item.textContent ?? "").toLowerCase().includes(q);
+        item.toggleAttribute("hidden", !hit);
+      }
+      // A group with nothing left in it goes too, and so does its title.
+      for (const group of menu.querySelectorAll<HTMLElement>("[data-docs-group]")) {
+        const any = [...group.querySelectorAll<HTMLElement>("[data-docs-page]")].some((item) => !item.hidden);
+        group.toggleAttribute("hidden", !any);
+      }
+    }
+  };
+
+  document.addEventListener("input", (event) => {
+    const field = (event.target as HTMLElement | null)?.closest<HTMLInputElement>("[data-docs-search]");
+    if (field) filter(field.value);
+  });
+
+  // ⌘K / Ctrl-K focuses the field, as the kbd beside it says.
+  document.addEventListener("keydown", (event) => {
+    if (event.key.toLowerCase() !== "k" || !(event.metaKey || event.ctrlKey)) return;
+    const field = document.querySelector<HTMLElement>("[data-docs-search]");
+    if (!field) return;
+    event.preventDefault();
+    field.focus();
+  });
+</script>

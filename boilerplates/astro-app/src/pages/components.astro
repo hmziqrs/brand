@@ -1,0 +1,107 @@
+---
+// The interactive landing pieces, the lab's hmziq.rs/components page: install
+// steps whose rings fill as you copy, a terminal that types its session, and
+// a code editor with a tab per file. Example content, like the lab's catalog.
+import Section from "$brand/blocks/site/section.astro";
+import CommandBar from "$brand/components/command-bar.astro";
+import BandArcs from "$brand/components/band-arcs.astro";
+import Container from "$brand/blocks/site/container.astro";
+import Tag from "$brand/components/tag.astro";
+import SiteLayout from "$brand/blocks/site/site-layout.astro";
+import InstallSteps from "$brand/blocks/content/install-steps.astro";
+import TypingTerminal from "$brand/blocks/content/typing-terminal.astro";
+import CodeEditor from "$brand/blocks/content/code-editor.astro";
+import type { TerminalLineData } from "$brand/components/terminal-line";
+import ThemeInit from "../components/theme-init.astro";
+import ThemeToggle from "../components/theme-toggle.astro";
+
+// Example content, in the shape the lab's components page uses.
+const steps = [
+  {
+    title: "Install the example",
+    body: "Use the package manager you already have. Example copy.",
+    commands: [
+      ["bun", "bun add -g example-tool"],
+      ["npm", "npm install -g example-tool"],
+      ["pnpm", "pnpm add -g example-tool"],
+    ] as const,
+  },
+  { title: "Add a first thing", body: "Example copy: what the second command does.", command: "example-tool add one --key sk-your-key" },
+  { title: "Run your new command", body: "Example copy: it works the way it always did.", command: "example-one" },
+];
+
+const session: TerminalLineData[] = [
+  ["cmd", "bun add -g example-tool"],
+  ["note", "Installs the example-tool command."],
+  ["cmd", "example-tool add one --key sk-your-key"],
+  ["note", "Writes an example-one command into your PATH."],
+  ["cmd", "example-one"],
+  ["note", "The example, running."],
+];
+
+const files = [
+  {
+    name: "By hand",
+    lang: "rust" as const,
+    code: "struct UserView {\n    user: Option<User>,\n    loading: bool,\n    // Must be stored so unmount can cancel the in-flight task.\n    _task: Option<gpui::Task<()>>,\n}",
+  },
+  {
+    name: "With the example",
+    lang: "rust" as const,
+    code: "struct UserView {\n    user: gpui::Entity<Example<User>>,\n    _subscription: gpui::Subscription,\n}",
+  },
+];
+---
+
+<SiteLayout site="example" maker="Components" nav={["Install", "Code", "Questions"]} head={{ site: "freeoxide", title: "Interactive components — astro-app", description: "The interactive landing pieces, with example content.", url: "https://example.com/components" }}>
+  <ThemeInit slot="head" />
+  <ThemeToggle slot="extra" />
+
+  <h1 class="sr-only">Interactive components</h1>
+
+  <Section>
+    <Fragment slot="caption">Install steps · example content</Fragment>
+    <Fragment slot="title">Up and running in three steps</Fragment>
+    <Fragment slot="intro">Example copy: you need the runtime you already have and one key. Copy a step and its ring fills in.</Fragment>
+    <InstallSteps steps={steps} />
+  </Section>
+
+  <section class="band-orange relative overflow-hidden py-16 md:py-24">
+    <BandArcs />
+    <div class="relative">
+      <Section>
+        <Fragment slot="caption">Terminal · example content</Fragment>
+        <Fragment slot="title">Three commands, start to finish</Fragment>
+        <Fragment slot="intro">From nothing installed to a first run. Example copy.</Fragment>
+        <TypingTerminal lines={session} rows={7} />
+      </Section>
+    </div>
+  </section>
+
+  <Section>
+    <Fragment slot="caption">Copy a command · example content</Fragment>
+    <Fragment slot="title">Add it to your app</Fragment>
+    <Fragment slot="intro">One command. Example copy.</Fragment>
+    <CommandBar command="example-tool add --features hook" />
+  </Section>
+
+  <Section>
+    <Fragment slot="caption">Code editor · example content</Fragment>
+    <Fragment slot="title">The same view, both ways</Fragment>
+    <Fragment slot="intro">Example copy: a tab per version, line numbers, a status line.</Fragment>
+    <CodeEditor files={files} />
+  </Section>
+
+  <Section>
+    <Fragment slot="caption">Pricing · example content</Fragment>
+    <Fragment slot="title">
+      <span class="flex flex-wrap items-center gap-3">
+        Simple pricing <Tag class="tracking-normal">Example prices</Tag>
+      </span>
+    </Fragment>
+    <Fragment slot="intro">Made-up numbers to show the layout. None of your sites sell anything yet.</Fragment>
+    <Container>
+      <p class="text-muted-foreground">Example copy: the pricing plans live on the landing page of the site that needs them (see <a href="/kit/content" class="text-primary underline underline-offset-3">the /kit gallery</a> for PricingPlans).</p>
+    </Container>
+  </Section>
+</SiteLayout>

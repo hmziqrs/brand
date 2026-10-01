@@ -1,0 +1,20 @@
+---
+import ReleaseHead from "./release-head.astro";
+import ReleaseNotes from "./release-notes.astro";
+import type { Release } from "./types";
+
+/*
+ * One past release, folded: its head, its first change, and the button that
+ * shows the rest. The latest release gets the whole list instead — pass it
+ * ReleaseNotes directly.
+ */
+
+interface Props {
+  release: Release;
+}
+
+const { release } = Astro.props;
+---
+
+<ReleaseHead release={release} />
+<ReleaseNotes release={release} variant="summary" />

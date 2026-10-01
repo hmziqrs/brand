@@ -1,0 +1,55 @@
+---
+import { Moon, Sun } from "@lucide/astro";
+import { Button } from "$brand/starwind/button";
+
+/*
+ * The light / dark switch. Nothing moves; only the icon and the colors
+ * change. Dark is the brand default; light is remembered, and the head
+ * script (in the layout) applies the remembered choice before first paint
+ * so the wrong theme never flashes.
+ */
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<Button data-slot="theme-toggle" variant="ghost" size="icon-sm" aria-label="Switch to light mode" class={className}>
+  {/* Dark is the brand default, so the sun ships visible; the script swaps
+      it for the moon when the page comes up light. */}
+  <Sun data-theme-icon="light" />
+  <Moon data-theme-icon="dark" class="hidden" />
+</Button>
+
+<script>
+  // The way Starwind's own components run: find elements by their data-slot,
+  // initialize them, and do it again after a view transition.
+  function paint(root: HTMLElement) {
+    const dark = document.documentElement.classList.contains("dark");
+    root.querySelector<HTMLElement>("[data-theme-icon='light']")?.classList.toggle("hidden", !dark);
+    root.querySelector<HTMLElement>("[data-theme-icon='dark']")?.classList.toggle("hidden", dark);
+    root.setAttribute("aria-label", dark ? "Switch to light mode" : "Switch to dark mode");
+  }
+
+  const toggle = (root: HTMLElement) => {
+    // classList.toggle returns the state it left the class in.
+    const dark = document.documentElement.classList.toggle("dark");
+    try {
+      localStorage.setItem("theme", dark ? "dark" : "light");
+    } catch {
+      // Private modes can refuse storage; the choice just won't persist.
+    }
+    paint(root);
+  };
+
+  for (const root of document.querySelectorAll<HTMLElement>("[data-slot='theme-toggle']")) paint(root);
+  document.addEventListener("astro:page-load", () => {
+    for (const root of document.querySelectorAll<HTMLElement>("[data-slot='theme-toggle']")) paint(root);
+  });
+  document.addEventListener("click", (event) => {
+    const root = (event.target as HTMLElement | null)?.closest<HTMLElement>("[data-slot='theme-toggle']");
+    if (root) toggle(root);
+  });
+</script>

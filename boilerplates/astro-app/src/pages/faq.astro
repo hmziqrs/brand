@@ -1,0 +1,71 @@
+---
+// The FAQ: one numbered list, the topic on each question, and a search. The
+// words are example copy.
+import { siGithub } from "simple-icons";
+import Container from "$brand/blocks/site/container.astro";
+import PageIntro from "$brand/blocks/site/page-intro.astro";
+import SearchBox from "$brand/blocks/site/search-box.astro";
+import ButtonLink from "$brand/blocks/site/button-link.astro";
+import BrandIcon from "$brand/components/brand-icon.astro";
+import FaqList from "$brand/blocks/content/faq-list.astro";
+import SiteLayout from "$brand/blocks/site/site-layout.astro";
+import { Card } from "$brand/starwind/card";
+import ThemeInit from "../components/theme-init.astro";
+import ThemeToggle from "../components/theme-toggle.astro";
+import { faq } from "../lib/example";
+---
+
+<SiteLayout site="example" maker="by hmziq" nav={["Docs", "Blog", "FAQ"]} current="FAQ" layout="page" head={{ site: "freeoxide", title: "FAQ — astro-app", description: "Straight answers, all on one page. Example content.", url: "https://example.com/faq" }}>
+  <ThemeInit slot="head" />
+  <ThemeToggle slot="extra" />
+
+  <Container>
+    <PageIntro>
+      <Fragment slot="kicker">FAQ</Fragment>
+      <Fragment slot="title">Frequently asked questions</Fragment>
+      <Fragment slot="lede">Straight answers with links to the docs, all on one page. Example content.</Fragment>
+      <div data-faq-search class="mt-2">
+        <SearchBox label="Search questions" />
+      </div>
+    </PageIntro>
+  </Container>
+
+  <Container>
+    <FaqList items={faq} />
+  </Container>
+
+  <Container>
+    <Card class="flex-row flex-wrap items-center justify-between gap-6 bg-transparent px-6 shadow-none sm:px-10 sm:py-10">
+      <div>
+        <h2 class="text-2xl font-medium tracking-[-0.02em]">Still have questions?</h2>
+        <p class="mt-1.5 text-muted-foreground">Open an issue on GitHub. It's the fastest channel and it leaves a public record. Example copy.</p>
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <ButtonLink href="https://github.com" size="lg" class="px-5">
+          <BrandIcon icon={siGithub} data-icon="inline-start" />
+          Open an issue
+        </ButtonLink>
+        <ButtonLink href="/docs/introduction" size="lg" variant="outline" class="px-5">Read the docs</ButtonLink>
+      </div>
+    </Card>
+  </Container>
+</SiteLayout>
+
+<script>
+  // The FAQ's search: narrow the questions live. The SearchBox ships no
+  // script of its own, so the page owns the filtering.
+  document.addEventListener("input", (event) => {
+    if (!(event.target as HTMLElement | null)?.closest("[data-faq-search]")) return;
+    const field = document.querySelector<HTMLInputElement>("[data-faq-search] input");
+    const q = (field?.value ?? "").trim().toLowerCase();
+    const list = document.querySelector<HTMLElement>("[data-slot='faq-list']");
+    if (!list) return;
+    let shown = 0;
+    for (const question of list.querySelectorAll<HTMLElement>("[data-question]")) {
+      const hit = !q || (question.dataset.search ?? "").includes(q);
+      question.toggleAttribute("hidden", !hit);
+      if (hit) shown++;
+    }
+    list.querySelector<HTMLElement>("[data-empty]")?.toggleAttribute("hidden", shown > 0);
+  });
+</script>

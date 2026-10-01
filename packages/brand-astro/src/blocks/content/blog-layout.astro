@@ -1,0 +1,34 @@
+---
+import SiteLayout from "$brand/blocks/site/site-layout.astro";
+import type { Props as SiteHeadProps } from "$brand/blocks/site/site-head.astro";
+
+/*
+ * The blog's shell: the lab's BlogShell (apps/lab/src/sites/blog), which is
+ * the site shell set up for reading — the wordmark with "by hmziq" after
+ * it, the posts nav, a Subscribe button, the inner-page rhythm, and no
+ * padding under the main column so the newsletter band closes the page
+ * flush.
+ */
+
+type Head = Omit<SiteHeadProps, "site"> & { site?: string };
+
+interface Props {
+  /** The nav item for the page you're on. */
+  current?: string;
+  /** The page's head, rendered by SiteHead. */
+  head?: Head;
+  /** The page's theme class. Dark by default; the app's toggle rewrites it before first paint. */
+  theme?: string;
+}
+
+const { current, head, theme = "dark" } = Astro.props;
+---
+
+<SiteLayout site="Blog" maker="by hmziq" nav={["Posts", "Tags", "About"]} current={current} cta={{ label: "Subscribe" }} layout="page" mainClassName="pb-0" head={head} theme={theme}>
+  {Astro.slots.has("banner") && <slot name="banner" slot="banner" />}
+  {Astro.slots.has("lead") && <slot name="lead" slot="lead" />}
+  {Astro.slots.has("extra") && <slot name="extra" slot="extra" />}
+  {Astro.slots.has("footer-row") && <slot name="footer-row" slot="footer-row" />}
+  {Astro.slots.has("legal") && <slot name="legal" slot="legal" />}
+  <slot />
+</SiteLayout>

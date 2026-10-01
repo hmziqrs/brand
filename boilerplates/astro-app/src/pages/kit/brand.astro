@@ -1,0 +1,319 @@
+---
+// The brand pieces (BRAND.md section 9), each in the states it ships. The
+// section ids are the pieces' anchors in scripts/pieces.json, which
+// `pnpm check:parity` reads, so they are written out in full.
+import { CircleCheck, FolderTree, ScanSearch } from "@lucide/astro";
+import { siGithub } from "simple-icons";
+import Container from "$brand/blocks/site/container.astro";
+import PageIntro from "$brand/blocks/site/page-intro.astro";
+import SiteLayout from "$brand/blocks/site/site-layout.astro";
+import BandArcs from "$brand/components/band-arcs.astro";
+import BrandIcon from "$brand/components/brand-icon.astro";
+import CodeBlock from "$brand/components/code-block.astro";
+import CodeLines from "$brand/components/code-lines.astro";
+import Command from "$brand/components/command.astro";
+import CommandBar from "$brand/components/command-bar.astro";
+import CommandBox from "$brand/components/command-box.astro";
+import CopyButton from "$brand/components/copy-button.astro";
+import CornerRings from "$brand/components/corner-rings.astro";
+import DataTable from "$brand/components/data-table.astro";
+import IconTile from "$brand/components/icon-tile.astro";
+import InlineCode from "$brand/components/inline-code.astro";
+import Mark from "$brand/components/mark.astro";
+import Marker from "$brand/components/marker.astro";
+import Notice from "$brand/components/notice.astro";
+import Question from "$brand/components/question.astro";
+import RingGauge from "$brand/components/ring-gauge.astro";
+import Rings from "$brand/components/rings.astro";
+import Scene from "$brand/components/scene.astro";
+import Segmented from "$brand/components/segmented.astro";
+import Step from "$brand/components/step.astro";
+import StepNumber from "$brand/components/step-number.astro";
+import Stepper from "$brand/components/stepper.astro";
+import Tag from "$brand/components/tag.astro";
+import TerminalBody from "$brand/components/terminal-body.astro";
+import TerminalLine from "$brand/components/terminal-line.astro";
+import TerminalWindow from "$brand/components/terminal-window.astro";
+import Toc from "$brand/components/toc.astro";
+import Wordmark from "$brand/components/wordmark.astro";
+import ThemeInit from "../../components/theme-init.astro";
+import ThemeToggle from "../../components/theme-toggle.astro";
+---
+
+<SiteLayout site="example" maker="the kit" layout="page" mainClassName="gap-14 pt-12 pb-20 md:pt-20" head={{ site: "freeoxide", title: "Brand pieces — the kit", description: "Every brand piece the Astro kit ships.", url: "https://example.com/kit/brand" }}>
+  <ThemeInit slot="head" />
+  <ThemeToggle slot="extra" />
+
+  <Container>
+    <PageIntro class="max-w-2xl">
+      <Fragment slot="kicker">The kit · brand pieces</Fragment>
+      <Fragment slot="title">Brand pieces</Fragment>
+      <Fragment slot="lede">The logo and its rings, the code and terminal pieces, the questions and the tags. Example content throughout.</Fragment>
+    </PageIntro>
+  </Container>
+
+  <Container size="wide" class="flex flex-col gap-14">
+    <section id="piece-wordmark" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">Wordmark</h2>
+      <p class="flex flex-wrap items-baseline gap-6">
+        <Wordmark name="example" />
+        <Wordmark name="freeoxide" />
+        <Wordmark name="blog" />
+      </p>
+    </section>
+
+    <section id="piece-mark" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">Mark</h2>
+      <p class="flex flex-wrap items-center gap-4">
+        <Mark symbol="Ex" size={20} />
+        <Mark symbol="Fx" size={28} />
+        <Mark symbol="Hq" size={40} />
+        <Mark symbol="Gq" size={64} />
+      </p>
+    </section>
+
+    <section id="piece-marker" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">Marker</h2>
+      <p class="flex flex-wrap items-center gap-6">
+        <span class="flex items-center gap-2.5"><Marker class="text-primary" /> A ring in orange</span>
+        <span class="flex items-center gap-2.5"><Marker class="text-muted-foreground" /> A ring in grey</span>
+        <span class="flex items-center gap-2.5"><Marker filled class="text-success" /> A filled ring</span>
+      </p>
+    </section>
+
+    <section id="piece-rings" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">Rings</h2>
+      <div class="grid items-center gap-8 md:grid-cols-2">
+        <Rings seed="example" />
+        <Rings seed="freeoxide" />
+      </div>
+    </section>
+
+    <section id="piece-corner-rings" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">CornerRings</h2>
+      <div class="grid gap-4 sm:grid-cols-2">
+        <div class="relative flex h-32 flex-col gap-3 overflow-hidden rounded-xl p-6 ring-1 ring-foreground/10">
+          <CornerRings seed="example" />
+          <span class="relative text-sm">Default, in orange</span>
+        </div>
+        <div class="relative flex h-32 flex-col gap-3 overflow-hidden rounded-xl p-6 ring-1 ring-foreground/10">
+          <CornerRings seed="freeoxide" color="var(--teal)" quiet />
+          <span class="relative text-sm">Quiet, in teal</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="piece-band-arcs" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">BandArcs</h2>
+      <div class="relative h-40 overflow-hidden rounded-xl border">
+        <BandArcs />
+      </div>
+    </section>
+
+    <section id="piece-ring-gauge" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">RingGauge</h2>
+      <p class="flex flex-wrap items-center gap-8">
+        <span class="flex items-center gap-4.5"><RingGauge value={1} /><span class="text-sm text-muted-foreground">100%</span></span>
+        <span class="flex items-center gap-4.5"><RingGauge value={0.9} /><span class="text-sm text-muted-foreground">90%</span></span>
+        <span class="flex items-center gap-4.5"><RingGauge value={5} /><span class="text-sm text-muted-foreground">5 segments</span></span>
+      </p>
+    </section>
+
+    <section id="piece-scene" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">Scene</h2>
+      <div class="grid gap-4 md:grid-cols-2">
+        <Scene kind="lattice" seed="example" still />
+        <Scene kind="network" seed="freeoxide" still />
+      </div>
+      <p class="text-[0.8125rem] text-muted-foreground">Still here; a moving scene carries its own pause button.</p>
+    </section>
+
+    <section id="piece-brand-icon" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">BrandIcon</h2>
+      <p class="flex flex-wrap items-center gap-6">
+        <BrandIcon icon={siGithub} class="size-4" />
+        <BrandIcon icon={siGithub} class="size-4.5" />
+        <span class="flex items-center gap-2 text-sm"><BrandIcon icon={siGithub} /> Next to text</span>
+      </p>
+    </section>
+
+    <section id="piece-icon-tile" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">IconTile</h2>
+      <p class="flex flex-wrap items-center gap-4">
+        <IconTile><FolderTree /></IconTile>
+        <IconTile tone="teal"><ScanSearch /></IconTile>
+        <IconTile tone="purple"><CircleCheck /></IconTile>
+      </p>
+    </section>
+
+    <section id="piece-tag" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">Tag</h2>
+      <p class="flex flex-wrap items-center gap-2">
+        <Tag>Plain grey</Tag>
+        <Tag tone="blue">Engineering</Tag>
+        <Tag tone="purple">Design</Tag>
+        <Tag tone="teal">Notes</Tag>
+        <Tag tone="pink">Deep dive</Tag>
+        <Tag tone="success" marker>Shipped</Tag>
+        <Tag tone="warning" marker>In progress</Tag>
+        <Tag tone="destructive">Deprecated</Tag>
+      </p>
+    </section>
+
+    <section id="piece-notice" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">Notice</h2>
+      <div class="flex flex-col gap-4">
+        <Notice title="Note">The info tone, and the default.</Notice>
+        <Notice tone="warning" title="Warning">Read the cache rules before the first deploy.</Notice>
+        <Notice tone="destructive" title="Caution">No secrets in the repo.</Notice>
+      </div>
+    </section>
+
+    <section id="piece-command" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">Command</h2>
+      <p><Command command="example-tool add one --key sk-your-key" /></p>
+    </section>
+
+    <section id="piece-command-bar" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">CommandBar</h2>
+      <div class="flex flex-col gap-4">
+        <CommandBar command="pnpm add example-tool" />
+        <CommandBar command="example-tool alias name-of-your-choosing" copy={false} />
+      </div>
+    </section>
+
+    <section id="piece-command-box" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">CommandBox</h2>
+      <CommandBox command="example-tool run --once" />
+    </section>
+
+    <section id="piece-copy-button" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">CopyButton</h2>
+      <p class="flex flex-wrap items-center gap-4">
+        <CopyButton text="bun add -g example-tool" label="Copy" />
+        <CopyButton text="bun add -g example-tool" />
+      </p>
+    </section>
+
+    <section id="piece-code-block" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">CodeBlock</h2>
+      <div class="flex flex-col gap-4">
+        <CodeBlock label="Terminal" lang="bash" code="pnpm add example-tool" />
+        <CodeBlock
+          files={[
+            { label: "Terminal", lang: "bash", code: "pnpm add example-tool" },
+            { label: "package.json", lang: "json", code: '{\n  "dependencies": { "example-tool": "0.4.0" }\n}' },
+          ]}
+        />
+        <CodeBlock label="Rust" lang="rust" code={"fn main() {\n    println!(\"hello from the kit\");\n}"} copy={false} />
+      </div>
+    </section>
+
+    <section id="piece-code-lines" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">CodeLines</h2>
+      <div class="overflow-hidden rounded-xl border">
+        <CodeLines code={"struct UserView {\n    user: Option<User>,\n    loading: bool,\n}\n\nimpl UserView {\n    fn new(cx: &mut gpui::Context<Self>) -> Self {\n        Self { user: None, loading: true }\n    }\n}"} lang="rust" />
+      </div>
+    </section>
+
+    <section id="piece-inline-code" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">InlineCode</h2>
+      <p class="text-[0.9375rem]">Run <InlineCode code="example-tool --version" /> to check what you have.</p>
+    </section>
+
+    <section id="piece-data-table" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">DataTable</h2>
+      <div class="flex flex-col gap-8">
+        <DataTable variant="lines" names={1} columns={["Flag", "Kind", "What it does"]} rows={[["--json", "output", "Prints machine-readable output"], ["--verbose", "logging", "Brings the quiet logs back"], ["--once", "run", "Stops after one pass"]]} />
+        <DataTable variant="accent" names={1} columns={["Plan", "Price", "What you get"]} rows={[["Free", "$0", "One project, community help"], ["Pro", "$12", "Unlimited projects, email help"]]} />
+      </div>
+    </section>
+
+    <section id="piece-terminal-window" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">TerminalWindow</h2>
+      <TerminalWindow title="Terminal">
+        <TerminalBody>
+          <TerminalLine line={["cmd", "bun add -g example-tool"]} />
+          <TerminalLine line={["note", "Installs the example-tool command."]} />
+          <TerminalLine line={["step", "add one", "writes example-one"]} />
+          <TerminalLine line={["ok", "example-one is ready"]} />
+          <TerminalLine line={["kv", "version", "0.4.0"]} />
+        </TerminalBody>
+      </TerminalWindow>
+    </section>
+
+    <section id="piece-terminal-body" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">TerminalBody</h2>
+      <p class="text-[0.8125rem] text-muted-foreground">The inside of a terminal; shown above inside TerminalWindow.</p>
+    </section>
+
+    <section id="piece-terminal-line" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">TerminalLine</h2>
+      <p class="text-[0.8125rem] text-muted-foreground">One line of a terminal: the five kinds are shown above.</p>
+    </section>
+
+    <section id="piece-segmented" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">Segmented</h2>
+      <Segmented label="Package manager" value="bun" options={[{ value: "bun", label: "Bun" }, { value: "npm", label: "npm" }, { value: "pnpm", label: "pnpm" }]} />
+    </section>
+
+    <section id="piece-stepper" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">Stepper</h2>
+      <Stepper class="max-w-md">
+        <Step n={1} done>
+          <h3 class="text-[1.0625rem] font-medium">Done</h3>
+          <p class="text-[0.9rem] leading-relaxed text-muted-foreground">Its ring is filled and the line below it is orange.</p>
+        </Step>
+        <Step n={2}>
+          <h3 class="text-[1.0625rem] font-medium">Not yet</h3>
+          <p class="text-[0.9rem] leading-relaxed text-muted-foreground">A grey ring, a grey line.</p>
+        </Step>
+      </Stepper>
+    </section>
+
+    <section id="piece-step" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">Step</h2>
+      <p class="text-[0.8125rem] text-muted-foreground">One step of a stepper; shown above inside Stepper.</p>
+    </section>
+
+    <section id="piece-step-number" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">StepNumber</h2>
+      <p class="flex items-center gap-4">
+        <StepNumber n={1} />
+        <StepNumber n={2} done />
+        <StepNumber n={3} done />
+      </p>
+    </section>
+
+    <section id="piece-question" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">Question</h2>
+      <div class="max-w-[52rem] border-t">
+        <Question question="Does it phone home?" open>
+          No. Example copy for the answer.
+        </Question>
+        <Question question="Where does my data live?" topic="Architecture">
+          Example copy for the answer.
+        </Question>
+      </div>
+    </section>
+
+    <section id="piece-questions" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">Questions</h2>
+      <p class="text-[0.8125rem] text-muted-foreground">The list around the questions; shown above as the border-t wrapper.</p>
+    </section>
+
+    <section id="piece-toc" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">Toc</h2>
+      <div class="flex flex-col gap-8">
+        <div class="text-[0.8125rem]">
+          <h3 class="mb-2 text-xs font-medium text-muted-foreground">On this page</h3>
+          <Toc items={[{ id: "piece-toc", label: "The one you are reading" }, { id: "piece-wordmark", label: "The wordmark" }]} current="piece-toc" />
+        </div>
+        <div class="text-[0.8125rem]">
+          <h3 class="mb-2 text-xs font-medium text-muted-foreground">Numbered</h3>
+          <Toc items={[{ id: "a", label: "Scope" }, { id: "b", label: "Data we collect" }]} numbered />
+        </div>
+      </div>
+    </section>
+  </Container>
+</SiteLayout>

@@ -1,0 +1,18 @@
+---
+// The head's baseline, which every page puts in SiteLayout's `head` slot:
+// the app's stylesheet, and the theme applied before first paint — dark is
+// the brand default, and a reader who picked light keeps it. An inline
+// script in the head runs while the page is still parsing, so the wrong
+// theme never flashes.
+import "../styles/app.css";
+---
+
+<script is:inline>
+  // Dark is the brand default. Apply the remembered choice before first
+  // paint so the wrong theme never flashes.
+  (function () {
+    try {
+      if (localStorage.getItem("theme") === "light") document.documentElement.classList.remove("dark");
+    } catch (e) {}
+  })();
+</script>

@@ -1,0 +1,98 @@
+---
+// The landing page, built from the kit's site blocks the way the lab's site
+// pages are (apps/lab/src/sites). Every word here is example copy: replace
+// it with the project's own before shipping.
+import { siGithub } from "simple-icons";
+import { BookOpenText, FolderTree, GitBranch, ListChecks, ScanSearch } from "@lucide/astro";
+import BrandIcon from "$brand/components/brand-icon.astro";
+import Rings from "$brand/components/rings.astro";
+import ButtonLink from "$brand/blocks/site/button-link.astro";
+import CtaBand from "$brand/blocks/site/cta-band.astro";
+import ElementCard from "$brand/blocks/site/element-card.astro";
+import FeatureGrid from "$brand/blocks/site/feature-grid.astro";
+import Hero from "$brand/blocks/site/hero.astro";
+import HeroNote from "$brand/blocks/site/hero-note.astro";
+import RingStats from "$brand/blocks/site/ring-stats.astro";
+import Section from "$brand/blocks/site/section.astro";
+import SiteLayout from "$brand/blocks/site/site-layout.astro";
+import ThemeInit from "../components/theme-init.astro";
+import ThemeToggle from "../components/theme-toggle.astro";
+import type { Tone } from "@hmziq/brand-core/tones";
+
+// Example content, in the shape the lab's site pages use.
+const kinds = {
+  library: { label: "Library", color: "var(--blue)", tone: "blue" as Tone },
+  cli: { label: "Command-line tool", color: "var(--teal)", tone: "teal" as Tone },
+  app: { label: "Desktop app", color: "var(--purple)", tone: "purple" as Tone },
+};
+
+type Project = { n: number; symbol: string; name: string; kind: { label: string; color: string; tone: Tone }; status: { label: string; tone?: Tone }; body: string };
+
+const projects: Project[] = [
+  { n: 1, symbol: "Ex", name: "Example one", kind: kinds.library, status: { label: "Shipped", tone: "success" as Tone }, body: "One line on what it does and who it is for. Example copy." },
+  { n: 2, symbol: "Tw", name: "Example two", kind: kinds.cli, status: { label: "In progress", tone: "warning" as Tone }, body: "One line on what it does and who it is for. Example copy." },
+  { n: 3, symbol: "Th", name: "Example three", kind: kinds.app, status: { label: "Planned" }, body: "One line on what it does and who it is for. Example copy." },
+];
+
+const facts = [
+  { value: "100%", label: "example number, filled ring", ring: 1 },
+  { value: "90%+", label: "example number, most of a ring", ring: 0.9 },
+  { value: "5", label: "example count, five segments", ring: 5 },
+];
+---
+
+<SiteLayout site="example" maker="by hmziq" nav={["Projects", "How it works", "About"]} current="Projects" cta={{ label: "Browse projects" }} head={{ site: "freeoxide", title: "astro-app — a hmziq site", description: "The Astro starter for hmziq sites: the theme, the brand kit, a landing page built from the site blocks, and the content pages.", url: "https://example.com/" }}>
+  <ThemeInit slot="head" />
+  <ThemeToggle slot="extra" />
+
+  <Hero>
+    <Fragment slot="title">Example headline, finished before it ships.</Fragment>
+    <Fragment slot="lede">One sentence on what this is and who it is for. Replace every word on this page with the project's own.</Fragment>
+    <Fragment slot="actions">
+      <ButtonLink href="#projects" size="lg" class="px-5">Browse the projects</ButtonLink>
+      <ButtonLink href="https://github.com" size="lg" variant="outline" class="px-5">
+        <BrandIcon icon={siGithub} data-icon="inline-start" />
+        View on GitHub
+      </ButtonLink>
+    </Fragment>
+    <Fragment slot="note"><HeroNote>Example note under the buttons, with an orange ring.</HeroNote></Fragment>
+    <Fragment slot="aside"><Rings seed="example" /></Fragment>
+  </Hero>
+
+  <RingStats items={facts} />
+
+  <Section>
+    <Fragment slot="caption">Example section · with a caption</Fragment>
+    <Fragment slot="title">The projects</Fragment>
+    <Fragment slot="intro">A short list on purpose. Each one ships only when it meets every standard below.</Fragment>
+    <div id="projects" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {projects.map((p) => (
+        <ElementCard n={p.n} symbol={p.symbol} name={p.name} kind={p.kind} status={p.status}>
+          {p.body}
+        </ElementCard>
+      ))}
+    </div>
+  </Section>
+
+  <Section>
+    <Fragment slot="title">How every project is made</Fragment>
+    <Fragment slot="intro">Example copy for the second section, with the quieter feature grid under it.</Fragment>
+    <FeatureGrid
+      items={[
+        { icon: FolderTree, title: "Structure by hand", body: "Example copy for a feature." },
+        { icon: ScanSearch, title: "Five review rounds", body: "Example copy for a feature." },
+        { icon: ListChecks, title: "Five rounds of tests", body: "Example copy for a feature." },
+        { icon: BookOpenText, title: "Clean and documented", body: "Example copy for a feature." },
+        { icon: GitBranch, title: "Open by default", body: "Example copy for a feature." },
+      ]}
+    />
+  </Section>
+
+  <CtaBand title="One person. All of it.">
+    <Fragment slot="body">Example closing copy: who is behind this and how to get in touch.</Fragment>
+    <Fragment slot="actions">
+      <ButtonLink href="/about" size="lg" class="px-5">Read the full story</ButtonLink>
+      <ButtonLink href="/contact" size="lg" variant="outline" class="px-5">Get in touch</ButtonLink>
+    </Fragment>
+  </CtaBand>
+</SiteLayout>

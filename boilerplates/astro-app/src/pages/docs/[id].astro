@@ -1,0 +1,58 @@
+---
+// A docs page: the menu built from the whole collection, the page's title
+// and trail, its Markdown body, and the previous and next pages as cards.
+// The words are example copy.
+import { getCollection, render } from "astro:content";
+import { Pencil } from "@lucide/astro";
+import Prose from "$brand/blocks/site/prose.astro";
+import DocsLayout from "$brand/blocks/content/docs-layout.astro";
+import DocsTitle from "$brand/blocks/content/docs-title.astro";
+import DocsPager from "$brand/blocks/content/docs-pager.astro";
+import type { DocsMenu } from "$brand/blocks/content/types";
+import ThemeInit from "../../components/theme-init.astro";
+import ThemeToggle from "../../components/theme-toggle.astro";
+import { headingsOf } from "../../lib/headings";
+
+const { id } = Astro.params;
+const pages = (await getCollection("docs")).sort((a, b) => a.data.order - b.data.order);
+const index = pages.findIndex((entry) => entry.id === id);
+if (index < 0) return Astro.redirect("/404");
+
+const entry = pages[index];
+const { Content } = await render(entry);
+const { data } = entry;
+
+// The menu: groups in the order they first appear, the pages in theirs.
+const groups: [string | null, { title: string; href: string }[]][] = [];
+for (const page of pages) {
+  const group = groups.find(([title]) => title === page.data.section);
+  if (group) group[1].push({ title: page.data.title, href: `/docs/${page.id}` });
+  else groups.push([page.data.section, [{ title: page.data.title, href: `/docs/${page.id}` }]]);
+}
+const menu: DocsMenu = groups;
+const groupTitle = data.section ?? null;
+const trail = ["Docs", ...(groupTitle ? [groupTitle] : [])];
+
+const prev = index > 0 ? { title: pages[index - 1].data.title, href: `/docs/${pages[index - 1].id}` } : undefined;
+const next = index < pages.length - 1 ? { title: pages[index + 1].data.title, href: `/docs/${pages[index + 1].id}` } : undefined;
+---
+
+<DocsLayout site="example" menu={menu} page={data.title} toc={headingsOf(entry.body ?? "")} head={{ site: "freeoxide", title: `${data.title} — astro-app docs`, description: data.lede ?? "Example docs page.", url: `https://example.com/docs/${entry.id}` }}>
+  <ThemeInit slot="head" />
+  <ThemeToggle slot="extra" />
+
+  <DocsTitle title={data.title} lede={data.lede} trail={trail} seed="example" />
+
+  <Prose class="mt-9">
+    <Content />
+  </Prose>
+
+  <p class="mt-12 text-[0.8125rem]">
+    <a href="https://github.com" class="inline-flex items-center gap-2 text-muted-foreground transition-colors hover:text-foreground">
+      <Pencil class="size-3.5" />
+      Edit this page on GitHub
+    </a>
+  </p>
+
+  <DocsPager prev={prev} next={next} class="mt-8" />
+</DocsLayout>
