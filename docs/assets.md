@@ -111,6 +111,8 @@ A target's inputs are: the theme and color code; the roster and content; templat
 - names the target and the command that fixes it;
 - reads the working tree, not git HEAD.
 
+The video and motion exports keep manifests of the same shape, written by `pnpm render:video` and `pnpm render:motion`. `check:assets` doesn't read them yet: it only knows targets that `render-assets` fixes.
+
 Test it with a changed theme, an edited template, a broken export and a stale public copy, and confirm it never writes a file.
 
 macOS and Ubuntu CI can render slightly different bytes. CI checks manifests and inputs. `pnpm check:assets --bytes` re-renders into a temp folder and compares, without touching committed files.
@@ -149,9 +151,9 @@ Static renderers (Satori, `@resvg/resvg-js`, `png-to-ico`, an outline tool) go i
 | The existing blog photo | Keep it | Replacing it |
 | Rings in social banners | Ring-free until decided | Final social layouts |
 | Which accounts and repos exist | Only confirmed ones | Phase 6 |
-| Remotion | Proposed; needs the frame test and a license check | Phase 7 |
+| Remotion | Chosen for phases 7–8, pinned at 4.0.531 in `assets/video/source`. The frame test passed first, and its license is free for this repo (an individual's; a for-profit company with more than 3 people would need one from remotion.pro) | Resolved 2026-10-01, before phase 7 |
 | YouTube end screen | Layout and length chosen with the real channel | Final outro |
-| Large files | Git LFS for video and motion exports | Phase 7 |
+| Large files | Git LFS for video and motion exports — not yet: git-lfs isn't installed on the machine that rendered them, so the exports sit in git as plain files until it is and `.gitattributes` goes in | Phase 7 (overdue) |
 
 ## Appendix: platform sizes to recheck
 
@@ -161,12 +163,12 @@ Platform sizes change. Before exporting a target, check its official page and ad
 | --- | --- | --- |
 | Maskable icon | Safe circle radius 40%; 512×512 | [W3C manifest spec](https://www.w3.org/TR/appmanifest/#icon-masks) (checked 2026-09-27) |
 | Browser and app icons | SVG + ICO; PNG 16/32/48; apple-touch 180; Android 192/512 | Browser docs |
-| OG and LinkedIn shares | 1200×630 (LinkedIn has used 1200×627) | Meta and LinkedIn sharing docs, including file size limits |
-| X large-image card | 1200×675 | X card docs |
-| X profile and header | 400×400, 1500×500 | X help |
-| LinkedIn profile and background | 400×400, 1584×396 | LinkedIn Help a568217 |
-| LinkedIn Page logo and cover | 400×400, 1512×256 | LinkedIn Help a563309 |
-| GitHub repo preview | 1280×640 (minimum 640×320, under 1MB) | GitHub docs |
-| YouTube thumbnail | 3840×2160 | [YouTube help](https://support.google.com/youtube/answer/72431) |
-| YouTube upload | 1080p H.264 MP4, SDR BT.709, 4:2:0, faststart | YouTube encoding docs |
-| YouTube end screen | The last 5–20 s of videos at least 25 s long; up to 4 elements | YouTube help |
+| OG and LinkedIn shares | 1200×630 (LinkedIn has used 1200×627) | [Meta images in link shares](https://developers.facebook.com/docs/sharing/webmasters/images) — at least 1200×630 for best display (checked 2026-10-01) |
+| X large-image card | 1200×675 | [X card docs](https://developer.x.com/en/docs/x-for-websites/cards/overview/summary-card-with-large-image) — 16:9 matches the in-timeline crop (checked 2026-10-01) |
+| X profile and header | 400×400, 1500×500 | [X help, customizing your profile](https://help.x.com/en/managing-your-account/how-to-customize-your-profile) (checked 2026-10-01) |
+| LinkedIn profile and background | 400×400, 1584×396 | [LinkedIn Help a568217](https://www.linkedin.com/help/linkedin/answer/a568217) (checked 2026-10-01) |
+| LinkedIn Page logo and cover | 400×400, 1512×256 | [LinkedIn Help a563309](https://www.linkedin.com/help/linkedin/answer/a563309/image-specifications-for-your-linkedin-pages-and-career-pages) |
+| GitHub repo preview | 1280×640 (minimum 640×320, under 1MB) | [GitHub docs](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/customizing-your-repositorys-social-media-preview) (checked 2026-10-01) |
+| YouTube thumbnail | 3840×2160 | [YouTube help](https://support.google.com/youtube/answer/72431) — 3840×2160 for videos, 16:9, minimum width 640 (checked 2026-10-01) |
+| YouTube upload | 1080p H.264 MP4, SDR BT.709, 4:2:0, faststart | [YouTube encoding docs](https://support.google.com/youtube/answer/1722171) — H.264 High, 4:2:0, BT.709 for SDR, moov atom first (checked 2026-10-01) |
+| YouTube end screen | The last 5–20 s of videos at least 25 s long; up to 4 elements | [YouTube help](https://support.google.com/youtube/answer/6388789) (checked 2026-10-01) |
