@@ -94,6 +94,82 @@ Content pages are written in Markdown or MDX: content collections in Astro, mdsv
 - Scroll spy, the floating contents pill, the share bar's copy link, docs search and the typing terminal work with the keyboard and with reduced motion.
 - axe shows zero violations.
 
+**Step 2 status (updated 2026-10-01).** The Svelte side is built; the
+checks that need the report or the axe pass are still open. Done:
+
+- Every block in the table is in `packages/brand-svelte/src/lib/blocks/content/`:
+  the blog group (`BlogLayout`, `PostHeader`, `PostContents`, `PullQuote`,
+  `ShareBar`, `NewsletterBand`, `PostList`, `PostCard`, `PostMeta`), docs
+  (`DocsLayout`, `DocsSearch`, `DocsTitle`, `DocsPager`), changelog
+  (`ReleaseTimeline`, `PastReleases`, `ReleaseHead`, `KindTag`,
+  `ReleaseNotes`), `FaqList`, legal (`LegalLayout`, `LegalSection`,
+  `LegalBlock`), `ContactChannels`, `NotFound`, and the landing pieces
+  (`InstallSteps`, `TypingTerminal`, `CodeEditor`). The shared prop shapes
+  live in `blocks/content/types.ts`, the share network data in
+  `blocks/content/share-icons.ts` — the same files the Astro kit reads,
+  kept in step with them.
+- A story per block and variant, next to the block, using the lab pages'
+  own words (`blocks/content/stories-data.ts` holds them), so `pnpm
+  compare` lines the stories up with the lab's Sites/Pages stories. The
+  placeholder cover the PostHeader story uses is in the kit's `static/`
+  and served by Storybook.
+- `Question` gained the lab's `open` prop, matching the Astro twin.
+- mdsvex in `svelte-app` with core's plugins (vite.config.ts), GFM on and
+  mdsvex's own highlighter off. Three mdsvex gaps had to be closed around
+  core's plugins (`src/lib/markdown-meta.ts`):
+  - mdsvex's bundled remark-rehype is an old one that drops a fence's
+    meta string, so `title="…"` never reached core's code-meta plugin. A
+    remark/rehype pair now carries it across.
+  - With its highlighter off, mdsvex escapes `{`, `}`, `<` and `>` inside
+    fenced code as entities, so Shiki tokenized `&#123;` instead of `{` —
+    wrong colors, and the entity showed on the page. The source is decoded
+    before core's plugins and re-escaped after them, and the code markup
+    now comes out byte-identical to the Astro twin's (checked against the
+    built pages).
+  - vite.config runs in Node, and in this repo core is TypeScript source
+    Node can't follow (`../code-theme` has no extension), so the plugins
+    are imported from core's source through a relative path the config
+    bundler compiles. In a project started by `pnpm new-project`, core is
+    real JavaScript from npm and the imports become the package
+    specifiers — noted in the config for whoever writes that script.
+- The example pages: blog index, the every-element post (from
+  `src/content/posts`), docs pages (from `src/content/docs`), changelog,
+  FAQ, privacy, terms, about, contact and the interactive pieces page,
+  all with the same example copy as `astro-app`, which `src/lib/example.ts`
+  shares with it. Each page renders its own `SiteHead`; `+error.svelte`
+  wears the `NotFound` block for 404 and for failed pages both. The blog
+  index and FAQ filter in Svelte state, the way the lab's React pages do.
+- All 27 content blocks are in `scripts/pieces.json`, with their lab
+  story, their Svelte story id and their `/kit` anchor; the registry
+  items stay "not yet" until step 4.
+- The boilerplate's stylesheet was missing an `@source` for the kit, so
+  none of the kit's `sm:`/`md:`/`lg:`/`xl:` utilities reached the build —
+  the header nav and the docs columns never showed at desktop. The line
+  is in `src/app.css` now, closing the same hole the astro-app's
+  stylesheet closes for its kit.
+- Gotcha for the next ports: a snippet's name shadows everything inside
+  it, so a block that forwards a `children`/`title`/`body`/`question`
+  prop through a snippet of the same name recurses at runtime (compile
+  and svelte-check both stay quiet). The blocks rename the incoming prop
+  (`children: content`, `body: bodyText`, `title: titleText`) where they
+  have to.
+- Verified on the built app: every example page hydrates clean; the docs
+  search narrows the menu and takes ⌘K; the menu button folds the menu
+  below md; the three scroll spies move `aria-current`; the share bar's
+  copy link flips to Copied; copying an install step fills its ring and
+  the package manager switch swaps the command; the release notes'
+  show/hide works; the FAQ and blog filters narrow live and show their
+  empty notes; the typing terminal replays, holds a fixed height, and
+  stays finished under reduced motion; unknown URLs render the NotFound
+  block with a 404 status. The every-element post's code blocks are
+  byte-identical to the astro-app twin's.
+
+Still open in this step: the `pnpm compare` match against the lab and the
+`astro-app` twins, and the axe pass over the new stories. The content
+blocks are not exported from the kit's `src/lib/index.ts` barrel — the
+pages import them through `$brand/blocks/content/…`, and the barrel
+belongs to the kits area (the Astro side made the same call).
+
 ### Step 3: The Astro blocks
 
 1. Build every block above in `packages/brand-astro/src/blocks/content/`, following the kits' Astro rules.
@@ -107,6 +183,67 @@ Content pages are written in Markdown or MDX: content collections in Astro, mdsv
 - Content pages ship no JS except for interactive pieces (floating contents, copy link, docs search, typing terminal, collapsible releases).
 - axe shows zero violations.
 
+**Step 3 status (updated 2026-10-01).** The Astro side is built; the
+checks that need the Svelte twins or the roster are still open. Done:
+
+- Every block in the table is in `packages/brand-astro/src/blocks/content/`:
+  the blog group (`BlogLayout`, `PostHeader`, `PostContents`, `PullQuote`,
+  `ShareBar`, `NewsletterBand`, `PostList`, `PostCard`, `PostMeta`), docs
+  (`DocsLayout`, `DocsSearch`, `DocsTitle`, `DocsPager`), changelog
+  (`ReleaseTimeline`, `PastReleases`, `ReleaseHead`, `KindTag`,
+  `ReleaseNotes`), `FaqList`, legal (`LegalLayout`, `LegalSection`, and
+  `LegalBlock`, the lab's four block kinds), `ContactChannels`, `NotFound`,
+  and the landing pieces (`InstallSteps`, `TypingTerminal`, `CodeEditor`).
+  The shared prop shapes live in `blocks/content/types.ts`, the share
+  network data in `blocks/content/share-icons.ts`.
+- `boilerplates/astro-app` exists: the node adapter (on demand), the theme
+  with a pre-paint toggle, the landing page, the 404, and the example pages
+  (blog index, the every-element post, docs, changelog, FAQ, privacy, terms
+  with the top contents, about, contact, and a components page for the
+  interactive pieces), all with example copy marked as example.
+- Content collections in `src/content.config.ts` (posts and docs) with
+  core's four rehype plugins and the built-in highlighter off. Astro 7
+  ships Sätteri as its Markdown processor, so the unified pipeline the
+  plugins need comes from `@astrojs/markdown-remark` through
+  `markdown.processor: unified({ rehypePlugins })`.
+- The `/kit` gallery: `brand`, `site` and `content` pages, every piece in
+  the roster plus every content block, each under a `piece-…` anchor
+  `check:parity` reads.
+
+Findings, kept here for the next steps:
+
+- Blocks the page filters ship no script. `PostList` and `FaqList` render
+  every item with `data-topic`/`data-search` and a hidden empty note; the
+  page listens to the SearchBox (which ships none) and the TopicChips'
+  `topic-change`, and shows, hides and filters. The blog index and the FAQ
+  page carry those ~20-line scripts.
+- Scroll spy runs from the block that owns the list: `PostContents`,
+  `DocsLayout`'s right column and `LegalLayout`'s contents all call core's
+  `scrollSpy` and move `aria-current`. `Toc`'s colors now follow that
+  attribute instead of a class picked at render time, so the spy can move
+  the orange ring without re-rendering the list.
+- `Step` and `StepNumber` carry their done look on `data-done` the same
+  way, so `InstallSteps` can fill a step's ring when its command is copied.
+- `Question` gained the lab's `open` prop (gpui-query's first question
+  ships open).
+- The share networks' hover colors are the theme's nearest tones (X stays
+  the text color), not the networks' own hexes: colors come only from
+  core's theme.css (kits.md, porting rule 4).
+- A component's own `data-slot` and one passed in both render (duplicate
+  attributes; the first wins in the DOM), so blocks that wrap a piece mark
+  a wrapper of their own instead — `InstallSteps` wraps the `Stepper`,
+  `TypingTerminal` finds its window through `[data-slot='terminal']`.
+- The boilerplate's `@source` for the kit is relative to
+  `src/styles/app.css`, one level deeper than the kit README's example
+  assumes: `../../../../packages/brand-astro/src`. Without it the kit's
+  classes silently vanish from the build.
+
+Still open in this step: the `pnpm compare` match against the lab and the
+`astro-app` twins (needs step 2's Svelte blocks and the roster entries,
+step 4), the axe pass, and the content blocks' exports from the kit's
+`src/index.ts` barrel (the pages import them through `$brand/…`, which
+works; the barrel belongs to the kits area).
+
 ### Step 4: Registries and BRAND.md
 
 1. Add every content block to both registries, and the Markdown plugins to core's next release.
@@ -114,6 +251,43 @@ Content pages are written in Markdown or MDX: content collections in Astro, mdsv
 3. `check:parity` passes with no content block marked "not yet".
 
 **Done when:** a fresh project from `pnpm new-project` can add any content block from its registry, and its Markdown renders like the example post.
+
+**Step 4 status (updated 2026-10-01).** Done, and `check:parity` passes
+with no content block "not yet". The fresh-copy half of the done-when is
+left to the release checklist (`.changeset/README.md`): both fresh copies
+run before any release, and the Markdown rendering was checked against
+the built example pages in steps 2 and 3. Done:
+
+- All 27 content blocks are their own items in both registries. The
+  roster's `svelteItem`/`astroItem` are set and `pnpm registry:generate`
+  was re-run: 124 items in the Svelte registry, 108 in the Astro one.
+- The shared `blocks/content/types.ts` and `share-icons.ts` follow the
+  generator's first-seed rule: `post-header` and `share-bar` own them in
+  the Svelte registry, `post-list` and `share-bar` in the Astro one, and
+  the other content items depend on those items for them. Every kit file
+  still lands in exactly one item.
+- Story-only copy no longer ships: the generator excludes
+  `blocks/**/stories-data.ts` (nothing but `*.stories.svelte` files
+  imports it), so the `content-blocks` catch-all is gone from both
+  registries.
+- The re-run also picked up the app pieces that already exist on the
+  Svelte side (`app-shell`, `app-page`, `app-page-header`,
+  `workspace-switcher`, `user-menu`, plus `account-app-blocks` and
+  `shell-app-blocks` catch-alls for their unlisted helpers). The
+  generator reads the source tree, so that is expected; their roster
+  fields stay "not yet" until app-blocks.md's own registry step. The
+  Astro run warns about the six pieces with no `.astro` twin yet —
+  Combobox and those five — for the same reason.
+- `pnpm registry:build` lays both registries out for the Pages deploy
+  with the new items serving on their own: `r/svelte/faq-list.json`
+  points at its neighbors (`./post-header.json`, …) and the Astro items
+  inline their file contents at `src/components/brand/…` targets.
+- `.changeset/content-blocks-registries.md` puts the Markdown plugins in
+  core's next release and versions both kits for the new items.
+- BRAND.md section 8 gained "Page patterns" — the content-block table,
+  including the About page's no-new-block note — and "Markdown": the
+  mapping table, the plugin import paths, the built-in-highlighter-off
+  rule and the frontmatter rule for covers.
 
 ## Not in this plan
 

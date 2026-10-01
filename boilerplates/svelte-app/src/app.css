@@ -1,0 +1,22 @@
+/*
+ * The main stylesheet, as BRAND.md section 2 writes it: Tailwind, tw-animate,
+ * the fonts, then core's theme.css and the kit stylesheet. The framework CSS
+ * comes before the theme, or Tailwind's `@theme inline` utilities don't pick
+ * the tokens up. The `@source` line makes Tailwind scan core, whose tones.ts
+ * holds class names it has to see.
+ */
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn-svelte/tailwind.css";
+@import "@fontsource-variable/onest";
+@import "@fontsource-variable/jetbrains-mono";
+@import "@hmziq/brand-core/theme.css";
+@import "$brand/styles/kit.css";
+@source "../node_modules/@hmziq/brand-core/src";
+/* The kit's own classes (every block and piece this app renders) live outside
+   the app folder, so Tailwind has to be pointed at them: relative to this
+   file, three levels up is the repo root. Without this line the kit's
+   responsive utilities silently vanish from the build — the same hole the
+   astro-app's stylesheet closes for its kit. `pnpm new-project` rewrites it
+   to the folder the kit is installed into. */
+@source "../../../packages/brand-svelte/src";
