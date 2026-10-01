@@ -1,0 +1,71 @@
+// The Svelte kit's barrel. Kit files import each other through `$brand/…`;
+// this file is what a project gets from `@hmziq/brand-svelte` if it imports
+// the package rather than copying it in.
+
+// Brand pieces (BRAND.md section 9).
+export { default as BandArcs } from "./components/band-arcs.svelte";
+export { default as BrandIcon } from "./components/brand-icon.svelte";
+export { default as CodeBlock } from "./components/code-block.svelte";
+export { default as CodeLines } from "./components/code-lines.svelte";
+export { default as Command } from "./components/command.svelte";
+export { default as CommandBar } from "./components/command-bar.svelte";
+export { default as CommandBox } from "./components/command-box.svelte";
+export { default as CopyButton } from "./components/copy-button.svelte";
+export { default as CornerRings } from "./components/corner-rings.svelte";
+export { default as DataTable } from "./components/data-table.svelte";
+export { default as IconTile } from "./components/icon-tile.svelte";
+export { default as InlineCode } from "./components/inline-code.svelte";
+export { default as Marker } from "./components/marker.svelte";
+export { default as Mark } from "./components/mark.svelte";
+export { default as Notice } from "./components/notice.svelte";
+export { default as Question } from "./components/question.svelte";
+export { default as Questions } from "./components/questions.svelte";
+export { default as RingGauge } from "./components/ring-gauge.svelte";
+export { default as Rings } from "./components/rings.svelte";
+export { default as Scene } from "./components/scene.svelte";
+export { default as Segmented } from "./components/segmented.svelte";
+export { default as Step } from "./components/step.svelte";
+export { default as StepNumber } from "./components/step-number.svelte";
+export { default as Stepper } from "./components/stepper.svelte";
+export { default as Tag } from "./components/tag.svelte";
+export { default as TerminalBody } from "./components/terminal-body.svelte";
+export { default as TerminalLine } from "./components/terminal-line.svelte";
+export { default as TerminalWindow } from "./components/terminal-window.svelte";
+export { default as Toc } from "./components/toc.svelte";
+export { default as Wordmark } from "./components/wordmark.svelte";
+export type { TerminalLineData } from "./components/terminal-line.js";
+export type { CodeFile, CodeLanguage } from "./components/code-tokenize.js";
+
+// Site blocks and content pieces.
+export { default as BeforeAfter } from "./blocks/site/before-after.svelte";
+export { default as BigNumbers } from "./blocks/site/big-numbers.svelte";
+export { default as Bullets } from "./blocks/site/bullets.svelte";
+export { default as ButtonLink } from "./blocks/site/button-link.svelte";
+export { default as CheckList } from "./blocks/site/check-list.svelte";
+export { default as Container } from "./blocks/site/container.svelte";
+export { default as CtaBand } from "./blocks/site/cta-band.svelte";
+export { default as ElementCard } from "./blocks/site/element-card.svelte";
+export { default as EmptyNote } from "./blocks/site/empty-note.svelte";
+export { default as FeatureCards } from "./blocks/site/feature-cards.svelte";
+export { default as FeatureGrid } from "./blocks/site/feature-grid.svelte";
+export { default as Hero } from "./blocks/site/hero.svelte";
+export { default as HeroActions } from "./blocks/site/hero-actions.svelte";
+export { default as HeroLede } from "./blocks/site/hero-lede.svelte";
+export { default as HeroNote } from "./blocks/site/hero-note.svelte";
+export { default as HeroNotes } from "./blocks/site/hero-notes.svelte";
+export { default as HeroTitle } from "./blocks/site/hero-title.svelte";
+export { default as Kicker } from "./blocks/site/kicker.svelte";
+export { default as LinkBar } from "./blocks/site/link-bar.svelte";
+export { default as PageIntro } from "./blocks/site/page-intro.svelte";
+export { default as Price } from "./blocks/site/price.svelte";
+export { default as PricingPlans } from "./blocks/site/pricing-plans.svelte";
+export { default as Prose } from "./blocks/site/prose.svelte";
+export { default as RingStats } from "./blocks/site/ring-stats.svelte";
+export { default as SearchBox } from "./blocks/site/search-box.svelte";
+export { default as Section } from "./blocks/site/section.svelte";
+export { default as SiteHead } from "./blocks/site/site-head.svelte";
+export { default as SiteShell } from "./blocks/site/site-shell.svelte";
+export { default as Steps } from "./blocks/site/steps.svelte";
+export { default as SummaryBox } from "./blocks/site/summary-box.svelte";
+export { default as TopicChips } from "./blocks/site/topic-chips.svelte";
+export type { Plan } from "./blocks/site/plan.js";

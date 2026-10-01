@@ -1,0 +1,17 @@
+---
+// Example for `pnpm check:colors`: a failing .astro file. One line per rule.
+// The check must report every one of them.
+---
+<!-- Tailwind's numbered palette -->
+<span class="bg-green-500">no</span>
+<!-- a color typed in by hand -->
+<span class="text-[#f80]">no</span>
+<!-- black and white utilities -->
+<span class="border-black bg-white">no</span>
+<!-- a hex literal outside href -->
+<span style="color: #ff6400">no</span>
+<style>
+  .oops {
+    color: #0a0a0a;
+  }
+</style>

@@ -1,0 +1,13 @@
+/*
+ * The kit's own app stylesheet — the same one a project using the kit has
+ * (BRAND.md section 2): Tailwind, tw-animate, the library CSS and the fonts,
+ * then core's theme.css. The order matters: the framework CSS first, then
+ * the theme, or Tailwind's `@theme inline` utilities don't pick the tokens
+ * up. The `@source` line makes Tailwind scan core, whose tones.ts holds
+ * class names it has to see.
+ */
+@import "$brand/styles/kit.css";
+@import "@fontsource-variable/onest";
+@import "@fontsource-variable/jetbrains-mono";
+@import "@hmziq/brand-core/theme.css";
+@source "../node_modules/@hmziq/brand-core/src";

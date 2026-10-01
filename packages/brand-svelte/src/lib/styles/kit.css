@@ -1,0 +1,10 @@
+/*
+ * The kit's stylesheet: the one the shadcn-svelte CLI edits (components.json
+ * → tailwind.css). It loads the framework CSS, nothing more. Every color
+ * comes from core's theme.css, which the app stylesheet loads next to this
+ * file (kits.md, porting rules 3–4), so the color variables and `@theme`
+ * mappings `shadcn-svelte init` writes here are deleted again after init.
+ */
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn-svelte/tailwind.css";
