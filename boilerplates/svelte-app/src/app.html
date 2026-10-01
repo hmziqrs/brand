@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en" class="dark">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="text-scale" content="scale" />
+		<script>
+			// Dark is the brand default. Apply the remembered choice before
+			// first paint so the wrong theme never flashes; "system" follows
+			// the machine's own choice.
+			(function () {
+				try {
+					var theme = localStorage.getItem('theme');
+					var light =
+						theme === 'light' ||
+						(theme === 'system' && !window.matchMedia('(prefers-color-scheme: dark)').matches);
+					if (light) document.documentElement.classList.remove('dark');
+				} catch (e) {}
+			})();
+		</script>
+		<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+		%sveltekit.head%
+	</head>
+	<body data-sveltekit-preload-data="hover">
+		<div style="display: contents">%sveltekit.body%</div>
+	</body>
+</html>
