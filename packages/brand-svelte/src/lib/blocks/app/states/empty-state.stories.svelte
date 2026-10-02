@@ -27,9 +27,8 @@
 			icon={Users}
 			title="No members yet"
 			description="Invite your team to see the same dashboards."
-		>
-			{inviteAction}
-		</EmptyState>
+			actions={inviteAction}
+		/>
 	</div>
 </Story>
 
@@ -57,9 +56,13 @@
 <!-- The section size, for one part of a page that otherwise works. -->
 <Story name="Empty, section size" asChild>
 	<div class="flex min-h-72 flex-col bg-background">
-		<EmptyState icon={Users} size="section" title="No members yet" description="Invite your team to see the same dashboards.">
-			{inviteAction}
-		</EmptyState>
+		<EmptyState
+			icon={Users}
+			size="section"
+			title="No members yet"
+			description="Invite your team to see the same dashboards."
+			actions={inviteAction}
+		/>
 	</div>
 </Story>
 

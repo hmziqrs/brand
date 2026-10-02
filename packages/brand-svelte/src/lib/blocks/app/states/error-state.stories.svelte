@@ -49,18 +49,14 @@
 <!-- No access: grey, and the page decides the way out. -->
 <Story name="Error, denied" asChild>
 	<div class="flex min-h-96 flex-col bg-background">
-		<ErrorState kind="denied">
-			{backToMembers}
-		</ErrorState>
+		<ErrorState kind="denied" actions={backToMembers} />
 	</div>
 </Story>
 
 <!-- Gone or never there: grey, and the page decides the way out. -->
 <Story name="Error, not found" asChild>
 	<div class="flex min-h-96 flex-col bg-background">
-		<ErrorState kind="not-found">
-			{backToMembers}
-		</ErrorState>
+		<ErrorState kind="not-found" actions={backToMembers} />
 	</div>
 </Story>
 
@@ -103,8 +99,6 @@
 <!-- The section size, for one part of a page. -->
 <Story name="Error, section size" asChild>
 	<div class="flex min-h-72 flex-col bg-background">
-		<ErrorState kind="not-found">
-			{backToMembers}
-		</ErrorState>
+		<ErrorState kind="not-found" actions={backToMembers} />
 	</div>
 </Story>

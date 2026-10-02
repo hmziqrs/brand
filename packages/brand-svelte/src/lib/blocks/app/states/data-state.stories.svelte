@@ -74,7 +74,7 @@
 
 {#snippet plainRow(label: string)}
 	<SettingRow {label} description="A description of the setting.">
-		<div class="h-8 w-full max-w-72 rounded-md border border-border"></div>
+		<div class="h-9 w-full max-w-72 rounded-md border border-border"></div>
 	</SettingRow>
 {/snippet}
 
@@ -82,7 +82,7 @@
 <Story name="Data, pending" asChild>
 	<div class="flex min-h-72 flex-col bg-background">
 		<DataState status="pending" loadingLabel="Loading members" loading={loadingSkeleton} error={errorBlock}>
-			{textContent}
+			{@render textContent()}
 		</DataState>
 	</div>
 </Story>
@@ -91,7 +91,7 @@
 <Story name="Data, error" asChild>
 	<div class="flex min-h-72 flex-col bg-background">
 		<DataState status="error" loadingLabel="Loading members" loading={loadingSkeleton} error={errorBlock}>
-			{textContent}
+			{@render textContent()}
 		</DataState>
 	</div>
 </Story>
@@ -107,7 +107,7 @@
 			error={errorBlock}
 			empty={emptyBlock}
 		>
-			{textContent}
+			{@render textContent()}
 		</DataState>
 	</div>
 </Story>
@@ -116,7 +116,7 @@
 <Story name="Data, success" asChild>
 	<div class="bg-background">
 		<DataState status="success" loadingLabel="Loading members" loading={loadingSkeleton} error={errorBlock}>
-			{textContent}
+			{@render textContent()}
 		</DataState>
 	</div>
 </Story>
@@ -192,7 +192,9 @@
 			<p class="text-sm font-medium">Content</p>
 			<dl class="flex flex-col divide-y divide-border">
 				{#each [['Name', 'Ada Lovelace'], ['Email', 'ada@paperplane.app'], ['Role', 'Admin'], ['Joined', '12 March 2024']] as [label, value] (label)}
-					<div class="flex justify-between gap-6 py-3.5">
+					<!-- DetailList's own row classes, so the mock beside the
+					     skeleton stacks below sm the way both really do. -->
+					<div class="flex flex-col gap-1 py-3.5 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
 						<dt class="w-40 shrink-0 text-sm text-muted-foreground">{label}</dt>
 						<dd class="text-sm">{value}</dd>
 					</div>
@@ -219,7 +221,9 @@
 		</div>
 		<div class="flex flex-col gap-2.5">
 			<p class="text-sm font-medium">Skeleton</p>
-			<SkeletonSettings rows={3} />
+			<!-- This section's copy fits one line at every width, so its
+			     description pair says so. -->
+			<SkeletonSettings rows={3} description={[1, 1]} />
 		</div>
 	</div>
 </Story>
