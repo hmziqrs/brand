@@ -94,8 +94,9 @@ Content pages are written in Markdown or MDX: content collections in Astro, mdsv
 - Scroll spy, the floating contents pill, the share bar's copy link, docs search and the typing terminal work with the keyboard and with reduced motion.
 - axe shows zero violations.
 
-**Step 2 status (updated 2026-10-01).** The Svelte side is built; the
-checks that need the report or the axe pass are still open. Done:
+**Step 2 status (updated 2026-10-02).** The Svelte side is built, and the
+step's checks — the compare match, and the axe pass — have run; see the
+list at the end of this status. Done:
 
 - Every block in the table is in `packages/brand-svelte/src/lib/blocks/content/`:
   the blog group (`BlogLayout`, `PostHeader`, `PostContents`, `PullQuote`,
@@ -164,11 +165,38 @@ checks that need the report or the axe pass are still open. Done:
   block with a 404 status. The every-element post's code blocks are
   byte-identical to the astro-app twin's.
 
-Still open in this step: the `pnpm compare` match against the lab and the
-`astro-app` twins, and the axe pass over the new stories. The content
-blocks are not exported from the kit's `src/lib/index.ts` barrel — the
-pages import them through `$brand/blocks/content/…`, and the barrel
-belongs to the kits area (the Astro side made the same call).
+The step's own checks ran on 2026-10-02, with every server up:
+
+- `pnpm compare content`: 396 screenshots, no unreachable view, no page
+  errors, and a read of the report rows finds every block matching its
+  lab page in light and dark at 360px and 1280px. (Kicker, a site piece
+  rostered in the content group, has no lab or Svelte story, so its row
+  is Astro-only — the kits area's roster state, unchanged here.)
+- `pnpm compare --pages` over the thirteen routes both boilerplates
+  share (blog index, the every-element post, the three docs pages,
+  changelog, FAQ, privacy, terms, about, contact, components and a 404):
+  every twin matches, most pixel-tight on a normalized-height compare
+  (privacy, terms, contact and the 404 at 0.0000; the docs pages and
+  changelog at ≤0.003; FAQ, about and components within small wrapping
+  deltas) — except the two blog twins, and that defect is the Astro
+  kit's, not the Svelte side's (below).
+- The lab's blog pages carry the footer's "More from hmziq" row and the
+  copyright line, and `svelte-app`'s match them; `astro-app`'s `/blog`
+  and `/blog/example-every-element` drop both. `BlogLayout.astro`'s
+  conditional slot forwarding — `{Astro.slots.has("footer-row") && <slot
+  name="footer-row" slot="footer-row" />}`, and the same for `legal` —
+  makes `SiteLayout` receive empty slots even when no page passes any,
+  so its defaults never render (Astro's conditional-slot pitfall;
+  reproduced with a minimal `BlogLayout` page, gone when the forwards
+  are stripped). Left to the Astro kit's plan; the Svelte twin is the
+  one that matches the lab. (Fixed in step 3 on 2026-10-02 — the forwards
+  are gone and the blog twins match.)
+- `pnpm --filter @hmziq/brand-svelte check:a11y`: 313 stories checked,
+  0 violations — the content stories included.
+
+The content blocks are not exported from the kit's `src/lib/index.ts`
+barrel — the pages import them through `$brand/blocks/content/…`, and the
+barrel belongs to the kits area (the Astro side made the same call).
 
 ### Step 3: The Astro blocks
 
@@ -180,11 +208,12 @@ belongs to the kits area (the Astro side made the same call).
 **Done when:**
 
 - Every example page matches its `svelte-app` twin, and every block matches the lab, in `pnpm compare`.
-- Content pages ship no JS except for interactive pieces (floating contents, copy link, docs search, typing terminal, collapsible releases).
+- Content pages ship no JS except for interactive pieces (the contents scroll spy — the floating pill and the docs and legal TOCs — copy link, docs search, the blog index and FAQ filter scripts, the typing terminal, collapsible releases) plus the boilerplate's own theme scripts and whatever Starwind's Button and Input carry where they render.
 - axe shows zero violations.
 
-**Step 3 status (updated 2026-10-01).** The Astro side is built; the
-checks that need the Svelte twins or the roster are still open. Done:
+**Step 3 status (updated 2026-10-02).** The Astro side is built, and the
+checks that waited on step 2's Svelte blocks and the roster entries have
+run. Done:
 
 - Every block in the table is in `packages/brand-astro/src/blocks/content/`:
   the blog group (`BlogLayout`, `PostHeader`, `PostContents`, `PullQuote`,
@@ -238,11 +267,48 @@ Findings, kept here for the next steps:
   assumes: `../../../../packages/brand-astro/src`. Without it the kit's
   classes silently vanish from the build.
 
-Still open in this step: the `pnpm compare` match against the lab and the
-`astro-app` twins (needs step 2's Svelte blocks and the roster entries,
-step 4), the axe pass, and the content blocks' exports from the kit's
-`src/index.ts` barrel (the pages import them through `$brand/…`, which
-works; the barrel belongs to the kits area).
+The checks that waited on step 2 and the roster ran on 2026-10-02, and the
+fixes they forced are in:
+
+- The content blocks are exported from the kit's `src/index.ts` barrel
+  (the "Content-page blocks" section there), so a project importing
+  `@hmziq/brand-astro` gets them; `pnpm --filter @hmziq/brand-astro
+  typecheck` passes over the barrel.
+- The round-1 defect in `BlogLayout`'s conditional slot forwards (the
+  step 2 status above describes it) is fixed: slots pass through as
+  plain elements, never behind `Astro.slots.has(…)`, so `SiteLayout`'s
+  defaults — the footer's "More from hmziq" row, the legal line — render
+  again, and the `head` slot (the theme's pre-paint baseline) reaches
+  the document head. The blog twins now match.
+- The every-element post's margin note is marked `repeated` with a line
+  that actually repeats: the note is the paragraph's own first sentence,
+  so the aria-hidden no longer costs screen-reader users a line. (The
+  `svelte-app` twin still carries the old note copy; its fix belongs to
+  the Svelte side.)
+- The newsletter band has a receiver: a `subscribe` action
+  (`src/actions/index.ts`, `accept: "form"`) that the band posts to on
+  the blog index, the post page and the gallery. An email in the field
+  comes back to `?subscribed` and the band says thanks through its own
+  `title`/`body` props; an empty field comes back to the page as it was.
+  Verified on the built server: POST → 303 → the thanks band, with
+  JavaScript off.
+- `pnpm compare content`: 396 screenshots, every content piece in its
+  lab, Svelte and Astro views, no unreachable view, no page error.
+- `pnpm compare --pages` over the thirteen shared routes: every twin
+  matches — most pixel-tight on a normalized-height diff (blog,
+  changelog, privacy, terms, contact, 404 and docs quick-start at
+  ≤0.013 both widths and both themes; the docs introduction and
+  installation at ≤0.006 at 1280; faq, about and components at ≤0.015
+  at 1280 with small wrapping deltas at 360), except the every-element
+  post twin (0.03–0.08), whose delta is the margin-note copy fix above
+  — the Svelte twin still has the old line.
+- The Astro axe runner exists: `pnpm --filter @hmziq/brand-astro
+  check:a11y` (`scripts/axe.mjs`) reads the `/kit` gallery's own index
+  for its pages and runs axe over each. `/kit/content` passes with zero
+  violations (the gallery's two PostContents variants carry distinct
+  nav labels now — two "On this page" navs on one page was its one
+  finding). The gallery's app and brand pages still carry their own
+  violations; those belong to their areas' plans.
 
 ### Step 4: Registries and BRAND.md
 
@@ -252,20 +318,32 @@ works; the barrel belongs to the kits area).
 
 **Done when:** a fresh project from `pnpm new-project` can add any content block from its registry, and its Markdown renders like the example post.
 
-**Step 4 status (updated 2026-10-01).** Done, and `check:parity` passes
-with no content block "not yet". The fresh-copy half of the done-when is
-left to the release checklist (`.changeset/README.md`): both fresh copies
-run before any release, and the Markdown rendering was checked against
-the built example pages in steps 2 and 3. Done:
+**Step 4 status (updated 2026-10-02).** Done, and `check:parity` passes
+with no content block "not yet". The fresh-copy half of the done-when ran
+for both sides on 2026-10-02: `pnpm check:fresh-copy svelte` PASS and
+`pnpm check:fresh-copy astro` PASS. Either run builds the registries
+locally, serves them from a temporary port, copies the boilerplate (the
+every-element Markdown post with it), points `@hmziq/brand-core` at the
+exact tarball publish would upload (0.0.0 is unreleased, so it is
+`pnpm pack`ed locally), and installs the whole kit from the served
+registry — the `kit` item depends on every item, the 27 content blocks
+and `content-blocks-shared` among them — so every content block lands in
+a fresh copy by its own item. The copy's `pnpm build` then compiles the
+example post through the framework's Markdown pipeline with core's
+plugins: mdsvex in `svelte-app`, content collections in `astro-app`
+(content syncs and the build completes). Both fresh copies
+still run before any release (`.changeset/README.md`). Done:
 
 - All 27 content blocks are their own items in both registries. The
   roster's `svelteItem`/`astroItem` are set and `pnpm registry:generate`
   was re-run: 124 items in the Svelte registry, 108 in the Astro one.
-- The shared `blocks/content/types.ts` and `share-icons.ts` follow the
-  generator's first-seed rule: `post-header` and `share-bar` own them in
-  the Svelte registry, `post-list` and `share-bar` in the Astro one, and
-  the other content items depend on those items for them. Every kit file
-  still lands in exactly one item.
+- The shared `blocks/content/types.ts` and `share-icons.ts` are their own
+  `content-blocks-shared` item in both registries, by the generator's
+  folder-shared rule: a `.ts`/`.js` helper that sits beside a folder's
+  pieces seeds an item before them, so the pieces that import it depend on
+  the shared item instead of on whichever piece pulled it in first (an
+  item cycle there would hang the CLIs' recursive dependency fetch).
+  Every kit file still lands in exactly one item.
 - Story-only copy no longer ships: the generator excludes
   `blocks/**/stories-data.ts` (nothing but `*.stories.svelte` files
   imports it), so the `content-blocks` catch-all is gone from both
