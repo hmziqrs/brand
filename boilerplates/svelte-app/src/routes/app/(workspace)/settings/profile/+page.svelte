@@ -9,7 +9,6 @@
 -->
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import { beforeNavigate } from '$app/navigation';
 	import { page } from '$app/state';
 	import Notice from '$brand/components/notice.svelte';
 	import FormActions from '$brand/blocks/app/settings/form-actions.svelte';
@@ -60,12 +59,11 @@
 	// Changing the email is a two-step thing, so the page says what happens next.
 	const emailChanging = $derived(form.values.email !== form.saved.email);
 
-	// The unsaved-changes warning: the browser asks on reload, SvelteKit asks
-	// before an in-app link takes the changes away.
+	// The unsaved-changes warning: the browser asks on reload and tab close,
+	// and the helper's own click guard asks before an in-app link takes the
+	// changes away — no router API here, keeping this route inside the two
+	// modules the plan allows it ($app/state, $app/forms).
 	unsavedChanges(() => form.dirty);
-	beforeNavigate((nav) => {
-		if (form.dirty && !nav.willUnload && !confirm('Leave with unsaved changes?')) nav.cancel();
-	});
 </script>
 
 <svelte:head>
@@ -82,9 +80,9 @@
 	/>
 
 	<DataState status={load.status} loadingLabel="Loading settings" class="mt-8">
-		{#snippet loading()}
-			<SkeletonSettings rows={3} />
-		{/snippet}
+	{#snippet loading()}
+		<SkeletonSettings rows={3} footer />
+	{/snippet}
 		{#snippet error()}
 			<ErrorState kind={load.kind} onRetry={load.load} />
 		{/snippet}

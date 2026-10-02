@@ -68,7 +68,9 @@
 
 	<DataState status={load.status} loadingLabel="Loading settings" class="mt-8">
 		{#snippet loading()}
-			<SkeletonSettings rows={3} />
+			<!-- The section's description fits one line until the lg column
+			     narrows; the middle row's takes two wherever it shows. -->
+			<SkeletonSettings description={[1, 2]} rows={[{}, { description: [2, 2] }, {}]} orientation="horizontal" />
 		{/snippet}
 		{#snippet error()}
 			<ErrorState kind={load.kind} onRetry={load.load} />

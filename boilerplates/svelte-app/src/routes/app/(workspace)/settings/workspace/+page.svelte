@@ -7,7 +7,6 @@
 -->
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import { beforeNavigate } from '$app/navigation';
 	import { page } from '$app/state';
 	import ConfirmAction from '$brand/blocks/app/actions/confirm-action.svelte';
 	import FormActions from '$brand/blocks/app/settings/form-actions.svelte';
@@ -60,10 +59,11 @@
 		...seed.values,
 	}, { result: seed.result, saved: seed.saved });
 
+	// The unsaved-changes warning: the browser asks on reload and tab close,
+	// and the helper's own click guard asks before an in-app link takes the
+	// changes away — no router API here, keeping this route inside the two
+	// modules the plan allows it ($app/state, $app/forms).
 	unsavedChanges(() => form.dirty);
-	beforeNavigate((nav) => {
-		if (form.dirty && !nav.willUnload && !confirm('Leave with unsaved changes?')) nav.cancel();
-	});
 
 	// The scripted delete (app-blocks.md, phase 8): the first try fails with a
 	// reason; every later one works. Nothing is really deleted — the demo's
@@ -99,8 +99,10 @@
 
 	<DataState status={load.status} loadingLabel="Loading settings" class="mt-8 flex flex-col gap-8">
 		{#snippet loading()}
-			<SkeletonSettings rows={2} />
-			<SkeletonSettings rows={1} />
+			<!-- The address row's description takes a second line below sm; the
+			     destructive row's takes one everywhere its column is squeezed. -->
+			<SkeletonSettings rows={[{}, { description: [2, 1] }]} footer />
+			<SkeletonSettings rows={[{ description: [2, 2] }]} orientation="horizontal" control="button" />
 		{/snippet}
 		{#snippet error()}
 			<ErrorState kind={load.kind} onRetry={load.load} />

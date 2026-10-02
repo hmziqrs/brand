@@ -85,7 +85,7 @@ The app type scale (smaller than landing pages):
 | Tables | TanStack Table core, as in shadcn-svelte's data table | Rows rendered on the server; selection and the bulk bar in a small script |
 | Toasts | svelte-sonner | Starwind's Toast |
 | Icons | `@lucide/svelte` | `@lucide/astro` |
-| Unsaved-changes warning | `beforeNavigate` and `beforeunload` | A `beforeunload` script |
+| Unsaved-changes warning | `unsavedChanges`: `beforeunload` plus a click guard on in-app links | A `beforeunload` script |
 
 Shared logic both apps import from `@hmziq/brand-core`: `app/nav.ts` (`isActive`), `app/list-params.ts` (`readListParams`, `listHref`), `app/demo-data.ts` (the example data and `fakeRequest`).
 
@@ -120,7 +120,7 @@ Every page's content sits inside a `DataState`. Ordinary in-app visits load the 
 | `/app/overview` | `SkeletonStats` over its numbers, the meters' panel sketched in the same shape | — | `ErrorState` failed | — | `ErrorState` offline | the events meter at 100%, with its message and the "Upgrade" link |
 | `/app/members` | `TableSkeletonRows` inside the frame, header visible | First use (`EmptyState` in a `TableStateRow`) | `ErrorState` failed | — | `ErrorState` offline | — |
 | `/app/members/[id]` | `SkeletonDetails` where the rows land, the sections keeping their panels — the Remove panel included, its skeleton holding the paragraph-and-button line | — | `ErrorState` failed | `ErrorState` denied | `ErrorState` offline | — |
-| `/app/settings/*` | `SkeletonSettings` (billing: `SkeletonDetails` where the rows land, the sections keeping their panels) | — | `ErrorState` failed | billing only | `ErrorState` offline | — |
+| `/app/settings/*` | `SkeletonSettings` (billing: the sections keeping their panels — `SkeletonDetails` where the plan's rows land, the meters sketched in their shapes, the invoices' header visible over skeleton rows) | — | `ErrorState` failed | billing only | `ErrorState` offline | — |
 
 A members search or filter that matches nobody shows `NoResults` inside the table body, whatever the state param is, so the header stays visible. Every `ErrorState` in the demo retries through the fake load, and the offline one also retries when the browser fires its `online` event.
 
@@ -137,6 +137,7 @@ All of it comes from `@hmziq/brand-core/app/demo-data`, so both apps read the sa
 - Usage: events 7,420 of 10,000; seats 8 of 10; data kept 12 of 13 months.
 - The overview's four stat cards, one set per date range (`7`, `30`, `90`): Visitors and Sign-ups (up is good), Bounce rate (down is good, shown in points) and Page load time (down is good — and rising in every range, so it shows red with an up arrow).
 - `fakeRequest<T>(value, { ms = 600 })` stands in for a network call: it resolves after a delay and never rejects.
+- The member roster also has a working copy the demo's actions edit, so removals, invites and role changes survive its navigations the way a real app's database would: the Astro app holds it in its server's memory (`astro-app/src/lib/app/roster.ts`), the Svelte app in the tab (`svelte-app/src/lib/app/roster.svelte.ts`, mirrored into sessionStorage for its full navigations). Core's example data stays untouched.
 
 ### Scripted failures
 
@@ -178,7 +179,7 @@ Failures are scripted in the pages, so the same error states can be checked in b
 
 - **Profile** — name, email, role, joined (a full date: "8 April 2025").
 - **Access** — last active (relative; "Not yet" while they've only been invited), two-step sign-in as a `Tag` (success with a marker reading "On" when it's on, a grey "Off" when it's not), sign-in method, and the member ID in mono with a copy button.
-- **Remove from workspace** — the destructive outline: what removal means in one line, and the destructive button behind a `ConfirmAction` ("Remove Ada Lovelace?", confirm "Remove member"). A successful removal toasts "Removed Ada Lovelace from the workspace." and goes back to the members list.
+- **Remove from workspace** — the destructive outline: what removal means in one line, and the destructive button behind a `ConfirmAction` ("Remove Ada Lovelace?", confirm "Remove member"). A successful removal toasts "Removed Ada Lovelace from the workspace.", drops her from the roster both pages share (see "Example data"), and goes back to the members list — where she's no longer listed.
 
 An unknown id is `ErrorState kind="not-found"` with "Back to members". The page takes `pending` (the sections keep their shape: `SkeletonDetails` stands where the rows land, inside the same panels, and the Remove panel's skeleton holds the same paragraph-and-button line — two lines and a full-width button below `sm`, one line and a button from it), `error`, `offline` and `denied` ("Back to members" beside the retry).
 
@@ -562,6 +563,8 @@ A skeleton for a run of text, the same size as the paragraph it stands for.
 type SkeletonTextProps = { lines?: number; class?: string }   // default 3
 ```
 
+**States.** None of its own — it is a state: the `loading` snippet `Async` and `DataState` show while the text waits.
+
 **Look.** `lines` rows (`gap-2.5`), each `h-4` on the stock `Skeleton`; the last row `w-2/3` when there's more than one.
 **Keyboard**: decorative (`aria-hidden`). **Mobile**: unchanged.
 **Astro**: static, no JS.
@@ -579,6 +582,8 @@ type SkeletonTableProps = {
 }
 ```
 
+**States.** None of its own — it is a state: the `loading` snippet that stands for the whole table while the rows wait.
+
 **Look.** `rounded-xl border border-border`, a header row (`py-2.5`, `h-3.5` cells) and `rows` body rows (`py-4`, `h-4` cells) divided by `border-b` (the last without), each a grid over the given widths — the widths go inline, so no class names are built at render time.
 **Keyboard**: decorative (`aria-hidden`). **Mobile**: the frame scrolls like the real one.
 **Astro**: static, no JS.
@@ -592,7 +597,9 @@ A skeleton for a run of stat cards, in the gap-px grid on `bg-border` that `Stat
 type SkeletonStatsProps = { count?: number; class?: string }   // default 4
 ```
 
-**Look.** `grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-border bg-border`, `sm:grid-cols-2/3/4` by count (counts beyond 4 use 4). Each cell: `bg-background px-4 py-4`, a label-sized `h-4 w-24` and a number-sized `h-7 w-16`.
+**States.** None of its own — it is a state: the pending face of a `StatGrid`, its cells standing for the cards that haven't landed.
+
+**Look.** `grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-border bg-border`, `sm:grid-cols-2/3/4` by count (counts beyond 4 use 4). Each cell: `bg-background px-4 py-4`, standing for the card's three landed lines — the label's `h-5 w-24`, the number's `h-8 w-20` and the trend line's `h-4 w-14`, the same two number-and-trend skeletons `StatCard`'s own pending draws — so a landing card is exactly as tall as the cell that waits for it.
 **Keyboard**: decorative (`aria-hidden`). **Mobile**: two columns, as the real grid.
 **Astro**: static, no JS.
 
@@ -605,22 +612,32 @@ A skeleton for a `DetailList`: rows of a label on the left and a value on the ri
 type SkeletonDetailsProps = { rows?: number; class?: string }   // default 4
 ```
 
-**Look.** `divide-y` rows, each `flex items-center justify-between gap-6 py-3.5` with an `h-5 w-40` label and an `h-5 w-44` value — the bars carry the real rows' own sizes: `h-5` is `text-sm`'s line box and `w-40` the label's width, so a panel is already the size the record will make it. No panel — the `DetailSection` around it draws that.
-**Keyboard**: decorative (`aria-hidden`). **Mobile**: unchanged.
+**States.** None of its own — it is a state: the pending face of a `DetailList`, already the size the record will make it at every width.
+
+**Look.** `divide-y` rows, each carrying `DetailList`'s own row classes — `flex flex-col gap-1 py-3.5` (`sm:flex-row sm:items-center sm:justify-between sm:gap-6`) — with an `h-5 w-40` label and an `h-5 w-44` value: the bars carry the real rows' own sizes (`h-5` is `text-sm`'s line box, `w-40` the label's width) and the rows the real rows' own shape, so a panel is already the size the record will make it at every width. No panel — the `DetailSection` around it draws that.
+**Keyboard**: decorative (`aria-hidden`). **Mobile**: the rows stack label over value, as the real rows.
 **Astro**: static, no JS.
 
 ### SkeletonSettings
 `data-slot="skeleton-settings"` · Svelte: `packages/brand-svelte/src/lib/blocks/app/states/skeleton-settings.svelte` · Story: `App/States/Skeleton settings`
 
-A skeleton for a settings section, the same two-column shape `SettingsSection` draws.
+A skeleton for a settings section, the same two-column shape `SettingsSection` draws, every bar the size of the thing it stands for so the section is already the size its content will make it.
 
 ```ts
-type SkeletonSettingsProps = { rows?: number; class?: string }   // default 3
+type SkeletonSettingsProps = {
+  rows?: number                             // default 3
+  orientation?: "vertical" | "horizontal"   // the rows' shape, as SettingRow's; default "vertical"
+  control?: "field" | "switch" | "button"   // what stands at a row's control; the orientation's usual one by default
+  footer?: boolean                          // holds FormActions' foot, for a section whose form saves
+  class?: string
+}
 ```
 
-**Look.** `SettingsSection`'s grid: title (`h-5 w-32`) and description (`h-4 w-48`) left from `lg`, an outlined panel right holding `rows` of a label (`h-4 w-24`) over a field-height box (`h-8 w-full max-w-72`), divided like the real rows.
+**States.** None of its own — it is a state: the pending face of a settings section, every bar the size of the thing it stands for so the section is already the size its content will make it.
+
+**Look.** `SettingsSection`'s grid: title (`h-6 w-32`) and description (`h-10 w-full max-w-72 sm:h-5 lg:h-10` — the lines the copy takes) left from `lg`, an outlined panel right holding `rows` divided like the real rows. A vertical row is `SettingRow`'s stack — a label (`h-5 w-24`) over a field-height box (`h-9 w-full max-w-72`, the height Input, Combobox and InputGroup all draw) over its description (`h-5 w-64`); a horizontal one is the label (`h-5 w-44`) and description (`h-5 w-64`) beside the control: a switch (`h-[18.4px] w-8 rounded-full`), a button (`h-9 w-36`) or the field box. With `footer`, a `border-t` foot holds FormActions' line — the left side only its height (empty while the form is clean) beside a Save-height bar (`h-9 w-28`).
 **Keyboard**: decorative (`aria-hidden`). **Mobile**: the columns stack below `lg`, as the real section.
-**Astro**: static, no JS.
+**Astro**: static, no JS (`rows` only).
 
 ### CollectionToolbar
 `data-slot="collection-toolbar"` · Svelte: `packages/brand-svelte/src/lib/blocks/app/collection/collection-toolbar.svelte` · Story: `App/Collection/Toolbar`
@@ -676,7 +693,7 @@ type FilterChipProps = {
 
 **Keyboard.** The trigger opens with Enter or Space; the rows are real checkbox or radio inputs, so Tab reaches them and Space turns them; Escape closes with focus back on the trigger; the searchable list takes typing and filters the rows.
 
-**Mobile.** The chip stays one line; the popover is `w-52`, wider than the chip, and opens under it from the chip's own `<details>`, inside the toolbar row that scrolls sideways.
+**Mobile.** The chip stays one line; the popover is `w-52`, wider than the chip, and opens under it from the chip's own `<details>`. Below `sm` the toolbar's chips row scrolls sideways, and a row that scrolls clips everything that opens inside it, so there the picker detaches to a fixed sheet at the foot of the screen — the same `<details>`, still chosen and applied with no JavaScript.
 
 **Astro.** The same `<details>` picker and the same rows; a small script submits the form on a change (closing the picker after a single-choice pick), handles Escape and drives the search field.
 
@@ -729,7 +746,7 @@ type BulkActionBarProps = {
 
 **Mobile.** The row wraps; the actions sit under the count.
 
-**Astro.** Static bar with a script for the Escape key and the select-all focus hand-off.
+**Astro.** Static bar with a script for the Escape key and the select-all focus hand-off. The page may hand it `data-all-ids` — every filtered id, not only the rows the page rendered — and "Select all N" then selects all N across pages, the unrendered ids held on the bar until the selection changes, the way the Svelte bar's `onSelectAll` walks its whole row model.
 
 ### AppTableFrame
 `data-slot="app-table-frame"` · Svelte: `packages/brand-svelte/src/lib/blocks/app/table/app-table-frame.svelte` · Story: `App/Table/Frame`
@@ -744,7 +761,7 @@ type AppTableFrameProps = { stickyFirstColumn?: boolean; class?: string; childre
 
 **Look.** `overflow-hidden rounded-xl border border-border`.
 
-**Keyboard**, **Mobile**: nothing of its own; inside is stock table semantics. The frame scrolls sideways at 360px with the pinned column readable.
+**Keyboard**, **Mobile**: nothing of its own; inside is stock table semantics. The frame scrolls sideways at 360px with the pinned column readable — below `sm` the pinned cell is also capped (`max-w-52`, the host column's own `min-w` lifted) so the columns beside it scroll into view instead of staying hidden behind it.
 **Astro**: static, no JS.
 
 ### SortableHead
@@ -789,7 +806,13 @@ type SelectAllCheckboxProps = {
 }
 ```
 
-**Keyboard.** A thin row on the stock checkbox; the `data-slot` is re-named so the two checkboxes stay tellable apart in the DOM. Space toggles it; selection itself needs JavaScript (in Astro, a small script around the table body and the bar).
+**States.** Checked — every row on the page is picked — or `indeterminate`, mixed, when only some are on.
+
+**Look.** A thin row on the stock checkbox; the `data-slot` is re-named so the two checkboxes stay tellable apart in the DOM.
+
+**Keyboard.** Space toggles it; selection itself needs JavaScript (in Astro, a small script around the table body and the bar).
+
+**Mobile.** Unchanged; the host column often pins.
 
 **Astro**: Starwind's checkbox, a real `input` with its `aria-label`; the script around the table body sets checked and indeterminate.
 
@@ -807,7 +830,15 @@ type RowCheckboxProps = {
 }
 ```
 
-As above, on the stock checkbox; Space toggles it. **Astro**: Starwind's checkbox, a real `input` whose `aria-label` names the row; the same script checks it.
+**States.** Checked or not — the mixed state belongs to the header's `SelectAllCheckbox`, never to a row.
+
+**Look.** As `SelectAllCheckbox`'s: a thin row on the stock checkbox, its own `data-slot`.
+
+**Keyboard.** Space toggles it.
+
+**Mobile.** Unchanged; the host column often pins.
+
+**Astro**: Starwind's checkbox, a real `input` whose `aria-label` names the row; the same script checks it.
 
 ### RowActions
 `data-slot="row-actions"` · Svelte: `packages/brand-svelte/src/lib/blocks/app/table/row-actions.svelte` · Story: `App/Table/Row actions`
@@ -871,7 +902,15 @@ One full-width row for a state inside the table: an `EmptyState`, a `NoResults`,
 type TableStateRowProps = { colSpan: number; class?: string; children: Slot }
 ```
 
-The row draws no hover and no bottom border; the cell carries no padding (the state brings its own). **Astro**: static, no JS.
+**States.** Whichever the page sets inside it — an `EmptyState`, a `NoResults`, an `ErrorState` — with the header left visible above; none of its own.
+
+**Look.** The row draws no hover and no bottom border; the cell carries no padding (the state brings its own).
+
+**Keyboard.** Nothing of its own; the state inside keeps its own.
+
+**Mobile.** The frame scrolls sideways, as it does for the real rows.
+
+**Astro**: static, no JS.
 
 ### TableSkeletonRows
 `data-slot="table-skeleton-rows"` · Svelte: `packages/brand-svelte/src/lib/blocks/app/table/table-skeleton-rows.svelte` · Story: `App/Table/Skeleton rows`
@@ -882,7 +921,15 @@ Loading rows for inside a table body: the header stays visible while the rows wa
 type TableSkeletonRowsProps = { rows?: number; columns: string[]; class?: string }   // columns are widths, e.g. ["38%", "14%", "16%", "18%", "14%"]
 ```
 
-Rows of `Skeleton` cells (`h-4`) over inline widths — no class names built at render time. Decorative (`aria-hidden`); the surrounding `DataState` carries the accessible story ("Loading members"). **Astro**: static, no JS.
+**States.** None of its own — it is a state: the pending face a table body shows while the rows wait, the header staying visible above.
+
+**Look.** Rows of `Skeleton` cells (`h-4`) over inline widths — no class names built at render time.
+
+**Keyboard.** Decorative (`aria-hidden`); the surrounding `DataState` carries the accessible story ("Loading members").
+
+**Mobile.** The frame scrolls sideways, as it does for the real rows.
+
+**Astro**: static, no JS.
 
 ### The table recipe
 
@@ -910,7 +957,9 @@ type AuthLayoutProps = {
 }
 ```
 
-**States.** Centered: `min-h-dvh`, one `max-w-sm` column (`px-4 py-10 md:py-14`), the footer at the foot (`mt-auto`). Split: `md:grid md:grid-cols-2`, the same column on the left (`md:justify-center`), the aside on the right behind a `border-l`, centered, `max-w-md`; below `md` the aside hides and the page is the centered one. The title is `text-2xl font-medium tracking-tight`, the description `text-sm text-muted-foreground` under it.
+**States.** The `variant` is the only state: centered by default; split — and below `md` the aside hides and the page is the centered one.
+
+**Look.** Centered: `min-h-dvh`, one `max-w-sm` column (`px-4 py-10 md:py-14`), the footer at the foot (`mt-auto`). Split: `md:grid md:grid-cols-2`, the same column on the left (`md:justify-center`), the aside on the right behind a `border-l`, centered, `max-w-md`. The title is `text-2xl font-medium tracking-tight`, the description `text-sm text-muted-foreground` under it.
 
 **Keyboard.** Nothing of its own: the brand link and the footer links are links; the form inside keeps its own focus handling.
 **Mobile.** One column at 360px; the split's aside is gone; nothing scrolls sideways.
@@ -1174,13 +1223,15 @@ Beyond the sketch: `retryHref` (the compact ErrorState's no-JavaScript retry, as
 ### StatGrid
 `data-slot="stat-grid"` · Svelte: `packages/brand-svelte/src/lib/blocks/app/metrics/stat-grid.svelte` · Story: `App/Metrics/Grid, demo cards`
 
-StatCards in one ruled grid, the way Sightline's overview draws it in the lab: the grid draws the rules with `gap-px` on `bg-border` inside a `rounded-xl border border-border` with `overflow-hidden`; the cards bring their own background.
+StatCards in one ruled grid, the way Sightline's overview draws it in the lab; the cards bring their own background.
 
 ```ts
 type StatGridProps = { columns?: 2 | 3 | 4; children: Slot }   // columns defaults to 4
 ```
 
-Two columns below `sm`, the chosen count from `sm`. `SkeletonStats` draws the same grid for the same count, so a loading page stands exactly where the cards land and nothing shifts when they arrive.
+**States.** Nothing of its own — each card keeps its own faces. `SkeletonStats` draws the same grid for the same count, its cells standing for the card's three lines — label, number, trend — so a loading page stands exactly where the cards land and nothing shifts when they arrive.
+
+**Look.** The grid draws the rules with `gap-px` on `bg-border` inside a `rounded-xl border border-border` with `overflow-hidden`; two columns below `sm`, the chosen count from `sm`.
 
 **Keyboard.** Nothing of its own; the cards keep theirs.
 **Mobile.** Two columns hold at 360px (four cards, two rows); nothing scrolls sideways.
@@ -1244,7 +1295,7 @@ Beyond the sketch: `open` is bindable and `trigger` optional, so a row's "Remove
 
 **Keyboard.** Tab reaches Cancel before the confirm button, and stays inside the dialog. Escape closes unless the action is running. Enter in the text field confirms once the word matches.
 **Mobile.** The stock dialog's width at 360px: the screen's width less padding.
-**Astro**: Starwind's alert dialog, with a script for the typed word, the pending and error states, and the toast.
+**Astro**: Starwind's alert dialog, with a script for the typed word, the pending and error states, and the toast. The `confirm` event rises from the trigger — where a page's marker props land — and the page answers `confirm-settle` ({ ok, message }) on the dialog.
 
 ### RecordSheet
 `data-slot="record-sheet"` · Svelte: `packages/brand-svelte/src/lib/blocks/app/actions/record-sheet.svelte` · Story: `App/Actions/Record sheet`
