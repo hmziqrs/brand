@@ -13,8 +13,17 @@
 	</form>
 </Story>
 
-<!-- Shown: the button says "Hide password" and the field turns plain text. -->
-<Story name="Password input, shown" asChild>
+<!-- Shown: the button says "Hide password" and the field turns plain text.
+	The play function flips the real toggle when the story loads, so this is
+	the face it holds, not the hidden one the default story already shows. -->
+<Story
+	name="Password input, shown"
+	asChild
+	play={({ canvasElement }) => {
+		const toggle = canvasElement.querySelector('button[aria-label="Show password"]')
+		if (toggle instanceof HTMLButtonElement) toggle.click()
+	}}
+>
 	<form class="flex max-w-sm flex-col gap-2 p-6" onsubmit={(event) => event.preventDefault()}>
 		<label class="text-sm font-medium" for="pw-shown">Password</label>
 		<PasswordInput id="pw-shown" name="password" autocomplete="current-password" value="correct horse" />

@@ -84,14 +84,15 @@ const fieldError = (field: string) => (result?.field === field ? result.message 
   </form>
 
   <div class="mt-8">
-    <SettingsSection tone="destructive" title="Delete this workspace" description="Everything in it goes with it.">
-      <div class="flex flex-col gap-3 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
-        <p class="max-w-prose text-sm text-muted-foreground">
-          Deleting removes every member, dashboard and event. There is no undo.
-        </p>
+    <SettingsSection tone="destructive" title="Delete this workspace" description="Events, dashboards and members go with it. This can't be undone.">
+      <SettingRow
+        label="Deleting can't be undone"
+        description="You'd need to create a new workspace to use Sightline again."
+        orientation="horizontal"
+      >
         <ConfirmAction
-          title="Delete workspace?"
-          description="Everything in Paperplane is deleted: members, dashboards and events. There is no undo."
+          title="Delete this workspace?"
+          description="Events, dashboards and members go with it. This can't be undone."
           confirmLabel="Delete workspace"
           confirmText="Paperplane"
           successMessage="Workspace deleted."
@@ -101,7 +102,7 @@ const fieldError = (field: string) => (result?.field === field ? result.message 
             <Button type="button" variant="error" class="shrink-0">Delete this workspace</Button>
           </Fragment>
         </ConfirmAction>
-      </div>
+      </SettingRow>
     </SettingsSection>
   </div>
 </AppPage>

@@ -116,7 +116,14 @@ const {
     const cancel = root.querySelector<HTMLButtonElement>("[data-confirm-cancel]");
     const spinner = root.querySelector<HTMLElement>("[data-confirm-spinner]");
     if (button) {
-      button.disabled = pending || button.dataset.typedOk !== "true";
+      // Only a dialog with a word to type holds its confirm back; without
+      // one there's nothing to match, so the button runs on its own — the
+      // server render (`disabled={Boolean(confirmText)}`) and the Svelte
+      // twin (`confirmText === undefined || typed === confirmText`) both
+      // say the same.
+      const word = root.querySelector<HTMLInputElement>("[data-confirm-word]");
+      const typedOk = !word || button.dataset.typedOk === "true";
+      button.disabled = pending || !typedOk;
       spinner?.classList.toggle("hidden", !pending);
     }
     if (cancel) cancel.disabled = pending;
@@ -177,11 +184,19 @@ const {
 
     face(root, true);
     // The page answers `confirm-settle` ({ ok, message }) on the dialog when
-    // its work is done; until then the dialog holds still.
-    root.dispatchEvent(new CustomEvent("confirm", { bubbles: true }));
+    // its work is done; until then the dialog holds still. The event rises
+    // from the trigger, because that's where a page's own marker props
+    // (`data-remove-confirm` and its kin) land — pages listen for the
+    // confirm of *theirs*, matched on the event's target.
+    const marked = root.querySelector<HTMLElement>("[data-confirm-trigger]");
+    (marked ?? root).dispatchEvent(new CustomEvent("confirm", { bubbles: true }));
   });
 
-  document.addEventListener("confirm-settle", (event) => {
+  // Capture: a page answers on the trigger or on the wrapper, and the
+  // answer may not bubble — the capture phase hears it either way.
+  document.addEventListener(
+    "confirm-settle",
+    (event) => {
     const root = event.target instanceof HTMLElement ? wrapOf(event.target) : null;
     if (!root || !(event instanceof CustomEvent)) return;
     const ok = Boolean(event.detail?.ok);
@@ -212,7 +227,9 @@ const {
         heading.focus();
       }
     });
-  });
+    },
+    true,
+  );
 
   // Escape holds the dialog open while the action runs.
   document.addEventListener("starwind:escape-key-down", (event) => {

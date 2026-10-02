@@ -119,11 +119,11 @@
 {/snippet}
 
 {#snippet descriptionLine()}
-	{#if description}
-		<p class="text-sm/relaxed text-muted-foreground">
-			{#if typeof description === "string"}{description}{:else}{@render description()}{/if}
-		</p>
-	{/if}
+	<!-- Like the title: the page's words when it has its own, the kind's
+	     default copy when it doesn't. -->
+	<p class="text-sm/relaxed text-muted-foreground">
+		{#if description}{#if typeof description === "string"}{description}{:else}{@render description()}{/if}{:else}{d.description}{/if}
+	</p>
 {/snippet}
 
 {#if size === "compact"}

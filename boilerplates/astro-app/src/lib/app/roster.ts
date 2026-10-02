@@ -28,10 +28,20 @@ export function nameOf(email: string): string {
 
 export function inviteMembers(emails: string[], role: MemberRole): number {
   const joined = new Date().toISOString().slice(0, 10);
+  // Ids number past the highest invite the roster already holds, not past
+  // its length: a removal can pull the length back down, and the
+  // length-based number would name a second member with an id already in
+  // the roster (two rows would share one id and one detail href). With no
+  // invites yet, the seed stays the roster's length, so the first run
+  // numbers exactly as it always did.
+  const highestInvite = roster.reduce((max, member) => {
+    const held = /^usr_invite_(\d+)$/.exec(member.id);
+    return held ? Math.max(max, Number(held[1])) : max;
+  }, roster.length);
   roster = [
     ...roster,
     ...emails.map((email, at) => ({
-      id: `usr_invite_${roster.length + at + 1}`,
+      id: `usr_invite_${highestInvite + at + 1}`,
       name: nameOf(email),
       email,
       role,

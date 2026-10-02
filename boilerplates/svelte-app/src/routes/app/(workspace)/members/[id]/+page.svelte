@@ -8,7 +8,6 @@
   takes state=denied (the demo-state table's promise for this phase).
 -->
 <script lang="ts">
-	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
 	import ConfirmAction from '$brand/blocks/app/actions/confirm-action.svelte';
 	import RecordSheet from '$brand/blocks/app/actions/record-sheet.svelte';
@@ -25,16 +24,27 @@
 	import { Skeleton } from '$brand/ui/skeleton/index.js';
 	import {
 		fakeRequest,
-		memberById,
 		type MemberRole,
 	} from '@hmziq/brand-core/app/demo-data';
 	import { relativeDate } from '@hmziq/brand-core/app/format';
+	// The tab's shared roster ($lib/app/roster): the removal below lands in
+	// it, so the list the navigation lands on no longer shows the member —
+	// the way the Astro twin's removeMembers action drops them from its
+	// server's roster.
+	import { memberById, removeMembers as removeFromRoster, restore as restoreRoster } from '$lib/app/roster.svelte.js';
 	import { toast } from 'svelte-sonner';
 	import type { FormResult } from '$lib/settings-form.svelte.js';
 	import { DemoLoad } from '$lib/demo-load.svelte.js';
 
 	const load = new DemoLoad(page.url.searchParams.get('state'), { denied: true });
 	const found = $derived(page.params.id ? memberById(page.params.id) : undefined);
+
+	// The roster the tab holds applies after hydration (the server painted
+	// the example data): a member removed elsewhere in the demo reads as
+	// not-found here too.
+	$effect(() => {
+		restoreRoster();
+	});
 
 	// The page's copy of the member: what the edit sheet saves lands here, so
 	// the record above shows it without a reload (core's data is example data).
@@ -85,7 +95,16 @@
 	// ---- removal -------------------------------------------------------------
 	async function removeFromWorkspace(): Promise<FormResult> {
 		await fakeRequest(undefined, { ms: 600 });
-		goto('/app/members');
+		// The removal lands in the shared roster before the way out, so the
+		// list no longer shows them when it lands.
+		if (member) removeFromRoster([member.id]);
+		// Back to the list as a real navigation — the same full load the
+		// overview's range switch makes, keeping this route inside the two
+		// modules the plan allows it ($app/state, $app/forms). The demo
+		// state rides along, the way the list's own navigate() keeps it,
+		// so checking a state doesn't reset on the way out.
+		const state = page.url.searchParams.get('state');
+		window.location.assign(state ? `/app/members?state=${encodeURIComponent(state)}` : '/app/members');
 		return undefined;
 	}
 </script>
@@ -164,15 +183,17 @@
 		<DataState status={load.status} loadingLabel="Loading member" class="mt-8 flex flex-col gap-8">
 			{#snippet loading()}
 				<!-- The sections keep their shape: the skeleton stands exactly
-				     where the rows land, inside the same panels. That includes
+				     where the rows land, inside the same panels — and each
+				     section carries its own description, so the head is the
+				     height the record's head will be too. That includes
 				     the Remove panel, whose skeleton holds the same
 				     paragraph-and-button line the real one draws — two lines
 				     and a full-width button below sm, one line and a button
 				     at home from sm. -->
-				<DetailSection title="Profile">
+				<DetailSection title="Profile" description="Who they are in the workspace.">
 					<SkeletonDetails rows={4} />
 				</DetailSection>
-				<DetailSection title="Access">
+				<DetailSection title="Access" description="How they sign in, and when they were last here.">
 					<SkeletonDetails rows={4} />
 				</DetailSection>
 				<DetailSection tone="destructive" title="Remove from workspace">

@@ -216,7 +216,7 @@
 				{#if filtering}
 					<NoResults
 						query={list.q}
-						filtered={list.filters.role.length + list.filters.status.length > 0 && list.q === ''}
+						filtered={list.filters.role.length + list.filters.status.length > 0}
 						clearHref={hrefOf({ q: '', filters: { role: [], status: [] } })}
 						noun="members"
 					/>

@@ -33,6 +33,13 @@
 				"[&_[data-slot=table]_tr>:first-child]:left-0",
 				"[&_[data-slot=table]_tr>:first-child]:z-10",
 				"[&_[data-slot=table]_tr>:first-child]:bg-background",
+				// Below sm the pinned cell is capped — and the host column's
+				// own `min-w-64` floor lifted — so the columns beside it stay
+				// reachable: without a cap the member column swallows nearly
+				// the whole frame at 360px and the sideways scroll reveals
+				// nothing behind it.
+				"[&_[data-slot=table]_tr>:first-child]:max-sm:min-w-0",
+				"[&_[data-slot=table]_tr>:first-child]:max-sm:max-w-52",
 				// A selected row keeps its muted fill on its pinned cell; the
 				// important mark keeps it ahead of the hover rule below, which
 				// carries two more element names and so outranks it otherwise.

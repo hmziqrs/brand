@@ -93,13 +93,16 @@
 	</AuthField>
 
 	<AuthField label="Password" for="password" error={passwordError}>
-		{#if links.forgotPassword}
-			{#snippet beside()}
+		<!-- The snippet must sit directly under AuthField to reach it as a
+			prop: Svelte 5 scopes a snippet declared inside a block to that
+			block, so the link's condition lives inside it instead. -->
+		{#snippet beside()}
+			{#if links.forgotPassword}
 				<a href={links.forgotPassword} class="text-sm text-primary underline underline-offset-4 hover:underline">
 					Forgot your password?
 				</a>
-			{/snippet}
-		{/if}
+			{/if}
+		{/snippet}
 		<PasswordInput
 			id="password"
 			name="password"

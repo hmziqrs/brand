@@ -86,9 +86,15 @@
 		button(canvasElement, 'Invite people')?.click()
 	}
 
-	// A dirty sheet closed by its Cancel: the discard question comes up over it.
+	// A dirty sheet closed by its Cancel: the discard question comes up over
+	// it. The trigger takes focus first, the way a real click or Enter leaves
+	// it, so the sheet's close can hand focus back to it (the contract's
+	// keyboard line) — a bare .click() focuses nothing, and the hand-back
+	// would land on the body instead.
 	async function openDirty({ canvasElement }: { canvasElement: HTMLElement }) {
-		await openSheet({ canvasElement })
+		await sleep(50)
+		button(canvasElement, 'Invite people')?.focus();
+		button(canvasElement, 'Invite people')?.click()
 		await sleep(150)
 		button(canvasElement.ownerDocument, 'Cancel')?.click()
 	}

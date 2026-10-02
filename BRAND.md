@@ -30,6 +30,13 @@ Live reference: the Storybook in the `hmziq/brand` repo (`pnpm storybook`), whic
 
 Two ways in.
 
+> **The first release has not shipped yet.** `@hmziq/brand-core` is not on
+> npm and the registry URLs below are not live. Publishing them is a
+> deferred, by-hand release step (docs/kits.md, step 3). Until it runs,
+> work from the brand repo: `pnpm check:fresh-copy <svelte|astro>` installs
+> a fresh app from the packed core and a locally served registry — the same
+> bytes the release will ship.
+
 **A new site** starts from a starter, in the brand repo:
 
 ```bash

@@ -13,7 +13,9 @@ export const actions = {
 		const posted = Object.fromEntries(await request.formData()) as Record<string, string>;
 		const parsed = signInSchema.safeParse(posted);
 		if (!parsed.success) {
-			return fail(400, { values: posted, form: invalid(parsed.error) });
+			// Only the email goes back: the password never returns to the page,
+			// not even a rejected one (the page only reads `values.email`).
+			return fail(400, { values: { email: posted.email }, form: invalid(parsed.error) });
 		}
 		const { email, password } = parsed.data;
 		if (password === 'wrong') {

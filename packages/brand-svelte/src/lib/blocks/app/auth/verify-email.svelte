@@ -55,13 +55,18 @@
 	});
 	const counting = $derived(inBrowser && remaining > 0);
 
-	// A form error clears the code (a wrong try starts over) and takes focus
-	// in the Notice, so screen readers read what went wrong with it.
+	// Focus, in the browser only: the code field on load — the transparent
+	// input the InputOTP lays over its cells, which lights the first cell
+	// (without JavaScript the reader tabs in as usual). A form error clears
+	// the code (a wrong try starts over) and takes focus in the Notice, so
+	// screen readers read what went wrong with it.
 	$effect(() => {
 		if (result && !result.field) {
 			code = "";
 			notice?.focus();
+			return;
 		}
+		root.querySelector<HTMLElement>("input")?.focus();
 	});
 </script>
 

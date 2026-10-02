@@ -146,6 +146,11 @@
 			Skip to content
 		</a>
 		<Sidebar.Root collapsible="icon">
+			<!-- The mobile sheet's "choosing a link closes it" rule is held by
+			     the links themselves: shell-nav for the groups, and the brand
+			     and account blocks (WorkspaceSwitcher, UserMenu) through the
+			     sidebar context — their dropdown items are portaled outside
+			     this tree, so the shell can't catch those clicks for them. -->
 			{#if brand}
 				<Sidebar.Header>
 					{@render brand()}

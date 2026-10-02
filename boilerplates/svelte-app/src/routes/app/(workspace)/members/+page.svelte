@@ -9,7 +9,6 @@
   and every removal — one row or a selection — asks first.
 -->
 <script lang="ts">
-	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
 	import {
 		createTable,
@@ -24,6 +23,13 @@
 	import { listHref, type ListState } from '@hmziq/brand-core/app/list-params';
 	import { fakeRequest, members, type Member, type MemberRole } from '@hmziq/brand-core/app/demo-data';
 	import { relativeDate } from '@hmziq/brand-core/app/format';
+	import {
+		allMembers,
+		changeRoles as changeRosterRoles,
+		inviteMembers as inviteIntoRoster,
+		removeMembers as removeFromRoster,
+		restore as restoreRoster,
+	} from '$lib/app/roster.svelte.js';
 	import { toast } from 'svelte-sonner';
 	import ConfirmAction from '$brand/blocks/app/actions/confirm-action.svelte';
 	import RecordSheet from '$brand/blocks/app/actions/record-sheet.svelte';
@@ -62,9 +68,22 @@
 	const PATH = '/app/members';
 	const load = new DemoLoad(page.url.searchParams.get('state'));
 
-	// The demo's data lives in the page: removals and role changes edit this
-	// copy, the way a real page edits what its action returned.
-	let roster = $state<Member[]>(members);
+	// The demo's data lives in the tab's shared roster ($lib/app/roster):
+	// removals, invites and role changes land there, the way the Astro
+	// twin's actions land in its server's memory. The page keeps its own
+	// view of it so state=empty — the first-use face, whose list starts with
+	// nobody in it, so the toolbar's count and the paging agree with "No
+	// members yet" — can hold a list of its own. The chips' counts still
+	// describe the demo roster (`members`), the way a first-use page still
+	// offers every role to filter by.
+	let roster = $state<Member[]>(load.state === 'empty' ? [] : allMembers());
+	// A full load (the search, the GET form's submit, a removal's way back
+	// from the member page) painted the server's example data, so the roster
+	// the tab holds applies after hydration.
+	$effect(() => {
+		restoreRoster();
+		if (load.state !== 'empty') roster = allMembers();
+	});
 	let rowSelection = $state<RowSelectionState>({});
 
 	const hrefOf = (change: Partial<ListState>) => listHref(PATH, data.list, change);
@@ -77,7 +96,10 @@
 			url.searchParams.set('state', state);
 			href = url.pathname + url.search;
 		}
-		goto(href, { keepFocus: true, noScroll: true });
+		// A real navigation — the same full load the Astro demo's GET form
+		// makes, and what keeps this route inside the two modules the plan
+		// allows it ($app/state, $app/forms), as the overview already does.
+		window.location.assign(href);
 	}
 
 	// The GET form with JavaScript on: read its fields and go. With it off,
@@ -193,6 +215,7 @@
 			};
 		}
 		await fakeRequest(undefined, { ms: 600 });
+		removeFromRoster(victims.map((m) => m.id));
 		roster = roster.filter((m) => !victims.includes(m));
 		rowSelection = {};
 		return undefined;
@@ -218,6 +241,7 @@
 
 	function changeRole(victims: Member[], role: MemberRole) {
 		if (victims.length === 0) return;
+		changeRosterRoles(victims.map((m) => m.id), role);
 		roster = roster.map((m) => (victims.includes(m) ? { ...m, role } : m));
 		toast.success(`Changed role for ${victims.length} ${victims.length === 1 ? 'member' : 'members'}.`);
 	}
@@ -238,15 +262,6 @@
 		inviteRole = 'Member';
 		inviteError = undefined;
 	});
-
-	// A name for an invited address: "ada.lovelace" becomes "Ada Lovelace".
-	const nameOf = (email: string) =>
-		email
-			.split('@')[0]
-			.split(/[._-]/)
-			.filter(Boolean)
-			.map((word) => word[0].toUpperCase() + word.slice(1))
-			.join(' ');
 
 	async function sendInvites(event: SubmitEvent) {
 		event.preventDefault();
@@ -269,21 +284,10 @@
 		}
 		invitePending = true;
 		await fakeRequest(undefined, { ms: 600 });
-		const joined = new Date().toISOString().slice(0, 10);
-		roster = [
-			...roster,
-			...addresses.map((email, at) => ({
-				id: `usr_invite_${roster.length + at + 1}`,
-				name: nameOf(email),
-				email,
-				role: inviteRole,
-				status: 'Invited' as const,
-				lastActive: null,
-				joined,
-				twoStep: false,
-				signInMethod: 'Email' as const,
-			})),
-		];
+		// The invites join the shared roster (ids number past the highest
+		// invite it holds — see $lib/app/roster), and the page's view takes
+		// them so the empty face's own list shows them too.
+		roster = [...roster, ...inviteIntoRoster(addresses, inviteRole)];
 		invitePending = false;
 		inviteOpen = false;
 		toast.success(`Invites sent to ${addresses.length} ${addresses.length === 1 ? 'person' : 'people'}.`);

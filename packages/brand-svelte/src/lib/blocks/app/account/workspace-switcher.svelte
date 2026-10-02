@@ -6,6 +6,7 @@
 -->
 <script lang="ts">
 	import * as DropdownMenu from "$brand/ui/dropdown-menu/index.js";
+	import { useSidebar } from "$brand/ui/sidebar/index.js";
 	import Check from "@lucide/svelte/icons/check";
 	import ChevronsUpDown from "@lucide/svelte/icons/chevrons-up-down";
 	import Plus from "@lucide/svelte/icons/plus";
@@ -25,6 +26,15 @@
 		createHref?: string;
 		class?: string;
 	} = $props();
+
+	// Inside the shell's sidebar these links render in the mobile sheet, so
+	// choosing one closes it the way shell-nav's links do — the menu's items
+	// are portaled outside the sheet, so the shell can't catch the click for
+	// them; only a component inside the provider can reach its context. Else
+	// (the top layout's header, the stories) there is no sidebar context and
+	// this is a no-op, which is what those places want.
+	const sidebar = useSidebar();
+	const closeMobile = () => sidebar?.setOpenMobile(false);
 
 	const current = $derived(workspaces.find((workspace) => workspace.id === currentId) ?? workspaces[0]);
 
@@ -58,7 +68,7 @@
 		<DropdownMenu.Content side="bottom" align="start" class="w-56">
 			<DropdownMenu.Label>Workspaces</DropdownMenu.Label>
 			{#each workspaces as workspace (workspace.id)}
-				<DropdownMenu.Item>
+				<DropdownMenu.Item onSelect={closeMobile}>
 					{#snippet child({ props })}
 						<a href={workspace.href} {...props} class={cn(itemClass, "gap-2.5")}>
 							<Mark symbol={workspace.symbol} size={16} />
@@ -72,7 +82,7 @@
 			{/each}
 			{#if createHref}
 				<DropdownMenu.Separator />
-				<DropdownMenu.Item>
+				<DropdownMenu.Item onSelect={closeMobile}>
 					{#snippet child({ props })}
 						<a href={createHref} {...props} class={itemClass}>
 							<Plus class="lucide" />

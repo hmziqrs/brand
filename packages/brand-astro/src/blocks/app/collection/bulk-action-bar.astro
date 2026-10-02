@@ -9,14 +9,24 @@ import { cn } from "$brand/utils";
  * JavaScript, and this is where it lives: the script below reads the row
  * checkboxes in the surrounding form's table frame, swaps the toolbar's box
  * for this bar and back, counts the selection into the status line, runs
- * "Select all" (handing its focus to "Clear selection" when it disappears)
- * and lets Escape end the selection while focus is in the bar or the table.
+ * "Select all" — the whole filtered list when the page hands it
+ * `data-all-ids`, the rendered rows otherwise — (handing its focus to
+ * "Clear selection" when it disappears) and lets Escape end the selection
+ * while focus is in the bar or the table.
  */
 
 interface Props extends HTMLAttributes<"div"> {
   count: number;
   /** Offers "Select all N" when fewer than that are selected. */
   total?: number;
+  /**
+   * Every selectable id behind `total` — the whole filtered list, not just
+   * the rows rendered on this page — as a comma-separated string. With it,
+   * "Select all N" really selects all N across pages (the unrendered ones
+   * ride on the bar until the selection changes); without it, the button
+   * selects the rows the page rendered.
+   */
+  "data-all-ids"?: string;
 }
 
 const { count, total, class: className, ...rest } = Astro.props;
@@ -73,6 +83,7 @@ const hasActions = Astro.slots.has("actions");
     clear: HTMLButtonElement | null;
     count: HTMLElement | null;
     total: number | undefined;
+    allIds: string[];
   };
 
   const partsOf = (bar: HTMLElement): Parts => {
@@ -89,12 +100,25 @@ const hasActions = Astro.slots.has("actions");
       clear: bar.querySelector<HTMLButtonElement>("[data-clear-selection]"),
       count: bar.querySelector<HTMLElement>("[data-selection-count]"),
       total: bar.dataset.total ? Number(bar.dataset.total) : undefined,
+      allIds: bar.dataset.allIds ? bar.dataset.allIds.split(",").filter(Boolean) : [],
     };
   };
 
+  // The selection is the whole-list ids with the rendered rows' own state
+  // carved in: "Select all 60" holds the 35 rows the page didn't render,
+  // and unchecking a rendered row takes just that one back out — the same
+  // arithmetic the Svelte bar's `rowSelection` already does.
+  const selectionOf = (parts: Parts): string[] => {
+    if (parts.bar.dataset.allSelected !== "true") {
+      return parts.rows.filter((row) => row.checked).map((row) => row.value);
+    }
+    const off = new Set(parts.rows.filter((row) => !row.checked).map((row) => row.value));
+    return parts.allIds.filter((id) => !off.has(id));
+  };
+
   const paint = (parts: Parts) => {
-    const chosen = parts.rows.filter((row) => row.checked);
-    const count = chosen.length;
+    const selection = selectionOf(parts);
+    const count = selection.length;
     if (parts.count) parts.count.textContent = `${count} selected`;
     parts.bar.hidden = count === 0;
     // The toolbar renders its box and the bar's wrapper both; the wrapper
@@ -103,10 +127,11 @@ const hasActions = Astro.slots.has("actions");
     if (wrap) wrap.hidden = count === 0;
     if (parts.box) parts.box.hidden = count > 0;
 
-    // The header mirrors the rows: all on, some on, none on.
+    // The header mirrors the rendered rows: all on, some on, none on.
     if (parts.header) {
-      parts.header.checked = count > 0 && count === parts.rows.length;
-      parts.header.indeterminate = count > 0 && count < parts.rows.length;
+      const chosen = parts.rows.filter((row) => row.checked).length;
+      parts.header.checked = count > 0 && chosen === parts.rows.length && parts.rows.length > 0;
+      parts.header.indeterminate = count > 0 && !parts.header.checked;
     }
 
     // Choosing everything hides "Select all"; the focus it held would fall
@@ -120,6 +145,7 @@ const hasActions = Astro.slots.has("actions");
 
   const clear = (parts: Parts) => {
     for (const row of parts.rows) row.checked = false;
+    delete parts.bar.dataset.allSelected;
     paint(parts);
   };
 
@@ -136,6 +162,10 @@ const hasActions = Astro.slots.has("actions");
       });
       parts.selectAll?.addEventListener("click", () => {
         for (const row of parts.rows) row.checked = true;
+        // With the page's whole id list, "Select all N" means all N across
+        // pages, not only the N the page rendered; without it, the rendered
+        // rows are all there is to select.
+        if (parts.allIds.length > 0) parts.bar.dataset.allSelected = "true";
         paint(parts);
       });
       parts.clear?.addEventListener("click", () => clear(parts));

@@ -117,8 +117,13 @@
 			{#if !active}<Plus class="lucide" aria-hidden="true" />{/if}
 			<span class="truncate">{active ? summary : label}</span>
 		</summary>
+		<!-- Below sm the toolbar's chips row scrolls sideways, and a row that
+		     scrolls clips everything that opens inside it — so there the
+		     picker is a fixed sheet at the foot of the screen instead, still
+		     the same <details>, still opened and applied with no JavaScript.
+		     From sm the popover opens under the chip as always. -->
 		<div
-			class="absolute top-full left-0 z-20 mt-1.5 w-52 rounded-lg border border-border bg-popover p-1.5 shadow-md"
+			class="absolute top-full left-0 z-20 mt-1.5 w-52 rounded-lg border border-border bg-popover p-1.5 shadow-md max-sm:fixed max-sm:top-auto max-sm:bottom-4 max-sm:left-4 max-sm:right-4 max-sm:z-50 max-sm:mt-0 max-sm:w-auto"
 			data-filter-popover
 		>
 			{#if search}

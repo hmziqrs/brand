@@ -1,11 +1,10 @@
 ---
 import { overview, usage, type Range, type Stat } from "@hmziq/brand-core/app/demo-data";
 import AppPage from "$brand/blocks/app/shell/app-page.astro";
-import AppPageHeader from "$brand/blocks/app/shell/app-page-header.astro";
 import StatCard from "$brand/blocks/app/metrics/stat-card.astro";
 import StatGrid from "$brand/blocks/app/metrics/stat-grid.astro";
 import UsageMeter from "$brand/blocks/app/metrics/usage-meter.astro";
-import Segmented from "$brand/components/segmented.astro";
+import OverviewHeader from "./overview-header.astro";
 import { Button } from "$brand/starwind/button";
 
 /*
@@ -27,24 +26,10 @@ const { range, limit } = Astro.props;
 
 const stats: Stat[] = overview[range];
 const events = limit ? usage.events.limit : usage.events.used;
-const ranges: { value: Range; label: string; href: string }[] = [
-  { value: "7", label: "7 days", href: "?range=7" },
-  { value: "30", label: "30 days", href: "?" },
-  { value: "90", label: "90 days", href: "?range=90" },
-];
 ---
 
 <AppPage>
-  <AppPageHeader title="Overview">
-    <Fragment slot="actions">
-      <Segmented
-        data-range-picker
-        label="Date range"
-        value={range}
-        options={ranges.map(({ value, label }) => ({ value, label }))}
-      />
-    </Fragment>
-  </AppPageHeader>
+  <OverviewHeader {range} />
 
   <div class="mt-8 flex flex-col gap-6">
     <StatGrid>
@@ -83,17 +68,3 @@ const ranges: { value: Range; label: string; href: string }[] = [
     </div>
   </div>
 </AppPage>
-
-<script>
-  // The range is URL state like everything else: the link carries the demo
-  // state along, so the switch keeps working through a change.
-  document.addEventListener("segmented-change", (event) => {
-    const group = (event.target as HTMLElement | null)?.closest?.("[data-range-picker]");
-    if (!group || !(event instanceof CustomEvent)) return;
-    const value = String((event.detail as { value?: unknown })?.value ?? "30");
-    const url = new URL(window.location.href);
-    if (value === "30") url.searchParams.delete("range");
-    else url.searchParams.set("range", value);
-    window.location.assign(url);
-  });
-</script>

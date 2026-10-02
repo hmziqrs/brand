@@ -8,6 +8,7 @@
 <script lang="ts">
 	import * as DropdownMenu from "$brand/ui/dropdown-menu/index.js";
 	import * as Avatar from "$brand/ui/avatar/index.js";
+	import { useSidebar } from "$brand/ui/sidebar/index.js";
 	import ChevronsUpDown from "@lucide/svelte/icons/chevrons-up-down";
 	import { cn } from "$brand/utils.js";
 	import type { Theme, UserMenuItem } from "./types.js";
@@ -30,6 +31,16 @@
 		signOut?: Snippet;
 		class?: string;
 	} = $props();
+
+	// Inside the shell's sidebar these links render in the mobile sheet, so
+	// choosing one closes it the way shell-nav's links do — the menu's items
+	// are portaled outside the sheet, so the shell can't catch the click for
+	// them; only a component inside the provider can reach its context. Else
+	// (the top layout's header, the stories) there is no sidebar context and
+	// this is a no-op. The theme items and the sign-out form aren't links,
+	// so they leave the sheet alone.
+	const sidebar = useSidebar();
+	const closeMobile = () => sidebar?.setOpenMobile(false);
 
 	// Two letters stand for the name when there's no photo.
 	const initials = $derived(
@@ -83,7 +94,7 @@
 		</DropdownMenu.Label>
 		<DropdownMenu.Separator />
 		{#each items as entry (entry.href)}
-			<DropdownMenu.Item>
+			<DropdownMenu.Item onSelect={closeMobile}>
 				{#snippet child({ props })}
 					<a href={entry.href} {...props} class={itemClass}>
 						{#if entry.icon}

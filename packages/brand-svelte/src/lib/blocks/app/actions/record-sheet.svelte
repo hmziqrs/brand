@@ -62,6 +62,18 @@
 	// The discard question, asked before unsaved changes are thrown away.
 	let asking = $state(false);
 
+	// What opened the sheet, captured as it opens (bits-ui moves focus inside
+	// a frame later, so the opener is still focused at that moment). bits-ui
+	// hands focus back on a plain close; the discard path closes the question
+	// and the sheet together, and the question's own close can pull focus
+	// back into a dialog already going away — leaving it on the body — so the
+	// sheet lands it on the opener itself once both have settled.
+	let opener: HTMLElement | null = null;
+
+	function onOpenAutoFocus() {
+		opener = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+	}
+
 	// Every close of the sheet comes through here: while a save runs the sheet
 	// holds still, and while it's dirty the discard question comes up first.
 	function requestClose() {
@@ -76,6 +88,12 @@
 	function discard() {
 		asking = false;
 		open = false;
+		// The timeout outlasts both dialogs' out-transitions, so it runs once
+		// the question's stale focus hand-back has gone with them.
+		window.setTimeout(() => {
+			if (document.activeElement && document.activeElement !== document.body) return;
+			opener?.focus();
+		}, 250);
 	}
 
 	// Escape and outside clicks are taken from the sheet's layer and sent
@@ -103,6 +121,7 @@
 		{side}
 		showCloseButton={false}
 		class={cn("data-[side=right]:sm:max-w-md data-[side=bottom]:max-h-[92dvh]", className)}
+		{onOpenAutoFocus}
 		{onEscapeKeydown}
 		{onInteractOutside}
 	>

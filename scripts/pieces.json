@@ -152,7 +152,7 @@
     {
       "name": "InlineCode",
       "group": "brand",
-      "lab": "custom-code-block--rust",
+      "lab": "custom-code-block--inline",
       "svelte": "custom-code-block--inline",
       "astro": "inline-code",
       "svelteFile": "components/inline-code.svelte",

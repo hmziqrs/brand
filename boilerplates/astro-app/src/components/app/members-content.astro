@@ -16,6 +16,7 @@ import SortableHead from "$brand/blocks/app/table/sortable-head.astro";
 import TablePagination from "$brand/blocks/app/table/table-pagination.astro";
 import TableStateRow from "$brand/blocks/app/table/table-state-row.astro";
 import EmptyState from "$brand/blocks/app/states/empty-state.astro";
+import ErrorState from "$brand/blocks/app/states/error-state.astro";
 import NoResults from "$brand/blocks/app/states/no-results.astro";
 import ConfirmAction from "$brand/blocks/app/actions/confirm-action.astro";
 import RecordSheet from "$brand/blocks/app/actions/record-sheet.astro";
@@ -27,6 +28,7 @@ import { Input } from "$brand/starwind/input";
 import { TableBody, TableCell, TableHead, TableHeader, TableRow, Table as TableRoot } from "$brand/starwind/table";
 import { Users } from "@lucide/astro";
 import { allMembers } from "../../lib/app/roster";
+import type { PageErrorKind } from "../../lib/app/demo-state";
 
 /*
  * The members list (app-blocks.md, phase 10): the same page the SvelteKit
@@ -43,13 +45,20 @@ interface Props {
   /** The demo's `state` param, carried along by every list link. */
   demoState: string;
   /** Which body the page is showing. */
-  face: "rows" | "empty";
+  face: "rows" | "empty" | "error";
+  /** Which ErrorState the error face shows. */
+  errorKind?: PageErrorKind;
 }
 
-const { list, demoState, face } = Astro.props;
+const { list, demoState, face, errorKind } = Astro.props;
 
 const PATH = "/app/members";
-const roster = allMembers();
+const everyone = allMembers();
+// state=empty is the first-use face, so its list starts with nobody in it:
+// the toolbar's count and the paging then agree with "No members yet". The
+// chips' counts still describe the whole roster, the way a first-use page
+// still offers every role to filter by.
+const roster = face === "empty" ? [] : everyone;
 
 // List hrefs carry the demo state along, so a page can be checked in any
 // state while its list is used.
@@ -101,15 +110,15 @@ const initials = (name: string) =>
     .toUpperCase();
 
 const roleOptions = [
-  { value: "owner", label: "Owner", count: roster.filter((m) => m.role === "Owner").length },
-  { value: "admin", label: "Admin", count: roster.filter((m) => m.role === "Admin").length },
-  { value: "member", label: "Member", count: roster.filter((m) => m.role === "Member").length },
-  { value: "viewer", label: "Viewer", count: roster.filter((m) => m.role === "Viewer").length },
+  { value: "owner", label: "Owner", count: everyone.filter((m) => m.role ==="Owner").length },
+  { value: "admin", label: "Admin", count: everyone.filter((m) => m.role ==="Admin").length },
+  { value: "member", label: "Member", count: everyone.filter((m) => m.role ==="Member").length },
+  { value: "viewer", label: "Viewer", count: everyone.filter((m) => m.role ==="Viewer").length },
 ];
 const statusOptions = [
-  { value: "active", label: "Active", count: roster.filter((m) => m.status === "Active").length },
-  { value: "invited", label: "Invited", count: roster.filter((m) => m.status === "Invited").length },
-  { value: "suspended", label: "Suspended", count: roster.filter((m) => m.status === "Suspended").length },
+  { value: "active", label: "Active", count: everyone.filter((m) => m.status ==="Active").length },
+  { value: "invited", label: "Invited", count: everyone.filter((m) => m.status ==="Invited").length },
+  { value: "suspended", label: "Suspended", count: everyone.filter((m) => m.status ==="Suspended").length },
 ];
 const sortOptions = [
   { value: "", label: "Newest joined" },
@@ -156,7 +165,7 @@ const sortOptions = [
           {filtered.length === roster.length ? `${roster.length} members` : `${filtered.length} of ${roster.length} members`}
         </Fragment>
         <Fragment slot="selection">
-          <BulkActionBar count={0} total={filtered.length}>
+          <BulkActionBar count={0} total={filtered.length} data-all-ids={filtered.map((member) => member.id).join(",")}>
             <Fragment slot="actions">
               <Dropdown.Root>
                 <Dropdown.Trigger asChild class="inline-flex">
@@ -178,104 +187,112 @@ const sortOptions = [
         </Fragment>
       </CollectionToolbar>
 
-      <AppTableFrame stickyFirstColumn>
-        <TableRoot>
-          <TableHeader>
-            <TableRow>
-              <SortableHead label="Member" sorted={sortedState("name")} href={toggleSortHref("name")} class="min-w-64">
-                <Fragment slot="leading">
-                  <SelectAllCheckbox checked={false} />
-                </Fragment>
-              </SortableHead>
-              <TableHead>Role</TableHead>
-              <TableHead>Status</TableHead>
-              <SortableHead label="Last active" sorted={sortedState("last_active")} href={toggleSortHref("last_active")} />
-              <TableHead class="w-12"><span class="sr-only">Actions</span></TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {
-              face === "empty" ? (
-                <TableStateRow colSpan={5}>
-                  <EmptyState icon={Users} title="No members yet" description="Invite your team to see the same dashboards.">
-                    <Fragment slot="actions">
-                      <Button type="button" data-open-invite>Invite people</Button>
-                    </Fragment>
-                  </EmptyState>
-                </TableStateRow>
-              ) : pageRows.length === 0 ? (
-                <TableStateRow colSpan={5}>
-                  <NoResults
-                    query={list.q}
-                    filtered={list.filters.role.length + list.filters.status.length > 0 && list.q === ""}
-                    clearHref={hrefOf({ q: "", filters: { role: [], status: [] } })}
-                    noun="members"
-                  />
-                </TableStateRow>
-              ) : (
-                pageRows.map((member) => (
-                  <TableRow data-row-id={member.id} data-member-name={member.name}>
-                    <TableCell class="px-4">
-                      <span class="flex items-center gap-3">
-                        <RowCheckbox checked={false} value={member.id} label={`Select ${member.name}`} />
-                        <Avatar>
-                          <AvatarFallback>{initials(member.name)}</AvatarFallback>
-                        </Avatar>
-                        <span class="flex min-w-0 flex-col">
-                          <a
-                            href={`/app/members/${member.id}`}
-                            class="truncate font-medium outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
-                          >
-                            {member.name}
-                          </a>
-                          <span class="truncate text-muted-foreground">{member.email}</span>
+      {/* The error face keeps the page's frame — heading, toolbar, count —
+          as the Svelte twin's does: its DataState swaps only what sits
+          below the toolbar, so the table, its frame and its paging go and
+          the ErrorState stands in their place. */}
+      {face === "error" ? (
+        <ErrorState kind={errorKind ?? "failed"} retryHref={PATH} />
+      ) : (
+        <AppTableFrame stickyFirstColumn>
+          <TableRoot>
+            <TableHeader>
+              <TableRow>
+                <SortableHead label="Member" sorted={sortedState("name")} href={toggleSortHref("name")} class="min-w-64">
+                  <Fragment slot="leading">
+                    <SelectAllCheckbox checked={false} />
+                  </Fragment>
+                </SortableHead>
+                <TableHead>Role</TableHead>
+                <TableHead>Status</TableHead>
+                <SortableHead label="Last active" sorted={sortedState("last_active")} href={toggleSortHref("last_active")} />
+                <TableHead class="w-12"><span class="sr-only">Actions</span></TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {
+                face === "empty" ? (
+                  <TableStateRow colSpan={5}>
+                    <EmptyState icon={Users} title="No members yet" description="Invite your team to see the same dashboards.">
+                      <Fragment slot="actions">
+                        <Button type="button" data-open-invite>Invite people</Button>
+                      </Fragment>
+                    </EmptyState>
+                  </TableStateRow>
+                ) : pageRows.length === 0 ? (
+                  <TableStateRow colSpan={5}>
+                    <NoResults
+                      query={list.q}
+                      filtered={list.filters.role.length + list.filters.status.length > 0}
+                      clearHref={hrefOf({ q: "", filters: { role: [], status: [] } })}
+                      noun="members"
+                    />
+                  </TableStateRow>
+                ) : (
+                  pageRows.map((member) => (
+                    <TableRow data-row-id={member.id} data-member-name={member.name}>
+                      <TableCell class="px-4">
+                        <span class="flex items-center gap-3">
+                          <RowCheckbox checked={false} value={member.id} label={`Select ${member.name}`} />
+                          <Avatar>
+                            <AvatarFallback>{initials(member.name)}</AvatarFallback>
+                          </Avatar>
+                          <span class="flex min-w-0 flex-col">
+                            <a
+                              href={`/app/members/${member.id}`}
+                              class="truncate font-medium outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
+                            >
+                              {member.name}
+                            </a>
+                            <span class="truncate text-muted-foreground">{member.email}</span>
+                          </span>
                         </span>
-                      </span>
-                    </TableCell>
-                    <TableCell class="px-4">{member.role}</TableCell>
-                    <TableCell class="px-4">
-                      {member.status === "Active" ? (
-                        <Tag tone="success" marker>Active</Tag>
-                      ) : member.status === "Invited" ? (
-                        <Tag tone="warning">Invite sent</Tag>
-                      ) : (
-                        <Tag>Suspended</Tag>
-                      )}
-                    </TableCell>
-                    <TableCell class="px-4 text-muted-foreground">
-                      {member.lastActive ? relativeDate(member.lastActive) : "Not yet"}
-                    </TableCell>
-                    <TableCell class="px-4">
-                      <RowActions
-                        label={`Actions for ${member.name}`}
-                        items={[
-                          { label: "View", href: `/app/members/${member.id}` },
-                          // The member page's edit panel (name and role) changes it.
-                          { label: "Change role", href: `/app/members/${member.id}` },
-                          ...(member.status === "Invited" ? [{ label: "Resend invite", action: "resend" }] : []),
-                          { label: "Remove", action: "remove", tone: "destructive" as const },
-                        ]}
-                      />
-                    </TableCell>
-                  </TableRow>
-                ))
-              )
-            }
-          </TableBody>
-        </TableRoot>
-        {
-          filtered.length > list.perPage || list.perPage !== 25 ? (
-            <TablePagination
-              class="border-t border-border"
-              page={currentPage}
-              pageSize={list.perPage}
-              total={filtered.length}
-              pageHref={(next) => hrefOf({ page: next })}
-              pageSizes={[10, 25, 50]}
-            />
-          ) : null
-        }
-      </AppTableFrame>
+                      </TableCell>
+                      <TableCell class="px-4">{member.role}</TableCell>
+                      <TableCell class="px-4">
+                        {member.status === "Active" ? (
+                          <Tag tone="success" marker>Active</Tag>
+                        ) : member.status === "Invited" ? (
+                          <Tag tone="warning">Invite sent</Tag>
+                        ) : (
+                          <Tag>Suspended</Tag>
+                        )}
+                      </TableCell>
+                      <TableCell class="px-4 text-muted-foreground">
+                        {member.lastActive ? relativeDate(member.lastActive) : "Not yet"}
+                      </TableCell>
+                      <TableCell class="px-4">
+                        <RowActions
+                          label={`Actions for ${member.name}`}
+                          items={[
+                            { label: "View", href: `/app/members/${member.id}` },
+                            // The member page's edit panel (name and role) changes it.
+                            { label: "Change role", href: `/app/members/${member.id}` },
+                            ...(member.status === "Invited" ? [{ label: "Resend invite", action: "resend" }] : []),
+                            { label: "Remove", action: "remove", tone: "destructive" as const },
+                          ]}
+                        />
+                      </TableCell>
+                    </TableRow>
+                  ))
+                )
+              }
+            </TableBody>
+          </TableRoot>
+          {
+            filtered.length > list.perPage || list.perPage !== 25 ? (
+              <TablePagination
+                class="border-t border-border"
+                page={currentPage}
+                pageSize={list.perPage}
+                total={filtered.length}
+                pageHref={(next) => hrefOf({ page: next })}
+                pageSizes={[10, 25, 50]}
+              />
+            ) : null
+          }
+        </AppTableFrame>
+      )}
     </div>
   </form>
 
@@ -349,8 +366,22 @@ const sortOptions = [
     return outcome.data;
   };
 
-  const selectedIds = (): string[] =>
-    Array.from(document.querySelectorAll<HTMLInputElement>("[data-slot='row-checkbox']:checked")).map((row) => row.value);
+  // The selection is the whole filtered list once "Select all N" ran — the
+  // bar holds it, with the rendered rows' own state carved back in — and
+  // the checked rows otherwise, so the bulk actions act on all N rows, not
+  // only the page the reader happens to be on.
+  const selectedIds = (): string[] => {
+    const bar = document.querySelector<HTMLElement>("[data-slot='bulk-action-bar']");
+    if (bar?.dataset.allSelected === "true" && bar.dataset.allIds) {
+      const off = new Set(
+        Array.from(document.querySelectorAll<HTMLInputElement>("[data-slot='row-checkbox']"))
+          .filter((row) => !row.checked)
+          .map((row) => row.value),
+      );
+      return bar.dataset.allIds.split(",").filter((id) => !off.has(id));
+    }
+    return Array.from(document.querySelectorAll<HTMLInputElement>("[data-slot='row-checkbox']:checked")).map((row) => row.value);
+  };
   const selectedNames = (): string[] =>
     Array.from(document.querySelectorAll<HTMLInputElement>("[data-slot='row-checkbox']:checked")).map(
       (row) => row.closest<HTMLElement>("[data-member-name]")?.dataset.memberName ?? "",
@@ -492,11 +523,16 @@ const sortOptions = [
     window.setTimeout(() => window.location.reload(), 600);
   });
 
-  // The count on the bulk bar's Remove button follows the selection.
+  // The count on the bulk bar's Remove button follows the selection. A
+  // change on a row checkbox says so itself, but "Select all" flips the
+  // checkboxes in a script — no change events — so its click repaints too.
   const paintCount = () => {
     const count = selectedIds().length;
     for (const label of document.querySelectorAll<HTMLElement>("[data-bulk-count]")) label.textContent = String(count);
   };
   paintCount();
   document.addEventListener("change", paintCount);
+  document.addEventListener("click", (event) => {
+    if ((event.target as HTMLElement | null)?.closest("[data-select-all]")) paintCount();
+  });
 </script>

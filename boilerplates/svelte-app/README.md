@@ -31,6 +31,10 @@ new project from it with `pnpm new-project svelte <folder>` (repo root).
 `static/` ships a full icon pack for the placeholder name "Paperplane" (Pp):
 favicon, PNGs, ICO, apple-touch, Android and maskable icons and
 `site.webmanifest`, so every link `SiteHead` renders resolves from the start.
+`static/og.png` is the same name's placeholder OG card (1200×630, drawn with
+the social-card sources in `assets/social/source/`), because `SiteHead`
+defaults `og:image` to `/og.png`; replace it with the real site's card from
+`assets/social/exports/sites/<id>/` when the project gets its name.
 Render a pack for the project's real name and replace it (docs/assets.md):
 
 ```sh

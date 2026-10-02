@@ -23,9 +23,13 @@
 
 <div data-slot="provider-buttons" class={cn("flex flex-col gap-2", className)}>
 	{#each providers as provider (provider.id)}
+		<!-- data-sveltekit-reload: the href starts the provider's flow at a
+			server endpoint (or an outside redirect), so the link takes a full
+			navigation — the client router must not try it as a page. -->
 		<Button
 			variant="outline"
 			href={provider.href}
+			data-sveltekit-reload=""
 			class="w-full"
 			disabled={busyId !== undefined && busyId !== provider.id}
 			onclick={() => (busyId = provider.id)}
