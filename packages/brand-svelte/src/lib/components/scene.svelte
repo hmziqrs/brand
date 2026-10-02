@@ -46,11 +46,19 @@
 	$effect(() => {
 		if (!canRunScenes() || !host) return;
 		const element = host;
+		// Read before the await, where the effect still tracks them: these are
+		// the mount's dependencies (the lab's effect reruns on [kind, seed,
+		// still]). Inside the .then callback Svelte would not track them, and
+		// changing one on a mounted Scene would never rebuild it. Settings stay
+		// out on purpose: they rebuild on the same canvas, in the effect below.
+		const mountKind = kind;
+		const mountSeed = seed;
+		const mountStill = still;
 		let cancelled = false;
 		import("@hmziq/brand-core/motion/scenes")
 			.then(({ mountScene }) => {
 				if (cancelled) return;
-				const mounted = mountScene(element, kind, { seed, still, settings: latest });
+				const mounted = mountScene(element, mountKind, { seed: mountSeed, still: mountStill, settings: latest });
 				handle = mounted;
 				paused = false;
 				sceneState = !mounted ? "off" : mounted.moving ? "moving" : "still";

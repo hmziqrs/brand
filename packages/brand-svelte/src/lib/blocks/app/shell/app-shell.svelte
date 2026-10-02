@@ -135,7 +135,10 @@
 		</Sheet.Content>
 	</Sheet.Root>
 {:else}
-	<Sidebar.Provider {open}>
+	<!-- The provider's wrapper is this layout's root, so it carries the
+	     block's own data-slot (the stock "sidebar-wrapper" one has nothing
+	     keyed on it) and the class prop, which the provider merges last. -->
+	<Sidebar.Provider {open} data-slot="app-shell" class={className}>
 		<a
 			href="#app-content"
 			class="bg-background sr-only focus-visible:not-sr-only focus-visible:absolute focus-visible:top-2 focus-visible:left-2 focus-visible:z-50 focus-visible:m-0 focus-visible:rounded-md border px-3 py-2 text-sm outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
@@ -168,7 +171,14 @@
 							{#each breadcrumbs as crumb, i (crumb.label)}
 								<Breadcrumb.Item>
 									{#if crumb.href && i < breadcrumbs.length - 1}
-										<Breadcrumb.Link href={crumb.href}>{crumb.label}</Breadcrumb.Link>
+										<!-- The ring the contract promises every link (the stock link
+										     only recolors on hover), as the Astro header's crumbs have. -->
+										<Breadcrumb.Link
+											href={crumb.href}
+											class="rounded-sm outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
+										>
+											{crumb.label}
+										</Breadcrumb.Link>
 									{:else}
 										<Breadcrumb.Page>{crumb.label}</Breadcrumb.Page>
 									{/if}

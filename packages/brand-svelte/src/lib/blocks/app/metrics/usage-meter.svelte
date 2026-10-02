@@ -65,15 +65,17 @@
 {#snippet labelSpan(extraClass: string | undefined)}
 	<span id={labelId} class={cn("text-sm text-muted-foreground", extraClass)}>
 		{#if typeof label === "string"}{label}{:else}{@render label()}{/if}
-		{#if limit === null}
-			<span>· No limit</span>
-		{/if}
 	</span>
 {/snippet}
 
 {#snippet wordLine(extraClass: string | undefined)}
 	<span class={cn("text-sm", extraClass)}>
 		<span class="font-medium">{words}</span>
+		{#if limit === null}
+			<!-- No limit reads just "12 projects · No limit": the suffix rides
+			     the words line, the way resetsOn does. -->
+			<span class="text-muted-foreground"> · No limit</span>
+		{/if}
 		{#if resetsOn}
 			<span class="text-muted-foreground">
 				{#if typeof resetsOn === "string"} · {resetsOn}{:else} · {@render resetsOn()}{/if}

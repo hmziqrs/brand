@@ -137,7 +137,10 @@
 		<Icon class={cn("lucide size-4.5 shrink-0", d.iconClass)} aria-hidden="true" />
 		{@render titleLine()}
 		{#if onRetry}
-			<Button type="button" variant="link" size="sm" class="h-auto p-0" onclick={retry}>
+			<Button type="button" variant="link" size="sm" class="h-auto p-0" onclick={retry} disabled={retrying}>
+				{#if retrying}
+					<Loader2 class="lucide animate-spin motion-reduce:animate-none" aria-hidden="true" />
+				{/if}
 				{retrying ? "Trying again…" : "Try again"}
 			</Button>
 		{:else if retryHref}

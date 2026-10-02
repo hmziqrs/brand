@@ -26,14 +26,18 @@
 		"overflow-hidden rounded-xl border border-border",
 		stickyFirstColumn &&
 			cn(
-				"[&_[data-slot=table]_tr_:first-child]:sticky",
-				"[&_[data-slot=table]_tr_:first-child]:left-0",
-				"[&_[data-slot=table]_tr_:first-child]:z-10",
-				"[&_[data-slot=table]_tr_:first-child]:bg-background",
+				// `tr > :first-child` pins only each row's first cell — a child
+				// combinator, so the checkbox and the name wrapper inside the
+				// pinned cell are left alone.
+				"[&_[data-slot=table]_tr>:first-child]:sticky",
+				"[&_[data-slot=table]_tr>:first-child]:left-0",
+				"[&_[data-slot=table]_tr>:first-child]:z-10",
+				"[&_[data-slot=table]_tr>:first-child]:bg-background",
 				// A selected row keeps its muted fill on its pinned cell; the
-				// important marks keep it ahead of the hover rule below.
-				"[&_[data-slot=table]_tr[data-state=selected]_:first-child]:bg-muted!",
-				"[&_[data-slot=table]_tbody_tr:hover_td:first-child]:bg-muted/50",
+				// important mark keeps it ahead of the hover rule below, which
+				// carries two more element names and so outranks it otherwise.
+				"[&_[data-slot=table]_tr[data-state=selected]>:first-child]:bg-muted!",
+				"[&_[data-slot=table]_tbody_tr:hover>td:first-child]:bg-muted/50",
 			),
 		className,
 	)}

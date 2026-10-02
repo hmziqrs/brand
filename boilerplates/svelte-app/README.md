@@ -28,8 +28,10 @@ new project from it with `pnpm new-project svelte <folder>` (repo root).
 
 ## The icon pack is a placeholder
 
-`static/favicon.svg` is a placeholder tile. Render a real pack for the
-project's name and replace it (docs/assets.md):
+`static/` ships a full icon pack for the placeholder name "Paperplane" (Pp):
+favicon, PNGs, ICO, apple-touch, Android and maskable icons and
+`site.webmanifest`, so every link `SiteHead` renders resolves from the start.
+Render a pack for the project's real name and replace it (docs/assets.md):
 
 ```sh
 pnpm render-assets --name "Paperplane" --symbol Pp --out <folder>

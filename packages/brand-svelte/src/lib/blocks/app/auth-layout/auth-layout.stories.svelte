@@ -47,7 +47,7 @@
 <!-- The whole page: one small column, the brand at the top. -->
 <Story name="Centered" asChild>
 	<AuthLayout {brand} title="Sign in" description="Sign in to your Sightline workspace." {footer}>
-		{form}
+		{@render form()}
 	</AuthLayout>
 </Story>
 
@@ -59,7 +59,7 @@
 				<Rings seed="sightline" />
 			</div>
 		{/snippet}
-		{form}
+		{@render form()}
 	</AuthLayout>
 </Story>
 
@@ -71,6 +71,6 @@
 				<Rings seed="sightline" />
 			</div>
 		{/snippet}
-		{form}
+		{@render form()}
 	</AuthLayout>
 </Story>

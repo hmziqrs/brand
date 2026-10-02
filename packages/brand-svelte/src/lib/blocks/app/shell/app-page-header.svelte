@@ -56,7 +56,14 @@
 				{#each breadcrumbs as crumb, i (crumb.label)}
 					<Breadcrumb.Item>
 						{#if crumb.href && i < breadcrumbs.length - 1}
-							<Breadcrumb.Link href={crumb.href}>{crumb.label}</Breadcrumb.Link>
+							<!-- The ring the contract's Keyboard line promises every link in
+							     the header; the stock link only recolors on hover. -->
+							<Breadcrumb.Link
+								href={crumb.href}
+								class="rounded-sm outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
+							>
+								{crumb.label}
+							</Breadcrumb.Link>
 						{:else}
 							<Breadcrumb.Page>{crumb.label}</Breadcrumb.Page>
 						{/if}

@@ -117,6 +117,11 @@ dependencies, and both Vite configs keep them in `ssr.noExternal` next to
 
 ## Registry
 
-`registry.json` is written in kits.md step 3, once the Astro kit exists and
-`@hmziq/brand-core` is published. Until then every roster entry's registry
-item is `"not yet"` in `scripts/pieces.json`.
+`registry.json` is generated, never hand-edited: `pnpm registry:generate`
+(scripts/generate-registries.mjs + scripts/registry-lib.mjs) builds it from
+the pieces roster and the kit's source tree — one item per roster piece
+(named by its `svelteItem` in `scripts/pieces.json`), one per vendored stock
+folder (`ui-*`), plus `utils`, a `kit` item that depends on everything, and a
+catch-all per blocks folder the roster doesn't list yet. `pnpm check:parity`
+fails when a roster piece has no registry item; `pnpm registry:build` writes
+the Pages layout (`r/svelte/`, `r/astro/`, `theme.css`) the workflow deploys.

@@ -1,10 +1,16 @@
 ---
 // Example for `pnpm check:motion`: a failing .astro file. Each line moves on
-// hover, press or focus; the check must report every one of them.
-// (The check reads class tokens, so this file sticks to those.)
+// hover, press or focus, as a class token or as CSS in <style>; the check
+// must report every one of them.
 ---
 <button class="hover:translate-y-px">no</button>
 <button class="active:scale-95">no</button>
 <button class="focus-visible:rotate-45">no</button>
 <button class="pressed:-translate-y-0.5">no</button>
 <button class="md:hover:scale-105">no</button>
+
+<style>
+  .card:hover {
+    transform: translateY(-2px);
+  }
+</style>

@@ -25,7 +25,7 @@
 <Story name="Row" asChild>
 	<div class="max-w-md bg-background">
 		<SettingRow label="Name" description="Shown next to anything you change." for="story-name">
-			{nameInput}
+			{@render nameInput()}
 		</SettingRow>
 	</div>
 </Story>
@@ -39,7 +39,7 @@
 			for="story-weekly"
 			orientation="horizontal"
 		>
-			{weeklySwitch}
+			{@render weeklySwitch()}
 		</SettingRow>
 	</div>
 </Story>
