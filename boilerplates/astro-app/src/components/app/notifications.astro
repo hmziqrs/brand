@@ -36,7 +36,12 @@ const prefs: { id: string; label: string; description: string }[] = [
   />
 
   <div class="mt-8">
-    <SettingsSection title="Notifications" description="Email about the workspace, sent to your address.">
+    {/* Its own name, not the visible title's: Starwind's toast viewport is an
+        aria-label="Notifications" region on every page, and two landmarks may
+        not share a name on one page (axe landmark-unique). The visible title
+        stays "Notifications". */}
+    <span id="notifications-prefs" class="sr-only">Notifications, email preferences</span>
+    <SettingsSection title="Notifications" description="Email about the workspace, sent to your address." aria-labelledby="notifications-prefs">
       {
         prefs.map((pref) => (
           <SettingRow

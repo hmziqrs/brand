@@ -31,7 +31,7 @@ Names are generic, not site names. Props follow the lab's page code, turned into
 | Blog | PostHeader | Title, date, reading time. A cover image, which inverts in light mode when it's line art (`invert dark:invert-0`); a big title when there's no image |
 | Blog | PostContents | On-this-page links: inline after the cover (default), a floating pill with scroll spy, or a left or right column |
 | Blog | PullQuote | Margin note (default); also left margin, hanging ring, signed, and a TL;DR-style box. Hidden from screen readers when it repeats a line from the text |
-| Blog | ShareBar | Link bar (default), logo tiles, ring buttons, or a sentence. X, LinkedIn, Hacker News, Reddit, Facebook, Telegram and copy link. Icons are in the text color; on hover, text color (default) or the networks' own colors |
+| Blog | ShareBar | Link bar (default), logo tiles, ring buttons, or a sentence. X, LinkedIn, Hacker News, Reddit, Facebook, Telegram and copy link. Icons are in the text color; on hover, text color (default) or the theme tone nearest each network — the brand's colors come only from core's theme.css, so X keeps the text color |
 | Blog | NewsletterBand | The orange band with an email field. Its form posts to the page's own action; no mailing service is built in |
 | Blog | PostList, PostCard, PostMeta | A featured card plus cards (default), a list, or an archive, with TopicChips and SearchBox for filtering |
 | Docs | DocsLayout | Line menu on the left, content, TOC on the right (`Toc`); a menu button on mobile |
@@ -194,9 +194,15 @@ The step's own checks ran on 2026-10-02, with every server up:
 - `pnpm --filter @hmziq/brand-svelte check:a11y`: 313 stories checked,
   0 violations — the content stories included.
 
-The content blocks are not exported from the kit's `src/lib/index.ts`
-barrel — the pages import them through `$brand/blocks/content/…`, and the
-barrel belongs to the kits area (the Astro side made the same call).
+The content blocks stayed out of the kit's `src/lib/index.ts` barrel at
+first — the pages import them through `$brand/blocks/content/…`, and the
+barrel belonged to the kits area (the Astro side made the same call then).
+Round 3 closed the gap the round-2 review caught: both barrels export the
+full 27 now, under the same "Content-page blocks" section (the step 3
+note below records the Astro half), and the app blocks match on both
+sides too — the same 45 names under an "App blocks" section in each
+barrel, with the folder's small sub-parts (`AuthField`, `ShellNav`,
+`ShellToggle`) staying internal as the Astro barrel already kept them.
 
 ### Step 3: The Astro blocks
 
@@ -273,7 +279,10 @@ fixes they forced are in:
 - The content blocks are exported from the kit's `src/index.ts` barrel
   (the "Content-page blocks" section there), so a project importing
   `@hmziq/brand-astro` gets them; `pnpm --filter @hmziq/brand-astro
-  typecheck` passes over the barrel.
+  typecheck` passes over the barrel. Since round 3 the Svelte barrel
+  exports the same 27 from `src/lib/index.ts`, so neither kit ships its
+  content blocks one way only; `pnpm --filter @hmziq/brand-svelte check`
+  passes over it.
 - The round-1 defect in `BlogLayout`'s conditional slot forwards (the
   step 2 status above describes it) is fixed: slots pass through as
   plain elements, never behind `Astro.slots.has(…)`, so `SiteLayout`'s
@@ -283,15 +292,22 @@ fixes they forced are in:
 - The every-element post's margin note is marked `repeated` with a line
   that actually repeats: the note is the paragraph's own first sentence,
   so the aria-hidden no longer costs screen-reader users a line. (The
-  `svelte-app` twin still carries the old note copy; its fix belongs to
-  the Svelte side.)
+  `svelte-app` twin carried the old note copy until round 3; both twins
+  now use the paragraph's first sentence.)
 - The newsletter band has a receiver: a `subscribe` action
   (`src/actions/index.ts`, `accept: "form"`) that the band posts to on
   the blog index, the post page and the gallery. An email in the field
   comes back to `?subscribed` and the band says thanks through its own
   `title`/`body` props; an empty field comes back to the page as it was.
   Verified on the built server: POST → 303 → the thanks band, with
-  JavaScript off.
+  JavaScript off. The `svelte-app` twin gained the same receiver in
+  round 3 — `subscribe` actions in the blog routes' `+page.server.ts`
+  files, posted to as `?/subscribe`, with the same `?subscribed` thanks
+  state.
+- The `svelte-app` docs pages render their own `SiteHead` (round 3; they
+  were the only example pages without one — round 2 caught empty titles,
+  descriptions and canonicals there), with the Astro twin's title,
+  description and URL shapes.
 - `pnpm compare content`: 396 screenshots, every content piece in its
   lab, Svelte and Astro views, no unreachable view, no page error.
 - `pnpm compare --pages` over the thirteen shared routes: every twin
@@ -300,8 +316,9 @@ fixes they forced are in:
   ≤0.013 both widths and both themes; the docs introduction and
   installation at ≤0.006 at 1280; faq, about and components at ≤0.015
   at 1280 with small wrapping deltas at 360), except the every-element
-  post twin (0.03–0.08), whose delta is the margin-note copy fix above
-  — the Svelte twin still has the old line.
+  post twin (0.03–0.08), whose delta was the margin-note copy fix above
+  — closed in round 3, when the Svelte twin took the same first
+  sentence as the Astro twin.
 - The Astro axe runner exists: `pnpm --filter @hmziq/brand-astro
   check:a11y` (`scripts/axe.mjs`) reads the `/kit` gallery's own index
   for its pages and runs axe over each. `/kit/content` passes with zero

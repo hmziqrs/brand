@@ -47,9 +47,14 @@ const mobileStyle = { "--sidebar-width": "18rem" };
         <div data-slot="sidebar-gap" class={sidebarGap({ variant })} />
 
         <div class={sidebarContainer({ side, variant })} {...rest} data-slot="sidebar-container">
-          <div data-sidebar="sidebar" data-slot="sidebar-inner" class={sidebarInner({ variant })}>
+          {/* An aside, not a div: the sidebar is complementary to the page's
+              main, and as a div everything it holds — the nav groups, the
+              group labels, the account menu — sat in no landmark at all
+              (the `region` axe finding on every workspace page). The runtime
+              discovers the sidebar by its data attributes, not its tag. */}
+          <aside data-sidebar="sidebar" data-slot="sidebar-inner" class={sidebarInner({ variant })}>
             <slot />
-          </div>
+          </aside>
         </div>
       </SidebarPrimitive.Sidebar>
 

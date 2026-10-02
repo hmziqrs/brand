@@ -1,6 +1,6 @@
 ---
 import AppPage from "$brand/blocks/app/shell/app-page.astro";
-import ErrorState from "$brand/blocks/app/states/error-state.astro";
+import AppPageHeader from "$brand/blocks/app/shell/app-page-header.astro";
 import AppTableFrame from "$brand/blocks/app/table/app-table-frame.astro";
 import TableSkeletonRows from "$brand/blocks/app/table/table-skeleton-rows.astro";
 import { Table, TableBody, TableHead, TableHeader, TableRow } from "$brand/starwind/table";
@@ -16,8 +16,9 @@ import { demoLoad } from "../../../lib/app/demo-state";
  * URL on the server (readListParams), the content renders on it, and
  * state=pending shows the same content as a `server:defer` island whose
  * fallback is the skeleton rows under the visible header. state=empty shows
- * the first-use state, and a search that matches nobody shows NoResults
- * inside the table body whatever the state param is.
+ * the first-use state, state=error the ErrorState under the same header and
+ * toolbar, and a search that matches nobody shows NoResults inside the table
+ * body whatever the state param is.
  */
 const load = demoLoad(Astro.url.searchParams.get("state"));
 const list = readListParams(Astro.url.search, ["role", "status"]);
@@ -29,33 +30,41 @@ const face: "rows" | "empty" = load.state === "empty" ? "empty" : "rows";
   <Workspace currentPath={Astro.url.pathname} state={load.state}>
     {
       load.status === "error" ? (
-        <AppPage>
-          <div class="mt-8">
-            <ErrorState kind={load.kind} retryHref="/app/members" />
-          </div>
-        </AppPage>
+        <MembersContent list={list} demoState={load.state} face="error" errorKind={load.kind} />
       ) : load.status === "pending" ? (
         <Deferred server:defer ms={600}>
-          <div slot="fallback">
+          {/* The fallback is the pending face, so it carries what DataState's
+              pending branch does: a container marked busy and a visually
+              hidden label for screen readers — the same semantics the Svelte
+              twin's DataState gives its face (APP-BLOCKS.md, DataState). */}
+          <div slot="fallback" aria-busy="true">
+            <span class="sr-only" role="status">Loading members</span>
             <AppPage>
-              <AppTableFrame>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead class="min-w-64">Member</TableHead>
-                      <TableHead>Role</TableHead>
-                      <TableHead>Status</TableHead>
-                      <TableHead>Last active</TableHead>
-                      <TableHead class="w-12">
-                        <span class="sr-only">Actions</span>
-                      </TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    <TableSkeletonRows rows={Math.min(list.perPage, 8)} columns={["38%", "14%", "16%", "18%", "14%"]} />
-                  </TableBody>
-                </Table>
-              </AppTableFrame>
+              {/* The page's frame stays on every face — the heading, as the
+                  Svelte twin's does: its DataState swaps only the table. No
+                  "Invite people" here: the sheet it opens arrives with the
+                  list, so the button would be dead until it lands. */}
+              <AppPageHeader title="Members" description="People who can see this workspace." />
+              <div class="mt-4">
+                <AppTableFrame>
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead class="min-w-64">Member</TableHead>
+                        <TableHead>Role</TableHead>
+                        <TableHead>Status</TableHead>
+                        <TableHead>Last active</TableHead>
+                        <TableHead class="w-12">
+                          <span class="sr-only">Actions</span>
+                        </TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      <TableSkeletonRows rows={Math.min(list.perPage, 8)} columns={["38%", "14%", "16%", "18%", "14%"]} />
+                    </TableBody>
+                  </Table>
+                </AppTableFrame>
+              </div>
             </AppPage>
           </div>
           <MembersContent list={list} demoState={load.state} face="rows" />

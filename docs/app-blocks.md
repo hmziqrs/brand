@@ -26,7 +26,7 @@ This plan covers the blocks for app screens: admin panels, dashboards, settings,
 | Tables | TanStack Table core, as in shadcn-svelte's data table | Rows rendered on the server; selection and the bulk bar in a small script |
 | Toasts | svelte-sonner | Starwind's Toast |
 | Icons | `@lucide/svelte` | `@lucide/astro` |
-| Unsaved-changes warning | `beforeNavigate` and `beforeunload` | A `beforeunload` script |
+| Unsaved-changes warning | `unsavedChanges`: `beforeunload` plus a click guard on in-app links | A `beforeunload` script |
 
 ---
 
@@ -186,7 +186,7 @@ Example data:
    function delayed(flag: () => boolean, ms = 300): { readonly current: boolean }
    /** The value, updated after it stops changing for ms. For search boxes. */
    function debounced<T>(value: () => T, ms = 250): { readonly current: T }
-   /** Warns before the tab closes or reloads while dirty() is true. In SvelteKit the page adds beforeNavigate itself. */
+   /** Warns before unsaved work is lost: reload and tab close, and in-app links — all through the helper itself, no router API. */
    function unsavedChanges(dirty: () => boolean): void
    ```
 
@@ -402,6 +402,22 @@ The `(workspace)` layout uses `AppShell` with two groups: "Workspace" (Overview,
   (skip link first, Ctrl/Cmd+B, Enter/arrows/Escape with focus back on the
   trigger, the mobile sheet closing on a chosen link); screenshots at 360px
   and 1280px with no horizontal page scroll.
+
+**Phase 1 status (updated 2026-10-02, round 3).** One round-2 finding is
+fixed: below `md`, choosing a link from the `WorkspaceSwitcher` or the
+`UserMenu` inside the open mobile sheet navigated but left the sheet over
+the new page — only `shell-nav`'s links closed it, against the plan's and
+contract's "choosing a link closes it". The two account blocks now close
+the sheet themselves, through the sidebar context: `onSelect` on their
+link items (which the menu also fires for a keyboard choice). It has to
+be them — the menu's items are portaled outside the sheet's tree, so
+neither the shell nor anything wrapping the triggers inside it sees those
+clicks; only a component inside the provider can reach its context. Where
+these blocks render outside one (the top layout's header, the stories)
+there is no context and the close is a guarded no-op, which is what those
+places want; the theme items and the sign-out form aren't links and leave
+the sheet alone. The shell's sidebar branch now carries a comment naming
+where the rule lives.
 
 ---
 
@@ -672,6 +688,40 @@ Every demo page wraps its content in `DataState`. `state=pending|empty|error|den
   each `state=` value and the offline retry were driven in the running demo
   at 360px and 1280px with no horizontal page scroll.
 
+**Phase 3 status (updated 2026-10-02, round 3).** One round-2 finding is
+fixed: `SkeletonSettings` was far smaller than the settings content it
+stands for — each row a label (`h-4`) over an `h-8` box where the real
+`SettingRow` draws a `text-sm` label (20px) over an `h-9` field (Input,
+Combobox and InputGroup are all `h-9`) over its description (120px the
+row, 86px the skeleton), the `FormActions` foot never drawn, and no
+horizontal shape at all — so profile landed 171px down at 1280 and 235px
+at 360, workspace 147px. Every bar now carries the content's own sizes,
+and the skeleton grew the shapes the settings pages actually draw:
+`orientation` (a horizontal row: the label and description beside the
+control), `control` ("switch" — the default in horizontal rows — or
+"button" for a destructive row's `ConfirmAction`), `footer`
+(`FormActions`' foot, its left line only the height it holds while the
+form is clean), and description line pairs — the section's own
+`[below sm, from lg]`, a row's `[below sm, from sm]` — because the copy
+wraps as its column narrows. The three pages pass their shape (profile
+its three rows and the foot, workspace its form section and the
+destructive row, notifications its switch rows), and the pending window
+holds exactly the height the content lands in: profile 433px at 1280 and
+559px at 360, workspace 442px and 724px, notifications 252px and 407px
+— nothing shifts (`.zflow/measure-app-p2-settings-r3.mjs`, the container
+sampled skeleton-phase against landed, the way the finding was measured).
+Between `sm` and `lg` the section descriptions wrap fluidly with the
+`max-w-prose` column, so a static bar can sit one line from the copy
+there; the driven widths are exact. The r2 pending evidence pair, whose
+"same shape as the form" note the finding contradicted, is re-captured
+as `app-p2-settings-r3-profile-state-pending-1280` (dark and light) with
+the workspace pending windows beside it
+(`.zflow/capture-p2-r3-pending.mjs`); the "Skeleton settings" story's
+stand-in control grew to the field's own `h-9` so the side-by-side
+stays true. The Astro skeleton keeps the round-1 shape (`rows` only,
+its own demo's settings pages still drawing it); APP-BLOCKS.md notes
+the difference.
+
 ---
 
 ## Phase 4: Lists and tables
@@ -837,6 +887,53 @@ A full example in `table/table-recipe.stories.svelte` ("App/Table recipe") using
   11-check drive works the recipe story itself (sort links, the debounced
   search, page selection, the bulk remove, a page turn, a chip's popover);
   `check:colors` and `check:motion` pass.
+
+**Phase 4 status (updated 2026-10-02, round 3).** One round-2 finding is
+fixed: the members list imported `goto` from `$app/navigation`, beyond the
+two route modules check item 7 allows — the exact pattern phase 7's round
+2 had already removed from the overview. The list's programmatic
+navigations (the search, the filters, the GET form's submit) are now
+`window.location.assign` on the same href — the full navigation the Astro
+demo's GET form already makes — with the browser's own focus and scroll
+instead of `goto`'s `keepFocus`/`noScroll`. The sort, chip, paging and
+clear controls were already plain `<a>`s and are unchanged, and the demo
+`state` still rides along on every one of these hrefs. The member record
+(phase 6's page) carried the same import and is fixed with it.
+
+**Phase 4 status (updated 2026-10-02, round 3, tables pass).** Seven more
+round-2 findings are fixed, each one a kit twin drifting from its twin:
+the Astro ConfirmAction's confirm button no longer waits on a typed word
+when there is none — it held `data-typed-ok` against every dialog, so the
+members page's row and bulk removals could never be confirmed and the
+owner-refusal was unreachable there. Driving that fix live found the
+refusal was pinned behind two more breaks in the same wire, both fixed
+with it: the `confirm` event now rises from the trigger (where a page's
+marker props land, which is what the pages match on), and the block
+hears the `confirm-settle` answer in the capture phase, because pages
+answer without bubbling — the success path had been masked by its own
+reload, and a refusal (which never reloads) hung the dialog pending
+forever. Below `sm` the FilterChip picker
+detaches to a fixed sheet at the foot of the screen, because the
+toolbar's sideways-scrolling chips row clips everything that opens inside
+it — filters were unreachable on phones in both kits, JavaScript or not;
+the Astro AppTableFrame pins with the same `tr > :first-child` child
+combinator the Svelte kit already fixed (the descendant form stuck the
+status tag, the row-actions trigger and the header's other sort links
+over the pinned column); both frames cap the pinned cell below `sm`
+(`max-w-52`, the column's own `min-w-64` lifted there) so the sideways
+scroll at 360px actually reveals Role, Status, Last active and Actions
+instead of leaving them painted behind a member column that swallowed
+nearly the whole frame; the Astro bulk bar's "Select all 60" takes the
+page's `data-all-ids` (every filtered id) and so selects across pages,
+the way the Svelte bar's `onSelectAll` walks its pre-pagination row
+model; the Astro NoResults drops its `q === ""` gate from `filtered`, so
+filters win when both are set as the contract says (the demo page and
+the recipe story both taught the gated form); and demo invites number
+past the highest invite id the roster holds rather than past its length,
+which an earlier removal pulls back down — the length-based id named two
+members the same, and the table's `getRowId` dedupe silently dropped one
+(the Astro roster's identical formula fixed with it). APP-BLOCKS.md's
+FilterChip, AppTableFrame and BulkActionBar entries say the new shapes.
 
 ---
 
@@ -1096,8 +1193,69 @@ are fixed in the skeleton:
   sections, so the destructive Remove panel popped in after the load. The
   loading snippet now renders it too, its skeleton holding the same
   paragraph-and-button line the real panel draws (two lines and a
-  full-width button below `sm`, one line and a button from it), measured
-  at the real panel's height: 70px at 1280, 122px at 360.
+  full-width button below `sm`, one line and a button at home from `sm`),
+  measured at the real panel's height: 70px at 1280, 122px at 360.
+
+**Phase 6 status (updated 2026-10-02, round 3).** The round-2 findings
+for this area — six in the code, one in its evidence — all fixed here:
+
+- The member page also imported `goto` from `$app/navigation`, beyond the
+  two route modules check item 7 allows (the same violation phase 4's
+  round-3 note removed from the list, shared with it). "Remove from
+  workspace" now goes back to the list with `window.location.assign` —
+  the same full navigation the overview's range switch makes. The success
+  toast is still ConfirmAction's, but it now fires over a page on its way
+  out, so it may only flash before the list replaces the document.
+- That navigation dropped the demo `state` URL param, so removing a
+  member while a state was selected silently reset the demo state. The
+  param now rides along the way the list's own `navigate()` keeps it: a
+  removal from `/app/members/usr_02?state=pending` lands on
+  `/app/members?state=pending`.
+- `ErrorState` never rendered its per-kind default description: the
+  `descriptionLine` snippet drew only a page-passed `description`, so the
+  defaults table's copy ("Ask a workspace owner to give you access.",
+  "It may have been deleted, or the link is wrong.") was dead code and
+  every error state in the demo showed only its title. The snippet now
+  falls back to the kind's own description exactly the way `titleLine`
+  falls back to its title; `compact` still shows one line, as its entry
+  says.
+- The member page's pending sections rendered without their
+  `description`, so each head grew a line plus gap when the record landed
+  (Profile 233→265px, Access 233→271px at 1280) — the round-2 fix round
+  had measured only the panels. The loading snippet now passes the landed
+  descriptions, and the pending heads measure the landed heads: Profile
+  265px pending and landed (Access lands 5.5px taller for the copy button
+  in its member-ID row, at both widths).
+- `SkeletonDetails` kept its single desktop row below `sm` while the real
+  `DetailList` rows stack label over value, so at 360px the member page's
+  Profile and Access panels grew about 100px on landing (197→293px). The
+  skeleton rows now carry `DetailList`'s own row classes and stack too:
+  Profile 293px pending and landed at 360.
+- Billing's pending didn't stand for its content: the Usage skeleton was
+  three plain detail rows (148px against the landed panel's 296px of
+  three meters) and the Invoices skeleton drew no table header (295px
+  against 348px). Usage is now sketched in the meters' own shapes —
+  label, bar track, words (two lines below `sm`, where the events words
+  wrap; the ring with its two lines beside it) — in the same `py-4`
+  divided rows the landed panel stacks; Invoices stands its real header
+  (drawn once, shared with the landed table) over six rows at the landed
+  heights, the actions bar `h-5.5` for the "Download" link's own 22px;
+  and every section carries its description, the Plan head an `h-8` bar
+  where "Change plan" sits. Measured: Usage 296px and Invoices 347.5px,
+  pending and landed (Plan within 1px).
+- Evidence: none of the nine r2 `.txt` captures carried the
+  capture-notes/geometry sections the on-disk r2 script writes (they
+  predate its notes), `app-p6-details-r2-ax.txt` was a byte-identical
+  duplicate of member-1280, and the r1 file was a macOS AX dump of a
+  Brave window on x.com — so the round-2 note's numbers above had nothing
+  behind them. The two junk files are removed and everything is
+  re-captured through `capture-p6-r3.mjs` (24 files: both pages landed,
+  the member page at 360, both pages' pending windows measured mid-flight
+  and landed in one session at 1280 and 360, denied and not-found — their
+  trees now carrying the default descriptions — and a removal driven
+  through its confirm). The round-2 note's numbers hold in the r3
+  measurements: Profile panel 197px and the Remove panel 70px at 1280,
+  122px at 360, pending and landed.
 
 ---
 
@@ -1264,6 +1422,40 @@ are fixed:
   projects · No limit", with no bar, no ring and no meter role. The
   meters with limits are unchanged.
 
+**Phase 7 status (updated 2026-10-03, round 3).** Three round-2 findings
+are fixed:
+
+- The two remainders above are no longer remainders. `SkeletonStats` now
+  stands for the card's three landed lines — the label's 20px, the
+  number's 32px, `MetricTrend`'s 16px — instead of the label-and-number
+  pair that sat 34px short (88px cells against the landed 120px; at 360,
+  two rows of them, 68px short), and `StatCard`'s own pending number
+  skeleton grows with it (`h-7` → `h-8`). Measured through the running
+  demo's pending window: the grid holds 122px pending and landed at 1280
+  and 768, and 243px at 360 — no shift at any width checked.
+- At 768 the events meter's words wrap to four lines (its label to two)
+  in the 148px cells the shell's sidebar leaves — a count that moves with
+  width (three lines at 640 and 896, two from 1024), so no fixed
+  rectangle can stand for it. The sketch's events label and words are now
+  drawn from the meter's own words as invisible text that wraps exactly
+  where the real ones wrap, with the Skeleton riding on top — the seats
+  and data-kept cells stay plain rectangles (their words never wrap).
+  Measured: the panel holds its height through the landing at every
+  width — 116px at 1280, 176px at 768, 316px at 360, 136px at 640 and
+  896 — pending and landed.
+- The round-2 `$app/navigation` finding named four routes; the members
+  list and member pages were already clean in this round's tree, and the
+  two settings pages kept `beforeNavigate` for the unsaved-changes
+  guard. That guard now lives in `unsavedChanges` itself — a
+  capture-phase click listener that asks the same "Leave with unsaved
+  changes?" before an in-app link goes, so no route needs its router's
+  navigation API (back and forward stay the browser's). Both settings
+  routes keep to `$app/state` and `$app/forms`, verified in the running
+  demo: a clean form follows a tab link with no question, a dirty one is
+  asked and staying keeps the typed text, and a reload still asks. The
+  difference tables above and in `APP-BLOCKS.md`, and phase 0's note,
+  now describe the helper's own guard.
+
 ---
 
 ## Phase 8: Confirm dialog and edit panel
@@ -1379,6 +1571,60 @@ type RecordSheetProps = {
   Not run here: the full `pnpm check`, `pnpm build` and `pnpm build-storybook`
   gates, and the axe pass over the whole book, which the coordinator runs
   after this.
+
+**Phase 8 status (updated 2026-10-02, round 3).** The round-2 findings for
+this area are fixed — the high one with the phase-4 round-3 "tables pass",
+three more here, one already gone, and the evidence re-captured:
+
+- The Astro ConfirmAction's permanently-disabled confirm (the round-2 high)
+  was fixed with the phase-4 tables pass — `face()` no longer holds
+  `data-typed-ok` against a dialog with no word field. Driven live from this
+  area on the Astro member row: the dialog opens, the confirm runs without a
+  typed word, and the member is gone from the roster the list reloads
+  (`.zflow/evidence/app-p8-actions-r3-astro-row-remove-1280.*`).
+- The two demos' Delete-workspace words agree again (the plan's same-demo
+  rule, lines 128–129): the Astro section carries the Svelte reference's
+  description ("Events, dashboards and members go with it. This can't be
+  undone."), row ("Deleting can't be undone" / "You'd need to create a new
+  workspace to use Sightline again.") and dialog title and description
+  ("Delete this workspace?" / the same words) — the round-2 divergence
+  ("Delete workspace?" / "Everything in Paperplane is deleted…", section
+  "Everything in it goes with it.") is gone, read in the running demo
+  (`app-p8-actions-r3-astro-workspace-delete-1280.*`).
+- RecordSheet's Discard close dropped focus to `document.body`: closing the
+  question and the sheet together loses bits-ui's hand-back — the question's
+  own close pulls focus back into a dialog going away (a focus log shows the
+  opener focused, then "Discard", then the body). The sheet now remembers
+  what opened it (`onOpenAutoFocus`, before bits-ui moves focus inside) and,
+  on the discard path alone, re-asserts the opener once both dialogs'
+  out-transitions have settled. Driven in the running demo and the dirty
+  story: focus after Discard is the "Invite people" button, the same place a
+  clean Escape close puts it; the story's play focuses the trigger first, so
+  the drive exercises the real interaction.
+- The Svelte member page's removal touched no roster, so the list it landed
+  on still showed the member. The demo now holds its roster the way the
+  Astro twin holds its server-memory one (`$lib/app/roster.svelte.ts`:
+  module `$state` seeded from core, mirrored into sessionStorage so the
+  demo's full navigations — the search, the GET form's submit, a removal's
+  way back — land on the same members). The list seeds from it and routes
+  its removals, invites and role changes through it; the member page's
+  removal drops the member before its way out, and its `memberById` reads
+  the shared roster too, so a removed member's own page reads not-found.
+  `restore()` runs from the pages' effects, once per load, after hydration —
+  a full load paints the server's example data, so the restored roster
+  applies a beat later. `state=empty` still keeps the page's own empty list,
+  invites included.
+- The members routes' `goto` import (the round-2 low) was already gone —
+  the phase-4 round-3 note's `window.location.assign` fix covered the list
+  and the member page; a search of the routes finds no `$app/navigation`
+  (only a layout comment names `goto`).
+- Evidence: both rounds' `-ax` files — macOS AX snapshots of a Brave window
+  on the `/kit` gallery index, no phase-8 surface in either — are removed
+  and replaced by `capture-p8-r3.mjs` (7 files): the remove confirm live
+  without a typed word in both demos, the invite sheet's discard question
+  with the focus proof after Discard, the member-page removal landing on a
+  list without the member (and their page reading not-found), and the Astro
+  delete dialog with the reference words.
 
 ---
 
@@ -1661,6 +1907,108 @@ Not run here: the axe pass over the demo and `/kit` pages, `pnpm compare`,
 and the full `pnpm check` / `pnpm build` gates, which the coordinator runs
 after this (`astro check` is clean in the boilerplate, and `check:parity`
 passes).
+
+**Phase 10 status (updated 2026-10-02, round 3).** The axe pass over the
+demo and `/kit` pages has run and is clear — on a fresh
+`pnpm --filter astro-app build` served and driven with the kit's own
+runner: the five `/kit` gallery pages report 0 violations, and seventeen
+demo routes (the landing page, the gallery, every `/app` route incl. the
+member record and all five auth pages) report 0 axe violations, 0 page
+errors and 0 console errors, with no Astro error-overlay markers in any
+served response (evidence:
+`.zflow/evidence/kits-astro-pieces-r3-drive.txt` and `-kit-ax.txt`).
+What that took, beside the round-2 fixes above:
+
+- The vendored sidebar's inner container renders an `<aside>`, not a
+  `<div>`: the sidebar is complementary to the page's main, and as a div
+  everything it holds sat in no landmark (the `region` finding on every
+  workspace page). The runtime discovers it by data attribute, not tag.
+- `AuthLayout` is the page's `<main>` in both variants — an auth page has
+  no shell, so its column is the document's one content region; as divs
+  the whole page sat in no landmark (`landmark-one-main` + `region`).
+- Every `server:defer` fallback (all seven routes that carry one) now
+  paints inside `aria-busy="true"` with a visually hidden
+  `role="status"` label — "Loading members", "Loading the overview",
+  "Loading member", "Loading settings", "Loading billing" — the same
+  semantics the Svelte twin's `DataState` gives its pending face and the
+  Astro `DataState` block itself carries.
+- The member page no longer passes breadcrumbs to the shell as well as
+  its own header: that drew two "Breadcrumb" navs (axe `landmark-unique`),
+  and the Svelte twin's shell carries none — its page header is the one
+  breadcrumb nav.
+- The notifications page names its section for screen readers
+  ("Notifications, email preferences", visible title unchanged):
+  Starwind's toast viewport is an `aria-label="Notifications"` region on
+  every page, and two landmarks may not share a name. `SettingsSection`
+  takes an `aria-labelledby` override for it — pulled out of the spread,
+  the same duplicate-attribute fix `DetailSection` already had (a literal
+  beside `{...rest}` renders twice and the browser keeps the first).
+
+Known and left until the final fixes below: during the 600 ms
+`state=pending` skeleton the page had no h1 (the header arrived with the
+island; the Svelte twin keeps its header outside `DataState`), so an axe
+run sampled mid-skeleton reported `page-has-heading-one`. Every state
+face keeps its header now — see the final-fix note.
+
+Not run here: `pnpm compare` and the full `pnpm check` / `pnpm build`
+gates, which the coordinator runs after this.
+
+**Phase 10 status (updated 2026-10-03, round 3, final fixes).** The six
+round-2 findings that rode to this round are fixed:
+
+- Every `state=pending` fallback and every error/denied/offline branch
+  keeps the page's own header now, the way the Svelte twin keeps its
+  header outside `DataState`: the overview's heading and range switch,
+  the members list's heading (the table's skeleton under it), the member
+  record's name and breadcrumbs, and the four settings pages' tabbed
+  header on both the error and the pending faces — which also sit in the
+  same `width="narrow"` column the content does, so the skeleton doesn't
+  reflow wide-to-narrow when the record lands. No header actions ride
+  along on those faces: the sheet a button like "Edit" opens arrives with
+  the island, so the button would be dead until it lands. The
+  mid-skeleton `page-has-heading-one` exposure above is retired with it.
+- The member page's pending skeleton renders the destructive Remove panel
+  too — the port of the phase-6 round-2 Svelte fix, down to the shapes:
+  its skeleton holds the same paragraph-and-button line the real panel
+  draws (two lines and a full-width button below `sm`, one line and a
+  button at home from `sm`), and the Profile and Access sections carry
+  their descriptions so their heads are the height the record's heads
+  will be. The panel no longer pops in when the record lands.
+- FormActions' unsaved line can appear live: it is always in the markup
+  (hidden in the server render, which cannot know dirty) and the block's
+  script reveals it from what the page already writes — the form's
+  `data-clean` (the sheets mark the page's form) or the foot's own
+  `data-dirty` (the settings pages mark both) — the same signals that
+  stand Save down. "Saved" outranks it while it shows, and the line can
+  take its place once "Saved" clears after its four seconds.
+- The members list's NoResults keeps the contract's filters-win rule when
+  a search and filters are both set and match nobody: `?q=zzz&role=owner`
+  reads "No members match these filters" over "Clear filters", the search
+  copy only when the search alone ruled everything out (verified in the
+  served HTML both ways round).
+- The `/kit/app` gallery's FilterChip piece carries the single-choice and
+  searchable states the Svelte stories have — a "Time zone" radio chip and
+  a twelve-option "Member" chip with its filter field — so the Astro
+  FilterChip's radio path and search field are exercised in the repo.
+- The FilterChip's change handler leaves its own search field alone: a
+  change on `[data-filter-search]` (its commit on blur) no longer submits
+  the page's GET form, while a real checkbox or radio pick still applies
+  at once.
+
+Checked here: `pnpm --filter astro-app typecheck` (astro check, 62 files,
+0 errors) and `pnpm --filter astro-app build` pass, and the served build
+verified every state face's h1 in the HTML (the overview and members list
+pending, the member record's pending/error/denied/offline, the four
+settings pages' pending and error) plus the filters-win copy above; a
+12-check Playwright drive of the running app covered the dirty line (the
+profile form and the member edit sheet: in the DOM, hidden while clean,
+visible once a field changes, hidden again after Cancel; the gallery's one
+static dirty instance unchanged) and the chip's search field (its blur
+commits nothing, a checkbox pick still submits) —
+`.zflow/drive-p10-r3.mjs`, all 12 checks passing.
+
+Not run here: the mid-skeleton axe re-pass, `pnpm compare`, and the full
+`pnpm check` / `pnpm build` gates, which the coordinator runs after this.
 
 ---
 

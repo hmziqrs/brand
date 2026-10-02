@@ -16,16 +16,21 @@ interface Props extends Omit<HTMLAttributes<"section">, "title"> {
   tone?: "default" | "destructive";
 }
 
-const { title, description, tone = "default", class: className, ...rest } = Astro.props;
+const { title, description, tone = "default", class: className, "aria-labelledby": labelledBy, ...rest } = Astro.props;
 
 // A unique id for the title, so the section can name itself to screen
 // readers however many sections the page stacks.
 const titleId = `settings-section-${crypto.randomUUID().slice(0, 8)}`;
 ---
 
+{/* The aria-labelledby override is pulled out of the spread: a literal
+    beside {...rest} renders the attribute twice and the browser keeps the
+    first (the same trap DetailSection had) — so a page whose section shares
+    a name with another landmark (Starwind's toast viewport is "Notifications")
+    could never tell them apart. */}
 <section
   data-slot="settings-section"
-  aria-labelledby={titleId}
+  aria-labelledby={labelledBy ?? titleId}
   class={cn("flex flex-col gap-5 lg:grid lg:grid-cols-[16rem_minmax(0,1fr)] lg:gap-x-10", className)}
   {...rest}
 >

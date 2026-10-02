@@ -15,6 +15,7 @@
 	import NewsletterBand from '$brand/blocks/content/newsletter-band.svelte';
 	import BlogLayout from '$brand/blocks/content/blog-layout.svelte';
 	import ThemeToggle from '$lib/theme-toggle.svelte';
+	import { page } from '$app/state';
 	import { headingsOf } from '$lib/content';
 	import { topicTone } from '$lib/example';
 
@@ -23,6 +24,13 @@
 	const { entry } = $derived(data);
 	const toc = $derived(headingsOf(entry.body));
 	const url = $derived(`https://example.com/blog/${entry.slug}`);
+
+	// The newsletter band posts to the page's subscribe action
+	// (content-blocks.md: "Its form posts to the page's own action; no
+	// mailing service is built in"): an email in the field comes back to a
+	// band that says thanks, an empty one comes back to the page as it was.
+	// A real site swaps the action for whatever runs its list.
+	const subscribed = $derived(page.url.searchParams.has('subscribed'));
 
 	// Example side projects, for the end notes. Example copy.
 	const sideProjects = [
@@ -58,9 +66,9 @@
 						<entry.Content />
 
 						<!-- The margin note: a line pulled out of the text, repeating itself
-						    on the page, so screen readers skip it. -->
+						    on the page — its own first sentence — so screen readers skip it. -->
 						<p class="relative">
-							<PullQuote repeated>Example pull quote: the line the paragraph below repeats, out in the margin.</PullQuote>
+							<PullQuote repeated>Example copy for the paragraph the margin note sits beside.</PullQuote>
 							Example copy for the paragraph the margin note sits beside. Replace it with the post's own words.
 						</p>
 					{/snippet}
@@ -86,6 +94,10 @@
 			</article>
 		</Container>
 
-		<NewsletterBand />
+		<NewsletterBand
+			action="?/subscribe"
+			title={subscribed ? "You're on the list" : undefined}
+			body={subscribed ? 'Thanks — the next post lands in your inbox. Example copy; no list is wired up in the starter.' : undefined}
+		/>
 	{/snippet}
 </BlogLayout>
