@@ -5,11 +5,10 @@
 // so they are written out in full.
 import Container from "$brand/blocks/site/container.astro";
 import PageIntro from "$brand/blocks/site/page-intro.astro";
-import SiteLayout from "$brand/blocks/site/site-layout.astro";
 import Kicker from "$brand/blocks/site/kicker.astro";
-import ThemeInit from "../../components/theme-init.astro";
 import ThemeToggle from "../../components/theme-toggle.astro";
 import Piece from "../../components/app/gallery-piece.astro";
+import AppDocument from "../../components/app/app-document.astro";
 
 import AppShell from "$brand/blocks/app/shell/app-shell.astro";
 import AppPage from "$brand/blocks/app/shell/app-page.astro";
@@ -73,6 +72,7 @@ import { currentWorkspaceId, currentUser, timeZones, workspaces } from "@hmziq/b
 import { siGithub, siGoogle } from "simple-icons";
 import type { NavGroup } from "$brand/blocks/app/shell/types";
 
+// The nav the shell's top layout shows, pointed at the demo app's pages.
 const nav: NavGroup[] = [
   {
     label: "Workspace",
@@ -83,16 +83,7 @@ const nav: NavGroup[] = [
   },
   {
     label: "Account",
-    items: [
-      {
-        label: "Settings",
-        href: "/app/settings/profile",
-        items: [
-          { label: "Profile", href: "/app/settings/profile" },
-          { label: "Notifications", href: "/app/settings/notifications" },
-        ],
-      },
-    ],
+    items: [{ label: "Settings", href: "/app/settings/profile" }],
   },
 ];
 
@@ -108,30 +99,31 @@ const providers = [
 ];
 ---
 
-<SiteLayout site="example" maker="the kit" layout="page" mainClassName="gap-14 pt-12 pb-20 md:pt-20" head={{ site: "freeoxide", title: "App blocks — the kit", description: "Every app block the Astro kit ships.", url: "https://example.com/kit/app" }}>
-  <ThemeInit slot="head" />
-  <ThemeToggle slot="extra" />
+<AppDocument title="App blocks — the kit">
+  {/* This page wears the AppShell it documents: a shell is a whole page —
+      its nav and its <main> — so nesting one inside a site layout's main
+      stacked two mains and two "Main" navs on one document (an axe
+      finding). The top layout is the one no /app page wears; the sidebar
+      one is every /app page's, at /app/overview. */}
+  <AppShell nav={nav} currentPath="/kit/app" layout="top">
+    <WorkspaceSwitcher slot="brand" workspaces={switcherWorkspaces} currentId={currentWorkspaceId} />
+    <ThemeToggle slot="topbar" />
 
-  <Container>
-    <PageIntro class="max-w-2xl">
-      <Fragment slot="kicker">The kit · app blocks</Fragment>
-      <Fragment slot="title">App blocks</Fragment>
-      <Fragment slot="lede">The blocks for app screens — shells, settings, states, lists, tables, auth, details, metrics and the confirm and edit overlays — each in the states it ships. The demo app wears them in context at /app.</Fragment>
-    </PageIntro>
-  </Container>
+    <div class="flex flex-col gap-14 pt-12 pb-20 md:pt-20">
+      <Container>
+        <PageIntro class="max-w-2xl">
+          <Fragment slot="kicker">The kit · app blocks</Fragment>
+          <Fragment slot="title">App blocks</Fragment>
+          <Fragment slot="lede">The blocks for app screens — shells, settings, states, lists, tables, auth, details, metrics and the confirm and edit overlays — each in the states it ships. The demo app wears them in context at /app.</Fragment>
+        </PageIntro>
+      </Container>
 
-  <Container size="wide" class="flex flex-col gap-14">
-    <Piece id="piece-app-shell" title="AppShell" note="The frame of the app's signed-in side. The demo app wears it; this is the top layout, and the sidebar one at /app/overview.">
-      <div class="overflow-hidden rounded-xl border">
-        <AppShell nav={nav} currentPath="/kit/app" layout="top" class="min-h-120">
-          <WorkspaceSwitcher slot="brand" workspaces={switcherWorkspaces} currentId={currentWorkspaceId} />
-          <UserMenu slot="account" user={currentUser} />
-          <AppPage>
-            <p class="text-sm text-muted-foreground">The page sits in one centered column, under the top bar.</p>
-          </AppPage>
-        </AppShell>
-      </div>
-    </Piece>
+      <Container size="wide" class="flex flex-col gap-14">
+        <Piece id="piece-app-shell" title="AppShell" note="The frame of the app's signed-in side. This page wears it — the top layout, with the brand, the nav and the theme toggle you can see around this note; the sidebar one is every /app page's, at /app/overview.">
+          <p class="max-w-prose text-sm text-muted-foreground">
+            The shell around this page is the piece: the top bar, the skip link, the content region this column sits in. The sidebar layout is the one the demo app's pages wear — <a href="/app/overview" class="text-primary underline underline-offset-4 hover:underline">see it at /app/overview</a>, with the mobile sheet and the collapsing rail.
+          </p>
+        </Piece>
 
     <Piece id="piece-app-page" title="AppPage" note="The page inside the shell: one centered column, default or narrow.">
       <div class="grid gap-4 md:grid-cols-2">
@@ -415,6 +407,25 @@ const providers = [
           { value: "admin", label: "Admin", count: 4 },
           { value: "member", label: "Member", count: 50 },
         ]} />
+        {/* The other two states, as the Svelte stories carry them: one
+            choice at a time (radio rows — a pick closes the picker), and a
+            list long enough to grow its own filter field (past eight
+            options). */}
+        <FilterChip
+          label="Time zone"
+          name="time_zone"
+          multiple={false}
+          value={[timeZones[0].value]}
+          removeHref="/kit/app"
+          options={timeZones.slice(0, 4)}
+        />
+        <FilterChip
+          label="Member"
+          name="member"
+          value={["usr_3", "usr_7"]}
+          removeHref="/kit/app"
+          options={Array.from({ length: 12 }, (_, at) => ({ value: `usr_${at + 1}`, label: `Member number ${at + 1}` }))}
+        />
       </div>
     </Piece>
 
@@ -548,7 +559,9 @@ const providers = [
           <TablePagination page={1} pageSize={25} total={60} pageHref={(page) => `/kit/app?page=${page}`} pageSizes={[10, 25, 50]} />
         </div>
         <div class="rounded-xl border">
-          <TablePagination page={3} pageSize={25} total={60} pageHref={(page) => `/kit/app?page=${page}`} />
+          {/* Its own nav name: two "Pages" navs on one page was an axe
+              finding. The first demo keeps the default label. */}
+          <TablePagination page={3} pageSize={25} total={60} pageHref={(page) => `/kit/app?page=${page}`} navLabel="Pages, last page" />
         </div>
       </div>
     </Piece>
@@ -615,7 +628,7 @@ const providers = [
 
     <Piece id="piece-password-input" title="PasswordInput" note="A password field with a show/hide button: the only piece of the auth forms that needs JavaScript of its own.">
       <div class="max-w-sm">
-        <PasswordInput id="gallery-password" name="password" autocomplete="current-password" />
+        <PasswordInput id="gallery-password" name="password" autocomplete="current-password" aria-label="Password" />
       </div>
     </Piece>
 
@@ -718,7 +731,11 @@ const providers = [
 
     <Piece id="piece-detail-section" title="DetailSection" note="One titled part of a record's page, the content in an outlined panel; the destructive tone for the section that removes the record.">
       <div class="flex flex-col gap-6">
-        <DetailSection title="Profile" description="Who they are in the workspace.">
+        {/* Its own name: the settings section above is also called "Profile"
+            (both match their Svelte stories), and two landmarks may not share
+            a name on one page. The visible title stays "Profile". */}
+        <span id="gallery-detail-profile" class="sr-only">Profile, the record's details</span>
+        <DetailSection title="Profile" description="Who they are in the workspace." aria-labelledby="gallery-detail-profile">
           <Fragment slot="actions">
             <Button variant="outline" size="sm">Edit</Button>
           </Fragment>
@@ -849,7 +866,9 @@ const providers = [
         </ComboboxField>
       </div>
     </Piece>
-  </Container>
-</SiteLayout>
+      </Container>
+    </div>
+  </AppShell>
+</AppDocument>
 
 <Toaster />

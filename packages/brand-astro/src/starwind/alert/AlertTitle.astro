@@ -3,11 +3,15 @@ import type { HTMLAttributes } from "astro/types";
 
 import { alertTitle } from "./variants";
 
-type Props = HTMLAttributes<"h5">;
+// A div, not Starwind's h5: the lab's AlertTitle (apps/lab/src/components/ui/
+// alert.tsx) is a plain div, and the title's weight is carried by classes —
+// porting rule 1, "where the two differ, React is right". An h5 also broke
+// heading order wherever a Notice sat under h2/h3 headings.
+type Props = HTMLAttributes<"div">;
 
 const { class: className, ...rest } = Astro.props;
 ---
 
-<h5 data-sw-alert-title class={alertTitle({ class: className })} {...rest} data-slot="alert-title">
+<div data-sw-alert-title class={alertTitle({ class: className })} {...rest} data-slot="alert-title">
   <slot />
-</h5>
+</div>

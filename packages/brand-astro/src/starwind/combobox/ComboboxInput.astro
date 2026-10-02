@@ -36,7 +36,12 @@ const {
   <InputGroupAddon align="inline-end">
     {
       showTrigger && (
-        <ComboboxPrimitive.Trigger asChild={true} disabled={disabled} data-slot="combobox-trigger">
+        <ComboboxPrimitive.Trigger
+          asChild={true}
+          disabled={disabled}
+          aria-label="Toggle suggestions"
+          data-slot="combobox-trigger"
+        >
           <InputGroupButton
             size="icon-sm"
             variant="ghost"

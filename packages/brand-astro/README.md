@@ -87,7 +87,7 @@ Everything else the diff showed (`"use client"` lines, one unused `React`
 import) is drift between the lab's snapshot and today's shadcn registry, not
 a brand decision, and has no Astro equivalent.
 
-On top of those, the kit makes four changes of its own, all forced by a
+On top of those, the kit makes six changes of its own, all forced by a
 brand rule or by "the lab is right":
 
 1. **The default button is the primary one.** Starwind's default variant is a
@@ -111,12 +111,22 @@ brand rule or by "the lab is right":
 4. **Spinners and pulses respect reduced motion**: the skeleton's pulse and
    every spinner the stock animates (the toast's loader) carry
    `motion-reduce:animate-none`, as BRAND.md section 10 asks.
+5. **`AlertTitle` renders a `<div>`, not Starwind's `<h5>`.** The lab's
+   AlertTitle is a plain `<div data-slot="alert-title">` (porting rule 1,
+   "where the two differ, React is right"), and the Svelte kit's alert
+   carries the same div. The h5 also broke heading order wherever a Notice
+   sat under h2/h3 headings.
+6. **The combobox's icon-only trigger names itself**
+   (`aria-label="Toggle suggestions"`), the way its Clear twin always has
+   ("Clear selection"). Starwind ships both buttons unnamed; an unnamed
+   icon-only button is an axe `button-name` violation wherever the input
+   group renders.
 
 ## Updating stock components
 
 `starwind.config.json` records the Starwind version each component came
 from. To see upstream changes: `pnpm dlx starwind@latest update <component>
---diff` from this folder. Merge by hand: re-apply the table and the four
+--diff` from this folder. Merge by hand: re-apply the table and the six
 changes above after accepting anything.
 
 Adding a component: `pnpm dlx starwind@latest add <name> -y --package-manager
@@ -139,8 +149,9 @@ give the piece its own classes rather than editing stock:
   `text-foreground`; the height is `h-10` in both.
 - Badge defaults to `text-sm` `px-3` (md); the brand's Tag recipe
   (`h-5 px-2 text-xs rounded-4xl`) is carried by the Tag piece itself.
-- Alert is `p-4` with an `h5` `text-lg` title (Starwind) against the lab's
-  `px-4 py-3` `text-sm` grid; Notice carries the lab's layout on the piece.
+- Alert is `p-4` with a `text-lg` title (Starwind) against the lab's
+  `px-4 py-3` `text-sm` grid; Notice carries the lab's layout on the piece,
+  and the title element is the lab's div now (change 5 above).
 
 ## The pieces (step 2.5)
 
@@ -203,6 +214,13 @@ The interactive ones follow the entry's **Astro** line in `APP-BLOCKS.md`:
   rides on a `data-slot-wrap` wrapper around it.
 - The Combobox is Starwind's own `starwind/combobox`, as its contract entry
   says; the settings demo's time zone field wears it.
+- Two blocks grew a hook for pages that stack same-named landmarks (the
+  `/kit` gallery does): `TablePagination` takes `navLabel` (default
+  "Pages"), and `DetailSection` accepts an `aria-labelledby` override — a
+  literal beside `{...rest}` rendered the attribute twice and the browser
+  kept the block's own. The Svelte kit's TablePagination has no `navLabel`
+  yet; its stories show the states one per story, so nothing needs it there
+  today.
 
 ## Installing the kit's own files (registry test, 2026-10-01)
 

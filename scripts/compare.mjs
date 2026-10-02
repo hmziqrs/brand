@@ -7,6 +7,11 @@
 // boilerplates. When a piece has no lab story (the app blocks), the Svelte
 // story is the reference.
 //
+// The report is relayed from every shot in compare/, not just the current
+// run's, so a later run (a page pair, one piece) never drops the rows an
+// earlier run laid down. `pnpm compare --report` rebuilds it from the folder
+// as it stands, without shooting anything.
+//
 // Servers have to be running. The script starts from these URLs, overridable
 // with environment variables of the same names:
 //   LAB_URL (the lab Storybook, 6006)      SVELTE_URL (the kit Storybook, 6007)
@@ -27,8 +32,10 @@ const SVELTE_APP = process.env.SVELTE_APP_URL ?? "http://localhost:5173";
 const ASTRO_APP = process.env.ASTRO_APP_URL ?? "http://localhost:4322";
 
 const [argument, ...pagePaths] = process.argv.slice(2);
+const reportOnly = argument === "--report";
 const themes = ["dark", "light"];
 const widths = [360, 1280];
+const viewLabels = ["lab", "svelte", "astro", "svelte-app", "astro-app"];
 
 // Which gallery page each piece's anchor lives on, read from the gallery
 // pages themselves the same way check-parity reads them
@@ -65,7 +72,9 @@ function views(subject) {
 }
 
 let subjects;
-if (argument === "--pages") {
+if (reportOnly) {
+  subjects = [];
+} else if (argument === "--pages") {
   // One or more routes (space- or comma-separated), each shot in both
   // boilerplates: `pnpm compare --pages /app/overview /app/members` lays
   // every route's pair side by side in ONE report, the way app-blocks.md's
@@ -87,9 +96,10 @@ if (argument === "--pages") {
   }
 }
 
-const browser = await chromium.launch();
 mkdirSync(OUT, { recursive: true });
 const shots = [];
+
+const browser = reportOnly ? null : await chromium.launch();
 
 for (const subject of subjects) {
   const targets = views(subject);
@@ -131,23 +141,47 @@ for (const subject of subjects) {
   console.log(`- ${subject.name}: ${targets.map((t) => t.label).join(", ")}`);
 }
 
-await browser.close();
+await browser?.close();
 
 // The report: one row per subject and theme, every version and width side by
-// side, so "matches" is a read across the row.
-const columns = [];
-for (const label of ["lab", "svelte", "astro", "svelte-app", "astro-app"]) {
-  for (const width of widths) columns.push(`${label} @${width}`);
+// side, so "matches" is a read across the row. The rows come from every shot
+// in compare/ — this run's and earlier runs' alike — so running one piece or
+// a page pair doesn't drop the pieces the last full run laid down.
+const slug = (name) => name.toLowerCase().replace(/[^\w]+/g, "-");
+const display = new Map();
+for (const piece of roster) display.set(slug(piece.name), piece.name);
+for (const subject of subjects) display.set(slug(subject.name), subject.name);
+
+const onDisk = new Map();
+for (const file of readdirSync(OUT).sort()) {
+  const match = /^(.*)-(lab|svelte|astro|svelte-app|astro-app)-(dark|light)-(\d+)\.png$/.exec(file);
+  if (!match) continue;
+  const [, subject, label, theme, width] = match;
+  if (!onDisk.has(subject)) onDisk.set(subject, new Map());
+  onDisk.get(subject).set(`${label}|${theme}|${width}`, file);
 }
+
+// Roster pieces in roster order first, then anything else (page pairs) by name.
+const rosterOrder = new Map(roster.map((piece) => [slug(piece.name), roster.indexOf(piece)]));
+const subjectsInOrder = [...onDisk.keys()].sort((a, b) => {
+  const ai = rosterOrder.get(a) ?? Infinity;
+  const bi = rosterOrder.get(b) ?? Infinity;
+  return ai === bi ? a.localeCompare(b) : ai - bi;
+});
+
 const rows = [];
-for (const subject of subjects) {
+for (const subject of subjectsInOrder) {
   for (const theme of themes) {
-    const cells = columns.map((column) => {
-      const [label, width] = column.split(" @");
-      const shot = shots.find((s) => s.subject === subject.name && s.theme === theme && s.label === label && s.width === Number(width));
-      return shot ? `<td><img src="${shot.file}" loading="lazy"></td>` : "<td></td>";
-    });
-    if (cells.some((cell) => cell !== "<td></td>")) rows.push(`<tr><th>${subject.name}<br>${theme}</th>${cells.join("")}</tr>`);
+    const cells = [];
+    for (const label of viewLabels) {
+      for (const width of widths) {
+        const file = onDisk.get(subject).get(`${label}|${theme}|${width}`);
+        cells.push(file ? `<td><img src="${file}" loading="lazy"></td>` : "<td></td>");
+      }
+    }
+    if (cells.some((cell) => cell !== "<td></td>")) {
+      rows.push(`<tr><th>${display.get(subject) ?? subject}<br>${theme}</th>${cells.join("")}</tr>`);
+    }
   }
 }
 writeFileSync(
@@ -156,4 +190,5 @@ writeFileSync(
 <style>body{background:#171717;color:#fafafa;font:14px/1.5 system-ui;margin:2rem}table{border-collapse:collapse}th{white-space:nowrap;text-align:left;padding:8px;border:1px solid #262626}td{padding:8px;vertical-align:top;border:1px solid #262626}img{display:block;max-height:340px;width:auto}</style>
 <h1>compare</h1><table>${rows.join("\n")}</table>`,
 );
-console.log(`\n${shots.length} screenshots in ${relative(root, OUT)}/ — open ${relative(root, join(OUT, "index.html"))}`);
+const relaid = [...onDisk.values()].reduce((count, views) => count + views.size, 0);
+console.log(`\n${reportOnly ? `${relaid} shots relayed` : `${shots.length} screenshots taken`} — ${subjectsInOrder.length} subjects in ${relative(root, OUT)}/index.html`);

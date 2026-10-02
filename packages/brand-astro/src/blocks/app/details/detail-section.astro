@@ -18,13 +18,17 @@ interface Props extends Omit<HTMLAttributes<"section">, "title"> {
   tone?: "default" | "destructive";
 }
 
-const { title, description, tone = "default", class: className, ...rest } = Astro.props;
+const { title, description, tone = "default", class: className, "aria-labelledby": labelledBy, ...rest } = Astro.props;
 
 const titleId = `detail-section-${crypto.randomUUID().slice(0, 8)}`;
 const hasActions = Astro.slots.has("actions");
 ---
 
-<section data-slot="detail-section" aria-labelledby={titleId} class={cn("flex flex-col gap-3", className)} {...rest}>
+{/* The aria-labelledby override is pulled out of the spread: a literal
+    beside {...rest} renders the attribute twice and the browser keeps the
+    first, so a page stacking two same-titled sections could never tell
+    them apart. */}
+<section data-slot="detail-section" aria-labelledby={labelledBy ?? titleId} class={cn("flex flex-col gap-3", className)} {...rest}>
   <div class="flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
     <h2 id={titleId} class="text-base font-medium">{title}</h2>
     {hasActions && (

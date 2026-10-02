@@ -20,9 +20,11 @@ interface Props extends HTMLAttributes<"div"> {
   pageHref: (page: number) => string;
   /** Offered as the page size, submitted as per_page. */
   pageSizes?: number[];
+  /** Names the page-turn nav, for pages that stack more than one pagination. */
+  navLabel?: string;
 }
 
-const { page, pageSize, total, pageHref, pageSizes, class: className, ...rest } = Astro.props;
+const { page, pageSize, total, pageHref, pageSizes, navLabel = "Pages", class: className, ...rest } = Astro.props;
 
 const lastPage = Math.max(1, Math.ceil(total / pageSize));
 const shown = Math.min(page * pageSize, total);
@@ -54,7 +56,7 @@ const range = total === 0 ? "0 of 0" : `${(page - 1) * pageSize + 1}–${shown} 
         </div>
       )
     }
-    <nav aria-label="Pages" class="flex items-center gap-2">
+    <nav aria-label={navLabel} class="flex items-center gap-2">
       {
         page > 1 ? (
           <Button variant="outline" size="sm" href={pageHref(page - 1)} aria-label="Previous page">
