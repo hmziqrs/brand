@@ -18,8 +18,19 @@ import { el, text } from "./hast.ts"
  * markup in it belongs in the body.
  */
 
-const alertClass = (tone: string) =>
-  `group/alert relative grid w-full gap-0.5 rounded-lg border px-4 py-3 text-left text-sm has-data-[slot=alert-action]:relative has-data-[slot=alert-action]:pr-18 has-[>svg]:grid-cols-[auto_1fr] has-[>svg]:gap-x-2.5 *:[svg]:row-span-2 *:[svg]:translate-y-0.5 *:[svg:not([class*='size-'])]:size-4 text-card-foreground bg-transparent border-${tone}/40 *:[svg]:text-${tone}`
+/*
+ * One full class string per tone, not a template: Tailwind reads only whole
+ * tokens it can see in the source, and `border-${tone}/40` leaves nothing to
+ * find. An `@source` for this folder (hast.ts) then covers every class the
+ * plugin emits, the way it covers tones.ts.
+ */
+const alertClasses = {
+  info: "group/alert relative grid w-full gap-0.5 rounded-lg border px-4 py-3 text-left text-sm has-data-[slot=alert-action]:relative has-data-[slot=alert-action]:pr-18 has-[>svg]:grid-cols-[auto_1fr] has-[>svg]:gap-x-2.5 *:[svg]:row-span-2 *:[svg]:translate-y-0.5 *:[svg:not([class*='size-'])]:size-4 text-card-foreground bg-transparent border-info/40 *:[svg]:text-info",
+  warning:
+    "group/alert relative grid w-full gap-0.5 rounded-lg border px-4 py-3 text-left text-sm has-data-[slot=alert-action]:relative has-data-[slot=alert-action]:pr-18 has-[>svg]:grid-cols-[auto_1fr] has-[>svg]:gap-x-2.5 *:[svg]:row-span-2 *:[svg]:translate-y-0.5 *:[svg:not([class*='size-'])]:size-4 text-card-foreground bg-transparent border-warning/40 *:[svg]:text-warning",
+  destructive:
+    "group/alert relative grid w-full gap-0.5 rounded-lg border px-4 py-3 text-left text-sm has-data-[slot=alert-action]:relative has-data-[slot=alert-action]:pr-18 has-[>svg]:grid-cols-[auto_1fr] has-[>svg]:gap-x-2.5 *:[svg]:row-span-2 *:[svg]:translate-y-0.5 *:[svg:not([class*='size-'])]:size-4 text-card-foreground bg-transparent border-destructive/40 *:[svg]:text-destructive",
+} as const
 
 const titleClass = "font-medium group-has-[>svg]/alert:col-start-2 [&_a]:underline [&_a]:underline-offset-3 [&_a]:hover:text-foreground"
 
@@ -107,7 +118,7 @@ export const callout: Plugin<[], Root> = () => (tree) => {
     const body: ElementContent[] = first.children.length > 0 ? [first, ...restOfQuote] : restOfQuote
 
     node.tagName = "div"
-    node.properties = { dataSlot: "alert", role: "note", class: alertClass(kind.tone) }
+    node.properties = { dataSlot: "alert", role: "note", class: alertClasses[kind.tone] }
     node.children = [
       kind.icon,
       el("div", { dataSlot: "alert-title", class: titleClass }, text(ownTitle.trim() || kind.title)),
