@@ -113,7 +113,20 @@ export const callout: Plugin<[], Root> = () => (tree) => {
 
     // Take the marker line out of the first paragraph; what's left of it opens the body.
     if (rest) lead.value = rest
-    else first.children.splice(first.children.indexOf(lead), 1)
+    else {
+      const at = first.children.indexOf(lead)
+      let take = 1 // the marker line's own text
+      const br = first.children[at + 1]
+      // A hard break ending the marker line (two spaces or a backslash before
+      // the body) expands to a `<br>` and a newline text node; both belong to
+      // the line, so the body starts the way a component Notice's does.
+      if (br?.type === "element" && br.tagName === "br") {
+        take = 2
+        const newline = first.children[at + 2]
+        if (newline?.type === "text" && newline.value.trim() === "") take = 3
+      }
+      first.children.splice(at, take)
+    }
     const restOfQuote = blocks.slice(1)
     const body: ElementContent[] = first.children.length > 0 ? [first, ...restOfQuote] : restOfQuote
 

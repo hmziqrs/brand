@@ -22,9 +22,9 @@ import { table } from "../src/markdown/table"
 
 let sample = ""
 
-beforeAll(async () => {
-  const source = readFileSync(fileURLToPath(new URL("./sample.md", import.meta.url)), "utf8")
-  const file = await unified()
+/** The pipeline both kits run: remark-gfm in, the core plugins, HTML out. */
+const render = (source: string) =>
+  unified()
     .use(remarkParse)
     .use(remarkGfm)
     .use(remarkRehype)
@@ -34,7 +34,10 @@ beforeAll(async () => {
     .use(table)
     .use(rehypeStringify)
     .process(source)
-  sample = String(file)
+    .then(String)
+
+beforeAll(async () => {
+  sample = await render(readFileSync(fileURLToPath(new URL("./sample.md", import.meta.url)), "utf8"))
 })
 
 describe("headingAnchor", () => {
@@ -50,6 +53,13 @@ describe("headingAnchor", () => {
   it("leaves the page's own title alone", () => {
     expect(sample).toContain("<h1>The sample post</h1>")
     expect(sample).not.toContain("<h1 id")
+  })
+
+  it("numbers repeated texts the github-slugger way, so no two anchors share an id", async () => {
+    const html = await render("## Setup\nfirst\n\n## Setup\nsecond\n\n### Setup\nthird\n")
+    expect(html).toContain('<h2 id="setup">Setup</h2>')
+    expect(html).toContain('<h2 id="setup-1">Setup</h2>')
+    expect(html).toContain('<h3 id="setup-2">Setup</h3>')
   })
 })
 
@@ -84,6 +94,18 @@ describe("callout", () => {
   it("leaves a quote without a marker a quote", () => {
     expect(sample).toContain('<blockquote>\n<p>Third attempt at a personal blog. This one stuck.</p>\n</blockquote>')
     expect(sample.match(/<blockquote>/g)).toHaveLength(1)
+  })
+
+  it("drops a hard break ending the marker line, so the body starts clean", async () => {
+    // `\u0020\u0020` are the two trailing spaces that make the break; the
+    // backslash line is the other spelling of the same break.
+    const spaces = await render("> [!TIP] Title\u0020\u0020\n> Body line.\n")
+    const backslash = await render("> [!TIP] Title\\\n> Body line.\n")
+    for (const html of [spaces, backslash]) {
+      expect(html).toContain('<div data-slot="alert-title" class="font-medium group-has-[>svg]/alert:col-start-2 [&#x26;_a]:underline [&#x26;_a]:underline-offset-3 [&#x26;_a]:hover:text-foreground">Title</div>')
+      expect(html).toContain("<p>Body line.</p>")
+      expect(html).not.toContain("<br>")
+    }
   })
 })
 
