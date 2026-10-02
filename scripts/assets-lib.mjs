@@ -14,7 +14,11 @@ import * as testCard from "../assets/test/source/test-card.mjs"
 import * as socialBanners from "../assets/social/source/banners.ts"
 import * as socialOg from "../assets/social/source/og.ts"
 import * as socialPostCover from "../assets/social/source/post-cover.ts"
+import * as socialThumbnail from "../assets/social/source/thumbnail.ts"
 import { settings as socialSettings } from "../assets/social/source/settings.ts"
+import { packFileNames } from "../assets/logos/source/pack.ts"
+import { render as logosRender } from "../assets/logos/source/logos.ts"
+import { settings as logosSettings } from "../assets/logos/source/settings.ts"
 
 export const root = fileURLToPath(new URL("..", import.meta.url))
 
@@ -57,7 +61,40 @@ export const targets = [
     dir: "assets/social",
     source: "assets/social/source",
     settings: socialSettings,
-    render: (ctx) => ({ ...socialOg.render(ctx), ...socialPostCover.render(ctx), ...socialBanners.render(ctx) }),
+    render: (ctx) => ({ ...socialOg.render(ctx), ...socialPostCover.render(ctx), ...socialBanners.render(ctx), ...socialThumbnail.render(ctx) }),
+  },
+  {
+    // The logos (assets.md phases 2–3): per site, the tile, wordmark and
+    // lockup SVGs with the mark, wordmark and lockup PNGs, and the site's
+    // full icon pack — favicon, ICO, apple-touch, Android and maskable
+    // icons, site.webmanifest and head.html. One target, one manifest, one
+    // folder per site.
+    id: "logos",
+    dir: "assets/logos",
+    source: "assets/logos/source",
+    settings: logosSettings,
+    render: logosRender,
+  },
+]
+
+/** The public copies render-assets keeps in step and check:assets proves
+ *  match (assets.md, "Getting assets into sites and apps"): the lab gets the
+ *  hmziq icon pack, and — the one page that serves a head of its own
+ *  (assets.md: only the hmziq identity is wired, in the lab) — the hmziq OG
+ *  and X cards its og:/twitter: tags point at. head.html is for pasting into
+ *  a page head, not serving, so it isn't copied. */
+export const publicCopies = [
+  {
+    id: "lab",
+    from: "assets/logos/exports/hmziq",
+    to: "apps/lab/public",
+    files: packFileNames.filter((file) => file !== "head.html"),
+  },
+  {
+    id: "lab-cards",
+    from: "assets/social/exports/sites/hmziq",
+    to: "apps/lab/public",
+    files: ["og-1200x630.png", "x-1200x675.png"],
   },
 ]
 
@@ -65,11 +102,11 @@ export const exportsDir = (target) => join(root, target.dir, "exports")
 export const manifestPath = (target) => join(exportsDir(target), "manifest.json")
 
 /** The renderer versions an export was made with, read without loading the
- *  native modules, so the read-only check never has to import them. */
+ *  modules, so the read-only check never has to import them. */
 export const rendererVersions = (() => {
   const require = createRequire(join(root, "package.json"))
   const at = (name) => JSON.parse(readFileSync(require.resolve(`${name}/package.json`), "utf8")).version
-  return { "@resvg/resvg-js": at("@resvg/resvg-js") }
+  return { "@resvg/resvg-js": at("@resvg/resvg-js"), "opentype.js": at("opentype.js"), "png-to-ico": at("png-to-ico") }
 })()
 
 function* walk(dir) {
