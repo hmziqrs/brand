@@ -25,10 +25,14 @@ const { current, head, theme = "dark" } = Astro.props;
 ---
 
 <SiteLayout site="Blog" maker="by hmziq" nav={["Posts", "Tags", "About"]} current={current} cta={{ label: "Subscribe" }} layout="page" mainClassName="pb-0" head={head} theme={theme}>
-  {Astro.slots.has("banner") && <slot name="banner" slot="banner" />}
-  {Astro.slots.has("lead") && <slot name="lead" slot="lead" />}
-  {Astro.slots.has("extra") && <slot name="extra" slot="extra" />}
-  {Astro.slots.has("footer-row") && <slot name="footer-row" slot="footer-row" />}
-  {Astro.slots.has("legal") && <slot name="legal" slot="legal" />}
+  {/* Slots pass through as plain elements, never behind a conditional: Astro
+      registers a named slot when it compiles the template, so a
+      `{Astro.slots.has(…) && <slot … />}` forward makes the slot look passed
+      to SiteLayout even when no page sent one, and its defaults — the
+      footer's "More from hmziq" row, the legal line — never rendered. The
+      blog pages pass `head` (the theme's pre-paint baseline) and `extra`
+      (the theme toggle); anything else a page doesn't pass doesn't render. */}
+  <slot name="head" slot="head" />
+  <slot name="extra" slot="extra" />
   <slot />
 </SiteLayout>

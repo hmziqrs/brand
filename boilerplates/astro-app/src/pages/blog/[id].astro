@@ -3,6 +3,7 @@
 // Markdown rendered through core's plugins, the share bar and the
 // newsletter band. The example post uses every row of the Markdown table.
 import { getCollection, render } from "astro:content";
+import { actions } from "astro:actions";
 import Container from "$brand/blocks/site/container.astro";
 import Prose from "$brand/blocks/site/prose.astro";
 import OutlineCard from "$brand/blocks/site/outline-card.astro";
@@ -30,6 +31,16 @@ const { data } = entry;
 const toc = headingsOf(entry.body ?? "");
 const url = `https://example.com/blog/${entry.id}`;
 
+// The newsletter band posts to the subscribe action (content-blocks.md: "Its
+// form posts to the page's own action; no mailing service is built in"): an
+// email in the field comes back to a band that says thanks, an empty one
+// comes back to the page as it was. A real site swaps the action for
+// whatever runs its list.
+const action = Astro.getActionResult(actions.subscribe);
+if (action?.data?.ok) return Astro.redirect(action.data.redirectTo ?? "/blog", 303);
+
+const subscribed = Astro.url.searchParams.has("subscribed");
+
 // Example side projects, for the end notes. Example copy.
 const sideProjects = [
   { name: "example-one", symbol: "Eo", note: "Example copy: one line on the project." },
@@ -52,9 +63,9 @@ const sideProjects = [
         <Content />
 
         {/* The margin note: a line pulled out of the text, repeating itself
-            on the page, so screen readers skip it. */}
+            on the page — its own first sentence — so screen readers skip it. */}
         <p class="relative">
-          <PullQuote repeated>Example pull quote: the line the paragraph below repeats, out in the margin.</PullQuote>
+          <PullQuote repeated>Example copy for the paragraph the margin note sits beside.</PullQuote>
           Example copy for the paragraph the margin note sits beside. Replace it with the post's own words.
         </p>
       </Prose>
@@ -77,5 +88,9 @@ const sideProjects = [
     </article>
   </Container>
 
-  <NewsletterBand />
+  <NewsletterBand
+    action={actions.subscribe}
+    title={subscribed ? "You're on the list" : undefined}
+    body={subscribed ? "Thanks — the next post lands in your inbox. Example copy; no list is wired up in the starter." : undefined}
+  />
 </BlogLayout>

@@ -62,10 +62,15 @@ const hasAction = Astro.slots.has("action");
 <div data-slot="usage-meter" class={cn("flex min-w-0 flex-col gap-2", className)} {...rest}>
   {
     limit === null ? (
-      <p class="text-sm text-muted-foreground">
-        {label}
-        <span> · No limit</span>
-      </p>
+      <>
+        <span class="text-sm text-muted-foreground">{label}</span>
+        {/* No limit reads just "12 projects · No limit": the suffix rides the
+            words line, the way resetsOn does. No bar, no ring, no meter role. */}
+        <span class="text-sm">
+          <span class="font-medium">{words}</span>
+          <span class="text-muted-foreground"> · No limit</span>
+        </span>
+      </>
     ) : variant === "ring" ? (
       <div
         class="flex items-center gap-4"

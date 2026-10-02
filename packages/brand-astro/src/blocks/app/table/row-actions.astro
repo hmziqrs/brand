@@ -3,7 +3,7 @@ import type { HTMLAttributes } from "astro/types";
 import { Ellipsis } from "@lucide/astro";
 import { cn } from "$brand/utils";
 import Dropdown from "$brand/starwind/dropdown";
-import { Button } from "$brand/starwind/button";
+import { button } from "$brand/starwind/button/variants";
 import type { AstroPiece } from "$brand/utils";
 
 /*
@@ -38,10 +38,12 @@ const destructive = items.filter((item) => item.tone === "destructive");
 
 <div data-slot="row-actions" class={cn("flex justify-end", className)} {...rest}>
   <Dropdown.Root>
-    <Dropdown.Trigger asChild class="inline-flex">
-      <Button variant="ghost" size="icon-sm" aria-label={label}>
-        <Ellipsis class="lucide" aria-hidden="true" />
-      </Button>
+    {/* The trigger is styled as the ghost icon-sm Button directly rather
+        than through `asChild`: Starwind's asChild renders a wrapper around
+        the child instead of merging onto it, which put two clickables in
+        the tree for one control (APP-BLOCKS.md, RowActions). */}
+    <Dropdown.Trigger aria-label={label} class={button({ variant: "ghost", size: "icon-sm" })}>
+      <Ellipsis class="lucide" aria-hidden="true" />
     </Dropdown.Trigger>
     <Dropdown.Content align="end" class="w-44">
       {

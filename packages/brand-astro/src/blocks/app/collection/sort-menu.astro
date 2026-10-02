@@ -3,7 +3,7 @@ import type { HTMLAttributes } from "astro/types";
 import { ArrowUpDown, Check } from "@lucide/astro";
 import { cn } from "$brand/utils";
 import Dropdown from "$brand/starwind/dropdown";
-import { Button } from "$brand/starwind/button";
+import { button } from "$brand/starwind/button/variants";
 
 /*
  * How the list is ordered: a dropdown of the sort fields as links, the
@@ -30,11 +30,12 @@ const current = options.find((option) => option.value === value);
 <span data-slot="sort-menu" class={cn("inline-flex", className)} {...rest}>
   {value && <input type="hidden" name="sort" value={value} />}
   <Dropdown.Root>
-    <Dropdown.Trigger asChild class="inline-flex">
-      <Button variant="outline" size="sm" class="max-w-44">
-        <ArrowUpDown class="lucide" aria-hidden="true" />
-        <span class="truncate">{current?.label ?? label}</span>
-      </Button>
+    {/* Styled as the outline sm Button directly, not through `asChild`:
+        Starwind's asChild wraps the child rather than merging onto it, which
+        exposed the sort trigger as two clickables (APP-BLOCKS.md, SortMenu). */}
+    <Dropdown.Trigger class={button({ variant: "outline", size: "sm", class: "max-w-44" })}>
+      <ArrowUpDown class="lucide" aria-hidden="true" />
+      <span class="truncate">{current?.label ?? label}</span>
     </Dropdown.Trigger>
     <Dropdown.Content class="w-48">
       {

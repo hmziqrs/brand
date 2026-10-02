@@ -6,6 +6,7 @@
 // this page shows the blocks on their own. The section ids are the pieces'
 // anchors in scripts/pieces.json, which `pnpm check:parity` reads, so they
 // are written out in full.
+import { actions } from "astro:actions";
 import Container from "$brand/blocks/site/container.astro";
 import PageIntro from "$brand/blocks/site/page-intro.astro";
 import SiteLayout from "$brand/blocks/site/site-layout.astro";
@@ -94,7 +95,9 @@ const toc = [
         </div>
         <div class="flex flex-col gap-3">
           <Kicker>Floating pill, on this page now</Kicker>
-          <PostContents items={toc} variant="float" />
+          {/* Its own label: two "On this page" navs on one page is a
+              landmark-unique violation, and the gallery shows both variants. */}
+          <PostContents items={toc} variant="float" label="On this page, floating" />
         </div>
       </div>
     </section>
@@ -134,7 +137,9 @@ const toc = [
     <section id="piece-newsletter-band" class="flex flex-col gap-4 border-t pt-8">
       <h2 class="text-lg font-medium">NewsletterBand</h2>
       <div class="overflow-hidden rounded-xl border">
-        <NewsletterBand />
+        {/* The band posts to the page's own address by default; this one
+            posts to the starter's subscribe action, the example receiver. */}
+        <NewsletterBand action={actions.subscribe} />
       </div>
     </section>
 

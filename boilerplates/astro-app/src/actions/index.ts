@@ -1,6 +1,7 @@
 /*
- * The demo's actions (app-blocks.md, phase 10): every form posts to one of
- * these with accept: "form", so the same markup works with JavaScript off.
+ * The demo's actions (app-blocks.md, phase 10), plus the starter's one
+ * content-page action (content-blocks.md): every form posts to one of these
+ * with accept: "form", so the same markup works with JavaScript off.
  * No auth library, no network, no storage — the failures are scripted.
  *
  * Every action returns the contract's FormResult shape plus the values the
@@ -244,4 +245,20 @@ export const server = {
   } }),
 
   signOut: defineAction({ accept: "form", handler: async (): Promise<DemoResult> => ({ ok: true as const, redirectTo: "/app/sign-in" }) }),
+
+  // ---- newsletter (content-blocks.md) --------------------------------------
+  // The newsletter band's receiver, the starter's one content-page form: the
+  // band posts to the page's own action ("no mailing service is built in"),
+  // and the page that reads this result redirects back — with ?subscribed
+  // when a real email came in, so its band says thanks, without it when the
+  // field was empty. A real site swaps this handler for whatever runs its
+  // list.
+  subscribe: defineAction({
+    accept: "form",
+    handler: async (_, context): Promise<DemoResult> => {
+      const posted = await form(context.request);
+      const { data } = invalid(z.object({ email }), posted);
+      return { ok: true as const, redirectTo: `${context.url.pathname}${data ? "?subscribed" : ""}` };
+    },
+  }),
 };

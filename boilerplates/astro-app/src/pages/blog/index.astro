@@ -2,6 +2,7 @@
 // The blog index: a plain top, search and topics, then the posts. The words
 // and the posts are example copy.
 import { getCollection } from "astro:content";
+import { actions } from "astro:actions";
 import Container from "$brand/blocks/site/container.astro";
 import PageIntro from "$brand/blocks/site/page-intro.astro";
 import SearchBox from "$brand/blocks/site/search-box.astro";
@@ -16,6 +17,16 @@ import { topicTone, topics } from "../../lib/example";
 const posts = (await getCollection("blog"))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .map(({ data, id }) => ({ title: data.title, summary: data.summary, date: data.date, readingTime: data.readingTime, updated: data.updated, topic: data.topic, href: `/blog/${id}` }));
+
+// The newsletter band posts to the subscribe action (content-blocks.md: "Its
+// form posts to the page's own action; no mailing service is built in"): an
+// email in the field comes back to a band that says thanks, an empty one
+// comes back to the page as it was. A real site swaps the action for
+// whatever runs its list.
+const action = Astro.getActionResult(actions.subscribe);
+if (action?.data?.ok) return Astro.redirect(action.data.redirectTo ?? "/blog", 303);
+
+const subscribed = Astro.url.searchParams.has("subscribed");
 ---
 
 <BlogLayout current="Posts" head={{ site: "blog", title: "Blog — astro-app", description: "Example posts, written in Markdown.", url: "https://example.com/blog" }}>
@@ -39,7 +50,11 @@ const posts = (await getCollection("blog"))
     <PostList posts={posts} tone={topicTone} />
   </Container>
 
-  <NewsletterBand />
+  <NewsletterBand
+    action={actions.subscribe}
+    title={subscribed ? "You're on the list" : undefined}
+    body={subscribed ? "Thanks — the next post lands in your inbox. Example copy; no list is wired up in the starter." : undefined}
+  />
 </BlogLayout>
 
 <script>
