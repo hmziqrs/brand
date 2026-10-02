@@ -41,7 +41,10 @@
 	// The rows as description pairs, from a count (every row one line) or
 	// the per-row specs the page knows its copy needs.
 	const rowList = $derived(
-		(typeof rows === "number" ? Array.from({ length: rows }, () => ({})) : rows).map((row) => ({
+		(typeof rows === "number"
+			? Array.from({ length: rows }, () => ({ description: undefined as [number, number] | undefined }))
+			: rows
+		).map((row) => ({
 			description: row.description ?? ([1, 1] as [number, number]),
 		})),
 	);
@@ -64,8 +67,8 @@
 		"1,2": "h-5 sm:h-10",
 		"2,2": "h-10",
 	} as const;
-	const shapeOf = (map: typeof sectionDescription, pair: [number, number]) =>
-		map[`${pair[0]},${pair[1]}` as keyof typeof sectionDescription] ?? map["1,1"];
+	const shapeOf = (map: Record<string, string>, pair: [number, number]): string =>
+		map[`${pair[0]},${pair[1]}`] ?? map["1,1"];
 </script>
 
 <div
