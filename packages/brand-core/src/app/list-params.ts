@@ -56,7 +56,8 @@ function rawParams(search: string): [string, string][] {
  * Filter values are comma-separated: a comma inside a value is encoded, so
  * the value is split before it's decoded, which keeps the two apart.
  */
-export function readListParams(search: string, filterNames: string[]): ListState {	const filters: Record<string, string[]> = {};
+export function readListParams(search: string, filterNames: string[]): ListState {
+	const filters: Record<string, string[]> = {};
 	for (const name of filterNames) filters[name] = [];
 
 	let q = "";
@@ -111,5 +112,9 @@ export function listHref(path: string, state: ListState, change: Partial<ListSta
 	if (next.sort) params.push(`sort=${encodeURIComponent(next.sort)}`);
 	if (next.page > 1) params.push(`page=${next.page}`);
 	if (next.perPage !== DEFAULT_PER_PAGE) params.push(`per_page=${next.perPage}`);
-	return params.length ? `${path}?${params.join("&")}` : path;
+	if (!params.length) return path;
+	// The path may carry a query of its own (`/app/members?state=error`),
+	// so the list's params join it with "&" rather than a second "?".
+	const joiner = path.endsWith("?") ? "" : path.includes("?") ? "&" : "?";
+	return `${path}${joiner}${params.join("&")}`;
 }

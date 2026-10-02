@@ -99,6 +99,13 @@ describe("listHref", () => {
 		expect(readListParams(href, filters).q).toBe("ada lovelace&co")
 	})
 
+	it("joins a path that already carries a query, without a second ?", () => {
+		// The demo keeps `?state=error` beside the list's own params.
+		expect(listHref("/app/members?state=error", empty, { q: "ada" })).toBe("/app/members?state=error&q=ada")
+		// A lone trailing "?" is the query, opened but empty.
+		expect(listHref("/app/members?", empty, { q: "ada" })).toBe("/app/members?q=ada")
+	})
+
 	it("round-trips a change back through readListParams", () => {
 		const state: ListState = { q: "", filters: { role: [], status: [] }, sort: "-last_active", page: 4, perPage: DEFAULT_PER_PAGE }
 		const change: Partial<ListState> = { q: "ada", filters: { role: ["admin", "a,b"], status: [] } }

@@ -19,10 +19,18 @@
 	import Users from '@lucide/svelte/icons/users';
 	import { Button } from '$brand/ui/button/index.js';
 	import DemoStateSwitch from '$lib/demo-state-switch.svelte';
+	import { readDemoState } from '$lib/demo-state.svelte.js';
 	import { applyTheme } from '$lib/theme.svelte.js';
 	import type { LayoutProps } from './$types';
 
 	let { data, children }: LayoutProps = $props();
+
+	// SvelteKit keeps a page mounted across a query-only navigation, but every
+	// page reads the `state` param once, when its DemoLoad is built. Keying the
+	// page on that state makes the switch's goto() remount it, the way a route
+	// change would, so the URL and the page never disagree. The state is
+	// normalised first, so an unknown value doesn't remount what it doesn't change.
+	let demoState = $derived(readDemoState(page.url.searchParams.get('state')));
 
 	const groups: NavGroup[] = [
 		{
@@ -83,5 +91,7 @@
 	{#snippet topbar()}
 		<DemoStateSwitch />
 	{/snippet}
-	{@render children()}
+	{#key demoState}
+		{@render children()}
+	{/key}
 </AppShell>
