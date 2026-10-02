@@ -8,7 +8,7 @@
 // like every social image until the plan decides otherwise. The sample video
 // in settings proves the template; real thumbnails render per video.
 import { family } from "../../../packages/brand-core/src/family.ts"
-import { type Ctx, mark, measure, png, text, wrap, wordmark } from "./parts.ts"
+import { background, type Ctx, mark, measure, png, text, wrap, wordmark } from "./parts.ts"
 import { settings, sizes } from "./settings.ts"
 
 type RenderCtx = Ctx & { theme: { dark: Record<string, string> } }
@@ -53,6 +53,7 @@ function thumbnail(ctx: RenderCtx, title: string): Buffer {
 
   const name = wordmark(ctx, page, hmziq.name, { size: nameSize })
   const body = [
+    background(ctx, page, W, H),
     `<g transform="translate(${pad} ${pad})">${mark(ctx, page, hmziq.symbol, markSize)}</g>`,
     ...lines.map((line, i) => text(ctx, line, pad, firstBaseline + i * lineHeight, opts(size), ctx.svgPaint(ctx.color(page, "foreground")))),
     name.svg(pad, H - pad - name.bottom),

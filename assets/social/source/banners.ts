@@ -5,7 +5,7 @@
 // image until the plan decides otherwise.
 import { family } from "../../../packages/brand-core/src/family.ts"
 import { logoDefaults } from "../../../packages/brand-core/src/logo.ts"
-import { type Ctx, mark, measure, png, symbolAndSquare, text, wrap, wordmark } from "./parts.ts"
+import { background, type Ctx, mark, measure, png, symbolAndSquare, text, wrap, wordmark } from "./parts.ts"
 import { settings, sizes } from "./settings.ts"
 
 type RenderCtx = Ctx & { theme: { dark: Record<string, string> } }
@@ -58,7 +58,7 @@ function banner(ctx: RenderCtx, width: number, height: number, kind: "x" | "link
   const nameBaseline = height / 2 - (blockTop + blockBottom) / 2
   const tagBaseline = (i: number) => nameBaseline + name.bottom + 36 + i * tagLineHeight
 
-  const out: string[] = []
+  const out: string[] = [background(ctx, page, width, height)]
   if (isX) {
     // The wordmark and its line on the left, the mark on the right, both
     // inside the area X keeps visible.

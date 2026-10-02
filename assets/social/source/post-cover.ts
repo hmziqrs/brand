@@ -3,7 +3,7 @@
 // and the plan's). The sample post in settings proves the template; real
 // covers render from each post's own title and date.
 import { family } from "../../../packages/brand-core/src/family.ts"
-import { type Ctx, mark, measure, png, text, wrap, wordmark } from "./parts.ts"
+import { background, type Ctx, mark, measure, png, text, wrap, wordmark } from "./parts.ts"
 import { settings, sizes } from "./settings.ts"
 
 type RenderCtx = Ctx & { theme: { dark: Record<string, string> } }
@@ -52,6 +52,7 @@ function cover(ctx: RenderCtx, width: number, height: number, title: string, dat
   const markRowCenter = pad + markSize / 2
 
   const body = [
+    background(ctx, page, width, height),
     `<g transform="translate(${pad} ${pad})">${mark(ctx, page, blog.symbol, markSize)}</g>`,
     name.svg(pad + markSize + 36, markRowCenter - (nameInk.top + name.bottom) / 2),
     ...lines.map((line, i) =>

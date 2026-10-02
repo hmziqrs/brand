@@ -8,7 +8,7 @@
 // Pure template code, like the test card: everything comes from brand-core
 // and the settings, through the engine's render call.
 import { family } from "../../../packages/brand-core/src/family.ts"
-import { type Ctx, mark, measure, png, text, wrap, wordmark } from "./parts.ts"
+import { background, type Ctx, mark, measure, png, text, wrap, wordmark } from "./parts.ts"
 import { settings, sizes } from "./settings.ts"
 
 type RenderCtx = Ctx & { theme: { dark: Record<string, string> } }
@@ -57,6 +57,7 @@ function siteCard(ctx: RenderCtx, scale: CardScale, id: string): Buffer {
 
   const site2 = wordmark(ctx, page, name, { size: nameSize })
   const body = [
+    background(ctx, page, W, H),
     `<g transform="translate(${pad} ${pad})">${mark(ctx, page, symbol, markSize)}</g>`,
     ...lines.map((line, i) => text(ctx, line, pad, firstBaseline + i * lineHeight, opts(size), ctx.svgPaint(ctx.color(page, "foreground")))),
     site2.svg(pad, H - pad - site2.bottom),

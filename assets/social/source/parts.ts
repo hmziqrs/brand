@@ -145,6 +145,15 @@ export function wordmark(ctx: Ctx, page: Record<string, string>, name: string, o
   return { svg, width: letters.width + gap + square, bottom: Math.max(letters.bottom, 0) }
 }
 
+/** The card's own canvas: the page's background token, full bleed. Dark is
+ *  the brand's default page, and the card's text resolves from that palette —
+ *  so every card carries its background with it, or a platform compositing on
+ *  white swallows the light ink. First element of a body, so it sits under
+ *  everything. */
+export function background(ctx: Ctx, page: Record<string, string>, width: number, height: number): string {
+  return `<rect x="0" y="0" width="${round(width)}" height="${round(height)}" ${ctx.svgPaint(ctx.color(page, "background"))}/>`
+}
+
 /** Renders a card to PNG with the static fonts, system fonts off. */
 export function png(ctx: Ctx, width: number, height: number, body: string): Buffer {
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">\n${body}\n</svg>\n`
