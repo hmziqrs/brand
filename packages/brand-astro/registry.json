@@ -1113,6 +1113,21 @@
 			]
 		},
 		{
+			"name": "inline-code",
+			"type": "registry:file",
+			"title": "inline-code",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/components/inline-code.astro",
+					"target": "src/components/brand/components/inline-code.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
 			"name": "install-steps",
 			"type": "registry:file",
 			"title": "install-steps",
@@ -1235,6 +1250,7 @@
 				"@hmziq/hero-notes",
 				"@hmziq/hero-title",
 				"@hmziq/icon-tile",
+				"@hmziq/inline-code",
 				"@hmziq/install-steps",
 				"@hmziq/kicker",
 				"@hmziq/kind-tag",
@@ -1349,11 +1365,6 @@
 				"@hmziq/workspace-switcher"
 			],
 			"files": [
-				{
-					"path": "src/components/inline-code.astro",
-					"target": "src/components/brand/components/inline-code.astro",
-					"type": "registry:file"
-				},
 				{
 					"path": "src/index.ts",
 					"target": "src/components/brand/index.ts",

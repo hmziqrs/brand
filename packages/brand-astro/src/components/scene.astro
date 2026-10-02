@@ -69,12 +69,19 @@ const { kind, seed, settings, controls = true, still, class: className, ...rest 
   import type { SceneHandle, SceneKind } from "@hmziq/brand-core/motion/scenes";
 
   const scenes = new WeakMap<HTMLElement, SceneHandle>();
+  // Roots this script has already initialized. `astro:page-load` fires for
+  // the first page too when a site uses the <ClientRouter />, and the
+  // top-level pass below runs there as well; the guard makes the overlap a
+  // no-op instead of a second mount.
+  const started = new WeakSet<HTMLElement>();
 
   function showFallback(root: HTMLElement) {
     root.querySelector<HTMLElement>("[data-scene-fallback]")?.removeAttribute("hidden");
   }
 
   function init(root: HTMLElement) {
+    if (started.has(root)) return;
+    started.add(root);
     const host = root.querySelector<HTMLElement>("[data-scene-host]");
     if (!host) return;
     if (!canRunScenes()) {
@@ -102,6 +109,13 @@ const { kind, seed, settings, controls = true, still, class: className, ...rest 
       })
       .catch(() => showFallback(root));
   }
+
+  // A site with view transitions reruns the loop below on every navigation:
+  // astro:page-load fires after each swap (and once for the first page).
+  // A site without them never fires the event at all, so the scenes on the
+  // first page are initialized here too — the script is a module, deferred
+  // until the document is parsed.
+  for (const root of document.querySelectorAll<HTMLElement>("[data-slot='scene']")) init(root);
 
   document.addEventListener("astro:page-load", () => {
     for (const root of document.querySelectorAll<HTMLElement>("[data-slot='scene']")) init(root);

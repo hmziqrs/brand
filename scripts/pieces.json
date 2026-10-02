@@ -150,6 +150,16 @@
       "astroItem": "copy-button"
     },
     {
+      "name": "InlineCode",
+      "group": "brand",
+      "lab": "custom-code-block--rust",
+      "svelte": "custom-code-block--inline",
+      "astro": "inline-code",
+      "svelteFile": "components/inline-code.svelte",
+      "svelteItem": "inline-code",
+      "astroItem": "inline-code"
+    },
+    {
       "name": "Command",
       "group": "brand",
       "lab": null,

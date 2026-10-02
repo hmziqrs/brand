@@ -120,7 +120,7 @@ import { hmziqCode } from "@hmziq/brand-core/code-theme"
 
 - **React:** see `apps/lab/src/components/brand/code-block.tsx` (a synchronous highlighter with only the languages the site needs, and a copy button).
 - **Svelte / SvelteKit:** `codeToHtml(code, { lang, theme: hmziqCode })` on the server or at build time.
-- **Astro:** pass the same theme object to `markdown.shikiConfig.theme` in `astro.config`. Not yet tried in a real Astro project; compare with the Storybook.
+- **Astro:** leave the built-in highlighter off (`markdown.syntaxHighlight: false`) and run core's Markdown plugins through `markdown.processor`, as `boilerplates/astro-app/astro.config.mjs` does — fenced code is highlighted by core's `code-meta` rehype plugin with `hmziqCode`, so Astro pages and SvelteKit pages get the same markup (section 8, "Markdown"). Code outside Markdown uses the kit's `CodeBlock`, tokenized at build time.
 - **Dioxus or anything else:** highlight at build time with Shiki, or point another highlighter's token classes at the `--code-token-*` variables.
 
 Code blocks sit on `--code-background` (the card color) with `--code-foreground` text.
@@ -456,7 +456,7 @@ The real file lives at `packages/brand-core/theme.css` in the brand repo. This b
 
 ### 3.1 Starwind UI adapter (Astro)
 
-Starwind uses shadcn's names plus a few of its own. Add this after `theme.css`. It has not been tested in a real Starwind project yet, so check the result against the Storybook.
+Starwind uses shadcn's names plus a few of its own. Add this after `theme.css`. It has been tested in a real Starwind build (the `brand-astro` kit) and is correct as written. Two lines of Starwind's own stylesheet must be deleted along with its default colors, or they override `theme.css`: the `@custom-variant dark` line (core's keeps `.light` bands working inside dark pages, section 3 part 4) and the `--radius-*` scale above `xs` (core's values differ above `--radius-xl`, and the corner rules use them). Only `--radius-xs` stays — core has no equivalent.
 
 ```css
 :root,
@@ -915,7 +915,7 @@ Blocks never read the URL or navigate. The page passes the current path in and h
 
 #### Markdown
 
-Content pages are written in Markdown: content collections in Astro, mdsvex in SvelteKit. Both run the same plugins from `@hmziq/brand-core/markdown` — `callout`, `code-meta`, `heading-anchor`, `table` — with Shiki highlighting from `@hmziq/brand-core/code-theme`. The framework's built-in highlighter stays off, so both kits produce the same markup.
+Content pages are written in Markdown: content collections in Astro, mdsvex in SvelteKit. Both run the same four plugins, each imported from its own entry under `@hmziq/brand-core/markdown/` — `callout`, `code-meta`, `heading-anchor` and `table` — with Shiki highlighting from `@hmziq/brand-core/code-theme`. The framework's built-in highlighter stays off, so both kits produce the same markup.
 
 | In Markdown | Renders as |
 | --- | --- |

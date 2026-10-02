@@ -260,10 +260,11 @@ Needs only structure.md, so it can run alongside step 1.
 - axe (the browser extension or `@axe-core/cli`) shows zero violations on each `/kit` page.
 - The checks pass (including `check:parity`), and each failing example file fails.
 - `astro-app`'s landing page ships no JS apart from interactive pieces, with no theme flash on load.
-- No Starwind component fills a status color solid.
+- No Starwind component fills a status color solid behind text. The Progress and Slider indicators keep their solid fills — nothing is printed on them; the kit's README records that exception.
 
-**Step 2 status (updated 2026-10-01).** The foundation is built; the porting
-and the boilerplate are not. Done:
+**Step 2 status (updated 2026-10-02).** The foundation is built; the pieces
+are ported (2.5 below) and the boilerplate exists (content-blocks.md step 3,
+app-blocks.md phase 10). Done:
 
 - Step 2.1's tests, in a scratch Astro 7 app. Starwind 3.3 / registry 2.2 /
   runtime 1.2.1. Findings, kept in `packages/brand-astro/README.md`:
@@ -284,16 +285,31 @@ and the boilerplate are not. Done:
   of Starwind's own lines must be deleted from `kit.css` alongside its
   colors, or they override core: the `@custom-variant dark` line (core's
   keeps `.light` bands working) and the `--radius-*` scale above `xs`. Both
-  are done; step 2.8's BRAND.md update should say so.
+  are done, and section 3.1 says so (step 2.8 applied: section 2's Astro
+  line and section 3.1's adapter note, 2026-10-02).
 - `check-colors` and `check-motion` read `.astro` files and scan
   `packages/brand-astro/src` (stock `starwind/` exempt from colors only) and
   `boilerplates/astro-app/src`, with self-testing examples in
   `scripts/examples/`. A scan folder that doesn't exist yet is warned about,
   not fatal, so the checks pass before the boilerplate exists.
 
-Still open in this step: `astro-app` with its `/kit` gallery (2.6), the root
-build script (2.7), the BRAND.md edits (2.8), `check:parity` and
-`pnpm compare`, and `.astro` in `.gitignore` (repo setup).
+Still open in this step: the axe pass over the `/kit` pages. Everything else
+this step listed as open has landed: `astro-app` with its `/kit` gallery
+(2.6), the root build script (2.7), the BRAND.md edits (2.8), `check:parity`
+(it also verifies every roster piece's Astro kit file, and that every
+gallery anchor belongs to the roster), `pnpm compare` and `.astro` in
+`.gitignore`. `pnpm compare` ran over the whole roster on 2026-10-02: the
+report in `compare/` (git-ignored) carries every piece's lab, Svelte and
+Astro shots in both themes at 360px and 1280px — the Astro half for the
+first time — and the Astro views match their references (checked across the
+lab-story brand pieces and site, content and app samples; the kit's own
+`Scene` was separately verified to mount on sites without view transitions,
+which the `astro:page-load`-only init had left blank). That first run built
+each Astro URL from the piece's roster group, so the ten content pieces
+that live in the site gallery (Prose … Kicker) were shot on `/kit/content`,
+a page that never carries their anchors; compare now reads each anchor's
+gallery page from the gallery pages themselves, the way `check:parity`
+does, and those ten were re-shot on `/kit/site` and re-checked.
 
 **Step 2.5 status (updated 2026-10-01).** The pieces are ported. Every brand
 piece from the kits.md table is in `packages/brand-astro/src/components/`,
@@ -347,10 +363,12 @@ Content blocks and app blocks are added to the registries as their plans finish 
 - `pnpm check:fresh-copy svelte` and `pnpm check:fresh-copy astro` both pass.
 - BRAND.md tells a new site how to install the brand without reading these plans.
 
-**Step 3 status (updated 2026-10-01).** The machinery is built and both
-fresh-copy checks pass against a locally served registry; the actual npm
-publish and the first Pages deploy of the registries are the by-hand release
-steps below. Done:
+**Step 3 status (updated 2026-10-02).** The machinery is built and both
+fresh-copy checks pass against a locally served registry — re-run 2026-10-02
+after the content and app blocks landed in the registries (181 Svelte items,
+170 Astro items, each check installs every item and builds the copy); the
+actual npm publish and the first Pages deploy of the registries are the
+by-hand release steps below. Done:
 
 - LICENSE (MIT) at the root, and `@hmziq/brand-core` is publishable:
   `license`/`repository` fields, its own README and LICENSE, and a tsup build
@@ -399,11 +417,13 @@ steps below. Done:
   (scripts/new-project.mjs): copies the boilerplate, points
   `@hmziq/brand-core` at the published version (`--core` overrides, e.g. a
   `pnpm pack` tarball before a release), writes the `components.json` the
-  CLIs need, points `$brand` at the installed kit folder, rewrites the two
-  in-repo-only lines (the Astro stylesheet's `@source` for the kit, and the
-  svelte config's relative imports of core's Markdown plugins, which the
-  config's own comment asks for), installs, and adds the whole kit from the
-  registry. No import in the boilerplate changes.
+  CLIs need, points `$brand` at the installed kit folder, rewrites the
+  in-repo-only lines (each stylesheet's `@source` for the kit — the Svelte
+  one to the folder the kit installs into, the Astro one away, since the kit
+  sits inside `src/` in a copy — and the svelte config's relative imports of
+  core's Markdown plugins, which the config's own comment asks for),
+  installs, and adds the whole kit from the registry. No import in the
+  boilerplate changes.
 - `pnpm check:fresh-copy <svelte|astro>` (scripts/check-fresh-copy.mjs):
   builds the registries, serves them from `scripts/serve-registries.mjs`
   (a separate process — the installs run under `spawnSync`), runs

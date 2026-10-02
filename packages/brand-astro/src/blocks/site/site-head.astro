@@ -1,5 +1,10 @@
 ---
+import { color, readTheme, toHex } from "@hmziq/brand-core/color";
 import { family } from "@hmziq/brand-core/family";
+// theme.css, read as text, so the browser-chrome colors below come from the
+// theme itself instead of a second copy of them here — the same as the
+// Svelte kit's SiteHead.
+import themeCss from "@hmziq/brand-core/theme.css?raw";
 
 /*
  * The page head for one site: title, description, canonical URL, the OG and
@@ -29,10 +34,13 @@ const entry = family.find((f) => f.id === site);
 const siteName = entry?.name ?? site;
 const origin = url ? new URL(url).origin : undefined;
 const social = image ?? (origin ? `${origin}/og.png` : undefined);
-/* The page backgrounds, written as rgb() so the color check can tell them
-   from a hand-typed component color (they are the same near-black and
-   white the Svelte kit's SiteHead carries). */
-const theme = { dark: "rgb(10 10 10)", light: "rgb(255 255 255)" };
+// The page backgrounds, read from core's theme at build time so they can't
+// drift from it (they land as hex, like the Svelte kit's SiteHead).
+const tokens = readTheme(themeCss);
+const theme = {
+  dark: toHex(color(tokens.dark, "background").rgb),
+  light: toHex(color(tokens.light, "background").rgb),
+};
 ---
 
 <title>{title}</title>

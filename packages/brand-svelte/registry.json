@@ -1060,9 +1060,6 @@
 				"@lucide/svelte@^1.49.0"
 			],
 			"registryDependencies": [
-				"local:ui-checkbox",
-				"local:ui-command",
-				"local:ui-popover",
 				"local:utils"
 			],
 			"files": [
@@ -1246,6 +1243,21 @@
 			]
 		},
 		{
+			"name": "inline-code",
+			"type": "registry:lib",
+			"title": "inline-code",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"dependencies": [],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/lib/components/inline-code.svelte",
+					"type": "registry:file",
+					"target": "components/inline-code.svelte"
+				}
+			]
+		},
+		{
 			"name": "install-steps",
 			"type": "registry:lib",
 			"title": "install-steps",
@@ -1375,6 +1387,7 @@
 				"local:hero-notes",
 				"local:hero-title",
 				"local:icon-tile",
+				"local:inline-code",
 				"local:install-steps",
 				"local:kicker",
 				"local:kind-tag",
@@ -1493,11 +1506,6 @@
 				"local:workspace-switcher"
 			],
 			"files": [
-				{
-					"path": "src/lib/components/inline-code.svelte",
-					"type": "registry:file",
-					"target": "components/inline-code.svelte"
-				},
 				{
 					"path": "src/lib/index.ts",
 					"type": "registry:file",

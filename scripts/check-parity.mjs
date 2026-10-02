@@ -104,6 +104,15 @@ for (const piece of roster) {
   if (!piece.svelteFile || !existsSync(file)) {
     problems.push(`${piece.name}: missing from the Svelte kit (${piece.svelteFile ?? "no file recorded"})`);
   }
+  // The Astro kit's file for the piece, derived the way the registry
+  // generator derives it (generate-registries.mjs): `astroFile` when the
+  // piece records one, else the Svelte path with its extension swapped. A
+  // story file has no Astro twin to check — stories never ship (the table
+  // recipe is a pattern, not an installable piece).
+  const astroFile = piece.astroFile ?? piece.svelteFile?.replace(/\.svelte$/, ".astro");
+  if (astroFile && !astroFile.endsWith(".stories.astro") && !existsSync(join(root, "packages/brand-astro/src", astroFile))) {
+    problems.push(`${piece.name}: missing from the Astro kit (${astroFile})`);
+  }
   if (piece.svelte && piece.svelte !== NOT_YET && !svelteStories.has(piece.svelte)) {
     problems.push(`${piece.name}: no Svelte story ${piece.svelte}`);
   }
@@ -126,6 +135,13 @@ for (const piece of roster) {
 const rosterTitles = new Set(roster.filter((p) => p.svelte && p.svelte !== NOT_YET).map((p) => p.svelte.split("--")[0]));
 for (const id of svelteStories) {
   if (!rosterTitles.has(id.split("--")[0])) problems.push(`Svelte story ${id} is not in the roster`);
+}
+
+// And the same for the Astro gallery: every `piece-…` anchor it carries
+// belongs to a piece in the roster, so a stray or renamed anchor is caught.
+const rosterAnchors = new Set(roster.filter((p) => p.astro && p.astro !== NOT_YET).map((p) => p.astro.replace(/^piece-/, "")));
+for (const anchor of astroGallery) {
+  if (!rosterAnchors.has(anchor)) problems.push(`Astro gallery anchor ${anchor} is not in the roster`);
 }
 
 const byGroup = {};
