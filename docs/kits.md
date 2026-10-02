@@ -98,7 +98,7 @@ packages/brand-astro/
 Every plan adds its own pieces to the roster. Two tools read it:
 
 - **`pnpm check:parity`** fails when a piece in the roster is missing from either kit, from either kit's stories or gallery, or from either registry. A piece can be marked "not yet" while its plan is in progress. It runs in `pnpm check`.
-- **`pnpm compare <piece|group>`** (`scripts/compare.mjs`, with Playwright) screenshots the lab story, the Svelte story and the Astro gallery entry, in light and dark, at 360px and 1280px. It lays them side by side in `compare/` (git-ignored). When a piece has no lab story (the app blocks), the Svelte story is the reference. `pnpm compare --pages <path>` does the same for a demo page in both boilerplates. Every "matches" check in these plans is done from this report.
+- **`pnpm compare <piece|group>`** (`scripts/compare.mjs`, with Playwright) screenshots the lab story, the Svelte story and the Astro gallery entry, in light and dark, at 360px and 1280px. It lays them side by side in `compare/` (git-ignored). When a piece has no lab story (the app blocks), the Svelte story is the reference. `pnpm compare --pages <path>` does the same for a demo page in both boilerplates. The report relays every shot in the folder, not just the latest run's — so a page-pair run no longer drops the per-piece rows a full run laid down — and `pnpm compare --report` rebuilds it from what is there without shooting anything. Every "matches" check in these plans is done from this report.
 
 ## Boilerplates
 
@@ -196,7 +196,10 @@ The Svelte Storybook lists the lab's Storybook as a ref, so one sidebar shows bo
 - `packages/brand-svelte` is `sv create` (library) + Tailwind 4 + `shadcn-svelte init`
   (Vega preset, base neutral), with the CSS file at `src/lib/styles/kit.css` and every
   alias on `$brand/…` (a SvelteKit `kit.alias`, handed to Vite and TypeScript both).
-  The color variables init wrote are deleted; `kit.css` loads the framework CSS and
+  The SvelteKit options — adapter, `$brand`, runes mode — live in the
+  `svelte.config.js` the tree above lists; `vite.config.ts` keeps only the Vite
+  half (Tailwind plugin, SSR externals). The color variables init wrote are deleted;
+  `kit.css` loads the framework CSS and
   nothing else. The stock set the pieces build on is in `ui/` (button, card, alert,
   table, tooltip, input-group) with the lab's two changes applied — the list is in the
   kit's README, with what was compared against what.
@@ -221,7 +224,9 @@ The Svelte Storybook lists the lab's Storybook as a ref, so one sidebar shows bo
   "not yet" until step 2's gallery exists.
 - axe: 96 stories, 0 violations (`pnpm check:a11y` in the kit, with Storybook running).
   The two page-scope rules are off in the preview config — a story is a component in an
-  iframe, and the lab's stories report exactly those two and nothing else.
+  iframe, and the lab's stories report exactly those two and nothing else. Re-run
+  2026-10-02 after the round-2 fixes and the config split below: 313 stories (the
+  content and app plans grew the set), still 0 violations.
 - `boilerplates/svelte-app` builds: landing page from the site blocks with example copy,
   the lab's not-found design as `+error.svelte`, dark before first paint with a
   remembered light toggle, a placeholder icon pack, and `SiteHead` in the layout.
@@ -293,8 +298,34 @@ app-blocks.md phase 10). Done:
   `scripts/examples/`. A scan folder that doesn't exist yet is warned about,
   not fatal, so the checks pass before the boilerplate exists.
 
-Still open in this step: the axe pass over the `/kit` pages. Everything else
-this step listed as open has landed: `astro-app` with its `/kit` gallery
+The `/kit` axe pass has run and is clear: `pnpm --filter @hmziq/brand-astro
+check:a11y` (`packages/brand-astro/scripts/axe.mjs`, with the gallery server
+running) reports 0 violations across the five gallery pages (2026-10-02;
+it reported 7 before the fixes; re-run in round 3 from a gallery server
+started fresh at the round-3 tree — still 5 pages, 0 violations). What
+that took:
+
+- The vendored `AlertTitle` renders a `<div>`, not Starwind's `<h5>` — the
+  lab's AlertTitle is a plain div (porting rule 1), and the h5 was the
+  `heading-order` hit on `/kit/brand` and `/kit/app`.
+- The stock `Combobox`'s icon-only trigger names itself
+  (`aria-label="Toggle suggestions"`, beside Starwind's own "Clear
+  selection"), and the `/kit/app` demo's bare password input carries an
+  `aria-label`.
+- `/kit/app` wears the `AppShell` it documents instead of nesting a demo
+  shell inside the site layout's `<main>` — a shell is a whole page (its
+  nav, its main), and nesting one stacked two mains and two "Main" navs on
+  one document. The page keeps the top layout (no `/app` page wears it);
+  the sidebar one is every `/app` page's.
+- Landmarks that share a name on one gallery page got their own, the way
+  the content gallery's two PostContents already had: the DetailSection
+  demo names itself for screen readers beside the same-titled
+  SettingsSection demo, and the second TablePagination demo's nav is
+  "Pages, last page" (`navLabel` prop, default "Pages"). DetailSection also
+  takes an `aria-labelledby` override now — a literal beside `{...rest}`
+  rendered the attribute twice and the browser kept the first.
+
+Everything else this step listed as open has landed: `astro-app` with its `/kit` gallery
 (2.6), the root build script (2.7), the BRAND.md edits (2.8), `check:parity`
 (it also verifies every roster piece's Astro kit file, and that every
 gallery anchor belongs to the roster), `pnpm compare` and `.astro` in
@@ -309,7 +340,48 @@ each Astro URL from the piece's roster group, so the ten content pieces
 that live in the site gallery (Prose … Kicker) were shot on `/kit/content`,
 a page that never carries their anchors; compare now reads each anchor's
 gallery page from the gallery pages themselves, the way `check:parity`
-does, and those ten were re-shot on `/kit/site` and re-checked.
+does, and those ten were re-shot on `/kit/site` and re-checked. Since
+`/kit/app` put on the shell, the app group's Astro views have been re-shot
+(the page's chrome changed, not the pieces), and the report now relays
+every shot in the folder — a later `--pages` run had been laying its 21
+page pairs over the per-piece rows, which no longer happens.
+
+The whole report was re-captured on 2026-10-02 evening, after the round-2
+fix round — it had last been generated at 12:57, before those commits, so
+nothing they touched was verified against the fixed code. Both runs went
+from servers started after the fixes: the 23 boilerplate page pairs first
+(`/blog` and `/blog/example-every-element` added, the pages the blog-layout
+fix touched), then the whole roster — 136 pieces, 1236 shots, no
+unreachable view — with the app group's Astro half taken again once
+`/kit/app` wore the shell. Reading the fresh report back: the pieces round
+2 touched were checked across their rows — FilterChip, UsageMeter,
+SortMenu, RowActions, AppShell, AppPageHeader, AppTableFrame, ErrorState,
+BlogLayout, Wordmark, Scene — the Astro gallery views matching their Svelte
+references, with the SortMenu and RowActions triggers also measured equal
+where they render (32×32 buttons, 16px icons, the 1.75px brand stroke).
+
+Round 3 then found the evening capture still owed two debts, and paid
+both. First, the content-page demo pairs (about, docs, faq, 404, terms, …)
+had been left from the morning run on the theory that the fix commits
+never touched them — false: the round-2 commits rewrote svelte-app's
+`app.css` and `theme.svelte.ts` (every svelte-app page renders them) and
+core's markdown callout, whose tone classes the docs pages print. Second,
+InlineCode's roster entry pointed its lab half at `custom-code-block--rust`
+— CodeBlock's story — so that row could never match; it now points at
+`custom-code-block--inline`. The whole report was then re-shot once more,
+from five servers started after every fix commit: the 12 content pairs,
+the landing pair, the 22 `/app` and `/blog` pairs (the re-keyed demo
+pages), and the ten roster pieces the shell/states/tables/logo-story
+commit touched (Wordmark, Scene, AppShell, AppPageHeader, SettingRow,
+ErrorState, FilterChip, AppTableFrame, AuthLayout, UsageMeter). No shot in
+`compare/` predates the 14:06 commits any more (1516 shots, 171 subjects),
+and the byte-identity read is now **thirteen** lab↔Svelte pairs — every
+brand piece with a lab story but `Scene`, which animates (Wordmark's
+byte-identity survived its round-2 story changes; InlineCode joined the
+set with its roster fix). The docs pages' callouts were verified to carry
+their real tone borders in both boilerplates' fresh shots, and the Astro
+gallery's FilterChip section was compared element-for-element against its
+Svelte reference.
 
 **Step 2.5 status (updated 2026-10-01).** The pieces are ported. Every brand
 piece from the kits.md table is in `packages/brand-astro/src/components/`,
@@ -434,16 +506,31 @@ by-hand release steps below. Done:
   table, section 9's "Where things live" points at the kits, section 14
   names the registry per framework.
 
-Still open in this step:
+Deferred, not open — the release steps, which run by hand (the master
+plan's "Decisions"):
 
 - The release itself: `pnpm changeset version` (0.1.0 with the changeset in
   `.changeset/`), `pnpm changeset publish` (needs npm login; the @hmziq
   scope has to exist), then push so the Pages workflow ships `/r/svelte/`,
-  `/r/astro/` and `/theme.css`. Until then the registries are not deployed
-  and `check:fresh-copy`'s registry stays local.
-- The "look like the references" half of the done-when: the fresh copies
-  build, but nobody has compared their landing pages side by side with the
-  lab's yet (`pnpm compare --pages`, after the Storybook/registry deploy).
+  `/r/astro/` and `/theme.css`. Until it runs, `@hmziq/brand-core` is 0.0.0
+  and not on npm and the live Pages site serves none of the distribution
+  table's kit-era URLs, so the public paths in BRAND.md section 2 are
+  pending it and `check:fresh-copy`'s registry stays local. Everything the
+  release would upload is verified against those local bytes: the copies
+  install core from the `pnpm pack` tarball and the kits from a served
+  `dist/registries` build. Re-run both fresh-copy checks against the public
+  npm package and registry URLs once the release is out.
+- The "look like the references" half of the done-when is verified on that
+  same pre-release path (2026-10-02, round 3). The `--keep` copies both
+  fresh-copy checks built — core from the pack tarball, the whole kit from
+  the served registry — were previewed beside the built in-repo
+  boilerplates, and their `/`, `/about`, `/blog` and `/app/overview` pages
+  are byte-identical screenshots in all 32 pairs (both frameworks, light
+  and dark, 360px and 1280px, full page, the `compare.mjs` method). The
+  references are themselves the matched views — step 1 matched svelte-app's
+  landing to the lab's, step 2 the whole roster — so the fresh copies look
+  like the references. Reading that half against the public registry URLs
+  rides with the release above.
 
 ## Not in this plan
 
