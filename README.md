@@ -1,6 +1,6 @@
 # hmziq brand
 
-One brand kit that installs into every hmziq site and app. This repo holds the framework-free core of the brand, the React design lab it was worked out in, and — as the plans in [`docs/README.md`](./docs/README.md) land — a Svelte kit, an Astro kit and two starter apps.
+One brand kit that installs into every hmziq site and app. This repo holds the framework-free core of the brand, the React design lab it was worked out in, a Svelte kit, an Astro kit and two starter apps; [`docs/README.md`](./docs/README.md) is the master plan they were built from.
 
 - **Core**: [`packages/brand-core/`](./packages/brand-core/), `@hmziq/brand-core`. Everything not tied to a framework: `theme.css` (Tailwind v4 + shadcn/ui tokens, dark by default, oxide orange as the brand color), color math and contrast, the logo recipe, ring art and 3D scenes, the Shiki code theme, and the site roster. Both kits and the lab import it; nothing else is shared by copy.
 - **Lab**: [`apps/lab/`](./apps/lab/), the React app the brand was designed in. Every shadcn/ui component (Base UI, Vega style), the brand pieces (Wordmark, Mark, Marker, Rings, Tag, IconTile, Notice, CodeBlock, BrandIcon), a finished landing page for every hmziq site, more content pages, five SaaS templates, the tweakers, and the Storybook that shows all of it. Not shipped: it stays as the picture the kits have to match.
@@ -14,6 +14,9 @@ One brand kit that installs into every hmziq site and app. This repo holds the f
 brand/
 ├── apps/lab/              the React design lab (Storybook, sites, templates, tweakers)
 ├── packages/brand-core/   @hmziq/brand-core: theme, colors, logo, rings, code theme
+├── packages/brand-svelte/ the Svelte kit
+├── packages/brand-astro/  the Astro kit
+├── boilerplates/          the svelte-app and astro-app starters
 ├── assets/                generated brand assets: fonts, logos, icon packs, social images
 ├── docs/                  the master plan and its plan docs
 ├── scripts/               the brand checks and generators
@@ -21,7 +24,7 @@ brand/
 └── BRAND.md · README.md
 ```
 
-The Svelte and Astro kits (`packages/brand-svelte`, `packages/brand-astro`) and the starters (`boilerplates/svelte-app`, `boilerplates/astro-app`) arrive with the plans in `docs/`; the workspace already knows about those folders.
+The Svelte and Astro kits (`packages/brand-svelte`, `packages/brand-astro`) and the starters (`boilerplates/svelte-app`, `boilerplates/astro-app`) are built and in the workspace; [`docs/kits.md`](./docs/kits.md) is their plan.
 
 ## Run it
 
@@ -41,7 +44,7 @@ Root commands. The build ones run through the workspace:
 | `pnpm build-storybook` | Static builds of both Storybooks: the Svelte kit's (the Pages site root) and the lab's (under `/lab/`) |
 | `pnpm dev` | The lab's Vite dev server. Each site full-window at http://localhost:5173, picked by hash: `#freeoxide`, `#gpui-starter`, `#gpui-query`, `#claude-multi`, `#oxlabs`, `#blog`, `#labs` (default: hmziq). The SaaS templates: `#saas-sightline`, `#saas-hookline`, `#saas-groundwork`, `#saas-parley`, `#saas-openslot` |
 | `pnpm build` | Production builds of core, the lab and both boilerplates (`svelte-app`, `astro-app`) |
-| `pnpm typecheck` | TypeScript across core and the lab (`tsc`), plus `astro check` on the Astro kit |
+| `pnpm typecheck` | TypeScript across core and the lab (`tsc`), plus `astro check` on the Astro kit and the `astro-app` starter |
 | `pnpm test` | Core's Vitest tests |
 | `pnpm check:assets` | Fails if the generated assets (logos, icon packs, social images) or the lab's copy of the hmziq pack are out of date (`pnpm render-assets` fixes them) |
 | `pnpm check:motion` | Fails if anything moves on hover, press or focus (brand rule) |
