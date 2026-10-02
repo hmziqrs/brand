@@ -63,8 +63,8 @@
 	</span>
 	{#if status === "pending"}
 		<!-- The same two lines SkeletonStats draws, so a pending card holds
-		     exactly the size the number will land in. -->
-		<Skeleton class="h-7 w-20" />
+		     exactly the size the number and the trend will land in. -->
+		<Skeleton class="h-8 w-20" />
 		<Skeleton class="h-4 w-14" />
 	{:else if status === "error"}
 		<ErrorState size="compact" {onRetry} {retryHref} />

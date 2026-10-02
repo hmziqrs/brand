@@ -46,6 +46,12 @@
 	const events = $derived(
 		load.state === 'limit' ? usage.events.limit : usage.events.used,
 	);
+
+	// The events meter's words, exactly as the meter lands them, to size the
+	// pending sketch's ghost text below (the numbers matter: the wrap the
+	// sketch must stand for is the wrap of the real words).
+	const numbers = new Intl.NumberFormat('en-US');
+	const eventsWords = `${numbers.format(usage.events.used)} of ${numbers.format(usage.events.limit)} ${usage.events.unit}`;
 </script>
 
 <svelte:head>
@@ -66,15 +72,30 @@
 {#snippet loadingGrid()}
 	<div class="flex flex-col gap-6">
 		<SkeletonStats count={4} />
-		<!-- The meters' panel, sketched in the shapes the meters draw: a
-		     label, the bar, the words for the two bar meters (the events
-		     words wrap to two lines, so their bar is two lines tall); the
-		     ring (size-18) with its two lines beside it for seats. -->
+		<!-- The meters' panel, sketched in the shapes the meters draw: the
+		     bar meters' label, bar and words, and the ring (size-18) with
+		     its two lines beside it for seats. The events meter's label and
+		     words wrap by width — four lines where the shell's sidebar
+		     squeezes the cells, three through the middle widths, two from
+		     lg — a count no fixed rectangle can stand for, so they are
+		     drawn from their own words: invisible text sizes each block
+		     exactly where the real ones wrap, and the Skeleton rides on
+		     top of it. The seats and data-kept words never wrap, so their
+		     blocks stay plain rectangles. -->
 		<div class="grid gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-3">
 			<div class="flex flex-col gap-2 bg-background px-4 py-4">
-				<Skeleton class="h-5 w-24" />
+				<div class="relative text-sm">
+					<span class="invisible text-muted-foreground">Events this month</span>
+					<Skeleton class="absolute inset-0" />
+				</div>
 				<Skeleton class="h-1.5 w-full" />
-				<Skeleton class="h-10 w-full" />
+				<div class="relative text-sm">
+					<span class="invisible">
+						<span class="font-medium">{eventsWords}</span>
+						<span class="text-muted-foreground"> · Resets on {usage.events.resetsOn}</span>
+					</span>
+					<Skeleton class="absolute inset-0" />
+				</div>
 			</div>
 			<div class="flex items-center gap-4 bg-background px-4 py-4">
 				<Skeleton class="size-18 rounded-full" />

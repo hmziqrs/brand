@@ -52,9 +52,10 @@ export function debounced<T>(value: () => T, ms = 250): { readonly current: T } 
 	};
 }
 
-/** Warns before the tab closes or reloads while `dirty()` is true. The
- * browser asks; nothing of ours shows. In SvelteKit the page adds
- * `beforeNavigate` itself, so in-app links are covered where they happen. */
+/** Warns before unsaved work is lost. The browser asks when the tab closes
+ * or reloads, and again when an in-app link would take the changes away —
+ * a capture-phase click guard written on the DOM, so no page needs its
+ * router's navigation API for it. Back and forward stay the browser's. */
 export function unsavedChanges(dirty: () => boolean): void {
 	$effect(() => {
 		const warn = (event: BeforeUnloadEvent) => {
@@ -63,7 +64,39 @@ export function unsavedChanges(dirty: () => boolean): void {
 			// Chrome wants preventDefault, older engines the return value.
 			event.returnValue = "";
 		};
+		// The same question for an in-app link. Capture phase, so it runs
+		// before any router's own click handling — preventDefault is the one
+		// signal both the browser's anchor follow and a client router obey.
+		const guard = (event: MouseEvent) => {
+			if (
+				!dirty() ||
+				event.defaultPrevented ||
+				event.button !== 0 ||
+				event.metaKey ||
+				event.ctrlKey ||
+				event.shiftKey ||
+				event.altKey
+			)
+				return;
+			const anchor =
+				event.target instanceof Element ? event.target.closest<HTMLAnchorElement>("a[href]") : null;
+			if (!anchor) return;
+			const href = anchor.getAttribute("href") ?? "";
+			// New tabs, downloads, other schemes and a link to the page
+			// itself can't take anything away.
+			if (href === "" || href.startsWith("#") || anchor.hasAttribute("download")) return;
+			if (anchor.rel.split(/\s+/).includes("external")) return;
+			if (anchor.target && anchor.target !== "_self") return;
+			const url = new URL(href, location.href);
+			if (url.origin !== location.origin || !/^https?:$/.test(url.protocol)) return;
+			if (url.pathname === location.pathname && url.search === location.search) return;
+			if (!confirm("Leave with unsaved changes?")) event.preventDefault();
+		};
 		window.addEventListener("beforeunload", warn);
-		return () => window.removeEventListener("beforeunload", warn);
+		document.addEventListener("click", guard, true);
+		return () => {
+			window.removeEventListener("beforeunload", warn);
+			document.removeEventListener("click", guard, true);
+		};
 	});
 }
