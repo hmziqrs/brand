@@ -22,6 +22,7 @@
 	import Tag from '$brand/components/tag.svelte';
 	import { Button } from '$brand/ui/button/index.js';
 	import { Input } from '$brand/ui/input/index.js';
+	import { Skeleton } from '$brand/ui/skeleton/index.js';
 	import {
 		fakeRequest,
 		memberById,
@@ -88,6 +89,12 @@
 		return undefined;
 	}
 </script>
+
+<svelte:head>
+	<!-- The record's own name, the way the header reads it; an unknown id
+	     names what the page shows instead. -->
+	<title>{member ? member.name : 'Not found'} — svelte-app</title>
+</svelte:head>
 
 {#snippet twoStep()}
 	{#if member?.twoStep}<Tag tone="success" marker>On</Tag>{:else}<Tag>Off</Tag>{/if}
@@ -157,12 +164,22 @@
 		<DataState status={load.status} loadingLabel="Loading member" class="mt-8 flex flex-col gap-8">
 			{#snippet loading()}
 				<!-- The sections keep their shape: the skeleton stands exactly
-				     where the rows land, inside the same panels. -->
+				     where the rows land, inside the same panels. That includes
+				     the Remove panel, whose skeleton holds the same
+				     paragraph-and-button line the real one draws — two lines
+				     and a full-width button below sm, one line and a button
+				     at home from sm. -->
 				<DetailSection title="Profile">
 					<SkeletonDetails rows={4} />
 				</DetailSection>
 				<DetailSection title="Access">
 					<SkeletonDetails rows={4} />
+				</DetailSection>
+				<DetailSection tone="destructive" title="Remove from workspace">
+					<div class="flex flex-col gap-3 py-4 sm:flex-row sm:items-center sm:justify-between" aria-hidden="true">
+						<Skeleton class="h-10 sm:h-5 sm:w-72" />
+						<Skeleton class="h-9 shrink-0 sm:w-44" />
+					</div>
 				</DetailSection>
 			{/snippet}
 			{#snippet error()}

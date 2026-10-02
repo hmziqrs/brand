@@ -515,6 +515,17 @@ The routes are `/app/settings/*`, using `AppPage width="narrow"` and `AppPageHea
   at 360px on any settings page; `state=pending` and `state=error` wait for
   phase 3's skeleton and `ErrorState`.
 
+**Phase 2 status (updated 2026-10-02, round 2).** One round-1 defect, found
+by the round-2 app-story sweep, is fixed: the `SettingsSection` and
+`SettingRow` stories passed their snippets as text (`<SettingRow
+…>{nameInput}</SettingRow>`), which Svelte 5 compiles to `set_text(text,
+snippet)` — the snippet object rendered as text, throwing
+`snippet_without_render_tag` at runtime and leaving the stories blank (0
+`data-slot` nodes; the earlier compare shots of both pieces were 2–5KB
+solids). The five usages now render through `{@render …()}` and both stories
+render their content again, checked in the running Storybook and by the
+sweep over all 47 app pieces.
+
 ---
 
 ## Phase 3: Empty, error and loading states
@@ -788,12 +799,14 @@ A full example in `table/table-recipe.stories.svelte` ("App/Table recipe") using
   snippet as `selection={count > 0 ? bar : undefined}` is the pattern), and
   `SortableHead` takes a `leading` snippet so the selection column's checkbox
   and the sortable member column share one pinned cell.
-- FilterChip carries its chosen values as hidden `name`d inputs, so the page's
-  GET form keeps the filters and the sort through its own submits; a popover in
-  Svelte needs JavaScript to open, so "Apply" is belt-and-braces here and real
-  in Astro's `details`-based version. Core's `readListParams` now merges a
-  repeated filter name — which is how a GET form submits a multi-select —
-  and core gained `app/format.ts` (`relativeDate`) for the last-active column.
+- FilterChip opens its options in a `details` picker in both kits, so a
+  filter can be chosen with JavaScript off: the rows are real checkbox (or
+  radio) inputs with the param as their `name`, and only values the option
+  list no longer holds ride as hidden `name`d inputs, so the page's GET form
+  keeps the filters and the sort through its own submits. Core's
+  `readListParams` now merges a repeated filter name — which is how a GET
+  form submits a multi-select — and core gained `app/format.ts`
+  (`relativeDate`) for the last-active column.
 - The demo's `/app/members`: the whole list is one GET form; TanStack
   table-core holds the sorting, selection and paging math with the URL as the
   source of truth (`autoResetPageIndex: false`; sorting and pagination are
@@ -951,6 +964,32 @@ The auth pages are in the `(auth)` group, with no shell. Scripted results:
   The actions never hand a password back to a page, and the blocks read no
   URL and no storage.
 
+**Phase 5 status (updated 2026-10-02, round 2).** Three round-1 findings
+are fixed:
+
+- The only round-1 capture came from the wrong server entirely (a port no
+  demo of this repo ever ran on) and stopped after one accessibility dump,
+  so the five auth pages had no evidence. Everything is re-captured through
+  the real triggers (`capture-p5-r2.mjs`, 20 captures): all five pages from
+  the Svelte demo at 1280 — the split sign-in page with the Rings aside, the
+  centered sign-up, the forgot-password success line, the expired reset
+  link and the verify page — each page's scripted results (the wrong
+  password keeping the email and focusing the password, the slow password's
+  pending face, Google's way back in, the taken email's field error, the
+  ticking rules, 000000 and 123456), the sign-in page at 360px, and the
+  same flows from the Astro demo, including the slow post's pending face
+  (the post held at the edge, which is what a slow network looks like from
+  the page).
+- The Astro demo's shared submit script appended its pending label without
+  standing the resting label down, so mid-flight the button read
+  "Sign inSigning in…". The resting label now goes with the pending one, so
+  the button says only "Signing in…" — the same replacement the block's own
+  `pending` render makes.
+- The `AuthLayout` stories passed their form snippet as text
+  (`{form}`), the same Svelte 5 blank-story defect as phase 2's round-2
+  note: the three usages now render through `{@render form()}` and the
+  centered/split layouts render their mock form again.
+
 ---
 
 ## Phase 6: Record details
@@ -1044,6 +1083,22 @@ type DetailSectionProps = {
   endpoint (attachment body, 404 for an unknown id), and all three pages
   at 360px with no horizontal page scroll.
 
+**Phase 6 status (updated 2026-10-02, round 2).** Two round-1 findings
+are fixed in the skeleton:
+
+- `SkeletonDetails`'s bars were a size class short of the rows they stand
+  for (`h-4` against `text-sm`'s 20px line box, the label `w-28` against
+  the real `w-40`), so a panel grew ~16px when the record arrived. The
+  bars now carry the rows' own sizes — `h-5` both, `w-40` label — and the
+  member page's pending window measures its Profile panel at exactly the
+  panel the record lands in (197px at 1280).
+- The member page's pending skeleton rendered only the Profile and Access
+  sections, so the destructive Remove panel popped in after the load. The
+  loading snippet now renders it too, its skeleton holding the same
+  paragraph-and-button line the real panel draws (two lines and a
+  full-width button below `sm`, one line and a button from it), measured
+  at the real panel's height: 70px at 1280, 122px at 360.
+
 ---
 
 ## Phase 7: Metrics and usage
@@ -1108,7 +1163,8 @@ type UsageMeterProps = {
 - The text reads "7,420 of 10,000 events", with `resetsOn` in muted text.
 - The fill is `bg-primary` below `warnAt`, `bg-warning` from `warnAt`, and `bg-destructive` at or over the limit. The bar never has text on it.
 - At or over the limit, `limitMessage` shows as a `text-destructive` line with its icon, plus `action`.
-- With no limit it reads just "7,420 events" and "No limit".
+- With no limit it reads just "7,420 events · No limit" — no bar, no ring, no
+  meter role.
 - The `ring` variant uses the kit's `RingGauge`. Give `RingGauge` a `tone` prop (`"primary" | "warning" | "destructive"`, default `primary`) so the ring follows the same thresholds. Existing uses stay the same.
 - Astro: static, no JS.
 
@@ -1169,6 +1225,44 @@ type UsageMeterProps = {
   written into the contract: the meter needed a name (its label, through
   `aria-labelledby`) and the limit message's action had to sit outside the
   `role="meter"` element (nested interactives).
+
+**Phase 7 status (updated 2026-10-02, round 2).** Four round-1 findings
+are fixed:
+
+- The round-1 vision evidence (the AX snapshot and the three screenshots)
+  was captured from the Astro demo, so the Svelte side was never visually
+  captured, and neither the billing Usage section nor a 768px overview
+  existed as evidence. Everything is re-captured from the Svelte demo
+  (`svelte-app`'s SvelteKit dev server — on 5174 here, 5173 being held by
+  an unrelated project on this machine): the overview at 1280, 768 and 360
+  with its AX trees, `state=limit`, the billing page's Usage section, the
+  pending window measured against the landed page, and the range switch
+  driven 7 → 90 → 30.
+- The overview's pending skeleton did not stand for its content: the
+  loading wrapper carried an extra `mt-2` (an 8px jump) and the
+  meters-panel sketch was ~30px short of the seats ring meter. The wrapper
+  is now the content's own `flex flex-col gap-6`, and the sketch draws the
+  meters' shapes — the events cell with its two wrapped words lines (114),
+  the seats ring at `size-18` (104), data kept (94) — so the panel holds
+  its height through the landing: 116px at 1280 and 316px at 360, identical
+  pending and landed. Two remainders are recorded, not fixed here: above
+  the panel, `SkeletonStats` (phase 3's component) still grows ~34px on
+  landing, and at 768 the real events words wrap to five lines in the
+  squeezed cells (176px against the sketch's 116) — a text-wrap count a
+  rectangle skeleton can't mirror.
+- The overview route imported `$app/navigation` (`goto`), beyond the two
+  modules check item 7 allows routes. The range switch is now
+  `window.location.assign` on the same URL — the one full navigation the
+  Astro demo already makes — so the route keeps to `$app/state` and the
+  range still lands the right numbers per range.
+- With no limit both kits put the suffix on the wrong line: the label read
+  "Events this month · No limit" above a bare count, and the Astro block
+  never rendered the count at all — neither kit ever read the contract's
+  "12 projects · No limit". Both kits now keep the label line bare and put
+  " · No limit" after the words, the way `resetsOn` rides the same line —
+  verified in the running demo and the gallery: "Projects" over "12
+  projects · No limit", with no bar, no ring and no meter role. The
+  meters with limits are unchanged.
 
 ---
 
@@ -1385,7 +1479,7 @@ Needs phases 0–9 and kits.md step 2.
 **Done when:**
 
 - `pnpm compare` (blocks) and `pnpm compare --pages` (demo pages) show every block, page and `state` in `astro-app` matching `svelte-app`, in light and dark, at 360px and 1280px. The lab has no app blocks, so Svelte is the reference.
-- `check:parity` passes with no app block marked "not yet".
+- `check:parity` passes with no app block marked "not yet" — the one standing exception is the table recipe: a pattern to copy, not a shipped component, so `TableRecipe` stays "not yet" in both kits on purpose (phase 9's status explains why its story ships no item).
 - Every scripted failure shows the same message in the same place.
 - Forms and lists work with JS turned off; the keyboard behaves as each block's entry says.
 - Pages with no interactive blocks ship no JS.
@@ -1460,6 +1554,113 @@ Not run here: `pnpm compare` and `pnpm compare --pages` (the side-by-side
 report against the Svelte demo, which the coordinator runs), the axe pass
 over the demo and `/kit` pages, and the full `pnpm check` / `pnpm build`
 gates.
+
+**Phase 10 status (updated 2026-10-02, round 2).** Four round-1 findings
+are fixed:
+
+- No `/app` demo page in either boilerplate set a document title, so every
+  page of the demo rendered an empty `<title>` and failed axe's
+  document-title rule on the demo pages. Every page now names itself the
+  way the rest of each boilerplate does — `Overview — svelte-app`, `Sign in
+  — astro-app`, the member page's own record name, the settings tab, `Not
+  found` for an unknown id — 12 routes in `svelte-app` (through
+  `svelte:head`, 13 including the unknown member) and the same 13 in
+  `astro-app` (a `<title>` Astro hoists into the page's head), checked in
+  the running browsers of both demos at every route.
+- The Astro demo's `/app` pages rendered no `<html>` of their own and no
+  charset declaration anywhere — not in the served `Content-Type` and not
+  in the markup — so the browser sniffed windows-1252 and every `—`, `·`
+  and `…` rendered as mojibake in the actual browser (the titles included:
+  "Overview â€” astro-app", the meters' "Â· Resets on 1 November 2026").
+  Each page now carries `<meta charset="utf-8" />` beside its title, first
+  in the source so it stays within the first 1024 bytes of the document,
+  and every route reads clean: the same titles and meters verified
+  code-point by code-point in the running browser.
+- `pnpm compare` had never produced app artifacts (its report held one
+  landing-page pair; no app block or demo page pair existed). The report
+  now covers the app group end to end — `pnpm compare app`: 47 pieces,
+  each with its Svelte story beside its `/kit/app` gallery entry, in light
+  and dark at 360px and 1280px (376 shots, zero page errors after the
+  story fixes above) — and `pnpm compare --pages` grew to take many routes
+  at once, so one report holds the whole demo side by side: every `/app`
+  route in both boilerplates (the overview, the members list and one
+  record, the four settings pages, the five auth pages, plus the landing
+  page), the state variants that change the layout (`state=empty`, `limit`,
+  two `denied`, an `error`, the reset link `expired`) and one unknown
+  member id — in light and dark at both widths. The two runs each rebuild
+  `compare/index.html`, so the pages report is the one left standing; the
+  blocks shots stay in `compare/` beside it.
+- The phase-2, phase-5 and phase-7 round-2 fixes above (the three blank
+  stories, the pending label, the meter's no-limit reading) are all in the
+  Astro demo's pairs too — the gallery's no-limit meter and both demos'
+  auth pages were re-verified in the same drives.
+
+Not run here: the axe pass over the demo and `/kit` pages and the full
+`pnpm check` / `pnpm build` gates, which the coordinator runs after this.
+
+**Phase 10 status (updated 2026-10-02, round 2, second sweep).** The
+follow-up verification's findings are fixed:
+
+- Seven of the thirteen `/app` routes — every page whose frontmatter read
+  an action's result with `Astro.getActionResult` — served no stylesheet at
+  all: a page that calls it while rendering no `<html>` of its own gets no
+  synthesized head either, and the page's collected styles went with the
+  head. sign-in, sign-up, forgot/reset password, verify-email and the
+  profile and workspace settings pages rendered as bare HTML in dev and the
+  production build alike. The demo's `/app` pages now render inside their
+  own document (`src/components/app/app-document.astro`): a real `<html>`
+  with its charset, viewport, favicon, title and `ThemeInit` — the same head
+  slot every `/kit` and site page uses — so the styles land in a real head
+  on every page, action or not, and the charset and title stopped relying on
+  hoisting. All thirteen routes serve the stylesheet again (checked with
+  `curl` per route, and with every scripted failure driven as a real POST:
+  the wrong password, the taken email and address, the name "fail", the
+  code 000000, the reset's done state and the forgot-password success line
+  all render with their styles in place); the titles read from a real
+  `<head>` on every route, the unknown member id included.
+- The sign-in and sign-up pages never passed the providers to their forms,
+  so "Continue with GitHub/Google" and the Google scripted failure were
+  unreachable from the demo (the parity break the plan's step 2 asks for).
+  Both pages now pass both providers, the same `siGithub`/`siGoogle` shapes
+  the `/kit/app` gallery shows, each pointing at its own page's GitHub and
+  Google endpoints — so the split block above the "or" divider is there, and
+  `?provider=google` seeds the same failure a link there produces.
+- The demo rendered light by default and never applied a remembered theme
+  choice on load, because `/app` had no theme-init anywhere. With
+  `AppDocument` every `/app` page now starts `class="dark"` and runs
+  `ThemeInit`'s before-paint script, the way the Svelte demo's `app.html`
+  does: dark is the default, a remembered light choice applies before first
+  paint, and the user menu's Dark-selected radio now agrees with what the
+  page actually shows.
+- The members page's confirm dialog had an sr-only trigger button that
+  stayed a 22×36 invisible focusable control: Starwind Button's base
+  `h-9`/`px-2.5` utilities override `sr-only`'s 1px sizing in the cascade.
+  The trigger is a plain button now — truly sr-only, and out of the tab
+  order (`tabindex="-1"`), since only the page's own script ever clicks it;
+  a keyboard reader reaches the confirm through the row's own visible
+  "Remove" instead.
+- The built registries on disk were re-verified after the app `astroItem`
+  entries landed: `pnpm registry:generate && pnpm registry:build` ran clean
+  and changed nothing — the served Astro registry holds all 46 app items
+  (every roster entry but `TableRecipe`, which stays "not yet" by design),
+  so a fresh copy installing the kit gets the app blocks.
+- The round-1 evidence set (three of its twelve PNGs byte-identical
+  duplicates of other routes' shots, eight routes with no capture at all)
+  is replaced by `capture-p10-astro-r2.mjs`: every demo route in light and
+  dark at 1280 — the eight routes round 1 never captured included — the
+  overview at 360px, every `state=` variant, the no-results and empty
+  members lists, the unknown member id, the `/kit/app` gallery, and the
+  scripted failures driven as real flows (the wrong password, the taken
+  email, the verify codes, the Google return), each with its document
+  title, html class and stylesheet count recorded beside it.
+- The done-when line above now says outright that `TableRecipe` is the one
+  standing exception to "no app block marked not yet", so the claim and the
+  roster (`check:parity` passes: 136 pieces, 47 app, 313 stories) agree.
+
+Not run here: the axe pass over the demo and `/kit` pages, `pnpm compare`,
+and the full `pnpm check` / `pnpm build` gates, which the coordinator runs
+after this (`astro check` is clean in the boilerplate, and `check:parity`
+passes).
 
 ---
 
