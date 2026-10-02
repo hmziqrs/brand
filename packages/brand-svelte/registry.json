@@ -82,7 +82,7 @@
 			"name": "app-page",
 			"type": "registry:lib",
 			"title": "app-page",
-			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9). The React lab has no app blocks — Svelte is the reference.",
 			"dependencies": [],
 			"registryDependencies": [
 				"local:utils"
@@ -99,7 +99,7 @@
 			"name": "app-page-header",
 			"type": "registry:lib",
 			"title": "app-page-header",
-			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9). The React lab has no app blocks — Svelte is the reference.",
 			"dependencies": [
 				"@hmziq/brand-core@0.0.0",
 				"@lucide/svelte@^1.49.0"
@@ -122,7 +122,7 @@
 			"name": "app-shell",
 			"type": "registry:lib",
 			"title": "app-shell",
-			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9). The React lab has no app blocks — Svelte is the reference.",
 			"dependencies": [
 				"@hmziq/brand-core@0.0.0",
 				"@lucide/svelte@^1.49.0"
@@ -157,7 +157,7 @@
 			"name": "app-table-frame",
 			"type": "registry:lib",
 			"title": "app-table-frame",
-			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9). The React lab has no app blocks — Svelte is the reference.",
 			"dependencies": [],
 			"registryDependencies": [
 				"local:utils"
@@ -212,7 +212,7 @@
 			"name": "auth-layout",
 			"type": "registry:lib",
 			"title": "auth-layout",
-			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9). The React lab has no app blocks — Svelte is the reference.",
 			"dependencies": [],
 			"registryDependencies": [
 				"local:utils"
@@ -333,7 +333,7 @@
 			"name": "bulk-action-bar",
 			"type": "registry:lib",
 			"title": "bulk-action-bar",
-			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9). The React lab has no app blocks — Svelte is the reference.",
 			"dependencies": [],
 			"registryDependencies": [
 				"local:utils"
@@ -497,7 +497,7 @@
 			"name": "collection-toolbar",
 			"type": "registry:lib",
 			"title": "collection-toolbar",
-			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9). The React lab has no app blocks — Svelte is the reference.",
 			"dependencies": [
 				"@lucide/svelte@^1.49.0"
 			],
@@ -581,7 +581,7 @@
 			"name": "confirm-action",
 			"type": "registry:lib",
 			"title": "confirm-action",
-			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9). The React lab has no app blocks — Svelte is the reference.",
 			"dependencies": [
 				"@lucide/svelte@^1.49.0",
 				"svelte-sonner@^1.2.1"
@@ -725,7 +725,7 @@
 			"name": "data-state",
 			"type": "registry:lib",
 			"title": "data-state",
-			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9). The React lab has no app blocks — Svelte is the reference.",
 			"dependencies": [],
 			"registryDependencies": [
 				"local:app-blocks-shared",
@@ -761,7 +761,7 @@
 			"name": "detail-list",
 			"type": "registry:lib",
 			"title": "detail-list",
-			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9). The React lab has no app blocks — Svelte is the reference.",
 			"dependencies": [],
 			"registryDependencies": [
 				"local:copy-button",
@@ -780,7 +780,7 @@
 			"name": "detail-section",
 			"type": "registry:lib",
 			"title": "detail-section",
-			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9). The React lab has no app blocks — Svelte is the reference.",
 			"dependencies": [],
 			"registryDependencies": [
 				"local:utils"
@@ -954,7 +954,7 @@
 			"name": "empty-state",
 			"type": "registry:lib",
 			"title": "empty-state",
-			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9). The React lab has no app blocks — Svelte is the reference.",
 			"dependencies": [
 				"@lucide/svelte@^1.49.0"
 			],
@@ -976,7 +976,7 @@
 			"name": "error-state",
 			"type": "registry:lib",
 			"title": "error-state",
-			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9). The React lab has no app blocks — Svelte is the reference.",
 			"dependencies": [
 				"@lucide/svelte@^1.49.0"
 			],
@@ -1055,7 +1055,7 @@
 			"name": "filter-chip",
 			"type": "registry:lib",
 			"title": "filter-chip",
-			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9). The React lab has no app blocks — Svelte is the reference.",
 			"dependencies": [
 				"@lucide/svelte@^1.49.0"
 			],
@@ -1074,7 +1074,7 @@
 			"name": "forgot-password-form",
 			"type": "registry:lib",
 			"title": "forgot-password-form",
-			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9). The React lab has no app blocks — Svelte is the reference.",
 			"dependencies": [
 				"@lucide/svelte@^1.49.0"
 			],
@@ -1098,7 +1098,7 @@
 			"name": "form-actions",
 			"type": "registry:lib",
 			"title": "form-actions",
-			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9). The React lab has no app blocks — Svelte is the reference.",
 			"dependencies": [
 				"@lucide/svelte@^1.49.0"
 			],
@@ -1638,7 +1638,7 @@
 			"name": "metric-trend",
 			"type": "registry:lib",
 			"title": "metric-trend",
-			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9). The React lab has no app blocks — Svelte is the reference.",
 			"dependencies": [
 				"@lucide/svelte@^1.49.0"
 			],
@@ -1713,7 +1713,7 @@
 			"name": "no-results",
 			"type": "registry:lib",
 			"title": "no-results",
-			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9). The React lab has no app blocks — Svelte is the reference.",
 			"dependencies": [
 				"@lucide/svelte@^1.49.0"
 			],
@@ -1806,7 +1806,7 @@
 			"name": "password-input",
 			"type": "registry:lib",
 			"title": "password-input",
-			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9). The React lab has no app blocks — Svelte is the reference.",
 			"dependencies": [
 				"@lucide/svelte@^1.49.0"
 			],
@@ -2008,7 +2008,7 @@
 			"name": "provider-buttons",
 			"type": "registry:lib",
 			"title": "provider-buttons",
-			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9). The React lab has no app blocks — Svelte is the reference.",
 			"dependencies": [
 				"@lucide/svelte@^1.49.0"
 			],
@@ -2085,7 +2085,7 @@
 			"name": "record-sheet",
 			"type": "registry:lib",
 			"title": "record-sheet",
-			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9). The React lab has no app blocks — Svelte is the reference.",
 			"dependencies": [
 				"@lucide/svelte@^1.49.0"
 			],
@@ -2169,7 +2169,7 @@
 			"name": "reset-password-form",
 			"type": "registry:lib",
 			"title": "reset-password-form",
-			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9). The React lab has no app blocks — Svelte is the reference.",
 			"dependencies": [
 				"@lucide/svelte@^1.49.0"
 			],
@@ -2252,7 +2252,7 @@
 			"name": "row-actions",
 			"type": "registry:lib",
 			"title": "row-actions",
-			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9). The React lab has no app blocks — Svelte is the reference.",
 			"dependencies": [
 				"@lucide/svelte@^1.49.0"
 			],
@@ -2274,7 +2274,7 @@
 			"name": "row-checkbox",
 			"type": "registry:lib",
 			"title": "row-checkbox",
-			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9). The React lab has no app blocks — Svelte is the reference.",
 			"dependencies": [],
 			"registryDependencies": [
 				"local:ui-checkbox",
@@ -2370,7 +2370,7 @@
 			"name": "select-all-checkbox",
 			"type": "registry:lib",
 			"title": "select-all-checkbox",
-			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9). The React lab has no app blocks — Svelte is the reference.",
 			"dependencies": [],
 			"registryDependencies": [
 				"local:ui-checkbox",
@@ -2388,7 +2388,7 @@
 			"name": "setting-row",
 			"type": "registry:lib",
 			"title": "setting-row",
-			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9). The React lab has no app blocks — Svelte is the reference.",
 			"dependencies": [
 				"@lucide/svelte@^1.49.0"
 			],
@@ -2428,7 +2428,7 @@
 			"name": "settings-section",
 			"type": "registry:lib",
 			"title": "settings-section",
-			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9). The React lab has no app blocks — Svelte is the reference.",
 			"dependencies": [],
 			"registryDependencies": [
 				"local:utils"
@@ -2500,7 +2500,7 @@
 			"name": "sign-in-form",
 			"type": "registry:lib",
 			"title": "sign-in-form",
-			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9). The React lab has no app blocks — Svelte is the reference.",
 			"dependencies": [
 				"@lucide/svelte@^1.49.0"
 			],
@@ -2530,7 +2530,7 @@
 			"name": "sign-up-form",
 			"type": "registry:lib",
 			"title": "sign-up-form",
-			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9). The React lab has no app blocks — Svelte is the reference.",
 			"dependencies": [
 				"@lucide/svelte@^1.49.0"
 			],
@@ -2612,7 +2612,7 @@
 			"name": "skeleton-details",
 			"type": "registry:lib",
 			"title": "skeleton-details",
-			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9). The React lab has no app blocks — Svelte is the reference.",
 			"dependencies": [],
 			"registryDependencies": [
 				"local:ui-skeleton",
@@ -2630,7 +2630,7 @@
 			"name": "skeleton-settings",
 			"type": "registry:lib",
 			"title": "skeleton-settings",
-			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9). The React lab has no app blocks — Svelte is the reference.",
 			"dependencies": [],
 			"registryDependencies": [
 				"local:ui-skeleton",
@@ -2648,7 +2648,7 @@
 			"name": "skeleton-stats",
 			"type": "registry:lib",
 			"title": "skeleton-stats",
-			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9). The React lab has no app blocks — Svelte is the reference.",
 			"dependencies": [],
 			"registryDependencies": [
 				"local:ui-skeleton",
@@ -2666,7 +2666,7 @@
 			"name": "skeleton-table",
 			"type": "registry:lib",
 			"title": "skeleton-table",
-			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9). The React lab has no app blocks — Svelte is the reference.",
 			"dependencies": [],
 			"registryDependencies": [
 				"local:ui-skeleton",
@@ -2684,7 +2684,7 @@
 			"name": "skeleton-text",
 			"type": "registry:lib",
 			"title": "skeleton-text",
-			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9). The React lab has no app blocks — Svelte is the reference.",
 			"dependencies": [],
 			"registryDependencies": [
 				"local:ui-skeleton",
@@ -2702,7 +2702,7 @@
 			"name": "sort-menu",
 			"type": "registry:lib",
 			"title": "sort-menu",
-			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9). The React lab has no app blocks — Svelte is the reference.",
 			"dependencies": [
 				"@lucide/svelte@^1.49.0"
 			],
@@ -2723,7 +2723,7 @@
 			"name": "sortable-head",
 			"type": "registry:lib",
 			"title": "sortable-head",
-			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9). The React lab has no app blocks — Svelte is the reference.",
 			"dependencies": [
 				"@lucide/svelte@^1.49.0"
 			],
@@ -2743,7 +2743,7 @@
 			"name": "stat-card",
 			"type": "registry:lib",
 			"title": "stat-card",
-			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9). The React lab has no app blocks — Svelte is the reference.",
 			"dependencies": [],
 			"registryDependencies": [
 				"local:error-state",
@@ -2764,7 +2764,7 @@
 			"name": "stat-grid",
 			"type": "registry:lib",
 			"title": "stat-grid",
-			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9). The React lab has no app blocks — Svelte is the reference.",
 			"dependencies": [],
 			"registryDependencies": [
 				"local:utils"
@@ -2918,7 +2918,7 @@
 			"name": "table-pagination",
 			"type": "registry:lib",
 			"title": "table-pagination",
-			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9). The React lab has no app blocks — Svelte is the reference.",
 			"dependencies": [
 				"@lucide/svelte@^1.49.0"
 			],
@@ -2938,7 +2938,7 @@
 			"name": "table-skeleton-rows",
 			"type": "registry:lib",
 			"title": "table-skeleton-rows",
-			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9). The React lab has no app blocks — Svelte is the reference.",
 			"dependencies": [],
 			"registryDependencies": [
 				"local:ui-skeleton",
@@ -2956,7 +2956,7 @@
 			"name": "table-state-row",
 			"type": "registry:lib",
 			"title": "table-state-row",
-			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9). The React lab has no app blocks — Svelte is the reference.",
 			"dependencies": [],
 			"registryDependencies": [
 				"local:ui-table",
@@ -4446,7 +4446,7 @@
 			"name": "usage-meter",
 			"type": "registry:lib",
 			"title": "usage-meter",
-			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9). The React lab has no app blocks — Svelte is the reference.",
 			"dependencies": [
 				"@lucide/svelte@^1.49.0"
 			],
@@ -4466,7 +4466,7 @@
 			"name": "user-menu",
 			"type": "registry:lib",
 			"title": "user-menu",
-			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9). The React lab has no app blocks — Svelte is the reference.",
 			"dependencies": [
 				"@lucide/svelte@^1.49.0"
 			],
@@ -4474,6 +4474,7 @@
 				"local:account-app-blocks-shared",
 				"local:ui-avatar",
 				"local:ui-dropdown-menu",
+				"local:ui-sidebar",
 				"local:utils"
 			],
 			"files": [
@@ -4505,7 +4506,7 @@
 			"name": "verify-email",
 			"type": "registry:lib",
 			"title": "verify-email",
-			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9). The React lab has no app blocks — Svelte is the reference.",
 			"dependencies": [
 				"@lucide/svelte@^1.49.0"
 			],
@@ -4562,7 +4563,7 @@
 			"name": "workspace-switcher",
 			"type": "registry:lib",
 			"title": "workspace-switcher",
-			"description": "App block from the hmziq brand kit (BRAND.md section 9), ported from the React lab.",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9). The React lab has no app blocks — Svelte is the reference.",
 			"dependencies": [
 				"@lucide/svelte@^1.49.0"
 			],
@@ -4570,6 +4571,7 @@
 				"local:account-app-blocks-shared",
 				"local:mark",
 				"local:ui-dropdown-menu",
+				"local:ui-sidebar",
 				"local:utils"
 			],
 			"files": [

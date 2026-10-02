@@ -121,6 +121,10 @@ function describe(kind, info) {
     case "kit":
       return "The kit barrel and stylesheet. Depends on every other item, so installing it installs the whole kit.";
     case "piece":
+      // App blocks have no React original: the lab has none, so the Svelte kit
+      // is the reference (docs/app-blocks.md phase 10, APP-BLOCKS.md intro).
+      if (info.group === "app")
+        return `${GROUP_LABEL.app} from the hmziq brand kit (BRAND.md section 9). The React lab has no app blocks — Svelte is the reference.`;
       return `${GROUP_LABEL[info.group] ?? "Piece"} from the hmziq brand kit (BRAND.md section 9), ported from the React lab.`;
     default:
       return `Files from "${info.folder}" the pieces roster does not list yet; they become their own items when their plan finishes and this script is re-run.`;
