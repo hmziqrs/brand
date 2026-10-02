@@ -10,7 +10,7 @@
     "storybook": "pnpm --filter @hmziq/brand-svelte storybook",
     "build": "pnpm --filter @hmziq/brand-core build && pnpm --filter lab build && pnpm --filter svelte-app build && pnpm --filter astro-app build",
     "build-storybook": "pnpm --filter lab build-storybook && pnpm --filter @hmziq/brand-svelte build-storybook",
-    "typecheck": "pnpm --filter @hmziq/brand-core build && tsc -b && pnpm --filter @hmziq/brand-astro typecheck",
+    "typecheck": "pnpm --filter @hmziq/brand-core build && tsc -b && pnpm --filter @hmziq/brand-astro typecheck && pnpm --filter astro-app typecheck",
     "test": "pnpm --filter @hmziq/brand-core test",
     "check:motion": "node scripts/check-motion.mjs",
     "check:colors": "node scripts/check-colors.mjs",
@@ -23,7 +23,7 @@
     "render:motion": "node assets/video/source/scripts/render-motion.mjs",
     "lint": "oxlint",
     "preview": "pnpm --filter lab preview",
-    "check": "pnpm lint && pnpm typecheck && pnpm test && pnpm check:kit && pnpm check:motion && pnpm check:colors && pnpm check:contrast && pnpm check:brand-kit && pnpm check:parity",
+    "check": "pnpm lint && pnpm typecheck && pnpm test && pnpm check:kit && pnpm check:motion && pnpm check:colors && pnpm check:contrast && pnpm check:brand-kit && pnpm check:assets && pnpm check:parity",
     "storybook:lab": "pnpm --filter lab storybook",
     "check:kit": "pnpm --filter @hmziq/brand-svelte check && pnpm --filter svelte-app check",
     "check:parity": "node scripts/check-parity.mjs",
@@ -36,8 +36,10 @@
   "devDependencies": {
     "@changesets/cli": "2.29.5",
     "@resvg/resvg-js": "2.6.2",
+    "opentype.js": "2.0.0",
     "oxlint": "^1.81.0",
     "playwright": "^1.63.0",
+    "png-to-ico": "3.0.2",
     "typescript": "~6.0.2"
   }
 }

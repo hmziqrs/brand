@@ -31,6 +31,10 @@ Astro components). Start new projects with `pnpm new-project astro <folder>`.
   (`src/actions/index.ts`), list state lives in the URL, `state=pending`
   renders as a `server:defer` island, and the roster and settings the demo
   edits sit in `src/lib/app/` (example data; a server restart resets them).
+  Every page renders inside `src/components/app/app-document.astro`, the
+  demo's own `<html>`/`<head>` — charset, title and theme included — because
+  Astro Actions pages that call `Astro.getActionResult` get no synthesized
+  head, and with it no styles.
 - `src/components/app/` — the demo's scaffolding: the workspace shell, the
   auth frame, the demo state switch, the deferred island and the pages'
   shared content pieces. Demo code, not kit pieces.
@@ -44,6 +48,21 @@ installed into instead; no import in here changes.
 
 The app renders on demand with the `@astrojs/node` adapter (docs/kits.md),
 so Astro Actions, URL params and server islands work in the starter.
+
+## The icon pack is a placeholder
+
+`public/` ships a full icon pack for the placeholder name "Paperplane" (Pp):
+favicon, PNGs, ICO, apple-touch, Android and maskable icons and
+`site.webmanifest`, so every link `SiteHead` renders resolves from the start.
+`public/og.png` is the same name's placeholder OG card (1200×630, drawn with
+the social-card sources in `assets/social/source/`), because `SiteHead`
+defaults `og:image` to `/og.png`; replace it with the real site's card from
+`assets/social/exports/sites/<id>/` when the project gets its name. Render a
+pack for the project's real name and replace it (docs/assets.md):
+
+```sh
+pnpm render-assets --name "Paperplane" --symbol Pp --out <folder>
+```
 
 ## Commands
 

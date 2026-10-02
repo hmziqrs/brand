@@ -12,7 +12,7 @@
 //   LAB_URL (the lab Storybook, 6006)      SVELTE_URL (the kit Storybook, 6007)
 //   ASTRO_URL (the /kit gallery, 4321)     SVELTE_APP_URL / ASTRO_APP_URL (the boilerplates)
 import { chromium } from "playwright";
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -26,9 +26,24 @@ const ASTRO = process.env.ASTRO_URL ?? "http://localhost:4321";
 const SVELTE_APP = process.env.SVELTE_APP_URL ?? "http://localhost:5173";
 const ASTRO_APP = process.env.ASTRO_APP_URL ?? "http://localhost:4322";
 
-const [argument, pagePath] = process.argv.slice(2);
+const [argument, ...pagePaths] = process.argv.slice(2);
 const themes = ["dark", "light"];
 const widths = [360, 1280];
+
+// Which gallery page each piece's anchor lives on, read from the gallery
+// pages themselves the same way check-parity reads them
+// (scripts/check-parity.mjs). A piece's group names the plan that owns it,
+// not the page that shows it — the content pieces that live in the site
+// gallery (Prose, Bullets, … Kicker) would otherwise be shot on /kit/content,
+// which never carries their anchors.
+const galleryPage = new Map();
+for (const name of readdirSync(join(root, "boilerplates/astro-app/src/pages/kit"))) {
+  if (!name.endsWith(".astro")) continue;
+  for (const match of readFileSync(join(root, "boilerplates/astro-app/src/pages/kit", name), "utf8").matchAll(
+    /\bid=\{?['"]piece-([\w-]+)['"]/g,
+  ))
+    galleryPage.set(match[1], name.replace(/\.astro$/, ""));
+}
 
 /** Every view of one subject: where it lives and what label it gets. */
 function views(subject) {
@@ -41,17 +56,27 @@ function views(subject) {
   return [
     subject.lab && { label: "lab", url: `${LAB}/iframe.html?id=${subject.lab}&viewMode=story` },
     subject.svelte && { label: "svelte", url: `${SVELTE}/iframe.html?id=${subject.svelte}&viewMode=story` },
-    subject.astro && subject.astro !== "not yet" && { label: "astro", url: `${ASTRO}/kit/${subject.group}#piece-${subject.astro}` },
+    subject.astro &&
+      subject.astro !== "not yet" && {
+        label: "astro",
+        url: `${ASTRO}/kit/${galleryPage.get(subject.astro) ?? subject.group}#piece-${subject.astro}`,
+      },
   ].filter(Boolean);
 }
 
 let subjects;
 if (argument === "--pages") {
-  if (!pagePath) {
-    console.error("usage: compare --pages <path>   (the same route in both boilerplates, e.g. /)");
+  // One or more routes (space- or comma-separated), each shot in both
+  // boilerplates: `pnpm compare --pages /app/overview /app/members` lays
+  // every route's pair side by side in ONE report, the way app-blocks.md's
+  // phase 10 gate reads it — one run per route would leave the report
+  // holding only the last route's pair.
+  const paths = pagePaths.flatMap((value) => value.split(",")).map((value) => value.trim()).filter(Boolean);
+  if (!paths.length) {
+    console.error("usage: compare --pages <path> [more paths]   (the same routes in both boilerplates, e.g. / /app/overview)");
     process.exit(1);
   }
-  subjects = [{ name: `page ${pagePath}`, group: "pages", page: pagePath }];
+  subjects = paths.map((path) => ({ name: `page ${path}`, group: "pages", page: path }));
 } else if (!argument || argument === "all") {
   subjects = roster;
 } else {

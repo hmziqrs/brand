@@ -87,7 +87,7 @@ Everything else the diff showed (`"use client"` lines, one unused `React`
 import) is drift between the lab's snapshot and today's shadcn registry, not
 a brand decision, and has no Astro equivalent.
 
-On top of those, the kit makes three changes of its own, all forced by a
+On top of those, the kit makes four changes of its own, all forced by a
 brand rule or by "the lab is right":
 
 1. **The default button is the primary one.** Starwind's default variant is a
@@ -116,7 +116,7 @@ brand rule or by "the lab is right":
 
 `starwind.config.json` records the Starwind version each component came
 from. To see upstream changes: `pnpm dlx starwind@latest update <component>
---diff` from this folder. Merge by hand: re-apply the table and the three
+--diff` from this folder. Merge by hand: re-apply the table and the four
 changes above after accepting anything.
 
 Adding a component: `pnpm dlx starwind@latest add <name> -y --package-manager
