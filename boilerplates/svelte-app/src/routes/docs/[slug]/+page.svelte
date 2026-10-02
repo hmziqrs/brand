@@ -3,6 +3,7 @@
 	// and trail, its Markdown body, and the previous and next pages as cards
 	// (the lab's gpui-query docs page). The words are example copy.
 	import Pencil from '@lucide/svelte/icons/pencil';
+	import SiteHead from '$brand/blocks/site/site-head.svelte';
 	import Prose from '$brand/blocks/site/prose.svelte';
 	import DocsLayout from '$brand/blocks/content/docs-layout.svelte';
 	import DocsTitle from '$brand/blocks/content/docs-title.svelte';
@@ -15,11 +16,19 @@
 	const { entry } = $derived(data);
 	const toc = $derived(headingsOf(entry.body));
 	const trail = $derived(['Docs', ...(entry.metadata.section ? [entry.metadata.section] : [])]);
+	const url = $derived(`https://example.com/docs/${entry.slug}`);
 </script>
 
 <DocsLayout site="example" menu={data.menu} page={entry.metadata.title} {toc}>
 	{#snippet extra()}<ThemeToggle />{/snippet}
 	{#snippet children()}
+		<SiteHead
+			site="freeoxide"
+			title={`${entry.metadata.title} — svelte-app docs`}
+			description={entry.metadata.lede ?? 'Example docs page.'}
+			{url}
+		/>
+
 		<DocsTitle title={entry.metadata.title} lede={entry.metadata.lede} {trail} seed="example" />
 
 		<Prose class="mt-9">

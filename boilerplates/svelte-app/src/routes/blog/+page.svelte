@@ -10,9 +10,17 @@
 	import NewsletterBand from '$brand/blocks/content/newsletter-band.svelte';
 	import BlogLayout from '$brand/blocks/content/blog-layout.svelte';
 	import ThemeToggle from '$lib/theme-toggle.svelte';
+	import { page } from '$app/state';
 	import { topicTone, topics } from '$lib/example';
 
 	let { data } = $props();
+
+	// The newsletter band posts to the page's subscribe action
+	// (content-blocks.md: "Its form posts to the page's own action; no
+	// mailing service is built in"): an email in the field comes back to a
+	// band that says thanks, an empty one comes back to the page as it was.
+	// A real site swaps the action for whatever runs its list.
+	const subscribed = $derived(page.url.searchParams.has('subscribed'));
 
 	// The blog index's filter: the search box and the topic chips narrow the
 	// post list live, the way the lab's blog index does in React.
@@ -64,6 +72,10 @@
 			/>
 		</Container>
 
-		<NewsletterBand />
+		<NewsletterBand
+			action="?/subscribe"
+			title={subscribed ? "You're on the list" : undefined}
+			body={subscribed ? 'Thanks — the next post lands in your inbox. Example copy; no list is wired up in the starter.' : undefined}
+		/>
 	{/snippet}
 </BlogLayout>
