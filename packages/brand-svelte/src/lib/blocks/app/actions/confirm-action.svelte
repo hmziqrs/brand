@@ -15,7 +15,7 @@
 	import { toast } from "svelte-sonner";
 	import type { Snippet } from "svelte";
 	// The contract's shared result type, defined with the auth forms.
-	import type { FormResult } from "../auth/types.js";
+	import type { FormResult } from "$brand/blocks/app/auth/types.js";
 
 	let {
 		/** Bindable, so a page can open it from anywhere (a menu item, say). */

@@ -1,4 +1,4 @@
-import type { Icon } from "../shell/types.js";
+import type { Icon } from "$brand/blocks/app/shell/types.js";
 
 /** A workspace the switcher offers. `symbol` is the two letters the Mark shows. */
 export type Workspace = {

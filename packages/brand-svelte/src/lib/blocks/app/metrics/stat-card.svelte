@@ -6,7 +6,7 @@
   the grid stay — one failed number shouldn't take the page down.
 -->
 <script lang="ts">
-	import ErrorState from "../states/error-state.svelte";
+	import ErrorState from "$brand/blocks/app/states/error-state.svelte";
 	import { Skeleton } from "$brand/ui/skeleton/index.js";
 	import { cn } from "$brand/utils.js";
 	import type { Snippet } from "svelte";

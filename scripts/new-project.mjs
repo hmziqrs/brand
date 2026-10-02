@@ -8,8 +8,10 @@
 // 4. Runs pnpm install.
 //
 // No import in the boilerplate changes: only the $brand alias wiring, the
-// core version, and the Astro stylesheet's in-repo @source line for the kit
-// (the kit sits inside src/ in a copy, which Tailwind scans anyway).
+// core version, and each stylesheet's in-repo @source line for the kit. The
+// svelte one is rewritten to the folder the kit installs into ($lib/brand);
+// the Astro one is dropped (the kit sits inside src/ in a copy, which
+// Tailwind scans anyway).
 //
 // The registry defaults to the Pages site; --registry overrides it, which is
 // how `pnpm check:fresh-copy` installs from a locally served build.
@@ -84,6 +86,12 @@ if (kind === "svelte") {
       /const brand = fileURLToPath\(new URL\('[^']+', import\.meta\.url\)\);/,
       "const brand = fileURLToPath(new URL('./src/lib/brand', import.meta.url));",
     ],
+  ]);
+  // The stylesheet's kit @source points at the repo's kit folder, which
+  // doesn't exist in a copy; the kit installs into $lib/brand, so the line
+  // follows it there (the boilerplate stylesheet's comment says so).
+  rewrite(join(dest, "src/app.css"), [
+    [/^@source "\.\.\/\.\.\/\.\.\/packages\/brand-svelte\/src";$/m, '@source "./lib/brand";'],
   ]);
   // Core's Markdown plugins are imported from core's source inside this repo
   // (the config runs in Node, before anything is compiled). In a copy core is

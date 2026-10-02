@@ -10,7 +10,7 @@
 	import * as AlertDialog from "$brand/ui/alert-dialog/index.js";
 	import { Button } from "$brand/ui/button/index.js";
 	import * as Sheet from "$brand/ui/sheet/index.js";
-	import FormActions from "../settings/form-actions.svelte";
+	import FormActions from "$brand/blocks/app/settings/form-actions.svelte";
 	import { cn } from "$brand/utils.js";
 	import { createSubscriber } from "svelte/reactivity";
 	import type { Snippet } from "svelte";
@@ -41,9 +41,11 @@
 		class?: string;
 	} = $props();
 
-	// Below md the sheet rises from the bottom; from md, it slides in from
-	// the right at max-w-md. The media query is read in the browser only — a
-	// sheet can't be open on the server's first paint anyway.
+	// Below md the sheet rises from the bottom, capped at 92dvh — the same
+	// cap the Astro sheet carries — so a form taller than the screen scrolls
+	// inside the body instead of growing past the top; from md, it slides in
+	// from the right at max-w-md. The media query is read in the browser
+	// only — a sheet can't be open on the server's first paint anyway.
 	const onDesktop = createSubscriber((update) => {
 		const query = window.matchMedia("(min-width: 768px)");
 		const change = () => update();
@@ -100,7 +102,7 @@
 		data-slot="record-sheet"
 		{side}
 		showCloseButton={false}
-		class={cn("data-[side=right]:sm:max-w-md", className)}
+		class={cn("data-[side=right]:sm:max-w-md data-[side=bottom]:max-h-[92dvh]", className)}
 		{onEscapeKeydown}
 		{onInteractOutside}
 	>

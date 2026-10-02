@@ -10,7 +10,7 @@
 	import Rings from "$brand/components/rings.svelte";
 	import { cn } from "$brand/utils.js";
 	import type { Snippet } from "svelte";
-	import type { Icon } from "../shell/types.js";
+	import type { Icon } from "$brand/blocks/app/shell/types.js";
 
 	let {
 		/** The icon the tile holds. Inbox when left out. */

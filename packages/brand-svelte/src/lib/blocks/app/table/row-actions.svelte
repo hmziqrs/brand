@@ -9,7 +9,7 @@
 	import * as DropdownMenu from "$brand/ui/dropdown-menu/index.js";
 	import { Button } from "$brand/ui/button/index.js";
 	import { cn } from "$brand/utils.js";
-	import type { Icon } from "../shell/types.js";
+	import type { Icon } from "$brand/blocks/app/shell/types.js";
 
 	type Item = {
 		label: string;

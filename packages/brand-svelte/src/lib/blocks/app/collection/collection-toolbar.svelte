@@ -12,7 +12,7 @@
 	import X from "@lucide/svelte/icons/x";
 	import { Input } from "$brand/ui/input/index.js";
 	import { cn } from "$brand/utils.js";
-	import { debounced } from "../state.svelte.js";
+	import { debounced } from "$brand/blocks/app/state.svelte.js";
 
 	let {
 		/** The search: its input is named "q". `onChange` fires once typing pauses. */

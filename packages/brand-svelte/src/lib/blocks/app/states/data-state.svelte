@@ -7,7 +7,7 @@
   keeps `status="success"` and shows a small spinner where the data lives.
 -->
 <script lang="ts">
-	import { delayed } from "../state.svelte.js";
+	import { delayed } from "$brand/blocks/app/state.svelte.js";
 	import { cn } from "$brand/utils.js";
 	import type { Snippet } from "svelte";
 
