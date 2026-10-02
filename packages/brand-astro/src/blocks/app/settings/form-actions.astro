@@ -11,8 +11,8 @@ import Notice from "$brand/components/notice.astro";
  * Cancel plus Save on the right. Save is a real submit button; the page owns
  * the <form> and the submit. With no JavaScript the page can't know the form
  * is dirty, so the server render keeps Save enabled and hides the unsaved
- * line; the script disables Save once it can see the form is clean, and
- * clears "Saved" after four seconds.
+ * line; the script shows that line and stands Save down as soon as it can
+ * see the form is dirty, and clears "Saved" after four seconds.
  */
 
 interface Props extends HTMLAttributes<"div"> {
@@ -46,13 +46,18 @@ const hasCancel = Astro.slots.has("cancel");
             <Marker filled class="text-success" />
             Saved
           </span>
-        ) : dirty && !pending ? (
-          <span data-form-actions-dirty class="inline-flex items-center gap-2">
-            <Marker class="text-warning" />
-            You have unsaved changes
-          </span>
         ) : null
       }
+      {/* The unsaved line is always in the markup, hidden while the server
+          can't know the form is dirty — the page's script shows it, the
+          same way it shows Cancel and stands Save down. */}
+      <span
+        data-form-actions-dirty
+        class={cn("inline-flex items-center gap-2", !(dirty && !pending) && "hidden")}
+      >
+        <Marker class="text-warning" />
+        You have unsaved changes
+      </span>
     </p>
     <div class="flex flex-wrap items-center gap-2 sm:justify-end">
       {/* Cancel is always in the markup, hidden while the form is clean —
@@ -92,35 +97,50 @@ const hasCancel = Astro.slots.has("cancel");
   // its form `data-clean` whenever it knows; a form without the mark keeps
   // the state the server rendered (Save enabled, so a page with no
   // JavaScript can still save).
-  const watch = (foot: HTMLElement) => {
+  const watch = (foot: HTMLElement): (() => void) => {
+    const noop = () => {};
     const save = foot.querySelector<HTMLButtonElement>("[data-form-actions-save]");
-    if (!save) return;
+    if (!save) return noop;
     const formId = save.getAttribute("form");
     const form = save.form ?? (formId ? (document.getElementById(formId) as HTMLFormElement | null) : null);
-    if (!form) return;
+    if (!form) return noop;
+    const dirtyLine = foot.querySelector<HTMLElement>("[data-form-actions-dirty]");
 
     const sync = () => {
       if (save.dataset.pending === "true") {
         save.disabled = true;
+        dirtyLine?.classList.add("hidden");
         return;
       }
       save.disabled = form.dataset.clean === "true" && save.dataset.error !== "true";
+      // The unsaved line, from what the page knows: the form's data-clean
+      // (the sheets set it on the page's form) or the foot's own data-dirty
+      // (the settings pages set both). "Saved" outranks it while it shows.
+      const unsaved = form.dataset.clean === "false" || foot.dataset.dirty === "true";
+      const showingSaved = foot.querySelector("[data-form-actions-saved]") !== null;
+      dirtyLine?.classList.toggle("hidden", !unsaved || showingSaved);
     };
 
     new MutationObserver(sync).observe(form, { attributes: true, attributeFilter: ["data-clean"] });
+    new MutationObserver(sync).observe(foot, { attributes: true, attributeFilter: ["data-dirty"] });
     sync();
+    return sync;
   };
 
-  const clearSaved = (foot: HTMLElement) => {
+  const clearSaved = (foot: HTMLElement, sync: () => void) => {
     const saved = foot.querySelector<HTMLElement>("[data-form-actions-saved]");
     if (!saved) return;
-    window.setTimeout(() => saved.remove(), 4000);
+    // Once "Saved" goes, the unsaved line may take its place — the form
+    // can have moved on while the four seconds ran.
+    window.setTimeout(() => {
+      saved.remove();
+      sync();
+    }, 4000);
   };
 
   const run = () => {
     for (const foot of document.querySelectorAll<HTMLElement>("[data-slot='form-actions']")) {
-      watch(foot);
-      clearSaved(foot);
+      clearSaved(foot, watch(foot));
     }
   };
   run();

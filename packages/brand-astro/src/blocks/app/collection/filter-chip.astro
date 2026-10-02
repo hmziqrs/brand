@@ -70,8 +70,13 @@ const summary =
       {!active && <Plus class="lucide" aria-hidden="true" />}
       <span class="truncate">{active ? summary : label}</span>
     </summary>
+    {/* Below sm the toolbar's chips row scrolls sideways, and a row that
+        scrolls clips everything that opens inside it — so there the picker
+        is a fixed sheet at the foot of the screen instead, still the same
+        <details>, still opened and applied with no JavaScript. From sm the
+        popover opens under the chip as always. */}
     <div
-      class="absolute top-full left-0 z-20 mt-1.5 w-52 rounded-lg border border-border bg-popover p-1.5 shadow-md"
+      class="absolute top-full left-0 z-20 mt-1.5 w-52 rounded-lg border border-border bg-popover p-1.5 shadow-md max-sm:fixed max-sm:top-auto max-sm:bottom-4 max-sm:left-4 max-sm:right-4 max-sm:z-50 max-sm:mt-0 max-sm:w-auto"
       data-filter-popover
     >
       {
@@ -151,7 +156,10 @@ const summary =
   document.addEventListener("change", (event) => {
     const input = event.target as HTMLInputElement | null;
     const details = input?.closest<HTMLElement>("details[data-filter-chip]");
-    if (!details || input?.name === "q") return;
+    // The toolbar's search (named "q") and the picker's own filter field
+    // commit on blur too, but neither applies anything: the field narrows
+    // the rows, and its change must not submit the form under it.
+    if (!details || input?.name === "q" || input?.matches("[data-filter-search]")) return;
     const single = details.querySelector<HTMLInputElement>("input[type='radio']") !== null;
     if (single) {
       const summary = details.querySelector<HTMLElement>("summary");
