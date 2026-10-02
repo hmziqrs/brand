@@ -1,0 +1,8 @@
+# Video and motion exports ride in Git LFS (docs/assets.md: MP4, WebM and
+# GIF, set up before phase 7). Manifests and every other export stay normal
+# files. git-lfs is installed and the filter is wired into this repo's git
+# config, so committing these files stores LFS pointers; blobs committed as
+# plain files before the filter existed stay that way in history.
+assets/video/exports/*.mp4 filter=lfs diff=lfs merge=lfs -text
+assets/motion/exports/*.webm filter=lfs diff=lfs merge=lfs -text
+assets/motion/exports/*.gif filter=lfs diff=lfs merge=lfs -text

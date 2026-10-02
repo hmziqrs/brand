@@ -153,7 +153,7 @@ Static renderers (Satori, `@resvg/resvg-js`, `png-to-ico`, an outline tool) go i
 | Which accounts and repos exist | Only confirmed ones | Phase 6 |
 | Remotion | Chosen for phases 7–8, pinned at 4.0.531 in `assets/video/source`. The frame test passed first, and its license is free for this repo (an individual's; a for-profit company with more than 3 people would need one from remotion.pro) | Resolved 2026-10-01, before phase 7 |
 | YouTube end screen | Layout and length chosen with the real channel | Final outro |
-| Large files | Git LFS for video and motion exports — not yet: git-lfs isn't installed on the machine that rendered them, so the exports sit in git as plain files until it is and `.gitattributes` goes in | Phase 7 (overdue) |
+| Large files | Git LFS for video and motion exports — set up: git-lfs installed, the filter wired into the repo's git config, `.gitattributes` tracking the MP4/WebM/GIF exports. Blobs committed as plain files before it stay that way in history | Phase 7 (closed late, 2026-10-02) |
 
 ## Appendix: platform sizes to recheck
 

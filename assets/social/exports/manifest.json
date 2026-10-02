@@ -1,9 +1,11 @@
 {
   "target": "social",
   "command": "pnpm render-assets --only social",
-  "digest": "26f75cf4dddf9978fb94c2c36f86c12b9b1fe6ea4d37d3b2f311832bd44be23f",
+  "digest": "56e51e2fd44b9e4d53c1ee49a787258dee6bd2d1a6ffcc578503732138424b89",
   "renderers": {
-    "@resvg/resvg-js": "2.6.2"
+    "@resvg/resvg-js": "2.6.2",
+    "opentype.js": "2.0.0",
+    "png-to-ico": "3.0.2"
   },
   "settings": {
     "sizes": {
@@ -35,6 +37,10 @@
       "githubPreview": {
         "width": 1280,
         "height": 640
+      },
+      "thumbnail": {
+        "width": 3840,
+        "height": 2160
       }
     },
     "fonts": [
@@ -55,6 +61,9 @@
     "samplePost": {
       "title": "A cover for every post",
       "date": "1 October 2026"
+    },
+    "sampleVideo": {
+      "title": "A thumbnail for every video"
     },
     "github": [
       {
@@ -103,11 +112,11 @@
     },
     {
       "path": "assets/social/source/banners.ts",
-      "sha256": "051114343b99a468819857fc67d37b6e886fce741d0f742b6b50c65f2e9ed25a"
+      "sha256": "d1ac92e220114ff1c95ed6132f74b91495011e0d107fcf9e31ab4a5bccf84062"
     },
     {
       "path": "assets/social/source/og.ts",
-      "sha256": "29d63a1da33a5fef75cec20cfbe617934df08348763e996b9a48340696c4f5e5"
+      "sha256": "30afd90bbea90f8fc067859b3edca7b1c429452dd68e46911b759244460d206e"
     },
     {
       "path": "assets/social/source/parts.ts",
@@ -119,7 +128,11 @@
     },
     {
       "path": "assets/social/source/settings.ts",
-      "sha256": "c0b102baaf808ece8e027c8682ce431e5e6a129451f9b0ae3c4131d0f54a1fb5"
+      "sha256": "aab16cecf5ddad02d3f9f4f2505437f13728bfed99fc0ba32d6b594b84eeb6ec"
+    },
+    {
+      "path": "assets/social/source/thumbnail.ts",
+      "sha256": "9de67c3e3ae642207abac22c404b84fd8ce7d5b9ea71f2ef575c7b54571118a8"
     },
     {
       "path": "packages/brand-core/rings.css",
@@ -143,7 +156,7 @@
     },
     {
       "path": "packages/brand-core/src/motion/rings.ts",
-      "sha256": "ae3af78132241905cc1dd3b370d913b3623032d16776391b3bb2b01e304a0624"
+      "sha256": "a564cc52386ccf354c0f55741fbc4c99d8b7b81e6d17c7984a411a0f9928609c"
     },
     {
       "path": "packages/brand-core/src/motion/scenes/helix.ts",
@@ -187,15 +200,15 @@
     },
     {
       "path": "pnpm-lock.yaml",
-      "sha256": "544643f52a9deb20ae03715d27a058c6c3a39c5b95b89ae7911cd8e90b6ade76"
+      "sha256": "9e84ad90a9cca818b0618626f8377650cbe128b5b2ec86edf748d45fbb0aeb59"
     },
     {
       "path": "scripts/assets-lib.mjs",
-      "sha256": "1ce03bbb2712149db0f41d8d921e72ebd31cc9cf51e65610c6432be574c15569"
+      "sha256": "ef48e1d81aaa7309e56cbe21fe5ebfb5053a984f034402eb7fd3117a18b85d34"
     },
     {
       "path": "scripts/render-assets.mjs",
-      "sha256": "c63cd7e1c5a415dd71a983bd6a080bb0c5b0a9076c264427842587c10bb984a5"
+      "sha256": "26ad610a8378b32f1e5831ec5f13fdf0759622aa824e2318982361cf18220df2"
     }
   ],
   "files": [
@@ -319,27 +332,6 @@
       "height": 640
     },
     {
-      "path": "github/freeoxide-1280x640.png",
-      "sha256": "fdfd0025b7b5004eb98dbc419903f6a9f03a57f16d03564e5dac8940486acc9d",
-      "bytes": 34670,
-      "width": 1280,
-      "height": 640
-    },
-    {
-      "path": "github/gpui-starter-1280x640.png",
-      "sha256": "2ce889c8dfc85748bb1f6ff5e1ac083785c1b65af7163ff0f9ae060f24602538",
-      "bytes": 42924,
-      "width": 1280,
-      "height": 640
-    },
-    {
-      "path": "github/gpui-query-1280x640.png",
-      "sha256": "7ad2af82709435b1ac93e4158bbbddb1297a93afdc3ebf5011b2e3047483aa9a",
-      "bytes": 43637,
-      "width": 1280,
-      "height": 640
-    },
-    {
       "path": "blog/cover-sample-1200x675.png",
       "sha256": "b3567be8a47cf49512183e0fe9cec7e7dd067e366d13a0439fd56c279a63a53e",
       "bytes": 30234,
@@ -425,8 +417,15 @@
     },
     {
       "path": "upload-list.md",
-      "sha256": "4b86125d83367af11b51ddfb43d3912040f23b4e9e289dc20998a6980e47894e",
-      "bytes": 2112
+      "sha256": "dc472ba5a4bfb7e1b820c358b48711ec04b9ce697703b3ef662b435300bfaae6",
+      "bytes": 2369
+    },
+    {
+      "path": "youtube/thumbnail-sample-3840x2160.png",
+      "sha256": "61bbd95ed75b7eb501d6052df0df32f7ba12ddb16dc740be1dd02a783df1bb0f",
+      "bytes": 114160,
+      "width": 3840,
+      "height": 2160
     }
   ]
 }

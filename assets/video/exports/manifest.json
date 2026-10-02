@@ -1,7 +1,7 @@
 {
   "target": "video",
   "command": "pnpm render:video",
-  "digest": "f16e5055a7fd2dde4bb36566dfeeace7e3a1f7f874dc6a24428875df6a4ee320",
+  "digest": "a51ef6af3ad82f62d17d38724f739c32f9089fddd629624a81671a718d063d91",
   "renderers": {
     "remotion": "4.0.531",
     "@remotion/renderer": "4.0.531"
@@ -76,7 +76,7 @@
     },
     {
       "path": "assets/video/source/scripts/render-motion.mjs",
-      "sha256": "59697d8614a492057e6cf6c9c59534200098e7d6ec360e14c0f607d84aa372d2"
+      "sha256": "d016bb9972afb63fcec1e4b0ee1e08fa9ddb7ceddd79101940e1dbf44cbcd6bb"
     },
     {
       "path": "assets/video/source/scripts/render-video.mjs",
@@ -128,7 +128,7 @@
     },
     {
       "path": "assets/video/source/src/loops.ts",
-      "sha256": "584aae86262d9e03853306dff054cb9772fb9d6f964421238bc5d882b9fbd5c3"
+      "sha256": "56e0fe69dfcaf0fa0f773064c2e59a57ebc8a0a53397b287fe9924e49f7406ad"
     },
     {
       "path": "assets/video/source/src/theme.ts",
@@ -160,7 +160,7 @@
     },
     {
       "path": "packages/brand-core/src/motion/rings.ts",
-      "sha256": "ae3af78132241905cc1dd3b370d913b3623032d16776391b3bb2b01e304a0624"
+      "sha256": "a564cc52386ccf354c0f55741fbc4c99d8b7b81e6d17c7984a411a0f9928609c"
     },
     {
       "path": "packages/brand-core/src/motion/scenes/helix.ts",
@@ -204,7 +204,7 @@
     },
     {
       "path": "pnpm-lock.yaml",
-      "sha256": "544643f52a9deb20ae03715d27a058c6c3a39c5b95b89ae7911cd8e90b6ade76"
+      "sha256": "6002b59ca1a7c6178f0fd6a753d26276e628c605de93562c4086062a01f4e665"
     }
   ],
   "files": [

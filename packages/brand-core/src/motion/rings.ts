@@ -191,12 +191,27 @@ export function ringMoves(motion: RingMotion, list: Arc[], seed: string): { move
     order.forEach((i, n) => (moves[i].circle = { kind: "ripple", vars: { "--keyframes": name, "--duration": sec(every), "--delay": sec(n * gap) } }))
   } else if (gray?.kind === "dial") {
     // A few rings, inside to out. Each turns a step in its own slot, rests, and turns back half a cycle later.
+    // The last one holds its step a little longer, so its return settles exactly on the
+    // cycle's wrap: the dial is then in motion right up to the end of its cycle, with no
+    // resting tail — a loop of one cycle (assets.md phase 8) never freezes on its first
+    // frame before the cut.
     const g = { ...motionDefaults.gray.dial, ...gray }
     const count = Math.max(1, Math.min(faint.length, Math.round(g.rings)))
     const cycle = count * g.seconds * 2
     const moving = Math.min(2, g.seconds * 0.6) / cycle
-    const name = `rings-dial-${hash(`${count}|${g.seconds}`).toString(36)}`
-    css.push(`@keyframes ${name}{0%{rotate:0deg}${pct(moving)},50%{rotate:var(--step)}${pct(0.5 + moving)},100%{rotate:0deg}}`)
+    // Where a ring's return settles on 0, as a share of the cycle: just past half, except
+    // the last ring's — the wrap catches it its-delay earlier.
+    const back = 0.5 + moving
+    const wrap = 1 - ((count - 1) * g.seconds) / cycle
+    const named = new Set<string>()
+    const rule = (land: number) => {
+      const name = `rings-dial-${hash(`${count}|${g.seconds}|${land}`).toString(36)}`
+      if (!named.has(name)) {
+        named.add(name)
+        css.push(`@keyframes ${name}{0%{rotate:0deg}${pct(moving)},${pct(land - moving)}{rotate:var(--step)}${pct(land)},100%{rotate:0deg}}`)
+      }
+      return name
+    }
     const picked = faint
       .map((i) => ({ i, k: random() }))
       .sort((x, y) => x.k - y.k)
@@ -205,7 +220,7 @@ export function ringMoves(motion: RingMotion, list: Arc[], seed: string): { move
       .sort((x, y) => x - y)
     picked.forEach((i, n) => {
       const step = g.step * (0.75 + random() * 0.5) * (random() < 0.5 ? -1 : 1)
-      moves[i].ring = { kind: "dial", vars: { "--keyframes": name, "--duration": sec(cycle), "--delay": sec(n * g.seconds), "--step": `${step.toFixed(1)}deg` } }
+      moves[i].ring = { kind: "dial", vars: { "--keyframes": rule(n === count - 1 ? wrap : back), "--duration": sec(cycle), "--delay": sec(n * g.seconds), "--step": `${step.toFixed(1)}deg` } }
     })
   } else if (gray?.kind === "turn") {
     // One bigger gray ring, a couple outside the orange one.

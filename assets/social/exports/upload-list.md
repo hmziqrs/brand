@@ -18,7 +18,7 @@ The lab's oxlabs contact page records the personal accounts: GitHub `hmziqrs`, X
 | --- | --- |
 | `hmziqrs/claude-multi` | `github/claude-multi-1280x640.png` |
 
-Previews for freeoxide, gpui-starter, gpui-query are rendered and waiting; upload each once its repository name is confirmed. Files are PNG under 1 MB, as GitHub asks.
+No preview exists for freeoxide, gpui-starter, gpui-query yet; each renders and uploads the day its repository name is confirmed. Files are PNG under 1 MB, as GitHub asks.
 
 ## Site cards
 
@@ -38,6 +38,10 @@ Each site's cards go live when that site serves its own head (the plan's rule); 
 ## Blog covers
 
 `blog/cover-sample-1200x675.png` and `blog/og-sample-1200x630.png` prove the cover template (`assets/social/source/post-cover.ts`); real covers render per post from its title and date. The existing blog photo stays, as the plan decided.
+
+## YouTube
+
+`youtube/thumbnail-sample-3840x2160.png` proves the 16:9 thumbnail template (`assets/social/source/thumbnail.ts`); real thumbnails render per video from its title. Nothing uploads until the channel is confirmed (the plan's decision table).
 
 ## Avatars
 

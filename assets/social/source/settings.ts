@@ -23,6 +23,9 @@ export const sizes = {
   linkedinBackground: { width: 1584, height: 396 },
   /** The GitHub repository social preview (PNG under 1 MB). */
   githubPreview: { width: 1280, height: 640 },
+  /** The YouTube thumbnail template: 16:9 at 3840×2160, as the platform's
+   * own page asks (docs/assets.md's appendix). */
+  thumbnail: { width: 3840, height: 2160 },
 } as const
 
 export const settings = {
@@ -45,9 +48,14 @@ export const settings = {
   // The sample post that proves the blog cover template (phase 5). It is the
   // template's own proof, not a real post; real covers render per post.
   samplePost: { title: "A cover for every post", date: "1 October 2026" },
-  // GitHub previews render for the products whose sites link to GitHub.
-  // `repo` names the confirmed repository under github.com; the rest stay
-  // files until their repo names are confirmed (the plan's decision table).
+  // The sample video that proves the YouTube thumbnail template (phase 7's
+  // template output, its source living here with the other social templates
+  // per the plan's folder tree). Real thumbnails render per video.
+  sampleVideo: { title: "A thumbnail for every video" },
+  // GitHub previews render only for confirmed repositories (phase 6 scopes
+  // them to those; the plan's decision table says the same). `repo` names the
+  // repository under github.com; while it's null, no preview exists as a
+  // file — it renders the day the name is confirmed.
   github: [
     { id: "claude-multi", repo: "hmziqrs/claude-multi" },
     { id: "freeoxide", repo: null },

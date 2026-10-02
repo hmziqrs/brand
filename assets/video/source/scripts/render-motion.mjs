@@ -24,21 +24,25 @@ const fps = 30
 
 /** The seam check (assets.md): the state at the period's end is the state at
  *  its start, so the cut back to frame 0 is invisible — a ripple whose wave
- *  bled past the cut, or a dial mid-step, fails here. The frames themselves
- *  are checked where they're rendered: a loop must be exactly period × fps
- *  frames long, so the last frame is one frame before the wrap, never a
- *  repeat of the first. */
-function seamsOK(loop) {
+ *  bled past the cut, or a dial mid-step, fails here. And the last frame of
+ *  the render (one frame before the wrap) must not be a copy of the first: a
+ *  loop whose movement finished early rests on its opening frame until the
+ *  cut, which shows as a freeze. A fixed frame count alone doesn't prove
+ *  that, so it is checked here, before any frame is rendered. */
+function seam(loop) {
   const picture = heroPicture(loopSeed)
   const tokens = readTheme(readFileSync(join(root, "packages/brand-core/theme.css"), "utf8")).dark
   const palette = { primary: color(tokens, "primary"), line: color(tokens, "line"), foreground: color(tokens, "foreground") }
   const at = (t) => JSON.stringify(ringFrames(picture.list, loop.motion, loopSeed, palette, t))
-  return at(0) === at(loop.period)
+  const frames = Math.round(loop.period * fps)
+  return { wraps: at(0) === at(loop.period), live: at(0) !== at((frames - 1) / fps) }
 }
 
 const settings = { fps, width: 1920, height: 1080, codec: "vp9", gif: { id: "ripple-turn-640", width: 640, height: 360, fps: 15 }, loops: {} }
 for (const loop of loops) {
-  if (!seamsOK(loop)) throw new Error(`The ${loop.preset} loop does not land on its first frame at ${loop.period}s — fix its timers in src/loops.ts`)
+  const { wraps, live } = seam(loop)
+  if (!wraps) throw new Error(`The ${loop.preset} loop does not land on its first frame at ${loop.period}s — fix its timers in src/loops.ts`)
+  if (!live) throw new Error(`The ${loop.preset} loop rests on its first frame before the cut — its movement must run right up to the period (fit its timers in src/loops.ts)`)
   settings.loops[loop.preset] = { period: loop.period, frames: Math.round(loop.period * fps) }
 }
 

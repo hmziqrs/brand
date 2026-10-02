@@ -14,7 +14,7 @@ The frame adapter is the point of the design: the browser rings animate on the c
 | `<preset>-loop` | 1920×1080 WebM for each moving ring preset (`ringPresets` minus `still`), one exact period long. |
 | `ripple-turn-640` | The 640×360, 15 fps GIF twin of the ripple-turn loop. |
 
-Each loop's timers live in [`src/loops.ts`](./src/loops.ts), fitted so every moving part finishes exactly on the period and a ripple's wave is over before the cut (`cross + glow ≤ every`). `scripts/render-motion.mjs` re-proves the seam through the adapter before rendering a single frame.
+Each loop's timers live in [`src/loops.ts`](./src/loops.ts), fitted so the movement runs right up to the period and lands back on its first frame: a pure ripple's wave ends exactly on the cut (`cross + glow = every`), and the dial's last return settles on the wrap. `scripts/render-motion.mjs` re-proves both halves of the seam through the adapter — the period ends where it began, and the last frame is not a copy of the first — before rendering a single frame.
 
 ## Commands
 

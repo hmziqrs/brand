@@ -1,6 +1,6 @@
 // The site cards (assets.md phase 4): a 1200×630 og:image and a 1200×675 X
 // card for every site in the roster, plus the 1280×640 GitHub previews for
-// the products whose sites link to GitHub. One layout, three canvases: the
+// the confirmed repositories. One layout, three canvases: the
 // mark top left, the site's approved headline as the big words, the wordmark
 // and the host along the bottom. Dark is the brand's default, and no rings —
 // social banners stay ring-free until the plan says otherwise.
@@ -75,7 +75,9 @@ export function render(ctx: RenderCtx): Record<string, Buffer> {
     files[`sites/${site.id}/og-${sizes.og.width}x${sizes.og.height}.png`] = siteCard(ctx, ogScale, site.id)
     files[`sites/${site.id}/x-${sizes.xCard.width}x${sizes.xCard.height}.png`] = siteCard(ctx, xScale, site.id)
   }
-  for (const repo of settings.github) {
+  // Only confirmed repositories get a preview (phase 6's scope, and the
+  // plan's decision table): while `repo` is null, nothing renders.
+  for (const repo of settings.github.filter((r) => r.repo)) {
     files[`github/${repo.id}-${sizes.githubPreview.width}x${sizes.githubPreview.height}.png`] = siteCard(ctx, githubScale, repo.id)
   }
   return files

@@ -1,9 +1,11 @@
 {
   "target": "test-card",
   "command": "pnpm render-assets --only test-card",
-  "digest": "8a2f0f06cb7ee2ea05ba727ecd08c1061718dfd61bda0a3564f611789d3aedfa",
+  "digest": "f90fe476747176d8e5d815ca0bd2a9692bcb22d53b21f3cf28ca65998b90e412",
   "renderers": {
-    "@resvg/resvg-js": "2.6.2"
+    "@resvg/resvg-js": "2.6.2",
+    "opentype.js": "2.0.0",
+    "png-to-ico": "3.0.2"
   },
   "settings": {
     "width": 1200,
@@ -38,7 +40,7 @@
     },
     {
       "path": "assets/test/source/test-card.mjs",
-      "sha256": "5ec5cdce6d7d49073dc53e1e5c23bab09bfc10aae3cfb1288f2693768a70152c"
+      "sha256": "e7e8cb7e085d328c81ae807165aa37100cc37e0061227d4b1f7d6d58902dcf76"
     },
     {
       "path": "packages/brand-core/rings.css",
@@ -62,7 +64,7 @@
     },
     {
       "path": "packages/brand-core/src/motion/rings.ts",
-      "sha256": "ae3af78132241905cc1dd3b370d913b3623032d16776391b3bb2b01e304a0624"
+      "sha256": "a564cc52386ccf354c0f55741fbc4c99d8b7b81e6d17c7984a411a0f9928609c"
     },
     {
       "path": "packages/brand-core/src/motion/scenes/helix.ts",
@@ -106,29 +108,29 @@
     },
     {
       "path": "pnpm-lock.yaml",
-      "sha256": "544643f52a9deb20ae03715d27a058c6c3a39c5b95b89ae7911cd8e90b6ade76"
+      "sha256": "9e84ad90a9cca818b0618626f8377650cbe128b5b2ec86edf748d45fbb0aeb59"
     },
     {
       "path": "scripts/assets-lib.mjs",
-      "sha256": "1ce03bbb2712149db0f41d8d921e72ebd31cc9cf51e65610c6432be574c15569"
+      "sha256": "ef48e1d81aaa7309e56cbe21fe5ebfb5053a984f034402eb7fd3117a18b85d34"
     },
     {
       "path": "scripts/render-assets.mjs",
-      "sha256": "c63cd7e1c5a415dd71a983bd6a080bb0c5b0a9076c264427842587c10bb984a5"
+      "sha256": "26ad610a8378b32f1e5831ec5f13fdf0759622aa824e2318982361cf18220df2"
     }
   ],
   "files": [
     {
       "path": "test-card.svg",
-      "sha256": "9c6507cc1351938a72342b4275f49a0069a137f8c99fe5e489a50db4452cfd8d",
-      "bytes": 10075,
+      "sha256": "5e75adfddacebffb0d97fa2f2b9b4dff810c4b61531a91c5da5516db1c603c3c",
+      "bytes": 425194,
       "width": 1200,
       "height": 760
     },
     {
       "path": "test-card.png",
-      "sha256": "fbc09b0593b60ccd12739e28fa74773d1ff7f2de0637e54599a8f5f7832eda81",
-      "bytes": 94893,
+      "sha256": "07d3ce5a2b18e0e330b147424f1b43312a8ab99120e3a49bfb03870113b1f320",
+      "bytes": 77702,
       "width": 1200,
       "height": 760
     }
