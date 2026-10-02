@@ -3,15 +3,19 @@
 // thumbnail template is a still:
 //
 //   pnpm render:video                          intro.mp4 and outro.mp4
-//   pnpm render:video --only intro             one of them
+//   pnpm render:video --only intro             one of them; the manifest still
+//                                              records both
 //   pnpm render:video --still thumbnail --out ~/Desktop/thumb.png --title "One kit"
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs"
+//
+// A thumbnail is filled in per video, so --still always takes an --out of its
+// own: a per-video PNG never lands in exports/, which the manifest records.
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs"
 import { dirname, join } from "node:path"
 
 import { bundle } from "@remotion/bundler"
 import { renderMedia, renderStill, selectComposition } from "@remotion/renderer"
 
-import { digest, faststarted, fileEntry, flag, inputs, rendererVersions, root, writeManifest } from "./manifest.mjs"
+import { digest, faststarted, fileEntry, flag, inputs, rendererVersions, root, sha256, writeManifest } from "./manifest.mjs"
 import { webpackOverride } from "./webpack.mjs"
 
 const entryPoint = join(root, "assets/video/source/src/index.ts")
@@ -23,7 +27,10 @@ const serveUrl = await bundle({ entryPoint, webpackOverride, onProgress: () => {
 const files = []
 
 if (flag("still")) {
-  const out = flag("out") ?? join(exportsDir, "thumbnail-3840x2160.png")
+  const out = flag("out")
+  if (typeof out !== "string" || !out.trim()) {
+    throw new Error("--still needs --out <file>: a thumbnail is filled in per video and goes where you send it — exports/ holds only what the manifest records")
+  }
   const composition = await selectComposition({ serveUrl, id: "thumbnail", inputProps: {} })
   const inputProps = {
     ...(composition.defaultProps ?? {}),
@@ -37,11 +44,36 @@ if (flag("still")) {
   writeFileSync(out, buffer)
   console.log(`rendered ${out} (${buffer.length} bytes, ${contentType})`)
 } else {
-  const wanted = flag("only") ? [flag("only")] : ["intro", "outro"]
-  mkdirSync(exportsDir, { recursive: true })
+  const compositions = ["intro", "outro"]
+  const wanted = flag("only") ? [flag("only")] : compositions
   for (const id of wanted) {
-    const composition = await selectComposition({ serveUrl, id })
+    if (!compositions.includes(id)) throw new Error(`No composition ${id}. Known: ${compositions.join(", ")}`)
+  }
+  mkdirSync(exportsDir, { recursive: true })
+  // `--only` re-renders one file, but the manifest still records every export
+  // (assets.md: "a manifest.json recording every file's path"): the rest are
+  // carried over from the last manifest, and only while the file on disk still
+  // hashes to what it recorded.
+  let last
+  try {
+    last = JSON.parse(readFileSync(join(exportsDir, "manifest.json"), "utf8"))
+  } catch {
+    last = undefined
+  }
+  for (const id of compositions) {
     const out = join(exportsDir, `${id}.mp4`)
+    if (!wanted.includes(id)) {
+      const entry = last?.files?.find((file) => file.path === `${id}.mp4`)
+      const recorded = last?.settings?.compositions?.[id]
+      if (!entry || !recorded || !existsSync(out) || sha256(readFileSync(out)) !== entry.sha256) {
+        throw new Error(`${id}.mp4 was neither rendered this run nor unchanged since the last manifest — run a full pnpm render:video`)
+      }
+      settings.compositions[id] = recorded
+      files.push(entry)
+      console.log(`kept ${id}.mp4 from the last manifest (${entry.bytes} bytes)`)
+      continue
+    }
+    const composition = await selectComposition({ serveUrl, id })
     // SDR BT.709 is what YouTube asks of uploads (assets.md's appendix).
     await renderMedia({ composition, serveUrl, codec: "h264", crf: 16, x264Preset: "slow", colorSpace: "bt709", outputLocation: out })
     const bytes = readFileSync(out)

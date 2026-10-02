@@ -10,7 +10,7 @@ import { fileURLToPath } from "node:url"
 
 /** The repo root (assets/video/source/scripts → up four). */
 export const root = fileURLToPath(new URL("../../../../", import.meta.url))
-const sha256 = (bytes) => createHash("sha256").update(bytes).digest("hex")
+export const sha256 = (bytes) => createHash("sha256").update(bytes).digest("hex")
 
 // A video render reads what a static one does — the theme, the roster, the
 // logo recipe, the ring code, the fonts, its own templates and scripts, the

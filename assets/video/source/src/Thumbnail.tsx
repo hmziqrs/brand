@@ -2,13 +2,14 @@ import { AbsoluteFill } from "remotion"
 
 import { RingsFrame } from "./RingsFrame"
 import { Wordmark } from "./Wordmark"
-import { fonts } from "./fonts"
+import { fonts, useFonts } from "./fonts"
 import { paint } from "./theme"
 
 /** A 16:9 YouTube thumbnail (3840×2160): a kicker, the title, the signature —
  * rings on the right, never behind the words. Fill the title per video and
- * render it with `pnpm render:video --still thumbnail`. */
+ * render it with `pnpm render:video --still thumbnail --out <file>`. */
 export function Thumbnail({ kicker, title, name }: { kicker: string; title: string; name: string }) {
+  useFonts()
   return (
     <AbsoluteFill style={{ background: paint.background, fontFamily: fonts.sans }}>
       <RingsFrame
