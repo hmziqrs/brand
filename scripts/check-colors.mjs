@@ -4,7 +4,8 @@
 // (text-[#f80], bg-[oklch(…)]), black/white utilities and hex literals.
 // Reads .tsx, .css, .astro and .svelte files (markup, <style> and <script>
 // alike). Stock files are left as their library ships them — shadcn's ui/ in
-// the lab, shadcn-svelte's ui/ in the Svelte kit, Starwind's starwind/ in the
+// the lab, shadcn-svelte's ui/ in the Svelte kit (minus the kit's own
+// Combobox), Starwind's starwind/ in the
 // Astro kit — and theme.css itself is core's, not a component's.
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs"
 import { join } from "node:path"
@@ -29,10 +30,13 @@ const roots = [
   "boilerplates/svelte-app/src",
 ].map((path) => join(root, path))
 // Stock libraries keep their own colors (they map them to tokens, but write
-// them their own way). The brand files around them do not.
+// them their own way). The brand files around them do not. The one exception
+// is the Svelte kit's Combobox: shadcn-svelte ships none, so ui/combobox is
+// this repo's own code and is scanned like any other brand file.
 const exempt = (file) =>
   file.startsWith(join(root, "packages/brand-astro/src/starwind")) ||
-  file.startsWith(join(root, "packages/brand-svelte/src/lib/ui"))
+  (file.startsWith(join(root, "packages/brand-svelte/src/lib/ui")) &&
+    !file.startsWith(join(root, "packages/brand-svelte/src/lib/ui/combobox")))
 const property = "(?:bg|text|border(?:-[xytrbls])?|ring|ring-offset|outline|fill|stroke|from|via|to|decoration|divide|shadow|accent|caret|placeholder)"
 const tailwindHues = "slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose"
 const rules = [
@@ -50,12 +54,14 @@ function* files(dir) {
   }
 }
 
-// Folders that don't exist yet (a boilerplate still to be built) are said so
-// loudly, not skipped silently — and not fatal either, since their plan step
-// hasn't run.
+// A missing scan folder is an error, not a silent skip (structure.md,
+// "Checks"): by now every root exists, so a missing one means the repo
+// moved underneath the check.
 const missing = roots.filter((root) => !existsSync(root))
-for (const path of missing) {
-  console.warn(`not scanned, folder missing: ${path}`)
+if (missing.length) {
+  console.error("Scan folder missing — the check no longer covers the repo:")
+  for (const path of missing) console.error(`  ${path}`)
+  process.exit(1)
 }
 
 const problems = []

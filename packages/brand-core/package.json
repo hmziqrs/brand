@@ -126,7 +126,8 @@
   "scripts": {
     "test": "vitest run",
     "typecheck": "tsc -p tsconfig.json",
-    "build": "tsup"
+    "build": "tsup",
+    "prepare": "tsup"
   },
   "dependencies": {
     "shiki": "4.4.3",

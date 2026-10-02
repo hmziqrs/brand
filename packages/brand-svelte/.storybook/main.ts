@@ -18,10 +18,13 @@ const config: StorybookConfig = {
 	// Same static setup as the lab (assets.md owns the fonts folder), so the
 	// two managers look the same and the lab's relative URLs keep working
 	// wherever each Storybook is deployed. The kit's static folder holds the
-	// placeholder cover the PostHeader story uses.
+	// placeholder cover the PostHeader story uses. This Storybook is the Pages
+	// site root, so it serves /BRAND.md and /APP-BLOCKS.md (kits.md,
+	// "Distribution").
 	staticDirs: [
 		{ from: '../../../assets/fonts', to: 'fonts' },
 		{ from: '../../../BRAND.md', to: 'BRAND.md' },
+		{ from: '../../../APP-BLOCKS.md', to: 'APP-BLOCKS.md' },
 		{ from: '../static', to: '/' },
 	],
 	core: {

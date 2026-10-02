@@ -10,14 +10,15 @@ const config: StorybookConfig = {
     '@storybook/addon-themes',
   ],
   framework: '@storybook/react-vite',
-  // BRAND.md is also published at the site root, so agents can fetch it by URL.
-  // The Onest font file lives in assets/fonts at the repo root (assets.md owns
-  // it) and is served at /fonts, the URL it always had. `from` paths are
-  // relative to this .storybook folder.
+  // BRAND.md and APP-BLOCKS.md are also published at the site root, so
+  // agents can fetch them by URL. The Onest font file lives in assets/fonts
+  // at the repo root (assets.md owns it) and is served at /fonts, the URL it
+  // always had. `from` paths are relative to this .storybook folder.
   staticDirs: [
     '../public',
     { from: '../../../assets/fonts', to: 'fonts' },
     { from: '../../../BRAND.md', to: '/BRAND.md' },
+    { from: '../../../APP-BLOCKS.md', to: '/APP-BLOCKS.md' },
   ],
   core: {
     disableTelemetry: true,

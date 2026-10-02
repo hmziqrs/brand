@@ -1,6 +1,6 @@
 # hmziq brand: master plan
 
-**Status: planned, not started. Updated 2026-09-29.**
+**Status: implemented on the `docs-implementation` branch. Updated 2026-10-02.**
 
 One brand kit that installs into every hmziq site and app, built for **SvelteKit and Astro**. This page is the index: what ships, the plans, the order of work and the open decisions. Each plan holds the detail.
 
@@ -117,8 +117,8 @@ Asset decisions are in [assets.md](./assets.md). All others:
 
 | Plan | Status |
 | --- | --- |
-| structure.md | Not started |
-| kits.md | Not started |
-| content-blocks.md | Not started |
-| app-blocks.md | Not started |
-| assets.md | Not started |
+| structure.md | Done — `docs-implementation` |
+| kits.md | Done — `docs-implementation` |
+| content-blocks.md | Done — `docs-implementation` |
+| app-blocks.md | Done — `docs-implementation` |
+| assets.md | Done — `docs-implementation` |

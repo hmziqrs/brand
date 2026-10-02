@@ -3,8 +3,8 @@
 #
 # The site root (kits.md, "Distribution"): the Svelte kit's Storybook at `/`,
 # the lab's React Storybook under `/lab/`, the two registries under `/r/`
-# and core's theme at `/theme.css`. `BRAND.md` is served at the root by the
-# Svelte Storybook's static dirs.
+# and core's theme at `/theme.css`. `BRAND.md` and `APP-BLOCKS.md` are served
+# at the root by the Svelte Storybook's static dirs.
 name: Storybook
 
 on:
