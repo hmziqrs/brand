@@ -20,7 +20,11 @@
 		saved = false,
 		/** A form-level error from the server. */
 		error,
-		/** The Cancel control: a reset button, or a link back. */
+		/**
+		 * The Cancel control: a reset button, or a link back. Rendered with the
+		 * Saving state's disabled flag, so the control can hold still while a
+		 * save runs (both buttons are disabled) — the snippet owns the button.
+		 */
 		cancel,
 		submitLabel = "Save changes",
 		/** The id of the form Save submits, when the footer sits outside it (RecordSheet). */
@@ -31,7 +35,7 @@
 		pending: boolean;
 		saved?: boolean;
 		error?: string;
-		cancel?: Snippet;
+		cancel?: Snippet<[disabled: boolean]>;
 		submitLabel?: string;
 		form?: string;
 		class?: string;
@@ -81,7 +85,7 @@
 		</p>
 		<div class="flex flex-wrap items-center gap-2 sm:justify-end">
 			{#if dirty || pending}
-				{@render cancel?.()}
+				{@render cancel?.(pending)}
 			{/if}
 			<Button type="submit" form={form} disabled={saveDisabled}>
 				{#if pending}

@@ -78,6 +78,10 @@
 	}
 </script>
 
+<svelte:head>
+	<title>Workspace — svelte-app</title>
+</svelte:head>
+
 {#snippet deleteTrigger(props: Record<string, unknown>)}
 	<Button {...props} type="button" variant="destructive" class="shrink-0">
 		Delete this workspace
@@ -176,8 +180,8 @@
 					error={form.formError}
 					submitLabel="Save changes"
 				>
-					{#snippet cancel()}
-						<Button type="reset" variant="outline" onclick={() => form.restore()}>Cancel</Button>
+					{#snippet cancel(disabled: boolean)}
+						<Button type="reset" variant="outline" {disabled} onclick={() => form.restore()}>Cancel</Button>
 					{/snippet}
 				</FormActions>
 				{/snippet}

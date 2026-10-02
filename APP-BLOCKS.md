@@ -119,8 +119,8 @@ Every page's content sits inside a `DataState`. Ordinary in-app visits load the 
 | --- | --- | --- | --- | --- | --- | --- |
 | `/app/overview` | `SkeletonStats` over its numbers, the meters' panel sketched in the same shape | — | `ErrorState` failed | — | `ErrorState` offline | the events meter at 100%, with its message and the "Upgrade" link |
 | `/app/members` | `TableSkeletonRows` inside the frame, header visible | First use (`EmptyState` in a `TableStateRow`) | `ErrorState` failed | — | `ErrorState` offline | — |
-| `/app/members/[id]` | `SkeletonDetails` where the rows land, the sections keeping their panels | — | `ErrorState` failed | `ErrorState` denied | `ErrorState` offline | — |
-| `/app/settings/*` | `SkeletonSettings` | — | `ErrorState` failed | billing only | `ErrorState` offline | — |
+| `/app/members/[id]` | `SkeletonDetails` where the rows land, the sections keeping their panels — the Remove panel included, its skeleton holding the paragraph-and-button line | — | `ErrorState` failed | `ErrorState` denied | `ErrorState` offline | — |
+| `/app/settings/*` | `SkeletonSettings` (billing: `SkeletonDetails` where the rows land, the sections keeping their panels) | — | `ErrorState` failed | billing only | `ErrorState` offline | — |
 
 A members search or filter that matches nobody shows `NoResults` inside the table body, whatever the state param is, so the header stays visible. Every `ErrorState` in the demo retries through the fake load, and the offline one also retries when the browser fires its `online` event.
 
@@ -180,7 +180,7 @@ Failures are scripted in the pages, so the same error states can be checked in b
 - **Access** — last active (relative; "Not yet" while they've only been invited), two-step sign-in as a `Tag` (success with a marker reading "On" when it's on, a grey "Off" when it's not), sign-in method, and the member ID in mono with a copy button.
 - **Remove from workspace** — the destructive outline: what removal means in one line, and the destructive button behind a `ConfirmAction` ("Remove Ada Lovelace?", confirm "Remove member"). A successful removal toasts "Removed Ada Lovelace from the workspace." and goes back to the members list.
 
-An unknown id is `ErrorState kind="not-found"` with "Back to members". The page takes `pending` (the sections keep their shape: `SkeletonDetails` stands where the rows land, inside the same panels), `error`, `offline` and `denied` ("Back to members" beside the retry).
+An unknown id is `ErrorState kind="not-found"` with "Back to members". The page takes `pending` (the sections keep their shape: `SkeletonDetails` stands where the rows land, inside the same panels, and the Remove panel's skeleton holds the same paragraph-and-button line — two lines and a full-width button below `sm`, one line and a button from it), `error`, `offline` and `denied` ("Back to members" beside the retry).
 
 ### The settings pages
 
@@ -412,7 +412,7 @@ The description and the error take their ids from `for` — `${for}-description`
 **Astro**: static; a small script only for the save-on-change status and its "Try again".
 
 ### FormActions
-`data-slot="form-actions"` · Svelte: `packages/brand-svelte/src/lib/blocks/app/settings/form-actions.svelte` · Story: `App/Settings/Form actions, clean`
+`data-slot="form-actions"` · Svelte: `packages/brand-svelte/src/lib/blocks/app/settings/form-actions.svelte` · Story: `App/Settings/Form actions`
 
 The foot of a settings form: what state the form is in on the left, Cancel and Save on the right. Save is a real `type="submit"` button; the page owns the `<form>` and the submit.
 
@@ -422,7 +422,7 @@ type FormActionsProps = {
   pending: boolean
   saved?: boolean        // shows "Saved" for 4 seconds after a successful save
   error?: string         // a form-level error from the server
-  cancel?: Slot          // the Cancel control: a reset button, or a link back
+  cancel?: Slot          // the Cancel control: a reset button, or a link back; rendered with disabled: boolean, true while the save runs, so the control it holds can disable itself
   submitLabel?: string   // "Save changes"
   form?: string          // the id of the form Save submits, when the footer sits outside it (RecordSheet)
   class?: string
@@ -605,7 +605,7 @@ A skeleton for a `DetailList`: rows of a label on the left and a value on the ri
 type SkeletonDetailsProps = { rows?: number; class?: string }   // default 4
 ```
 
-**Look.** `divide-y` rows, each `flex items-center justify-between gap-6 py-3.5` with an `h-4 w-28` label and an `h-4 w-44` value. No panel — the `DetailSection` around it draws that.
+**Look.** `divide-y` rows, each `flex items-center justify-between gap-6 py-3.5` with an `h-5 w-40` label and an `h-5 w-44` value — the bars carry the real rows' own sizes: `h-5` is `text-sm`'s line box and `w-40` the label's width, so a panel is already the size the record will make it. No panel — the `DetailSection` around it draws that.
 **Keyboard**: decorative (`aria-hidden`). **Mobile**: unchanged.
 **Astro**: static, no JS.
 
@@ -654,7 +654,7 @@ type CollectionToolbarProps = {
 ### FilterChip
 `data-slot="filter-chip"` · Svelte: `packages/brand-svelte/src/lib/blocks/app/collection/filter-chip.svelte` · Story: `App/Collection/Filter chip`
 
-One filter over a list: a chip that opens its options in a popover. The chip carries its chosen values as hidden `name`d inputs, so the page's GET form keeps the filter through its own submits. In Svelte the popover needs JavaScript; Astro's version is a `<details>`-style picker that opens without it, with the same checkbox rows and the same "Apply".
+One filter over a list: a chip that opens its options in a `<details>` picker, so it opens with no JavaScript in both kits. The rows are real checkbox (or radio) inputs with the URL param as their `name`, and values the option list no longer holds ride as hidden `name`d inputs, so the page's GET form keeps the filter through its own submits; with JavaScript on, a change applies at once.
 
 ```ts
 type FilterChipProps = {
@@ -664,7 +664,7 @@ type FilterChipProps = {
   value: string[]
   onChange?: (value: string[]) => void
   multiple?: boolean                               // default true
-  searchable?: boolean                             // default: true past 8 options (the Combobox pattern: Command above the list)
+  searchable?: boolean                             // default: true past 8 options (a filter field above the list)
   removeHref: Href                                 // the same list without this filter
   class?: string
 }
@@ -674,11 +674,11 @@ type FilterChipProps = {
 
 **Look.** Chips are `h-8 rounded-md border px-2.5 text-sm font-medium`; the active trigger and its remove link draw one joined pill (`rounded-r-none` / `rounded-l-none`). The popover is `w-52`; rows are `rounded-sm px-2 py-1.5 text-sm hover:bg-muted` with the box or radio at the left.
 
-**Keyboard.** The trigger opens with Enter or Space; the rows are buttons (`role="checkbox"` / `"radio"` with `aria-checked`), so Tab reaches them and Space or Enter turns them; Escape closes with focus back on the trigger; the searchable list takes typing and the arrow keys, as the Combobox does.
+**Keyboard.** The trigger opens with Enter or Space; the rows are real checkbox or radio inputs, so Tab reaches them and Space turns them; Escape closes with focus back on the trigger; the searchable list takes typing and filters the rows.
 
-**Mobile.** The chip stays one line; the popover is `w-52`, wider than the chip, portaled so nothing is clipped.
+**Mobile.** The chip stays one line; the popover is `w-52`, wider than the chip, and opens under it from the chip's own `<details>`, inside the toolbar row that scrolls sideways.
 
-**Astro.** A `<details>` with the same rows as real checkbox or radio inputs (name set, so the GET form submits them), plus a small script for the search field; "Apply" is a real submit button either way.
+**Astro.** The same `<details>` picker and the same rows; a small script submits the form on a change (closing the picker after a single-choice pick), handles Escape and drives the search field.
 
 ### SortMenu
 `data-slot="sort-menu"` · Svelte: `packages/brand-svelte/src/lib/blocks/app/collection/sort-menu.svelte` · Story: `App/Collection/Sort menu`

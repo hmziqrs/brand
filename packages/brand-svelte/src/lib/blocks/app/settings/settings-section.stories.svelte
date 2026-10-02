@@ -36,8 +36,8 @@
 	<Switch id="weekly" name="weekly" bind:checked={weekly} aria-describedby="weekly-description" />
 {/snippet}
 
-{#snippet cancelButton()}
-	<Button type="reset" variant="outline" onclick={restore}>Cancel</Button>
+{#snippet cancelButton(disabled: boolean)}
+	<Button type="reset" variant="outline" {disabled} onclick={restore}>Cancel</Button>
 {/snippet}
 
 <!-- A settings section: title and description beside the rows, from lg. -->
@@ -48,7 +48,7 @@
 			description="How you appear in the workspace, and when Sightline counts your day from."
 		>
 			<SettingRow label="Name" description="Shown next to anything you change." for="name">
-				{nameField}
+				{@render nameField()}
 			</SettingRow>
 			<SettingRow
 				label="Weekly summary email"
@@ -56,7 +56,7 @@
 				for="weekly"
 				orientation="horizontal"
 			>
-				{weeklySwitch}
+				{@render weeklySwitch()}
 			</SettingRow>
 		</SettingsSection>
 	</div>
@@ -87,7 +87,7 @@
 		<form onsubmit={(event) => event.preventDefault()} class="flex flex-col gap-8">
 			<SettingsSection title="Profile" description="How you appear in the workspace.">
 				<SettingRow label="Name" description="Shown next to anything you change." for="name">
-					{nameField}
+					{@render nameField()}
 				</SettingRow>
 			</SettingsSection>
 			<FormActions {dirty} pending={false} cancel={cancelButton} />
@@ -164,7 +164,7 @@
 			description="How you appear in the workspace, and when Sightline counts your day from."
 		>
 			<SettingRow label="Name" description="Shown next to anything you change." for="name">
-				{nameField}
+				{@render nameField()}
 			</SettingRow>
 			<SettingRow
 				label="Weekly summary email"
@@ -172,7 +172,7 @@
 				for="weekly"
 				orientation="horizontal"
 			>
-				{weeklySwitch}
+				{@render weeklySwitch()}
 			</SettingRow>
 		</SettingsSection>
 	</div>

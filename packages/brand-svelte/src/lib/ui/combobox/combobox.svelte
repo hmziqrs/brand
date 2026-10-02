@@ -25,6 +25,8 @@
 		empty = "No results.",
 		disabled = false,
 		invalid = false,
+		/** Ids the trigger announces beside itself, e.g. a SettingRow's description and error. */
+		describedBy,
 		id,
 		class: className,
 	}: {
@@ -37,6 +39,7 @@
 		empty?: string;
 		disabled?: boolean;
 		invalid?: boolean;
+		describedBy?: string;
 		id?: string;
 		class?: string;
 	} = $props();
@@ -72,6 +75,7 @@
 				role="combobox"
 				aria-expanded={open}
 				aria-invalid={invalid}
+				aria-describedby={describedBy}
 				aria-label={label}
 				class={cn("w-full justify-between font-normal", className)}
 			>

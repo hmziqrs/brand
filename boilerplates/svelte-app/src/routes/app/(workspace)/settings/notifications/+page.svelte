@@ -53,6 +53,10 @@
 	}
 </script>
 
+<svelte:head>
+	<title>Notifications — svelte-app</title>
+</svelte:head>
+
 <AppPage width="narrow">
 	<AppPageHeader
 		title="Settings"
@@ -87,6 +91,7 @@
 						name={pref.id}
 						bind:checked={values[pref.id]}
 						onCheckedChange={(next) => save(pref.id, next)}
+						aria-describedby={`${pref.id}-description`}
 					/>
 				</SettingRow>
 			{/each}

@@ -68,6 +68,10 @@
 	});
 </script>
 
+<svelte:head>
+	<title>Profile — svelte-app</title>
+</svelte:head>
+
 <AppPage width="narrow">
 	<AppPageHeader
 		title="Settings"
@@ -167,6 +171,7 @@
 					onValueChange={(next) => (form.values.timeZone = next)}
 					placeholder="Pick a time zone"
 					invalid={form.fieldError('timeZone') ? true : false}
+					describedBy="timeZone-description timeZone-error"
 				/>
 			</SettingRow>
 			{#snippet footer()}
@@ -177,8 +182,8 @@
 					error={form.formError}
 					submitLabel="Save changes"
 				>
-					{#snippet cancel()}
-						<Button type="reset" variant="outline" onclick={() => form.restore()}>Cancel</Button>
+					{#snippet cancel(disabled: boolean)}
+						<Button type="reset" variant="outline" {disabled} onclick={() => form.restore()}>Cancel</Button>
 					{/snippet}
 				</FormActions>
 			{/snippet}

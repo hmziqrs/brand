@@ -11,8 +11,8 @@
 	let savedName = $state('Maya Fernandes')
 </script>
 
-{#snippet cancelButton()}
-	<Button type="reset" variant="outline" onclick={() => (savedName = savedName)}>Cancel</Button>
+{#snippet cancelButton(disabled: boolean)}
+	<Button type="reset" variant="outline" {disabled} onclick={() => (savedName = savedName)}>Cancel</Button>
 {/snippet}
 
 <!-- Nothing changed: Save waits, and Cancel stays out of sight. -->
