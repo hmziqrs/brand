@@ -1,7 +1,7 @@
 {
   "target": "video",
   "command": "pnpm render:video",
-  "digest": "a51ef6af3ad82f62d17d38724f739c32f9089fddd629624a81671a718d063d91",
+  "digest": "84fb629768e12b2705fd803ee08880e42c565f03f588e3ac068d5b7aab2b2d44",
   "renderers": {
     "remotion": "4.0.531",
     "@remotion/renderer": "4.0.531"
@@ -72,7 +72,7 @@
     },
     {
       "path": "assets/video/source/scripts/manifest.mjs",
-      "sha256": "ea9630d7db3fbfc7e0e4d74a02c519c0d8fe868a1914630de6406d2db6be3045"
+      "sha256": "6edb64a4e54efd7a211c88d2b12df1e8c40de7aa136098cdd1b95fe7c2e3acb2"
     },
     {
       "path": "assets/video/source/scripts/render-motion.mjs",
@@ -80,7 +80,7 @@
     },
     {
       "path": "assets/video/source/scripts/render-video.mjs",
-      "sha256": "b71d24d4f75230cb8254abb2704be7996227ad2d25303b6a7fcca144e4a125b8"
+      "sha256": "b77de7f34941781c02f9c2b692fbf2a737866005d05279c81b6e11eb1e8978c8"
     },
     {
       "path": "assets/video/source/scripts/webpack.mjs",
@@ -108,7 +108,7 @@
     },
     {
       "path": "assets/video/source/src/Thumbnail.tsx",
-      "sha256": "b676da96f0e9dea04b0ad0fbc158e37b48867209a3dc56b4636c43d63d2e8562"
+      "sha256": "a9b713958c23639ba5abd33ac95c34f67bed8d442eb6bcace68d7314dc92a63f"
     },
     {
       "path": "assets/video/source/src/Wordmark.tsx",
@@ -204,7 +204,7 @@
     },
     {
       "path": "pnpm-lock.yaml",
-      "sha256": "6002b59ca1a7c6178f0fd6a753d26276e628c605de93562c4086062a01f4e665"
+      "sha256": "9e84ad90a9cca818b0618626f8377650cbe128b5b2ec86edf748d45fbb0aeb59"
     }
   ],
   "files": [

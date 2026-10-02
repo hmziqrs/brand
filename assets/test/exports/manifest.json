@@ -1,7 +1,7 @@
 {
   "target": "test-card",
   "command": "pnpm render-assets --only test-card",
-  "digest": "f90fe476747176d8e5d815ca0bd2a9692bcb22d53b21f3cf28ca65998b90e412",
+  "digest": "ed95f860b65d48a1a03780635d74ffd0927b770f37906da6141393a306fa743e",
   "renderers": {
     "@resvg/resvg-js": "2.6.2",
     "opentype.js": "2.0.0",
@@ -33,10 +33,6 @@
     {
       "path": "assets/fonts/onest-latin-600-normal.ttf",
       "sha256": "b8fbaa56e4804151b2deadc3b09980c1302855c7e58a0979c761f5cf81038f33"
-    },
-    {
-      "path": "assets/fonts/onest-latin-wght-normal.woff2",
-      "sha256": "052df74533250c2e0ca0c4bdd32de594e107d99c1648e63820ef9c6142067828"
     },
     {
       "path": "assets/test/source/test-card.mjs",
@@ -112,7 +108,7 @@
     },
     {
       "path": "scripts/assets-lib.mjs",
-      "sha256": "ef48e1d81aaa7309e56cbe21fe5ebfb5053a984f034402eb7fd3117a18b85d34"
+      "sha256": "6a277612cbc3d79abec201403716d3fc992a3701c38a22a5abe38e0daaf06917"
     },
     {
       "path": "scripts/render-assets.mjs",

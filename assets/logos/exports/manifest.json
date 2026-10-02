@@ -1,7 +1,7 @@
 {
   "target": "logos",
   "command": "pnpm render-assets --only logos",
-  "digest": "d5724ff3503a134dccad56cd98a16ec957f33e05f611885ee9f2d03cd50e6d5c",
+  "digest": "4d42aa1cfc898b16f94abfdfcf557e6c50c4a4059c7d81f21fe768b33aad56ec",
   "renderers": {
     "@resvg/resvg-js": "2.6.2",
     "opentype.js": "2.0.0",
@@ -67,10 +67,6 @@
     {
       "path": "assets/fonts/onest-latin-600-normal.ttf",
       "sha256": "b8fbaa56e4804151b2deadc3b09980c1302855c7e58a0979c761f5cf81038f33"
-    },
-    {
-      "path": "assets/fonts/onest-latin-wght-normal.woff2",
-      "sha256": "052df74533250c2e0ca0c4bdd32de594e107d99c1648e63820ef9c6142067828"
     },
     {
       "path": "assets/logos/source/logos.ts",
@@ -158,7 +154,7 @@
     },
     {
       "path": "scripts/assets-lib.mjs",
-      "sha256": "ef48e1d81aaa7309e56cbe21fe5ebfb5053a984f034402eb7fd3117a18b85d34"
+      "sha256": "6a277612cbc3d79abec201403716d3fc992a3701c38a22a5abe38e0daaf06917"
     },
     {
       "path": "scripts/render-assets.mjs",

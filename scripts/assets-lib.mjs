@@ -41,7 +41,9 @@ const baseInputDirs = [
   "packages/brand-core/src/motion", // ring, scene and video code
   "assets/fonts", // static TTFs. The variable WOFF2 is a browser input, not a render input.
 ]
-const fontExts = /\.(ttf|otf|woff2?)$/
+// Static font files only: a browser-only WOFF2 bump changes nothing a static
+// render reads, so it must not mark test-card, social or logos stale.
+const staticFontExts = /\.(ttf|otf)$/
 
 /** The targets, in render order. The command that fixes a target is
  *  `pnpm render-assets --only <id>`. */
@@ -134,7 +136,7 @@ export function targetInputs(target) {
   for (const path of baseInputs) add(join(root, path))
   for (const dir of baseInputDirs) {
     for (const path of walk(join(root, dir))) {
-      if (dir === "assets/fonts" && !fontExts.test(path)) continue
+      if (dir === "assets/fonts" && !staticFontExts.test(path)) continue
       add(path)
     }
   }
