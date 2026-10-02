@@ -26,6 +26,10 @@
 	let sentTo = $state<string | undefined>(seed.ok ? seed.values.email : undefined);
 </script>
 
+<svelte:head>
+	<title>Forgot your password? — svelte-app</title>
+</svelte:head>
+
 <AuthFrame title="Forgot your password?" description="We'll email you a link to set a new one.">
 	<form
 		method="POST"

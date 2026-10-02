@@ -30,6 +30,10 @@
 	let values = $state<{ name?: string; email?: string }>(seed.values);
 </script>
 
+<svelte:head>
+	<title>Create your account — svelte-app</title>
+</svelte:head>
+
 <AuthFrame title="Create your account" description="Start tracking your product with Sightline.">
 	<form
 		method="POST"

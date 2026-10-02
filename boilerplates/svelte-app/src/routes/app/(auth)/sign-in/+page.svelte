@@ -30,6 +30,10 @@
 	let values = $state<{ email?: string }>(seed.values);
 </script>
 
+<svelte:head>
+	<title>Sign in — svelte-app</title>
+</svelte:head>
+
 <AuthFrame variant="split" title="Sign in" description="Sign in to your Sightline workspace.">
 	<form
 		method="POST"

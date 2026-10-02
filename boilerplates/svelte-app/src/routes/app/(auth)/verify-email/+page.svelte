@@ -28,6 +28,10 @@
 	let status = $state<'sent' | 'verified'>(seed.ok ? 'verified' : 'sent');
 </script>
 
+<svelte:head>
+	<title>Verify your email — svelte-app</title>
+</svelte:head>
+
 <AuthFrame title="Verify your email">
 	<form
 		method="POST"

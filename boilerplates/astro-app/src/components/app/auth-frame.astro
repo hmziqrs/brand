@@ -59,6 +59,12 @@ const { variant = "centered", title, description } = Astro.props;
 
     button.disabled = true;
     button.setAttribute("aria-busy", "true");
+    // The resting label stands down, so the button says only what it is
+    // doing now ("Signing in…", never "Sign inSigning in…") — the same
+    // replacement the block's own `pending` render makes.
+    for (const child of [...button.childNodes]) {
+      if (child.nodeType === Node.TEXT_NODE && child.textContent?.trim()) child.remove();
+    }
     const spinner = document.createElement("span");
     spinner.className =
       "lucide inline-block size-4 animate-spin rounded-full border-2 border-current border-t-transparent motion-reduce:animate-none";

@@ -29,6 +29,10 @@
 	let result = $state<FormResult>(seed.result);
 </script>
 
+<svelte:head>
+	<title>Reset your password — svelte-app</title>
+</svelte:head>
+
 <AuthFrame title="Reset your password" description="Pick a new password for your account.">
 	<form
 		method="POST"

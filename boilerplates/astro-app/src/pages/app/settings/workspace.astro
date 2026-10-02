@@ -6,6 +6,7 @@ import SkeletonSettings from "$brand/blocks/app/states/skeleton-settings.astro";
 import Workspace from "../../../components/app/workspace.astro";
 import WorkspaceForm from "../../../components/app/workspace-form.astro";
 import Deferred from "../../../components/app/deferred.astro";
+import AppDocument from "../../../components/app/app-document.astro";
 import { demoLoad } from "../../../lib/app/demo-state";
 import { deleteWorkspaceFailure, workspace as saved } from "../../../lib/app/settings";
 
@@ -37,27 +38,29 @@ const form = { ...saved, ...values };
 const pending = load.status === "pending" && !action;
 ---
 
-<Workspace currentPath={Astro.url.pathname} state={load.state}>
-  {
-    load.status === "error" ? (
-      <AppPage>
-        <div class="mt-8">
-          <ErrorState kind={load.kind} retryHref="/app/settings/workspace" />
-        </div>
-      </AppPage>
-    ) : pending ? (
-      <Deferred server:defer ms={600}>
-        <div slot="fallback">
-          <AppPage>
-            <div class="mt-8">
-              <SkeletonSettings rows={2} />
-            </div>
-          </AppPage>
-        </div>
+<AppDocument title="Workspace — astro-app">
+  <Workspace currentPath={Astro.url.pathname} state={load.state}>
+    {
+      load.status === "error" ? (
+        <AppPage>
+          <div class="mt-8">
+            <ErrorState kind={load.kind} retryHref="/app/settings/workspace" />
+          </div>
+        </AppPage>
+      ) : pending ? (
+        <Deferred server:defer ms={600}>
+          <div slot="fallback">
+            <AppPage>
+              <div class="mt-8">
+                <SkeletonSettings rows={2} />
+              </div>
+            </AppPage>
+          </div>
+          <WorkspaceForm values={form} saved={saved} result={result} savedOk={savedOk} />
+        </Deferred>
+      ) : (
         <WorkspaceForm values={form} saved={saved} result={result} savedOk={savedOk} />
-      </Deferred>
-    ) : (
-      <WorkspaceForm values={form} saved={saved} result={result} savedOk={savedOk} />
-    )
-  }
-</Workspace>
+      )
+    }
+  </Workspace>
+</AppDocument>

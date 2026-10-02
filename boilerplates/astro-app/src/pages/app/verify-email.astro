@@ -2,6 +2,7 @@
 import { actions } from "astro:actions";
 import VerifyEmail from "$brand/blocks/app/auth/verify-email.astro";
 import AuthFrame from "../../components/app/auth-frame.astro";
+import AppDocument from "../../components/app/app-document.astro";
 import { currentUser } from "@hmziq/brand-core/app/demo-data";
 import type { FormResult } from "$brand/blocks/app/auth/types";
 
@@ -22,8 +23,10 @@ const email = Astro.url.searchParams.get("email") ?? currentUser.email;
 const status = action?.data?.ok && action.data.verified ? "verified" : "sent";
 ---
 
-<AuthFrame title="Verify your email">
-  <form method="POST" action={actions.verifyEmail}>
-    <VerifyEmail email={email} status={status} result={result} resendAfter={30} continueHref="/app/overview" />
-  </form>
-</AuthFrame>
+<AppDocument title="Verify your email — astro-app">
+  <AuthFrame title="Verify your email">
+    <form method="POST" action={actions.verifyEmail}>
+      <VerifyEmail email={email} status={status} result={result} resendAfter={30} continueHref="/app/overview" />
+    </form>
+  </AuthFrame>
+</AppDocument>

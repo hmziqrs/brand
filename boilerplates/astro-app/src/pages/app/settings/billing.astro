@@ -7,6 +7,7 @@ import { Button } from "$brand/starwind/button";
 import Workspace from "../../../components/app/workspace.astro";
 import Billing from "../../../components/app/billing.astro";
 import Deferred from "../../../components/app/deferred.astro";
+import AppDocument from "../../../components/app/app-document.astro";
 import { demoLoad } from "../../../lib/app/demo-state";
 
 /*
@@ -17,41 +18,43 @@ import { demoLoad } from "../../../lib/app/demo-state";
 const load = demoLoad(Astro.url.searchParams.get("state"), { denied: true });
 ---
 
-<Workspace currentPath={Astro.url.pathname} state={load.state}>
-  {
-    load.status === "error" ? (
-      <AppPage>
-        <div class="mt-8">
-          <ErrorState kind={load.kind} retryHref="/app/settings/billing">
-            {load.kind === "denied" && (
-              <Fragment slot="actions">
-                <Button variant="outline" href="/app/settings/profile">Back to settings</Button>
-              </Fragment>
-            )}
-          </ErrorState>
-        </div>
-      </AppPage>
-    ) : load.status === "pending" ? (
-      <Deferred server:defer ms={600}>
-        <div slot="fallback">
-          <AppPage>
-            <div class="mt-8 flex flex-col gap-8">
-              <DetailSection title="Plan">
-                <SkeletonDetails rows={4} />
-              </DetailSection>
-              <DetailSection title="Usage">
-                <SkeletonDetails rows={3} />
-              </DetailSection>
-              <DetailSection title="Invoices">
-                <SkeletonDetails rows={6} />
-              </DetailSection>
-            </div>
-          </AppPage>
-        </div>
+<AppDocument title="Billing — astro-app">
+  <Workspace currentPath={Astro.url.pathname} state={load.state}>
+    {
+      load.status === "error" ? (
+        <AppPage>
+          <div class="mt-8">
+            <ErrorState kind={load.kind} retryHref="/app/settings/billing">
+              {load.kind === "denied" && (
+                <Fragment slot="actions">
+                  <Button variant="outline" href="/app/settings/profile">Back to settings</Button>
+                </Fragment>
+              )}
+            </ErrorState>
+          </div>
+        </AppPage>
+      ) : load.status === "pending" ? (
+        <Deferred server:defer ms={600}>
+          <div slot="fallback">
+            <AppPage>
+              <div class="mt-8 flex flex-col gap-8">
+                <DetailSection title="Plan">
+                  <SkeletonDetails rows={4} />
+                </DetailSection>
+                <DetailSection title="Usage">
+                  <SkeletonDetails rows={3} />
+                </DetailSection>
+                <DetailSection title="Invoices">
+                  <SkeletonDetails rows={6} />
+                </DetailSection>
+              </div>
+            </AppPage>
+          </div>
+          <Billing />
+        </Deferred>
+      ) : (
         <Billing />
-      </Deferred>
-    ) : (
-      <Billing />
-    )
-  }
-</Workspace>
+      )
+    }
+  </Workspace>
+</AppDocument>

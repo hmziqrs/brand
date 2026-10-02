@@ -7,6 +7,7 @@ import { Button } from "$brand/starwind/button";
 import Workspace from "../../../components/app/workspace.astro";
 import MemberContent from "../../../components/app/member-content.astro";
 import Deferred from "../../../components/app/deferred.astro";
+import AppDocument from "../../../components/app/app-document.astro";
 import { demoLoad } from "../../../lib/app/demo-state";
 import { memberById } from "../../../lib/app/roster";
 
@@ -18,52 +19,62 @@ import { memberById } from "../../../lib/app/roster";
  */
 const load = demoLoad(Astro.url.searchParams.get("state"), { denied: true });
 const member = memberById(Astro.params.id ?? "");
+
+// The record's own name, the way the header reads it; an unknown id names
+// what the page shows instead.
+const title = `${member ? member.name : "Not found"} — astro-app`;
 ---
 
-<Workspace currentPath="/app/members" state={load.state} breadcrumbs={[{ label: "Members", href: "/app/members" }, ...(member ? [{ label: member.name }] : [])]}>
-  {
-    !member ? (
-      <AppPage>
-        <div class="mt-8">
-          <ErrorState kind="not-found">
-            <Fragment slot="actions">
-              <Button variant="outline" href="/app/members">Back to members</Button>
-            </Fragment>
-          </ErrorState>
-        </div>
-      </AppPage>
-    ) : load.status === "error" ? (
-      <AppPage>
-        <div class="mt-8">
-          <ErrorState kind={load.kind} retryHref={`/app/members/${member.id}`}>
-            {load.kind === "denied" && (
+<AppDocument {title}>
+  <Workspace
+    currentPath="/app/members"
+    state={load.state}
+    breadcrumbs={[{ label: "Members", href: "/app/members" }, ...(member ? [{ label: member.name }] : [])]}
+  >
+    {
+      !member ? (
+        <AppPage>
+          <div class="mt-8">
+            <ErrorState kind="not-found">
               <Fragment slot="actions">
                 <Button variant="outline" href="/app/members">Back to members</Button>
               </Fragment>
-            )}
-          </ErrorState>
-        </div>
-      </AppPage>
-    ) : load.status === "pending" ? (
-      <Deferred server:defer ms={600}>
-        <div slot="fallback">
-          <AppPage>
-            <div class="mt-8 flex flex-col gap-8">
-              {/* The sections keep their shape: the skeleton stands exactly
-                  where the rows land, inside the same panels. */}
-              <DetailSection title="Profile">
-                <SkeletonDetails rows={4} />
-              </DetailSection>
-              <DetailSection title="Access">
-                <SkeletonDetails rows={4} />
-              </DetailSection>
-            </div>
-          </AppPage>
-        </div>
+            </ErrorState>
+          </div>
+        </AppPage>
+      ) : load.status === "error" ? (
+        <AppPage>
+          <div class="mt-8">
+            <ErrorState kind={load.kind} retryHref={`/app/members/${member.id}`}>
+              {load.kind === "denied" && (
+                <Fragment slot="actions">
+                  <Button variant="outline" href="/app/members">Back to members</Button>
+                </Fragment>
+              )}
+            </ErrorState>
+          </div>
+        </AppPage>
+      ) : load.status === "pending" ? (
+        <Deferred server:defer ms={600}>
+          <div slot="fallback">
+            <AppPage>
+              <div class="mt-8 flex flex-col gap-8">
+                {/* The sections keep their shape: the skeleton stands exactly
+                    where the rows land, inside the same panels. */}
+                <DetailSection title="Profile">
+                  <SkeletonDetails rows={4} />
+                </DetailSection>
+                <DetailSection title="Access">
+                  <SkeletonDetails rows={4} />
+                </DetailSection>
+              </div>
+            </AppPage>
+          </div>
+          <MemberContent member={member} />
+        </Deferred>
+      ) : (
         <MemberContent member={member} />
-      </Deferred>
-    ) : (
-      <MemberContent member={member} />
-    )
-  }
-</Workspace>
+      )
+    }
+  </Workspace>
+</AppDocument>

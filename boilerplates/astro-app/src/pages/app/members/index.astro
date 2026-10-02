@@ -8,6 +8,7 @@ import { readListParams } from "@hmziq/brand-core/app/list-params";
 import Workspace from "../../../components/app/workspace.astro";
 import MembersContent from "../../../components/app/members-content.astro";
 import Deferred from "../../../components/app/deferred.astro";
+import AppDocument from "../../../components/app/app-document.astro";
 import { demoLoad } from "../../../lib/app/demo-state";
 
 /*
@@ -24,42 +25,44 @@ const list = readListParams(Astro.url.search, ["role", "status"]);
 const face: "rows" | "empty" = load.state === "empty" ? "empty" : "rows";
 ---
 
-<Workspace currentPath={Astro.url.pathname} state={load.state}>
-  {
-    load.status === "error" ? (
-      <AppPage>
-        <div class="mt-8">
-          <ErrorState kind={load.kind} retryHref="/app/members" />
-        </div>
-      </AppPage>
-    ) : load.status === "pending" ? (
-      <Deferred server:defer ms={600}>
-        <div slot="fallback">
-          <AppPage>
-            <AppTableFrame>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead class="min-w-64">Member</TableHead>
-                    <TableHead>Role</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Last active</TableHead>
-                    <TableHead class="w-12">
-                      <span class="sr-only">Actions</span>
-                    </TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  <TableSkeletonRows rows={Math.min(list.perPage, 8)} columns={["38%", "14%", "16%", "18%", "14%"]} />
-                </TableBody>
-              </Table>
-            </AppTableFrame>
-          </AppPage>
-        </div>
-        <MembersContent list={list} demoState={load.state} face="rows" />
-      </Deferred>
-    ) : (
-      <MembersContent list={list} demoState={load.state} face={face} />
-    )
-  }
-</Workspace>
+<AppDocument title="Members — astro-app">
+  <Workspace currentPath={Astro.url.pathname} state={load.state}>
+    {
+      load.status === "error" ? (
+        <AppPage>
+          <div class="mt-8">
+            <ErrorState kind={load.kind} retryHref="/app/members" />
+          </div>
+        </AppPage>
+      ) : load.status === "pending" ? (
+        <Deferred server:defer ms={600}>
+          <div slot="fallback">
+            <AppPage>
+              <AppTableFrame>
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead class="min-w-64">Member</TableHead>
+                      <TableHead>Role</TableHead>
+                      <TableHead>Status</TableHead>
+                      <TableHead>Last active</TableHead>
+                      <TableHead class="w-12">
+                        <span class="sr-only">Actions</span>
+                      </TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableSkeletonRows rows={Math.min(list.perPage, 8)} columns={["38%", "14%", "16%", "18%", "14%"]} />
+                  </TableBody>
+                </Table>
+              </AppTableFrame>
+            </AppPage>
+          </div>
+          <MembersContent list={list} demoState={load.state} face="rows" />
+        </Deferred>
+      ) : (
+        <MembersContent list={list} demoState={load.state} face={face} />
+      )
+    }
+  </Workspace>
+</AppDocument>

@@ -1,14 +1,18 @@
 ---
 import { actions } from "astro:actions";
+import { siGithub, siGoogle } from "simple-icons";
 import SignUpForm from "$brand/blocks/app/auth/sign-up-form.astro";
 import AuthFrame from "../../components/app/auth-frame.astro";
-import type { FormResult } from "$brand/blocks/app/auth/types";
+import AppDocument from "../../components/app/app-document.astro";
+import type { FormResult, Provider } from "$brand/blocks/app/auth/types";
 
 /*
  * The sign-up page (app-blocks.md, phase 10): the centered layout, the
  * password rules as a ticking checklist, posted to the signUp action. The
  * email "taken@example.com" is the scripted failure; success redirects to
- * verify-email with the address.
+ * verify-email with the address. Both providers sit above the fields, as on
+ * the sign-in page: GitHub works, and Google comes straight back with its
+ * scripted failure in the URL, so it shows with JavaScript off too.
  */
 const action = Astro.getActionResult(actions.signUp);
 
@@ -29,15 +33,23 @@ const passwordRules = [
   { label: "One uppercase letter", pattern: "[A-Z]" },
   { label: "One number", pattern: "\\d" },
 ];
+
+const providers: Provider[] = [
+  { id: "github", label: "GitHub", icon: siGithub, href: "/app/sign-up/github" },
+  { id: "google", label: "Google", icon: siGoogle, href: "/app/sign-up/google" },
+];
 ---
 
-<AuthFrame title="Create your account" description="Start tracking your product with Sightline.">
-  <form method="POST" action={actions.signUp}>
-    <SignUpForm
-      result={result}
-      values={values}
-      passwordRules={passwordRules}
-      links={{ signIn: "/app/sign-in", terms: "/terms", privacy: "/privacy" }}
-    />
-  </form>
-</AuthFrame>
+<AppDocument title="Create your account — astro-app">
+  <AuthFrame title="Create your account" description="Start tracking your product with Sightline.">
+    <form method="POST" action={actions.signUp}>
+      <SignUpForm
+        result={result}
+        values={values}
+        providers={providers}
+        passwordRules={passwordRules}
+        links={{ signIn: "/app/sign-in", terms: "/terms", privacy: "/privacy" }}
+      />
+    </form>
+  </AuthFrame>
+</AppDocument>

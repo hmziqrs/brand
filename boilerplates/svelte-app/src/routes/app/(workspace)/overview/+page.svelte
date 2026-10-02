@@ -7,7 +7,6 @@
   meter full, with the message and the way out.
 -->
 <script lang="ts">
-	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
 	import AppPage from '$brand/blocks/app/shell/app-page.svelte';
 	import AppPageHeader from '$brand/blocks/app/shell/app-page-header.svelte';
@@ -32,12 +31,15 @@
 	const stats = $derived(overview[range]);
 
 	// The range is URL state like everything else: the link carries the demo
-	// state along, so the switch keeps working through a change.
+	// state along, so the switch keeps working through a change. It is a
+	// real navigation — the same full load the Astro demo makes on a range
+	// change, keeping the two demos at parity — which keeps this route
+	// inside the two modules the plan allows it ($app/state, $app/forms).
 	function setRange(next: string) {
 		const url = new URL(page.url);
 		if (next === '30') url.searchParams.delete('range');
 		else url.searchParams.set('range', next);
-		goto(url.pathname + url.search + url.hash, { keepFocus: true, noScroll: true });
+		window.location.assign(url.pathname + url.search + url.hash);
 	}
 
 	// state=limit: the events meter stands at its limit, with the message.
@@ -45,6 +47,12 @@
 		load.state === 'limit' ? usage.events.limit : usage.events.used,
 	);
 </script>
+
+<svelte:head>
+	<!-- The document title the axe gate asks for on every demo page, matching
+	     the header's word. -->
+	<title>Overview — svelte-app</title>
+</svelte:head>
 
 {#snippet rangePicker()}
 	<Segmented
@@ -56,17 +64,30 @@
 {/snippet}
 
 {#snippet loadingGrid()}
-	<div class="mt-2 flex flex-col gap-6">
+	<div class="flex flex-col gap-6">
 		<SkeletonStats count={4} />
-		<!-- The meters' panel, sketched in the same shape: three ruled cells,
-		     two lines each, where the meters land. -->
+		<!-- The meters' panel, sketched in the shapes the meters draw: a
+		     label, the bar, the words for the two bar meters (the events
+		     words wrap to two lines, so their bar is two lines tall); the
+		     ring (size-18) with its two lines beside it for seats. -->
 		<div class="grid gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-3">
-			{#each [0, 1, 2] as i (i)}
-				<div class="flex flex-col gap-2.5 bg-background px-4 py-4">
-					<Skeleton class="h-4 w-24" />
-					<Skeleton class="h-4 w-32" />
+			<div class="flex flex-col gap-2 bg-background px-4 py-4">
+				<Skeleton class="h-5 w-24" />
+				<Skeleton class="h-1.5 w-full" />
+				<Skeleton class="h-10 w-full" />
+			</div>
+			<div class="flex items-center gap-4 bg-background px-4 py-4">
+				<Skeleton class="size-18 rounded-full" />
+				<div class="flex flex-col gap-1.5">
+					<Skeleton class="h-5 w-24" />
+					<Skeleton class="h-5 w-32" />
 				</div>
-			{/each}
+			</div>
+			<div class="flex flex-col gap-2 bg-background px-4 py-4">
+				<Skeleton class="h-5 w-24" />
+				<Skeleton class="h-1.5 w-full" />
+				<Skeleton class="h-5 w-32" />
+			</div>
 		</div>
 	</div>
 {/snippet}

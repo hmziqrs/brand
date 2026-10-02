@@ -289,7 +289,15 @@ const sortOptions = [
     data-remove-confirm
   >
     <Fragment slot="trigger">
-      <Button type="button" variant="error" class="sr-only" data-remove-trigger>Remove</Button>
+      {/* The programmatic half of the confirm: askRemove clicks this trigger
+          once a row action or the bulk bar has chosen who it's about. It is
+          never a control a reader aims for, so it is a plain button, truly
+          sr-only, and out of the tab order — the row's own "Remove" is the
+          visible, labelled way in, and a keyboard reader must never land on
+          an invisible one. (A Starwind Button here would fight sr-only: its
+          base h-9/px-2.5 utilities override sr-only's 1px sizing in the
+          cascade, leaving a 22×36 invisible box in the tab order.) */}
+      <button type="button" class="sr-only" tabindex="-1" data-remove-trigger>Remove</button>
     </Fragment>
   </ConfirmAction>
 

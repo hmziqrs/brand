@@ -319,6 +319,10 @@
 	const ROLES: MemberRole[] = ['Owner', 'Admin', 'Member', 'Viewer'];
 </script>
 
+<svelte:head>
+	<title>Members — svelte-app</title>
+</svelte:head>
+
 {#snippet statusOf(member: Member)}
 	{#if member.status === 'Active'}
 		<Tag tone="success" marker>Active</Tag>
@@ -431,10 +435,13 @@
 {#snippet rowsBody()}
 	<Body>
 		{#if rows.length === 0}
+			<!-- Filters win when both are set (APP-BLOCKS.md, NoResults):
+			     theirs is the copy, and the one clear link empties the
+			     search and the filters together. -->
 			<TableStateRow colSpan={5}>
 				<NoResults
 					query={data.list.q}
-					filtered={data.list.filters.role.length + data.list.filters.status.length > 0 && data.list.q === ''}
+					filtered={data.list.filters.role.length + data.list.filters.status.length > 0}
 					clearHref={hrefOf({ q: '', filters: { role: [], status: [] } })}
 					noun="members"
 				/>

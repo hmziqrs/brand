@@ -30,6 +30,10 @@
 	const price = `$${billing.price.amount} per ${billing.price.per}`;
 </script>
 
+<svelte:head>
+	<title>Billing — svelte-app</title>
+</svelte:head>
+
 {#snippet priceValue()}
 	{price}
 	<Tag>Example price</Tag>
