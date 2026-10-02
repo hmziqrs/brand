@@ -41,6 +41,10 @@ const { site, nav = ["Docs", "Blog", "FAQ"], current = "Docs", menu, page, toc =
 ---
 
 <SiteLayout site={site} maker="Docs" nav={nav} current={current} wide layout="page" mainClassName="pt-0 pb-0 md:pt-0" head={head} theme={theme}>
+  {/* Passed through as a plain element, like BlogLayout's forward: the docs
+      pages put ThemeInit (the pre-paint theme baseline) in it, and it only
+      reaches the document head if this layout hands it to SiteLayout. */}
+  <slot name="head" slot="head" />
   {
     Astro.slots.has("extra") && (
       <div slot="extra" class="ml-auto flex items-center gap-3 md:ml-0">
@@ -65,7 +69,12 @@ const { site, nav = ["Docs", "Blog", "FAQ"], current = "Docs", menu, page, toc =
           <PanelLeft class="size-3.75" />
           Pages
         </button>
-        <nav data-slot="docs-menu" aria-label="Docs" hidden class="flex flex-col gap-6 text-sm max-md:pb-2 md:flex">
+        {/* Folded with a class, never the `hidden` attribute: preflight makes
+            `[hidden]` display:none with !important, which no utility can beat,
+            so the menu would never come back at md. `max-md:hidden` loses to
+            the base `flex` from md up — the button's own `md:hidden` is the
+            same cascade — and the script below toggles the class to open it. */}
+        <nav data-slot="docs-menu" aria-label="Docs" class="flex flex-col gap-6 text-sm max-md:pb-2 max-md:hidden">
           {
             menu.map(([title, pages]) => (
               <div data-docs-group class="flex flex-col gap-2">
@@ -145,8 +154,8 @@ const { site, nav = ["Docs", "Blog", "FAQ"], current = "Docs", menu, page, toc =
     if (!button) return;
     const menu = button.parentElement?.querySelector<HTMLElement>("[data-slot='docs-menu']");
     if (!menu) return;
-    const open = menu.hasAttribute("hidden");
-    menu.toggleAttribute("hidden", !open);
+    const open = menu.classList.contains("max-md:hidden");
+    menu.classList.toggle("max-md:hidden", !open);
     button.setAttribute("aria-expanded", String(open));
   });
 </script>
