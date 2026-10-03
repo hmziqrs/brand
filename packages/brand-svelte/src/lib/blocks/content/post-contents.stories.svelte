@@ -33,7 +33,11 @@
 
 <!-- A left column, for pages that give the contents a margin of its own. -->
 <Story name="Left" asChild>
-	<div class="flex gap-12 px-6 py-8">
+	<div class="px-6 py-8">
+		<p class="text-muted-foreground mb-4 text-sm xl:hidden">
+			The contents column shows from xl (1280 px) — widen the canvas to see this variant.
+		</p>
+		<div class="flex gap-12">
 		<div class="min-w-0 flex-1">
 			{#each items as item (item.id)}
 				<h2 id={item.id} class="mt-8 text-2xl font-medium">{item.label}</h2>
@@ -46,7 +50,11 @@
 
 <!-- A right column. -->
 <Story name="Right" asChild>
-	<div class="flex gap-12 px-6 py-8">
+	<div class="px-6 py-8">
+		<p class="text-muted-foreground mb-4 text-sm xl:hidden">
+			The contents column shows from xl (1280 px) — widen the canvas to see this variant.
+		</p>
+		<div class="flex gap-12">
 		<PostContents items={items} variant="right" class="w-50" />
 		<div class="min-w-0 flex-1">
 			{#each items as item (item.id)}
