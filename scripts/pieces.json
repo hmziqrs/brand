@@ -631,6 +631,16 @@
       "astroItem": "kicker"
     },
     {
+      "name": "Typeset",
+      "group": "content",
+      "lab": "design-base-typeset--documentation",
+      "svelte": "design-base-typeset--documentation",
+      "astro": "not yet",
+      "svelteFile": "styles/typeset.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
       "name": "Combobox",
       "group": "app",
       "lab": null,
