@@ -56,7 +56,10 @@ const facts = [
       </ButtonLink>
     </Fragment>
     <Fragment slot="note"><HeroNote>Example note under the buttons, with an orange ring.</HeroNote></Fragment>
-    <Fragment slot="aside"><Rings seed="example" /></Fragment>
+    <Fragment slot="aside">
+      <!-- Beside the words from md up; below it, the rings sit out rather than stack under the text. -->
+      <div class="hidden md:block"><Rings seed="example" /></div>
+    </Fragment>
   </Hero>
 
   <RingStats items={facts} />

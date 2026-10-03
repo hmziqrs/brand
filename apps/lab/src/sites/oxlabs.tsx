@@ -64,7 +64,11 @@ export function OxlabsPage() {
             Taking on new projects
           </span>
         }
-        aside={<Rings seed="oxlabs" />}
+        aside={/* Rings are beside-the-words decoration: below md they sit out rather than stack. */(
+          <div className="hidden md:block">
+            <Rings seed="oxlabs" />
+          </div>
+        )}
       />
 
       <Section title="Four kinds of work, one small studio" intro="We build the whole thing end to end, so nothing gets lost between teams.">

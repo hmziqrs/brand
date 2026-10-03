@@ -78,7 +78,13 @@
 				</ButtonLink>
 			{/snippet}
 			{#snippet note()}<HeroNote>Example note under the buttons, with an orange ring.</HeroNote>{/snippet}
-			{#snippet aside()}<Rings seed="example" />{/snippet}
+			{#snippet aside()}
+				<!-- Beside the words from md up; below it, the rings sit out rather
+					than stack under the text. -->
+				<div class="hidden md:block">
+					<Rings seed="example" />
+				</div>
+			{/snippet}
 		</Hero>
 
 		<RingStats items={facts} />

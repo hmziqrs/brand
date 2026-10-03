@@ -122,7 +122,11 @@ export function FreeoxidePage() {
           </>
         }
         note={<HeroNote>Free and open source. MIT or Apache-2.0.</HeroNote>}
-        aside={<Rings seed="freeoxide" />}
+        aside={/* Rings are beside-the-words decoration: below md they sit out rather than stack. */(
+          <div className="hidden md:block">
+            <Rings seed="freeoxide" />
+          </div>
+        )}
       />
 
       <RingStats items={facts} />

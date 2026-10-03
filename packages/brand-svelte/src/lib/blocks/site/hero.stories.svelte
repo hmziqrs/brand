@@ -19,7 +19,13 @@
 				<ButtonLink href="#" size="lg" variant="outline" class="px-5">View on GitHub</ButtonLink>
 			{/snippet}
 			{#snippet note()}<HeroNote>Free and open source. MIT or Apache-2.0.</HeroNote>{/snippet}
-			{#snippet aside()}<Rings seed="freeoxide" />{/snippet}
+			{#snippet aside()}
+				<!-- Rings are the words' neighbour, never a stacked block: below md
+					there is no room beside the words, so they sit out entirely. -->
+				<div class="hidden md:block">
+					<Rings seed="freeoxide" />
+				</div>
+			{/snippet}
 		</Hero>
 	</div>
 </Story>

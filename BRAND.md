@@ -1103,6 +1103,7 @@ These made the old sites look like every other developer site:
 - Colored paragraphs, tinted notice boxes, colored card backgrounds. The only colored section backgrounds are the bands in section 7.
 - Grey-filled cards, tiles or panels sitting in the page.
 - Rings in a logo or mark, or rings behind text. A solid dot as a bullet.
+- Rings stacked under a hero's words on narrow screens. Rings sit beside the words; when the layout has no room for "beside" (below md), they sit out instead of taking vertical space.
 - Tailwind's numbered palette (`bg-green-500`) or hex values in components.
 
 ---

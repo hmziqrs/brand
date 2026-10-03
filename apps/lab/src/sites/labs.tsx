@@ -37,7 +37,11 @@ export function LabsPage() {
             </ButtonLink>
           </>
         }
-        aside={<Rings seed="Labs" />}
+        aside={/* Rings are beside-the-words decoration: below md they sit out rather than stack. */(
+          <div className="hidden md:block">
+            <Rings seed="Labs" />
+          </div>
+        )}
       />
 
       <Section title="This year so far">

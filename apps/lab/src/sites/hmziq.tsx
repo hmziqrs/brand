@@ -108,7 +108,11 @@ export function HmziqPage() {
             ))}
           </>
         }
-        aside={<Rings seed="hmziq" />}
+        aside={/* Rings are beside-the-words decoration: below md they sit out rather than stack. */(
+          <div className="hidden md:block">
+            <Rings seed="hmziq" />
+          </div>
+        )}
       />
 
       <Section title="What I'm working on">

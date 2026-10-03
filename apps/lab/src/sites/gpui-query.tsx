@@ -118,7 +118,11 @@ export function GpuiQueryPage() {
           </>
         }
         note={<HeroNote>Free and open source, MIT licensed.</HeroNote>}
-        aside={<Rings seed="gpui-query" />}
+        aside={/* Rings are beside-the-words decoration: below md they sit out rather than stack. */(
+          <div className="hidden md:block">
+            <Rings seed="gpui-query" />
+          </div>
+        )}
       />
 
       <Section title="Add it to your app" intro="One command in your crate. The hook feature gives you use_query and use_mutation.">
