@@ -30,6 +30,26 @@
       "astroItem": "mark"
     },
     {
+      "name": "LogoTweaker",
+      "group": "brand",
+      "lab": "custom-logo--tweaker",
+      "svelte": "custom-logo--tweaker",
+      "astro": "not yet",
+      "svelteFile": "components/wordmark.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "PresetWall",
+      "group": "brand",
+      "lab": null,
+      "svelte": "custom-logo--preset-wall",
+      "astro": "not yet",
+      "svelteFile": "components/wordmark.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
       "name": "Marker",
       "group": "brand",
       "lab": "custom-marker--default",
@@ -308,6 +328,36 @@
       "svelteFile": "components/brand-icon.svelte",
       "svelteItem": "brand-icon",
       "astroItem": "brand-icon"
+    },
+    {
+      "name": "LatticeTweaker",
+      "group": "brand",
+      "lab": "custom-lattice--tweaker",
+      "svelte": "custom-lattice--tweaker",
+      "astro": "not yet",
+      "svelteFile": "tweakers/lattice.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "RingTweaker",
+      "group": "brand",
+      "lab": "custom-ring-motion--tweaker",
+      "svelte": "custom-ring-motion--tweaker",
+      "astro": "not yet",
+      "svelteFile": "tweakers/ring-motion.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "RingPresets",
+      "group": "brand",
+      "lab": "custom-ring-motion--side-by-side",
+      "svelte": "custom-ring-motion--side-by-side",
+      "astro": "not yet",
+      "svelteFile": "tweakers/ring-motion.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
     },
     {
       "name": "SiteShell",
