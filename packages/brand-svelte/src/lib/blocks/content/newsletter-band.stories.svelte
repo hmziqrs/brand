@@ -11,7 +11,5 @@
 
 <!-- The orange band with an email field, at the end of every post and the post list. The form posts to the page's own action. -->
 <Story name="Default" asChild>
-	<div class="overflow-hidden rounded-xl border">
-		<NewsletterBand />
-	</div>
+	<NewsletterBand />
 </Story>
