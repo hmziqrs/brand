@@ -53,9 +53,11 @@
 	// closes it, so the page behind is what you land on.
 	let menuOpen = $state(false);
 
-	// The top layout's links: ghost sm buttons, the active one muted.
+	// The top layout's links: ghost sm buttons, the active one muted. The
+	// link is a flex row so the icon sits beside its label — stacked they
+	// outgrow h-8 and the nav's sideways scroll clips the second line.
 	const topLink = cn(
-		"h-8 gap-1.5 px-2.5",
+		"inline-flex h-8 items-center gap-1.5 px-2.5",
 		"text-muted-foreground hover:bg-muted hover:text-foreground aria-[current=page]:bg-muted aria-[current=page]:text-foreground",
 	);
 </script>
