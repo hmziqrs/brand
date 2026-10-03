@@ -1,3 +1,4 @@
+import { existsSync } from 'node:fs'
 import type { StorybookConfig } from '@storybook/sveltekit'
 
 const config: StorybookConfig = {
@@ -7,8 +8,10 @@ const config: StorybookConfig = {
 	addons: ['@storybook/addon-a11y', '@storybook/addon-themes', '@storybook/addon-svelte-csf'],
 	framework: '@storybook/sveltekit',
 	// One sidebar shows both Storybooks: this one at the site root, the lab's
-	// (React) at /lab/. The ref only resolves on the Pages deploy; locally it
-	// shows as unreachable, which is expected.
+	// (React) at /lab/. On the Pages deploy the workflow copies the lab's build
+	// there; locally the staticDirs below serve apps/lab/storybook-static at
+	// the same path once it exists (pnpm --filter lab build-storybook), so the
+	// ref resolves in dev too.
 	refs: {
 		lab: {
 			title: 'Lab (React)',
@@ -26,6 +29,11 @@ const config: StorybookConfig = {
 		{ from: '../../../BRAND.md', to: 'BRAND.md' },
 		{ from: '../../../APP-BLOCKS.md', to: 'APP-BLOCKS.md' },
 		{ from: '../static', to: '/' },
+		// The lab's built Storybook, only when it has been built: gives the
+		// /lab/ ref its files in dev, the same way the Pages deploy does.
+		...(existsSync(new URL('../../../apps/lab/storybook-static', import.meta.url))
+			? [{ from: '../../../apps/lab/storybook-static', to: '/lab' }]
+			: []),
 	],
 	core: {
 		disableTelemetry: true,
