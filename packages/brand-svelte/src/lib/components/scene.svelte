@@ -41,7 +41,8 @@
 	let sceneState = $state<"loading" | "moving" | "still" | "off">(canRunScenes() ? "loading" : "off");
 	let paused = $state(false);
 	// The newest settings, for a scene that finishes loading after they changed.
-	let latest = $state.raw(settings);
+	// svelte-ignore state_referenced_locally
+	let latest = settings;
 
 	$effect(() => {
 		if (!canRunScenes() || !host) return;

@@ -126,12 +126,15 @@
 <!-- A slider with its name on the left and its value on the right. -->
 {#snippet Setting({ label, value, min, max, step, format, onChange }: SettingProps)}
 	{@const id = nextId()}
+	<!-- Bits snaps an off-step value and reports it as a change; the slider gets the step-aligned value, the setting keeps its own. -->
+	{@const decimals = (String(step).split(".")[1] ?? "").length}
+	{@const shown = Number((min + Math.ceil((value - min) / step - 0.5) * step).toFixed(decimals))}
 	<div class="flex flex-col gap-3">
 		<div class="flex items-baseline justify-between gap-4 text-sm">
 			<span id={id} class="text-muted-foreground">{label}</span>
 			<span class="tabular-nums">{format(value)}</span>
 		</div>
-		<Slider type="single" aria-labelledby={id} {min} {max} {step} {value} onValueChange={onChange} />
+		<Slider type="single" aria-labelledby={id} {min} {max} {step} value={shown} onValueChange={onChange} />
 	</div>
 {/snippet}
 
