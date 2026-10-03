@@ -149,3 +149,54 @@ export const editorFiles = [
 		code: "use gpui_query::hook::use_query;\nuse gpui_query::{QueryOptions, QueryKey, QueryError};\n\nstruct UserView {\n    user: gpui::Entity<gpui_query::QueryResource<User, QueryError>>,\n    _subscription: gpui::Subscription,\n}\n\nimpl UserView {\n    fn new(user_id: u64, cx: &mut gpui::Context<Self>) -> Self {\n        let (user, subscription) = use_query(\n            QueryKey::from([\"users\", &user_id.to_string()]),\n            |_signal| async move { fetch_user(user_id).await.map_err(QueryError::from) },\n            cx,\n        );\n        Self { user, _subscription: subscription }\n    }\n}",
 	},
 ];
+
+/** claude-multi's TUI menu (claude-multi/data.ts). */
+export const menu = ["Add new instance", "List all instances", "Manage plugins", "Sync mode", "MCP servers", "Exit"];
+
+/** The session Add new instance plays back, one line at a time (claude-multi/blocks.tsx). */
+export const addInstance: TerminalLineData[] = [
+	["step", "Step 1 / 8 · instance name", "glm"],
+	["step", "Step 2 / 8 · provider", "GLM"],
+	["step", "Step 3 / 8 · api key", "••••••••••••"],
+	["step", "Step 7 / 8 · symlink plugins & skills", "Y"],
+	["ok", "instance 'glm' created"],
+	["kv", "binary", "/usr/local/bin/claude-glm"],
+	["kv", "config", "~/.claude-glm"],
+];
+
+/** The instances the demo's screens name (claude-multi/blocks.tsx). */
+export const listed = ["glm", "dsv3"];
+
+/** The settings file the demo's third pane shows (claude-multi/data.ts). */
+export const settingsJson = `{
+  "provider": "glm",
+  "baseUrl": "https://api.z.ai",
+  "model": "GLM-5.3",
+  "syncPlugins": true
+}`;
+
+/** The instance graph's folders (claude-multi/data.ts). */
+export const instances = [
+	{ name: "work", provider: "anthropic", models: [["sonnet-4.6", "api.anthropic.com"]] },
+	{ name: "lab", provider: "glm", models: [["GLM-5.3", "api.z.ai"], ["GLM-5.3-Flash", "api.z.ai"]] },
+	{ name: "cheap", provider: "kimi", models: [["K2.7 Code", "api.moonshot.ai"]] },
+] as const;
+
+/** What sits inside every instance folder (claude-multi/data.ts). */
+export const inside = [
+	["settings.json", "provider env vars and merged settings"],
+	[".claude.json", "instance-level Claude config"],
+	["plugins/  skills/", "symlinked or copied from your main install"],
+	["projects/", "conversation history, per project"],
+] as const;
+
+/** claude-multi's install commands, one per package manager (claude-multi/data.ts). */
+export const installs = [
+	["bun", "bun add -g claude-multi"],
+	["npm", "npm install -g claude-multi"],
+	["pnpm", "pnpm add -g claude-multi"],
+	["deno", "deno install -g npm:claude-multi"],
+] as const;
+
+/** The InstallBlock's requirements, all met (claude-multi/blocks.tsx). */
+export const installChecks = ["Node 18+ or Bun 1+", "macOS, Linux, Windows", "Runs without sudo"];

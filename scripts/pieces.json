@@ -1380,6 +1380,46 @@
       "svelteFile": "blocks/content/code-editor.svelte",
       "svelteItem": "code-editor",
       "astroItem": "code-editor"
+    },
+    {
+      "name": "Checks",
+      "group": "content",
+      "lab": "sites-landing-pages--claude-multi",
+      "svelte": "content-checks--default",
+      "astro": "not yet",
+      "svelteFile": "blocks/content/checks.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "InstallBlock",
+      "group": "content",
+      "lab": "sites-landing-pages--claude-multi",
+      "svelte": "content-install-block--default",
+      "astro": "not yet",
+      "svelteFile": "blocks/content/install-block.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "MenuDemo",
+      "group": "content",
+      "lab": "sites-landing-pages--claude-multi",
+      "svelte": "content-menu-demo--default",
+      "astro": "not yet",
+      "svelteFile": "blocks/content/menu-demo.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "InstanceGraph",
+      "group": "content",
+      "lab": "sites-landing-pages--claude-multi",
+      "svelte": "content-instance-graph--default",
+      "astro": "not yet",
+      "svelteFile": "blocks/content/instance-graph.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
     }
   ]
 }
