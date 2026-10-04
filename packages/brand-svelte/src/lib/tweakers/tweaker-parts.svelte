@@ -1,10 +1,4 @@
-<!--
-  Pieces shared by the tweaker pages (rings, lattice, logo): the page
-  itself, a labelled slider, a color picker, an on/off switch, a titled
-  group of settings, and the box that exports and loads settings. The five
-  stateless parts are exported snippets; the one with state — the export
-  box — is this file's component.
--->
+<!-- Parts shared by the tweaker pages; the export box is the only stateful one. -->
 <script module lang="ts">
 	import Ban from "@lucide/svelte/icons/ban";
 	import Pipette from "@lucide/svelte/icons/pipette";
@@ -110,12 +104,7 @@
 	}
 </script>
 
-<!--
-	The preview on the left and the settings on the right, each scrolling on
-	its own, so the preview stays in sight while you tune it. On narrow
-	screens they stack and the page scrolls as usual. Fills the window: give
-	the story `layout: "fullscreen"`.
--->
+<!-- Preview and settings panes scroll on their own; give the story `layout: "fullscreen"`. -->
 {#snippet TweakerPage({ preview, children }: TweakerPageProps)}
 	<div class="grid gap-10 p-4 lg:h-dvh lg:grid-cols-[minmax(0,1fr)_27rem] lg:gap-0 lg:p-0">
 		<div class="min-w-0 lg:overflow-y-auto lg:p-8">{@render preview()}</div>
@@ -126,7 +115,8 @@
 <!-- A slider with its name on the left and its value on the right. -->
 {#snippet Setting({ label, value, min, max, step, format, onChange }: SettingProps)}
 	{@const id = nextId()}
-	<!-- Bits snaps an off-step value and reports it as a change; the slider gets the step-aligned value, the setting keeps its own. -->
+	<!-- Upstream: Bits UI snaps off-step values at mount and reports the snap as a
+	     change, so the slider takes the aligned value while the setting keeps the raw one. -->
 	{@const decimals = (String(step).split(".")[1] ?? "").length}
 	{@const shown = Number((min + Math.ceil((value - min) / step - 0.5) * step).toFixed(decimals))}
 	<div class="flex flex-col gap-3">
@@ -200,10 +190,7 @@
 	</section>
 {/snippet}
 
-<!--
-	The settings as JSON to copy or download (to send over, or keep), the code
-	that uses them, and a box to paste settings back in.
--->
+<!-- Settings as JSON to copy or download, the code that uses them, and a paste-load box. -->
 <section class="flex flex-col gap-4 border-t pt-6">
 	<div class="flex flex-wrap items-end justify-between gap-3">
 		<div class="flex flex-col gap-1">
