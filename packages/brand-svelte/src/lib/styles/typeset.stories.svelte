@@ -2,6 +2,7 @@
 	import { defineMeta } from '@storybook/addon-svelte-csf'
 	import TypesetChat from './typeset-chat.svelte'
 	import TypesetStreaming from './typeset-streaming.svelte'
+	import './typeset.css'
 
 	const { Story } = defineMeta({
 		title: 'design/base/Typeset',
