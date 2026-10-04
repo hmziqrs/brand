@@ -640,6 +640,48 @@
 			]
 		},
 		{
+			"name": "content-blocks",
+			"type": "registry:lib",
+			"title": "content-blocks",
+			"description": "Files from \"content-blocks\" the pieces roster does not list yet; they become their own items when their plan finishes and this script is re-run.",
+			"dependencies": [
+				"@lucide/svelte@^1.49.0"
+			],
+			"registryDependencies": [
+				"local:code-lines",
+				"local:command-bar",
+				"local:marker",
+				"local:segmented",
+				"local:tag",
+				"local:terminal-line",
+				"local:terminal-window",
+				"local:ui-kbd",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/content/checks.svelte",
+					"type": "registry:file",
+					"target": "blocks/content/checks.svelte"
+				},
+				{
+					"path": "src/lib/blocks/content/install-block.svelte",
+					"type": "registry:file",
+					"target": "blocks/content/install-block.svelte"
+				},
+				{
+					"path": "src/lib/blocks/content/instance-graph.svelte",
+					"type": "registry:file",
+					"target": "blocks/content/instance-graph.svelte"
+				},
+				{
+					"path": "src/lib/blocks/content/menu-demo.svelte",
+					"type": "registry:file",
+					"target": "blocks/content/menu-demo.svelte"
+				}
+			]
+		},
+		{
 			"name": "content-blocks-shared",
 			"type": "registry:lib",
 			"title": "content-blocks-shared",
@@ -1356,6 +1398,7 @@
 				"local:confirm-action",
 				"local:contact-channels",
 				"local:container",
+				"local:content-blocks",
 				"local:content-blocks-shared",
 				"local:copy-button",
 				"local:corner-rings",
@@ -1460,6 +1503,7 @@
 				"local:step-number",
 				"local:stepper",
 				"local:steps",
+				"local:styles",
 				"local:summary-box",
 				"local:table-app-blocks",
 				"local:table-pagination",
@@ -1471,10 +1515,12 @@
 				"local:terminal-window",
 				"local:toc",
 				"local:topic-chips",
+				"local:tweakers",
 				"local:typing-terminal",
 				"local:ui-alert",
 				"local:ui-alert-dialog",
 				"local:ui-avatar",
+				"local:ui-badge",
 				"local:ui-breadcrumb",
 				"local:ui-button",
 				"local:ui-card",
@@ -1486,6 +1532,8 @@
 				"local:ui-input",
 				"local:ui-input-group",
 				"local:ui-input-otp",
+				"local:ui-kbd",
+				"local:ui-label",
 				"local:ui-popover",
 				"local:ui-radio-group",
 				"local:ui-select",
@@ -1493,6 +1541,7 @@
 				"local:ui-sheet",
 				"local:ui-sidebar",
 				"local:ui-skeleton",
+				"local:ui-slider",
 				"local:ui-sonner",
 				"local:ui-switch",
 				"local:ui-table",
@@ -2873,6 +2922,38 @@
 			]
 		},
 		{
+			"name": "styles",
+			"type": "registry:lib",
+			"title": "styles",
+			"description": "Files from \"styles\" the pieces roster does not list yet; they become their own items when their plan finishes and this script is re-run.",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:ui-button"
+			],
+			"files": [
+				{
+					"path": "src/lib/styles/typeset-chat.svelte",
+					"type": "registry:file",
+					"target": "styles/typeset-chat.svelte"
+				},
+				{
+					"path": "src/lib/styles/typeset-streaming-text.svelte",
+					"type": "registry:file",
+					"target": "styles/typeset-streaming-text.svelte"
+				},
+				{
+					"path": "src/lib/styles/typeset-streaming.svelte",
+					"type": "registry:file",
+					"target": "styles/typeset-streaming.svelte"
+				},
+				{
+					"path": "src/lib/styles/typeset.css",
+					"type": "registry:file",
+					"target": "styles/typeset.css"
+				}
+			]
+		},
+		{
 			"name": "summary-box",
 			"type": "registry:lib",
 			"title": "summary-box",
@@ -3086,6 +3167,64 @@
 			]
 		},
 		{
+			"name": "tweakers",
+			"type": "registry:lib",
+			"title": "tweakers",
+			"description": "Files from \"tweakers\" the pieces roster does not list yet; they become their own items when their plan finishes and this script is re-run.",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0",
+				"@lucide/svelte@^1.49.0",
+				"simple-icons@16.32.0",
+				"three@^0.184.0"
+			],
+			"registryDependencies": [
+				"local:brand-icon",
+				"local:button-link",
+				"local:code-block",
+				"local:hero",
+				"local:hero-note",
+				"local:mark",
+				"local:rings",
+				"local:scene",
+				"local:segmented",
+				"local:ui-button",
+				"local:ui-input",
+				"local:ui-label",
+				"local:ui-slider",
+				"local:ui-switch",
+				"local:ui-textarea",
+				"local:utils",
+				"local:wordmark"
+			],
+			"files": [
+				{
+					"path": "src/lib/tweakers/lattice-tweaker.svelte",
+					"type": "registry:file",
+					"target": "tweakers/lattice-tweaker.svelte"
+				},
+				{
+					"path": "src/lib/tweakers/logo-tweaker.svelte",
+					"type": "registry:file",
+					"target": "tweakers/logo-tweaker.svelte"
+				},
+				{
+					"path": "src/lib/tweakers/ring-tweaker.svelte",
+					"type": "registry:file",
+					"target": "tweakers/ring-tweaker.svelte"
+				},
+				{
+					"path": "src/lib/tweakers/saved.ts",
+					"type": "registry:file",
+					"target": "tweakers/saved.ts"
+				},
+				{
+					"path": "src/lib/tweakers/tweaker-parts.svelte",
+					"type": "registry:file",
+					"target": "tweakers/tweaker-parts.svelte"
+				}
+			]
+		},
+		{
 			"name": "typing-terminal",
 			"type": "registry:lib",
 			"title": "typing-terminal",
@@ -3275,6 +3414,30 @@
 					"path": "src/lib/ui/avatar/index.ts",
 					"type": "registry:file",
 					"target": "ui/avatar/index.ts"
+				}
+			]
+		},
+		{
+			"name": "ui-badge",
+			"type": "registry:lib",
+			"title": "ui-badge",
+			"description": "shadcn-svelte's badge, vendored with the brand's changes (packages/brand-svelte/README.md).",
+			"dependencies": [
+				"tailwind-variants@^3.3.1"
+			],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/ui/badge/badge.svelte",
+					"type": "registry:file",
+					"target": "ui/badge/badge.svelte"
+				},
+				{
+					"path": "src/lib/ui/badge/index.ts",
+					"type": "registry:file",
+					"target": "ui/badge/index.ts"
 				}
 			]
 		},
@@ -3828,6 +3991,57 @@
 			]
 		},
 		{
+			"name": "ui-kbd",
+			"type": "registry:lib",
+			"title": "ui-kbd",
+			"description": "shadcn-svelte's kbd, vendored with the brand's changes (packages/brand-svelte/README.md).",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/ui/kbd/index.ts",
+					"type": "registry:file",
+					"target": "ui/kbd/index.ts"
+				},
+				{
+					"path": "src/lib/ui/kbd/kbd-group.svelte",
+					"type": "registry:file",
+					"target": "ui/kbd/kbd-group.svelte"
+				},
+				{
+					"path": "src/lib/ui/kbd/kbd.svelte",
+					"type": "registry:file",
+					"target": "ui/kbd/kbd.svelte"
+				}
+			]
+		},
+		{
+			"name": "ui-label",
+			"type": "registry:lib",
+			"title": "ui-label",
+			"description": "shadcn-svelte's label, vendored with the brand's changes (packages/brand-svelte/README.md).",
+			"dependencies": [
+				"bits-ui@^2.18.0"
+			],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/ui/label/index.ts",
+					"type": "registry:file",
+					"target": "ui/label/index.ts"
+				},
+				{
+					"path": "src/lib/ui/label/label.svelte",
+					"type": "registry:file",
+					"target": "ui/label/label.svelte"
+				}
+			]
+		},
+		{
 			"name": "ui-popover",
 			"type": "registry:lib",
 			"title": "ui-popover",
@@ -4268,6 +4482,30 @@
 					"path": "src/lib/ui/skeleton/skeleton.svelte",
 					"type": "registry:file",
 					"target": "ui/skeleton/skeleton.svelte"
+				}
+			]
+		},
+		{
+			"name": "ui-slider",
+			"type": "registry:lib",
+			"title": "ui-slider",
+			"description": "shadcn-svelte's slider, vendored with the brand's changes (packages/brand-svelte/README.md).",
+			"dependencies": [
+				"bits-ui@^2.18.0"
+			],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/ui/slider/index.ts",
+					"type": "registry:file",
+					"target": "ui/slider/index.ts"
+				},
+				{
+					"path": "src/lib/ui/slider/slider.svelte",
+					"type": "registry:file",
+					"target": "ui/slider/slider.svelte"
 				}
 			]
 		},
