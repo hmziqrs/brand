@@ -1,8 +1,3 @@
-<!--
-  A page for tuning how the hero rings move. Every setting is live; the
-  result is at the bottom, ready to send. Your last settings are kept in
-  this browser.
--->
 <script lang="ts">
 	import Pause from "@lucide/svelte/icons/pause";
 	import Play from "@lucide/svelte/icons/play";
@@ -69,7 +64,6 @@
 		return { orange, gray };
 	}
 
-	/** Each slider's range. Pasted settings are kept inside these too. */
 	const ranges = {
 		turn: { seconds: { min: 20, max: 300, step: 5 } },
 		breathe: { seconds: { min: 2, max: 20, step: 0.5 }, grow: { min: 0.02, max: 0.25, step: 0.01 } },
@@ -82,12 +76,10 @@
 	const orangeKinds = ["still", "turn", "breathe", "orbit"] as const;
 	const grayKinds = ["still", "ripple", "dial", "turn"] as const;
 
-	/** Reads pasted settings into the tweaks: known kinds, and numbers kept within the sliders' ranges. */
 	function fromPasted(pasted: unknown, current: Tweaks): Tweaks | string {
 		const p = pasted as { rings?: { motion?: RingMotion }; motion?: RingMotion } & RingMotion;
 		const motion = p?.rings?.motion ?? p?.motion ?? p;
 		if (!motion || typeof motion !== "object" || !("orange" in motion || "gray" in motion)) return "Those aren't ring settings. Paste what the ring tweaker's Settings tab gives you.";
-		// Only the layers in the paste change; every other setting stays as it is.
 		const next: Tweaks = { ...current, orange: "still", gray: "still" };
 		const take = <K extends keyof typeof ranges>(key: K, from: Record<string, unknown>) => {
 			const into = { ...current[key] } as Record<string, unknown>;

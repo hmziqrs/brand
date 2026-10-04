@@ -44,16 +44,10 @@
 	</Button>
 {/snippet}
 
-<!--
-  Tune how the hero rings move: the orange ring and the gray rings each have
-  their own movement and settings, and they combine. Your settings are at the
-  bottom, ready to copy.
--->
 <Story name="Tweaker" parameters={{ layout: 'fullscreen' }} asChild>
 	<RingTweaker />
 </Story>
 
-<!-- The ready-made mixes side by side, each with its own play and pause. -->
 <Story name="Side by side" asChild>
 	<div class="flex max-w-5xl flex-col gap-8">
 		<div class="flex flex-wrap items-center gap-3">
