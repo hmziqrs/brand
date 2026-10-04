@@ -2,6 +2,7 @@
 	import { defineMeta } from '@storybook/addon-svelte-csf'
 	import { family } from '@hmziq/brand-core/family'
 	import type { LogoLook } from '@hmziq/brand-core/logo'
+	import LogoTweaker from '../tweakers/logo-tweaker.svelte'
 	import Mark from './mark.svelte'
 	import Wordmark from './wordmark.svelte'
 
@@ -74,12 +75,21 @@
 </Story>
 
 <!--
-	The lab's Tweaker story: tuning the logo through `look` — the letters
-	(letterStyle), the movement (the motion vars), the sheen and the plate.
-	Here it is the tweaker's presets, every one live on the wordmark and the
-	mark; the lab's interactive tuning page is the lab's own tool.
+	Tune the logo: the letters, the square (or a dot, diamond or bar), the
+	mark's tile, a plate behind the wordmark, and how each part moves: pulse,
+	ripple, blink, spin, bounce, shimmer, wave, type. It starts from the
+	brand's logo. Your settings are at the bottom, ready to send; pass them to
+	`<Wordmark look>` and `<Mark look>`.
 -->
 <Story name="Tweaker" parameters={{ layout: 'fullscreen' }} asChild>
+	<LogoTweaker />
+</Story>
+
+<!--
+	The tweaker's presets, every one live on the wordmark and the mark — the
+	static wall beside the tuning page, for seeing the whole range at a glance.
+-->
+<Story name="Preset wall" parameters={{ layout: 'fullscreen' }} asChild>
 	<div class="flex flex-col gap-10 p-6 sm:p-10">
 		{#each presets as p (p.name)}
 			<div class="flex flex-col gap-3">
@@ -91,7 +101,10 @@
 			</div>
 		{/each}
 		<div class="flex flex-col gap-3">
-			<Wordmark name="freeoxide" look={wave} paused class="text-4xl sm:text-5xl" />
+			<div class="flex flex-wrap items-center justify-between gap-x-6 gap-y-3">
+				<Wordmark name="freeoxide" look={wave} paused class="text-4xl sm:text-5xl" />
+				<Mark symbol="Fx" size={44} look={wave} paused />
+			</div>
 			<p class="text-sm text-muted-foreground">Wave, paused — a moving look held still where it is.</p>
 		</div>
 	</div>
