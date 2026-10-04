@@ -66,6 +66,7 @@
 	{/snippet}
 	<div class="grid md:h-88 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
 		<div class="h-84 min-w-0 overflow-auto px-4.5 pt-3.5 pb-4.5 md:h-auto">
+			{@render paneTitle("claude-multi")}
 			<div class="font-mono text-[0.8125rem] leading-[1.8]">
 				<div class="mb-2.5 whitespace-pre">
 					<span class="text-primary">$</span> claude-multi
