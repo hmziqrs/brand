@@ -1860,6 +1860,76 @@
       "svelteFile": "ui/tabs/tabs.stories.svelte",
       "svelteItem": "not yet",
       "astroItem": "not yet"
+    },
+    {
+      "name": "DocsPage",
+      "group": "site",
+      "lab": "sites-pages--docs",
+      "svelte": "sites-pages--docs-gpui-query",
+      "astro": "not yet",
+      "svelteFile": "blocks/content/pages.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "BlogPostPage",
+      "group": "site",
+      "lab": "sites-pages--post",
+      "svelte": "sites-pages--blog-post-blog-hmziq-rs",
+      "astro": "not yet",
+      "svelteFile": "blocks/content/pages.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "HmziqLanding",
+      "group": "site",
+      "lab": "sites-landing-pages--hmziq",
+      "svelte": "sites-landing-pages--hmziq-rs",
+      "astro": "not yet",
+      "svelteFile": "blocks/site/sites.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "BlogLanding",
+      "group": "site",
+      "lab": "sites-landing-pages--blog",
+      "svelte": "sites-landing-pages--blog-hmziq-rs",
+      "astro": "not yet",
+      "svelteFile": "blocks/site/sites.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "LabsLanding",
+      "group": "site",
+      "lab": "sites-landing-pages--labs",
+      "svelte": "sites-landing-pages--hmziq-xyz-labs",
+      "astro": "not yet",
+      "svelteFile": "blocks/site/sites.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "Icons",
+      "group": "brand",
+      "lab": null,
+      "svelte": "brand--icons",
+      "astro": "not yet",
+      "svelteFile": "docs/brand.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "Signature",
+      "group": "brand",
+      "lab": null,
+      "svelte": "brand--signature",
+      "astro": "not yet",
+      "svelteFile": "docs/brand.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
     }
   ]
 }
