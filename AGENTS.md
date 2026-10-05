@@ -20,7 +20,8 @@ When driving a browser, also read and follow `/Users/hmziq/.zcode/skills/agent-b
 ## Migration work is additive Svelte
 
 - Migration work only adds files under `packages/brand-svelte/` (plus roster/scripts entries a plan names). It never edits or deletes lab files.
-- Active plan: `docs/lab-to-svelte-migration-plan.md`. Kit rules: `docs/kits.md` and `packages/brand-svelte/README.md`.
+- **Active directive: port 100% of the remaining React content to Svelte** — the five SaaS templates and their SaaS-only blocks, the site landing/page fullscreen stories, the remaining stock-ui stories, and the brand-guidelines content. This supersedes the "reference-only" rows in `docs/lab-to-svelte-migration-plan.md`; `apps/lab` stays untouched as the frozen reference until every row is ported.
+- Kit rules: `docs/kits.md` and `packages/brand-svelte/README.md`.
 - Port lab behavior 1:1, edge cases included: shared localStorage keys (`hmziq-lattice-tweaks`, `hmziq-ring-tweaks`, `hmziq-logo-tweaks`) so lab-saved settings carry over, paste clamping to the same ranges, merge-only paste semantics, `CSS.supports('color', …)` validation, browser-guarded canvas probes, `URL.createObjectURL` downloads, pause/seed controls.
 
 ## Kit conventions
