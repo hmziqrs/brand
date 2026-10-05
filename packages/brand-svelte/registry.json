@@ -869,6 +869,47 @@
 			]
 		},
 		{
+			"name": "docs",
+			"type": "registry:lib",
+			"title": "docs",
+			"description": "Files from \"docs\" the pieces roster does not list yet; they become their own items when their plan finishes and this script is re-run.",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"local:code-block",
+				"local:tag",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/docs/colors.svelte",
+					"type": "registry:file",
+					"target": "docs/colors.svelte"
+				},
+				{
+					"path": "src/lib/docs/docs-page.svelte",
+					"type": "registry:file",
+					"target": "docs/docs-page.svelte"
+				},
+				{
+					"path": "src/lib/docs/introduction.svelte",
+					"type": "registry:file",
+					"target": "docs/introduction.svelte"
+				},
+				{
+					"path": "src/lib/docs/typography.svelte",
+					"type": "registry:file",
+					"target": "docs/typography.svelte"
+				},
+				{
+					"path": "src/lib/docs/writing.svelte",
+					"type": "registry:file",
+					"target": "docs/writing.svelte"
+				}
+			]
+		},
+		{
 			"name": "docs-layout",
 			"type": "registry:lib",
 			"title": "docs-layout",
@@ -1409,6 +1450,7 @@
 				"local:detail-section",
 				"local:details-app-blocks",
 				"local:details-app-blocks-shared",
+				"local:docs",
 				"local:docs-layout",
 				"local:docs-pager",
 				"local:docs-search",
@@ -1487,6 +1529,7 @@
 				"local:shell-app-blocks-shared",
 				"local:sign-in-form",
 				"local:sign-up-form",
+				"local:site-blocks",
 				"local:site-blocks-shared",
 				"local:site-head",
 				"local:site-shell",
@@ -1519,29 +1562,44 @@
 				"local:topic-chips",
 				"local:tweakers",
 				"local:typing-terminal",
+				"local:ui-accordion",
 				"local:ui-alert",
 				"local:ui-alert-dialog",
+				"local:ui-aspect-ratio",
 				"local:ui-avatar",
 				"local:ui-badge",
 				"local:ui-breadcrumb",
 				"local:ui-bubble",
 				"local:ui-button",
+				"local:ui-button-group",
 				"local:ui-calendar",
 				"local:ui-card",
+				"local:ui-carousel",
 				"local:ui-checkbox",
+				"local:ui-collapsible",
 				"local:ui-combobox",
 				"local:ui-command",
+				"local:ui-context-menu",
 				"local:ui-dialog",
+				"local:ui-drawer",
 				"local:ui-dropdown-menu",
+				"local:ui-empty",
 				"local:ui-field",
+				"local:ui-hover-card",
 				"local:ui-input",
 				"local:ui-input-group",
 				"local:ui-input-otp",
+				"local:ui-item",
 				"local:ui-kbd",
 				"local:ui-label",
+				"local:ui-menubar",
+				"local:ui-navigation-menu",
+				"local:ui-pagination",
 				"local:ui-popover",
 				"local:ui-progress",
 				"local:ui-radio-group",
+				"local:ui-resizable",
+				"local:ui-scroll-area",
 				"local:ui-select",
 				"local:ui-separator",
 				"local:ui-sheet",
@@ -1549,10 +1607,13 @@
 				"local:ui-skeleton",
 				"local:ui-slider",
 				"local:ui-sonner",
+				"local:ui-spinner",
 				"local:ui-switch",
 				"local:ui-table",
 				"local:ui-tabs",
 				"local:ui-textarea",
+				"local:ui-toggle",
+				"local:ui-toggle-group",
 				"local:ui-tooltip",
 				"local:usage-meter",
 				"local:user-menu",
@@ -2684,6 +2745,42 @@
 			]
 		},
 		{
+			"name": "site-blocks",
+			"type": "registry:lib",
+			"title": "site-blocks",
+			"description": "Files from \"site-blocks\" the pieces roster does not list yet; they become their own items when their plan finishes and this script is re-run.",
+			"dependencies": [
+				"@lucide/svelte@^1.52.0"
+			],
+			"registryDependencies": [
+				"local:button-link",
+				"local:container",
+				"local:cta-band",
+				"local:data-table",
+				"local:marker",
+				"local:notice",
+				"local:outline-card",
+				"local:page-intro",
+				"local:section",
+				"local:site-shell",
+				"local:tag",
+				"local:ui-table",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/site/providers-page.svelte",
+					"type": "registry:file",
+					"target": "blocks/site/providers-page.svelte"
+				},
+				{
+					"path": "src/lib/blocks/site/providers-table.svelte",
+					"type": "registry:file",
+					"target": "blocks/site/providers-table.svelte"
+				}
+			]
+		},
+		{
 			"name": "site-blocks-shared",
 			"type": "registry:lib",
 			"title": "site-blocks-shared",
@@ -3466,6 +3563,46 @@
 			]
 		},
 		{
+			"name": "ui-accordion",
+			"type": "registry:lib",
+			"title": "ui-accordion",
+			"description": "shadcn-svelte's accordion, vendored with the brand's changes (packages/brand-svelte/README.md).",
+			"dependencies": [
+				"@lucide/svelte@^1.52.0",
+				"bits-ui@^2.18.0"
+			],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/ui/accordion/accordion-content.svelte",
+					"type": "registry:file",
+					"target": "ui/accordion/accordion-content.svelte"
+				},
+				{
+					"path": "src/lib/ui/accordion/accordion-item.svelte",
+					"type": "registry:file",
+					"target": "ui/accordion/accordion-item.svelte"
+				},
+				{
+					"path": "src/lib/ui/accordion/accordion-trigger.svelte",
+					"type": "registry:file",
+					"target": "ui/accordion/accordion-trigger.svelte"
+				},
+				{
+					"path": "src/lib/ui/accordion/accordion.svelte",
+					"type": "registry:file",
+					"target": "ui/accordion/accordion.svelte"
+				},
+				{
+					"path": "src/lib/ui/accordion/index.ts",
+					"type": "registry:file",
+					"target": "ui/accordion/index.ts"
+				}
+			]
+		},
+		{
 			"name": "ui-alert",
 			"type": "registry:lib",
 			"title": "ui-alert",
@@ -3581,6 +3718,28 @@
 					"path": "src/lib/ui/alert-dialog/index.ts",
 					"type": "registry:file",
 					"target": "ui/alert-dialog/index.ts"
+				}
+			]
+		},
+		{
+			"name": "ui-aspect-ratio",
+			"type": "registry:lib",
+			"title": "ui-aspect-ratio",
+			"description": "shadcn-svelte's aspect-ratio, vendored with the brand's changes (packages/brand-svelte/README.md).",
+			"dependencies": [
+				"bits-ui@^2.18.0"
+			],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/lib/ui/aspect-ratio/aspect-ratio.svelte",
+					"type": "registry:file",
+					"target": "ui/aspect-ratio/aspect-ratio.svelte"
+				},
+				{
+					"path": "src/lib/ui/aspect-ratio/index.ts",
+					"type": "registry:file",
+					"target": "ui/aspect-ratio/index.ts"
 				}
 			]
 		},
@@ -3775,6 +3934,41 @@
 			]
 		},
 		{
+			"name": "ui-button-group",
+			"type": "registry:lib",
+			"title": "ui-button-group",
+			"description": "shadcn-svelte's button-group, vendored with the brand's changes (packages/brand-svelte/README.md).",
+			"dependencies": [
+				"tailwind-variants@^3.3.1"
+			],
+			"registryDependencies": [
+				"local:ui-separator",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/ui/button-group/button-group-separator.svelte",
+					"type": "registry:file",
+					"target": "ui/button-group/button-group-separator.svelte"
+				},
+				{
+					"path": "src/lib/ui/button-group/button-group-text.svelte",
+					"type": "registry:file",
+					"target": "ui/button-group/button-group-text.svelte"
+				},
+				{
+					"path": "src/lib/ui/button-group/button-group.svelte",
+					"type": "registry:file",
+					"target": "ui/button-group/button-group.svelte"
+				},
+				{
+					"path": "src/lib/ui/button-group/index.ts",
+					"type": "registry:file",
+					"target": "ui/button-group/index.ts"
+				}
+			]
+		},
+		{
 			"name": "ui-calendar",
 			"type": "registry:lib",
 			"title": "ui-calendar",
@@ -3939,6 +4133,58 @@
 			]
 		},
 		{
+			"name": "ui-carousel",
+			"type": "registry:lib",
+			"title": "ui-carousel",
+			"description": "shadcn-svelte's carousel, vendored with the brand's changes (packages/brand-svelte/README.md).",
+			"dependencies": [
+				"@lucide/svelte@^1.52.0",
+				"bits-ui@^2.18.0",
+				"embla-carousel-svelte@^8.6.0"
+			],
+			"registryDependencies": [
+				"local:ui-button",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/ui/carousel/carousel-content.svelte",
+					"type": "registry:file",
+					"target": "ui/carousel/carousel-content.svelte"
+				},
+				{
+					"path": "src/lib/ui/carousel/carousel-item.svelte",
+					"type": "registry:file",
+					"target": "ui/carousel/carousel-item.svelte"
+				},
+				{
+					"path": "src/lib/ui/carousel/carousel-next.svelte",
+					"type": "registry:file",
+					"target": "ui/carousel/carousel-next.svelte"
+				},
+				{
+					"path": "src/lib/ui/carousel/carousel-previous.svelte",
+					"type": "registry:file",
+					"target": "ui/carousel/carousel-previous.svelte"
+				},
+				{
+					"path": "src/lib/ui/carousel/carousel.svelte",
+					"type": "registry:file",
+					"target": "ui/carousel/carousel.svelte"
+				},
+				{
+					"path": "src/lib/ui/carousel/context.ts",
+					"type": "registry:file",
+					"target": "ui/carousel/context.ts"
+				},
+				{
+					"path": "src/lib/ui/carousel/index.ts",
+					"type": "registry:file",
+					"target": "ui/carousel/index.ts"
+				}
+			]
+		},
+		{
 			"name": "ui-checkbox",
 			"type": "registry:lib",
 			"title": "ui-checkbox",
@@ -3960,6 +4206,38 @@
 					"path": "src/lib/ui/checkbox/index.ts",
 					"type": "registry:file",
 					"target": "ui/checkbox/index.ts"
+				}
+			]
+		},
+		{
+			"name": "ui-collapsible",
+			"type": "registry:lib",
+			"title": "ui-collapsible",
+			"description": "shadcn-svelte's collapsible, vendored with the brand's changes (packages/brand-svelte/README.md).",
+			"dependencies": [
+				"bits-ui@^2.18.0"
+			],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/lib/ui/collapsible/collapsible-content.svelte",
+					"type": "registry:file",
+					"target": "ui/collapsible/collapsible-content.svelte"
+				},
+				{
+					"path": "src/lib/ui/collapsible/collapsible-trigger.svelte",
+					"type": "registry:file",
+					"target": "ui/collapsible/collapsible-trigger.svelte"
+				},
+				{
+					"path": "src/lib/ui/collapsible/collapsible.svelte",
+					"type": "registry:file",
+					"target": "ui/collapsible/collapsible.svelte"
+				},
+				{
+					"path": "src/lib/ui/collapsible/index.ts",
+					"type": "registry:file",
+					"target": "ui/collapsible/index.ts"
 				}
 			]
 		},
@@ -4068,6 +4346,106 @@
 			]
 		},
 		{
+			"name": "ui-context-menu",
+			"type": "registry:lib",
+			"title": "ui-context-menu",
+			"description": "shadcn-svelte's context-menu, vendored with the brand's changes (packages/brand-svelte/README.md).",
+			"dependencies": [
+				"@lucide/svelte@^1.52.0",
+				"bits-ui@^2.18.0"
+			],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/ui/context-menu/context-menu-checkbox-item.svelte",
+					"type": "registry:file",
+					"target": "ui/context-menu/context-menu-checkbox-item.svelte"
+				},
+				{
+					"path": "src/lib/ui/context-menu/context-menu-content.svelte",
+					"type": "registry:file",
+					"target": "ui/context-menu/context-menu-content.svelte"
+				},
+				{
+					"path": "src/lib/ui/context-menu/context-menu-group-heading.svelte",
+					"type": "registry:file",
+					"target": "ui/context-menu/context-menu-group-heading.svelte"
+				},
+				{
+					"path": "src/lib/ui/context-menu/context-menu-group.svelte",
+					"type": "registry:file",
+					"target": "ui/context-menu/context-menu-group.svelte"
+				},
+				{
+					"path": "src/lib/ui/context-menu/context-menu-item.svelte",
+					"type": "registry:file",
+					"target": "ui/context-menu/context-menu-item.svelte"
+				},
+				{
+					"path": "src/lib/ui/context-menu/context-menu-label.svelte",
+					"type": "registry:file",
+					"target": "ui/context-menu/context-menu-label.svelte"
+				},
+				{
+					"path": "src/lib/ui/context-menu/context-menu-portal.svelte",
+					"type": "registry:file",
+					"target": "ui/context-menu/context-menu-portal.svelte"
+				},
+				{
+					"path": "src/lib/ui/context-menu/context-menu-radio-group.svelte",
+					"type": "registry:file",
+					"target": "ui/context-menu/context-menu-radio-group.svelte"
+				},
+				{
+					"path": "src/lib/ui/context-menu/context-menu-radio-item.svelte",
+					"type": "registry:file",
+					"target": "ui/context-menu/context-menu-radio-item.svelte"
+				},
+				{
+					"path": "src/lib/ui/context-menu/context-menu-separator.svelte",
+					"type": "registry:file",
+					"target": "ui/context-menu/context-menu-separator.svelte"
+				},
+				{
+					"path": "src/lib/ui/context-menu/context-menu-shortcut.svelte",
+					"type": "registry:file",
+					"target": "ui/context-menu/context-menu-shortcut.svelte"
+				},
+				{
+					"path": "src/lib/ui/context-menu/context-menu-sub-content.svelte",
+					"type": "registry:file",
+					"target": "ui/context-menu/context-menu-sub-content.svelte"
+				},
+				{
+					"path": "src/lib/ui/context-menu/context-menu-sub-trigger.svelte",
+					"type": "registry:file",
+					"target": "ui/context-menu/context-menu-sub-trigger.svelte"
+				},
+				{
+					"path": "src/lib/ui/context-menu/context-menu-sub.svelte",
+					"type": "registry:file",
+					"target": "ui/context-menu/context-menu-sub.svelte"
+				},
+				{
+					"path": "src/lib/ui/context-menu/context-menu-trigger.svelte",
+					"type": "registry:file",
+					"target": "ui/context-menu/context-menu-trigger.svelte"
+				},
+				{
+					"path": "src/lib/ui/context-menu/context-menu.svelte",
+					"type": "registry:file",
+					"target": "ui/context-menu/context-menu.svelte"
+				},
+				{
+					"path": "src/lib/ui/context-menu/index.ts",
+					"type": "registry:file",
+					"target": "ui/context-menu/index.ts"
+				}
+			]
+		},
+		{
 			"name": "ui-dialog",
 			"type": "registry:lib",
 			"title": "ui-dialog",
@@ -4135,6 +4513,80 @@
 					"path": "src/lib/ui/dialog/index.ts",
 					"type": "registry:file",
 					"target": "ui/dialog/index.ts"
+				}
+			]
+		},
+		{
+			"name": "ui-drawer",
+			"type": "registry:lib",
+			"title": "ui-drawer",
+			"description": "shadcn-svelte's drawer, vendored with the brand's changes (packages/brand-svelte/README.md).",
+			"dependencies": [
+				"vaul-svelte@1.0.0-next.7"
+			],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/ui/drawer/drawer-close.svelte",
+					"type": "registry:file",
+					"target": "ui/drawer/drawer-close.svelte"
+				},
+				{
+					"path": "src/lib/ui/drawer/drawer-content.svelte",
+					"type": "registry:file",
+					"target": "ui/drawer/drawer-content.svelte"
+				},
+				{
+					"path": "src/lib/ui/drawer/drawer-description.svelte",
+					"type": "registry:file",
+					"target": "ui/drawer/drawer-description.svelte"
+				},
+				{
+					"path": "src/lib/ui/drawer/drawer-footer.svelte",
+					"type": "registry:file",
+					"target": "ui/drawer/drawer-footer.svelte"
+				},
+				{
+					"path": "src/lib/ui/drawer/drawer-header.svelte",
+					"type": "registry:file",
+					"target": "ui/drawer/drawer-header.svelte"
+				},
+				{
+					"path": "src/lib/ui/drawer/drawer-nested.svelte",
+					"type": "registry:file",
+					"target": "ui/drawer/drawer-nested.svelte"
+				},
+				{
+					"path": "src/lib/ui/drawer/drawer-overlay.svelte",
+					"type": "registry:file",
+					"target": "ui/drawer/drawer-overlay.svelte"
+				},
+				{
+					"path": "src/lib/ui/drawer/drawer-portal.svelte",
+					"type": "registry:file",
+					"target": "ui/drawer/drawer-portal.svelte"
+				},
+				{
+					"path": "src/lib/ui/drawer/drawer-title.svelte",
+					"type": "registry:file",
+					"target": "ui/drawer/drawer-title.svelte"
+				},
+				{
+					"path": "src/lib/ui/drawer/drawer-trigger.svelte",
+					"type": "registry:file",
+					"target": "ui/drawer/drawer-trigger.svelte"
+				},
+				{
+					"path": "src/lib/ui/drawer/drawer.svelte",
+					"type": "registry:file",
+					"target": "ui/drawer/drawer.svelte"
+				},
+				{
+					"path": "src/lib/ui/drawer/index.ts",
+					"type": "registry:file",
+					"target": "ui/drawer/index.ts"
 				}
 			]
 		},
@@ -4244,6 +4696,55 @@
 			]
 		},
 		{
+			"name": "ui-empty",
+			"type": "registry:lib",
+			"title": "ui-empty",
+			"description": "shadcn-svelte's empty, vendored with the brand's changes (packages/brand-svelte/README.md).",
+			"dependencies": [
+				"tailwind-variants@^3.3.1"
+			],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/ui/empty/empty-content.svelte",
+					"type": "registry:file",
+					"target": "ui/empty/empty-content.svelte"
+				},
+				{
+					"path": "src/lib/ui/empty/empty-description.svelte",
+					"type": "registry:file",
+					"target": "ui/empty/empty-description.svelte"
+				},
+				{
+					"path": "src/lib/ui/empty/empty-header.svelte",
+					"type": "registry:file",
+					"target": "ui/empty/empty-header.svelte"
+				},
+				{
+					"path": "src/lib/ui/empty/empty-media.svelte",
+					"type": "registry:file",
+					"target": "ui/empty/empty-media.svelte"
+				},
+				{
+					"path": "src/lib/ui/empty/empty-title.svelte",
+					"type": "registry:file",
+					"target": "ui/empty/empty-title.svelte"
+				},
+				{
+					"path": "src/lib/ui/empty/empty.svelte",
+					"type": "registry:file",
+					"target": "ui/empty/empty.svelte"
+				},
+				{
+					"path": "src/lib/ui/empty/index.ts",
+					"type": "registry:file",
+					"target": "ui/empty/index.ts"
+				}
+			]
+		},
+		{
 			"name": "ui-field",
 			"type": "registry:lib",
 			"title": "ui-field",
@@ -4311,6 +4812,45 @@
 					"path": "src/lib/ui/field/index.ts",
 					"type": "registry:file",
 					"target": "ui/field/index.ts"
+				}
+			]
+		},
+		{
+			"name": "ui-hover-card",
+			"type": "registry:lib",
+			"title": "ui-hover-card",
+			"description": "shadcn-svelte's hover-card, vendored with the brand's changes (packages/brand-svelte/README.md).",
+			"dependencies": [
+				"bits-ui@^2.18.0"
+			],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/ui/hover-card/hover-card-content.svelte",
+					"type": "registry:file",
+					"target": "ui/hover-card/hover-card-content.svelte"
+				},
+				{
+					"path": "src/lib/ui/hover-card/hover-card-portal.svelte",
+					"type": "registry:file",
+					"target": "ui/hover-card/hover-card-portal.svelte"
+				},
+				{
+					"path": "src/lib/ui/hover-card/hover-card-trigger.svelte",
+					"type": "registry:file",
+					"target": "ui/hover-card/hover-card-trigger.svelte"
+				},
+				{
+					"path": "src/lib/ui/hover-card/hover-card.svelte",
+					"type": "registry:file",
+					"target": "ui/hover-card/hover-card.svelte"
+				},
+				{
+					"path": "src/lib/ui/hover-card/index.ts",
+					"type": "registry:file",
+					"target": "ui/hover-card/index.ts"
 				}
 			]
 		},
@@ -4429,6 +4969,76 @@
 			]
 		},
 		{
+			"name": "ui-item",
+			"type": "registry:lib",
+			"title": "ui-item",
+			"description": "shadcn-svelte's item, vendored with the brand's changes (packages/brand-svelte/README.md).",
+			"dependencies": [
+				"tailwind-variants@^3.3.1"
+			],
+			"registryDependencies": [
+				"local:ui-separator",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/ui/item/index.ts",
+					"type": "registry:file",
+					"target": "ui/item/index.ts"
+				},
+				{
+					"path": "src/lib/ui/item/item-actions.svelte",
+					"type": "registry:file",
+					"target": "ui/item/item-actions.svelte"
+				},
+				{
+					"path": "src/lib/ui/item/item-content.svelte",
+					"type": "registry:file",
+					"target": "ui/item/item-content.svelte"
+				},
+				{
+					"path": "src/lib/ui/item/item-description.svelte",
+					"type": "registry:file",
+					"target": "ui/item/item-description.svelte"
+				},
+				{
+					"path": "src/lib/ui/item/item-footer.svelte",
+					"type": "registry:file",
+					"target": "ui/item/item-footer.svelte"
+				},
+				{
+					"path": "src/lib/ui/item/item-group.svelte",
+					"type": "registry:file",
+					"target": "ui/item/item-group.svelte"
+				},
+				{
+					"path": "src/lib/ui/item/item-header.svelte",
+					"type": "registry:file",
+					"target": "ui/item/item-header.svelte"
+				},
+				{
+					"path": "src/lib/ui/item/item-media.svelte",
+					"type": "registry:file",
+					"target": "ui/item/item-media.svelte"
+				},
+				{
+					"path": "src/lib/ui/item/item-separator.svelte",
+					"type": "registry:file",
+					"target": "ui/item/item-separator.svelte"
+				},
+				{
+					"path": "src/lib/ui/item/item-title.svelte",
+					"type": "registry:file",
+					"target": "ui/item/item-title.svelte"
+				},
+				{
+					"path": "src/lib/ui/item/item.svelte",
+					"type": "registry:file",
+					"target": "ui/item/item.svelte"
+				}
+			]
+		},
+		{
 			"name": "ui-kbd",
 			"type": "registry:lib",
 			"title": "ui-kbd",
@@ -4476,6 +5086,238 @@
 					"path": "src/lib/ui/label/label.svelte",
 					"type": "registry:file",
 					"target": "ui/label/label.svelte"
+				}
+			]
+		},
+		{
+			"name": "ui-menubar",
+			"type": "registry:lib",
+			"title": "ui-menubar",
+			"description": "shadcn-svelte's menubar, vendored with the brand's changes (packages/brand-svelte/README.md).",
+			"dependencies": [
+				"@lucide/svelte@^1.52.0",
+				"bits-ui@^2.18.0"
+			],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/ui/menubar/index.ts",
+					"type": "registry:file",
+					"target": "ui/menubar/index.ts"
+				},
+				{
+					"path": "src/lib/ui/menubar/menubar-checkbox-item.svelte",
+					"type": "registry:file",
+					"target": "ui/menubar/menubar-checkbox-item.svelte"
+				},
+				{
+					"path": "src/lib/ui/menubar/menubar-content.svelte",
+					"type": "registry:file",
+					"target": "ui/menubar/menubar-content.svelte"
+				},
+				{
+					"path": "src/lib/ui/menubar/menubar-group-heading.svelte",
+					"type": "registry:file",
+					"target": "ui/menubar/menubar-group-heading.svelte"
+				},
+				{
+					"path": "src/lib/ui/menubar/menubar-group.svelte",
+					"type": "registry:file",
+					"target": "ui/menubar/menubar-group.svelte"
+				},
+				{
+					"path": "src/lib/ui/menubar/menubar-item.svelte",
+					"type": "registry:file",
+					"target": "ui/menubar/menubar-item.svelte"
+				},
+				{
+					"path": "src/lib/ui/menubar/menubar-label.svelte",
+					"type": "registry:file",
+					"target": "ui/menubar/menubar-label.svelte"
+				},
+				{
+					"path": "src/lib/ui/menubar/menubar-menu.svelte",
+					"type": "registry:file",
+					"target": "ui/menubar/menubar-menu.svelte"
+				},
+				{
+					"path": "src/lib/ui/menubar/menubar-portal.svelte",
+					"type": "registry:file",
+					"target": "ui/menubar/menubar-portal.svelte"
+				},
+				{
+					"path": "src/lib/ui/menubar/menubar-radio-group.svelte",
+					"type": "registry:file",
+					"target": "ui/menubar/menubar-radio-group.svelte"
+				},
+				{
+					"path": "src/lib/ui/menubar/menubar-radio-item.svelte",
+					"type": "registry:file",
+					"target": "ui/menubar/menubar-radio-item.svelte"
+				},
+				{
+					"path": "src/lib/ui/menubar/menubar-separator.svelte",
+					"type": "registry:file",
+					"target": "ui/menubar/menubar-separator.svelte"
+				},
+				{
+					"path": "src/lib/ui/menubar/menubar-shortcut.svelte",
+					"type": "registry:file",
+					"target": "ui/menubar/menubar-shortcut.svelte"
+				},
+				{
+					"path": "src/lib/ui/menubar/menubar-sub-content.svelte",
+					"type": "registry:file",
+					"target": "ui/menubar/menubar-sub-content.svelte"
+				},
+				{
+					"path": "src/lib/ui/menubar/menubar-sub-trigger.svelte",
+					"type": "registry:file",
+					"target": "ui/menubar/menubar-sub-trigger.svelte"
+				},
+				{
+					"path": "src/lib/ui/menubar/menubar-sub.svelte",
+					"type": "registry:file",
+					"target": "ui/menubar/menubar-sub.svelte"
+				},
+				{
+					"path": "src/lib/ui/menubar/menubar-trigger.svelte",
+					"type": "registry:file",
+					"target": "ui/menubar/menubar-trigger.svelte"
+				},
+				{
+					"path": "src/lib/ui/menubar/menubar.svelte",
+					"type": "registry:file",
+					"target": "ui/menubar/menubar.svelte"
+				}
+			]
+		},
+		{
+			"name": "ui-navigation-menu",
+			"type": "registry:lib",
+			"title": "ui-navigation-menu",
+			"description": "shadcn-svelte's navigation-menu, vendored with the brand's changes (packages/brand-svelte/README.md).",
+			"dependencies": [
+				"@lucide/svelte@^1.52.0",
+				"bits-ui@^2.18.0",
+				"tailwind-variants@^3.3.1"
+			],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/ui/navigation-menu/index.ts",
+					"type": "registry:file",
+					"target": "ui/navigation-menu/index.ts"
+				},
+				{
+					"path": "src/lib/ui/navigation-menu/navigation-menu-content.svelte",
+					"type": "registry:file",
+					"target": "ui/navigation-menu/navigation-menu-content.svelte"
+				},
+				{
+					"path": "src/lib/ui/navigation-menu/navigation-menu-indicator.svelte",
+					"type": "registry:file",
+					"target": "ui/navigation-menu/navigation-menu-indicator.svelte"
+				},
+				{
+					"path": "src/lib/ui/navigation-menu/navigation-menu-item.svelte",
+					"type": "registry:file",
+					"target": "ui/navigation-menu/navigation-menu-item.svelte"
+				},
+				{
+					"path": "src/lib/ui/navigation-menu/navigation-menu-link.svelte",
+					"type": "registry:file",
+					"target": "ui/navigation-menu/navigation-menu-link.svelte"
+				},
+				{
+					"path": "src/lib/ui/navigation-menu/navigation-menu-list.svelte",
+					"type": "registry:file",
+					"target": "ui/navigation-menu/navigation-menu-list.svelte"
+				},
+				{
+					"path": "src/lib/ui/navigation-menu/navigation-menu-trigger.svelte",
+					"type": "registry:file",
+					"target": "ui/navigation-menu/navigation-menu-trigger.svelte"
+				},
+				{
+					"path": "src/lib/ui/navigation-menu/navigation-menu-viewport.svelte",
+					"type": "registry:file",
+					"target": "ui/navigation-menu/navigation-menu-viewport.svelte"
+				},
+				{
+					"path": "src/lib/ui/navigation-menu/navigation-menu.svelte",
+					"type": "registry:file",
+					"target": "ui/navigation-menu/navigation-menu.svelte"
+				}
+			]
+		},
+		{
+			"name": "ui-pagination",
+			"type": "registry:lib",
+			"title": "ui-pagination",
+			"description": "shadcn-svelte's pagination, vendored with the brand's changes (packages/brand-svelte/README.md).",
+			"dependencies": [
+				"@lucide/svelte@^1.52.0",
+				"bits-ui@^2.18.0"
+			],
+			"registryDependencies": [
+				"local:ui-button",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/ui/pagination/index.ts",
+					"type": "registry:file",
+					"target": "ui/pagination/index.ts"
+				},
+				{
+					"path": "src/lib/ui/pagination/pagination-content.svelte",
+					"type": "registry:file",
+					"target": "ui/pagination/pagination-content.svelte"
+				},
+				{
+					"path": "src/lib/ui/pagination/pagination-ellipsis.svelte",
+					"type": "registry:file",
+					"target": "ui/pagination/pagination-ellipsis.svelte"
+				},
+				{
+					"path": "src/lib/ui/pagination/pagination-item.svelte",
+					"type": "registry:file",
+					"target": "ui/pagination/pagination-item.svelte"
+				},
+				{
+					"path": "src/lib/ui/pagination/pagination-link.svelte",
+					"type": "registry:file",
+					"target": "ui/pagination/pagination-link.svelte"
+				},
+				{
+					"path": "src/lib/ui/pagination/pagination-next-button.svelte",
+					"type": "registry:file",
+					"target": "ui/pagination/pagination-next-button.svelte"
+				},
+				{
+					"path": "src/lib/ui/pagination/pagination-next.svelte",
+					"type": "registry:file",
+					"target": "ui/pagination/pagination-next.svelte"
+				},
+				{
+					"path": "src/lib/ui/pagination/pagination-prev-button.svelte",
+					"type": "registry:file",
+					"target": "ui/pagination/pagination-prev-button.svelte"
+				},
+				{
+					"path": "src/lib/ui/pagination/pagination-previous.svelte",
+					"type": "registry:file",
+					"target": "ui/pagination/pagination-previous.svelte"
+				},
+				{
+					"path": "src/lib/ui/pagination/pagination.svelte",
+					"type": "registry:file",
+					"target": "ui/pagination/pagination.svelte"
 				}
 			]
 		},
@@ -4599,6 +5441,64 @@
 					"path": "src/lib/ui/radio-group/radio-group.svelte",
 					"type": "registry:file",
 					"target": "ui/radio-group/radio-group.svelte"
+				}
+			]
+		},
+		{
+			"name": "ui-resizable",
+			"type": "registry:lib",
+			"title": "ui-resizable",
+			"description": "shadcn-svelte's resizable, vendored with the brand's changes (packages/brand-svelte/README.md).",
+			"dependencies": [
+				"paneforge@^1.0.2"
+			],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/ui/resizable/index.ts",
+					"type": "registry:file",
+					"target": "ui/resizable/index.ts"
+				},
+				{
+					"path": "src/lib/ui/resizable/resizable-handle.svelte",
+					"type": "registry:file",
+					"target": "ui/resizable/resizable-handle.svelte"
+				},
+				{
+					"path": "src/lib/ui/resizable/resizable-pane-group.svelte",
+					"type": "registry:file",
+					"target": "ui/resizable/resizable-pane-group.svelte"
+				}
+			]
+		},
+		{
+			"name": "ui-scroll-area",
+			"type": "registry:lib",
+			"title": "ui-scroll-area",
+			"description": "shadcn-svelte's scroll-area, vendored with the brand's changes (packages/brand-svelte/README.md).",
+			"dependencies": [
+				"bits-ui@^2.18.0"
+			],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/ui/scroll-area/index.ts",
+					"type": "registry:file",
+					"target": "ui/scroll-area/index.ts"
+				},
+				{
+					"path": "src/lib/ui/scroll-area/scroll-area-scrollbar.svelte",
+					"type": "registry:file",
+					"target": "ui/scroll-area/scroll-area-scrollbar.svelte"
+				},
+				{
+					"path": "src/lib/ui/scroll-area/scroll-area.svelte",
+					"type": "registry:file",
+					"target": "ui/scroll-area/scroll-area.svelte"
 				}
 			]
 		},
@@ -5006,6 +5906,30 @@
 			]
 		},
 		{
+			"name": "ui-spinner",
+			"type": "registry:lib",
+			"title": "ui-spinner",
+			"description": "shadcn-svelte's spinner, vendored with the brand's changes (packages/brand-svelte/README.md).",
+			"dependencies": [
+				"@lucide/svelte@^1.52.0"
+			],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/ui/spinner/index.ts",
+					"type": "registry:file",
+					"target": "ui/spinner/index.ts"
+				},
+				{
+					"path": "src/lib/ui/spinner/spinner.svelte",
+					"type": "registry:file",
+					"target": "ui/spinner/spinner.svelte"
+				}
+			]
+		},
+		{
 			"name": "ui-switch",
 			"type": "registry:lib",
 			"title": "ui-switch",
@@ -5145,6 +6069,62 @@
 					"path": "src/lib/ui/textarea/textarea.svelte",
 					"type": "registry:file",
 					"target": "ui/textarea/textarea.svelte"
+				}
+			]
+		},
+		{
+			"name": "ui-toggle",
+			"type": "registry:lib",
+			"title": "ui-toggle",
+			"description": "shadcn-svelte's toggle, vendored with the brand's changes (packages/brand-svelte/README.md).",
+			"dependencies": [
+				"bits-ui@^2.18.0",
+				"tailwind-variants@^3.3.1"
+			],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/ui/toggle/index.ts",
+					"type": "registry:file",
+					"target": "ui/toggle/index.ts"
+				},
+				{
+					"path": "src/lib/ui/toggle/toggle.svelte",
+					"type": "registry:file",
+					"target": "ui/toggle/toggle.svelte"
+				}
+			]
+		},
+		{
+			"name": "ui-toggle-group",
+			"type": "registry:lib",
+			"title": "ui-toggle-group",
+			"description": "shadcn-svelte's toggle-group, vendored with the brand's changes (packages/brand-svelte/README.md).",
+			"dependencies": [
+				"bits-ui@^2.18.0",
+				"tailwind-variants@^3.3.1"
+			],
+			"registryDependencies": [
+				"local:ui-toggle",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/ui/toggle-group/index.ts",
+					"type": "registry:file",
+					"target": "ui/toggle-group/index.ts"
+				},
+				{
+					"path": "src/lib/ui/toggle-group/toggle-group-item.svelte",
+					"type": "registry:file",
+					"target": "ui/toggle-group/toggle-group-item.svelte"
+				},
+				{
+					"path": "src/lib/ui/toggle-group/toggle-group.svelte",
+					"type": "registry:file",
+					"target": "ui/toggle-group/toggle-group.svelte"
 				}
 			]
 		},
