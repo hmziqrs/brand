@@ -886,6 +886,7 @@
 				"local:icon-tile",
 				"local:mark",
 				"local:marker",
+				"local:notice",
 				"local:ring-gauge",
 				"local:rings",
 				"local:tag",
@@ -900,6 +901,11 @@
 					"path": "src/lib/docs/colors.svelte",
 					"type": "registry:file",
 					"target": "docs/colors.svelte"
+				},
+				{
+					"path": "src/lib/docs/custom-components.svelte",
+					"type": "registry:file",
+					"target": "docs/custom-components.svelte"
 				},
 				{
 					"path": "src/lib/docs/docs-page.svelte",
