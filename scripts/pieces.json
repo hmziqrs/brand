@@ -1862,6 +1862,46 @@
       "astroItem": "not yet"
     },
     {
+      "name": "Calendar",
+      "group": "app",
+      "lab": "ui-base-calendar--default",
+      "svelte": "ui-base-calendar--default",
+      "astro": "not yet",
+      "svelteFile": "ui/calendar/calendar.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "ContextMenu",
+      "group": "app",
+      "lab": "ui-base-contextmenu--default",
+      "svelte": "ui-base-contextmenu--default",
+      "astro": "not yet",
+      "svelteFile": "ui/context-menu/context-menu.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "Drawer",
+      "group": "app",
+      "lab": "ui-base-drawer--default",
+      "svelte": "ui-base-drawer--default",
+      "astro": "not yet",
+      "svelteFile": "ui/drawer/drawer.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "Menubar",
+      "group": "app",
+      "lab": "ui-base-menubar--default",
+      "svelte": "ui-base-menubar--default",
+      "astro": "not yet",
+      "svelteFile": "ui/menubar/menubar.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
       "name": "DocsPage",
       "group": "site",
       "lab": "sites-pages--docs",
@@ -1912,6 +1952,46 @@
       "astroItem": "not yet"
     },
     {
+      "name": "FreeoxideLanding",
+      "group": "site",
+      "lab": "sites-landing-pages--freeoxide",
+      "svelte": "sites-landing-pages--freeoxide-com",
+      "astro": "not yet",
+      "svelteFile": "blocks/site/sites.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "GpuiStarterLanding",
+      "group": "site",
+      "lab": "sites-landing-pages--gpui-starter",
+      "svelte": "sites-landing-pages--gpui-starter",
+      "astro": "not yet",
+      "svelteFile": "blocks/site/sites.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "GpuiQueryLanding",
+      "group": "site",
+      "lab": "sites-landing-pages--gpui-query",
+      "svelte": "sites-landing-pages--gpui-query",
+      "astro": "not yet",
+      "svelteFile": "blocks/site/sites.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "ClaudeMultiLanding",
+      "group": "site",
+      "lab": "sites-landing-pages--claude-multi",
+      "svelte": "sites-landing-pages--claude-multi",
+      "astro": "not yet",
+      "svelteFile": "blocks/site/sites.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
       "name": "Icons",
       "group": "brand",
       "lab": null,
@@ -1926,6 +2006,16 @@
       "group": "brand",
       "lab": null,
       "svelte": "brand--signature",
+      "astro": "not yet",
+      "svelteFile": "docs/brand.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "CustomComponents",
+      "group": "brand",
+      "lab": null,
+      "svelte": "brand--customcomponents",
       "astro": "not yet",
       "svelteFile": "docs/brand.stories.svelte",
       "svelteItem": "not yet",
