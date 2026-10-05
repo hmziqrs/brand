@@ -1922,6 +1922,26 @@
       "astroItem": "not yet"
     },
     {
+      "name": "ButtonGroup",
+      "group": "app",
+      "lab": "ui-base-buttongroup--default",
+      "svelte": "ui-base-buttongroup--default",
+      "astro": "not yet",
+      "svelteFile": "ui/button-group/button-group.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "Bubble",
+      "group": "app",
+      "lab": "ui-base-bubble--default",
+      "svelte": "ui-base-bubble--default",
+      "astro": "not yet",
+      "svelteFile": "ui/bubble/bubble.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
       "name": "DocsPage",
       "group": "site",
       "lab": "sites-pages--docs",

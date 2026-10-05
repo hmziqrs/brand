@@ -10,7 +10,7 @@
 		children,
 		...restProps
 	}: WithoutChildren<WithElementRef<HTMLAttributes<HTMLDivElement>>> & {
-			render?: Snippet<[Record<string, unknown>]>;
+			render?: Snippet<[{ props: Record<string, unknown> }]>;
 			children?: Snippet;
 		} = $props();
 
