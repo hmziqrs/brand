@@ -1780,6 +1780,86 @@
       "svelteFile": "ui/toggle-group/toggle-group.stories.svelte",
       "svelteItem": "not yet",
       "astroItem": "not yet"
+    },
+    {
+      "name": "Accordion",
+      "group": "app",
+      "lab": "ui-base-accordion--default",
+      "svelte": "ui-base-accordion--default",
+      "astro": "not yet",
+      "svelteFile": "ui/accordion/accordion.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "Carousel",
+      "group": "app",
+      "lab": "ui-base-carousel--default",
+      "svelte": "ui-base-carousel--default",
+      "astro": "not yet",
+      "svelteFile": "ui/carousel/carousel.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "HoverCard",
+      "group": "app",
+      "lab": "ui-base-hovercard--default",
+      "svelte": "ui-base-hovercard--default",
+      "astro": "not yet",
+      "svelteFile": "ui/hover-card/hover-card.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "NavigationMenu",
+      "group": "app",
+      "lab": "ui-base-navigationmenu--default",
+      "svelte": "ui-base-navigationmenu--default",
+      "astro": "not yet",
+      "svelteFile": "ui/navigation-menu/navigation-menu.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "Pagination",
+      "group": "app",
+      "lab": "ui-base-pagination--default",
+      "svelte": "ui-base-pagination--default",
+      "astro": "not yet",
+      "svelteFile": "ui/pagination/pagination.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "ResizablePanelGroup",
+      "group": "app",
+      "lab": "ui-base-resizablepanelgroup--default",
+      "svelte": "ui-base-resizablepanelgroup--default",
+      "astro": "not yet",
+      "svelteFile": "ui/resizable/resizable.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "ScrollArea",
+      "group": "app",
+      "lab": "ui-base-scrollarea--default",
+      "svelte": "ui-base-scrollarea--default",
+      "astro": "not yet",
+      "svelteFile": "ui/scroll-area/scroll-area.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "Tabs",
+      "group": "app",
+      "lab": "ui-base-tabs--default",
+      "svelte": "ui-base-tabs--default",
+      "astro": "not yet",
+      "svelteFile": "ui/tabs/tabs.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
     }
   ]
 }
