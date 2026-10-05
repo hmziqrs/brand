@@ -41,7 +41,7 @@
 	}
 
 	function isDisabled(d: DateValue) {
-		const weekday = d.toDate("UTC").getDay();
+		const weekday = toJSDate(d).getDay();
 		return weekday === 0 || weekday === 6 || d.compare(first) < 0 || d.compare(last) > 0;
 	}
 

@@ -2,6 +2,16 @@
 	import { Calendar as CalendarPrimitive } from "bits-ui";
 	import { cn } from "$brand/utils.js";
 
+	function ordinal(n: number) {
+		const mod100 = n % 100;
+		if (mod100 >= 11 && mod100 <= 13) return "th";
+		const mod10 = n % 10;
+		if (mod10 === 1) return "st";
+		if (mod10 === 2) return "nd";
+		if (mod10 === 3) return "rd";
+		return "th";
+	}
+
 	let {
 		ref = $bindable(null),
 		class: className,
@@ -30,4 +40,10 @@
 		className
 	)}
 	{...restProps}
-/>
+>
+{#snippet child({ props, day })}
+	{@const label = String(props["aria-label"] ?? "").replace(` ${day},`, ` ${day}${ordinal(Number(day))},`)}
+	{@const named = (props["data-today"] !== undefined ? `Today, ${label}` : label) + (props["data-selected"] !== undefined ? ", selected" : "")}
+	<div {...props} aria-label={named}>{day}</div>
+{/snippet}
+</CalendarPrimitive.Day>

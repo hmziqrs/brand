@@ -15,10 +15,6 @@
 	} = $props();
 </script>
 
-{#snippet Fallback()}
-	<ChevronLeftIcon class={cn("lucide cn-rtl-flip size-4", className)} />
-{/snippet}
-
 <CalendarPrimitive.PrevButton
 	bind:ref
 	class={cn(
@@ -29,9 +25,13 @@
 	)}
 	{...restProps}
 >
-	{#if children}
-		{@render children?.()}
-	{:else}
-		{@render Fallback()}
-	{/if}
+	{#snippet child({ props })}
+		<button {...props} aria-label="Go to the Previous Month">
+			{#if children}
+				{@render children?.()}
+			{:else}
+				<ChevronLeftIcon class={cn("lucide cn-rtl-flip size-4", className)} />
+			{/if}
+		</button>
+	{/snippet}
 </CalendarPrimitive.PrevButton>
