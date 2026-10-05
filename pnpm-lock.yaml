@@ -420,8 +420,8 @@ importers:
         specifier: workspace:*
         version: link:../brand-core
       '@lucide/svelte':
-        specifier: ^1.49.0
-        version: 1.49.0(svelte@5.57.1)
+        specifier: ^1.52.0
+        version: 1.52.0(svelte@5.57.1)
       bits-ui:
         specifier: ^2.18.0
         version: 2.19.3(@internationalized/date@3.12.4)(@sveltejs/kit@2.70.3(@sveltejs/vite-plugin-svelte@7.3.1(svelte@5.57.1)(vite@8.3.0(@types/node@26.6.3)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1)))(svelte@5.57.1)(typescript@6.0.3)(vite@8.3.0(@types/node@26.6.3)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1)))(svelte@5.57.1)
@@ -1764,6 +1764,11 @@ packages:
 
   '@lucide/svelte@1.49.0':
     resolution: {integrity: sha512-RFH6Vx7dj6hshcBa1qJ0nKAWwkh385jJbDwF1WVg7yflC89310BsA55SEmJnaSRfr03dAyZMMLUC1EMGBu0Z0Q==}
+    peerDependencies:
+      svelte: ^5
+
+  '@lucide/svelte@1.52.0':
+    resolution: {integrity: sha512-bQ8t3IcZxWqAdmdMZPyZEv8Qf+MDgBAf7n43eRQoXyBeLWr8HWToiMIO6vKlHxC/lnMiCDdTzm09hjy92ch46A==}
     peerDependencies:
       svelte: ^5
 
@@ -8484,6 +8489,10 @@ snapshots:
       astro: 7.3.5(@astrojs/markdown-remark@7.3.1)(@types/node@26.6.3)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1)
 
   '@lucide/svelte@1.49.0(svelte@5.57.1)':
+    dependencies:
+      svelte: 5.57.1
+
+  '@lucide/svelte@1.52.0(svelte@5.57.1)':
     dependencies:
       svelte: 5.57.1
 
