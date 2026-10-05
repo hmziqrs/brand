@@ -280,8 +280,7 @@ hookline
 							{c.plan}
 						</Tag>
 						<span>
-							<b class="text-[2.5rem] leading-none font-medium tracking-[-0.04em]">{c.price}</b>
-							{#if c.plan !== "Scale"}<span class="ml-1.5 text-[0.9rem] text-muted-foreground">a month</span>{/if}
+							<b class="text-[2.5rem] leading-none font-medium tracking-[-0.04em]">{c.price}</b>{#if c.plan !== "Scale"}<span class="ml-1.5 text-[0.9rem] text-muted-foreground">a month</span>{/if}
 						</span>
 					</div>
 				</div>
