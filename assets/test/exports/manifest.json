@@ -1,7 +1,7 @@
 {
   "target": "test-card",
   "command": "pnpm render-assets --only test-card",
-  "digest": "ed95f860b65d48a1a03780635d74ffd0927b770f37906da6141393a306fa743e",
+  "digest": "52d60b0177d594ce1beafc78400d6f44474e475965a38899e0a6b63759115fa0",
   "renderers": {
     "@resvg/resvg-js": "2.6.2",
     "opentype.js": "2.0.0",
@@ -104,11 +104,11 @@
     },
     {
       "path": "pnpm-lock.yaml",
-      "sha256": "9e84ad90a9cca818b0618626f8377650cbe128b5b2ec86edf748d45fbb0aeb59"
+      "sha256": "c937e6cd00246cdd7cea6f5feb8e846e06f74c7fa28cf9e13f6bf5660dce3699"
     },
     {
       "path": "scripts/assets-lib.mjs",
-      "sha256": "6a277612cbc3d79abec201403716d3fc992a3701c38a22a5abe38e0daaf06917"
+      "sha256": "3decb55b463d01835ce45627baf9733c1f791fff16861dab66e6e77093f38b3c"
     },
     {
       "path": "scripts/render-assets.mjs",

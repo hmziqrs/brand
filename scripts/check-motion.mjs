@@ -12,10 +12,6 @@ import { fileURLToPath } from "node:url"
 
 const root = fileURLToPath(new URL("..", import.meta.url))
 const roots = [
-  "apps/lab/src/components",
-  "apps/lab/src/brand",
-  "apps/lab/src/sites",
-  "apps/lab/src/templates",
   // Core's src and the CSS next to its theme.css (rings.css, logo.css).
   "packages/brand-core",
   // The whole Astro kit, stock Starwind included: whatever moves on hover,

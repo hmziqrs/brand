@@ -1,11 +1,10 @@
-// kits.md: `pnpm compare <piece|group|all>` screenshots the lab story, the
-// Svelte story and the Astro gallery entry for a piece, in light and dark, at
-// 360px and 1280px, and lays them side by side in compare/ (git-ignored).
+// kits.md: `pnpm compare <piece|group|all>` screenshots the Svelte story and
+// the Astro gallery entry for a piece, in light and dark, at 360px and
+// 1280px, and lays them side by side in compare/ (git-ignored).
 // That report is what every "matches" check in the plans is read from.
 //
 // `pnpm compare --pages <path>` does the same for a page in both
-// boilerplates. When a piece has no lab story (the app blocks), the Svelte
-// story is the reference.
+// boilerplates. The Svelte story is the reference.
 //
 // The report is relayed from every shot in compare/, not just the current
 // run's, so a later run (a page pair, one piece) never drops the rows an
@@ -14,8 +13,12 @@
 //
 // Servers have to be running. The script starts from these URLs, overridable
 // with environment variables of the same names:
-//   LAB_URL (the lab Storybook, 6006)      SVELTE_URL (the kit Storybook, 6007)
+//   SVELTE_URL (the kit Storybook, 6007)
 //   ASTRO_URL (the /kit gallery, 4321)     SVELTE_APP_URL / ASTRO_APP_URL (the boilerplates)
+//
+// Historical lab shots already in compare/ keep relaying into the report (the
+// filename regex below still reads the `lab` label), but no lab view is shot
+// anymore — the React lab is retired.
 import { chromium } from "playwright";
 import { mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { join, relative } from "node:path";
@@ -25,7 +28,6 @@ const root = fileURLToPath(new URL("..", import.meta.url));
 const OUT = join(root, "compare");
 const roster = JSON.parse(readFileSync(join(root, "scripts/pieces.json"), "utf8")).pieces;
 
-const LAB = process.env.LAB_URL ?? "http://localhost:6006";
 const SVELTE = process.env.SVELTE_URL ?? "http://localhost:6007";
 const ASTRO = process.env.ASTRO_URL ?? "http://localhost:4321";
 const SVELTE_APP = process.env.SVELTE_APP_URL ?? "http://localhost:5173";
@@ -61,7 +63,6 @@ function views(subject) {
     ];
   }
   return [
-    subject.lab && { label: "lab", url: `${LAB}/iframe.html?id=${subject.lab}&viewMode=story` },
     subject.svelte && { label: "svelte", url: `${SVELTE}/iframe.html?id=${subject.svelte}&viewMode=story` },
     subject.astro &&
       subject.astro !== "not yet" && {

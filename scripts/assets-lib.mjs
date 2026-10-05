@@ -16,7 +16,6 @@ import * as socialOg from "../assets/social/source/og.ts"
 import * as socialPostCover from "../assets/social/source/post-cover.ts"
 import * as socialThumbnail from "../assets/social/source/thumbnail.ts"
 import { settings as socialSettings } from "../assets/social/source/settings.ts"
-import { packFileNames } from "../assets/logos/source/pack.ts"
 import { render as logosRender } from "../assets/logos/source/logos.ts"
 import { settings as logosSettings } from "../assets/logos/source/settings.ts"
 
@@ -80,25 +79,11 @@ export const targets = [
 ]
 
 /** The public copies render-assets keeps in step and check:assets proves
- *  match (assets.md, "Getting assets into sites and apps"): the lab gets the
- *  hmziq icon pack, and — the one page that serves a head of its own
- *  (assets.md: only the hmziq identity is wired, in the lab) — the hmziq OG
- *  and X cards its og:/twitter: tags point at. head.html is for pasting into
- *  a page head, not serving, so it isn't copied. */
-export const publicCopies = [
-  {
-    id: "lab",
-    from: "assets/logos/exports/hmziq",
-    to: "apps/lab/public",
-    files: packFileNames.filter((file) => file !== "head.html"),
-  },
-  {
-    id: "lab-cards",
-    from: "assets/social/exports/sites/hmziq",
-    to: "apps/lab/public",
-    files: ["og-1200x630.png", "x-1200x675.png"],
-  },
-]
+ *  match (assets.md, "Getting assets into sites and apps"). The lab's copies
+ *  went with the lab; per-project packs come from pnpm render-assets per
+ *  project, so nothing is copied at the repo level right now. head.html is
+ *  for pasting into a page head, not serving, so it isn't copied. */
+export const publicCopies = []
 
 export const exportsDir = (target) => join(root, target.dir, "exports")
 export const manifestPath = (target) => join(exportsDir(target), "manifest.json")

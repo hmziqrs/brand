@@ -3,9 +3,10 @@
 // or gallery, or from either registry. A piece can be marked "not yet" while
 // its plan is in progress.
 //
-// The lab is the reference: when a piece has a lab story, the Svelte kit has
-// to show it too. Pieces with no story of their own (internal helpers, parts
-// always shown inside another piece) carry null and are checked by file only.
+// The Svelte kit is the reference: a roster piece's Svelte story must exist,
+// and every Svelte story must belong to a roster piece. Pieces with no story
+// of their own (internal helpers, parts always shown inside another piece)
+// carry null and are checked by file only.
 import { readdirSync, readFileSync, statSync, existsSync } from "node:fs";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -50,22 +51,6 @@ function svelteStoryIds() {
   return ids;
 }
 
-/** The lab's story ids, read from its *.stories.tsx files. */
-function labStoryIds() {
-  const ids = new Set();
-  for (const file of files(join(root, "apps/lab/src"))) {
-    if (!file.endsWith(".stories.tsx")) continue;
-    const source = readFileSync(file, "utf8");
-    const title = source.match(/\btitle:\s*['"](.+?)['"]/)?.[1];
-    if (!title) continue;
-    for (const match of source.matchAll(/^export const ([A-Z]\w*)\s*(?::\s*Story(?:Obj)?\w*)?\s*=/gm)) {
-      if (match[1] === "meta") continue;
-      ids.add(`${sanitize(title)}--${sanitize(storyNameFromExport(match[1]))}`);
-    }
-  }
-  return ids;
-}
-
 /** The Astro kit's /kit gallery anchors, read from its gallery pages. */
 function astroAnchors() {
   const anchors = new Set();
@@ -85,7 +70,6 @@ function registryItems(path) {
 }
 
 const svelteStories = svelteStoryIds();
-const labStories = labStoryIds();
 const astroGallery = astroAnchors();
 const svelteRegistry = registryItems("packages/brand-svelte/registry.json");
 const astroRegistry = registryItems("packages/brand-astro/registry.json");
@@ -115,9 +99,6 @@ for (const piece of roster) {
   }
   if (piece.svelte && piece.svelte !== NOT_YET && !svelteStories.has(piece.svelte)) {
     problems.push(`${piece.name}: no Svelte story ${piece.svelte}`);
-  }
-  if (piece.lab && piece.lab !== NOT_YET && !labStories.has(piece.lab)) {
-    problems.push(`${piece.name}: no lab story ${piece.lab}`);
   }
   if (piece.astro && piece.astro !== NOT_YET && !astroGallery.has(piece.astro.replace(/^piece-/, ""))) {
     problems.push(`${piece.name}: no Astro gallery anchor ${piece.astro}`);
