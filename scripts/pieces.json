@@ -1470,6 +1470,56 @@
       "svelteFile": "blocks/content/instance-graph.stories.svelte",
       "svelteItem": "not yet",
       "astroItem": "not yet"
+    },
+    {
+      "name": "Sightline",
+      "group": "site",
+      "lab": "templates-saas-landing-pages--sightline",
+      "svelte": "templates-saas-landing-pages--sightline-analytics",
+      "astro": "not yet",
+      "svelteFile": "templates/templates.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "Hookline",
+      "group": "site",
+      "lab": "templates-saas-landing-pages--hookline",
+      "svelte": "templates-saas-landing-pages--hookline-developer-api",
+      "astro": "not yet",
+      "svelteFile": "templates/templates.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "Groundwork",
+      "group": "site",
+      "lab": "templates-saas-landing-pages--groundwork",
+      "svelte": "templates-saas-landing-pages--groundwork-team-planning",
+      "astro": "not yet",
+      "svelteFile": "templates/templates.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "Parley",
+      "group": "site",
+      "lab": "templates-saas-landing-pages--parley",
+      "svelte": "templates-saas-landing-pages--parley-ai-support",
+      "astro": "not yet",
+      "svelteFile": "templates/templates.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "Openslot",
+      "group": "site",
+      "lab": "templates-saas-landing-pages--openslot",
+      "svelte": "templates-saas-landing-pages--openslot-scheduling",
+      "astro": "not yet",
+      "svelteFile": "templates/templates.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
     }
   ]
 }
