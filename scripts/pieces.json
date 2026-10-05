@@ -1942,6 +1942,16 @@
       "astroItem": "not yet"
     },
     {
+      "name": "Item",
+      "group": "app",
+      "lab": "ui-base-item--default",
+      "svelte": "ui-base-item--default",
+      "astro": "not yet",
+      "svelteFile": "ui/item/item.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
       "name": "DocsPage",
       "group": "site",
       "lab": "sites-pages--docs",
