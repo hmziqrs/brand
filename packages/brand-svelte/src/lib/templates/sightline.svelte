@@ -47,7 +47,9 @@
 			label: "Your app",
 			lang: "typescript" as const,
 			code: `import { sightline } from "@sightline/web"
+
 sightline.start({ site: "paperplane.app" })
+
 // Wherever it happens in your code:
 sightline.track("Invited a teammate", { plan: "team" })`,
 		},
