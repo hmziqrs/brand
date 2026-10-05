@@ -276,6 +276,55 @@ export const terms: LegalDoc = {
 	],
 };
 
+/** hmziq.rs' initiatives (hmziq.tsx). */
+export const initiatives = [
+	{ name: "freeoxide", status: "Active", body: "Open-source Rust tools that are tested properly and built to last." },
+	{ name: "Rust Slop", status: "Coming soon", body: "Quick AI-assisted rewrites. Lightly tested and may change without warning, so use them at your own risk." },
+	{ name: "Something new", status: "Coming soon", body: "Still in the workshop." },
+] as const;
+
+/** hmziq.rs' projects, stars from GitHub, null when GitHub shows none (hmziq.tsx). */
+export const projects = [
+	{ name: "Flutter UI Designs", stars: 332, body: "A collection of Flutter app designs that run on the web, phones and desktops.", tools: "Flutter · Dart · Firebase" },
+	{ name: "Flutter Movie Concept", stars: 63, body: "A movie app concept with smooth, scroll-driven animations on every platform.", tools: "Flutter · Dart" },
+	{ name: "claude-multi", stars: 22, body: "Run Claude Code with any AI provider, each with its own settings, plugins and keys.", tools: "TypeScript · Astro" },
+	{ name: "React Native Loop", stars: 22, body: "A clone of the Infinity Loop puzzle game, with parallax animations.", tools: "React Native · TypeScript" },
+	{ name: "gpui-starter", stars: null, body: "A ready-made starting point for desktop apps built with GPUI, from the Zed editor.", tools: "Rust · GPUI · SQLite" },
+	{ name: "FHGL", stars: null, body: "A small Dart command-line tool you install with Flutter's package manager.", tools: "Dart" },
+] as const;
+
+/** hmziq.rs' experience (hmziq.tsx). */
+export const experience = [
+	{ company: "Toptal", role: "Freelance software engineer", dates: "Sep 2021 – now", body: "Full-stack work on finance, social and trading products. Built a fintech app prototype in React Native, and the real-time back end and mobile app for Quest Social, shipped to both app stores." },
+	{ company: "Mixfame", role: "Freelance mobile engineer", dates: "Dec 2023 – Jun 2024", body: "Built a talent-management app from scratch in Flutter, with in-app purchases and notifications that open the right screen." },
+] as const;
+
+/** hmziq.rs's tools, one badge each (hmziq.tsx). */
+export const tools = ["Flutter", "React", "React Native", "Next.js", "TanStack", "Hono", "AdonisJS", "Rust", "Axum", "Dioxus", "GPUI", "Ratatui", "Docker", "Cloudflare"];
+
+/** The blog's newest post, as the blog's landing shows it (blog.tsx). */
+export const homePost = {
+	date: "May 10, 2026",
+	category: "Engineering",
+	title: "Vibe coding my blog in Astro, deployed on Cloudflare",
+	summary: "Third attempt at a blog. Finally got this one built. Astro on Cloudflare, a newsletter that runs itself, and what AI was and wasn't good for.",
+};
+
+/** hmziq.xyz's GitHub numbers, a snapshot of 24 Sep 2026 (labs.tsx). */
+export const labStats = [
+	["7,009", "contributions this year"],
+	["81", "public repositories"],
+	["102", "followers"],
+] as const;
+
+/** hmziq.xyz's recent activity, straight from GitHub (labs.tsx). */
+export const activity = [
+	{ repo: "tunnel", what: "Pushed new commits", when: "7 hours ago" },
+	{ repo: "easyquran", what: "Pushed new commits", when: "11 hours ago" },
+	{ repo: "claude-multi", what: "Pushed new commits", when: "3 days ago" },
+	{ repo: "superai", what: "Made the repository public", when: "6 days ago" },
+] as const;
+
 /** claude-multi's landing features (claude-multi/data.ts). */
 export const features = [
 	["One alias per provider", "Templates for GLM, MiniMax, DeepSeek, MiMo, Kimi and Qwen. Each one you set up gets its own command in the terminal."],
