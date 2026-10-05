@@ -1,0 +1,31 @@
+---
+import { cn } from "$brand/utils";
+import Container from "./container.astro";
+import Marker from "$brand/components/marker.astro";
+
+interface Props {
+  /** "center" puts the caption, title and intro in the middle, for pages with a centered hero. */
+  align?: "start" | "center";
+  class?: string;
+}
+
+const { align = "start", class: className } = Astro.props;
+
+const center = align === "center";
+---
+
+<Container class={cn("flex flex-col gap-10", className)}>
+  {
+    Astro.slots.has("caption") && (
+      <p class={cn("-mb-5 flex items-center gap-2 text-[0.8125rem] font-medium text-primary", center && "justify-center")}>
+        <Marker />
+        <slot name="caption" />
+      </p>
+    )
+  }
+  <div class={cn("flex max-w-2xl flex-col gap-3", center && "mx-auto items-center text-center")}>
+    <h2 class="text-3xl font-medium tracking-tight text-balance"><slot name="title" /></h2>
+    {Astro.slots.has("intro") && <p class="leading-relaxed text-muted-foreground"><slot name="intro" /></p>}
+  </div>
+  <slot />
+</Container>

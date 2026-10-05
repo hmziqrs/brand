@@ -1,0 +1,24 @@
+---
+import { cn } from "$brand/utils";
+import Tag from "$brand/components/tag.astro";
+import type { Tone } from "@hmziq/brand-core/tones";
+import type { PostItem } from "./types";
+
+/* A post's topic tag and its date, on a card or under the post's own title. */
+
+interface Props {
+  post: PostItem;
+  /** The topic's color, looked up from the topic's name. */
+  tone?: (topic: string) => Tone | undefined;
+  class?: string;
+}
+
+const { post, tone, class: className } = Astro.props;
+
+const facts = [post.date, post.readingTime, post.updated && `Updated ${post.updated}`].filter(Boolean).join(" · ");
+---
+
+<p class={cn("relative flex flex-wrap items-center gap-3 text-[0.8125rem] text-muted-foreground", className)}>
+  {post.topic && <Tag tone={tone?.(post.topic)}>{post.topic}</Tag>}
+  <span>{facts}</span>
+</p>

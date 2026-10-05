@@ -1,0 +1,75 @@
+---
+import Stepper from "$brand/components/stepper.astro";
+import Step from "$brand/components/step.astro";
+import Segmented from "$brand/components/segmented.astro";
+import CommandBox from "$brand/components/command-box.astro";
+import type { InstallStep } from "./types";
+
+/*
+ * Install steps: numbered rings joined by a line, a command to copy in each.
+ * Copying a step's command fills its ring — the step lights up, the line
+ * below it included. A step with one command per package manager gets the
+ * switch the lab's first step has; every command is rendered ahead of time
+ * and picking one only shows and hides.
+ */
+
+interface Props {
+  steps: InstallStep[];
+  class?: string;
+}
+
+const { steps, class: className } = Astro.props;
+---
+
+<div data-slot="install-steps" class={className}>
+  <Stepper>
+    {
+      steps.map((step, i) => {
+        const managers = step.commands?.map(([manager]) => manager) ?? [];
+        return (
+          <Step n={i + 1} data-install-step>
+            <h3 class="text-[1.0625rem] font-medium">{step.title}</h3>
+            <p class="text-[0.9rem] leading-relaxed text-muted-foreground">{step.body}</p>
+            {managers.length > 0 && (
+              <Segmented label="Package manager" value={managers[0]} options={managers.map((manager) => ({ value: manager, label: manager }))} />
+            )}
+            {step.command !== undefined && <CommandBox command={step.command} />}
+            {step.commands?.map(([manager, command], j) => (
+              <div data-install-command data-manager={manager} hidden={j !== 0}>
+                <CommandBox command={command} />
+              </div>
+            ))}
+          </Step>
+        );
+      })
+    }
+  </Stepper>
+</div>
+
+<script>
+  // A copied command fills its step's ring. The copy button knows how to
+  // copy; this only marks the step it sits in done, through the data-done
+  // attribute the ring and the line already follow. Delegated, so it
+  // survives view transitions.
+  document.addEventListener("click", (event) => {
+    const button = (event.target as HTMLElement | null)?.closest<HTMLElement>("[data-slot='copy-button']");
+    if (!button) return;
+    const step = button.closest<HTMLElement>("[data-install-step]");
+    if (!step) return;
+    step.dataset.done = "";
+    step.querySelector<HTMLElement>("[data-slot='step-number']")?.setAttribute("data-done", "");
+  });
+
+  // The package manager switch: show the picked manager's command. The
+  // Segmented button bubbles a segmented-change with the value.
+  document.addEventListener("segmented-change", (event) => {
+    const group = (event.target as HTMLElement | null)?.closest<HTMLElement>("[data-slot='segmented']");
+    if (!group) return;
+    const step = group.closest<HTMLElement>("[data-install-step]");
+    if (!step) return;
+    const picked = (event as CustomEvent<{ value: string }>).detail?.value;
+    for (const command of step.querySelectorAll<HTMLElement>("[data-install-command]")) {
+      command.hidden = command.dataset.manager !== picked;
+    }
+  });
+</script>

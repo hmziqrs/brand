@@ -1,0 +1,1574 @@
+{
+  "target": "logos",
+  "command": "pnpm render-assets --only logos",
+  "digest": "4d42aa1cfc898b16f94abfdfcf557e6c50c4a4059c7d81f21fe768b33aad56ec",
+  "renderers": {
+    "@resvg/resvg-js": "2.6.2",
+    "opentype.js": "2.0.0",
+    "png-to-ico": "3.0.2"
+  },
+  "settings": {
+    "fonts": [
+      "onest-latin-600-normal.ttf"
+    ],
+    "markSizes": [
+      16,
+      32,
+      48,
+      64,
+      128,
+      256,
+      512,
+      1024
+    ],
+    "wideSizes": [
+      512,
+      1024
+    ],
+    "tileViewBox": 512,
+    "wordmarkViewBox": 100,
+    "faviconViewBox": 32,
+    "faviconPngSizes": [
+      16,
+      32,
+      48
+    ],
+    "appleTouch": {
+      "size": 180,
+      "content": 0.66
+    },
+    "androidSizes": [
+      192,
+      512
+    ],
+    "maskable": {
+      "size": 512,
+      "content": 0.54
+    },
+    "lockup": {
+      "tileSize": 120,
+      "wordmarkSize": 100,
+      "gap": 44
+    }
+  },
+  "inputs": [
+    {
+      "path": "assets/fonts/jetbrains-mono-latin-400-normal.ttf",
+      "sha256": "473c93ad62d89abd8431c8f5d744c83fe2e3f87d05b2f80c06355f240058d813"
+    },
+    {
+      "path": "assets/fonts/onest-latin-400-normal.ttf",
+      "sha256": "a04475f4d20e438b98a17210b3a6f22a5a7379381ac5ce0c8684252e094ba2bb"
+    },
+    {
+      "path": "assets/fonts/onest-latin-500-normal.ttf",
+      "sha256": "8d694ac8c138ca0a9a8e21d7d4826887e6533ab8f80da12bfbf8ae6ad177c48e"
+    },
+    {
+      "path": "assets/fonts/onest-latin-600-normal.ttf",
+      "sha256": "b8fbaa56e4804151b2deadc3b09980c1302855c7e58a0979c761f5cf81038f33"
+    },
+    {
+      "path": "assets/logos/source/logos.ts",
+      "sha256": "1fcf488aaf0199336f53fbb5abac180d7ba996963506c31cad74de13a9c7cd26"
+    },
+    {
+      "path": "assets/logos/source/pack.ts",
+      "sha256": "269a10a5f14704ab6342f9caeae81da49f057ddc34866e6ef3b57380aa566eb5"
+    },
+    {
+      "path": "assets/logos/source/parts.ts",
+      "sha256": "0f2988e5e70ee95f268831c8af1089971abcf3a1d55d946cf3acf0e4aace249a"
+    },
+    {
+      "path": "assets/logos/source/settings.ts",
+      "sha256": "ebb48bf312f8cbcfa8bdd2155fa21065257f962a77e8b715ac0d1526d6f28eee"
+    },
+    {
+      "path": "packages/brand-core/rings.css",
+      "sha256": "cf372353f94b0770ad94ea51a832d2743976773fd46aae6d16f3eb5109b4c6a0"
+    },
+    {
+      "path": "packages/brand-core/src/color.ts",
+      "sha256": "10daad0a78e06212244343dcd7ddc520616b8d0dc19b1696a9196bb71fa0c845"
+    },
+    {
+      "path": "packages/brand-core/src/family.ts",
+      "sha256": "c6f4cf1b6efaa1500ad70ed8d6e16eb329c3404be8d43c9addad6e7da84e5baf"
+    },
+    {
+      "path": "packages/brand-core/src/logo.ts",
+      "sha256": "38420c7f854a4391c2f6e387f72561082b8c3acabb266ce8c2a470e4661a107b"
+    },
+    {
+      "path": "packages/brand-core/src/motion/frame.ts",
+      "sha256": "feb3426b5bd0bf90ae617fd7cd0b6161c64cda73998c7fdf074a2d5e5b04ddf2"
+    },
+    {
+      "path": "packages/brand-core/src/motion/rings.ts",
+      "sha256": "a564cc52386ccf354c0f55741fbc4c99d8b7b81e6d17c7984a411a0f9928609c"
+    },
+    {
+      "path": "packages/brand-core/src/motion/scenes/helix.ts",
+      "sha256": "05562400e1fd3301177fedf9854f8ef31008cd3f3b218c8082cfd2b9bc29ba7d"
+    },
+    {
+      "path": "packages/brand-core/src/motion/scenes/index.ts",
+      "sha256": "1685e416a4eb3ca5e9e298dda59c7793b5f232f03b6f2b05ff1383414eb335fb"
+    },
+    {
+      "path": "packages/brand-core/src/motion/scenes/lattice.ts",
+      "sha256": "954d30c0d075f369b345234eab99644e220b3c2448c3e2c6dedfe85f9922c757"
+    },
+    {
+      "path": "packages/brand-core/src/motion/scenes/layers.ts",
+      "sha256": "56e70f229ab033ab44bf08ba19ce171d469e8eda089a12a65a2cd3396a30e5c5"
+    },
+    {
+      "path": "packages/brand-core/src/motion/scenes/network.ts",
+      "sha256": "0b79a7456043a6d5922420e14a878545c335651d089d14c4e5e21d272a9da222"
+    },
+    {
+      "path": "packages/brand-core/src/motion/scenes/stage.ts",
+      "sha256": "4dd6f484c6cf604f96039af7c604a1aa92de696a31f09003e3a612b9d095e9c6"
+    },
+    {
+      "path": "packages/brand-core/src/motion/scenes/support.ts",
+      "sha256": "f67dec66d3aef2fdbcbc855f75de2c51ed2fa0a9b9eedc531d98091d96e61b0d"
+    },
+    {
+      "path": "packages/brand-core/src/motion/scenes/thread.ts",
+      "sha256": "052ed93495f56dbca57cd305f5a4d33295aa73fa20a16b1893b2556de385d9e8"
+    },
+    {
+      "path": "packages/brand-core/src/motion/scenes/tiles.ts",
+      "sha256": "3e3cd9ffbdb91d6fbfc68c13222fe6c562ae412274283e37bb6ba87b1c255b88"
+    },
+    {
+      "path": "packages/brand-core/theme.css",
+      "sha256": "b9d163d586bff5532f462a22e57abb46fc3fb821af6017270a16a01ba5f3720a"
+    },
+    {
+      "path": "pnpm-lock.yaml",
+      "sha256": "9e84ad90a9cca818b0618626f8377650cbe128b5b2ec86edf748d45fbb0aeb59"
+    },
+    {
+      "path": "scripts/assets-lib.mjs",
+      "sha256": "6a277612cbc3d79abec201403716d3fc992a3701c38a22a5abe38e0daaf06917"
+    },
+    {
+      "path": "scripts/render-assets.mjs",
+      "sha256": "26ad610a8378b32f1e5831ec5f13fdf0759622aa824e2318982361cf18220df2"
+    }
+  ],
+  "files": [
+    {
+      "path": "hmziq/tile.svg",
+      "sha256": "7c4c430d679f95ef1d9aad9b04b5ac3b9a9e65dfa02035cabf8dd87b80f87c3b",
+      "bytes": 1114,
+      "width": 512,
+      "height": 512
+    },
+    {
+      "path": "hmziq/wordmark.svg",
+      "sha256": "af74b12c46b568658a9e6642bff862b04c1cca736373daea85191c6d3de7a1a9",
+      "bytes": 2388,
+      "width": 304,
+      "height": 93
+    },
+    {
+      "path": "hmziq/lockup.svg",
+      "sha256": "1f80cc65370e5a31c58e140c54cf3a51d2cc6ddcdebc94af8d98e959853346a7",
+      "bytes": 3377,
+      "width": 468,
+      "height": 120
+    },
+    {
+      "path": "hmziq/mark-16.png",
+      "sha256": "eec3791281cc3742e54a25476f4dc3282b4573298bc7a708bb03514e13d87d91",
+      "bytes": 347,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "path": "hmziq/mark-32.png",
+      "sha256": "ee72980300bf0b3ea67726f89a7e81b574bcd944d9ce5a260660250768b9ab4e",
+      "bytes": 532,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "hmziq/mark-48.png",
+      "sha256": "515f96f31804b5da07cb7e22a1dfa4685017f7053ba6fdd8165b206462e9dc51",
+      "bytes": 794,
+      "width": 48,
+      "height": 48
+    },
+    {
+      "path": "hmziq/mark-64.png",
+      "sha256": "78e2100b49d3043e82da75a89f9d5a13f2b7cf3394dbe4624c00ed85fed7f0b6",
+      "bytes": 887,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "path": "hmziq/mark-128.png",
+      "sha256": "a7b2425106904bf756bb219c5f3d89f94cdc9b58f50e7db37f70470b6fd88481",
+      "bytes": 1951,
+      "width": 128,
+      "height": 128
+    },
+    {
+      "path": "hmziq/mark-256.png",
+      "sha256": "72f775ecd973d22af26c1f7cf2a69ccdaeb5f353da574419c22eaf8e3355c942",
+      "bytes": 4430,
+      "width": 256,
+      "height": 256
+    },
+    {
+      "path": "hmziq/mark-512.png",
+      "sha256": "04ac90da880eeebb2b55987d6bedc583f450e71dece6d9bc359265bb23df3068",
+      "bytes": 10470,
+      "width": 512,
+      "height": 512
+    },
+    {
+      "path": "hmziq/mark-1024.png",
+      "sha256": "69744eea4fba7c68ac54bf8a22447bc9b38d83e6b4db26861881d480313f490d",
+      "bytes": 21787,
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "path": "hmziq/wordmark-512.png",
+      "sha256": "9f9bccda2c705cbe1661b4cc851cc8af6c434e54f0e9999f34da69a1b16ddc9b",
+      "bytes": 3902,
+      "width": 512,
+      "height": 157
+    },
+    {
+      "path": "hmziq/lockup-512.png",
+      "sha256": "20a4e12b51da26293ade5108b4951d6c156bcf3d2b55d426ccefb932c9fa2cf0",
+      "bytes": 4834,
+      "width": 512,
+      "height": 131
+    },
+    {
+      "path": "hmziq/wordmark-1024.png",
+      "sha256": "f5c1405cecd30fef9c83d62f7c09f95dcb4c0ff6c84ff2c34fd6af508092b891",
+      "bytes": 8639,
+      "width": 1024,
+      "height": 314
+    },
+    {
+      "path": "hmziq/lockup-1024.png",
+      "sha256": "5e6571f43da657bce95466d694a43c4de01c6390c1c93e48c237aa29828a5977",
+      "bytes": 11611,
+      "width": 1024,
+      "height": 262
+    },
+    {
+      "path": "hmziq/favicon.svg",
+      "sha256": "77979d225de07b21ea622707291ff828270937ffb4b2b9d7630cd33c806cc55a",
+      "bytes": 962,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "hmziq/favicon-16.png",
+      "sha256": "eec3791281cc3742e54a25476f4dc3282b4573298bc7a708bb03514e13d87d91",
+      "bytes": 347,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "path": "hmziq/favicon-32.png",
+      "sha256": "ee72980300bf0b3ea67726f89a7e81b574bcd944d9ce5a260660250768b9ab4e",
+      "bytes": 532,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "hmziq/favicon-48.png",
+      "sha256": "515f96f31804b5da07cb7e22a1dfa4685017f7053ba6fdd8165b206462e9dc51",
+      "bytes": 794,
+      "width": 48,
+      "height": 48
+    },
+    {
+      "path": "hmziq/favicon.ico",
+      "sha256": "d95521239712adb914d9b12ef61ded69b7e1b73f968f7633c91a187c854b35d6",
+      "bytes": 15086
+    },
+    {
+      "path": "hmziq/apple-touch-icon.png",
+      "sha256": "8291315f0e202064db844c592f49a68a679065aed68b8a41a64f310e820eeca0",
+      "bytes": 1783,
+      "width": 180,
+      "height": 180
+    },
+    {
+      "path": "hmziq/icon-192.png",
+      "sha256": "483850b6fee4feacb1ae588c9a905bc1216fc2e32f23b34a9aa33089ac13a777",
+      "bytes": 3108,
+      "width": 192,
+      "height": 192
+    },
+    {
+      "path": "hmziq/icon-512.png",
+      "sha256": "04ac90da880eeebb2b55987d6bedc583f450e71dece6d9bc359265bb23df3068",
+      "bytes": 10470,
+      "width": 512,
+      "height": 512
+    },
+    {
+      "path": "hmziq/maskable-512.png",
+      "sha256": "b1fd156a6940f3a6bc1c9cff0a78691c6dc321aac8c6c9e1317422969d65fe98",
+      "bytes": 5646,
+      "width": 512,
+      "height": 512
+    },
+    {
+      "path": "hmziq/site.webmanifest",
+      "sha256": "518b16244abf11aa9e4d72e3a30701fa5882ccd80b677da4b73a6f1b790d31b1",
+      "bytes": 470
+    },
+    {
+      "path": "hmziq/head.html",
+      "sha256": "03a9a36527d9735b8d51b6c80c38627a619e003e3523e95ac2a8b0bdfeca0d85",
+      "bytes": 392
+    },
+    {
+      "path": "blog/tile.svg",
+      "sha256": "eb2dfd6ecab675fb4e37e74e488d44ff7e37bac68e9d8102e334f7f85fbda659",
+      "bytes": 1148,
+      "width": 512,
+      "height": 512
+    },
+    {
+      "path": "blog/wordmark.svg",
+      "sha256": "f5fb18a1dd371591fe2957e86f7b6d09f9761d8e93603ae616b22175ed9e8444",
+      "bytes": 2553,
+      "width": 236,
+      "height": 95
+    },
+    {
+      "path": "blog/lockup.svg",
+      "sha256": "e4244581d05f4049c7fe6e6f283c3ef22d4e17cdf6a2819a3dff6f36442e4375",
+      "bytes": 3590,
+      "width": 400,
+      "height": 120
+    },
+    {
+      "path": "blog/mark-16.png",
+      "sha256": "47673a131e05b13f3e32f7edbbd931dc4b95407027bfb6e8f21b122375d15bb9",
+      "bytes": 338,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "path": "blog/mark-32.png",
+      "sha256": "0f78ebd3947674ec7c9c26724414f001fd54c974de7db027efc56f4ed235aedc",
+      "bytes": 539,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "blog/mark-48.png",
+      "sha256": "fd4e914a7bdc935bfc34b9c70d574407121d217bc386e3b2445e86964ccf54a9",
+      "bytes": 738,
+      "width": 48,
+      "height": 48
+    },
+    {
+      "path": "blog/mark-64.png",
+      "sha256": "a3232a7db5d78213cdd1254224dd60934558df20e25f421436ff8731ad2344c1",
+      "bytes": 898,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "path": "blog/mark-128.png",
+      "sha256": "9de00b2e3fd4b89e53212346380d37a721bfeb2f27fd51d1e616952820b595e1",
+      "bytes": 1978,
+      "width": 128,
+      "height": 128
+    },
+    {
+      "path": "blog/mark-256.png",
+      "sha256": "37a572aafed66a2af10bcd429acb2206914a0bfdf8e07ad094301a3df3a0e713",
+      "bytes": 4344,
+      "width": 256,
+      "height": 256
+    },
+    {
+      "path": "blog/mark-512.png",
+      "sha256": "d5590e54ba5c815478d8cfb30e25ee374a9caa4931b2906b2f2d36104eae925c",
+      "bytes": 9946,
+      "width": 512,
+      "height": 512
+    },
+    {
+      "path": "blog/mark-1024.png",
+      "sha256": "1734199908f7ef4d9038b1a90fa4adedd2d84affeaa612c498d5c290af0b57dc",
+      "bytes": 21605,
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "path": "blog/wordmark-512.png",
+      "sha256": "573a2a0b31f483fab715eae62d050da30a272125f4ea64b7bebd9839bd483c7b",
+      "bytes": 6640,
+      "width": 512,
+      "height": 206
+    },
+    {
+      "path": "blog/lockup-512.png",
+      "sha256": "7d416d43d13ddd0c7dcccafe66a57c4f6ef335def45a1ac5fc0f1e4a9d46f500",
+      "bytes": 7147,
+      "width": 512,
+      "height": 154
+    },
+    {
+      "path": "blog/wordmark-1024.png",
+      "sha256": "61de3afdc60c94fd89d89b9d81c2829bc99a347885f3b3469bdb1ddc7e14e22f",
+      "bytes": 14504,
+      "width": 1024,
+      "height": 412
+    },
+    {
+      "path": "blog/lockup-1024.png",
+      "sha256": "e480fb85bfa573dd97f403dc37b59880e69053ccb7989ad08e9eec5d3e3e7d8f",
+      "bytes": 15037,
+      "width": 1024,
+      "height": 307
+    },
+    {
+      "path": "blog/favicon.svg",
+      "sha256": "b16593edd92da119dc9529e4910244cd253e0c28a2b4333f57372ccdbcea74aa",
+      "bytes": 940,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "blog/favicon-16.png",
+      "sha256": "47673a131e05b13f3e32f7edbbd931dc4b95407027bfb6e8f21b122375d15bb9",
+      "bytes": 338,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "path": "blog/favicon-32.png",
+      "sha256": "0f78ebd3947674ec7c9c26724414f001fd54c974de7db027efc56f4ed235aedc",
+      "bytes": 539,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "blog/favicon-48.png",
+      "sha256": "fd4e914a7bdc935bfc34b9c70d574407121d217bc386e3b2445e86964ccf54a9",
+      "bytes": 738,
+      "width": 48,
+      "height": 48
+    },
+    {
+      "path": "blog/favicon.ico",
+      "sha256": "1b4b6de99b56c6219531315410ed46e9eaeb5598f33981744ab05935d15f4d26",
+      "bytes": 15086
+    },
+    {
+      "path": "blog/apple-touch-icon.png",
+      "sha256": "a1c312b1cd087edcb25fcf2013c45703f360b23a6e635b7a0e4542ad69952d71",
+      "bytes": 1726,
+      "width": 180,
+      "height": 180
+    },
+    {
+      "path": "blog/icon-192.png",
+      "sha256": "c6346f798608235f14717dff8b9957630053253090b94a7385f9ebdee49cac58",
+      "bytes": 3085,
+      "width": 192,
+      "height": 192
+    },
+    {
+      "path": "blog/icon-512.png",
+      "sha256": "d5590e54ba5c815478d8cfb30e25ee374a9caa4931b2906b2f2d36104eae925c",
+      "bytes": 9946,
+      "width": 512,
+      "height": 512
+    },
+    {
+      "path": "blog/maskable-512.png",
+      "sha256": "62eff7a935de92b22fe762db3963287eb0cd6f7c6fecd226779b66076121db11",
+      "bytes": 5493,
+      "width": 512,
+      "height": 512
+    },
+    {
+      "path": "blog/site.webmanifest",
+      "sha256": "ad318aa026f7c7ad656c0da02b98b684c6f4bf3f53fa5d05f096085413832fb8",
+      "bytes": 468
+    },
+    {
+      "path": "blog/head.html",
+      "sha256": "03a9a36527d9735b8d51b6c80c38627a619e003e3523e95ac2a8b0bdfeca0d85",
+      "bytes": 392
+    },
+    {
+      "path": "labs/tile.svg",
+      "sha256": "1eac02178caabd0fc731f81ae8186af4dc0368a222d5139b281b87fe4ea3f1c0",
+      "bytes": 1022,
+      "width": 512,
+      "height": 512
+    },
+    {
+      "path": "labs/wordmark.svg",
+      "sha256": "4deb4970c762aa36e4e85196db802e12af6a23c0bba810c48c683aa81f5cbc7c",
+      "bytes": 2908,
+      "width": 255,
+      "height": 71
+    },
+    {
+      "path": "labs/lockup.svg",
+      "sha256": "90a53985c12180964902ae479fa5ae6a71cec22cb6c4073785040395a137acb7",
+      "bytes": 3816,
+      "width": 419,
+      "height": 120
+    },
+    {
+      "path": "labs/mark-16.png",
+      "sha256": "5264618bba81741c2bce0ea37f097c860c0885def402fe9181f832d6a4854355",
+      "bytes": 356,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "path": "labs/mark-32.png",
+      "sha256": "8c40da27bb0f96ee940aa9dfadaeab568909da7da46998b959e240303d2bdc5a",
+      "bytes": 547,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "labs/mark-48.png",
+      "sha256": "08908786660dd2779e0c7a353b111b4a9e91e8c2142482bcc23fa605e58277be",
+      "bytes": 725,
+      "width": 48,
+      "height": 48
+    },
+    {
+      "path": "labs/mark-64.png",
+      "sha256": "c07b9e99b942f08057c60a96f8252f585e8d20c6000790d4a77023ad73c82100",
+      "bytes": 949,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "path": "labs/mark-128.png",
+      "sha256": "6dc18849f1f758acad6e1f88a4445531575038420055b32ec5495d28706d8d21",
+      "bytes": 1933,
+      "width": 128,
+      "height": 128
+    },
+    {
+      "path": "labs/mark-256.png",
+      "sha256": "ac0dfb8c330721b29bd24888e6f3cb652515164a3ded76d9141db985cfda6bc4",
+      "bytes": 4240,
+      "width": 256,
+      "height": 256
+    },
+    {
+      "path": "labs/mark-512.png",
+      "sha256": "5b8bdd53dd2ea4ddd4898cff963ed7f4fef2355be1f6fa0e695a37a56514cad6",
+      "bytes": 9806,
+      "width": 512,
+      "height": 512
+    },
+    {
+      "path": "labs/mark-1024.png",
+      "sha256": "6e16e9d2b1ca5fde30b0bd068c24c96d115aa6384d92898b93583076751d9c1c",
+      "bytes": 21318,
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "path": "labs/wordmark-512.png",
+      "sha256": "4bee79c3c743d08570f5db1c9ae57c32e058557acf14f2a2ab67502ecbbb2005",
+      "bytes": 7876,
+      "width": 512,
+      "height": 143
+    },
+    {
+      "path": "labs/lockup-512.png",
+      "sha256": "6af34a0d34a69c781d7a654bedff5b901c834c76900e6ecad0592dfe5384a3f5",
+      "bytes": 7674,
+      "width": 512,
+      "height": 147
+    },
+    {
+      "path": "labs/wordmark-1024.png",
+      "sha256": "e3fad945eaab1830655fd3ebc6d646d25f2a54fa3222279aa4d85208683743d2",
+      "bytes": 16722,
+      "width": 1024,
+      "height": 287
+    },
+    {
+      "path": "labs/lockup-1024.png",
+      "sha256": "90853eff024b9cc100dedf9f126046471f00c7c5133093eb6df8bce88d0f89f7",
+      "bytes": 17431,
+      "width": 1024,
+      "height": 293
+    },
+    {
+      "path": "labs/favicon.svg",
+      "sha256": "d40d10a5fd5a0e9828cd46e568ce966d3149bd7385827dbf9cff11b73a73af3d",
+      "bytes": 897,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "labs/favicon-16.png",
+      "sha256": "5264618bba81741c2bce0ea37f097c860c0885def402fe9181f832d6a4854355",
+      "bytes": 356,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "path": "labs/favicon-32.png",
+      "sha256": "8c40da27bb0f96ee940aa9dfadaeab568909da7da46998b959e240303d2bdc5a",
+      "bytes": 547,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "labs/favicon-48.png",
+      "sha256": "08908786660dd2779e0c7a353b111b4a9e91e8c2142482bcc23fa605e58277be",
+      "bytes": 725,
+      "width": 48,
+      "height": 48
+    },
+    {
+      "path": "labs/favicon.ico",
+      "sha256": "cec916085fd4d4a515a44d63a4c34a92b30040fa24a2d3934622987b03372320",
+      "bytes": 15086
+    },
+    {
+      "path": "labs/apple-touch-icon.png",
+      "sha256": "81fe92c211e24bd14deb1fba32e38ecfe80fdd59341fd21aaf4fa7467350c554",
+      "bytes": 1664,
+      "width": 180,
+      "height": 180
+    },
+    {
+      "path": "labs/icon-192.png",
+      "sha256": "8be9ff67e4a77211df163405359b11bd58ae7acfaf20c16ac2c7986c0d5b1cde",
+      "bytes": 2855,
+      "width": 192,
+      "height": 192
+    },
+    {
+      "path": "labs/icon-512.png",
+      "sha256": "5b8bdd53dd2ea4ddd4898cff963ed7f4fef2355be1f6fa0e695a37a56514cad6",
+      "bytes": 9806,
+      "width": 512,
+      "height": 512
+    },
+    {
+      "path": "labs/maskable-512.png",
+      "sha256": "26b0f3059240b8c450062e9cbff5fb57591ca1eae7238258e96825108899f0b5",
+      "bytes": 5151,
+      "width": 512,
+      "height": 512
+    },
+    {
+      "path": "labs/site.webmanifest",
+      "sha256": "9233364da7526837c0e46a9412ba73b7b856049e90cac0e761dabc0df2a69854",
+      "bytes": 468
+    },
+    {
+      "path": "labs/head.html",
+      "sha256": "03a9a36527d9735b8d51b6c80c38627a619e003e3523e95ac2a8b0bdfeca0d85",
+      "bytes": 392
+    },
+    {
+      "path": "freeoxide/tile.svg",
+      "sha256": "26eb55654caada50dd1147b88fc976157c13bda384d1dda709808264bbeabfce",
+      "bytes": 548,
+      "width": 512,
+      "height": 512
+    },
+    {
+      "path": "freeoxide/wordmark.svg",
+      "sha256": "e7349cd87b5e7385928ac3f376ce3367f10a31821365faa92466328b7a8be490",
+      "bytes": 4634,
+      "width": 467,
+      "height": 76
+    },
+    {
+      "path": "freeoxide/lockup.svg",
+      "sha256": "6d97b689af2392346c0a9b8d4604eb031e31680b4943ddee878f254b355f20ed",
+      "bytes": 5126,
+      "width": 631,
+      "height": 120
+    },
+    {
+      "path": "freeoxide/mark-16.png",
+      "sha256": "bc2d5f8279eaf6beb543aac38b0632d6afdb4894c9c274811034cdcc97a72d2b",
+      "bytes": 359,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "path": "freeoxide/mark-32.png",
+      "sha256": "cfdd3f03a47a14983adba4bfd938df68ec28dfd8fc4c64329b2b4a139e079b60",
+      "bytes": 553,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "freeoxide/mark-48.png",
+      "sha256": "54b4275b1e0b78de6a0d34001affbb6176bd6081f34402eeee0ac106fbea947b",
+      "bytes": 802,
+      "width": 48,
+      "height": 48
+    },
+    {
+      "path": "freeoxide/mark-64.png",
+      "sha256": "1fda119a01964f56489c1a3796079565306ab2e56dd66df5d08c1d2c3297b744",
+      "bytes": 951,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "path": "freeoxide/mark-128.png",
+      "sha256": "8bfac93a2ca7c846fae3b3d0636abf0ce1cdae7606579bda918df17e022205c7",
+      "bytes": 1900,
+      "width": 128,
+      "height": 128
+    },
+    {
+      "path": "freeoxide/mark-256.png",
+      "sha256": "5a711a63343643528d14c0a29e1c0e1877283699c8c70b9b8981754bdaaac9c3",
+      "bytes": 4082,
+      "width": 256,
+      "height": 256
+    },
+    {
+      "path": "freeoxide/mark-512.png",
+      "sha256": "d9fd8659c8983f940b5e4f8ffbe4459264a94f03cb9a2191634e98eb15b682b0",
+      "bytes": 9495,
+      "width": 512,
+      "height": 512
+    },
+    {
+      "path": "freeoxide/mark-1024.png",
+      "sha256": "525e7d19b2c50ddfa2a6f953a492e56cf8ae39a87dd99f1a33c614f4156e34f4",
+      "bytes": 20796,
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "path": "freeoxide/wordmark-512.png",
+      "sha256": "d8dbedb3e32d20129560d1a23666f0e6ccc34ae241c6483c38781e939f1cecc0",
+      "bytes": 4398,
+      "width": 512,
+      "height": 83
+    },
+    {
+      "path": "freeoxide/lockup-512.png",
+      "sha256": "e151425058e826ee05f2e7b9c15b71e2d2beb1f5afd6f66c2c1e8e5f6256d8d0",
+      "bytes": 4995,
+      "width": 512,
+      "height": 97
+    },
+    {
+      "path": "freeoxide/wordmark-1024.png",
+      "sha256": "7224ac57c71c007a79bad3ed1d17f66f48247211e3c4e52aa0464375913340db",
+      "bytes": 9795,
+      "width": 1024,
+      "height": 166
+    },
+    {
+      "path": "freeoxide/lockup-1024.png",
+      "sha256": "8acedf471ac41286bd19ea207a94cae9ab2009c2e2b3b6099ddb0e8a431ee5a1",
+      "bytes": 11126,
+      "width": 1024,
+      "height": 195
+    },
+    {
+      "path": "freeoxide/favicon.svg",
+      "sha256": "f6c60ef941c68bd40c129fcc7a0d9864c596c0ba52df5ce0c282057f3b136251",
+      "bytes": 482,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "freeoxide/favicon-16.png",
+      "sha256": "bc2d5f8279eaf6beb543aac38b0632d6afdb4894c9c274811034cdcc97a72d2b",
+      "bytes": 359,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "path": "freeoxide/favicon-32.png",
+      "sha256": "cfdd3f03a47a14983adba4bfd938df68ec28dfd8fc4c64329b2b4a139e079b60",
+      "bytes": 553,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "freeoxide/favicon-48.png",
+      "sha256": "54b4275b1e0b78de6a0d34001affbb6176bd6081f34402eeee0ac106fbea947b",
+      "bytes": 802,
+      "width": 48,
+      "height": 48
+    },
+    {
+      "path": "freeoxide/favicon.ico",
+      "sha256": "ef2a1f965c0fb4fe9dcf6849a8c35ddb10f7826432b60d0332fd59e60a9fee6b",
+      "bytes": 15086
+    },
+    {
+      "path": "freeoxide/apple-touch-icon.png",
+      "sha256": "933e78f4a79056793b8b5370b79b7aecaf41b313a1451d188c74494792cc70e3",
+      "bytes": 1785,
+      "width": 180,
+      "height": 180
+    },
+    {
+      "path": "freeoxide/icon-192.png",
+      "sha256": "c3248fc083e5dc3dbf24e74466a9de4f1b578612647a16f973994b684ec768b8",
+      "bytes": 2945,
+      "width": 192,
+      "height": 192
+    },
+    {
+      "path": "freeoxide/icon-512.png",
+      "sha256": "d9fd8659c8983f940b5e4f8ffbe4459264a94f03cb9a2191634e98eb15b682b0",
+      "bytes": 9495,
+      "width": 512,
+      "height": 512
+    },
+    {
+      "path": "freeoxide/maskable-512.png",
+      "sha256": "37cc8102cd8ac7190c523629dd202a5c74b7ec19887fac7306f0ecd3bdd0ba49",
+      "bytes": 5291,
+      "width": 512,
+      "height": 512
+    },
+    {
+      "path": "freeoxide/site.webmanifest",
+      "sha256": "687bdf63dd07a316515fe86fd94116ad8965d21aebf391ffb777319b607c6af7",
+      "bytes": 478
+    },
+    {
+      "path": "freeoxide/head.html",
+      "sha256": "03a9a36527d9735b8d51b6c80c38627a619e003e3523e95ac2a8b0bdfeca0d85",
+      "bytes": 392
+    },
+    {
+      "path": "gpui-starter/tile.svg",
+      "sha256": "39a72049260e798a6298b2da46be2258217cf9857f6b81526169260e8eed15b0",
+      "bytes": 2187,
+      "width": 512,
+      "height": 512
+    },
+    {
+      "path": "gpui-starter/wordmark.svg",
+      "sha256": "4f5a63c3422853f54fae90746340cdbee2a2278bf17a5f1f31dd81bd0ebf866a",
+      "bytes": 6202,
+      "width": 585,
+      "height": 98
+    },
+    {
+      "path": "gpui-starter/lockup.svg",
+      "sha256": "84057d819b37eb3e092f54e8b074fcc5dd3ab3d5d3579c88f24e6f8561c4944d",
+      "bytes": 8139,
+      "width": 749,
+      "height": 120
+    },
+    {
+      "path": "gpui-starter/mark-16.png",
+      "sha256": "6dd3a2ac0ddb2862bec3c5c8398c0a9060607fe5106618cf2a11f113c981a423",
+      "bytes": 351,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "path": "gpui-starter/mark-32.png",
+      "sha256": "b27eef45c474466a232106801c76eaecec6cb67f07c06db2a54cbd90eb10096f",
+      "bytes": 655,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "gpui-starter/mark-48.png",
+      "sha256": "45b02844d762898b3d6f5f4f587902a7b59f4ced6243fe4ea5746936dd158b9e",
+      "bytes": 901,
+      "width": 48,
+      "height": 48
+    },
+    {
+      "path": "gpui-starter/mark-64.png",
+      "sha256": "3c1338feb08ed6fe8db52eb03e1a2b84fe2f6d88a92429058cff4ec2d5171571",
+      "bytes": 1163,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "path": "gpui-starter/mark-128.png",
+      "sha256": "6c5f21f1e1875b8cf538e6112dca7dc51589c592fff2ead61fb9ee04b3850780",
+      "bytes": 2396,
+      "width": 128,
+      "height": 128
+    },
+    {
+      "path": "gpui-starter/mark-256.png",
+      "sha256": "145d26a66c3be3b8b7275206373bd941258f903a1b407588ff42f4e31674717a",
+      "bytes": 4952,
+      "width": 256,
+      "height": 256
+    },
+    {
+      "path": "gpui-starter/mark-512.png",
+      "sha256": "af65360da7dd0197e051c240f776035603ecfcd4207eda7a9f212336a58bf8bd",
+      "bytes": 10738,
+      "width": 512,
+      "height": 512
+    },
+    {
+      "path": "gpui-starter/mark-1024.png",
+      "sha256": "a0d6422c9029227407e3d239388e0a58ba072e08b3e39691055ea75c136b63ba",
+      "bytes": 24217,
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "path": "gpui-starter/wordmark-512.png",
+      "sha256": "6becfdcae23745dede75f68474eb0cd03cb76bad0b2f5618bae6bb86360df818",
+      "bytes": 7953,
+      "width": 512,
+      "height": 86
+    },
+    {
+      "path": "gpui-starter/lockup-512.png",
+      "sha256": "5bd34023d82b1595670e0d028bc2e392d688ba8971ed8122f57a1cd7e7bb3b3d",
+      "bytes": 7749,
+      "width": 512,
+      "height": 82
+    },
+    {
+      "path": "gpui-starter/wordmark-1024.png",
+      "sha256": "41778ade097134a3565d17ab001486c47a1e28fbec0b09d6fb4d643da8bf56cf",
+      "bytes": 17060,
+      "width": 1024,
+      "height": 172
+    },
+    {
+      "path": "gpui-starter/lockup-1024.png",
+      "sha256": "c15408124af770bce551aca64a005926a89211db5abc21c0e4a57287bc674c03",
+      "bytes": 16603,
+      "width": 1024,
+      "height": 164
+    },
+    {
+      "path": "gpui-starter/favicon.svg",
+      "sha256": "1d2b01ecba4da1b3c31a40957ac7c11928e5dc47e80676babacf3f76cde7e607",
+      "bytes": 1833,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "gpui-starter/favicon-16.png",
+      "sha256": "6dd3a2ac0ddb2862bec3c5c8398c0a9060607fe5106618cf2a11f113c981a423",
+      "bytes": 351,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "path": "gpui-starter/favicon-32.png",
+      "sha256": "b27eef45c474466a232106801c76eaecec6cb67f07c06db2a54cbd90eb10096f",
+      "bytes": 655,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "gpui-starter/favicon-48.png",
+      "sha256": "45b02844d762898b3d6f5f4f587902a7b59f4ced6243fe4ea5746936dd158b9e",
+      "bytes": 901,
+      "width": 48,
+      "height": 48
+    },
+    {
+      "path": "gpui-starter/favicon.ico",
+      "sha256": "a2231352870acfdba0fbaf3860500195c3f9e091402a1af4a2109930a2f94ddd",
+      "bytes": 15086
+    },
+    {
+      "path": "gpui-starter/apple-touch-icon.png",
+      "sha256": "3ced42fe6e529d492c969342f0b1c2d62b993b7a49bbff670c57672985c18426",
+      "bytes": 2238,
+      "width": 180,
+      "height": 180
+    },
+    {
+      "path": "gpui-starter/icon-192.png",
+      "sha256": "10aeafd6a3aa2983660fe53b90d53e65572aec2b74f56f49ce3c1e8cadbb9dbc",
+      "bytes": 3604,
+      "width": 192,
+      "height": 192
+    },
+    {
+      "path": "gpui-starter/icon-512.png",
+      "sha256": "af65360da7dd0197e051c240f776035603ecfcd4207eda7a9f212336a58bf8bd",
+      "bytes": 10738,
+      "width": 512,
+      "height": 512
+    },
+    {
+      "path": "gpui-starter/maskable-512.png",
+      "sha256": "54d7421049f5f1ff58cd7ac5cb829bd172533cbd7a88470038bcf89809a40090",
+      "bytes": 6464,
+      "width": 512,
+      "height": 512
+    },
+    {
+      "path": "gpui-starter/site.webmanifest",
+      "sha256": "069126bc42bd5b5918c2c2f8e8aa7bd984abd67659d58d8df6df3e14ba1172bb",
+      "bytes": 484
+    },
+    {
+      "path": "gpui-starter/head.html",
+      "sha256": "03a9a36527d9735b8d51b6c80c38627a619e003e3523e95ac2a8b0bdfeca0d85",
+      "bytes": 392
+    },
+    {
+      "path": "gpui-query/tile.svg",
+      "sha256": "1cceb131fc0e27f7b1790a2d72fce82e14de0fad4d2b6c72b37838e10d418c08",
+      "bytes": 1688,
+      "width": 512,
+      "height": 512
+    },
+    {
+      "path": "gpui-query/wordmark.svg",
+      "sha256": "44f61c62d792705b9bc5e93d926948bb8a740d4c02a8a423b12e3d545f71b551",
+      "bytes": 4947,
+      "width": 544,
+      "height": 98
+    },
+    {
+      "path": "gpui-query/lockup.svg",
+      "sha256": "ef806d3c163ee41d1347c192b012e4c1a707a9c54b24004df51bc1b3a6caec03",
+      "bytes": 6460,
+      "width": 708,
+      "height": 120
+    },
+    {
+      "path": "gpui-query/mark-16.png",
+      "sha256": "4903f6ca39a818de7a5e02b8158843aa8e0ea73474c769483d0744b74eddef7a",
+      "bytes": 374,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "path": "gpui-query/mark-32.png",
+      "sha256": "ae3ca8faf057d31ba05a4ea06184ca28b7761f8823e3d77ce16ecf0050a4108b",
+      "bytes": 620,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "gpui-query/mark-48.png",
+      "sha256": "2e8e5a4251e397b20ee80cff7524ff70b96393dcd56af48c57d601bf968f285f",
+      "bytes": 930,
+      "width": 48,
+      "height": 48
+    },
+    {
+      "path": "gpui-query/mark-64.png",
+      "sha256": "7c6137144babd15b25b51c4967ca4228bdaf67896b8586dd6bd53ef54f1cbfb2",
+      "bytes": 1174,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "path": "gpui-query/mark-128.png",
+      "sha256": "66f1571c46b4d89131b6ec68eb759fd54b49a9d428565ffe48a6b13c5753cd10",
+      "bytes": 2407,
+      "width": 128,
+      "height": 128
+    },
+    {
+      "path": "gpui-query/mark-256.png",
+      "sha256": "07d446096bf2e345501548f9d039c5fedc6587038a65f8f63c85e4f7a3c1f046",
+      "bytes": 4996,
+      "width": 256,
+      "height": 256
+    },
+    {
+      "path": "gpui-query/mark-512.png",
+      "sha256": "863af5f39fd808ccc7a92fe480b29584002864b2ced45d54e5e0303fb5128f06",
+      "bytes": 11197,
+      "width": 512,
+      "height": 512
+    },
+    {
+      "path": "gpui-query/mark-1024.png",
+      "sha256": "87eaf59ba89254270dca5e2b9cfca1550ecd6ddadf8a354fe5e5906649918770",
+      "bytes": 25227,
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "path": "gpui-query/wordmark-512.png",
+      "sha256": "08aa22c6c4fbc3d2f6c261d51d0ecaad4f77f27ac2f098497e878a2fd6ce4418",
+      "bytes": 9418,
+      "width": 512,
+      "height": 92
+    },
+    {
+      "path": "gpui-query/lockup-512.png",
+      "sha256": "595e17c0a7cbc436bf18f04cb253230d55a99bf690354b7271753bebdcf86072",
+      "bytes": 8951,
+      "width": 512,
+      "height": 87
+    },
+    {
+      "path": "gpui-query/wordmark-1024.png",
+      "sha256": "4e5229651a7cc710480c4c5e15601e1b66cb873db45051760ebe48f4e204cc9a",
+      "bytes": 19889,
+      "width": 1024,
+      "height": 185
+    },
+    {
+      "path": "gpui-query/lockup-1024.png",
+      "sha256": "8bc9d37c253a9f3f4f397ea82693bc96d308950acde40d5167033cd529608004",
+      "bytes": 18643,
+      "width": 1024,
+      "height": 174
+    },
+    {
+      "path": "gpui-query/favicon.svg",
+      "sha256": "e1eca93e576f7e4eeae88a448ea70fc359420833b8700ac6d0c62df96f2ae05f",
+      "bytes": 1418,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "gpui-query/favicon-16.png",
+      "sha256": "4903f6ca39a818de7a5e02b8158843aa8e0ea73474c769483d0744b74eddef7a",
+      "bytes": 374,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "path": "gpui-query/favicon-32.png",
+      "sha256": "ae3ca8faf057d31ba05a4ea06184ca28b7761f8823e3d77ce16ecf0050a4108b",
+      "bytes": 620,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "gpui-query/favicon-48.png",
+      "sha256": "2e8e5a4251e397b20ee80cff7524ff70b96393dcd56af48c57d601bf968f285f",
+      "bytes": 930,
+      "width": 48,
+      "height": 48
+    },
+    {
+      "path": "gpui-query/favicon.ico",
+      "sha256": "9f3ce08e33b48981b4486e4c9cd54574b23324e50d049ee32c18fa6d1c48b0ce",
+      "bytes": 15086
+    },
+    {
+      "path": "gpui-query/apple-touch-icon.png",
+      "sha256": "f9939860a405b7ecd0d26b89a59a5c150544bd747c43850706445df7f426b79b",
+      "bytes": 2198,
+      "width": 180,
+      "height": 180
+    },
+    {
+      "path": "gpui-query/icon-192.png",
+      "sha256": "46fa2c4970b63935ec2f3c8de864769f808ca1629418b3af4c260154c10de118",
+      "bytes": 3712,
+      "width": 192,
+      "height": 192
+    },
+    {
+      "path": "gpui-query/icon-512.png",
+      "sha256": "863af5f39fd808ccc7a92fe480b29584002864b2ced45d54e5e0303fb5128f06",
+      "bytes": 11197,
+      "width": 512,
+      "height": 512
+    },
+    {
+      "path": "gpui-query/maskable-512.png",
+      "sha256": "d6c5ddafc044fd015782d9cce531aba5da4e310538fae2e3cffa16299570f8ab",
+      "bytes": 6607,
+      "width": 512,
+      "height": 512
+    },
+    {
+      "path": "gpui-query/site.webmanifest",
+      "sha256": "c5d32cf82e262d90bf944f735aa9bac74bb8170ce85f8d522b787cea1a8a0ffa",
+      "bytes": 480
+    },
+    {
+      "path": "gpui-query/head.html",
+      "sha256": "03a9a36527d9735b8d51b6c80c38627a619e003e3523e95ac2a8b0bdfeca0d85",
+      "bytes": 392
+    },
+    {
+      "path": "claude-multi/tile.svg",
+      "sha256": "4a9aa6e6981432fb864f1e7111f61194122e16961d098d073bc70124832d058d",
+      "bytes": 1705,
+      "width": 512,
+      "height": 512
+    },
+    {
+      "path": "claude-multi/wordmark.svg",
+      "sha256": "0a372581bd770ad49020e84eb06030b0d8b55fb5856f37e941cd91649956b096",
+      "bytes": 5204,
+      "width": 600,
+      "height": 75
+    },
+    {
+      "path": "claude-multi/lockup.svg",
+      "sha256": "4c043179a4f839ebfc059e2e6f09c40a22466fabe139a31fa335c3747328f028",
+      "bytes": 6729,
+      "width": 764,
+      "height": 120
+    },
+    {
+      "path": "claude-multi/mark-16.png",
+      "sha256": "4150ffc814e18186989cd1e7205fd217a39a114cc88bd88afd7c76afb9f49c3e",
+      "bytes": 337,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "path": "claude-multi/mark-32.png",
+      "sha256": "e8f77cdcab1ca9e75b2c30604c164c5bb3ecc38d787f5ac98f11a78dd73b22c5",
+      "bytes": 629,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "claude-multi/mark-48.png",
+      "sha256": "738e6873b02937121ae94fde1ac43268279fbc62ae469a1467afd267c327615a",
+      "bytes": 890,
+      "width": 48,
+      "height": 48
+    },
+    {
+      "path": "claude-multi/mark-64.png",
+      "sha256": "943e1a1a91acc0149b9d8b8fdd246c557b367cb7492618624da153399b3f0174",
+      "bytes": 1106,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "path": "claude-multi/mark-128.png",
+      "sha256": "a2b0603a6a39ea572a204fcb19ad2e353999584d6f11aefcf5f405bd15619e08",
+      "bytes": 2372,
+      "width": 128,
+      "height": 128
+    },
+    {
+      "path": "claude-multi/mark-256.png",
+      "sha256": "98a56490b392c17bd1832f43cbf7183d8887c1a8c95fc85fdd098a233ab525c5",
+      "bytes": 4928,
+      "width": 256,
+      "height": 256
+    },
+    {
+      "path": "claude-multi/mark-512.png",
+      "sha256": "60627bf1f025faa6c9ac4c7f016c37431aaab7e06830a4855ce9210a344c0955",
+      "bytes": 11067,
+      "width": 512,
+      "height": 512
+    },
+    {
+      "path": "claude-multi/mark-1024.png",
+      "sha256": "70f19b2955d32e02edee1f4a732c3a826e64e11b8249c88a2e76cea410770873",
+      "bytes": 24830,
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "path": "claude-multi/wordmark-512.png",
+      "sha256": "06d18f981d507d522d0a30c79f7264d6090ba9c75ba48b0a3b89771c0c9668b8",
+      "bytes": 2633,
+      "width": 512,
+      "height": 64
+    },
+    {
+      "path": "claude-multi/lockup-512.png",
+      "sha256": "c63215b4eb2bef9caf39a44078b2451f9408dee2005cac66508fb560f39195c4",
+      "bytes": 3771,
+      "width": 512,
+      "height": 80
+    },
+    {
+      "path": "claude-multi/wordmark-1024.png",
+      "sha256": "9a41301e8ab6e708641a8461998ca8fb7e10bd9770b06d8816c9d699747c0a47",
+      "bytes": 5424,
+      "width": 1024,
+      "height": 128
+    },
+    {
+      "path": "claude-multi/lockup-1024.png",
+      "sha256": "bf3ba4f6bbe61565592c4189455e95dca21d7fa70f11ff5725ccc8062c8b262c",
+      "bytes": 8180,
+      "width": 1024,
+      "height": 161
+    },
+    {
+      "path": "claude-multi/favicon.svg",
+      "sha256": "697073895a0b120f6e3d92fe64b2ccd95d6bae57aed1398e8724a9676298e444",
+      "bytes": 1427,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "claude-multi/favicon-16.png",
+      "sha256": "4150ffc814e18186989cd1e7205fd217a39a114cc88bd88afd7c76afb9f49c3e",
+      "bytes": 337,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "path": "claude-multi/favicon-32.png",
+      "sha256": "e8f77cdcab1ca9e75b2c30604c164c5bb3ecc38d787f5ac98f11a78dd73b22c5",
+      "bytes": 629,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "claude-multi/favicon-48.png",
+      "sha256": "738e6873b02937121ae94fde1ac43268279fbc62ae469a1467afd267c327615a",
+      "bytes": 890,
+      "width": 48,
+      "height": 48
+    },
+    {
+      "path": "claude-multi/favicon.ico",
+      "sha256": "ef8d819597ea67242232e811b8cbcfb320eb837816b80d11d86e34469b7bde07",
+      "bytes": 15086
+    },
+    {
+      "path": "claude-multi/apple-touch-icon.png",
+      "sha256": "ce2ad01a3a33211ec2097a4a649c4f571172be9b399e0c39cdab71b4baf76280",
+      "bytes": 1466,
+      "width": 180,
+      "height": 180
+    },
+    {
+      "path": "claude-multi/icon-192.png",
+      "sha256": "b33a9e76d2c0ddc8d63b98b1639e8d29768e64a154d3dbff77adf12046c1bf73",
+      "bytes": 3860,
+      "width": 192,
+      "height": 192
+    },
+    {
+      "path": "claude-multi/icon-512.png",
+      "sha256": "60627bf1f025faa6c9ac4c7f016c37431aaab7e06830a4855ce9210a344c0955",
+      "bytes": 11067,
+      "width": 512,
+      "height": 512
+    },
+    {
+      "path": "claude-multi/maskable-512.png",
+      "sha256": "3217d3a371ad74927662b9784a8f6ccae512254774e55e200a9fb9de8eae10b3",
+      "bytes": 4431,
+      "width": 512,
+      "height": 512
+    },
+    {
+      "path": "claude-multi/site.webmanifest",
+      "sha256": "9022c8346a77479425aaede0b935f6956cf7e36568e1be986474d4de93a35d96",
+      "bytes": 484
+    },
+    {
+      "path": "claude-multi/head.html",
+      "sha256": "03a9a36527d9735b8d51b6c80c38627a619e003e3523e95ac2a8b0bdfeca0d85",
+      "bytes": 392
+    },
+    {
+      "path": "oxlabs/tile.svg",
+      "sha256": "9dc5fe79efbf57309b3be15238df379f82280eeaecf9227f313292bfb9dfc749",
+      "bytes": 1080,
+      "width": 512,
+      "height": 512
+    },
+    {
+      "path": "oxlabs/wordmark.svg",
+      "sha256": "d76aa54c01fd8109ab463e7194b248b8073f0b2f6f6cbbdbc7c6dab18c51ff29",
+      "bytes": 3655,
+      "width": 332,
+      "height": 71
+    },
+    {
+      "path": "oxlabs/lockup.svg",
+      "sha256": "1e6f74e06275c92d5e7c25f0e5f91bbebe66471dafb8cb4197b25f6c414980be",
+      "bytes": 4612,
+      "width": 496,
+      "height": 120
+    },
+    {
+      "path": "oxlabs/mark-16.png",
+      "sha256": "abc56b9e8ecc261698f1d7a462b855f95fe0133fa284e8a65e4d2f93300a8791",
+      "bytes": 362,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "path": "oxlabs/mark-32.png",
+      "sha256": "5a3b041a4c25eef94c568505245443ab44e02c0faff02a63ad9284a6666d774d",
+      "bytes": 642,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "oxlabs/mark-48.png",
+      "sha256": "f13683c277d9dc825ec221c9b9c108059735be5043ca854658685822b9b1bc30",
+      "bytes": 928,
+      "width": 48,
+      "height": 48
+    },
+    {
+      "path": "oxlabs/mark-64.png",
+      "sha256": "facf244361c1acc74780f1731f6d9f18566897845f6d6407453e01b9bbbd89e0",
+      "bytes": 1202,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "path": "oxlabs/mark-128.png",
+      "sha256": "503153740156d35b3b48da8ff34e240d20a10c07689ad949eb8a6701089306a2",
+      "bytes": 2441,
+      "width": 128,
+      "height": 128
+    },
+    {
+      "path": "oxlabs/mark-256.png",
+      "sha256": "dc0d60e5361a9279eda9b575f3ac0661464310cb592f122950478a7e3e9cb6a9",
+      "bytes": 5147,
+      "width": 256,
+      "height": 256
+    },
+    {
+      "path": "oxlabs/mark-512.png",
+      "sha256": "37867a6093239ddedcd07816b70a99bd7c75705b2bc71ba931328d0980a0a06c",
+      "bytes": 11153,
+      "width": 512,
+      "height": 512
+    },
+    {
+      "path": "oxlabs/mark-1024.png",
+      "sha256": "3da99c159dd258963e3b974848aaba8273fe6366ec20a4c1c87080ec9d47d247",
+      "bytes": 25116,
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "path": "oxlabs/wordmark-512.png",
+      "sha256": "933b0a420d7a4837925266192250c5ef15739d46365e5e3e639b5fec606f5959",
+      "bytes": 9960,
+      "width": 512,
+      "height": 110
+    },
+    {
+      "path": "oxlabs/lockup-512.png",
+      "sha256": "3a07d1bac0f6c7e937d30937b2f559597b85d548a00c266f96af23021cac2bc0",
+      "bytes": 9492,
+      "width": 512,
+      "height": 124
+    },
+    {
+      "path": "oxlabs/wordmark-1024.png",
+      "sha256": "1ca7817379d0dc765ffe7079139c282cfc0b2640bc0c20c3241bd33af052f232",
+      "bytes": 21464,
+      "width": 1024,
+      "height": 220
+    },
+    {
+      "path": "oxlabs/lockup-1024.png",
+      "sha256": "ba81f48e5db002d9906adb6f71be3bc8540632ec749021f8c1223a16b809d9fe",
+      "bytes": 21041,
+      "width": 1024,
+      "height": 248
+    },
+    {
+      "path": "oxlabs/favicon.svg",
+      "sha256": "98e5ca31d59c19f2038631a4e47790d3fdc7a8d225dec874ee7b786d5cc83051",
+      "bytes": 898,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "oxlabs/favicon-16.png",
+      "sha256": "abc56b9e8ecc261698f1d7a462b855f95fe0133fa284e8a65e4d2f93300a8791",
+      "bytes": 362,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "path": "oxlabs/favicon-32.png",
+      "sha256": "5a3b041a4c25eef94c568505245443ab44e02c0faff02a63ad9284a6666d774d",
+      "bytes": 642,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "oxlabs/favicon-48.png",
+      "sha256": "f13683c277d9dc825ec221c9b9c108059735be5043ca854658685822b9b1bc30",
+      "bytes": 928,
+      "width": 48,
+      "height": 48
+    },
+    {
+      "path": "oxlabs/favicon.ico",
+      "sha256": "70b3edb1609a2addced6e0835fffe9d2eceeadf6654e267b8c8cfc5c6f9aa3ac",
+      "bytes": 15086
+    },
+    {
+      "path": "oxlabs/apple-touch-icon.png",
+      "sha256": "1cfae77746c5b3ec9115e7588cbd5bd63380a185adccfafc4658132153442e98",
+      "bytes": 2281,
+      "width": 180,
+      "height": 180
+    },
+    {
+      "path": "oxlabs/icon-192.png",
+      "sha256": "12c3b66cb525ab5a343a381981b2208667549e450e25cf4a3d4034f72f8d8cf9",
+      "bytes": 3758,
+      "width": 192,
+      "height": 192
+    },
+    {
+      "path": "oxlabs/icon-512.png",
+      "sha256": "37867a6093239ddedcd07816b70a99bd7c75705b2bc71ba931328d0980a0a06c",
+      "bytes": 11153,
+      "width": 512,
+      "height": 512
+    },
+    {
+      "path": "oxlabs/maskable-512.png",
+      "sha256": "378ab116f7f83588a43284b7b77e76437c4168bd32bc92e1bb0271987b5cf2c1",
+      "bytes": 6546,
+      "width": 512,
+      "height": 512
+    },
+    {
+      "path": "oxlabs/site.webmanifest",
+      "sha256": "509aabc1cefd552cf0dae2db98f374238c44f79c72a05d57bb1fe5dbd151e389",
+      "bytes": 472
+    },
+    {
+      "path": "oxlabs/head.html",
+      "sha256": "03a9a36527d9735b8d51b6c80c38627a619e003e3523e95ac2a8b0bdfeca0d85",
+      "bytes": 392
+    }
+  ]
+}

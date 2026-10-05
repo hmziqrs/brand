@@ -1,0 +1,46 @@
+---
+import { cn } from "$brand/utils";
+import ShellParts from "./shell-parts.astro";
+import type { TerminalLineData } from "./terminal-line";
+
+/* One line: a command, a # note, a ▸ step with its answer, a ✓ result, or a key and value. */
+
+interface Props {
+  line: TerminalLineData;
+  wrap?: boolean;
+}
+
+const { line, wrap = false } = Astro.props;
+
+const cls = wrap ? "whitespace-pre-wrap" : "whitespace-pre";
+const [kind, a, b] = line;
+---
+
+{
+  kind === "cmd" ? (
+    <div class={cls}>
+      <span class="text-primary select-none">$ </span>
+      <ShellParts command={a} />
+    </div>
+  ) : kind === "note" ? (
+    <div class={cn(cls, "text-muted-foreground")}># {a}</div>
+  ) : kind === "ok" ? (
+    <div class={cls}>
+      <span class="text-(--code-token-string)">✓</span> {a}
+    </div>
+  ) : kind === "kv" ? (
+    <div class={cls}>
+      <span class="text-muted-foreground">{a}:</span> {b}
+    </div>
+  ) : (
+    <div class={cls}>
+      <span class="text-primary">▸</span> {a}
+      {b ? (
+        <>
+          {" "}
+          <span class="text-muted-foreground">›</span> <span class="text-(--code-token-string)">{b}</span>
+        </>
+      ) : null}
+    </div>
+  )
+}

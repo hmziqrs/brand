@@ -1,0 +1,36 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { PanelLeft } from "@lucide/astro";
+import { cn } from "$brand/utils";
+import { Button } from "$brand/starwind/button";
+
+/*
+ * The shell's sidebar toggle: Starwind's trigger behaviour (it toggles the
+ * desktop sidebar and, below md, the mobile sheet) with the plan's copy, so
+ * the button says what it does. Which label the screen reader hears follows
+ * the provider's state through CSS: below md the sheet is what opens, so the
+ * button always offers to open; from md it offers to collapse an expanded
+ * sidebar and to open a collapsed one.
+ */
+
+interface Props extends HTMLAttributes<"button"> {
+  class?: string;
+}
+
+const { class: className, ...rest } = Astro.props;
+---
+
+<Button
+  variant="ghost"
+  size="icon-sm"
+  data-sidebar="trigger"
+  data-sw-sidebar-trigger=""
+  class={cn("shrink-0", className)}
+  {...rest}
+>
+  <PanelLeft class="lucide" aria-hidden="true" />
+  <!-- The two labels are both here; the provider's data-state and the md
+       breakpoint between them decide which one is read. -->
+  <span class="sr-only md:group-data-[state=expanded]/sidebar-wrapper:hidden">Open menu</span>
+  <span class="sr-only hidden md:block md:group-data-[state=collapsed]/sidebar-wrapper:hidden">Collapse menu</span>
+</Button>

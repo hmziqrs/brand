@@ -1,0 +1,194 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { Plus, X } from "@lucide/astro";
+import { cn } from "$brand/utils";
+
+/*
+ * One filter over a list: a chip that opens its options in a <details>
+ * picker, so it opens with no JavaScript. The rows are real checkbox (or
+ * radio) inputs carrying the URL param as their name, so the page's GET form
+ * keeps the filter through its own submits; with JavaScript on, a change
+ * submits the form at once (a single-choice pick closes the picker and puts
+ * focus back on the trigger). An empty chip is a dashed "add" button; an
+ * active one names what's on and sits beside a link that removes it.
+ */
+
+interface Props extends HTMLAttributes<"span"> {
+  /** What the filter is about: "Role". */
+  label: string;
+  /** The URL param the filter writes: "role". */
+  name: string;
+  options: { value: string; label: string; count?: number }[];
+  value: string[];
+  /** One value at a time (radio rows) instead of many (checkbox rows). */
+  multiple?: boolean;
+  /** A searchable list for long option sets; defaults to over eight options. */
+  searchable?: boolean;
+  /** The same list without this filter. */
+  removeHref: string;
+}
+
+const {
+  label,
+  name,
+  options,
+  value,
+  multiple = true,
+  searchable,
+  removeHref,
+  class: className,
+  ...rest
+} = Astro.props;
+
+const search = searchable ?? options.length > 8;
+const active = value.length > 0;
+// One value says its name; several say how many.
+const summary =
+  value.length === 1
+    ? `${label}: ${options.find((option) => option.value === value[0])?.label ?? value[0]}`
+    : `${label}: ${value.length} selected`;
+---
+
+<span data-slot="filter-chip" class={cn("inline-flex max-w-full items-stretch", className)} {...rest}>
+  {
+    value
+      /* Only values the option list no longer holds ride along as hidden
+         inputs; a chosen option is already checked, and the two of them
+         would submit the same value twice. */
+      .filter((chosen) => !options.some((option) => option.value === chosen))
+      .map((chosen) => <input type="hidden" name={name} value={chosen} />)
+  }
+  <details data-filter-chip class="relative">
+    <summary
+      class={cn(
+        "inline-flex h-8 cursor-pointer list-none items-center gap-1.5 rounded-md border px-2.5 [&::-webkit-details-marker]:hidden text-sm font-medium whitespace-nowrap outline-none transition-colors focus-visible:ring-3 focus-visible:ring-ring/50",
+        active
+          ? "rounded-r-none border-r-0 border-primary/60 bg-primary/10 text-primary hover:bg-primary/15"
+          : "border-border border-dashed text-muted-foreground hover:text-foreground",
+      )}
+    >
+      {!active && <Plus class="lucide" aria-hidden="true" />}
+      <span class="truncate">{active ? summary : label}</span>
+    </summary>
+    {/* Below sm the toolbar's chips row scrolls sideways, and a row that
+        scrolls clips everything that opens inside it — so there the picker
+        is a fixed sheet at the foot of the screen instead, still the same
+        <details>, still opened and applied with no JavaScript. From sm the
+        popover opens under the chip as always. */}
+    <div
+      class="absolute top-full left-0 z-20 mt-1.5 w-52 rounded-lg border border-border bg-popover p-1.5 shadow-md max-sm:fixed max-sm:top-auto max-sm:bottom-4 max-sm:left-4 max-sm:right-4 max-sm:z-50 max-sm:mt-0 max-sm:w-auto"
+      data-filter-popover
+    >
+      {
+        search && (
+          <input
+            type="text"
+            data-filter-search
+            aria-label={`Filter by ${label.toLowerCase()}`}
+            placeholder="Filter…"
+            class="mb-1.5 h-8 w-full rounded-md border border-border bg-background px-2.5 text-sm outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
+          />
+        )
+      }
+      <div class="flex max-h-72 flex-col gap-0.5 overflow-y-auto" role={multiple ? "group" : "radiogroup"} aria-label={label}>
+        {options.map((option) => {
+          const chosen = value.includes(option.value);
+          return (
+            <label
+              data-filter-option
+              data-value={option.value}
+              class="flex w-full cursor-default items-center gap-2.5 rounded-sm px-2 py-1.5 text-left text-sm outline-none transition-colors hover:bg-muted has-checked:bg-muted"
+            >
+              {multiple ? (
+                <input
+                  type="checkbox"
+                  name={name}
+                  value={option.value}
+                  checked={chosen}
+                  class="size-4 appearance-none rounded-[4px] border border-input bg-background shadow-xs outline-none checked:border-primary checked:bg-primary indeterminate:border-primary indeterminate:bg-primary focus-visible:ring-3 focus-visible:ring-ring/50"
+                />
+              ) : (
+                <input
+                  type="radio"
+                  name={name}
+                  value={option.value}
+                  checked={chosen}
+                  class="size-4 appearance-none rounded-full border border-input bg-background shadow-xs outline-none checked:border-[5px] checked:border-primary focus-visible:ring-3 focus-visible:ring-ring/50"
+                />
+              )}
+              <span class="truncate">{option.label}</span>
+              {option.count !== undefined && <span class="ml-auto text-muted-foreground">{option.count}</span>}
+            </label>
+          );
+        })}
+        <p data-filter-empty class="hidden px-2 py-1.5 text-sm text-muted-foreground">Nothing matches.</p>
+      </div>
+      <div class="border-t border-border p-2 pt-1.5">
+        <!-- The honest end of a visit, and the way through for a list that
+             can't apply its changes on its own. -->
+        <button
+          type="submit"
+          class="h-7 w-full cursor-pointer rounded-md text-sm font-medium text-muted-foreground outline-none transition-colors hover:bg-muted hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50"
+        >
+          Apply
+        </button>
+      </div>
+    </div>
+  </details>
+  {
+    active && (
+      <a
+        href={removeHref}
+        aria-label={`Remove ${label} filter`}
+        class="inline-flex items-center rounded-l-none border border-primary/60 bg-primary/10 px-1.5 text-primary outline-none transition-colors hover:bg-primary/15 focus-visible:ring-3 focus-visible:ring-ring/50"
+      >
+        <X class="lucide" aria-hidden="true" />
+      </a>
+    )
+  }
+</span>
+
+<script>
+  // With JavaScript on, a change submits the page's GET form at once — the
+  // whole page reloads with the filter in the URL. A single-choice pick
+  // closes the picker and puts focus back on the trigger; a checkbox list
+  // stays open. Escape closes too, and the search field filters the rows.
+  document.addEventListener("change", (event) => {
+    const input = event.target as HTMLInputElement | null;
+    const details = input?.closest<HTMLElement>("details[data-filter-chip]");
+    // The toolbar's search (named "q") and the picker's own filter field
+    // commit on blur too, but neither applies anything: the field narrows
+    // the rows, and its change must not submit the form under it.
+    if (!details || input?.name === "q" || input?.matches("[data-filter-search]")) return;
+    const single = details.querySelector<HTMLInputElement>("input[type='radio']") !== null;
+    if (single) {
+      const summary = details.querySelector<HTMLElement>("summary");
+      details.removeAttribute("open");
+      summary?.focus();
+    }
+    details.closest("form")?.requestSubmit();
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") return;
+    const details = (event.target as HTMLElement | null)?.closest<HTMLElement>("details[data-filter-chip]");
+    if (!details) return;
+    details.removeAttribute("open");
+    details.querySelector<HTMLElement>("summary")?.focus();
+  });
+
+  document.addEventListener("input", (event) => {
+    const field = event.target as HTMLInputElement | null;
+    if (!field?.matches("[data-filter-search]")) return;
+    const box = field.closest<HTMLElement>("[data-filter-popover]");
+    if (!box) return;
+    const needle = field.value.toLowerCase();
+    let shown = 0;
+    for (const row of box.querySelectorAll<HTMLElement>("[data-filter-option]")) {
+      const match = (row.dataset.value ?? "").toLowerCase().includes(needle) || row.textContent?.toLowerCase().includes(needle);
+      row.classList.toggle("hidden", !match);
+      if (match) shown += 1;
+    }
+    box.querySelector<HTMLElement>("[data-filter-empty]")?.classList.toggle("hidden", shown > 0);
+  });
+</script>

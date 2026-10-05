@@ -1,0 +1,76 @@
+---
+import { cn } from "$brand/utils";
+import { Button } from "$brand/starwind/button";
+import Tooltip from "$brand/starwind/tooltip";
+import CopyIcons from "./copy-icons.astro";
+
+/*
+ * Copies text. The icon turns into a check for two seconds. The swap runs
+ * on the `data-copied` attribute the script sets; both icons and both
+ * words are in the markup, so the script moves nothing and creates nothing.
+ */
+
+interface Props {
+  text: string;
+  /** Show words next to the icon ("Copy", "Copy link"). Without it, an icon button with a tooltip. */
+  label?: string;
+  class?: string;
+}
+
+const { text, label, class: className } = Astro.props;
+---
+
+{
+  label ? (
+    <Button data-slot="copy-button" data-copy-text={text} variant="outline" size="sm" class={cn("shrink-0", className)}>
+      <CopyIcons />
+      <span class="group-data-[copied]/button:hidden">{label}</span>
+      <span class="hidden group-data-[copied]/button:block">Copied</span>
+    </Button>
+  ) : (
+    <Tooltip.Root>
+      <Tooltip.Trigger>
+        <Button
+          data-slot="copy-button"
+          data-copy-text={text}
+          variant="ghost"
+          size="icon-sm"
+          aria-label="Copy"
+          class={cn("text-muted-foreground hover:text-foreground", className)}
+        >
+          <CopyIcons />
+        </Button>
+      </Tooltip.Trigger>
+      <Tooltip.Content>
+        <span data-copy-word>Copy</span>
+      </Tooltip.Content>
+    </Tooltip.Root>
+  )
+}
+
+<script>
+  // One delegated listener covers every copy button on the page, before and
+  // after view transitions.
+  document.addEventListener("click", (event) => {
+    const button = (event.target as HTMLElement | null)?.closest<HTMLElement>("[data-slot='copy-button']");
+    if (!button) return;
+    const text = button.dataset.copyText ?? "";
+    navigator.clipboard?.writeText(text).then(
+      () => {
+        button.dataset.copied = "";
+        const word = button.querySelector<HTMLElement>("[data-copy-word]");
+        if (word) {
+          word.dataset.original ??= word.textContent ?? "";
+          word.textContent = "Copied";
+        }
+        button.setAttribute("aria-label", "Copied");
+        window.setTimeout(() => {
+          delete button.dataset.copied;
+          if (word && word.dataset.original) word.textContent = word.dataset.original;
+          button.setAttribute("aria-label", "Copy");
+        }, 2000);
+      },
+      () => {},
+    );
+  });
+</script>

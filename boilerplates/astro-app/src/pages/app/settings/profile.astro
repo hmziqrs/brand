@@ -1,0 +1,85 @@
+---
+import { actions } from "astro:actions";
+import AppPage from "$brand/blocks/app/shell/app-page.astro";
+import AppPageHeader from "$brand/blocks/app/shell/app-page-header.astro";
+import ErrorState from "$brand/blocks/app/states/error-state.astro";
+import SkeletonSettings from "$brand/blocks/app/states/skeleton-settings.astro";
+import Workspace from "../../../components/app/workspace.astro";
+import ProfileContent from "../../../components/app/profile-content.astro";
+import Deferred from "../../../components/app/deferred.astro";
+import AppDocument from "../../../components/app/app-document.astro";
+import { demoLoad, settingsTabs } from "../../../lib/app/demo-state";
+import { profile as saved } from "../../../lib/app/settings";
+
+/*
+ * The profile settings page (app-blocks.md, phase 10): the same page the
+ * SvelteKit demo has, posted to the saveProfile action with accept: "form",
+ * so the same markup works with JavaScript off and the action's errors land
+ * in the rows. state=pending shows the settings skeleton as a
+ * `server:defer` island's fallback (an action's answer renders the form, so
+ * a post always lands on the content).
+ */
+const load = demoLoad(Astro.url.searchParams.get("state"));
+const action = Astro.getActionResult(actions.saveProfile);
+
+let result: { message: string; field?: string } | undefined;
+let values: Record<string, string> = {};
+let savedOk = false;
+if (action?.data?.ok === false) {
+  result = { message: action.data.message, field: action.data.field };
+  // A failed save keeps what was typed; the saved values sit under them.
+  values = { ...saved, ...(action.data.values ?? {}) };
+} else if (action?.data?.ok) {
+  savedOk = true;
+}
+
+const form = { ...saved, ...values };
+const pending = load.status === "pending" && !action;
+---
+
+<AppDocument title="Profile — astro-app">
+  <Workspace currentPath={Astro.url.pathname} state={load.state}>
+    {
+      load.status === "error" ? (
+        /* The error face keeps the page's frame — the heading and the section
+           tabs — as the Svelte twin's does: its DataState swaps only what sits
+           below the header. */
+        <AppPage width="narrow">
+          <AppPageHeader
+            title="Settings"
+            description="Your name, email and time zone."
+            tabs={settingsTabs}
+            currentPath="/app/settings/profile"
+            tabsLabel="Settings sections"
+          />
+          <div class="mt-8">
+            <ErrorState kind={load.kind} retryHref="/app/settings/profile" />
+          </div>
+        </AppPage>
+      ) : pending ? (
+        <Deferred server:defer ms={600}>
+          {/* The pending face's semantics, as the members page has them — and
+              the same frame the error face and the content keep. */}
+          <div slot="fallback" aria-busy="true">
+            <span class="sr-only" role="status">Loading settings</span>
+            <AppPage width="narrow">
+              <AppPageHeader
+                title="Settings"
+                description="Your name, email and time zone."
+                tabs={settingsTabs}
+                currentPath="/app/settings/profile"
+                tabsLabel="Settings sections"
+              />
+              <div class="mt-8">
+                <SkeletonSettings rows={3} />
+              </div>
+            </AppPage>
+          </div>
+          <ProfileContent values={form} saved={saved} />
+        </Deferred>
+      ) : (
+        <ProfileContent values={form} saved={saved} result={result} savedOk={savedOk} />
+      )
+    }
+  </Workspace>
+</AppDocument>

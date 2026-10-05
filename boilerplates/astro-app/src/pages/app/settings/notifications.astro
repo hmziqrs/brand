@@ -1,0 +1,71 @@
+---
+import AppPage from "$brand/blocks/app/shell/app-page.astro";
+import AppPageHeader from "$brand/blocks/app/shell/app-page-header.astro";
+import ErrorState from "$brand/blocks/app/states/error-state.astro";
+import SkeletonSettings from "$brand/blocks/app/states/skeleton-settings.astro";
+import Workspace from "../../../components/app/workspace.astro";
+import Notifications from "../../../components/app/notifications.astro";
+import Deferred from "../../../components/app/deferred.astro";
+import AppDocument from "../../../components/app/app-document.astro";
+import { demoLoad, settingsTabs } from "../../../lib/app/demo-state";
+import { notifications, usageAt80Failure } from "../../../lib/app/settings";
+
+/*
+ * The notifications settings page (app-blocks.md, phase 10): the same page
+ * the SvelteKit demo has. Saving on change needs JavaScript in both
+ * frameworks; state=pending shows the settings skeleton as a `server:defer`
+ * island's fallback.
+ */
+const load = demoLoad(Astro.url.searchParams.get("state"));
+// The scripted failure fires on the first change of a visit, as the plan
+// says; the store's flag is per server run, so the page resets it here.
+usageAt80Failure.reset();
+const values: Record<string, boolean> = { ...notifications };
+---
+
+<AppDocument title="Notifications — astro-app">
+  <Workspace currentPath={Astro.url.pathname} state={load.state}>
+    {
+      load.status === "error" ? (
+        /* The error face keeps the page's frame — the heading and the section
+           tabs — as the Svelte twin's does: its DataState swaps only what sits
+           below the header. */
+        <AppPage width="narrow">
+          <AppPageHeader
+            title="Settings"
+            description="When Sightline emails you."
+            tabs={settingsTabs}
+            currentPath="/app/settings/notifications"
+            tabsLabel="Settings sections"
+          />
+          <div class="mt-8">
+            <ErrorState kind={load.kind} retryHref="/app/settings/notifications" />
+          </div>
+        </AppPage>
+      ) : load.status === "pending" ? (
+        <Deferred server:defer ms={600}>
+          {/* The pending face's semantics, as the members page has them — and
+              the same frame the error face and the content keep. */}
+          <div slot="fallback" aria-busy="true">
+            <span class="sr-only" role="status">Loading settings</span>
+            <AppPage width="narrow">
+              <AppPageHeader
+                title="Settings"
+                description="When Sightline emails you."
+                tabs={settingsTabs}
+                currentPath="/app/settings/notifications"
+                tabsLabel="Settings sections"
+              />
+              <div class="mt-8">
+                <SkeletonSettings rows={3} />
+              </div>
+            </AppPage>
+          </div>
+          <Notifications values={values} />
+        </Deferred>
+      ) : (
+        <Notifications values={values} />
+      )
+    }
+  </Workspace>
+</AppDocument>

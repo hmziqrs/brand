@@ -1,0 +1,427 @@
+{
+  "target": "social",
+  "command": "pnpm render-assets --only social",
+  "digest": "26e7ad7f94faaf428d8031393c4bcf716057fd75d0f73410d314e84cf329e363",
+  "renderers": {
+    "@resvg/resvg-js": "2.6.2",
+    "opentype.js": "2.0.0",
+    "png-to-ico": "3.0.2"
+  },
+  "settings": {
+    "sizes": {
+      "og": {
+        "width": 1200,
+        "height": 630
+      },
+      "xCard": {
+        "width": 1200,
+        "height": 675
+      },
+      "cover": {
+        "width": 1200,
+        "height": 675
+      },
+      "blogOg": {
+        "width": 1200,
+        "height": 630
+      },
+      "avatar": 400,
+      "xHeader": {
+        "width": 1500,
+        "height": 500
+      },
+      "linkedinBackground": {
+        "width": 1584,
+        "height": 396
+      },
+      "githubPreview": {
+        "width": 1280,
+        "height": 640
+      },
+      "thumbnail": {
+        "width": 3840,
+        "height": 2160
+      }
+    },
+    "fonts": [
+      "onest-latin-400-normal.ttf",
+      "onest-latin-500-normal.ttf",
+      "onest-latin-600-normal.ttf"
+    ],
+    "headlines": {
+      "hmziq": "I build apps for phones, computers, the web and the terminal.",
+      "blog": "Notes from building software.",
+      "labs": "Experiments, in the open.",
+      "freeoxide": "Free Rust tools, finished before they ship.",
+      "gpui-starter": "Start your desktop app with the boring parts done.",
+      "gpui-query": "Load data in GPUI apps without writing the plumbing.",
+      "claude-multi": "Use Claude Code with any AI provider.",
+      "oxlabs": "Web, mobile and desktop apps, built and shipped by a small team."
+    },
+    "samplePost": {
+      "title": "A cover for every post",
+      "date": "1 October 2026"
+    },
+    "sampleVideo": {
+      "title": "A thumbnail for every video"
+    },
+    "github": [
+      {
+        "id": "claude-multi",
+        "repo": "hmziqrs/claude-multi"
+      },
+      {
+        "id": "freeoxide",
+        "repo": null
+      },
+      {
+        "id": "gpui-starter",
+        "repo": null
+      },
+      {
+        "id": "gpui-query",
+        "repo": null
+      }
+    ],
+    "accounts": {
+      "github": "hmziqrs",
+      "x": "hmziqrs",
+      "linkedin": "in/hmziqrs"
+    }
+  },
+  "inputs": [
+    {
+      "path": "assets/fonts/jetbrains-mono-latin-400-normal.ttf",
+      "sha256": "473c93ad62d89abd8431c8f5d744c83fe2e3f87d05b2f80c06355f240058d813"
+    },
+    {
+      "path": "assets/fonts/onest-latin-400-normal.ttf",
+      "sha256": "a04475f4d20e438b98a17210b3a6f22a5a7379381ac5ce0c8684252e094ba2bb"
+    },
+    {
+      "path": "assets/fonts/onest-latin-500-normal.ttf",
+      "sha256": "8d694ac8c138ca0a9a8e21d7d4826887e6533ab8f80da12bfbf8ae6ad177c48e"
+    },
+    {
+      "path": "assets/fonts/onest-latin-600-normal.ttf",
+      "sha256": "b8fbaa56e4804151b2deadc3b09980c1302855c7e58a0979c761f5cf81038f33"
+    },
+    {
+      "path": "assets/social/source/banners.ts",
+      "sha256": "6ced7a1ccb3245ea441c8d05232494ab9c8c25db355e5a4e8fec59ce6d8703b0"
+    },
+    {
+      "path": "assets/social/source/og.ts",
+      "sha256": "d59bb6249d06c20af4ddd57caf52573591a21890561a807f10bf11a6f3e57faf"
+    },
+    {
+      "path": "assets/social/source/parts.ts",
+      "sha256": "2fc265a76ed5f82e0cb1b585b105ee251c038063ca4a13dbb18b553402b8fbdd"
+    },
+    {
+      "path": "assets/social/source/post-cover.ts",
+      "sha256": "4334a85f9aab51fb585296722cbe43602f8fed542ab87066bd6b05abd611ace8"
+    },
+    {
+      "path": "assets/social/source/settings.ts",
+      "sha256": "aab16cecf5ddad02d3f9f4f2505437f13728bfed99fc0ba32d6b594b84eeb6ec"
+    },
+    {
+      "path": "assets/social/source/thumbnail.ts",
+      "sha256": "fc516a117f7876f371bb3bb97cefce68a627d6efb54d39b9fee8573d7a8cfb7b"
+    },
+    {
+      "path": "packages/brand-core/rings.css",
+      "sha256": "cf372353f94b0770ad94ea51a832d2743976773fd46aae6d16f3eb5109b4c6a0"
+    },
+    {
+      "path": "packages/brand-core/src/color.ts",
+      "sha256": "10daad0a78e06212244343dcd7ddc520616b8d0dc19b1696a9196bb71fa0c845"
+    },
+    {
+      "path": "packages/brand-core/src/family.ts",
+      "sha256": "c6f4cf1b6efaa1500ad70ed8d6e16eb329c3404be8d43c9addad6e7da84e5baf"
+    },
+    {
+      "path": "packages/brand-core/src/logo.ts",
+      "sha256": "38420c7f854a4391c2f6e387f72561082b8c3acabb266ce8c2a470e4661a107b"
+    },
+    {
+      "path": "packages/brand-core/src/motion/frame.ts",
+      "sha256": "feb3426b5bd0bf90ae617fd7cd0b6161c64cda73998c7fdf074a2d5e5b04ddf2"
+    },
+    {
+      "path": "packages/brand-core/src/motion/rings.ts",
+      "sha256": "a564cc52386ccf354c0f55741fbc4c99d8b7b81e6d17c7984a411a0f9928609c"
+    },
+    {
+      "path": "packages/brand-core/src/motion/scenes/helix.ts",
+      "sha256": "05562400e1fd3301177fedf9854f8ef31008cd3f3b218c8082cfd2b9bc29ba7d"
+    },
+    {
+      "path": "packages/brand-core/src/motion/scenes/index.ts",
+      "sha256": "1685e416a4eb3ca5e9e298dda59c7793b5f232f03b6f2b05ff1383414eb335fb"
+    },
+    {
+      "path": "packages/brand-core/src/motion/scenes/lattice.ts",
+      "sha256": "954d30c0d075f369b345234eab99644e220b3c2448c3e2c6dedfe85f9922c757"
+    },
+    {
+      "path": "packages/brand-core/src/motion/scenes/layers.ts",
+      "sha256": "56e70f229ab033ab44bf08ba19ce171d469e8eda089a12a65a2cd3396a30e5c5"
+    },
+    {
+      "path": "packages/brand-core/src/motion/scenes/network.ts",
+      "sha256": "0b79a7456043a6d5922420e14a878545c335651d089d14c4e5e21d272a9da222"
+    },
+    {
+      "path": "packages/brand-core/src/motion/scenes/stage.ts",
+      "sha256": "4dd6f484c6cf604f96039af7c604a1aa92de696a31f09003e3a612b9d095e9c6"
+    },
+    {
+      "path": "packages/brand-core/src/motion/scenes/support.ts",
+      "sha256": "f67dec66d3aef2fdbcbc855f75de2c51ed2fa0a9b9eedc531d98091d96e61b0d"
+    },
+    {
+      "path": "packages/brand-core/src/motion/scenes/thread.ts",
+      "sha256": "052ed93495f56dbca57cd305f5a4d33295aa73fa20a16b1893b2556de385d9e8"
+    },
+    {
+      "path": "packages/brand-core/src/motion/scenes/tiles.ts",
+      "sha256": "3e3cd9ffbdb91d6fbfc68c13222fe6c562ae412274283e37bb6ba87b1c255b88"
+    },
+    {
+      "path": "packages/brand-core/theme.css",
+      "sha256": "b9d163d586bff5532f462a22e57abb46fc3fb821af6017270a16a01ba5f3720a"
+    },
+    {
+      "path": "pnpm-lock.yaml",
+      "sha256": "9e84ad90a9cca818b0618626f8377650cbe128b5b2ec86edf748d45fbb0aeb59"
+    },
+    {
+      "path": "scripts/assets-lib.mjs",
+      "sha256": "6a277612cbc3d79abec201403716d3fc992a3701c38a22a5abe38e0daaf06917"
+    },
+    {
+      "path": "scripts/render-assets.mjs",
+      "sha256": "26ad610a8378b32f1e5831ec5f13fdf0759622aa824e2318982361cf18220df2"
+    }
+  ],
+  "files": [
+    {
+      "path": "sites/hmziq/og-1200x630.png",
+      "sha256": "5e1946c8e9ad18be986eabbf88114a53b947f535cbc3d98dc293e9ded7af189b",
+      "bytes": 36773,
+      "width": 1200,
+      "height": 630
+    },
+    {
+      "path": "sites/hmziq/x-1200x675.png",
+      "sha256": "3aac04887fe8653d8095f341bc505c83a29ba6611eb137c20744e9e291176039",
+      "bytes": 41054,
+      "width": 1200,
+      "height": 675
+    },
+    {
+      "path": "sites/blog/og-1200x630.png",
+      "sha256": "94d2463892c31cde9d4905966db878577de30a6c2f9c0f8c6bf9f10e6fa9b7f8",
+      "bytes": 27747,
+      "width": 1200,
+      "height": 630
+    },
+    {
+      "path": "sites/blog/x-1200x675.png",
+      "sha256": "fdb9a12f78f6f57e6a0932cda274c4da64a54c6630b3a1c7432a071468409628",
+      "bytes": 27941,
+      "width": 1200,
+      "height": 675
+    },
+    {
+      "path": "sites/labs/og-1200x630.png",
+      "sha256": "a1538742a2cbf499b837b7d60eabcf11464662ffa28f954a9f5df95d674c9fea",
+      "bytes": 22889,
+      "width": 1200,
+      "height": 630
+    },
+    {
+      "path": "sites/labs/x-1200x675.png",
+      "sha256": "8be82f6aea3e6eb9c1502543d11c679a441a11c84884eacfcb1a865482d9bc93",
+      "bytes": 23232,
+      "width": 1200,
+      "height": 675
+    },
+    {
+      "path": "sites/freeoxide/og-1200x630.png",
+      "sha256": "1d4dcac601687d5c5f9a8b26c52bbd145ca589f1f4e0454114b3ccf136e06047",
+      "bytes": 33503,
+      "width": 1200,
+      "height": 630
+    },
+    {
+      "path": "sites/freeoxide/x-1200x675.png",
+      "sha256": "7951633628dff36ed591d6c85bbf43eba3ceedfad94881549bb89c8067a784b5",
+      "bytes": 34097,
+      "width": 1200,
+      "height": 675
+    },
+    {
+      "path": "sites/gpui-starter/og-1200x630.png",
+      "sha256": "e12092552122e9942d445c0ba67a6cc83243914a2e79042283c7f877a145592e",
+      "bytes": 41646,
+      "width": 1200,
+      "height": 630
+    },
+    {
+      "path": "sites/gpui-starter/x-1200x675.png",
+      "sha256": "81b9a3c462f460a88a5754084d370201ba519087ecf9232320aaf35213c07f0a",
+      "bytes": 41998,
+      "width": 1200,
+      "height": 675
+    },
+    {
+      "path": "sites/gpui-query/og-1200x630.png",
+      "sha256": "1bc2795ee24ccc13b0702e39dfa18b0d7c2184a8946d7697f94095a917cc8ecc",
+      "bytes": 42803,
+      "width": 1200,
+      "height": 630
+    },
+    {
+      "path": "sites/gpui-query/x-1200x675.png",
+      "sha256": "5819b691d1d57696543c90fd5728873b929e09c44a5c7748285e2ecc2562514d",
+      "bytes": 43076,
+      "width": 1200,
+      "height": 675
+    },
+    {
+      "path": "sites/claude-multi/og-1200x630.png",
+      "sha256": "4dbc8bb7c72a02e0b4fab1e37f85a58d011cf84eaa63b59c39f00f7fe5448acf",
+      "bytes": 34728,
+      "width": 1200,
+      "height": 630
+    },
+    {
+      "path": "sites/claude-multi/x-1200x675.png",
+      "sha256": "6845fe59b3b8a7b6a48cf046fae5f05d15edfb83ee1f34b69b6a490e1394eaf5",
+      "bytes": 34840,
+      "width": 1200,
+      "height": 675
+    },
+    {
+      "path": "sites/oxlabs/og-1200x630.png",
+      "sha256": "244becad4eec7f6274d4ee172fcbe22d7c1dd7acb7179f6bf597bee2eb3638ed",
+      "bytes": 43337,
+      "width": 1200,
+      "height": 630
+    },
+    {
+      "path": "sites/oxlabs/x-1200x675.png",
+      "sha256": "a015880923d7f2d768184b2629a67f27bda2ce6a4acc99e7be62a9426d4f886c",
+      "bytes": 45946,
+      "width": 1200,
+      "height": 675
+    },
+    {
+      "path": "github/claude-multi-1280x640.png",
+      "sha256": "2e51fe9dbde25ab38df7f053565f01dbac821708a5ff91c3ad7fcfc51b6d2495",
+      "bytes": 28598,
+      "width": 1280,
+      "height": 640
+    },
+    {
+      "path": "blog/cover-sample-1200x675.png",
+      "sha256": "cb90e10d082dc06caff1f431dca4545297be54d5734955138ab0c2788c26ce7f",
+      "bytes": 24463,
+      "width": 1200,
+      "height": 675
+    },
+    {
+      "path": "blog/og-sample-1200x630.png",
+      "sha256": "1c53c3187900e214aa96e5d9b641283747073e5cd7604cf6c90371f03669d8cb",
+      "bytes": 23909,
+      "width": 1200,
+      "height": 630
+    },
+    {
+      "path": "avatars/hmziq-400x400.png",
+      "sha256": "8346259d28a9ea7331c8b5fba0758877aa7ce550f5f3118195e9cdab78eff8b6",
+      "bytes": 4439,
+      "width": 400,
+      "height": 400
+    },
+    {
+      "path": "avatars/blog-400x400.png",
+      "sha256": "3bfe598f247c55d79f8a4b6eec98d884c728f9f38c2d440ba843812fe2cd3122",
+      "bytes": 4082,
+      "width": 400,
+      "height": 400
+    },
+    {
+      "path": "avatars/labs-400x400.png",
+      "sha256": "4eb0744cd8fd1ca14f4bf0938d17b22e1378d7db06126881d81577c58dde26c8",
+      "bytes": 3672,
+      "width": 400,
+      "height": 400
+    },
+    {
+      "path": "avatars/freeoxide-400x400.png",
+      "sha256": "19d6a6ce2187e97eca1e31a78699f6ef52fc8298663b3d44ee2eb3f34c0b4115",
+      "bytes": 4246,
+      "width": 400,
+      "height": 400
+    },
+    {
+      "path": "avatars/gpui-starter-400x400.png",
+      "sha256": "deb321712a2cdbe9dcef740963c3c14536a10112bb8761987e2d4e4ed7bf66fe",
+      "bytes": 4874,
+      "width": 400,
+      "height": 400
+    },
+    {
+      "path": "avatars/gpui-query-400x400.png",
+      "sha256": "42408447b251e529999ab52caa99017c56efad11455addeb97bc63515768924a",
+      "bytes": 4971,
+      "width": 400,
+      "height": 400
+    },
+    {
+      "path": "avatars/claude-multi-400x400.png",
+      "sha256": "29f8e16462a8922ae51cfdde3a1a25c472b3e5608e8bb6e542020d0db764f15a",
+      "bytes": 4799,
+      "width": 400,
+      "height": 400
+    },
+    {
+      "path": "avatars/oxlabs-400x400.png",
+      "sha256": "254929ec082d236be60e5d892d59f29c9b5e78fc1742015fb9e52b09f7d78a5d",
+      "bytes": 5067,
+      "width": 400,
+      "height": 400
+    },
+    {
+      "path": "x/header-1500x500.png",
+      "sha256": "21669b98277f8acd17c8384d9f0b65ba4c9b9d7dcc7706c931f2c86d8b5b7674",
+      "bytes": 19238,
+      "width": 1500,
+      "height": 500
+    },
+    {
+      "path": "linkedin/background-1584x396.png",
+      "sha256": "d2470b57d05a5fc69d3b212be0b8080d5f1e6d13bc993e92036b1061b6826250",
+      "bytes": 16280,
+      "width": 1584,
+      "height": 396
+    },
+    {
+      "path": "upload-list.md",
+      "sha256": "dc472ba5a4bfb7e1b820c358b48711ec04b9ce697703b3ef662b435300bfaae6",
+      "bytes": 2369
+    },
+    {
+      "path": "youtube/thumbnail-sample-3840x2160.png",
+      "sha256": "703f9d9c389d915e56213a337e4b4b4cbad5c83c374b793b9dad7170eb29aa56",
+      "bytes": 100277,
+      "width": 3840,
+      "height": 2160
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+---
+import { styleText } from "$brand/utils";
+import type { Arc, Move, RingMove } from "@hmziq/brand-core/motion/rings";
+
+/*
+ * The circles every ring picture is made of: faint lines from --line, one of
+ * them the accent color, maybe with a dot where it ends. rings.css in core
+ * reads data-move and the --ring-* variables on each part.
+ */
+
+interface Props {
+  list: Arc[];
+  cx: number;
+  cy: number;
+  color: string;
+  width: [line: number, accent: number];
+  dot: number;
+  moves?: RingMove[];
+}
+
+const { list, cx, cy, color, width, dot, moves = [] } = Astro.props;
+
+/** The attributes rings.css reads: which way it moves, and its timing. */
+function moving(m?: Move): Record<string, string> {
+  return m ? { "data-move": m.kind, style: styleText(m.vars) ?? "" } : {};
+}
+---
+
+{
+  list.map((a, i) => (
+    <g {...moving(moves[i]?.ring)}>
+      <circle
+        cx={cx}
+        cy={cy}
+        r={a.r}
+        fill="none"
+        stroke={a.accent ? color : "var(--line)"}
+        stroke-width={a.accent ? width[1] : width[0]}
+        stroke-linecap="round"
+        stroke-dasharray={a.dash}
+        transform={`rotate(${a.rotate} ${cx} ${cy})`}
+        {...moving(moves[i]?.circle)}
+      />
+      {a.end && (
+        <g {...moving(moves[i]?.dot)}>
+          <circle cx={a.end[0]} cy={a.end[1]} r={dot} fill={color} />
+        </g>
+      )}
+    </g>
+  ))
+}

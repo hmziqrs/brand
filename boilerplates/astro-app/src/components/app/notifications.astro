@@ -1,0 +1,124 @@
+---
+import AppPage from "$brand/blocks/app/shell/app-page.astro";
+import AppPageHeader from "$brand/blocks/app/shell/app-page-header.astro";
+import SettingsSection from "$brand/blocks/app/settings/settings-section.astro";
+import SettingRow from "$brand/blocks/app/settings/setting-row.astro";
+import { Switch } from "$brand/starwind/switch";
+import { settingsTabs } from "../../lib/app/demo-state";
+
+/*
+ * The notifications settings content (app-blocks.md, phase 10), as the page
+ * and its `server:defer` island share it: switches that save as soon as they
+ * change, each row showing its own save state. Saving on change needs
+ * JavaScript in both frameworks, so this page holds no form.
+ */
+
+interface Props {
+  values: Record<string, boolean>;
+}
+
+const { values } = Astro.props;
+
+const prefs: { id: string; label: string; description: string }[] = [
+  { id: "weeklySummary", label: "Weekly summary email", description: "Every Monday, with the week’s numbers." },
+  { id: "memberJoins", label: "When someone joins", description: "One email for each person who accepts an invite." },
+  { id: "usageAt80", label: "When usage passes 80%", description: "A note before the plan runs out of events." },
+];
+---
+
+<AppPage width="narrow">
+  <AppPageHeader
+    title="Settings"
+    description="When Sightline emails you."
+    tabs={settingsTabs}
+    currentPath="/app/settings/notifications"
+    tabsLabel="Settings sections"
+  />
+
+  <div class="mt-8">
+    {/* Its own name, not the visible title's: Starwind's toast viewport is an
+        aria-label="Notifications" region on every page, and two landmarks may
+        not share a name on one page (axe landmark-unique). The visible title
+        stays "Notifications". */}
+    <span id="notifications-prefs" class="sr-only">Notifications, email preferences</span>
+    <SettingsSection title="Notifications" description="Email about the workspace, sent to your address." aria-labelledby="notifications-prefs">
+      {
+        prefs.map((pref) => (
+          <SettingRow
+            label={pref.label}
+            description={pref.description}
+            for={pref.id}
+            orientation="horizontal"
+            data-pref={pref.id}
+          >
+            <Switch id={pref.id} name={pref.id} defaultChecked={values[pref.id]} data-pref-switch={pref.id} />
+          </SettingRow>
+        ))
+      }
+    </SettingsSection>
+  </div>
+</AppPage>
+
+<script>
+  import { actions } from "astro:actions";
+
+  // A switch saves as soon as it changes: the row says "Saving", then either
+  // "Saved" or — for the third switch's first change only, as the plan
+  // scripts it — the control switches back and the row offers "Try again".
+  // Every action answers with the contract's FormResult shape, so a refusal
+  // comes back as data ({ ok: false, message }) rather than a thrown error:
+  // both roads read the same here.
+  const run = async (name: keyof typeof actions, posted: FormData) => {
+    const outcome = await (actions[name] as (input: FormData) => Promise<{ data?: { ok?: boolean; message?: string }; error?: { message: string } }>)(posted);
+    if (outcome.error) throw new Error(outcome.error.message);
+    if (outcome.data && outcome.data.ok === false) throw new Error(outcome.data.message ?? "That didn't work. Try again.");
+    return outcome.data;
+  };
+
+  const face = (row: HTMLElement, status: "idle" | "saving" | "saved" | "error") => {
+    row.dataset.status = status;
+  };
+
+  const save = async (id: string, on: boolean) => {
+    const control = document.querySelector<HTMLElement>(`[data-pref-switch='${id}']`);
+    const row = control?.closest<HTMLElement>("[data-pref]") ?? null;
+    if (row) face(row, "saving");
+    try {
+      const posted = new FormData();
+      posted.set("id", id);
+      posted.set("on", on ? "true" : "false");
+      await run("savePreference", posted);
+      if (row) face(row, "saved");
+    } catch (error) {
+      // The control goes back to what was saved; the row says what to do.
+      // The revert is marked, so its own change event doesn't start a save.
+      reverting = true;
+      if (control?.getAttribute("aria-checked") === (on ? "true" : "false")) control.click();
+      window.setTimeout(() => {
+        reverting = false;
+      }, 0);
+      if (row) {
+        face(row, "error");
+        row.dataset.retryOn = String(on);
+      }
+      void error;
+    }
+  };
+
+  // A revert the page itself makes is not a choice: it saves nothing.
+  let reverting = false;
+
+  document.addEventListener("starwind:checked-change", (event) => {
+    const control = event.target as HTMLElement | null;
+    const id = control?.dataset.prefSwitch;
+    if (!id || !(event instanceof CustomEvent) || reverting) return;
+    void save(id, Boolean(event.detail?.checked));
+  });
+
+  // "Try again" (the row's own link) retries what the person chose.
+  document.addEventListener("setting-retry", (event) => {
+    const row = (event.target as HTMLElement | null)?.closest<HTMLElement>("[data-pref]");
+    if (!row?.dataset.pref) return;
+    void save(row.dataset.pref, row.dataset.retryOn === "true");
+  });
+</script>

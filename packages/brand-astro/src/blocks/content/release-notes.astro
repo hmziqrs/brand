@@ -1,0 +1,167 @@
+---
+import { cn } from "$brand/utils";
+import KindTag from "./kind-tag.astro";
+import type { Release } from "./types";
+
+/*
+ * A release's changes. `grouped` (the default) is the lab's: one row per
+ * kind, the tag in a column on the left and the changes beside it. `tagged`
+ * runs them into one list with the tag before each change. `columns` gives
+ * each kind a column. `tabs` puts the kinds in the code block's tabs. And
+ * `summary` shows the first change only, with a button that shows the rest —
+ * the one the past releases on a timeline use.
+ */
+
+interface Props {
+  release: Release;
+  variant?: "grouped" | "tagged" | "columns" | "tabs" | "summary";
+  class?: string;
+}
+
+const { release, variant = "grouped", class: className } = Astro.props;
+
+const dots = "absolute top-[0.6em] left-0 size-1.5 rounded-full border border-muted-foreground";
+const count = release.groups.reduce((n, [, items]) => n + items.length, 0);
+---
+
+{
+  variant === "grouped" ? (
+    <div data-slot="release-notes" data-variant={variant} class={cn("mt-4 flex flex-col gap-4", className)}>
+      {release.groups.map(([kind, items]) => (
+        <div class="grid items-start gap-x-4 gap-y-2 md:grid-cols-[6rem_minmax(0,1fr)]">
+          <span class="pt-0.5">
+            <KindTag kind={kind} />
+          </span>
+          <ul class="flex max-w-[46rem] flex-col gap-2">
+            {items.map((item) => (
+              <li class="relative pl-4 text-[0.9rem] leading-relaxed">
+                <i aria-hidden="true" class={dots} />
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  ) : variant === "tagged" ? (
+    <ul data-slot="release-notes" data-variant={variant} class={cn("mt-4 flex max-w-[46rem] flex-col gap-2", className)}>
+      {release.groups.flatMap(([kind, items]) =>
+        items.map((item) => (
+          <li class="relative grid items-start gap-x-3 gap-y-1 pl-4 text-[0.9rem] leading-relaxed md:grid-cols-[auto_minmax(0,1fr)]">
+            <i aria-hidden="true" class={dots} />
+            <span class="justify-self-start">
+              <KindTag kind={kind} />
+            </span>
+            <span>{item}</span>
+          </li>
+        )),
+      )}
+    </ul>
+  ) : variant === "columns" ? (
+    <div data-slot="release-notes" data-variant={variant} class={cn("mt-4 grid items-start gap-6 md:grid-cols-3", className)}>
+      {release.groups.map(([kind, items]) => (
+        <div class="flex flex-col gap-3 border-t pt-4">
+          <KindTag kind={kind} count={items.length} />
+          <ul class="flex flex-col gap-2">
+            {items.map((item) => (
+              <li class="relative pl-4 text-[0.9rem] leading-relaxed">
+                <i aria-hidden="true" class={dots} />
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  ) : variant === "tabs" ? (
+    <div data-slot="release-notes" data-variant={variant} data-releases-tabs class={cn("mt-4 overflow-hidden rounded-xl border", className)}>
+      <div role="tablist" aria-label="Kinds of change" class="-ml-2 flex h-10 items-center gap-1 border-b pr-1.5 pl-3.5">
+        {release.groups.map(([kind], i) => (
+          <button
+            type="button"
+            role="tab"
+            data-release-tab
+            aria-selected={i === 0}
+            class="h-7 rounded-md px-2.5 text-xs text-muted-foreground transition-colors outline-none hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50 aria-selected:bg-foreground/8 aria-selected:text-foreground"
+          >
+            {kind}
+          </button>
+        ))}
+      </div>
+      {release.groups.map(([, items], i) => (
+        <ul data-release-panel hidden={i !== 0} class="flex flex-col gap-2 px-5 py-4">
+          {items.map((item) => (
+            <li class="relative pl-4 text-[0.9rem] leading-relaxed">
+              <i aria-hidden="true" class={dots} />
+              {item}
+            </li>
+          ))}
+        </ul>
+      ))}
+    </div>
+  ) : (
+    <div data-slot="release-notes" data-variant={variant} class={cn("mt-3", className)}>
+      <p data-release-summary class="max-w-[46rem] text-[0.9rem] leading-relaxed text-muted-foreground">{release.groups[0]?.[1][0]}</p>
+      <div data-release-rest hidden>
+        {release.groups.map(([kind, items]) => (
+          <div class="mt-4 grid items-start gap-x-4 gap-y-2 md:grid-cols-[6rem_minmax(0,1fr)]">
+            <span class="pt-0.5">
+              <KindTag kind={kind} />
+            </span>
+            <ul class="flex max-w-[46rem] flex-col gap-2">
+              {items.map((item) => (
+                <li class="relative pl-4 text-[0.9rem] leading-relaxed">
+                  <i aria-hidden="true" class={dots} />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+      <button
+        type="button"
+        data-release-toggle
+        aria-expanded="false"
+        class="mt-3.5 inline-flex items-center gap-1.5 rounded-full border py-1.5 pr-3 pl-2 text-[0.8125rem] font-medium outline-none transition-colors hover:border-primary/55 focus-visible:ring-3 focus-visible:ring-ring/50"
+      >
+        Show all {count} change{count === 1 ? "" : "s"}
+      </button>
+    </div>
+  )
+}
+
+<script>
+  // Tabs and show/hide, the way the kit's other interactive pieces run:
+  // delegated listeners on data attributes, so they survive view transitions.
+  document.addEventListener("click", (event) => {
+    const target = event.target as HTMLElement | null;
+
+    const tab = target?.closest<HTMLElement>("[data-release-tab]");
+    if (tab) {
+      const block = tab.closest<HTMLElement>("[data-releases-tabs]");
+      if (!block) return;
+      const tabs = [...block.querySelectorAll<HTMLElement>("[data-release-tab]")];
+      const panels = [...block.querySelectorAll<HTMLElement>("[data-release-panel]")];
+      const index = tabs.indexOf(tab);
+      tabs.forEach((t, i) => t.setAttribute("aria-selected", String(i === index)));
+      panels.forEach((panel, i) => (panel.hidden = i !== index));
+      return;
+    }
+
+    const toggle = target?.closest<HTMLElement>("[data-release-toggle]");
+    if (toggle) {
+      const notes = toggle.closest<HTMLElement>("[data-slot='release-notes']");
+      const rest = notes?.querySelector<HTMLElement>("[data-release-rest]");
+      const summary = notes?.querySelector<HTMLElement>("[data-release-summary]");
+      if (!rest || !summary) return;
+      const open = rest.hasAttribute("hidden");
+      rest.toggleAttribute("hidden", !open);
+      summary.toggleAttribute("hidden", open);
+      toggle.setAttribute("aria-expanded", String(open));
+      // The words the button starts with ("Show all 12 changes"), kept for the way back.
+      toggle.dataset.closed ??= toggle.textContent ?? "";
+      toggle.textContent = open ? "Hide the changes" : toggle.dataset.closed;
+    }
+  });
+</script>

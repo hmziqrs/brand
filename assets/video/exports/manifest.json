@@ -1,0 +1,232 @@
+{
+  "target": "video",
+  "command": "pnpm render:video",
+  "digest": "84fb629768e12b2705fd803ee08880e42c565f03f588e3ac068d5b7aab2b2d44",
+  "renderers": {
+    "remotion": "4.0.531",
+    "@remotion/renderer": "4.0.531"
+  },
+  "settings": {
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "codec": "h264",
+    "crf": 16,
+    "x264Preset": "slow",
+    "colorSpace": "bt709",
+    "compositions": {
+      "intro": {
+        "durationInFrames": 150,
+        "fps": 30,
+        "width": 1920,
+        "height": 1080
+      },
+      "outro": {
+        "durationInFrames": 300,
+        "fps": 30,
+        "width": 1920,
+        "height": 1080
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "assets/fonts/LICENSE-JetBrains-Mono.txt",
+      "sha256": "403581b69dac5cff4079205e01c6b467e56af449ecbd7247693ddb1baafa005b"
+    },
+    {
+      "path": "assets/fonts/LICENSE-Onest.txt",
+      "sha256": "a2a09da98a3d0d1ec79fc2d6deeac748b20a8153e26699552e7b59b5a40b63a3"
+    },
+    {
+      "path": "assets/fonts/README.md",
+      "sha256": "79c61eeb3bdc4a774201dad7f412c377409589c9aa94e90ad755039d8c27e2c1"
+    },
+    {
+      "path": "assets/fonts/jetbrains-mono-latin-400-normal.ttf",
+      "sha256": "473c93ad62d89abd8431c8f5d744c83fe2e3f87d05b2f80c06355f240058d813"
+    },
+    {
+      "path": "assets/fonts/onest-latin-400-normal.ttf",
+      "sha256": "a04475f4d20e438b98a17210b3a6f22a5a7379381ac5ce0c8684252e094ba2bb"
+    },
+    {
+      "path": "assets/fonts/onest-latin-500-normal.ttf",
+      "sha256": "8d694ac8c138ca0a9a8e21d7d4826887e6533ab8f80da12bfbf8ae6ad177c48e"
+    },
+    {
+      "path": "assets/fonts/onest-latin-600-normal.ttf",
+      "sha256": "b8fbaa56e4804151b2deadc3b09980c1302855c7e58a0979c761f5cf81038f33"
+    },
+    {
+      "path": "assets/fonts/onest-latin-wght-normal.woff2",
+      "sha256": "052df74533250c2e0ca0c4bdd32de594e107d99c1648e63820ef9c6142067828"
+    },
+    {
+      "path": "assets/video/source/package.json",
+      "sha256": "3b7d2c5fdd7596a35f2b1e602ae3fc38ec0599264d66557fbfa9dd8da3c0a294"
+    },
+    {
+      "path": "assets/video/source/remotion.config.ts",
+      "sha256": "a04bde03369b18f4a37241dc24658c1a219538019352b4f806266ad150b0337d"
+    },
+    {
+      "path": "assets/video/source/scripts/manifest.mjs",
+      "sha256": "6edb64a4e54efd7a211c88d2b12df1e8c40de7aa136098cdd1b95fe7c2e3acb2"
+    },
+    {
+      "path": "assets/video/source/scripts/render-motion.mjs",
+      "sha256": "d016bb9972afb63fcec1e4b0ee1e08fa9ddb7ceddd79101940e1dbf44cbcd6bb"
+    },
+    {
+      "path": "assets/video/source/scripts/render-video.mjs",
+      "sha256": "b77de7f34941781c02f9c2b692fbf2a737866005d05279c81b6e11eb1e8978c8"
+    },
+    {
+      "path": "assets/video/source/scripts/webpack.mjs",
+      "sha256": "fb003b4bab94a1e2a689633fc967d92ed19fc8e7fcbda5500be61abda84a0ffa"
+    },
+    {
+      "path": "assets/video/source/src/Intro.tsx",
+      "sha256": "03a0cd02bbd36e945e37d1fecc7fb348560572fa36a42c64d638b132ce65c507"
+    },
+    {
+      "path": "assets/video/source/src/Outro.tsx",
+      "sha256": "73a57e58965d914ac3fcadab926ea6afd8514891b265f9c4f2e5dd1132ffb559"
+    },
+    {
+      "path": "assets/video/source/src/RingLoop.tsx",
+      "sha256": "8b6de4d655da81a371dc8cc156d485805bc99b72620ce7548a524cb26116581c"
+    },
+    {
+      "path": "assets/video/source/src/RingsFrame.tsx",
+      "sha256": "1262d962f47ceba8a9463812855485d63f3ab847e8b77b024e5a1f52c330c331"
+    },
+    {
+      "path": "assets/video/source/src/Root.tsx",
+      "sha256": "e9e6d5bf774bdedb9fd9f2c084ca15ad7b66d012077ceaec142bbaf480b624f4"
+    },
+    {
+      "path": "assets/video/source/src/Thumbnail.tsx",
+      "sha256": "a9b713958c23639ba5abd33ac95c34f67bed8d442eb6bcace68d7314dc92a63f"
+    },
+    {
+      "path": "assets/video/source/src/Wordmark.tsx",
+      "sha256": "74e5c44e15c376eda80c0a4585c5f2b0e8154517e6ffb23ba8bbe1807737da2d"
+    },
+    {
+      "path": "assets/video/source/src/fonts.ts",
+      "sha256": "c9c157f6f31058a5d7019f1b34f7ca42f926a303417a047d9a5083d47dbaa88f"
+    },
+    {
+      "path": "assets/video/source/src/index.ts",
+      "sha256": "966dfb4cd8d4a036629a0d4489db62a5f6642502d4b08f7046843d05f2c629dd"
+    },
+    {
+      "path": "assets/video/source/src/layout.ts",
+      "sha256": "430416b30e1fbb2525c766a8137dfb72df79c547e8128c360f01d3aa950fce76"
+    },
+    {
+      "path": "assets/video/source/src/loops.ts",
+      "sha256": "56e0fe69dfcaf0fa0f773064c2e59a57ebc8a0a53397b287fe9924e49f7406ad"
+    },
+    {
+      "path": "assets/video/source/src/theme.ts",
+      "sha256": "48c3da9e215f7e3ca05cf4202d3fe09d131f5b488f8084787cc826aa1c889d37"
+    },
+    {
+      "path": "assets/video/source/src/types.d.ts",
+      "sha256": "e529f7ffd12ecfab898d51ba791970e50439ccfdd2f5af1636164c2000a7f9ee"
+    },
+    {
+      "path": "packages/brand-core/rings.css",
+      "sha256": "cf372353f94b0770ad94ea51a832d2743976773fd46aae6d16f3eb5109b4c6a0"
+    },
+    {
+      "path": "packages/brand-core/src/color.ts",
+      "sha256": "10daad0a78e06212244343dcd7ddc520616b8d0dc19b1696a9196bb71fa0c845"
+    },
+    {
+      "path": "packages/brand-core/src/family.ts",
+      "sha256": "c6f4cf1b6efaa1500ad70ed8d6e16eb329c3404be8d43c9addad6e7da84e5baf"
+    },
+    {
+      "path": "packages/brand-core/src/logo.ts",
+      "sha256": "38420c7f854a4391c2f6e387f72561082b8c3acabb266ce8c2a470e4661a107b"
+    },
+    {
+      "path": "packages/brand-core/src/motion/frame.ts",
+      "sha256": "feb3426b5bd0bf90ae617fd7cd0b6161c64cda73998c7fdf074a2d5e5b04ddf2"
+    },
+    {
+      "path": "packages/brand-core/src/motion/rings.ts",
+      "sha256": "a564cc52386ccf354c0f55741fbc4c99d8b7b81e6d17c7984a411a0f9928609c"
+    },
+    {
+      "path": "packages/brand-core/src/motion/scenes/helix.ts",
+      "sha256": "05562400e1fd3301177fedf9854f8ef31008cd3f3b218c8082cfd2b9bc29ba7d"
+    },
+    {
+      "path": "packages/brand-core/src/motion/scenes/index.ts",
+      "sha256": "1685e416a4eb3ca5e9e298dda59c7793b5f232f03b6f2b05ff1383414eb335fb"
+    },
+    {
+      "path": "packages/brand-core/src/motion/scenes/lattice.ts",
+      "sha256": "954d30c0d075f369b345234eab99644e220b3c2448c3e2c6dedfe85f9922c757"
+    },
+    {
+      "path": "packages/brand-core/src/motion/scenes/layers.ts",
+      "sha256": "56e70f229ab033ab44bf08ba19ce171d469e8eda089a12a65a2cd3396a30e5c5"
+    },
+    {
+      "path": "packages/brand-core/src/motion/scenes/network.ts",
+      "sha256": "0b79a7456043a6d5922420e14a878545c335651d089d14c4e5e21d272a9da222"
+    },
+    {
+      "path": "packages/brand-core/src/motion/scenes/stage.ts",
+      "sha256": "4dd6f484c6cf604f96039af7c604a1aa92de696a31f09003e3a612b9d095e9c6"
+    },
+    {
+      "path": "packages/brand-core/src/motion/scenes/support.ts",
+      "sha256": "f67dec66d3aef2fdbcbc855f75de2c51ed2fa0a9b9eedc531d98091d96e61b0d"
+    },
+    {
+      "path": "packages/brand-core/src/motion/scenes/thread.ts",
+      "sha256": "052ed93495f56dbca57cd305f5a4d33295aa73fa20a16b1893b2556de385d9e8"
+    },
+    {
+      "path": "packages/brand-core/src/motion/scenes/tiles.ts",
+      "sha256": "3e3cd9ffbdb91d6fbfc68c13222fe6c562ae412274283e37bb6ba87b1c255b88"
+    },
+    {
+      "path": "packages/brand-core/theme.css",
+      "sha256": "b9d163d586bff5532f462a22e57abb46fc3fb821af6017270a16a01ba5f3720a"
+    },
+    {
+      "path": "pnpm-lock.yaml",
+      "sha256": "9e84ad90a9cca818b0618626f8377650cbe128b5b2ec86edf748d45fbb0aeb59"
+    }
+  ],
+  "files": [
+    {
+      "path": "intro.mp4",
+      "sha256": "b987e40ddd2295abdf8e4cc77843f6e46eb6c4d56ef91c7e7b5a25146f4ff3d5",
+      "bytes": 476114,
+      "width": 1920,
+      "height": 1080,
+      "duration": 5,
+      "fps": 30,
+      "codec": "h264 / MP4"
+    },
+    {
+      "path": "outro.mp4",
+      "sha256": "8690dea7c8cefbcf628d039a0ad3ff88fe7440c34142f6a0f15941f04ee13b4e",
+      "bytes": 521560,
+      "width": 1920,
+      "height": 1080,
+      "duration": 10,
+      "fps": 30,
+      "codec": "h264 / MP4"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { cn } from "$brand/utils";
+
+/*
+ * The brand's card: a thin line, no fill. With `href` the whole card is a
+ * link, and hovering tints the line orange.
+ */
+
+interface Props extends Omit<HTMLAttributes<"div">, "children"> {
+  href?: string;
+}
+
+const { href, class: className, ...rest } = Astro.props;
+
+const cls = cn(
+  "relative flex flex-col gap-3 overflow-hidden rounded-xl p-6 text-sm text-foreground ring-1 ring-foreground/10",
+  href && "no-underline transition-colors outline-none hover:ring-primary/50 focus-visible:ring-3 focus-visible:ring-ring/50",
+  className,
+);
+---
+
+{
+  href ? (
+    <a href={href} class={cls}>
+      <slot />
+    </a>
+  ) : (
+    <div class={cls} {...rest}>
+      <slot />
+    </div>
+  )
+}

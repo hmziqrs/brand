@@ -1,0 +1,49 @@
+---
+import { styleText } from "$brand/utils";
+import Card from "$brand/starwind/card";
+import CornerRings from "$brand/components/corner-rings.astro";
+import Tag from "$brand/components/tag.astro";
+import Marker from "$brand/components/marker.astro";
+import type { Tone } from "@hmziq/brand-core/tones";
+
+type Kind = { label: string; color: string; tone: Tone };
+
+/*
+ * A project drawn like a periodic-table element, in an outline card with
+ * its own rings in the corner: its fingerprint. The kind picks the color
+ * of the symbol, the rings and the marker.
+ */
+
+interface Props {
+  /** Its number in the family, like an element's atomic number. */
+  n: number;
+  /** Two letters, like an element. Shown large in the kind's color. */
+  symbol: string;
+  name: string;
+  kind: Kind;
+  status: { label: string; tone?: Tone };
+}
+
+const { n, symbol, name, kind, status } = Astro.props;
+---
+
+<Card.Root class="relative gap-3 bg-transparent px-6 py-6 shadow-none transition-colors hover:ring-primary/50">
+  <CornerRings seed={name} color={kind.color} />
+  <div class="relative flex items-center justify-between gap-2">
+    <span class="text-[0.8125rem] text-muted-foreground tabular-nums">{String(n).padStart(2, "0")}</span>
+    <Tag tone={status.tone} marker={Boolean(status.tone)}>
+      {status.label}
+    </Tag>
+  </div>
+  <div class="relative mt-1 text-[2.75rem] leading-none font-medium tracking-[-0.04em]" style={styleText({ color: kind.color })} aria-hidden="true">
+    {symbol}
+  </div>
+  <h3 class="relative text-lg font-medium tracking-[-0.01em]">{name}</h3>
+  <p class="relative text-[0.9rem] leading-relaxed text-muted-foreground">
+    <slot />
+  </p>
+  <p class="relative mt-auto flex items-center gap-2 pt-2 text-[0.8125rem] text-muted-foreground">
+    <Marker style={styleText({ color: kind.color })} />
+    {kind.label}
+  </p>
+</Card.Root>

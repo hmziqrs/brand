@@ -1,0 +1,18 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { cn } from "$brand/utils";
+
+const widths = { narrow: "max-w-[46rem]", default: "max-w-5xl", wide: "max-w-[82rem]" } as const;
+
+/* The page's column. Narrow for reading (posts, legal), wide for docs. */
+
+interface Props extends Omit<HTMLAttributes<"div">, "children"> {
+  size?: keyof typeof widths;
+}
+
+const { size = "default", class: className, ...rest } = Astro.props;
+---
+
+<div class={cn("mx-auto w-full px-6", widths[size], className)} {...rest}>
+  <slot />
+</div>

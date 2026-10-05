@@ -1,0 +1,119 @@
+---
+import Container from "$brand/blocks/site/container.astro";
+import Kicker from "$brand/blocks/site/kicker.astro";
+import Prose from "$brand/blocks/site/prose.astro";
+import SummaryBox from "$brand/blocks/site/summary-box.astro";
+import Toc, { type TocItem } from "$brand/components/toc.astro";
+import { slug } from "@hmziq/brand-core/scroll-spy";
+import type { LegalDoc } from "./types";
+
+/*
+ * A legal page — a privacy policy, terms of use — built from its document:
+ * the title, when it was last updated, the one-paragraph short version in
+ * the TL;DR box, then the sections themselves, numbered by LegalSection.
+ * The contents sit in a side column that follows you down (`side`, the
+ * default) or in a wrapped row above the text (`top`), and follow the page
+ * with core's scroll spy the way the lab's legal pages do.
+ */
+
+interface Props {
+  doc: LegalDoc;
+  /** `side` (the default) or `top`: where the contents sit. */
+  toc?: "side" | "top";
+  /** The box label. */
+  short?: string;
+  /** Added to each section's id, so legal sections never collide with anchored headings. */
+  prefix?: string;
+  class?: string;
+}
+
+const { doc, toc = "side", short = "The short version", prefix = "l", class: className } = Astro.props;
+
+const items: TocItem[] = doc.sections.map(([title]) => ({ id: `${prefix}-${slug(title)}`, label: title }));
+---
+
+<Container class={className}>
+  {
+    toc === "side" ? (
+      <div class="grid gap-12 lg:grid-cols-[13rem_minmax(0,46rem)] lg:justify-center">
+        <aside data-slot="legal-toc" class="sticky top-4 hidden self-start text-[0.8125rem] lg:block" aria-label="Contents">
+          <h2 class="mb-2 text-xs font-medium text-muted-foreground">Contents</h2>
+          <Toc items={items} numbered />
+        </aside>
+        <article class="max-w-[46rem] min-w-0">
+          <h1 class="text-[2.2rem] leading-[1.05] font-medium tracking-[-0.035em] sm:text-5xl">{doc.title}</h1>
+          <Kicker class="mt-3">Last updated {doc.updated}</Kicker>
+          <SummaryBox label={short} class="mt-6">
+            {doc.short}
+          </SummaryBox>
+          <Prose class="mt-9 gap-3.5">
+            <slot />
+          </Prose>
+          {Astro.slots.has("foot") && (
+            <p class="mt-12 flex flex-wrap items-center gap-x-2 gap-y-1 text-[0.8125rem] text-muted-foreground">
+              <slot name="foot" />
+            </p>
+          )}
+        </article>
+      </div>
+    ) : (
+      <div class="flex flex-col items-center">
+        <article class="max-w-[46rem] min-w-0">
+          <h1 class="text-[2.2rem] leading-[1.05] font-medium tracking-[-0.035em] sm:text-5xl">{doc.title}</h1>
+          <Kicker class="mt-3">Last updated {doc.updated}</Kicker>
+          <SummaryBox label={short} class="mt-6">
+            {doc.short}
+          </SummaryBox>
+          <nav data-slot="legal-toc" aria-label="Contents" class="mt-9 flex flex-wrap gap-x-5 gap-y-1.5 border-t pt-5 text-[0.8125rem]">
+            {items.map((item, i) => (
+              <a href={`#${item.id}`} class="inline-flex items-baseline gap-1.5 text-muted-foreground no-underline outline-none transition-colors hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50">
+                <span class="text-xs font-medium tabular-nums text-primary">{String(i + 1).padStart(2, "0")}</span>
+                {item.label}
+              </a>
+            ))}
+          </nav>
+          <Prose class="mt-9 gap-3.5">
+            <slot />
+          </Prose>
+          {Astro.slots.has("foot") && (
+            <p class="mt-12 flex flex-wrap items-center gap-x-2 gap-y-1 text-[0.8125rem] text-muted-foreground">
+              <slot name="foot" />
+            </p>
+          )}
+        </article>
+      </div>
+    )
+  }
+</Container>
+
+<script>
+  // The way Starwind's own components run: find elements by their data-slot,
+  // initialize them, and do it again after a view transition.
+  import { scrollSpy } from "@hmziq/brand-core/scroll-spy";
+
+  const stop = new WeakMap<HTMLElement, () => void>();
+
+  function init(root: HTMLElement) {
+    if (stop.has(root)) return;
+    const links = [...root.querySelectorAll<HTMLAnchorElement>("a[href^='#']")];
+    const ids = links.map((link) => decodeURIComponent(link.hash.slice(1)));
+    if (!ids.length) return;
+    stop.set(
+      root,
+      scrollSpy(ids, (id) => {
+        for (const link of links) {
+          if (decodeURIComponent(link.hash.slice(1)) === id) link.setAttribute("aria-current", "location");
+          else link.removeAttribute("aria-current");
+        }
+      }),
+    );
+  }
+
+  for (const root of document.querySelectorAll<HTMLElement>("[data-slot='legal-toc']")) init(root);
+  document.addEventListener("astro:page-load", () => {
+    for (const root of document.querySelectorAll<HTMLElement>("[data-slot='legal-toc']")) init(root);
+  });
+  document.addEventListener("astro:before-swap", () => {
+    for (const root of document.querySelectorAll<HTMLElement>("[data-slot='legal-toc']")) stop.get(root)?.();
+  });
+</script>

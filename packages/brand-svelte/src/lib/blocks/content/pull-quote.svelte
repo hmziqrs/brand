@@ -1,0 +1,66 @@
+<!--
+  A line pulled out of the text. `margin` (the default) is the lab's margin
+  note: above the paragraph on phones, out in the right margin on very wide
+  screens. `left` puts it in the left margin instead. `ring` hangs it off an
+  orange ring in the text column. `signed` is one for quoting someone else,
+  with their name under it. `tldr` is the box, when the line is the whole
+  point of the section.
+
+  A pull quote that repeats a line the reader just read (or is about to) is
+  `repeated`: decoration, so screen readers skip it and it is never
+  announced twice.
+-->
+<script lang="ts">
+	import { cn } from "$brand/utils.js";
+	import Marker from "$brand/components/marker.svelte";
+
+	let {
+		variant = "margin",
+		/** The quote repeats a line from the text, so screen readers skip it. */
+		repeated = false,
+		/** For `signed` and `tldr`: who said it, e.g. "the lab's README". */
+		sign,
+		class: className,
+		children,
+	}: { variant?: "margin" | "left" | "ring" | "signed" | "tldr"; repeated?: boolean; sign?: string; class?: string; children: import("svelte").Snippet } = $props();
+
+	/* Out in the margin from xl up: which side changes, nothing else. Both are
+	   written out in full, so Tailwind can see every class. */
+	const margins = {
+		right: "xl:absolute xl:top-1.5 xl:-right-62 xl:mb-0 xl:w-50 xl:border-t xl:pt-3.5 xl:pl-0 xl:text-[0.95rem] xl:before:static xl:before:mb-2.5 xl:before:block",
+		left: "xl:absolute xl:top-1.5 xl:-left-62 xl:mb-0 xl:w-50 xl:border-t xl:pt-3.5 xl:pl-0 xl:text-[0.95rem] xl:before:static xl:before:mb-2.5 xl:before:block",
+	};
+</script>
+
+{#if variant === "margin" || variant === "left"}
+	<span
+		aria-hidden={repeated || undefined}
+		class={cn(
+			"relative mb-4 block pl-5 text-[1.0625rem] leading-normal font-medium",
+			"before:absolute before:top-[0.45em] before:left-0 before:size-2.25 before:rounded-full before:border-[1.75px] before:border-primary",
+			margins[variant === "margin" ? "right" : "left"],
+			className,
+		)}
+	>
+		{@render children()}
+	</span>
+{:else if variant === "ring"}
+	<p aria-hidden={repeated || undefined} class={cn("relative pl-5 text-[1.0625rem] leading-normal font-medium", className)}>
+		<Marker class="absolute top-[0.45em] left-0 size-2.25 text-primary" />
+		{@render children()}
+	</p>
+{:else if variant === "signed"}
+	<figure aria-hidden={repeated || undefined} class={cn("border-l-2 border-primary pl-5", className)}>
+		<blockquote class="text-[1.0625rem] leading-normal font-medium">
+			{@render children()}
+		</blockquote>
+		{#if sign}<figcaption class="mt-2 text-[0.8125rem] text-muted-foreground">— {sign}</figcaption>{/if}
+	</figure>
+{:else}
+	<div aria-hidden={repeated || undefined} class={cn("rounded-xl border border-primary/45 px-5 py-4.5", className)}>
+		<p class="leading-[1.7] font-medium">
+			{@render children()}
+		</p>
+		{#if sign}<p class="mt-1.5 text-[0.8125rem] text-muted-foreground">— {sign}</p>{/if}
+	</div>
+{/if}

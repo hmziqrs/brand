@@ -1,0 +1,83 @@
+---
+import { cn } from "$brand/utils";
+import CodeLines from "$brand/components/code-lines.astro";
+import CopyButton from "$brand/components/copy-button.astro";
+import { nextCodeId } from "$brand/components/code-id";
+import type { CodeLanguage } from "$brand/components/code-tokenize";
+
+/*
+ * A code editor: a tab per file in the bar, line numbers beside the code, a
+ * status line under it with the language and how many lines. Every file is
+ * rendered ahead of time; the tab script only shows and hides, the way the
+ * kit's CodeBlock does, so switching costs nothing.
+ */
+
+interface Props {
+  files: readonly { name: string; code: string; lang?: CodeLanguage }[];
+  class?: string;
+}
+
+const { files, class: className } = Astro.props;
+
+const id = nextCodeId();
+const panels = files.map((file, i) => ({ ...file, index: i, lines: file.code.split("\n").length, panelId: `${id}-panel-${i}`, tabId: `${id}-tab-${i}` }));
+---
+
+<div data-slot="code-editor" data-code-editor class={cn("min-w-0 overflow-hidden rounded-xl border", className)}>
+  <div class="flex h-10 items-center gap-3 border-b pr-1.5 text-[0.8125rem] text-muted-foreground">
+    <div role="tablist" aria-label="File" class="flex self-stretch">
+      {
+        panels.map((file, i) => (
+          <button
+            type="button"
+            role="tab"
+            data-editor-tab
+            id={`${id}-tab-${i}`}
+            aria-selected={i === 0}
+            aria-controls={file.panelId}
+            class="-mb-px border-r border-b border-b-transparent px-4 transition-colors outline-none hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:ring-inset aria-selected:border-b-primary aria-selected:text-foreground"
+          >
+            {file.name}
+          </button>
+        ))
+      }
+    </div>
+    <CopyButton text={panels[0].code} class="ml-auto" />
+  </div>
+  {
+    panels.map((file) => (
+      <div id={file.panelId} data-editor-panel data-code={file.code} role="tabpanel" aria-labelledby={file.tabId} hidden={file.index !== 0}>
+        <CodeLines code={file.code} lang={file.lang} />
+      </div>
+    ))
+  }
+  {
+    panels.map((file) => (
+      <div data-editor-status class="flex justify-end gap-5 border-t px-3.5 py-1.5 text-xs text-muted-foreground" hidden={file.index !== 0}>
+        <span>{file.lang ?? "text"}</span>
+        <span>{file.lines} lines</span>
+      </div>
+    ))
+  }
+</div>
+
+<script>
+  // Tab switching: show the picked file's panel and status line, hide the
+  // others, and point the bar's copy button at the picked code. Delegated,
+  // so it survives view transitions.
+  document.addEventListener("click", (event) => {
+    const tab = (event.target as HTMLElement | null)?.closest<HTMLElement>("[data-editor-tab]");
+    if (!tab) return;
+    const block = tab.closest<HTMLElement>("[data-code-editor]");
+    if (!block) return;
+    const tabs = [...block.querySelectorAll<HTMLElement>("[data-editor-tab]")];
+    const panels = [...block.querySelectorAll<HTMLElement>("[data-editor-panel]")];
+    const status = [...block.querySelectorAll<HTMLElement>("[data-editor-status]")];
+    const index = tabs.indexOf(tab);
+    if (index < 0) return;
+    tabs.forEach((t, i) => t.setAttribute("aria-selected", String(i === index)));
+    panels.forEach((panel, i) => (panel.hidden = i !== index));
+    status.forEach((line, i) => (line.hidden = i !== index));
+    if (panels[index]) block.querySelector<HTMLElement>("[data-slot='copy-button']")?.setAttribute("data-copy-text", panels[index].dataset.code ?? "");
+  });
+</script>

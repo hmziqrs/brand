@@ -1,0 +1,61 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { LoaderCircle } from "@lucide/astro";
+import { cn } from "$brand/utils";
+import { Button } from "$brand/starwind/button";
+import BrandIcon from "$brand/components/brand-icon.astro";
+import type { Provider } from "./types";
+
+/*
+ * The outside ways to sign in: full-width outline buttons with the provider's
+ * logo, each one a link, so no JavaScript is needed to start one. The moment
+ * one is chosen it turns a spinner and the others stand down; the navigation
+ * the link starts takes over.
+ */
+
+interface Props extends HTMLAttributes<"div"> {
+  providers: Provider[];
+}
+
+const { providers, class: className, ...rest } = Astro.props;
+---
+
+<div data-slot="provider-buttons" class={cn("flex flex-col gap-2", className)} {...rest}>
+  {
+    providers.map((provider) => (
+      <Button
+        variant="outline"
+        href={provider.href}
+        data-provider={provider.id}
+        class="w-full data-[chosen]:hover:bg-transparent"
+      >
+        <span data-provider-icon>
+          <BrandIcon icon={provider.icon} />
+        </span>
+        <span data-provider-spinner class="hidden">
+          <LoaderCircle class="lucide size-4 animate-spin motion-reduce:animate-none" aria-hidden="true" />
+        </span>
+        Continue with {provider.label}
+      </Button>
+    ))
+  }
+</div>
+
+<script>
+  // The chosen one turns a spinner and the others stand down. Delegated, so
+  // it survives view transitions.
+  document.addEventListener("click", (event) => {
+    const chosen = (event.target as HTMLElement | null)?.closest<HTMLElement>("a[data-provider]");
+    if (!chosen) return;
+    for (const button of document.querySelectorAll<HTMLElement>("[data-provider]")) {
+      const isChosen = button === chosen;
+      if (isChosen) button.dataset.chosen = "true";
+      else delete button.dataset.chosen;
+      if (isChosen) button.removeAttribute("aria-disabled");
+      else button.setAttribute("aria-disabled", "true");
+      if (!isChosen) button.classList.add("pointer-events-none", "opacity-50");
+      button.querySelector<HTMLElement>("[data-provider-icon]")?.classList.toggle("hidden", isChosen);
+      button.querySelector<HTMLElement>("[data-provider-spinner]")?.classList.toggle("hidden", !isChosen);
+    }
+  });
+</script>

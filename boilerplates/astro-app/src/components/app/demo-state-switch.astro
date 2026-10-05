@@ -1,0 +1,40 @@
+---
+import Segmented from "$brand/components/segmented.astro";
+import { demoStates, readDemoState } from "../../lib/app/demo-state";
+
+/*
+ * The demo state switch: a small Segmented in the top bar that picks which
+ * state the page shows (app-blocks.md, "The demo app"). Demo scaffolding,
+ * not a kit piece — it reads the URL, which blocks may not. "normal" is the
+ * URL without a `state` param, so the default stays a clean link; the script
+ * below carries the rest of the URL along, so a list page keeps its filters
+ * through a change.
+ */
+
+interface Props {
+  state: string;
+}
+
+const { state } = Astro.props;
+const value = readDemoState(state);
+---
+
+<Segmented
+  data-demo-state-switch
+  label="Demo state"
+  value={value}
+  class="max-md:flex-nowrap"
+  options={demoStates.map((entry) => ({ value: entry, label: entry }))}
+/>
+
+<script>
+  document.addEventListener("segmented-change", (event) => {
+    const group = (event.target as HTMLElement | null)?.closest?.("[data-demo-state-switch]");
+    if (!group || !(event instanceof CustomEvent)) return;
+    const value = String((event.detail as { value?: unknown })?.value ?? "");
+    const url = new URL(window.location.href);
+    if (value === "normal") url.searchParams.delete("state");
+    else url.searchParams.set("state", value);
+    window.location.assign(url);
+  });
+</script>

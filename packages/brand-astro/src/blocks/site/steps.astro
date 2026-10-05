@@ -1,0 +1,25 @@
+---
+import Stepper from "$brand/components/stepper.astro";
+import Step from "$brand/components/step.astro";
+
+type StepItem = { title: string; body: string };
+
+/* Numbered steps joined by a line. Only for things that really happen in order. */
+
+interface Props {
+  items: StepItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<Stepper>
+  {
+    items.map((s, i) => (
+      <Step n={i + 1} done>
+        <h3 class="text-[1.0625rem] font-medium">{s.title}</h3>
+        <p class="text-[0.9rem] leading-relaxed text-muted-foreground">{s.body}</p>
+      </Step>
+    ))
+  }
+</Stepper>

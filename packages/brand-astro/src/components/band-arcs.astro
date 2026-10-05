@@ -1,0 +1,50 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { cn, styleText } from "$brand/utils";
+
+/* Big arcs on the right of a closing band. The same on every site. On the orange band the accent turns dark. */
+
+interface Props extends Omit<HTMLAttributes<"svg">, "children" | "style"> {
+  style?: string | Record<string, string>;
+}
+
+const { class: className, style, ...rest } = Astro.props;
+
+const arcsList = Array.from({ length: 8 }, (_, i) => {
+  const r = 60 + i * 44;
+  const c = 2 * Math.PI * r;
+  const gap = c * (i === 3 ? 0.6 : 0.2);
+  return {
+    r,
+    c,
+    gap,
+    accent: i === 3,
+    rotate: 150 + i * 23,
+  };
+});
+---
+
+<svg
+  data-slot="band-arcs"
+  viewBox="0 0 400 400"
+  aria-hidden="true"
+  class={cn("pointer-events-none absolute top-1/2 -right-[10%] hidden h-[170%] w-auto -translate-y-1/2 md:block", className)}
+  style={styleText(style)}
+  {...rest}
+>
+  {
+    arcsList.map((a) => (
+      <circle
+        cx={400}
+        cy={200}
+        r={a.r}
+        fill="none"
+        stroke={a.accent ? "var(--primary)" : "var(--line)"}
+        stroke-width={a.accent ? 3 : 1.25}
+        stroke-linecap="round"
+        stroke-dasharray={`${(a.c - a.gap).toFixed(2)} ${a.gap.toFixed(2)}`}
+        transform={`rotate(${a.rotate} 400 200)`}
+      />
+    ))
+  }
+</svg>

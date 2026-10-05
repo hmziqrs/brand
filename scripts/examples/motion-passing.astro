@@ -1,0 +1,14 @@
+---
+// Example for `pnpm check:motion`: a passing .astro file. Feedback is color
+// only; the transforms that remain are position (tooltip placement), not
+// hover/press movement. Not part of any scan root; the check reads it as a
+// self-test (docs/kits.md step 2.3).
+---
+<button class="hover:bg-muted focus-visible:ring-3 focus-visible:ring-ring/50 transition-colors">
+  Save
+</button>
+<span class="group-data-[side=top]:-translate-y-1/2 -rotate-45 origin-center">caret</span>
+<div class="translate-y-2 motion-reduce:transition-none">static offset</div>
+<script>
+  document.querySelector("[data-slot=panel]")?.classList.add("-translate-x-full");
+</script>

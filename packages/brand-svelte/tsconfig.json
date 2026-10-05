@@ -1,0 +1,15 @@
+{
+	"extends": "./.svelte-kit/tsconfig.json",
+	"compilerOptions": {
+		"rewriteRelativeImportExtensions": true,
+		"allowJs": true,
+		"checkJs": true,
+		"forceConsistentCasingInFileNames": true,
+		"resolveJsonModule": true,
+		"skipLibCheck": true,
+		"sourceMap": true,
+		// Stock shadcn-svelte files must stay as shadcn ships them, so the kit
+		// doesn't stricten them either (same call as the repo's tsconfig.base).
+		"strict": false
+	}
+}

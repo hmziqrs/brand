@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "es2023",
+    "skipLibCheck": true,
+    // TypeScript 6 turned `strict` on by default. Everything here is written
+    // for the non-strict defaults it grew up under, and the stock shadcn files
+    // in the lab (and the copies in the kits) must stay as shadcn ships them.
+    "strict": false,
+
+    /* Bundler mode */
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": true,
+    "moduleDetection": "force",
+    "noEmit": true,
+
+    /* Linting */
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "erasableSyntaxOnly": true,
+    "noFallthroughCasesInSwitch": true
+  }
+}

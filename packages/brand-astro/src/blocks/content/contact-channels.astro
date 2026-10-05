@@ -1,0 +1,59 @@
+---
+import { ArrowUpRight } from "@lucide/astro";
+import Marker from "$brand/components/marker.astro";
+import BrandIcon from "$brand/components/brand-icon.astro";
+import type { Channel } from "./types";
+
+/*
+ * The ways to reach someone, one row per channel: an icon tile, the name,
+ * one line on what it is for, and "Open" with an arrow. An email channel
+ * opens the reader's mail app (its href is a mailto:) and its address never
+ * appears in the page's text — the note says what the channel is, not where
+ * it points.
+ */
+
+interface Props {
+  channels: Channel[];
+  /** The words under the list, with an orange ring before them. */
+  note?: string;
+  class?: string;
+}
+
+const { channels, note, class: className } = Astro.props;
+---
+
+<div class={className}>
+  <ul class="border-t">
+    {
+      channels.map((channel) => {
+        // A Lucide line icon, or another company's logo as `{ path }`.
+        const logo = typeof channel.icon === "object" ? channel.icon : undefined;
+        const Icon = typeof channel.icon === "function" ? channel.icon : undefined;
+        return (
+          <li>
+            <a
+              href={channel.href}
+              class="grid grid-cols-[2.5rem_minmax(0,1fr)_auto] grid-rows-[auto_auto] items-center gap-x-3.5 border-b px-1 py-4 no-underline outline-none transition-colors hover:bg-foreground/4 focus-visible:ring-3 focus-visible:ring-ring/50"
+            >
+              <span class="row-span-2 grid size-10 place-items-center rounded-[22%] border">
+                {logo ? <BrandIcon icon={logo} class="size-4" /> : Icon ? <Icon class="size-4" /> : null}
+              </span>
+              <b class="font-medium">{channel.name}</b>
+              <span class="row-span-2 inline-flex items-center gap-1.5 text-[0.8125rem] text-muted-foreground">
+                Open
+                <ArrowUpRight class="size-3.5" />
+              </span>
+              <span class="col-start-2 text-[0.8125rem] text-muted-foreground">{channel.note}</span>
+            </a>
+          </li>
+        );
+      })
+    }
+  </ul>
+  {note && (
+    <p class="mt-4 flex items-center gap-2 text-[0.8125rem] text-muted-foreground">
+      <Marker class="text-primary" />
+      {note}
+    </p>
+  )}
+</div>

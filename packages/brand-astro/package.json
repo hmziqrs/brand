@@ -1,0 +1,29 @@
+{
+  "name": "@hmziq/brand-astro",
+  "version": "0.0.0",
+  "private": true,
+  "description": "The hmziq brand kit for Astro: Starwind UI stock components with the brand's changes, plus the brand pieces and blocks ported from the React design lab. Copied into projects from the Astro registry; never published to npm.",
+  "type": "module",
+  "scripts": {
+    "typecheck": "astro check && node -e \"fs.rmSync('.astro', { recursive: true, force: true })\"",
+    "check:a11y": "node scripts/axe.mjs"
+  },
+  "dependencies": {
+    "@hmziq/brand-core": "workspace:*",
+    "@lucide/astro": "^1.48.0",
+    "@starwind-ui/astro": "^1.2.1",
+    "@tailwindcss/forms": "^0.5.11",
+    "cn": "^0.4.0",
+    "shiki": "4.4.3",
+    "tailwind-variants": "^3.3.1"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@axe-core/playwright": "^4.13.0",
+    "astro": "^7.3.5",
+    "typescript": "~6.0.3"
+  },
+  "peerDependencies": {
+    "astro": "^5.0.0 || ^6.0.0 || ^7.0.0"
+  }
+}

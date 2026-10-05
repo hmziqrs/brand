@@ -1,0 +1,35 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { cn, styleText } from "$brand/utils";
+
+/*
+ * Another company's logo (GitHub, X, Bluesky…), from Simple Icons. Lucide has
+ * no logos. Logos are solid shapes, so they sit one step smaller than line
+ * icons (14px next to 16px) to look the same weight, and always in the
+ * current text color, never the company's own color.
+ */
+
+interface Props extends Omit<HTMLAttributes<"svg">, "children" | "style"> {
+  /** An icon from `simple-icons`, e.g. `siGithub`, or any `{ path }` in its 24×24 box. */
+  icon: { path: string };
+  /** Give a label when the logo stands alone; leave it out next to text. */
+  label?: string;
+  style?: string | Record<string, string>;
+}
+
+const { icon, label, class: className, style, ...rest } = Astro.props;
+---
+
+<svg
+  data-slot="brand-icon"
+  viewBox="0 0 24 24"
+  fill="currentColor"
+  role={label ? "img" : undefined}
+  aria-hidden={label ? undefined : true}
+  aria-label={label}
+  class={cn("size-3.5 shrink-0", className)}
+  style={styleText(style)}
+  {...rest}
+>
+  <path d={icon.path}></path>
+</svg>

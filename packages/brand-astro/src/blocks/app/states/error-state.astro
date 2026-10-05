@@ -1,0 +1,213 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { CircleAlert, LoaderCircle, Lock, SearchX, WifiOff } from "@lucide/astro";
+import { cn } from "$brand/utils";
+import { Button } from "$brand/starwind/button";
+import CopyButton from "$brand/components/copy-button.astro";
+import IconTile from "$brand/components/icon-tile.astro";
+
+/*
+ * A page, or one part of one, that didn't arrive: what went wrong in plain
+ * words, and the way out. `kind` picks the icon, its color and the default
+ * copy. "Try again" is a link (`retryHref`) so it works with no JavaScript —
+ * in Astro a retry is the same URL asked for again — and when the page wants
+ * to drive one itself (`retry`), the button shows its working face while the
+ * root carries data-retrying, and a polite region announces how it went.
+ * `compact` is for one failed card on a page that otherwise works.
+ */
+
+interface Props extends Omit<HTMLAttributes<"div">, "title"> {
+  kind?: "failed" | "offline" | "denied" | "not-found";
+  title?: string;
+  description?: string;
+  /** With no JavaScript, "Try again" is a link: the same URL, asked for again. */
+  retryHref?: string;
+  /** Adds a "Try again" button the page drives; it bubbles a `retry` event from the root. */
+  retry?: boolean;
+  /** The working face of the retry button, as the server rendered it. */
+  retrying?: boolean;
+  /** A request ID or such, shown under "Details" in mono with a copy button. */
+  details?: string;
+  /** "page" fills a page's content area, "section" one section, "compact" a slot in a card. */
+  size?: "page" | "section" | "compact";
+}
+
+const {
+  kind = "failed",
+  title,
+  description,
+  retryHref,
+  retry = false,
+  retrying = false,
+  details,
+  size = "page",
+  class: className,
+  ...rest
+} = Astro.props;
+
+// Each kind carries its own icon, icon color and default copy; the page can
+// override the words but not the look.
+const defaults = {
+  failed: {
+    icon: CircleAlert,
+    iconClass: "text-destructive",
+    title: "We couldn't load this",
+    description: "Something went wrong on our side. Try again in a moment.",
+  },
+  offline: {
+    icon: WifiOff,
+    iconClass: "text-warning",
+    title: "You're offline",
+    description: "Check your connection. We'll try again when you're back online.",
+  },
+  denied: {
+    icon: Lock,
+    iconClass: "text-muted-foreground",
+    title: "You don't have access to this",
+    description: "Ask a workspace owner to give you access.",
+  },
+  "not-found": {
+    icon: SearchX,
+    iconClass: "text-muted-foreground",
+    title: "We couldn't find that",
+    description: "It may have been deleted, or the link is wrong.",
+  },
+} as const;
+const d = defaults[kind];
+const Icon = d.icon;
+
+const heading = title ?? d.title;
+const line = description ?? d.description;
+
+const sizes = { page: "gap-4 py-16", section: "gap-3 py-10" } as const;
+const titleSizes = { page: "text-lg font-medium tracking-tight", section: "text-base font-medium" } as const;
+
+const headingClass = size === "compact" ? "text-sm font-medium" : titleSizes[size];
+---
+
+{
+  size === "compact" ? (
+    /* One failed card on a page that otherwise works: an icon, one line,
+       and the way out as a link button. */
+    <div
+      data-slot="error-state"
+      data-kind={kind}
+      data-retrying={retrying ? "true" : undefined}
+      class={cn("flex w-full min-w-0 flex-wrap items-center gap-x-3 gap-y-1.5", className)}
+      {...rest}
+    >
+      <Icon class={cn("lucide size-4.5 shrink-0", d.iconClass)} aria-hidden="true" />
+      <p class={headingClass}>{heading}</p>
+      {retry ? (
+        <Button type="button" variant="link" size="sm" class="h-auto p-0" data-retry>
+          <span data-retry-idle class={retrying ? "hidden" : undefined}>
+            Try again
+          </span>
+          <span data-retry-busy class={cn("inline-flex items-center gap-1.5", !retrying && "hidden")}>
+            Trying again…
+          </span>
+        </Button>
+      ) : retryHref ? (
+        <Button variant="link" size="sm" class="h-auto p-0" href={retryHref}>
+          Try again
+        </Button>
+      ) : null}
+      <slot name="actions" />
+      <p role="status" aria-live="polite" data-announce class="sr-only" />
+    </div>
+  ) : (
+    <div
+      data-slot="error-state"
+      data-kind={kind}
+      data-retrying={retrying ? "true" : undefined}
+      class={cn("flex w-full min-w-0 flex-1 flex-col items-center justify-center text-center", sizes[size], className)}
+      {...rest}
+    >
+      <IconTile>
+        <span class={d.iconClass}>
+          <Icon class="lucide" />
+        </span>
+      </IconTile>
+      <div class="flex min-w-0 max-w-sm flex-col items-center gap-2">
+        <p class={headingClass}>{heading}</p>
+        <p class="text-sm/relaxed text-muted-foreground">{line}</p>
+        <div class="mt-2 flex flex-wrap items-center justify-center gap-2">
+          {retry ? (
+            <Button type="button" data-retry disabled={retrying}>
+              <span data-retry-idle class={retrying ? "hidden" : undefined}>
+                Try again
+              </span>
+              <span data-retry-busy class={cn("inline-flex items-center gap-1.5", !retrying && "hidden")}>
+                <LoaderCircle class="lucide size-4 animate-spin motion-reduce:animate-none" aria-hidden="true" />
+                Trying again…
+              </span>
+            </Button>
+          ) : retryHref ? (
+            <Button variant="outline" href={retryHref}>
+              Try again
+            </Button>
+          ) : null}
+          <slot name="actions" />
+        </div>
+        {details && (
+          <div class="mt-1 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
+            <span>Details</span>
+            <code class="font-mono">{details}</code>
+            <CopyButton text={details} class="size-6" />
+          </div>
+        )}
+      </div>
+      <p role="status" aria-live="polite" data-announce class="sr-only" />
+    </div>
+  )
+}
+
+<script>
+  // The retry button's working face, and the polite word about how it went.
+  // The page drives the work: "Try again" bubbles a `retry` event, and the
+  // page answers with `retry-settle` (detail.ok) when it's done — or lets a
+  // navigation take the DOM away, which is its own kind of success.
+  document.addEventListener("click", (event) => {
+    const button = (event.target as HTMLElement | null)?.closest<HTMLElement>("[data-retry]");
+    if (!button) return;
+    const root = button.closest<HTMLElement>("[data-slot='error-state']");
+    if (!root) return;
+    root.dataset.retrying = "true";
+    face(root, true);
+    root.dispatchEvent(new CustomEvent("retry", { bubbles: true }));
+  });
+
+  const face = (root: HTMLElement, busy: boolean) => {
+    const button = root.querySelector<HTMLButtonElement>("[data-retry]");
+    const idle = root.querySelector<HTMLElement>("[data-retry-idle]");
+    const working = root.querySelector<HTMLElement>("[data-retry-busy]");
+    if (button) button.disabled = busy;
+    idle?.classList.toggle("hidden", busy);
+    working?.classList.toggle("hidden", !busy);
+  };
+
+  document.addEventListener("retry-settle", (event) => {
+    const root = (event.target as HTMLElement | null)?.closest<HTMLElement>("[data-slot='error-state']");
+    if (!root || !(event instanceof CustomEvent)) return;
+    delete root.dataset.retrying;
+    face(root, false);
+    const announce = root.querySelector<HTMLElement>("[data-announce]");
+    if (announce) announce.textContent = event.detail?.ok ? "Loaded." : "We couldn't load this. Try again.";
+  });
+
+  // Offline tries again by itself the moment the browser says the network is
+  // back. The listener costs nothing in the other kinds.
+  window.addEventListener("online", () => {
+    for (const root of document.querySelectorAll<HTMLElement>("[data-slot='error-state']")) {
+      if (root.dataset.kind !== "offline") continue;
+      const button = root.querySelector<HTMLElement>("[data-retry]");
+      if (button) {
+        root.dataset.retrying = "true";
+        face(root, true);
+        root.dispatchEvent(new CustomEvent("retry", { bubbles: true }));
+      } else {
+        window.location.reload();
+      }
+    }
+  });
+</script>

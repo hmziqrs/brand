@@ -1,0 +1,52 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { cn } from "$brand/utils";
+
+/*
+ * The table's skin: one rounded outline that holds the stock Table (which
+ * brings its own sideways scrolling container) and whatever sits with it —
+ * usually a TablePagination under a border-t. With `stickyFirstColumn` the
+ * first cell of every row pins to the left while the rest scroll under it,
+ * its background kept opaque so nothing shows through — the background rules
+ * live here, on the frame, because the cells themselves are stock.
+ */
+
+interface Props extends HTMLAttributes<"div"> {
+  stickyFirstColumn?: boolean;
+}
+
+const { stickyFirstColumn = false, class: className, ...rest } = Astro.props;
+---
+
+<div
+  data-slot="app-table-frame"
+  class={cn(
+    "overflow-hidden rounded-xl border border-border",
+    stickyFirstColumn &&
+      cn(
+        // `tr > :first-child` pins only each row's first cell — a child
+        // combinator, so the checkbox and the name wrapper inside the
+        // pinned cell are left alone.
+        "[&_[data-slot=table]_tr>:first-child]:sticky",
+        "[&_[data-slot=table]_tr>:first-child]:left-0",
+        "[&_[data-slot=table]_tr>:first-child]:z-10",
+        "[&_[data-slot=table]_tr>:first-child]:bg-background",
+        // Below sm the pinned cell is capped — and the host column's own
+        // `min-w-64` floor lifted — so the columns beside it stay
+        // reachable: without a cap the member column swallows nearly the
+        // whole frame at 360px and the sideways scroll reveals nothing
+        // behind it.
+        "[&_[data-slot=table]_tr>:first-child]:max-sm:min-w-0",
+        "[&_[data-slot=table]_tr>:first-child]:max-sm:max-w-52",
+        // A selected row keeps its muted fill on its pinned cell; the
+        // important mark keeps it ahead of the hover rule below, which
+        // carries two more element names and so outranks it otherwise.
+        "[&_[data-slot=table]_tr[data-state=selected]>:first-child]:bg-muted!",
+        "[&_[data-slot=table]_tbody_tr:hover>td:first-child]:bg-muted/50",
+      ),
+    className,
+  )}
+  {...rest}
+>
+  <slot />
+</div>

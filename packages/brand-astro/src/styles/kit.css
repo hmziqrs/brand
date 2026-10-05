@@ -1,0 +1,99 @@
+/*
+ * The Astro kit's stylesheet: Starwind UI's own CSS, minus its colors.
+ *
+ * A project's main stylesheet loads Tailwind, tw-animate, the fonts and
+ * core's theme first, then this file:
+ *   @import "tailwindcss";
+ *   @import "tw-animate-css";
+ *   @import "@fontsource-variable/onest";
+ *   @import "@fontsource-variable/jetbrains-mono";
+ *   @import "@hmziq/brand-core/theme.css";
+ *   @import "<the kit folder>/styles/kit.css";
+ *   @source "../node_modules/@hmziq/brand-core/src";
+ *
+ * Colors come only from `@hmziq/brand-core/theme.css`. Starwind's default
+ * palette (blue primary, neutral greys, its own status fills) is deleted;
+ * the block at the bottom points Starwind's extra token names at core's.
+ *
+ * Two of Starwind's own lines are deleted along with the colors, because
+ * core already ships them and the kit must not override them:
+ *   - `@custom-variant dark …`: core's version keeps `.light` bands working
+ *     inside dark pages (BRAND.md section 3, part 4).
+ *   - the `--radius-*` scale in `@theme inline`: core's values differ above
+ *     `--radius-xl` (2xl/3xl/4xl), and the brand's corner rules use them.
+ *     Only `--radius-xs`, which core has no equivalent for, is kept here.
+ */
+
+@plugin "@tailwindcss/forms";
+
+@theme {
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--starwind-accordion-content-height);
+    }
+  }
+
+  @keyframes accordion-up {
+    from {
+      height: var(--starwind-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+}
+
+@theme inline {
+  --color-primary-accent: var(--primary-accent);
+  --color-secondary-accent: var(--secondary-accent);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-error: var(--error);
+  --color-error-foreground: var(--error-foreground);
+  --color-outline: var(--outline);
+
+  --radius-xs: calc(var(--radius) - 0.375rem);
+}
+
+/* Starwind's extra tokens, pointed at core's theme (BRAND.md section 3.1).
+   `--sidebar-foreground`, `--sidebar-primary`, `--sidebar-accent` and
+   `--sidebar-border` are not mapped here: core's theme.css defines those
+   names itself. */
+:root,
+.dark {
+  --primary-accent: var(--primary); /* links and accents on the page background */
+  --secondary-accent: var(--foreground);
+  --error: var(--destructive);
+  --outline: var(--ring);
+  --sidebar-background: var(--sidebar);
+  --sidebar-outline: var(--sidebar-ring);
+  /* --success, --warning and --info come from theme.css. Starwind fills them
+     solid, so give them text colors that pass on every palette color. The
+     kit restyles those fills to the soft recipe, so these are a fallback. */
+  --error-foreground: var(--primary-foreground);
+  --success-foreground: var(--primary-foreground);
+  --warning-foreground: var(--primary-foreground);
+  --info-foreground: var(--primary-foreground);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-outline/50;
+  }
+  body {
+    @apply bg-background text-foreground scheme-light dark:scheme-dark;
+  }
+  button {
+    @apply cursor-pointer;
+  }
+}

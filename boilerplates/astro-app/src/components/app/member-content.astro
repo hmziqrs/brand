@@ -1,0 +1,204 @@
+---
+import { relativeDate } from "@hmziq/brand-core/app/format";
+import type { Member } from "@hmziq/brand-core/app/demo-data";
+import AppPage from "$brand/blocks/app/shell/app-page.astro";
+import AppPageHeader from "$brand/blocks/app/shell/app-page-header.astro";
+import DetailList from "$brand/blocks/app/details/detail-list.astro";
+import DetailSection from "$brand/blocks/app/details/detail-section.astro";
+import ConfirmAction from "$brand/blocks/app/actions/confirm-action.astro";
+import RecordSheet from "$brand/blocks/app/actions/record-sheet.astro";
+import { Button } from "$brand/starwind/button";
+import { Input } from "$brand/starwind/input";
+
+/*
+ * The member page's content (app-blocks.md, phase 10), as the page and its
+ * `server:defer` island share it: Profile and Access sections over the
+ * destructive Remove panel, with the member's machine id in mono beside a
+ * copy button. "Edit" opens the edit sheet (name and role, posted to the
+ * editMember action); "Remove from workspace" asks first and posts to
+ * removeMembers, then goes back to the list.
+ */
+
+interface Props {
+  member: Member;
+}
+
+const { member } = Astro.props;
+
+const fullDate = new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "long", year: "numeric" });
+const ROLES: Member["role"][] = ["Owner", "Admin", "Member", "Viewer"];
+---
+
+<AppPage>
+  <AppPageHeader
+    title={member.name}
+    breadcrumbs={[{ label: "Members", href: "/app/members" }, { label: member.name }]}
+    back={{ label: "Members", href: "/app/members" }}
+  >
+    <Fragment slot="actions">
+      <Button type="button" variant="outline" data-open-edit>Edit</Button>
+    </Fragment>
+  </AppPageHeader>
+
+  <div class="mt-8 flex flex-col gap-8">
+    <DetailSection title="Profile" description="Who they are in the workspace.">
+      <DetailList
+        items={[
+          { label: "Name", value: member.name },
+          { label: "Email", value: member.email },
+          { label: "Role", value: member.role },
+          { label: "Joined", value: fullDate.format(new Date(member.joined)) },
+        ]}
+      />
+    </DetailSection>
+    <DetailSection title="Access" description="How they sign in, and when they were last here.">
+      <DetailList
+        items={[
+          { label: "Last active", value: member.lastActive ? relativeDate(member.lastActive) : "Not yet" },
+          {
+            label: "Two-step sign-in",
+            value: member.twoStep ? "On" : "Off",
+            tag: member.twoStep ? { label: "On", tone: "success", marker: true } : { label: "Off" },
+          },
+          { label: "Sign-in method", value: member.signInMethod },
+          { label: "Member ID", value: member.id, mono: true, copy: member.id },
+        ]}
+      />
+    </DetailSection>
+    <DetailSection tone="destructive" title="Remove from workspace">
+      <div class="flex flex-col gap-3 py-4 sm:flex-row sm:items-center sm:justify-between">
+        <p class="text-sm text-muted-foreground">
+          They lose access to everything in Paperplane. You can invite them again later.
+        </p>
+        <ConfirmAction
+          title={`Remove ${member.name}?`}
+          description="They lose access to everything in Paperplane. You can invite them again later."
+          confirmLabel="Remove member"
+          successMessage={`Removed ${member.name} from the workspace.`}
+          data-member-remove
+        >
+          <Fragment slot="trigger">
+            <Button type="button" variant="error" class="shrink-0">Remove from workspace</Button>
+          </Fragment>
+        </ConfirmAction>
+      </div>
+    </DetailSection>
+  </div>
+
+  <!-- The edit panel: this page's form, which the sheet's footer submits. -->
+  <RecordSheet
+    title={`Edit ${member.name}`}
+    description="Their name and role in the workspace."
+    dirty={false}
+    pending={false}
+    formId="member-edit"
+    data-edit-sheet
+  >
+    <form id="member-edit" method="POST" class="flex flex-col gap-4 py-4">
+      <input type="hidden" name="id" value={member.id} />
+      <div class="flex flex-col gap-2">
+        <label class="text-sm font-medium" for="edit-name">Name</label>
+        <Input id="edit-name" name="name" value={member.name} />
+        <p class="text-sm text-destructive hidden" data-edit-error>Enter a name.</p>
+      </div>
+      <div class="flex flex-col gap-2">
+        <label class="text-sm font-medium" for="edit-role">Role</label>
+        <select
+          id="edit-role"
+          name="role"
+          class="h-9 rounded-md border border-border bg-background px-2.5 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
+        >
+          {ROLES.map((role) => (
+            <option value={role} selected={role === member.role}>{role}</option>
+          ))}
+        </select>
+      </div>
+    </form>
+  </RecordSheet>
+</AppPage>
+
+<script>
+  import { actions } from "astro:actions";
+  import { toast } from "$brand/starwind/toast";
+
+  // Every action answers with the contract's FormResult shape, so a refusal
+  // comes back as data ({ ok: false, message }) rather than a thrown error:
+  // both roads read the same here.
+  const run = async (name: keyof typeof actions, posted: FormData) => {
+    const outcome = await (actions[name] as (input: FormData) => Promise<{ data?: { ok?: boolean; message?: string }; error?: { message: string } }>)(posted);
+    if (outcome.error) throw new Error(outcome.error.message);
+    if (outcome.data && outcome.data.ok === false) throw new Error(outcome.data.message ?? "That didn't work. Try again.");
+    return outcome.data;
+  };
+
+  // The edit sheet opens from the header's "Edit" (the drawer runtime opens
+  // from a trigger), and its fields mark it dirty as they move off the
+  // record. The name is required: an empty submit is refused under the field.
+  document.addEventListener("click", (event) => {
+    if (!(event.target as HTMLElement | null)?.closest("[data-open-edit]")) return;
+    document.querySelector<HTMLElement>("[data-slot-wrap='record-sheet'] [data-sheet-trigger]")?.click();
+  });
+
+  for (const content of document.querySelectorAll<HTMLElement>("[data-edit-sheet]")) {
+    const sheet = content.closest<HTMLElement>("[data-slot-wrap='record-sheet']");
+    if (!sheet) continue;
+    // The record as the server rendered it; the fields move off it.
+    const was = sheet.querySelector<HTMLInputElement>("#edit-name")?.value ?? "";
+    const wasRole = sheet.querySelector<HTMLSelectElement>("#edit-role")?.value ?? "";
+    const mark = () => {
+      const name = sheet.querySelector<HTMLInputElement>("#edit-name")?.value ?? "";
+      const role = sheet.querySelector<HTMLSelectElement>("#edit-role")?.value ?? "";
+      const dirty = name !== was || role !== wasRole;
+      sheet.dataset.dirty = dirty ? "true" : "false";
+      const pageForm = document.getElementById("member-edit") as HTMLFormElement | null;
+      if (pageForm) pageForm.dataset.clean = dirty ? "false" : "true";
+      const cancel = sheet.querySelector<HTMLElement>("[data-cancel-slot]");
+      if (cancel) cancel.classList.toggle("hidden", !dirty);
+    };
+    sheet.querySelector("#edit-name")?.addEventListener("input", mark);
+    sheet.querySelector("#edit-role")?.addEventListener("change", mark);
+  }
+
+  document.addEventListener("submit", async (event) => {
+    const form = event.target as HTMLFormElement | null;
+    if (form?.id !== "member-edit") return;
+    const name = form.querySelector<HTMLInputElement>("#edit-name")?.value.trim() ?? "";
+    if (!name) {
+      event.preventDefault();
+      form.querySelector<HTMLElement>("[data-edit-error]")?.classList.remove("hidden");
+      form.querySelector<HTMLInputElement>("#edit-name")?.focus();
+      return;
+    }
+    // Post it through the action, toast, and land back on the record.
+    event.preventDefault();
+    const sheet = document.querySelector<HTMLElement>("[data-slot-wrap='record-sheet']");
+    if (sheet) sheet.dataset.pending = "true";
+    const role = form.querySelector<HTMLSelectElement>("#edit-role")?.value ?? "Member";
+    const posted = new FormData();
+    posted.set("id", form.querySelector<HTMLInputElement>("input[name='id']")?.value ?? "");
+    posted.set("name", name);
+    posted.set("role", role);
+    await run("editMember", posted);
+    toast.success("Changes saved.");
+    window.setTimeout(() => window.location.reload(), 600);
+  });
+
+  // Removal asks first (ConfirmAction), then posts and goes back to the list.
+  document.addEventListener("confirm", async (event) => {
+    const root = event.target as HTMLElement | null;
+    if (!root?.matches("[data-member-remove]")) return;
+    try {
+      const form = document.querySelector<HTMLFormElement>("#member-edit");
+      const posted = new FormData();
+      posted.set("ids", form?.querySelector<HTMLInputElement>("input[name='id']")?.value ?? "");
+      await run("removeMembers", posted);
+    } catch (error) {
+      root.dispatchEvent(
+        new CustomEvent("confirm-settle", { detail: { ok: false, message: (error as Error).message }, bubbles: false }),
+      );
+      return;
+    }
+    root.dispatchEvent(new CustomEvent("confirm-settle", { detail: { ok: true }, bubbles: false }));
+    window.setTimeout(() => window.location.assign("/app/members"), 900);
+  });
+</script>

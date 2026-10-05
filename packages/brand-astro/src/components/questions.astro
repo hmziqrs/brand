@@ -1,0 +1,15 @@
+---
+import { cn } from "$brand/utils";
+
+/* A list of questions: a line on top, one between each. */
+
+interface Props {
+  class?: string;
+}
+
+const { class: className, ...rest } = Astro.props;
+---
+
+<div data-slot="questions" class={cn("max-w-[52rem] border-t", className)} {...rest}>
+  <slot />
+</div>

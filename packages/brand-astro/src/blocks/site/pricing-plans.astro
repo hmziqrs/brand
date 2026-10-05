@@ -1,0 +1,82 @@
+---
+import { cn } from "$brand/utils";
+import Segmented from "$brand/components/segmented.astro";
+import CornerRings from "$brand/components/corner-rings.astro";
+import Tag from "$brand/components/tag.astro";
+import OutlineCard from "./outline-card.astro";
+import ButtonLink from "./button-link.astro";
+import Price from "./price.astro";
+import CheckList from "./check-list.astro";
+import type { Plan } from "./plan";
+
+/*
+ * Plans in outline cards, with a monthly / yearly switch. The recommended
+ * one gets the orange line, a tag and corner rings. The switch is the
+ * Segmented piece; this block reacts to its `segmented-change` event by
+ * showing the matching [data-billing] price.
+ */
+
+interface Props {
+  plans: Plan[];
+  /** The monthly / yearly switch. On by default. */
+  billing?: boolean;
+  class?: string;
+}
+
+const { plans, billing = true, class: className } = Astro.props;
+---
+
+<div data-slot="pricing-plans" class={cn("flex flex-col items-start gap-6", className)}>
+  {
+    billing && (
+      <Segmented
+        label="Billing"
+        value="monthly"
+        options={[
+          { value: "monthly", label: "Monthly" },
+          { value: "yearly", label: "Yearly, 2 months free" },
+        ]}
+      />
+    )
+  }
+  <div class={cn("grid w-full gap-4 sm:grid-cols-2", plans.length > 2 && "lg:grid-cols-3")}>
+    {
+      plans.map((p) => (
+        <OutlineCard class={cn("gap-4", p.pick && "ring-primary/55")}>
+          {p.pick && <CornerRings seed={`pricing ${p.name}`} quiet />}
+          <div class="relative flex items-center justify-between gap-2">
+            <h3 class="text-lg font-medium">{p.name}</h3>
+            {p.pick && (
+              <Tag tone="orange" marker>
+                Recommended
+              </Tag>
+            )}
+          </div>
+          <div class="relative">
+            <Price plan={p} />
+          </div>
+          <p class="relative text-[0.9rem] text-muted-foreground">{p.blurb}</p>
+          <CheckList items={p.features} class="relative mb-2" />
+          <ButtonLink href="#" size="lg" variant={p.pick ? "primary" : "outline"} class="relative mt-auto">
+            {p.cta}
+          </ButtonLink>
+        </OutlineCard>
+      ))
+    }
+  </div>
+</div>
+
+<script>
+  // The billing switch: Segmented already moved the pressed states; this
+  // only shows the prices for the picked period. Delegated at the document,
+  // scoped by the block's root, so it survives view transitions.
+  document.addEventListener("segmented-change", (event) => {
+    const group = event.target instanceof HTMLElement ? event.target : null;
+    const root = group?.closest<HTMLElement>("[data-slot='pricing-plans']");
+    if (!root) return;
+    const yearly = (event as CustomEvent<{ value: string }>).detail.value === "yearly";
+    for (const price of root.querySelectorAll<HTMLElement>("[data-billing]")) {
+      price.hidden = (price.dataset.billing === "yearly") !== yearly;
+    }
+  });
+</script>

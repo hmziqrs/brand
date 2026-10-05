@@ -1,0 +1,50 @@
+---
+import AppPageHeader from "$brand/blocks/app/shell/app-page-header.astro";
+import Segmented from "$brand/components/segmented.astro";
+import type { Range } from "@hmziq/brand-core/app/demo-data";
+
+/*
+ * The overview's page header (app-blocks.md, phase 7), as the page's faces
+ * share it: the title and the date-range switch, which lives in the `range`
+ * URL param so a shared link shows the same numbers. The Svelte twin keeps
+ * this header on every face, error included; this component is how the
+ * Astro page does the same.
+ */
+
+interface Props {
+  range: Range;
+}
+
+const { range } = Astro.props;
+
+const ranges: { value: Range; label: string }[] = [
+  { value: "7", label: "7 days" },
+  { value: "30", label: "30 days" },
+  { value: "90", label: "90 days" },
+];
+---
+
+<AppPageHeader title="Overview">
+  <Fragment slot="actions">
+    <Segmented
+      data-range-picker
+      label="Date range"
+      value={range}
+      options={ranges.map(({ value, label }) => ({ value, label }))}
+    />
+  </Fragment>
+</AppPageHeader>
+
+<script>
+  // The range is URL state like everything else: the link carries the demo
+  // state along, so the switch keeps working through a change.
+  document.addEventListener("segmented-change", (event) => {
+    const group = (event.target as HTMLElement | null)?.closest?.("[data-range-picker]");
+    if (!group || !(event instanceof CustomEvent)) return;
+    const value = String((event.detail as { value?: unknown })?.value ?? "30");
+    const url = new URL(window.location.href);
+    if (value === "30") url.searchParams.delete("range");
+    else url.searchParams.set("range", value);
+    window.location.assign(url);
+  });
+</script>

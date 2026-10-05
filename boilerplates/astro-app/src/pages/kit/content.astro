@@ -1,0 +1,320 @@
+---
+// The content-page blocks, each in the states it ships: the blog, docs,
+// changelog, FAQ, legal, contact and 404 groups, and the interactive landing
+// pieces. The whole pages built from them are the example pages (blog,
+// docs, changelog, faq, privacy, terms, about, contact, 404, components);
+// this page shows the blocks on their own. The section ids are the pieces'
+// anchors in scripts/pieces.json, which `pnpm check:parity` reads, so they
+// are written out in full.
+import { actions } from "astro:actions";
+import Container from "$brand/blocks/site/container.astro";
+import PageIntro from "$brand/blocks/site/page-intro.astro";
+import SiteLayout from "$brand/blocks/site/site-layout.astro";
+import ButtonLink from "$brand/blocks/site/button-link.astro";
+import Kicker from "$brand/blocks/site/kicker.astro";
+import Prose from "$brand/blocks/site/prose.astro";
+import PostCard from "$brand/blocks/content/post-card.astro";
+import PostContents from "$brand/blocks/content/post-contents.astro";
+import PostHeader from "$brand/blocks/content/post-header.astro";
+import PostList from "$brand/blocks/content/post-list.astro";
+import PostMeta from "$brand/blocks/content/post-meta.astro";
+import PullQuote from "$brand/blocks/content/pull-quote.astro";
+import ShareBar from "$brand/blocks/content/share-bar.astro";
+import NewsletterBand from "$brand/blocks/content/newsletter-band.astro";
+import DocsTitle from "$brand/blocks/content/docs-title.astro";
+import DocsPager from "$brand/blocks/content/docs-pager.astro";
+import DocsSearch from "$brand/blocks/content/docs-search.astro";
+import KindTag from "$brand/blocks/content/kind-tag.astro";
+import ReleaseHead from "$brand/blocks/content/release-head.astro";
+import ReleaseNotes from "$brand/blocks/content/release-notes.astro";
+import ReleaseTimeline from "$brand/blocks/content/release-timeline.astro";
+import FaqList from "$brand/blocks/content/faq-list.astro";
+import LegalSection from "$brand/blocks/content/legal-section.astro";
+import LegalBlock from "$brand/blocks/content/legal-block.astro";
+import ContactChannels from "$brand/blocks/content/contact-channels.astro";
+import NotFound from "$brand/blocks/content/not-found.astro";
+import InstallSteps from "$brand/blocks/content/install-steps.astro";
+import TypingTerminal from "$brand/blocks/content/typing-terminal.astro";
+import CodeEditor from "$brand/blocks/content/code-editor.astro";
+import ThemeInit from "../../components/theme-init.astro";
+import ThemeToggle from "../../components/theme-toggle.astro";
+import { channels, faq, releases, topicTone } from "../../lib/example";
+
+const posts = [
+  { title: "The example post, using every Markdown element", summary: "One post that renders every row of the Markdown table.", date: "September 18, 2026", readingTime: "3 min read", topic: "Engineering", href: "/blog/example-every-element" },
+  { title: "The second example post, shorter", summary: "A post without a cover, so its title takes the larger size.", date: "September 2, 2026", readingTime: "2 min read", topic: "Notes", href: "/blog/example-second-post" },
+  { title: "A design note, for the third topic", summary: "Example copy in a third topic.", date: "August 21, 2026", readingTime: "4 min read", updated: "August 25, 2026", topic: "Design", href: "/blog/example-third-post" },
+];
+
+const toc = [
+  { id: "piece-blog-layout", label: "BlogLayout" },
+  { id: "piece-post-header", label: "PostHeader" },
+  { id: "piece-post-contents", label: "PostContents" },
+  { id: "piece-share-bar", label: "ShareBar" },
+];
+---
+
+<SiteLayout site="example" maker="the kit" layout="page" mainClassName="gap-14 pt-12 pb-20 md:pt-20" head={{ site: "freeoxide", title: "Content blocks — the kit", description: "Every content-page block the Astro kit ships.", url: "https://example.com/kit/content" }}>
+  <ThemeInit slot="head" />
+  <ThemeToggle slot="extra" />
+
+  <Container>
+    <PageIntro class="max-w-2xl">
+      <Fragment slot="kicker">The kit · content blocks</Fragment>
+      <Fragment slot="title">Content-page blocks</Fragment>
+      <Fragment slot="lede">The blog, docs, changelog, FAQ, legal, contact and 404 blocks, and the interactive landing pieces. The whole pages are the example pages; this page shows each block on its own.</Fragment>
+    </PageIntro>
+  </Container>
+
+  <Container size="wide" class="flex flex-col gap-14">
+    <section id="piece-blog-layout" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">BlogLayout</h2>
+      <p class="text-[0.9375rem]">The blog's shell: the wordmark with "by hmziq", the posts nav, a Subscribe button and the reading rhythm. The blog's example pages wear it.</p>
+    </section>
+
+    <section id="piece-post-header" class="flex flex-col gap-8 border-t pt-8">
+      <h2 class="text-lg font-medium">PostHeader</h2>
+      <div class="flex flex-col gap-10">
+        <div class="flex flex-col gap-3">
+          <Kicker>With a cover</Kicker>
+          <PostHeader title="The example post, with its cover" summary="The topic, date and reading time, the title, the summary and the author — then the cover across the wide column." date="September 18, 2026" readingTime="3 min read" topic="Engineering" tone={topicTone} author={{ name: "hmziq", symbol: "Hq" }} cover={{ src: "/covers/example.svg", alt: "Example cover: a placeholder grid of rings", lineArt: true }} />
+        </div>
+        <div class="flex flex-col gap-3">
+          <Kicker>Without one, the larger title</Kicker>
+          <PostHeader title="The example post, without a cover" summary="No cover, so the title takes the page-intro size." date="September 2, 2026" readingTime="2 min read" topic="Notes" tone={topicTone} />
+        </div>
+      </div>
+    </section>
+
+    <section id="piece-post-contents" class="flex flex-col gap-8 border-t pt-8">
+      <h2 class="text-lg font-medium">PostContents</h2>
+      <div class="flex flex-col gap-8">
+        <div class="flex flex-col gap-3">
+          <Kicker>Inline, the default</Kicker>
+          <PostContents items={toc} class="max-w-[46rem]" />
+        </div>
+        <div class="flex flex-col gap-3">
+          <Kicker>Floating pill, on this page now</Kicker>
+          {/* Its own label: two "On this page" navs on one page is a
+              landmark-unique violation, and the gallery shows both variants. */}
+          <PostContents items={toc} variant="float" label="On this page, floating" />
+        </div>
+      </div>
+    </section>
+
+    <section id="piece-pull-quote" class="flex flex-col gap-8 border-t pt-8">
+      <h2 class="text-lg font-medium">PullQuote</h2>
+      <div class="flex flex-col gap-6">
+        <PullQuote>Margin note, the default: above the paragraph on phones, out in the right margin on very wide screens.</PullQuote>
+        <PullQuote variant="ring">Hanging ring: a line pulled out of the text, on an orange ring.</PullQuote>
+        <PullQuote variant="signed" sign="the lab's README">Signed, for quoting someone else, with their name under it.</PullQuote>
+        <PullQuote variant="tldr" sign="the plan">The TL;DR-style box, when the line is the whole point of the section.</PullQuote>
+      </div>
+    </section>
+
+    <section id="piece-share-bar" class="flex flex-col gap-8 border-t pt-8">
+      <h2 class="text-lg font-medium">ShareBar</h2>
+      <div class="flex flex-col gap-8">
+        <div class="flex flex-col gap-3">
+          <Kicker>Bar, the default</Kicker>
+          <ShareBar url="https://example.com/blog/example-post" title="The example post" class="max-w-[46rem]" />
+        </div>
+        <div class="flex flex-col gap-3">
+          <Kicker>Tiles</Kicker>
+          <ShareBar url="https://example.com/blog/example-post" title="The example post" variant="tiles" />
+        </div>
+        <div class="flex flex-col gap-3">
+          <Kicker>Ring buttons, in the networks' own colors on hover</Kicker>
+          <ShareBar url="https://example.com/blog/example-post" title="The example post" variant="rings" hover="brand" />
+        </div>
+        <div class="flex flex-col gap-3">
+          <Kicker>Sentence</Kicker>
+          <ShareBar url="https://example.com/blog/example-post" title="The example post" variant="sentence" />
+        </div>
+      </div>
+    </section>
+
+    <section id="piece-newsletter-band" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">NewsletterBand</h2>
+      <div class="overflow-hidden rounded-xl border">
+        {/* The band posts to the page's own address by default; this one
+            posts to the starter's subscribe action, the example receiver. */}
+        <NewsletterBand action={actions.subscribe} />
+      </div>
+    </section>
+
+    <section id="piece-post-list" class="flex flex-col gap-8 border-t pt-8">
+      <h2 class="text-lg font-medium">PostList</h2>
+      <div class="flex flex-col gap-3">
+        <Kicker>Cards, the default</Kicker>
+        <PostList posts={posts} tone={topicTone} />
+      </div>
+      <div class="flex flex-col gap-3">
+        <Kicker>List</Kicker>
+        <PostList posts={posts} tone={topicTone} variant="list" />
+      </div>
+      <div class="flex flex-col gap-3">
+        <Kicker>Archive</Kicker>
+        <PostList posts={posts} tone={topicTone} variant="archive" />
+      </div>
+    </section>
+
+    <section id="piece-post-card" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">PostCard</h2>
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <PostCard post={posts[1]} tone={topicTone} />
+      </div>
+    </section>
+
+    <section id="piece-post-meta" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">PostMeta</h2>
+      <PostMeta post={posts[2]} tone={topicTone} />
+    </section>
+
+    <section id="piece-docs-layout" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">DocsLayout</h2>
+      <p class="text-[0.9375rem]">The docs' shell: the line menu on the left, the page in the middle, "On this page" sticky on the right, and a menu button below md. The docs' example pages wear it, with the search in the header.</p>
+    </section>
+
+    <section id="piece-docs-search" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">DocsSearch</h2>
+      <div class="flex items-center gap-4">
+        <DocsSearch />
+        <span class="text-[0.8125rem] text-muted-foreground">Filters the docs menu's pages as you type; ⌘K focuses it.</span>
+      </div>
+    </section>
+
+    <section id="piece-docs-title" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">DocsTitle</h2>
+      <DocsTitle title="Installation" lede="Add the dependency, set it up once, and verify it is reachable." trail={["Docs", "Getting Started"]} seed="example" class="max-w-[46rem]" />
+    </section>
+
+    <section id="piece-docs-pager" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">DocsPager</h2>
+      <DocsPager prev={{ title: "Introduction", href: "/docs/introduction" }} next={{ title: "Quick Start", href: "/docs/quick-start" }} class="max-w-[46rem]" />
+    </section>
+
+    <section id="piece-release-timeline" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">ReleaseTimeline</h2>
+      <ReleaseTimeline releases={releases} class="max-w-[52rem]" />
+    </section>
+
+    <section id="piece-past-releases" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">PastReleases</h2>
+      <p class="text-[0.8125rem] text-muted-foreground">One past release, folded; shown above inside ReleaseTimeline.</p>
+    </section>
+
+    <section id="piece-release-head" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">ReleaseHead</h2>
+      <ReleaseHead release={releases[0]} level={2} />
+    </section>
+
+    <section id="piece-kind-tag" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">KindTag</h2>
+      <p class="flex flex-wrap items-center gap-2">
+        <KindTag kind="Added" count={2} />
+        <KindTag kind="Changed" />
+        <KindTag kind="Fixed" count={3} />
+        <KindTag kind="Blog" />
+      </p>
+    </section>
+
+    <section id="piece-release-notes" class="flex flex-col gap-8 border-t pt-8">
+      <h2 class="text-lg font-medium">ReleaseNotes</h2>
+      <div class="flex flex-col gap-3">
+        <Kicker>Grouped, the default</Kicker>
+        <ReleaseNotes release={releases[2]} class="max-w-[52rem]" />
+      </div>
+      <div class="flex flex-col gap-3">
+        <Kicker>Tagged</Kicker>
+        <ReleaseNotes release={releases[2]} variant="tagged" class="max-w-[52rem]" />
+      </div>
+      <div class="flex flex-col gap-3">
+        <Kicker>Columns</Kicker>
+        <ReleaseNotes release={releases[2]} variant="columns" />
+      </div>
+      <div class="flex flex-col gap-3">
+        <Kicker>Tabs</Kicker>
+        <ReleaseNotes release={releases[2]} variant="tabs" class="max-w-[52rem]" />
+      </div>
+    </section>
+
+    <section id="piece-faq-list" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">FaqList</h2>
+      <FaqList items={faq.slice(0, 3)} class="max-w-[52rem]" />
+    </section>
+
+    <section id="piece-legal-layout" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">LegalLayout</h2>
+      <p class="text-[0.9375rem]">The legal page around the sections: contents in a side column that follows you down (or a wrapped row on top), the title, the short version and the numbered sections. The privacy example page wears the side column, the terms example the top row.</p>
+    </section>
+
+    <section id="piece-legal-section" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">LegalSection</h2>
+      <Prose class="max-w-[46rem] gap-3.5">
+        <LegalSection n={1} title="Data we collect">
+          <LegalBlock block={["p", "Example copy: introduce the list."]} />
+          <LegalBlock block={["ul", ["The pages visited on this site", "Approximate location, derived from IP"]]} />
+        </LegalSection>
+        <LegalSection n={2} title="Your rights">
+          <LegalBlock block={["p", "Example copy: the rights a reader has."]} />
+        </LegalSection>
+      </Prose>
+    </section>
+
+    <section id="piece-legal-block" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">LegalBlock</h2>
+      <p class="text-[0.8125rem] text-muted-foreground">One block of a legal section: a paragraph, a list, definitions or small caps; shown above inside LegalSection.</p>
+    </section>
+
+    <section id="piece-contact-channels" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">ContactChannels</h2>
+      <ContactChannels channels={channels} note="Replies from a person, on weekdays. Example copy." class="max-w-xl" />
+    </section>
+
+    <section id="piece-not-found" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">NotFound</h2>
+      <div class="rounded-xl border py-10">
+        <NotFound title="Page not found" lede="This URL doesn't point to anything. The page probably moved, or the link was wrong.">
+          <ButtonLink href="/" size="lg" class="px-5">Back to home</ButtonLink>
+        </NotFound>
+      </div>
+    </section>
+
+    <section id="piece-install-steps" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">InstallSteps</h2>
+      <InstallSteps
+        class="max-w-[52rem]"
+        steps={[
+          { title: "Install the example", body: "Use the package manager you already have. Example copy.", commands: [["bun", "bun add -g example-tool"], ["npm", "npm install -g example-tool"]] },
+          { title: "Run your new command", body: "Example copy: copy a step and its ring fills in.", command: "example-one" },
+        ]}
+      />
+    </section>
+
+    <section id="piece-typing-terminal" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">TypingTerminal</h2>
+      <TypingTerminal
+        rows={5}
+        lines={[
+          ["cmd", "bun add -g example-tool"],
+          ["note", "Installs the example-tool command."],
+          ["cmd", "example-one"],
+          ["note", "The example, running."],
+        ]}
+      />
+      <p class="text-[0.8125rem] text-muted-foreground">Press the replay button to watch it type; with reduced motion it stays finished.</p>
+    </section>
+
+    <section id="piece-code-editor" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">CodeEditor</h2>
+      <CodeEditor
+        class="max-w-[52rem]"
+        files={[
+          { name: "By hand", lang: "rust", code: "struct UserView {\n    user: Option<User>,\n    loading: bool,\n    // Must be stored so unmount can cancel the in-flight task.\n    _task: Option<gpui::Task<()>>,\n}" },
+          { name: "With the example", lang: "rust", code: "struct UserView {\n    user: gpui::Entity<Example<User>>,\n    _subscription: gpui::Subscription,\n}" },
+        ]}
+      />
+    </section>
+  </Container>
+</SiteLayout>

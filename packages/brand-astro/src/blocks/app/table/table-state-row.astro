@@ -1,0 +1,24 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { cn } from "$brand/utils";
+import { TableRow } from "$brand/starwind/table";
+
+/*
+ * One full-width row for a state inside the table: an empty state, no
+ * results, an error. The header stays visible above it, so the reader can
+ * still see what they're looking at. The row draws no hover and no bottom
+ * border; the cell carries no padding (the state brings its own).
+ */
+
+interface Props extends HTMLAttributes<"tr"> {
+  colSpan: number;
+}
+
+const { colSpan, class: className, ...rest } = Astro.props;
+---
+
+<TableRow data-slot="table-state-row" class={cn("hover:bg-transparent", className)} {...rest}>
+  <td colspan={colSpan} class="p-0">
+    <slot />
+  </td>
+</TableRow>

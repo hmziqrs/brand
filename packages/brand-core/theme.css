@@ -1,0 +1,318 @@
+/*
+ * hmziq theme — shared by every hmziq site.
+ *
+ * Tailwind v4 + shadcn/ui token layout: semantic colors live as CSS variables
+ * in :root (light) and .dark, and `@theme inline` maps them to Tailwind
+ * utilities (bg-background, text-muted-foreground, border-border, ...).
+ *
+ * This file holds tokens only. A site's main stylesheet loads Tailwind,
+ * shadcn's base CSS and the fonts first, then this file:
+ *   @import "tailwindcss";
+ *   @import "tw-animate-css";
+ *   @import "shadcn/tailwind.css";
+ *   @import "@fontsource-variable/onest";
+ *   @import "@fontsource-variable/jetbrains-mono";
+ *   @import "@hmziq/brand-core/theme.css";
+ *
+ * Dark is the default: ship <html class="dark"> and remove the class for light.
+ *
+ * The file has three parts:
+ *   1. shadcn's tokens, in shadcn's layout. Greys are shadcn "neutral" (zero
+ *      chroma, no tint). A theme tool's output can replace these two blocks.
+ *   2. The colors: oxide orange plus seven supporting colors, tuned per mode
+ *      so each one reads as text on a card and on its own soft fill (AA).
+ *   3. Roles that point at those colors: status, code, icons, the logo
+ *      square and the faint line used by ring art.
+ *   4. Bands: full-width sections that change the colors inside them.
+ *
+ * --primary points at --orange. To try another brand color, point it at
+ * another color (e.g. var(--blue)) in both blocks; everything that follows
+ * the brand (ring, chart-1, sidebar, code keywords) follows it.
+ * `pnpm check:contrast` measures every pair after a change.
+ */
+
+/* `dark:` applies inside .dark, but not inside a .light band placed in a dark page. */
+@custom-variant dark (&:is(.dark *):not(.light *));
+
+/* 1. shadcn tokens ---------------------------------------------------------- */
+
+:root,
+.light {
+  --radius: 0.625rem;
+
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+
+  --primary: var(--orange);
+  --primary-foreground: oklch(0.985 0 0);
+
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  /* shadcn ships 0.556; 0.54 keeps grey text readable on muted surfaces too (4.6:1) */
+  --muted-foreground: oklch(0.54 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: var(--red);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: var(--primary);
+
+  --chart-1: var(--primary);
+  --chart-2: var(--blue);
+  --chart-3: var(--green);
+  --chart-4: var(--purple);
+  --chart-5: var(--yellow);
+
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: var(--primary);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+
+  --primary: var(--orange);
+  --primary-foreground: oklch(0.145 0 0);
+
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: var(--red);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: var(--primary);
+
+  --chart-1: var(--primary);
+  --chart-2: var(--blue);
+  --chart-3: var(--green);
+  --chart-4: var(--purple);
+  --chart-5: var(--yellow);
+
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: var(--primary);
+}
+
+/* 2. Colors ----------------------------------------------------------------
+ * Oxide orange is the brand. The other seven carry meaning: status,
+ * categories, charts and code. Only orange is ever a solid fill behind text;
+ * the rest appear as text, icons, dots, lines and soft fills
+ * (bg-green/10 text-green dark:bg-green/20).
+ * Light shades sit around L 0.53 and dark shades around L 0.72–0.80, so
+ * every color passes AA as text on a card and on its own soft fill.
+ * --band is the gray of a full-width band; --on-orange is text on orange.
+ */
+
+:root,
+.light {
+  --red: oklch(0.54 0.21 26);
+  --orange: oklch(0.54 0.135 52);
+  --yellow: oklch(0.53 0.11 75);
+  --green: oklch(0.51 0.14 150);
+  --teal: oklch(0.515 0.09 185);
+  --blue: oklch(0.53 0.175 255);
+  --purple: oklch(0.55 0.2 300);
+  --pink: oklch(0.55 0.19 350);
+  --band: oklch(0.97 0 0);
+  --on-orange: oklch(0.985 0 0);
+}
+
+.dark {
+  --red: oklch(0.704 0.191 22.216);
+  --orange: oklch(0.72 0.165 52);
+  --yellow: oklch(0.8 0.14 85);
+  --green: oklch(0.75 0.15 150);
+  --teal: oklch(0.75 0.12 185);
+  --blue: oklch(0.72 0.15 255);
+  --purple: oklch(0.72 0.16 300);
+  --pink: oklch(0.73 0.16 350);
+  --band: oklch(0.205 0 0);
+  --on-orange: oklch(0.145 0 0);
+}
+
+/* 3. Roles -----------------------------------------------------------------
+ * Listed under every mode selector so a nested .dark or .light area
+ * resolves them again.
+ */
+
+:root,
+.dark,
+.light {
+  /* Status. Always soft or as text, never a solid fill. */
+  --success: var(--green);
+  --warning: var(--yellow);
+  --info: var(--blue);
+
+  /* Code highlighting: Shiki's css-variables theme with variablePrefix "--code-". */
+  --code-foreground: var(--foreground);
+  --code-background: var(--card);
+  --code-token-keyword: var(--primary);
+  --code-token-function: var(--blue);
+  --code-token-string: var(--green);
+  --code-token-string-expression: var(--green);
+  --code-token-constant: var(--purple);
+  --code-token-parameter: var(--foreground);
+  --code-token-comment: var(--muted-foreground);
+  --code-token-punctuation: var(--muted-foreground);
+  --code-token-link: var(--blue);
+  --code-token-inserted: var(--green);
+  --code-token-deleted: var(--red);
+  --code-token-changed: var(--yellow);
+
+  /* Icon line weight, matched to Onest at 400. Lucide's default is 2. */
+  --icon-stroke: 1.75;
+
+  /* The logo's square keeps the bright orange in both modes. */
+  --mark-square: oklch(0.72 0.165 52);
+  /* Hairlines in ring art: the text color, faint. */
+  --line: color-mix(in oklab, var(--foreground) 22%, transparent);
+  /* A quiet surface on the orange band (inline code, hover): orange, nudged
+     toward the page's text color so the band's text stays readable on it. */
+  --band-orange-muted: color-mix(in oklab, var(--foreground) 12%, var(--orange));
+}
+
+/* 4. Bands -----------------------------------------------------------------
+ * .band-orange  the closing band: solid orange; buttons and text flip to
+ *               the text-on-orange color, so the main button stays readable.
+ * .band-gray    a quiet full-width band, for numbers or a group of cards.
+ * .light / .dark  the other mode inside a page, for an inverse band.
+ */
+
+.band-orange {
+  --background: var(--orange);
+  --foreground: var(--on-orange);
+  --card: var(--orange);
+  --card-foreground: var(--on-orange);
+  --muted: var(--band-orange-muted);
+  --muted-foreground: var(--on-orange);
+  --primary: var(--on-orange);
+  --primary-foreground: var(--orange);
+  --border: color-mix(in oklab, var(--on-orange) 22%, transparent);
+  --input: color-mix(in oklab, var(--on-orange) 45%, transparent);
+  --ring: var(--on-orange);
+  --line: color-mix(in oklab, var(--on-orange) 20%, transparent);
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+/* Outline buttons are only their line, like cards and tiles: no grey fill
+   at rest (shadcn fills them in dark mode). Hover still tints them. */
+[data-slot="button"][data-variant="outline"]:not(:hover, [aria-expanded="true"]) {
+  background-color: transparent;
+}
+
+.band-gray {
+  --background: var(--band);
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+/* An island in the other mode paints its own background: a white band on a
+   dark page, or a terminal that stays dark on a light page. */
+.light,
+.dark {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+@theme inline {
+  /* Onest for everything people read; JetBrains Mono only for code. */
+  --font-sans: "Onest Variable", "Onest", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-heading: var(--font-sans);
+  --font-mono: "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-info: var(--info);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --color-red: var(--red);
+  --color-orange: var(--orange);
+  --color-yellow: var(--yellow);
+  --color-green: var(--green);
+  --color-teal: var(--teal);
+  --color-blue: var(--blue);
+  --color-purple: var(--purple);
+  --color-pink: var(--pink);
+  --color-band: var(--band);
+  --color-on-orange: var(--on-orange);
+  --color-mark-square: var(--mark-square);
+  --color-line: var(--line);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+  /* Every lucide icon uses the brand line weight. Change one with stroke-[2]. */
+  .lucide {
+    stroke-width: var(--icon-stroke);
+  }
+}

@@ -1,0 +1,44 @@
+---
+import { ArrowLeft, ArrowRight } from "@lucide/astro";
+import { cn } from "$brand/utils";
+import OutlineCard from "$brand/blocks/site/outline-card.astro";
+
+/* The pages on either side of this one, as two cards at the bottom of a docs page. */
+
+interface Props {
+  prev?: { title: string; href: string };
+  next?: { title: string; href: string };
+  class?: string;
+}
+
+const { prev, next, class: className } = Astro.props;
+---
+
+{
+  (prev || next) && (
+    <nav aria-label="Previous and next" class={cn("grid grid-cols-2 gap-4", className)}>
+      {prev ? (
+        <OutlineCard href={prev.href} class="gap-1.5 px-5 py-4.5">
+          <span class="inline-flex items-center gap-1.5 text-[0.8125rem] text-muted-foreground">
+            <ArrowLeft class="size-3.75" />
+            Previous
+          </span>
+          <b class="font-medium">{prev.title}</b>
+        </OutlineCard>
+      ) : (
+        <span aria-hidden="true" />
+      )}
+      {next ? (
+        <OutlineCard href={next.href} class="items-end gap-1.5 px-5 py-4.5 text-right">
+          <span class="inline-flex items-center gap-1.5 text-[0.8125rem] text-muted-foreground">
+            Next
+            <ArrowRight class="size-3.75" />
+          </span>
+          <b class="font-medium">{next.title}</b>
+        </OutlineCard>
+      ) : (
+        <span aria-hidden="true" />
+      )}
+    </nav>
+  )
+}

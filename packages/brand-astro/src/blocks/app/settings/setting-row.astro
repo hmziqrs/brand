@@ -1,0 +1,171 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { LoaderCircle } from "@lucide/astro";
+import { cn } from "$brand/utils";
+import { Button } from "$brand/starwind/button";
+import Marker from "$brand/components/marker.astro";
+
+/*
+ * One setting: a label, its control, a description and an error, and — for
+ * controls that save as soon as they change — the state of that save. The
+ * control comes in as content with a `name` on it; `for` links this row to
+ * it, and the description and the error take their ids from that same `for`,
+ * so the page can point the control's aria-describedby at them
+ * ("${for}-description", "${for}-error").
+ *
+ * The save statuses live on the root as data-status, and all three faces are
+ * in the markup, hidden: the page (or its script) sets the status and the
+ * faces follow — so a save-on-change row shows "Saving", "Saved" and the
+ * error with its "Try again" without another round trip. "Saved" goes quiet
+ * after two seconds; "Try again" bubbles a `setting-retry` event from the
+ * row, which the page answers by running the save again.
+ */
+
+interface Props extends HTMLAttributes<"div"> {
+  label: string;
+  description?: string;
+  for?: string;
+  /** Horizontal puts the label beside the control (switches, selects); vertical stacks them (text fields). */
+  orientation?: "horizontal" | "vertical";
+  error?: string;
+  /** For controls that save as soon as they change. */
+  status?: "idle" | "saving" | "saved" | "error";
+}
+
+const {
+  label,
+  description,
+  for: htmlFor,
+  orientation = "vertical",
+  error,
+  status = "idle",
+  class: className,
+  ...rest
+} = Astro.props;
+
+const descriptionId = htmlFor ? `${htmlFor}-description` : undefined;
+const errorId = htmlFor ? `${htmlFor}-error` : undefined;
+
+// The faces, shared by both orientations.
+const faces = "flex flex-wrap items-center";
+const saving =
+  "hidden group-data-[status=saving]/row:inline-flex items-center gap-2 text-sm text-muted-foreground";
+const saved = "hidden group-data-[status=saved]/row:inline-flex items-center gap-2 text-sm text-success";
+const failed = "hidden group-data-[status=error]/row:inline-flex flex-wrap items-center gap-2 text-sm text-destructive";
+---
+
+<div data-slot="setting-row" data-status={status} class={cn("group/row px-4 py-4 sm:px-6", className)} {...rest}>
+  {
+    orientation === "horizontal" ? (
+      <div class="flex flex-col gap-2.5 sm:flex-row sm:items-center sm:justify-between sm:gap-8">
+        <div class="flex min-w-0 flex-col gap-1">
+          {htmlFor ? (
+            <label for={htmlFor} class="text-sm font-medium">
+              {label}
+            </label>
+          ) : (
+            <p class="text-sm font-medium">{label}</p>
+          )}
+          {description && (
+            <p id={descriptionId} class="text-sm text-muted-foreground">
+              {description}
+            </p>
+          )}
+        </div>
+        <div class="flex min-w-0 flex-col items-start gap-2 sm:items-end">
+          <div class={faces}>
+            <slot />
+            <span data-save-status="saving" class={saving}>
+              <LoaderCircle class="lucide size-4 animate-spin motion-reduce:animate-none" aria-hidden="true" />
+              <span class="sr-only">Saving</span>
+            </span>
+            <span data-save-status="saved" role="status" class={saved}>
+              <Marker filled class="text-success" />
+              Saved
+            </span>
+          </div>
+          {error && (
+            <p id={errorId} class="text-sm text-destructive">
+              {error}
+            </p>
+          )}
+          <p data-save-status="error" class={failed}>
+            Couldn't save.
+            <Button type="button" variant="link" size="sm" class="h-auto p-0" data-retry>
+              Try again
+            </Button>
+          </p>
+        </div>
+      </div>
+    ) : (
+      <div class="flex flex-col gap-1.5">
+        {htmlFor ? (
+          <label for={htmlFor} class="text-sm font-medium">
+            {label}
+          </label>
+        ) : (
+          <p class="text-sm font-medium">{label}</p>
+        )}
+        <slot />
+        {description && (
+          <p id={descriptionId} class="text-sm text-muted-foreground">
+            {description}
+          </p>
+        )}
+        {error && (
+          <p id={errorId} class="text-sm text-destructive">
+            {error}
+          </p>
+        )}
+        <div class={faces}>
+          <span data-save-status="saving" class={saving}>
+            <LoaderCircle class="lucide size-4 animate-spin motion-reduce:animate-none" aria-hidden="true" />
+            <span class="sr-only">Saving</span>
+          </span>
+          <span data-save-status="saved" role="status" class={saved}>
+            <Marker filled class="text-success" />
+            Saved
+          </span>
+          <p data-save-status="error" class={failed}>
+            Couldn't save.
+            <Button type="button" variant="link" size="sm" class="h-auto p-0" data-retry>
+              Try again
+            </Button>
+          </p>
+        </div>
+      </div>
+    )
+  }
+</div>
+
+<script>
+  // "Saved" shows for two seconds and then goes quiet, while the status the
+  // page set stays on the row. Delegated, so it survives view transitions.
+  const settle = (row: HTMLElement) => {
+    if (row.dataset.status !== "saved" || row.dataset.settled === "true") return;
+    row.dataset.settled = "true";
+    window.setTimeout(() => {
+      if (row.dataset.status === "saved") row.dataset.status = "idle";
+      delete row.dataset.settled;
+    }, 2000);
+  };
+
+  const run = () => {
+    for (const row of document.querySelectorAll<HTMLElement>("[data-slot='setting-row']")) settle(row);
+  };
+  run();
+  document.addEventListener("astro:page-load", run);
+  new MutationObserver(run).observe(document.documentElement, {
+    subtree: true,
+    attributes: true,
+    attributeFilter: ["data-status"],
+  });
+
+  // "Try again" hands the save back to the page, which knows how to run it.
+  document.addEventListener("click", (event) => {
+    const retry = (event.target as HTMLElement | null)?.closest<HTMLElement>("[data-retry]");
+    if (!retry) return;
+    const row = retry.closest<HTMLElement>("[data-slot='setting-row']");
+    row?.dispatchEvent(new CustomEvent("setting-retry", { detail: { row }, bubbles: true }));
+  });
+</script>

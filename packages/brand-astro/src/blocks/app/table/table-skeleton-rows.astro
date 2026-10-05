@@ -1,0 +1,36 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { Skeleton } from "$brand/starwind/skeleton";
+import { TableRow } from "$brand/starwind/table";
+
+/*
+ * Loading rows for inside a table body: the header stays visible while the
+ * rows wait. Each cell is the width of the column it stands for, so nothing
+ * shifts when the data arrives. Decorative (aria-hidden) — the surrounding
+ * loading state carries the accessible story.
+ */
+
+interface Props extends HTMLAttributes<"tr"> {
+  rows?: number;
+  /** Column widths, e.g. ["40%", "20%", "20%", "20%"]. */
+  columns: string[];
+}
+
+const { rows = 5, columns, class: className, ...rest } = Astro.props;
+
+// Widths come as data, so they go inline: no class names are built at
+// render time for Tailwind to miss.
+const widths = columns.map((width) => `width: ${width}`);
+---
+
+{
+  Array.from({ length: rows }).map(() => (
+    <TableRow data-slot="table-skeleton-rows" class={className} aria-hidden="true" {...rest}>
+      {widths.map((width) => (
+        <td style={width} class="px-4 py-3.5">
+          <Skeleton class="h-4 w-full" />
+        </td>
+      ))}
+    </TableRow>
+  ))
+}

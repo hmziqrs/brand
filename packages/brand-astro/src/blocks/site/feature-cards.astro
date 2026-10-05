@@ -1,0 +1,34 @@
+---
+import { cn } from "$brand/utils";
+import type { AstroPiece } from "$brand/utils";
+import Card from "$brand/starwind/card";
+import IconTile from "$brand/components/icon-tile.astro";
+import FeatureIcon from "./feature-icon.astro";
+
+type Feature = { icon?: AstroPiece; title: string; body: string };
+
+/* Features in outline cards: a thin line, no fill, an icon tile on top. */
+
+interface Props {
+  items: Feature[];
+  class?: string;
+}
+
+const { items, class: className } = Astro.props;
+---
+
+<div class={cn("grid gap-4 sm:grid-cols-2 lg:grid-cols-3", className)}>
+  {
+    items.map((f) => (
+      <Card.Root class="gap-3 bg-transparent px-6 py-6 shadow-none">
+        {f.icon && (
+          <IconTile>
+            <FeatureIcon icon={f.icon} />
+          </IconTile>
+        )}
+        <h3 class="text-lg font-medium tracking-[-0.01em]">{f.title}</h3>
+        <p class="text-[0.9rem] leading-relaxed text-muted-foreground">{f.body}</p>
+      </Card.Root>
+    ))
+  }
+</div>

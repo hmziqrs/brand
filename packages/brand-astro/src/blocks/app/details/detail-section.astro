@@ -1,0 +1,44 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { cn } from "$brand/utils";
+
+/*
+ * One titled part of a record's page: the title and the section's actions in
+ * one row, the description under them, and the content in an outlined panel.
+ * The panel brings the padding, so a DetailList lands flush inside it and
+ * SkeletonDetails stands in the same place while the record loads — the
+ * section keeps its shape through a load, which is what lets it sit inside
+ * DataState.
+ */
+
+interface Props extends Omit<HTMLAttributes<"section">, "title"> {
+  title: string;
+  description?: string;
+  /** "destructive" draws the panel in a destructive outline, for sections that remove things. */
+  tone?: "default" | "destructive";
+}
+
+const { title, description, tone = "default", class: className, "aria-labelledby": labelledBy, ...rest } = Astro.props;
+
+const titleId = `detail-section-${crypto.randomUUID().slice(0, 8)}`;
+const hasActions = Astro.slots.has("actions");
+---
+
+{/* The aria-labelledby override is pulled out of the spread: a literal
+    beside {...rest} renders the attribute twice and the browser keeps the
+    first, so a page stacking two same-titled sections could never tell
+    them apart. */}
+<section data-slot="detail-section" aria-labelledby={labelledBy ?? titleId} class={cn("flex flex-col gap-3", className)} {...rest}>
+  <div class="flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
+    <h2 id={titleId} class="text-base font-medium">{title}</h2>
+    {hasActions && (
+      <div class="flex flex-wrap items-center gap-2">
+        <slot name="actions" />
+      </div>
+    )}
+  </div>
+  {description && <p class="max-w-prose text-sm text-muted-foreground">{description}</p>}
+  <div class={cn("rounded-xl border border-border px-4 sm:px-6", tone === "destructive" && "border-destructive/40")}>
+    <slot />
+  </div>
+</section>

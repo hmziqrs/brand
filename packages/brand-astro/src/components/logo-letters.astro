@@ -1,0 +1,30 @@
+---
+import { styleText } from "$brand/utils";
+import type { LogoLook } from "@hmziq/brand-core/logo";
+
+/* The name or symbol. Waving or typing, each letter is its own span. */
+
+interface Props {
+  text: string;
+  look: LogoLook;
+  perLetter?: string[];
+}
+
+const { text, look, perLetter } = Astro.props;
+
+const letters = [...text];
+---
+
+{
+  look.textMove === "wave" || look.textMove === "type" ? (
+    <span data-part="name" data-move={look.textMove}>
+      {letters.map((letter, i) => (
+        <span style={styleText({ "--i": `${i}`, ...(perLetter?.[i] ? { "--logo-letter": perLetter[i] } : {}) })}>{letter}</span>
+      ))}
+    </span>
+  ) : (
+    <span data-part="name" data-move={look.textMove === "shimmer" ? "shimmer" : undefined}>
+      {text}
+    </span>
+  )
+}

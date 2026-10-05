@@ -2,7 +2,7 @@
 
 This document is the single source of truth for how every hmziq site looks, reads and behaves. It is written for AI agents and people doing migrations or redesigns. Follow it exactly. When something here conflicts with a site's existing code, this document wins.
 
-Live reference: the Storybook in the `hmziq/brand` repo (`pnpm storybook`), which shows every component and a finished landing page for each site. Source for those pages: `src/sites/*.tsx`.
+Live reference: the Storybook in the `hmziq/brand` repo (`pnpm storybook`), which shows every component and a finished landing page for each site. Source for those pages: `apps/lab/src/sites/*.tsx`.
 
 ---
 
@@ -28,10 +28,44 @@ Live reference: the Storybook in the `hmziq/brand` repo (`pnpm storybook`), whic
 
 ## 2. Install the theme in a site
 
+Two ways in.
+
+> **The first release has not shipped yet.** `@hmziq/brand-core` is not on
+> npm and the registry URLs below are not live. Publishing them is a
+> deferred, by-hand release step (docs/kits.md, step 3). Until it runs,
+> work from the brand repo: `pnpm check:fresh-copy <svelte|astro>` installs
+> a fresh app from the packed core and a locally served registry — the same
+> bytes the release will ship.
+
+**A new site** starts from a starter, in the brand repo:
+
+```bash
+pnpm new-project svelte ../my-site    # SvelteKit + shadcn-svelte
+pnpm new-project astro ../my-site     # Astro + Starwind UI
+```
+
+It copies the boilerplate, points `@hmziq/brand-core` at npm, installs the whole kit from its registry into the kit folder (`$lib/brand` for SvelteKit, `src/components/brand` for Astro), points `$brand` there, and runs `pnpm install`. No import in the boilerplate changes.
+
+**An existing site** gets the theme from npm and the components from its framework's registry (next subsection), then follows the steps below.
+
+### The registries
+
+| Framework | Kit | Registry | Install |
+| --- | --- | --- | --- |
+| SvelteKit | `brand-svelte` (shadcn-svelte) | `https://hmziqrs.github.io/brand/r/svelte/` | `pnpm dlx shadcn-svelte@latest add https://hmziqrs.github.io/brand/r/svelte/<piece>.json` |
+| Astro | `brand-astro` (Starwind UI) | `https://hmziqrs.github.io/brand/r/astro/` | `pnpm dlx shadcn@latest add https://hmziqrs.github.io/brand/r/astro/<piece>.json` |
+
+- Pieces are lowercase kebab names: `wordmark`, `hero`, `pricing-plans`, `notice`. The `kit` item installs everything at once; each piece pulls the pieces it imports.
+- The registries ship the kit's own copies of the stock components (`ui-*` in the Svelte registry, `starwind-*` in the Astro one), with the brand's changes already applied. Use them instead of upstream's.
+- The kit lands under one folder; point an alias `$brand` at it (`src/lib/brand`, `src/components/brand`) and import from `$brand/…`. Kit files already import each other that way.
+- In a SvelteKit project, `components.json` reads `"registry": "https://hmziqrs.github.io/brand/r/svelte"`, aliases `$lib/brand/…`, style `vega`. In an Astro project, `components.json` carries `"registries": { "@hmziq": "https://hmziqrs.github.io/brand/r/astro/{name}.json" }` and pieces install as `pnpm dlx shadcn@latest add @hmziq/<piece>`.
+- To update a copied piece, run the add command again and review the diff; the site keeps its own edits.
+- Sites that use neither: fetch `/theme.css` from the Pages site, copy classes by hand from the kit sources.
+
 ### Packages
 
 ```bash
-pnpm add tailwindcss @tailwindcss/vite tw-animate-css shadcn \
+pnpm add tailwindcss @tailwindcss/vite tw-animate-css shadcn @hmziq/brand-core \
   @fontsource-variable/onest @fontsource-variable/jetbrains-mono \
   lucide-react simple-icons shiki
 ```
@@ -46,10 +80,11 @@ pnpm add tailwindcss @tailwindcss/vite tw-animate-css shadcn \
 @import "shadcn/tailwind.css";
 @import "@fontsource-variable/onest";
 @import "@fontsource-variable/jetbrains-mono";
-@import "./theme.css";
+@import "@hmziq/brand-core/theme.css";
+@source "../node_modules/@hmziq/brand-core/src";
 ```
 
-Copy `theme.css` (section 3) into the site next to that stylesheet. Do not edit the tokens per site.
+The theme comes from the `@hmziq/brand-core` package (section 3 is its exact copy); don't copy the file into the site, and don't edit the tokens per site. The `@source` line makes Tailwind scan the package: `tones.ts` there holds class names Tailwind has to see. A site with the kit installed loads the kit's stylesheet too (`@import "$brand/styles/kit.css"`), after the theme.
 
 ### HTML
 
@@ -75,24 +110,24 @@ Dark is the default. A theme toggle removes or adds the `dark` class and remembe
 
 ### Per framework
 
-- **React (Vite, Next.js, TanStack Start):** use shadcn/ui as above.
-- **Svelte / SvelteKit:** shadcn-svelte uses the same token names, so `theme.css` works as is. Apply the same motion and writing rules.
-- **Astro:** either render shadcn React components as islands, or use **Starwind UI** (Astro-native, shadcn-style). Starwind needs a few extra tokens; see section 3.1.
-- **Dioxus or anything else with Tailwind v4:** load the same stylesheet and use the same utility classes (`bg-primary`, `text-muted-foreground`, …). Rebuild components by copying the classes from the shadcn source in the brand repo (`src/components/ui/*.tsx`) and the brand components (`src/components/brand/*.tsx`).
+- **React (Vite, Next.js, TanStack Start):** use shadcn/ui as above. There is no React registry; the lab (`apps/lab`) stays the reference.
+- **Svelte / SvelteKit:** install pieces from the Svelte registry (shadcn-svelte CLI, same token names, `theme.css` works as is). Apply the same motion and writing rules.
+- **Astro:** install pieces from the Astro registry — Starwind UI (Astro-native, shadcn-style), no React, Svelte or Vue islands. Starwind needs a few extra tokens; see section 3.1.
+- **Dioxus or anything else with Tailwind v4:** load the same stylesheet (`/theme.css` from the Pages site works without npm) and use the same utility classes (`bg-primary`, `text-muted-foreground`, …). Rebuild components by copying the classes from the kit sources (`packages/brand-svelte/src/lib`, `packages/brand-astro/src`) or the lab (`apps/lab/src`).
+
+App screens — admin panels, dashboards, settings, sign-in, the signed-in side of a product — have their own blocks and their own contract: **`APP-BLOCKS.md`** in the brand repo. It lists every app block with its props, states, copy, keyboard behavior and how each one is built in Astro, and it's the reference for both kits. Install the blocks from either registry (`app-shell`, `settings-section`, `collection-toolbar`, …) and follow that document for anything it doesn't cover as a piece.
 
 ### Code highlighting
 
-Code blocks use **Shiki** with its css-variables theme pointed at the `--code-*` tokens in `theme.css`. Colors then follow light/dark mode and the brand color, with no second theme to maintain.
+Code blocks use **Shiki** with its css-variables theme pointed at the `--code-*` tokens in `theme.css`. Colors then follow light/dark mode and the brand color, with no second theme to maintain. The theme comes from the core package:
 
 ```ts
-import { createCssVariablesTheme } from "shiki/core"
-
-export const hmziqCode = createCssVariablesTheme({ name: "hmziq", variablePrefix: "--code-" })
+import { hmziqCode } from "@hmziq/brand-core/code-theme"
 ```
 
-- **React:** see `src/components/brand/code-block.tsx` (a synchronous highlighter with only the languages the site needs, and a copy button).
+- **React:** see `apps/lab/src/components/brand/code-block.tsx` (a synchronous highlighter with only the languages the site needs, and a copy button).
 - **Svelte / SvelteKit:** `codeToHtml(code, { lang, theme: hmziqCode })` on the server or at build time.
-- **Astro:** pass the same theme object to `markdown.shikiConfig.theme` in `astro.config`. Not yet tried in a real Astro project; compare with the Storybook.
+- **Astro:** leave the built-in highlighter off (`markdown.syntaxHighlight: false`) and run core's Markdown plugins through `markdown.processor`, as `boilerplates/astro-app/astro.config.mjs` does — fenced code is highlighted by core's `code-meta` rehype plugin with `hmziqCode`, so Astro pages and SvelteKit pages get the same markup (section 8, "Markdown"). Code outside Markdown uses the kit's `CodeBlock`, tokenized at build time.
 - **Dioxus or anything else:** highlight at build time with Shiki, or point another highlighter's token classes at the `--code-token-*` variables.
 
 Code blocks sit on `--code-background` (the card color) with `--code-foreground` text.
@@ -101,7 +136,7 @@ Code blocks sit on `--code-background` (the card color) with `--code-foreground`
 
 ## 3. theme.css (exact copy)
 
-The real file lives at `theme.css` in the brand repo. This block is checked against it on every build.
+The real file lives at `packages/brand-core/theme.css` in the brand repo. This block is checked against it on every build.
 
 <!-- theme.css:start -->
 ```css
@@ -119,7 +154,7 @@ The real file lives at `theme.css` in the brand repo. This block is checked agai
  *   @import "shadcn/tailwind.css";
  *   @import "@fontsource-variable/onest";
  *   @import "@fontsource-variable/jetbrains-mono";
- *   @import "<path-to>/brand/theme.css";
+ *   @import "@hmziq/brand-core/theme.css";
  *
  * Dark is the default: ship <html class="dark"> and remove the class for light.
  *
@@ -428,7 +463,7 @@ The real file lives at `theme.css` in the brand repo. This block is checked agai
 
 ### 3.1 Starwind UI adapter (Astro)
 
-Starwind uses shadcn's names plus a few of its own. Add this after `theme.css`. It has not been tested in a real Starwind project yet, so check the result against the Storybook.
+Starwind uses shadcn's names plus a few of its own. Add this after `theme.css`. It has been tested in a real Starwind build (the `brand-astro` kit) and is correct as written. Two lines of Starwind's own stylesheet must be deleted along with its default colors, or they override `theme.css`: the `@custom-variant dark` line (core's keeps `.light` bands working inside dark pages, section 3 part 4) and the `--radius-*` scale above `xs` (core's values differ above `--radius-xl`, and the corner rules use them). Only `--radius-xs` stays — core has no equivalent.
 
 ```css
 :root,
@@ -505,6 +540,8 @@ Status is always **soft**, the same recipe shadcn uses for its destructive badge
 ```html
 <span class="bg-success/10 text-success dark:bg-success/20">Shipped</span>
 ```
+
+A change in a number (a metric trend) is colored by whether it's good or bad news, not by whether it went up or down: a falling bounce rate is green, a rising load time is red. The arrow follows the direction, the color follows the meaning, and the words always carry a sign, so color is never the only signal (`MetricTrend`, APP-BLOCKS.md).
 
 ### Code and charts
 
@@ -682,7 +719,7 @@ For favicons, app icons, avatars and the "More from hmziq" row. The site's two-l
 
 `Wordmark` and `Mark` take an optional `look`: the letters (Onest or JetBrains Mono, weight 300–600, spacing, lowercase, color), the end mark (square, rounded, dot, diamond, bar or none; its size, gap, lift and color), the mark's tile (colors, corners, sizes), a plate behind the wordmark, and movement: the square pulses, fades, ripples, blinks, spins or bounces; the letters shimmer, wave or type themselves out; the tile or plate shimmers or breathes. Each move has its own length and rest, and the whole look can play once after a delay. Colors are theme colors by name or any CSS color.
 
-Tune it on **Custom → Logo → Tweaker**, export the settings as JSON and pass them as `look` (`src/lib/logo.ts`, `components/brand/logo.css`). Without a look, both are the brand's logo exactly as above. A tuned logo stops for reduced motion and never reacts to hover; pass `paused` to hold it. Ripples are outlines and shimmer is a gradient, so check a tuned look against the rules above and in section 13 before it ships.
+Tune it on **Custom → Logo → Tweaker**, export the settings as JSON and pass them as `look` (`logo.ts` and `logo.css` in `@hmziq/brand-core`). Without a look, both are the brand's logo exactly as above. A tuned logo stops for reduced motion and never reacts to hover; pass `paused` to hold it. Ripples are outlines and shimmer is a gradient, so check a tuned look against the rules above and in section 13 before it ships.
 
 ### Marker
 
@@ -694,7 +731,7 @@ A small hollow ring is the brand's bullet: `inline-block size-2.25 shrink-0 roun
 
 ### Rings
 
-Thin circles, each with one gap, like layers of oxide. Faint rings use `--line` (the text color, faint); one ring is the accent, with a dot where it ends. They're drawn from a name with a seeded random generator, so each site, project and post gets its own picture and it never changes between visits. Copy `src/lib/rings.ts` (the hash and generator, no dependencies) and `src/components/brand/rings.tsx`.
+Thin circles, each with one gap, like layers of oxide. Faint rings use `--line` (the text color, faint); one ring is the accent, with a dot where it ends. They're drawn from a name with a seeded random generator, so each site, project and post gets its own picture and it never changes between visits. Copy `motion/rings.ts` from `@hmziq/brand-core` (the hash and generator, no dependencies) and the React `apps/lab/src/components/brand/rings.tsx`.
 
 | Piece | Where | Recipe |
 | --- | --- | --- |
@@ -703,7 +740,7 @@ Thin circles, each with one gap, like layers of oxide. Faint rings use `--line` 
 | Band arcs | Right side of the orange band, from `md` up | viewBox 400, 8 rings around (400, 200), radius `60 + 44·i`, turned `150 + 23·i°`. Ring 3 in `--primary` (dark on the band), width 3, a 60% gap; the rest `--line`, width 1.25, a 20% gap. `absolute top-1/2 -right-[10%] h-[170%] -translate-y-1/2`. |
 | Ring gauge | Key numbers | 72×72, radius 30, stroke 5, starting at the top. A share (0–1): a `--border` track and a `--primary` arc of that share with a round cap. A count (n > 1): n `--primary` segments with 5-unit gaps. The number beside it in `text-[1.75rem] font-medium tracking-[-0.03em]`, the label under it in `text-sm text-muted-foreground`. |
 
-**Movement.** The hero rings can move a little, in two layers that combine: the **orange ring** (still, turns, breathes, or its dot goes round) and the **gray rings** (still, ripple, one at a time, or one turns). The gray rings have no dot, so light shows on them better than movement: a ripple lights them one after another without moving anything. Use a preset (`<Rings seed="…" motion="ripple-turn" />`) or your own settings (`motion={{ orange: { kind: "turn", seconds: 120 }, gray: { kind: "ripple", every: 10 } }}`), usually exported from the tweaker as JSON (`{ "rings": { "motion": … } }`). The movement is plain CSS (`src/components/brand/rings.css`, copy it with the component) plus keyframes that `ringMoves` in `src/lib/rings.ts` makes from the settings. Only one or two rings ever move; the rest of the picture stays exactly as drawn. `paused` stops it; visitors who ask for reduced motion always get the still picture. Tune it in Storybook under **Custom → Ring motion → Tweaker**: it exports the settings as JSON (copy or download) and loads pasted settings back; **Side by side** shows the presets together. Until settings are picked, the default is still.
+**Movement.** The hero rings can move a little, in two layers that combine: the **orange ring** (still, turns, breathes, or its dot goes round) and the **gray rings** (still, ripple, one at a time, or one turns). The gray rings have no dot, so light shows on them better than movement: a ripple lights them one after another without moving anything. Use a preset (`<Rings seed="…" motion="ripple-turn" />`) or your own settings (`motion={{ orange: { kind: "turn", seconds: 120 }, gray: { kind: "ripple", every: 10 } }}`), usually exported from the tweaker as JSON (`{ "rings": { "motion": … } }`). The movement is plain CSS (`rings.css` in `@hmziq/brand-core`, copy it with the component) plus keyframes that `ringMoves` in core's `motion/rings.ts` makes from the settings. Only one or two rings ever move; the rest of the picture stays exactly as drawn. `paused` stops it; visitors who ask for reduced motion always get the still picture. Tune it in Storybook under **Custom → Ring motion → Tweaker**: it exports the settings as JSON (copy or download) and loads pasted settings back; **Side by side** shows the presets together. Until settings are picked, the default is still.
 
 Rings are always `--line` plus one accent. Nothing else is drawn with rings: not the logo, not cover images, not backgrounds behind text.
 
@@ -731,7 +768,7 @@ Cards and icon tiles have **no grey fill**: a thin line only.
 
 ### 3D scenes (optional)
 
-Most pages don't need one. When a page wants something moving, it can have **one** 3D scene, drawn with three.js in the rings' language: thin lines in the text color, one thing in orange, and the same picture every time for the same name. The scenes come from freeoxide's lattice and oxlabs' scenes, redrawn in the kit's colors. Source: `src/lib/scenes/` (plain TypeScript and three.js, no framework) and the React wrapper `src/components/brand/scene.tsx`. Storybook: **Custom → Scenes (3D)**.
+Most pages don't need one. When a page wants something moving, it can have **one** 3D scene, drawn with three.js in the rings' language: thin lines in the text color, one thing in orange, and the same picture every time for the same name. The scenes come from freeoxide's lattice and oxlabs' scenes, redrawn in the kit's colors. Source: `motion/scenes/` in `@hmziq/brand-core` (plain TypeScript and three.js, no framework) and the React wrapper `apps/lab/src/components/brand/scene.tsx`. Storybook: **Custom → Scenes (3D)**.
 
 | Scene | Where | What it shows |
 | --- | --- | --- |
@@ -782,7 +819,7 @@ Svelte (Astro and plain HTML work the same way). Show the pause button only when
 
 ### Page patterns
 
-What each kind of page uses. Each one is in the explorations file, working, and built in the Storybook: **Sites → Landing pages** for every site's front page, **Sites → Pages** for the rest (claude-multi's about, providers, FAQ, changelog, blog, privacy, terms and 404; gpui-query's docs; a blog post; oxlabs' contact page; and hmziq.rs/components, a catalog of the interactive pieces). Copy from `src/sites/`.
+What each kind of page uses. Each one is in the explorations file, working, and built in the Storybook: **Sites → Landing pages** for every site's front page, **Sites → Pages** for the rest (claude-multi's about, providers, FAQ, changelog, blog, privacy, terms and 404; gpui-query's docs; a blog post; oxlabs' contact page; and hmziq.rs/components, a catalog of the interactive pieces). Copy from `apps/lab/src/sites/`.
 
 | Page | Pattern |
 | --- | --- |
@@ -805,7 +842,7 @@ What each kind of page uses. Each one is in the explorations file, working, and 
 | 404 | The rings beside the words. |
 | SaaS landing (templates) | The sites' own `SiteShell`: the same header, rhythm, orange close and signature footer, signed with the product's name, with the product's mark and one line in place of the "More from hmziq" row · the kit's hero parts, so headlines stay at the landing size · a product demo you can click in the hero or right under it, at a fixed height · customers as plain grey wordmarks · quotes in outline cards with a hollow ring for the person · plans in outline cards (the recommended one with its fingerprint) or as an accent table · at most one orange band: a terminal or a second band goes on grey. Five of them in the Storybook under **Templates → SaaS landing pages**, all with example content. |
 
-The five SaaS templates, so a new product can start from the closest one (`src/templates/saas/`):
+The five SaaS templates, so a new product can start from the closest one (`apps/lab/src/templates/saas/`):
 
 | Template | Product | What makes it different |
 | --- | --- | --- |
@@ -864,6 +901,58 @@ Icons: see section 6.
 
 The freeoxide page in the Storybook (`Sites/Landing pages`) is the reference.
 
+### Page patterns
+
+Content pages have their own blocks, in `blocks/content` under `$brand`. Each installs from either registry by its kebab name: `blog-layout`, `post-header`, `docs-layout`, `release-timeline`, `faq-list`, `not-found`, …
+
+| Page | Blocks |
+| --- | --- |
+| Blog post | BlogLayout (the shell), PostHeader, PostContents, PullQuote, ShareBar, NewsletterBand |
+| Blog index | PostList, PostCard, PostMeta; SearchBox and TopicChips filter (the page holds the filter state) |
+| Docs | DocsLayout, DocsSearch, DocsTitle, DocsPager |
+| Changelog | ReleaseTimeline, ReleaseHead with KindTag, ReleaseNotes, PastReleases |
+| FAQ | FaqList on Question, questions numbered 01, 02… in orange with the topic as a grey tag |
+| Legal | LegalLayout, LegalSection, LegalBlock; SummaryBox carries the short version |
+| Contact | ContactChannels. Email opens the mail app; the address never appears in the page text |
+| 404 | NotFound |
+| Landing pieces | InstallSteps, TypingTerminal, CodeEditor |
+| About | No block of its own: PageIntro, BigNumbers, Section, StepNumber, CommandBar, Mark, CtaBand |
+
+Blocks never read the URL or navigate. The page passes the current path in and handles navigation (section 9).
+
+#### Markdown
+
+Content pages are written in Markdown: content collections in Astro, mdsvex in SvelteKit. Both run the same four plugins, each imported from its own entry under `@hmziq/brand-core/markdown/` — `callout`, `code-meta`, `heading-anchor` and `table` — with Shiki highlighting from `@hmziq/brand-core/code-theme`. The framework's built-in highlighter stays off, so both kits produce the same markup.
+
+| In Markdown | Renders as |
+| --- | --- |
+| Text, lists, links, images | Prose styles |
+| `##` and `###` headings | Anchored headings; their list feeds PostContents and Toc |
+| Fenced code | The CodeBlock look. The fence's `title="…"` becomes the file label |
+| Tables | The DataTable lines style |
+| `> [!NOTE]`, `> [!TIP]`, `> [!IMPORTANT]` | Notice, info tone |
+| `> [!WARNING]` | Notice, warning tone |
+| `> [!CAUTION]` | Notice, destructive tone |
+| Pull quotes, steps, anything without Markdown syntax | The kit component, used from MDX or mdsvex |
+
+A post's cover image and whether it is line art (so it inverts on light pages) come from frontmatter.
+
+### App screens
+
+The signed-in side of a product — the shell and navigation, settings forms, members tables, metrics, sign-in — has its own blocks in `blocks/app` under `$brand`, and its own document: **`APP-BLOCKS.md`** in the brand repo is the contract for every one of them, in both kits. Build app screens from those blocks and that document; this section only adds what they sit on top of.
+
+App screens run a step smaller and quieter than landing pages, so more fits on screen:
+
+| Element | Classes |
+| --- | --- |
+| Page title (h1) | `text-2xl font-medium tracking-tight` |
+| Section title (h2) | `text-base font-medium` |
+| Body, table cells, form labels | `text-sm` |
+| Descriptions, meta | `text-sm text-muted-foreground` |
+| Big stat number | `text-2xl font-medium tracking-[-0.02em]` |
+
+Everything else carries over from the sections above: outline panels, color only on hover, soft status fills, `font-medium` titles, mono for machine values only.
+
 ---
 
 ## 9. Custom components
@@ -875,15 +964,20 @@ The freeoxide page in the Storybook (`Sites/Landing pages`) is the reference.
 3. Put shadcn components together into a page block (Hero, Section, FeatureGrid…).
 4. Only then write a new component, with the rules below.
 
-### Where things live (in a React site; mirror it elsewhere)
+### Where things live
 
-| Folder | What | Rule |
+The kits are the source now; the React lab (`apps/lab`) is the picture they have to match, not the thing you copy from. In a site with a kit installed, `$brand` points at the kit folder — `src/lib/brand` in SvelteKit, `src/components/brand` in Astro — and everything below sits under it:
+
+| Folder (under `$brand`) | What | Rule |
 | --- | --- | --- |
-| `components/ui` | shadcn components | Keep as shadcn ships them. The only edit: remove hover/press movement. |
-| `components/brand` | small brand pieces (Wordmark, Mark, Marker, Rings, Scene, Tag, IconTile, Notice, CodeBlock, CodeLines, CopyButton, CommandBar, TerminalWindow, Stepper, Segmented, Question, Toc, DataTable, BrandIcon) | Tokens only. Copy them from the brand repo's `src/components/brand`, with `src/lib/rings.ts`, `src/lib/logo.ts` (the Wordmark and Mark use it), `src/lib/highlight-shell.tsx` and `src/lib/scroll-spy.ts` (and `src/lib/scenes/` plus the `three` package if a site uses a 3D scene). |
-| `sites/shared` or `components/site` | page blocks (SiteShell, Hero and its parts HeroTitle, HeroLede, HeroActions, HeroNotes, HeroNote, PageIntro, RingStats, Section, OutlineCard, ElementCard, FeatureCards, FeatureGrid, Steps, PricingPlans, Price, BeforeAfter, CtaBand) and content pieces (Prose, Bullets, CheckList, LinkBar, SummaryBox, BigNumbers, SearchBox, TopicChips, EmptyNote) | Same on every site. |
-| `templates/saas` | SaaS-only blocks (SaasShell, a thin wrapper around SiteShell; CenteredHero, built from the hero parts; AppWindow, LogoCloud, Person, QuoteCard, IntegrationGrid, Faq, InverseBand) | For products outside the hmziq family. Anything the sites also need lives in `sites/shared`. |
-| pages | one per route | Put blocks together; no new styles. |
+| `ui` (Svelte) / `starwind` (Astro) | stock components, vendored with the brand's changes | Install from the registry (`ui-*`, `starwind-*` items), don't hand-edit beyond the brand's changes. Updates come from the registry too. |
+| `components` | small brand pieces (Wordmark, Mark, Marker, Rings, Scene, Tag, IconTile, Notice, CodeBlock, CodeLines, CopyButton, CommandBar, TerminalWindow, Stepper, Segmented, Question, Toc, DataTable, BrandIcon) | Tokens only. Install from the registry; the logic (tones, logo recipe, rings, scroll spy, code theme) comes from `@hmziq/brand-core`, never copied. A site using Scene adds `three` itself. |
+| `blocks/site` | page blocks (SiteShell/SiteLayout, Hero and its parts HeroTitle, HeroLede, HeroActions, HeroNotes, HeroNote, PageIntro, RingStats, Section, OutlineCard, ElementCard, FeatureCards, FeatureGrid, Steps, PricingPlans, Price, BeforeAfter, CtaBand) and content pieces (Prose, Bullets, CheckList, LinkBar, SummaryBox, BigNumbers, SearchBox, TopicChips, EmptyNote) | Same on every site. |
+| `blocks/content` | content-page blocks (blog, docs, changelog, FAQ, legal, contact, 404) | Same on every site; pages pass the content in. |
+| `blocks/app` | app blocks: the shell (AppShell, AppPage, AppPageHeader, WorkspaceSwitcher, UserMenu), settings (SettingsSection, SettingRow, FormActions), states (EmptyState, NoResults, ErrorState, DataState, the skeletons), lists and tables (CollectionToolbar, FilterChip, SortMenu, BulkActionBar, the table parts), sign-in (AuthLayout, the forms, ProviderButtons, PasswordInput), records (DetailList, DetailSection), metrics (MetricTrend, StatCard, StatGrid, UsageMeter) and actions (ConfirmAction, RecordSheet) | For app screens, on both kits. Their contract is `APP-BLOCKS.md`; follow it, not the lab. |
+| pages / routes | one per route | Put blocks together; no new styles. |
+
+Kit sources in the brand repo: `packages/brand-svelte/src/lib` and `packages/brand-astro/src` — port new pieces to both, add them to `scripts/pieces.json`, and re-run `pnpm registry:generate` (docs/kits.md).
 
 ### The rules
 
@@ -1009,6 +1103,7 @@ These made the old sites look like every other developer site:
 - Colored paragraphs, tinted notice boxes, colored card backgrounds. The only colored section backgrounds are the bands in section 7.
 - Grey-filled cards, tiles or panels sitting in the page.
 - Rings in a logo or mark, or rings behind text. A solid dot as a bullet.
+- Rings stacked under a hero's words on narrow screens. Rings sit beside the words; when the layout has no room for "beside" (below md), they sit out instead of taking vertical space.
 - Tailwind's numbered palette (`bg-green-500`) or hex values in components.
 
 ---
@@ -1018,9 +1113,9 @@ These made the old sites look like every other developer site:
 For each existing site:
 
 1. **Inventory.** List every page, its real content, its components, and every color and font in use.
-2. **Stack.** Tailwind v4, the main stylesheet and `theme.css` from section 2. Remove old fonts, color variables, theme switchers and textures.
+2. **Stack.** Tailwind v4, the main stylesheet and `theme.css` from section 2, and the site's framework kit installed from its registry (section 2, "The registries"): `brand-svelte` for SvelteKit sites, `brand-astro` for Astro sites. Remove old fonts, color variables, theme switchers and textures.
 3. **Map colors to tokens.** Every color becomes a token utility (`bg-background`, `text-foreground`, `text-muted-foreground`, `border-border`, `bg-card`, `bg-primary`…). No hex values in components.
-4. **Components.** Replace hand-made UI with shadcn components (Base UI, Vega). Remove hover/press transforms. Statuses become soft tags in their role color; feature icons go in icon tiles.
+4. **Components.** Replace hand-made UI with the kit's pieces and its vendored stock components (`ui-*` / `starwind-*` registry items), not upstream shadcn. Remove hover/press transforms. Statuses become soft tags in their role color; feature icons go in icon tiles.
 5. **Icons and code.** Swap every icon to Lucide (section 6's table), logos to Simple Icons, and highlight code with Shiki and the `--code-*` tokens (section 2).
 6. **Copy.** Rewrite the headline, intro and buttons under section 11. Keep facts and numbers exactly as they were.
 7. **Structure.** Header, hero, sections and footer per section 8, with the signature pieces from section 7. Add the "More from hmziq" row with each site's mark.

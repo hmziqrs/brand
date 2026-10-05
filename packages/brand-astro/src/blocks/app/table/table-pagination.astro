@@ -1,0 +1,95 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { ChevronDown, ChevronLeft, ChevronRight } from "@lucide/astro";
+import { cn } from "$brand/utils";
+import { Button } from "$brand/starwind/button";
+
+/*
+ * The table's foot: which rows are showing, the page size, and the page
+ * turns. Page turns are links (they work with no JavaScript, and sit quiet at
+ * the ends); the page size is a real select named per_page that hands its
+ * form in on change — with no JavaScript it waits for the form's next submit.
+ */
+
+interface Props extends HTMLAttributes<"div"> {
+  /** From 1. */
+  page: number;
+  pageSize: number;
+  total: number;
+  /** The href for the same list on another page. */
+  pageHref: (page: number) => string;
+  /** Offered as the page size, submitted as per_page. */
+  pageSizes?: number[];
+  /** Names the page-turn nav, for pages that stack more than one pagination. */
+  navLabel?: string;
+}
+
+const { page, pageSize, total, pageHref, pageSizes, navLabel = "Pages", class: className, ...rest } = Astro.props;
+
+const lastPage = Math.max(1, Math.ceil(total / pageSize));
+const shown = Math.min(page * pageSize, total);
+const range = total === 0 ? "0 of 0" : `${(page - 1) * pageSize + 1}–${shown} of ${total}`;
+---
+
+<div
+  data-slot="table-pagination"
+  class={cn("flex flex-wrap items-center justify-between gap-3 px-4 py-3", className)}
+  {...rest}
+>
+  <p class="text-sm text-muted-foreground tabular-nums">{range}</p>
+  <div class="flex items-center gap-3">
+    {
+      pageSizes && (
+        <div class="relative">
+          <select
+            name="per_page"
+            aria-label="Rows per page"
+            class="h-8 appearance-none rounded-md border border-border bg-background pr-7 pl-2.5 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-3"
+          >
+            {pageSizes.map((size) => (
+              <option value={size} selected={size === pageSize}>
+                {size} per page
+              </option>
+            ))}
+          </select>
+          <ChevronDown class="lucide pointer-events-none absolute top-1/2 right-2 size-4 -translate-y-1/2 text-muted-foreground" aria-hidden="true" />
+        </div>
+      )
+    }
+    <nav aria-label={navLabel} class="flex items-center gap-2">
+      {
+        page > 1 ? (
+          <Button variant="outline" size="sm" href={pageHref(page - 1)} aria-label="Previous page">
+            <ChevronLeft class="lucide" aria-hidden="true" />
+          </Button>
+        ) : (
+          <Button variant="outline" size="sm" disabled aria-label="Previous page">
+            <ChevronLeft class="lucide" aria-hidden="true" />
+          </Button>
+        )
+      }
+      {
+        page < lastPage ? (
+          <Button variant="outline" size="sm" href={pageHref(page + 1)} aria-label="Next page">
+            <ChevronRight class="lucide" aria-hidden="true" />
+          </Button>
+        ) : (
+          <Button variant="outline" size="sm" disabled aria-label="Next page">
+            <ChevronRight class="lucide" aria-hidden="true" />
+          </Button>
+        )
+      }
+    </nav>
+  </div>
+</div>
+
+<script>
+  // A page-size change hands the form in at once; with no JavaScript the
+  // select waits for the form's next submit, which the search box's Enter
+  // gives it anyway.
+  document.addEventListener("change", (event) => {
+    const select = event.target as HTMLSelectElement | null;
+    if (select?.name !== "per_page") return;
+    select.form?.requestSubmit();
+  });
+</script>

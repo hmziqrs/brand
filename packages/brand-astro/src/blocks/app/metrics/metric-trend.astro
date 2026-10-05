@@ -1,0 +1,54 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { ArrowDownRight, ArrowUpRight, Minus } from "@lucide/astro";
+import { cn } from "$brand/utils";
+import type { MetricTrendProps } from "./types";
+
+/*
+ * Which way a number moved, and whether that's good: the arrow follows the
+ * direction, the color follows the meaning, and the words always carry a
+ * sign. Screen readers hear the direction spelled out ("Up 12% vs last 30
+ * days"), so the color and the arrow are never the only signal.
+ */
+
+interface Props extends HTMLAttributes<"span">, MetricTrendProps {}
+
+const { change, good = "up", format = "percent", comparison, class: className, ...rest } = Astro.props;
+
+const direction = change > 0 ? "up" : change < 0 ? "down" : "flat";
+const Icon = direction === "up" ? ArrowUpRight : direction === "down" ? ArrowDownRight : Minus;
+
+// Grey unless the direction means something: moving the good way is
+// success, moving the wrong way is destructive.
+const tone =
+  direction === "flat" || good === "neither"
+    ? "text-muted-foreground"
+    : direction === good
+      ? "text-success"
+      : "text-destructive";
+
+// The magnitude without its sign, scaled by the format. The sign itself is
+// written by hand so it's always there, and always the typographic minus
+// the plan spells: "+12%", "−3%", "No change".
+const suffix = format === "percent" ? "%" : format === "points" ? " points" : "";
+const magnitude = (format === "percent" ? Math.abs(change) * 100 : Math.abs(change)).toLocaleString("en-US", {
+  maximumFractionDigits: 1,
+});
+const text = direction === "flat" ? "No change" : `${change > 0 ? "+" : "−"}${magnitude}${suffix}`;
+
+// What the whole thing reads as, for screen readers: the plan's exact
+// words, "Up 12% vs last 30 days".
+const spoken =
+  direction === "flat"
+    ? `No change${comparison ? ` ${comparison}` : ""}`
+    : `${direction === "up" ? "Up" : "Down"} ${magnitude}${suffix}${comparison ? ` ${comparison}` : ""}`;
+---
+
+<span data-slot="metric-trend" class={cn("inline-flex items-center gap-1.5", className)} {...rest}>
+  <span class={cn("inline-flex items-center gap-0.5 text-xs font-medium whitespace-nowrap", tone)} aria-hidden="true">
+    <Icon class="lucide size-3.5 shrink-0" />
+    {text}
+  </span>
+  {comparison && <span class="text-xs whitespace-nowrap text-muted-foreground" aria-hidden="true">{comparison}</span>}
+  <span class="sr-only">{spoken}</span>
+</span>

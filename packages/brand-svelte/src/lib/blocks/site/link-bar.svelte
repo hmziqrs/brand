@@ -1,0 +1,12 @@
+<!-- A link to copy, in the command bar's outline: the address without https://, then Copy link. -->
+<script lang="ts">
+	import { cn } from "$brand/utils.js";
+	import CopyButton from "$brand/components/copy-button.svelte";
+
+	let { url, class: className }: { url: string; class?: string } = $props();
+</script>
+
+<div data-slot="link-bar" class={cn("flex w-fit max-w-full min-w-0 items-center gap-4 rounded-xl border py-1.5 pr-1.5 pl-4.5", className)}>
+	<code class="min-w-0 flex-1 overflow-x-auto font-mono text-sm whitespace-nowrap">{url.replace("https://", "")}</code>
+	<CopyButton text={url} label="Copy link" />
+</div>

@@ -1,0 +1,34 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { cn } from "$brand/utils";
+
+/*
+ * One labelled field of an auth form: the label, the control (which carries
+ * its own `name`), and the field's error. `for` is the control's id; the
+ * error takes the id ${for}-error, so the control can point its
+ * aria-describedby at it.
+ */
+
+interface Props extends HTMLAttributes<"div"> {
+  label: string;
+  for: string;
+  error?: string;
+}
+
+const { label, for: fieldFor, error, class: className, ...rest } = Astro.props;
+
+const hasBeside = Astro.slots.has("beside");
+---
+
+<div data-slot="auth-field" class={cn("flex flex-col gap-2", className)} {...rest}>
+  <div class="flex items-center justify-between gap-2">
+    <label class="text-sm font-medium" for={fieldFor}>{label}</label>
+    {hasBeside && <slot name="beside" />}
+  </div>
+  <slot />
+  {error && (
+    <p id={`${fieldFor}-error`} class="text-sm text-destructive">
+      {error}
+    </p>
+  )}
+</div>

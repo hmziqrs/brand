@@ -1,0 +1,76 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { cn } from "$brand/utils";
+
+/*
+ * The frame of an auth page: no shell, no nav, one small column with the
+ * brand at the top, the title, the form, and the legal links at the foot.
+ * The centered variant is the whole page; the split variant holds the form
+ * on the left and an aside on the right from md (the product's rings, never
+ * text on top). Below md the split is the centered page with the aside
+ * hidden. The page brings its own <form> as the default slot.
+ *
+ * The layout is the page's <main> either way: an auth page has no shell, so
+ * this column is the one content region the document has — without it the
+ * whole page sat in no landmark (the region and landmark-one-main axe
+ * findings on the demo's auth pages).
+ */
+
+interface Props extends HTMLAttributes<"main"> {
+  variant?: "centered" | "split";
+  title: string;
+  description?: string;
+}
+
+const { variant = "centered", title, description, class: className, ...rest } = Astro.props;
+
+// One column either way: brand, title, the form, then the footer at the
+// foot of the viewport, where terms links belong.
+const column = "flex w-full max-w-sm flex-col px-4 py-10 md:py-14";
+
+const hasAside = Astro.slots.has("aside");
+const hasFooter = Astro.slots.has("footer");
+---
+
+{
+  variant === "split" ? (
+    <main data-slot="auth-layout" class={cn("grid min-h-dvh md:grid-cols-2", className)} {...rest}>
+      <div class="flex flex-col md:justify-center">
+        <div class={cn(column, "mx-auto")}>
+          <slot name="brand" />
+          <header class="mt-10 flex flex-col gap-2">
+            <h1 class="text-2xl font-medium tracking-tight">{title}</h1>
+            {description && <p class="text-sm text-muted-foreground">{description}</p>}
+          </header>
+          <div class="mt-8 flex flex-col">
+            <slot />
+          </div>
+          {hasFooter && (
+            <div class="mt-auto pt-10">
+              <slot name="footer" />
+            </div>
+          )}
+        </div>
+      </div>
+      <div class="relative hidden items-center justify-center overflow-hidden border-l border-border p-12 md:flex">
+        {hasAside && <slot name="aside" />}
+      </div>
+    </main>
+  ) : (
+    <main data-slot="auth-layout" class={cn(column, "min-h-dvh mx-auto", className)} {...rest}>
+      <slot name="brand" />
+      <header class="mt-10 flex flex-col gap-2">
+        <h1 class="text-2xl font-medium tracking-tight">{title}</h1>
+        {description && <p class="text-sm text-muted-foreground">{description}</p>}
+      </header>
+      <div class="mt-8 flex flex-col">
+        <slot />
+      </div>
+      {hasFooter && (
+        <div class="mt-auto pt-10">
+          <slot name="footer" />
+        </div>
+      )}
+    </main>
+  )
+}

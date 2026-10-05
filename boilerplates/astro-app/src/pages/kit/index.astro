@@ -1,0 +1,39 @@
+---
+// The /kit gallery's index: one page per group, every piece in every state
+// it ships (docs/kits.md). It stands in for Storybook, which doesn't support
+// Astro components. Each section's id is the piece's anchor in
+// scripts/pieces.json, which `pnpm check:parity` reads.
+import Container from "$brand/blocks/site/container.astro";
+import PageIntro from "$brand/blocks/site/page-intro.astro";
+import SiteLayout from "$brand/blocks/site/site-layout.astro";
+import ThemeInit from "../../components/theme-init.astro";
+import ThemeToggle from "../../components/theme-toggle.astro";
+
+const groups = [
+  { href: "/kit/brand", title: "Brand pieces", body: "The wordmark, the mark and marker, the rings, the code and terminal pieces, the questions and the tags." },
+  { href: "/kit/site", title: "Site blocks", body: "The shell and the head, the hero and its parts, sections, cards, steps, pricing and the closing band." },
+  { href: "/kit/content", title: "Content pieces and content-page blocks", body: "Prose and lists, then the blog, docs, changelog, FAQ, legal, contact and 404 blocks, and the interactive landing pieces." },
+  { href: "/kit/app", title: "App blocks", body: "The shell and headers, settings, states and skeletons, lists and tables, the auth forms, details, metrics, and the confirm and edit overlays." },
+];
+---
+
+<SiteLayout site="example" maker="the kit" layout="page" head={{ site: "freeoxide", title: "The kit — astro-app", description: "Every piece the Astro kit ships, in every state.", url: "https://example.com/kit" }}>
+  <ThemeInit slot="head" />
+  <ThemeToggle slot="extra" />
+
+  <Container>
+    <PageIntro>
+      <Fragment slot="kicker">The kit</Fragment>
+      <Fragment slot="title">Every piece, in every state</Fragment>
+      <Fragment slot="lede">The Astro kit's gallery. It stands in for the Svelte kit's Storybook, which doesn't support Astro components.</Fragment>
+    </PageIntro>
+    <div class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {groups.map((group) => (
+        <a href={group.href} class="relative flex flex-col gap-3 overflow-hidden rounded-xl p-6 text-sm text-foreground ring-1 ring-foreground/10 no-underline transition-colors outline-none hover:ring-primary/50 focus-visible:ring-3 focus-visible:ring-ring/50">
+          <h2 class="text-lg font-medium tracking-[-0.01em]">{group.title}</h2>
+          <p class="text-[0.9rem] leading-relaxed text-muted-foreground">{group.body}</p>
+        </a>
+      ))}
+    </div>
+  </Container>
+</SiteLayout>

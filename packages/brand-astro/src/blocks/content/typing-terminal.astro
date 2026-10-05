@@ -1,0 +1,217 @@
+---
+import { RotateCcw } from "@lucide/astro";
+import { cn } from "$brand/utils";
+import { Button } from "$brand/starwind/button";
+import TerminalWindow from "$brand/components/terminal-window.astro";
+import TerminalBody from "$brand/components/terminal-body.astro";
+import TerminalLine from "$brand/components/terminal-line.astro";
+import CopyButton from "$brand/components/copy-button.astro";
+import type { TerminalLineData } from "$brand/components/terminal-line";
+
+/*
+ * A terminal that types the session out, command by command, at a fixed
+ * height so replaying it never moves the page under it. The finished
+ * session is what ships: it is in the markup, so the page reads whole
+ * without JavaScript, for readers who ask for less motion, and for find in
+ * page. Replay types it again. The copy button always copies the whole
+ * session's commands.
+ */
+
+interface Props {
+  lines: TerminalLineData[];
+  title?: string;
+  /** How many rows the window holds, so replaying never moves the page. */
+  rows?: number;
+  class?: string;
+}
+
+const { lines, title = "Terminal", rows = 7, class: className } = Astro.props;
+
+const commands = lines.filter(([kind]) => kind === "cmd").map(([, text]) => text).join("\n");
+/* The body's own line height is 1.9em of its 0.8125rem text, plus its py-4.5
+   padding, so `rows` lines fit exactly and the height never changes. */
+const height = `calc(${rows} * 1.9em + 2.25rem)`;
+---
+
+<TerminalWindow title={title} class={cn("max-w-[52rem]", className)}>
+  <Fragment slot="actions">
+    <Button data-terminal-replay variant="ghost" size="icon-sm" aria-label="Play it again" class="text-muted-foreground hover:text-foreground">
+      <RotateCcw />
+    </Button>
+    <CopyButton text={commands} />
+  </Fragment>
+  <TerminalBody data-terminal-lines={JSON.stringify(lines)} style={height} class="overflow-hidden">
+    {lines.map((line) => (
+      <TerminalLine line={line} />
+    ))}
+  </TerminalBody>
+</TerminalWindow>
+
+<script>
+  // The typing itself: on replay, the lines are redrawn a character at a
+  // time, the way the lab's TypingTerminal schedules them. Readers who asked
+  // for less motion get the finished text back, nothing typed.
+  import { highlightShell } from "$brand/components/highlight-shell";
+
+  const toneClass: Record<string, string> = {
+    function: "text-(--code-token-function)",
+    string: "text-(--code-token-string)",
+    keyword: "text-(--code-token-keyword)",
+  };
+
+  type Line = [kind: "cmd" | "note" | "step" | "ok" | "kv", text: string, answer?: string];
+
+  const timers = new WeakMap<HTMLElement, number[]>();
+
+  const clearTimers = (root: HTMLElement) => {
+    for (const id of timers.get(root) ?? []) window.clearTimeout(id);
+    timers.set(root, []);
+  };
+
+  const schedule = (root: HTMLElement, fn: () => void, at: number) => {
+    const list = timers.get(root) ?? [];
+    list.push(window.setTimeout(fn, at));
+    timers.set(root, list);
+  };
+
+  /** One command line, partly typed: `$ ` plus the highlighted text so far. */
+  function typedLine(text: string, shown: number) {
+    const line = document.createElement("div");
+    line.className = "whitespace-pre";
+    const prompt = document.createElement("span");
+    prompt.className = "text-primary select-none";
+    prompt.textContent = "$ ";
+    line.append(prompt);
+    const partial = text.slice(0, shown);
+    for (const part of highlightShell(partial)) {
+      const span = part.tone ? document.createElement("span") : document.createTextNode(part.text);
+      if (part.tone && span instanceof HTMLSpanElement) {
+        span.className = toneClass[part.tone];
+        span.textContent = part.text;
+      }
+      line.append(span);
+    }
+    if (shown < text.length) {
+      const caret = document.createElement("span");
+      caret.className = "ml-px inline-block h-[1.15em] w-[0.55em] bg-primary align-[-0.2em]";
+      line.append(caret);
+    }
+    return line;
+  }
+
+  /** One finished line, the same markup the server rendered. */
+  function finishedLine(line: Line) {
+    const [kind, a, b] = line;
+    const el = document.createElement("div");
+    el.className = "whitespace-pre";
+    if (kind === "cmd") {
+      const prompt = document.createElement("span");
+      prompt.className = "text-primary select-none";
+      prompt.textContent = "$ ";
+      el.append(prompt);
+      for (const part of highlightShell(a)) {
+        if (part.tone) {
+          const span = document.createElement("span");
+          span.className = toneClass[part.tone];
+          span.textContent = part.text;
+          el.append(span);
+        } else el.append(document.createTextNode(part.text));
+      }
+    } else if (kind === "note") {
+      el.className = "whitespace-pre text-muted-foreground";
+      el.textContent = `# ${a}`;
+    } else if (kind === "ok") {
+      const mark = document.createElement("span");
+      mark.className = "text-(--code-token-string)";
+      mark.textContent = "✓";
+      el.append(mark, document.createTextNode(` ${a}`));
+    } else if (kind === "kv") {
+      const key = document.createElement("span");
+      key.className = "text-muted-foreground";
+      key.textContent = `${a}: `;
+      el.append(key, document.createTextNode(b ?? ""));
+    } else {
+      const mark = document.createElement("span");
+      mark.className = "text-primary";
+      mark.textContent = "▸ ";
+      el.append(mark, document.createTextNode(a));
+      if (b) {
+        const sep = document.createElement("span");
+        sep.className = "text-muted-foreground";
+        sep.textContent = " › ";
+        const answer = document.createElement("span");
+        answer.className = "text-(--code-token-string)";
+        answer.textContent = b;
+        el.append(sep, answer);
+      }
+    }
+    return el;
+  }
+
+  function replay(root: HTMLElement, lines: Line[]) {
+    clearTimers(root);
+    const body = root.querySelector<HTMLElement>("[data-terminal-lines]");
+    if (!body) return;
+    body.replaceChildren();
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      for (const line of lines) body.append(finishedLine(line));
+      return;
+    }
+    let t = 200;
+    lines.forEach((line, index) => {
+      const [kind, text] = line;
+      if (kind === "cmd") {
+        for (let chars = 0; chars <= text.length; chars++) {
+          const shown = chars;
+          schedule(
+            root,
+            () => {
+              const keep = [...body.children].slice(0, index);
+              body.replaceChildren(...keep, typedLine(text, shown));
+            },
+            t,
+          );
+          t += 28;
+        }
+        t += 350;
+      } else {
+        schedule(
+          root,
+          () => {
+            const keep = [...body.children].slice(0, index);
+            body.replaceChildren(...keep, finishedLine(line));
+          },
+          t,
+        );
+        t += 550;
+      }
+    });
+    schedule(
+      root,
+      () => {
+        body.replaceChildren(...lines.map((line) => finishedLine(line)));
+      },
+      t,
+    );
+  }
+
+  document.addEventListener("click", (event) => {
+    const button = (event.target as HTMLElement | null)?.closest<HTMLElement>("[data-terminal-replay]");
+    if (!button) return;
+    // The window the button sits in is this terminal; the body carries the session.
+    const root = button.closest<HTMLElement>("[data-slot='terminal']");
+    const body = root?.querySelector<HTMLElement>("[data-terminal-lines]");
+    if (!root || !body) return;
+    let lines: Line[] = [];
+    try {
+      lines = JSON.parse(body.dataset.terminalLines ?? "[]") as Line[];
+    } catch {
+      return;
+    }
+    replay(root, lines);
+  });
+
+  document.addEventListener("astro:before-swap", () => {
+    for (const root of document.querySelectorAll<HTMLElement>("[data-terminal-lines]")) clearTimers(root);
+  });
+</script>

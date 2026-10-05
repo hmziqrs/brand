@@ -1,0 +1,18 @@
+/*
+ * The main stylesheet, as BRAND.md section 2 writes it: Tailwind, tw-animate,
+ * the fonts, then core's theme.css and the kit stylesheet. The framework CSS
+ * comes before the theme, or Tailwind's `@theme inline` utilities don't pick
+ * the tokens up. The `@source` lines are relative to this file, in
+ * src/styles/: they make Tailwind scan core (tones.ts and the Markdown
+ * plugins hold class names it has to see) and the kit, which lives outside
+ * this project while it is used from its source. In a copied project the kit
+ * sits inside src/, which Tailwind scans anyway, and only core's line stays.
+ */
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "@fontsource-variable/onest";
+@import "@fontsource-variable/jetbrains-mono";
+@import "@hmziq/brand-core/theme.css";
+@import "$brand/styles/kit.css";
+@source "../../node_modules/@hmziq/brand-core/src";
+@source "../../../../packages/brand-astro/src";

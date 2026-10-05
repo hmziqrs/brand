@@ -1,0 +1,87 @@
+---
+import { actions } from "astro:actions";
+import AppPage from "$brand/blocks/app/shell/app-page.astro";
+import AppPageHeader from "$brand/blocks/app/shell/app-page-header.astro";
+import ErrorState from "$brand/blocks/app/states/error-state.astro";
+import SkeletonSettings from "$brand/blocks/app/states/skeleton-settings.astro";
+import Workspace from "../../../components/app/workspace.astro";
+import WorkspaceForm from "../../../components/app/workspace-form.astro";
+import Deferred from "../../../components/app/deferred.astro";
+import AppDocument from "../../../components/app/app-document.astro";
+import { demoLoad, settingsTabs } from "../../../lib/app/demo-state";
+import { deleteWorkspaceFailure, workspace as saved } from "../../../lib/app/settings";
+
+/*
+ * The workspace settings page (app-blocks.md, phase 10): the name and the
+ * address, posted to the saveWorkspace action — the address "taken" is the
+ * scripted field failure — and the destructive section below, whose delete
+ * asks for the word "Paperplane" and fails its first try. Nothing is really
+ * deleted (the workspace is example data), so success is the toast and the
+ * page stays.
+ */
+const load = demoLoad(Astro.url.searchParams.get("state"));
+// The first delete try fails, per visit (the plan's scripted failure).
+deleteWorkspaceFailure.reset();
+const action = Astro.getActionResult(actions.saveWorkspace);
+
+let result: { message: string; field?: string } | undefined;
+let values: Record<string, string> = {};
+let savedOk = false;
+if (action?.data?.ok === false) {
+  result = { message: action.data.message, field: action.data.field };
+  // A failed save keeps what was typed; the saved values sit under them.
+  values = { ...saved, ...(action.data.values ?? {}) };
+} else if (action?.data?.ok) {
+  savedOk = true;
+}
+
+const form = { ...saved, ...values };
+const pending = load.status === "pending" && !action;
+---
+
+<AppDocument title="Workspace — astro-app">
+  <Workspace currentPath={Astro.url.pathname} state={load.state}>
+    {
+      load.status === "error" ? (
+        /* The error face keeps the page's frame — the heading and the section
+           tabs — as the Svelte twin's does: its DataState swaps only what sits
+           below the header. */
+        <AppPage width="narrow">
+          <AppPageHeader
+            title="Settings"
+            description="The workspace's name and address."
+            tabs={settingsTabs}
+            currentPath="/app/settings/workspace"
+            tabsLabel="Settings sections"
+          />
+          <div class="mt-8">
+            <ErrorState kind={load.kind} retryHref="/app/settings/workspace" />
+          </div>
+        </AppPage>
+      ) : pending ? (
+        <Deferred server:defer ms={600}>
+          {/* The pending face's semantics, as the members page have them — and
+              the same frame the error face and the content keep. */}
+          <div slot="fallback" aria-busy="true">
+            <span class="sr-only" role="status">Loading settings</span>
+            <AppPage width="narrow">
+              <AppPageHeader
+                title="Settings"
+                description="The workspace's name and address."
+                tabs={settingsTabs}
+                currentPath="/app/settings/workspace"
+                tabsLabel="Settings sections"
+              />
+              <div class="mt-8">
+                <SkeletonSettings rows={2} />
+              </div>
+            </AppPage>
+          </div>
+          <WorkspaceForm values={form} saved={saved} result={result} savedOk={savedOk} />
+        </Deferred>
+      ) : (
+        <WorkspaceForm values={form} saved={saved} result={result} savedOk={savedOk} />
+      )
+    }
+  </Workspace>
+</AppDocument>

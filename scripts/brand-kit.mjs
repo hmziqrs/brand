@@ -5,9 +5,12 @@
 //   node scripts/brand-kit.mjs          rewrite those blocks in BRAND.md
 //   node scripts/brand-kit.mjs --check  fail if any block is out of date
 import { readFileSync, writeFileSync } from "node:fs"
-import { color, hues, hueUses, measure, readTheme, toHex } from "../src/lib/color.ts"
+import { join } from "node:path"
+import { fileURLToPath } from "node:url"
+import { color, hues, hueUses, measure, readTheme, toHex } from "../packages/brand-core/src/color.ts"
 
-const css = readFileSync("theme.css", "utf8")
+const root = fileURLToPath(new URL("..", import.meta.url))
+const css = readFileSync(join(root, "packages/brand-core/theme.css"), "utf8")
 const theme = readTheme(css)
 const hex = (mode, name) => toHex(color(theme[mode], name).rgb)
 
@@ -28,7 +31,7 @@ const blocks = {
   ].join("\n"),
 }
 
-const doc = readFileSync("BRAND.md", "utf8")
+const doc = readFileSync(join(root, "BRAND.md"), "utf8")
 let updated = doc
 for (const [name, body] of Object.entries(blocks)) {
   const start = `<!-- ${name}:start -->`
@@ -49,6 +52,6 @@ if (process.argv.includes("--check")) {
   }
   console.log("BRAND.md matches theme.css.")
 } else {
-  writeFileSync("BRAND.md", updated)
+  writeFileSync(join(root, "BRAND.md"), updated)
   console.log("BRAND.md updated from theme.css.")
 }

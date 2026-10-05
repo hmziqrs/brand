@@ -1,0 +1,92 @@
+---
+// The blog index: a plain top, search and topics, then the posts. The words
+// and the posts are example copy.
+import { getCollection } from "astro:content";
+import { actions } from "astro:actions";
+import Container from "$brand/blocks/site/container.astro";
+import PageIntro from "$brand/blocks/site/page-intro.astro";
+import SearchBox from "$brand/blocks/site/search-box.astro";
+import TopicChips from "$brand/blocks/site/topic-chips.astro";
+import PostList from "$brand/blocks/content/post-list.astro";
+import NewsletterBand from "$brand/blocks/content/newsletter-band.astro";
+import BlogLayout from "$brand/blocks/content/blog-layout.astro";
+import ThemeInit from "../../components/theme-init.astro";
+import ThemeToggle from "../../components/theme-toggle.astro";
+import { topicTone, topics } from "../../lib/example";
+
+const posts = (await getCollection("blog"))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .map(({ data, id }) => ({ title: data.title, summary: data.summary, date: data.date, readingTime: data.readingTime, updated: data.updated, topic: data.topic, href: `/blog/${id}` }));
+
+// The newsletter band posts to the subscribe action (content-blocks.md: "Its
+// form posts to the page's own action; no mailing service is built in"): an
+// email in the field comes back to a band that says thanks, an empty one
+// comes back to the page as it was. A real site swaps the action for
+// whatever runs its list.
+const action = Astro.getActionResult(actions.subscribe);
+if (action?.data?.ok) return Astro.redirect(action.data.redirectTo ?? "/blog", 303);
+
+const subscribed = Astro.url.searchParams.has("subscribed");
+---
+
+<BlogLayout current="Posts" head={{ site: "blog", title: "Blog — astro-app", description: "Example posts, written in Markdown.", url: "https://example.com/blog" }}>
+  <ThemeInit slot="head" />
+  <ThemeToggle slot="extra" />
+
+  <Container>
+    <PageIntro class="max-w-2xl">
+      <Fragment slot="title">Writing about the example</Fragment>
+      <Fragment slot="lede">Build notes, deep dives, and the occasional rant. New posts whenever there's something worth saying. Example copy.</Fragment>
+    </PageIntro>
+  </Container>
+
+  <Container>
+    <div class="mb-7 flex flex-wrap items-center gap-3">
+      <div data-blog-search class="w-auto min-w-64">
+        <SearchBox label="Search posts" class="w-auto" />
+      </div>
+      <TopicChips items={topics} value="All" tone={(t) => (t === "All" ? undefined : topicTone(t))} />
+    </div>
+    <PostList posts={posts} tone={topicTone} />
+  </Container>
+
+  <NewsletterBand
+    action={actions.subscribe}
+    title={subscribed ? "You're on the list" : undefined}
+    body={subscribed ? "Thanks — the next post lands in your inbox. Example copy; no list is wired up in the starter." : undefined}
+  />
+</BlogLayout>
+
+<script>
+  // The blog index's filter: the search box and the topic chips narrow the
+  // post list live. The SearchBox ships no script of its own and the
+  // TopicChips only bubble a topic-change, so the page owns the filtering —
+  // the same split the lab's blog index makes in React.
+  const apply = () => {
+    const list = document.querySelector<HTMLElement>("[data-slot='post-list']");
+    const search = document.querySelector<HTMLInputElement>("[data-blog-search] input");
+    const chips = document.querySelector<HTMLElement>("[data-slot='topic-chips']");
+    if (!list) return;
+    const q = (search?.value ?? "").trim().toLowerCase();
+    const topic = chips?.dataset.value ?? "All";
+    let shown = 0;
+    for (const post of list.querySelectorAll<HTMLElement>("[data-post]")) {
+      const inTopic = topic === "All" || post.dataset.topic === topic;
+      const inQuery = !q || (post.dataset.search ?? "").includes(q);
+      const hit = inTopic && inQuery;
+      post.toggleAttribute("hidden", !hit);
+      if (hit) shown++;
+    }
+    list.querySelector<HTMLElement>("[data-empty]")?.toggleAttribute("hidden", shown > 0);
+  };
+
+  document.addEventListener("input", (event) => {
+    if ((event.target as HTMLElement | null)?.closest("[data-blog-search]")) apply();
+  });
+  document.addEventListener("topic-change", (event) => {
+    const group = (event.target as HTMLElement | null)?.closest<HTMLElement>("[data-slot='topic-chips']");
+    if (!group) return;
+    group.dataset.value = (event as CustomEvent<{ value: string }>).detail?.value ?? "All";
+    apply();
+  });
+</script>

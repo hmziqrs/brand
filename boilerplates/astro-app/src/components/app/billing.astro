@@ -1,0 +1,106 @@
+---
+import { billing, usage } from "@hmziq/brand-core/app/demo-data";
+import AppPage from "$brand/blocks/app/shell/app-page.astro";
+import AppPageHeader from "$brand/blocks/app/shell/app-page-header.astro";
+import DetailList from "$brand/blocks/app/details/detail-list.astro";
+import DetailSection from "$brand/blocks/app/details/detail-section.astro";
+import UsageMeter from "$brand/blocks/app/metrics/usage-meter.astro";
+import Tag from "$brand/components/tag.astro";
+import { Button } from "$brand/starwind/button";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "$brand/starwind/table";
+import { settingsTabs } from "../../lib/app/demo-state";
+
+/*
+ * The billing settings content (app-blocks.md, phases 6 and 7), as the page
+ * and its `server:defer` island share it: the plan and its card as detail
+ * rows, the same usage meters the overview shows in a "Usage" section, then
+ * the invoices as a small table in their own section. This is the one
+ * settings page that can be denied, so state=denied shows the way out
+ * alongside the retry.
+ */
+
+const longDate = new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "long", year: "numeric" });
+const shortDate = new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "short", year: "numeric" });
+const price = `$${billing.price.amount} per ${billing.price.per}`;
+---
+
+<AppPage width="narrow">
+  <AppPageHeader
+    title="Settings"
+    description="The plan this workspace is on, and its invoices."
+    tabs={settingsTabs}
+    currentPath="/app/settings/billing"
+    tabsLabel="Settings sections"
+  />
+
+  <div class="mt-8 flex flex-col gap-8">
+    <DetailSection title="Plan" description="What the workspace pays, and when it renews.">
+      <Fragment slot="actions">
+        <Button type="button" variant="outline" size="sm">Change plan</Button>
+      </Fragment>
+      <DetailList
+        items={[
+          { label: "Plan", value: billing.plan },
+          { label: "Price", value: price, tag: { label: "Example price" } },
+          { label: "Renewal date", value: longDate.format(new Date(billing.renewsOn)) },
+          { label: "Card", value: `${billing.card.brand} ending ${billing.card.last4}` },
+        ]}
+      />
+    </DetailSection>
+    <DetailSection title="Usage" description="What the workspace has used of what the plan allows.">
+      <!-- The same meters the overview shows, stacked inside the panel:
+           one column of numbers here, no room to spare in a narrow page. -->
+      <div class="flex flex-col divide-y">
+        <div class="py-4">
+          <UsageMeter
+            label="Events this month"
+            used={usage.events.used}
+            limit={usage.events.limit}
+            unit={usage.events.unit}
+            resetsOn={`Resets on ${usage.events.resetsOn}`}
+          />
+        </div>
+        <div class="py-4">
+          <UsageMeter variant="ring" label="Seats" used={usage.seats.used} limit={usage.seats.limit} unit={usage.seats.unit} />
+        </div>
+        <div class="py-4">
+          <UsageMeter label="Data kept" used={usage.retention.used} limit={usage.retention.limit} unit={usage.retention.unit} />
+        </div>
+      </div>
+    </DetailSection>
+    <DetailSection title="Invoices" description="Everything billed to the card, newest first.">
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Date</TableHead>
+            <TableHead>Amount</TableHead>
+            <TableHead>Status</TableHead>
+            <TableHead class="w-24"><span class="sr-only">Actions</span></TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {
+            billing.invoices.map((invoice) => (
+              <TableRow>
+                <TableCell class="px-2 py-3.5">{shortDate.format(new Date(invoice.date))}</TableCell>
+                <TableCell class="px-2 py-3.5">{invoice.amount}</TableCell>
+                <TableCell class="px-2 py-3.5">
+                  {invoice.status === "Paid" ? (
+                    <Tag tone="success" marker>Paid</Tag>
+                  ) : (
+                    <Tag tone="warning">Due</Tag>
+                  )}
+                </TableCell>
+                <TableCell class="px-2 py-3.5">
+                  <Button variant="link" size="sm" class="h-auto p-0" href={`/app/settings/billing/invoices/${invoice.id}`}>
+                    Download
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))
+          }
+        </TableBody>
+      </Table>
+    </DetailSection>
+  </div>
+</AppPage>

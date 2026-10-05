@@ -1,0 +1,53 @@
+---
+import ToastPrimitive from "@starwind-ui/astro/toast";
+import { CircleCheck, CircleX, Info, LoaderCircle, TriangleAlert } from "@lucide/astro";
+import type { HTMLAttributes } from "astro/types";
+import type { VariantProps } from "tailwind-variants";
+import { toastTitle } from "./variants";
+
+type Props = HTMLAttributes<"div"> & VariantProps<typeof toastTitle>;
+
+const { class: className, variant = "default", ...rest } = Astro.props;
+---
+
+<ToastPrimitive.Title
+  class={toastTitle({ variant, class: className })}
+  {...rest}
+  data-slot="toast-title"
+>
+  <slot name="icon">
+    {
+      variant === "success" && (
+        <CircleCheck />
+      )
+    }
+
+    {
+      variant === "error" && (
+        <CircleX />
+      )
+    }
+
+    {
+      variant === "warning" && (
+        <TriangleAlert />
+      )
+    }
+
+    {
+      variant === "info" && (
+        <Info />
+      )
+    }
+
+    {
+      variant === "loading" && (
+        <LoaderCircle class="animate-spin motion-reduce:animate-none" />
+      )
+    }
+  </slot>
+
+  <ToastPrimitive.TitleText data-slot="toast-title-text">
+    <slot />
+  </ToastPrimitive.TitleText>
+</ToastPrimitive.Title>

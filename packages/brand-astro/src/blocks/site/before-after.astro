@@ -1,0 +1,39 @@
+---
+import { ArrowRight } from "@lucide/astro";
+import Marker from "$brand/components/marker.astro";
+
+/*
+ * Before and after: the old way struck through, then what the product does
+ * instead.
+ */
+
+interface Props {
+  /** Each row: what it's about, the old way, the new way. */
+  rows: readonly (readonly [what: string, before: string, after: string])[];
+  /** For screen readers: "By hand", "With gpui-query". */
+  before: string;
+  after: string;
+}
+
+const { rows, before, after } = Astro.props;
+---
+
+<ul class="border-t">
+  {
+    rows.map(([what, raw, ours]) => (
+      <li class="grid items-baseline gap-x-4 gap-y-1 border-b py-4 text-[0.9rem] lg:grid-cols-[16rem_minmax(0,1fr)_1.25rem_minmax(0,1fr)]">
+        <span class="text-[0.8125rem] text-muted-foreground">{what}</span>
+        <s class="text-muted-foreground decoration-muted-foreground/70">
+          <span class="sr-only">{before}: </span>
+          {raw}
+        </s>
+        <ArrowRight aria-hidden="true" class="hidden size-3.75 text-muted-foreground lg:block" />
+        <span class="inline-flex items-center gap-2">
+          <Marker filled class="shrink-0 text-primary" />
+          <span class="sr-only">{after}: </span>
+          {ours}
+        </span>
+      </li>
+    ))
+  }
+</ul>

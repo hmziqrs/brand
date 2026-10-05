@@ -1,0 +1,96 @@
+---
+// A blog post: the header and contents from its frontmatter, the body from
+// Markdown rendered through core's plugins, the share bar and the
+// newsletter band. The example post uses every row of the Markdown table.
+import { getCollection, render } from "astro:content";
+import { actions } from "astro:actions";
+import Container from "$brand/blocks/site/container.astro";
+import Prose from "$brand/blocks/site/prose.astro";
+import OutlineCard from "$brand/blocks/site/outline-card.astro";
+import Mark from "$brand/components/mark.astro";
+import PostHeader from "$brand/blocks/content/post-header.astro";
+import PostContents from "$brand/blocks/content/post-contents.astro";
+import PullQuote from "$brand/blocks/content/pull-quote.astro";
+import ShareBar from "$brand/blocks/content/share-bar.astro";
+import NewsletterBand from "$brand/blocks/content/newsletter-band.astro";
+import BlogLayout from "$brand/blocks/content/blog-layout.astro";
+import ThemeInit from "../../components/theme-init.astro";
+import ThemeToggle from "../../components/theme-toggle.astro";
+import { headingsOf } from "../../lib/headings";
+import { topicTone } from "../../lib/example";
+
+export const prerender = false;
+
+const { id } = Astro.params;
+const entry = (await getCollection("blog")).find((e) => e.id === id);
+if (!entry) return Astro.redirect("/404");
+
+const { Content } = await render(entry);
+const { data } = entry;
+
+const toc = headingsOf(entry.body ?? "");
+const url = `https://example.com/blog/${entry.id}`;
+
+// The newsletter band posts to the subscribe action (content-blocks.md: "Its
+// form posts to the page's own action; no mailing service is built in"): an
+// email in the field comes back to a band that says thanks, an empty one
+// comes back to the page as it was. A real site swaps the action for
+// whatever runs its list.
+const action = Astro.getActionResult(actions.subscribe);
+if (action?.data?.ok) return Astro.redirect(action.data.redirectTo ?? "/blog", 303);
+
+const subscribed = Astro.url.searchParams.has("subscribed");
+
+// Example side projects, for the end notes. Example copy.
+const sideProjects = [
+  { name: "example-one", symbol: "Eo", note: "Example copy: one line on the project." },
+  { name: "example-two", symbol: "Et", note: "Example copy: one line on the project." },
+];
+---
+
+<BlogLayout head={{ site: "blog", title: `${data.title} — astro-app`, description: data.summary ?? "An example post.", url }}>
+  <ThemeInit slot="head" />
+  <ThemeToggle slot="extra" />
+
+  <PostHeader title={data.title} summary={data.summary} date={data.date} readingTime={data.readingTime} updated={data.updated} topic={data.topic} tone={topicTone} author={{ name: data.author ?? "hmziq", symbol: "Hq" }} cover={data.cover ? { src: data.cover, alt: data.coverAlt ?? "", lineArt: data.lineArt } : undefined} />
+
+  <Container size="narrow" class="pb-16">
+    <article>
+      <Prose class="text-[1.0625rem] [&_h2]:mt-8 [&_h2]:text-2xl [&_p]:leading-[1.8]">
+        {toc.length > 0 && (
+          <PostContents items={toc} />
+        )}
+        <Content />
+
+        {/* The margin note: a line pulled out of the text, repeating itself
+            on the page — its own first sentence — so screen readers skip it. */}
+        <p class="relative">
+          <PullQuote repeated>Example copy for the paragraph the margin note sits beside.</PullQuote>
+          Example copy for the paragraph the margin note sits beside. Replace it with the post's own words.
+        </p>
+      </Prose>
+
+      <div class="grid gap-3">
+        {sideProjects.map((p) => (
+          <OutlineCard href="#" class="flex-row items-center gap-4 px-4.5 py-4 text-foreground! no-underline!">
+            <Mark symbol={p.symbol} size={40} />
+            <span>
+              <b class="block font-medium">{p.name}</b>
+              <span class="text-sm leading-normal text-muted-foreground">{p.note}</span>
+            </span>
+          </OutlineCard>
+        ))}
+      </div>
+
+      <div class="mt-10">
+        <ShareBar url={url} title={data.title} />
+      </div>
+    </article>
+  </Container>
+
+  <NewsletterBand
+    action={actions.subscribe}
+    title={subscribed ? "You're on the list" : undefined}
+    body={subscribed ? "Thanks — the next post lands in your inbox. Example copy; no list is wired up in the starter." : undefined}
+  />
+</BlogLayout>

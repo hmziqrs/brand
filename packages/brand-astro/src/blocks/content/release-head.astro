@@ -1,0 +1,29 @@
+---
+import { cn } from "$brand/utils";
+import Kicker from "$brand/blocks/site/kicker.astro";
+import KindTag from "./kind-tag.astro";
+import type { Release } from "./types";
+
+/* A release's version, its date and one tag per kind of change in it. */
+
+interface Props {
+  release: Release;
+  /** h3 inside a timeline item; h2 for the latest release, on its own. */
+  level?: 2 | 3;
+  class?: string;
+}
+
+const { release, level = 3, class: className } = Astro.props;
+
+const H = level === 2 ? "h2" : "h3";
+---
+
+<div class={cn("flex flex-wrap items-baseline gap-x-4 gap-y-2", className)}>
+  <H class="font-mono text-lg leading-[1.4] font-semibold">v{release.v}</H>
+  <Kicker>{release.date}</Kicker>
+  <span class="inline-flex flex-wrap gap-1.5">
+    {release.groups.map(([kind, items]) => (
+      <KindTag kind={kind} count={items.length} />
+    ))}
+  </span>
+</div>

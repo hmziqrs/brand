@@ -1,0 +1,161 @@
+---
+import { PanelLeft } from "@lucide/astro";
+import { cn } from "$brand/utils";
+import Container from "$brand/blocks/site/container.astro";
+import SiteLayout from "$brand/blocks/site/site-layout.astro";
+import Toc, { type TocItem } from "$brand/components/toc.astro";
+import type { Props as SiteHeadProps } from "$brand/blocks/site/site-head.astro";
+import DocsSearch from "./docs-search.astro";
+import type { DocsMenu } from "./types";
+
+/*
+ * A docs page's shell: the site's header with the docs search in it, then
+ * the lab's three columns — the line menu on the left, the page in the
+ * middle, "On this page" sticky on the right from lg up. Below md the menu
+ * folds behind a menu button, and the search stays in the header. The thin
+ * line down the menu lights orange at the page you're on, and the right
+ * column follows the page with core's scroll spy.
+ */
+
+type Head = Omit<SiteHeadProps, "site"> & { site?: string };
+
+interface Props {
+  /** The site's or product's name, shown as the wordmark. */
+  site: string;
+  nav?: string[];
+  /** The nav item for the page you're on. */
+  current?: string;
+  /** The docs menu: groups of pages, the first group allowed no title. */
+  menu: DocsMenu;
+  /** The menu item for the page you're on, matched by its title. */
+  page: string;
+  /** The page's headings, fed by the Markdown heading-anchor plugin or the page's own ids. */
+  toc?: TocItem[];
+  head?: Head;
+  /** The page's theme class. Dark by default; the app's toggle rewrites it before first paint. */
+  theme?: string;
+  class?: string;
+}
+
+const { site, nav = ["Docs", "Blog", "FAQ"], current = "Docs", menu, page, toc = [], head, theme = "dark", class: className } = Astro.props;
+---
+
+<SiteLayout site={site} maker="Docs" nav={nav} current={current} wide layout="page" mainClassName="pt-0 pb-0 md:pt-0" head={head} theme={theme}>
+  {/* Passed through as a plain element, like BlogLayout's forward: the docs
+      pages put ThemeInit (the pre-paint theme baseline) in it, and it only
+      reaches the document head if this layout hands it to SiteLayout. */}
+  <slot name="head" slot="head" />
+  {
+    Astro.slots.has("extra") && (
+      <div slot="extra" class="ml-auto flex items-center gap-3 md:ml-0">
+        <slot name="extra" />
+      </div>
+    )
+  }
+  <div slot="lead">
+    <DocsSearch />
+  </div>
+  <Container size="wide">
+    <div class={cn("grid gap-12 pt-10 pb-20 md:grid-cols-[12rem_minmax(0,1fr)] lg:grid-cols-[12rem_minmax(0,1fr)_10.5rem]", className)}>
+      <div>
+        {/* Below md the menu folds away and the button opens it; from md the
+            button goes and the line stays put. */}
+        <button
+          type="button"
+          data-docs-menu-button
+          aria-expanded="false"
+          class="mb-4 inline-flex h-8.5 items-center gap-2 rounded-md border pr-3 pl-3 text-[0.8125rem] text-muted-foreground outline-none transition-colors hover:border-foreground/30 hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50 md:hidden"
+        >
+          <PanelLeft class="size-3.75" />
+          Pages
+        </button>
+        {/* Folded with a class, never the `hidden` attribute: preflight makes
+            `[hidden]` display:none with !important, which no utility can beat,
+            so the menu would never come back at md. `max-md:hidden` loses to
+            the base `flex` from md up — the button's own `md:hidden` is the
+            same cascade — and the script below toggles the class to open it. */}
+        <nav data-slot="docs-menu" aria-label="Docs" class="flex flex-col gap-6 text-sm max-md:pb-2 max-md:hidden">
+          {
+            menu.map(([title, pages]) => (
+              <div data-docs-group class="flex flex-col gap-2">
+                {title && <h2 class="text-xs font-medium text-muted-foreground">{title}</h2>}
+                {/* A thin line runs down the menu; the current page lights it orange. */}
+                <ul class="flex flex-col border-l">
+                  {pages.map((p) => (
+                    <li data-docs-page>
+                      <a
+                        href={p.href}
+                        aria-current={p.title === page ? "page" : undefined}
+                        class="-ml-px flex border-l border-transparent py-1.5 pl-3.5 text-muted-foreground no-underline transition-colors hover:text-foreground aria-[current=page]:border-primary aria-[current=page]:font-medium aria-[current=page]:text-foreground"
+                      >
+                        {p.title}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))
+          }
+        </nav>
+      </div>
+
+      <article class="max-w-[46rem] min-w-0">
+        <slot />
+      </article>
+
+      {
+        toc.length > 0 && (
+          <aside data-slot="docs-toc" aria-label="On this page" class="sticky top-4 hidden self-start text-[0.8125rem] lg:block">
+            <h2 class="mb-2 text-xs font-medium text-muted-foreground">On this page</h2>
+            <Toc items={toc} />
+          </aside>
+        )
+      }
+    </div>
+  </Container>
+</SiteLayout>
+
+<script>
+  // The way Starwind's own components run: find elements by their data-slot,
+  // initialize them, and do it again after a view transition.
+  import { scrollSpy } from "@hmziq/brand-core/scroll-spy";
+
+  const stop = new WeakMap<HTMLElement, () => void>();
+
+  function init(root: HTMLElement) {
+    if (stop.has(root)) return;
+    const links = [...root.querySelectorAll<HTMLAnchorElement>("a[href^='#']")];
+    const ids = links.map((link) => decodeURIComponent(link.hash.slice(1)));
+    if (!ids.length) return;
+    stop.set(
+      root,
+      scrollSpy(ids, (id) => {
+        for (const link of links) {
+          if (decodeURIComponent(link.hash.slice(1)) === id) link.setAttribute("aria-current", "location");
+          else link.removeAttribute("aria-current");
+        }
+      }),
+    );
+  }
+
+  for (const root of document.querySelectorAll<HTMLElement>("[data-slot='docs-toc']")) init(root);
+  document.addEventListener("astro:page-load", () => {
+    for (const root of document.querySelectorAll<HTMLElement>("[data-slot='docs-toc']")) init(root);
+  });
+  document.addEventListener("astro:before-swap", () => {
+    for (const root of document.querySelectorAll<HTMLElement>("[data-slot='docs-toc']")) stop.get(root)?.();
+  });
+
+  // The mobile menu button: it opens and closes the pages next to it. The
+  // menu starts hidden below md and the button is gone from md up, so the
+  // two never meet. Delegated, so it survives view transitions.
+  document.addEventListener("click", (event) => {
+    const button = (event.target as HTMLElement | null)?.closest<HTMLElement>("[data-docs-menu-button]");
+    if (!button) return;
+    const menu = button.parentElement?.querySelector<HTMLElement>("[data-slot='docs-menu']");
+    if (!menu) return;
+    const open = menu.classList.contains("max-md:hidden");
+    menu.classList.toggle("max-md:hidden", !open);
+    button.setAttribute("aria-expanded", String(open));
+  });
+</script>

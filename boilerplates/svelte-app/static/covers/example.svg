@@ -1,0 +1,16 @@
+<!-- A placeholder cover, line art for a dark page (the post's frontmatter
+     marks it `lineArt`, so the kit inverts it on light pages). Replace it
+     with the post's own art. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" fill="none" stroke="#FAFAFA" stroke-width="2">
+  <rect width="1200" height="675" fill="#0A0A0A" stroke="none" />
+  <circle cx="980" cy="120" r="40" />
+  <circle cx="980" cy="120" r="80" />
+  <circle cx="980" cy="120" r="120" stroke="#F38230" />
+  <circle cx="980" cy="120" r="160" />
+  <circle cx="980" cy="120" r="200" />
+  <circle cx="140" cy="540" r="30" />
+  <circle cx="140" cy="540" r="60" />
+  <circle cx="140" cy="540" r="90" stroke="#F38230" />
+  <text x="100" y="120" font-family="Onest, ui-sans-serif, system-ui, sans-serif" font-size="56" font-weight="600" fill="#FAFAFA" stroke="none">Example cover</text>
+  <text x="100" y="170" font-family="Onest, ui-sans-serif, system-ui, sans-serif" font-size="28" fill="#A1A1A1" stroke="none">Placeholder art for the example post</text>
+</svg>

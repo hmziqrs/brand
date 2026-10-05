@@ -7,7 +7,7 @@
   },
   "overrides": [
     {
-      "files": ["src/components/ui/*.tsx", "src/hooks/*.ts"],
+      "files": ["apps/lab/src/components/ui/*.tsx", "apps/lab/src/hooks/*.ts"],
       "rules": {
         "react/only-export-components": "off",
         "react/set-state-in-effect": "off"

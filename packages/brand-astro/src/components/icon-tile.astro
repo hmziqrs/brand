@@ -1,0 +1,25 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { cn, styleText } from "$brand/utils";
+import { softTone, type Tone } from "@hmziq/brand-core/tones";
+
+/** A square that holds one icon, e.g. at the top of a feature. */
+
+interface Props extends Omit<HTMLAttributes<"div">, "style" | "children"> {
+  /** Leave it out for the default: an orange icon in a thin outline, no fill. */
+  tone?: Tone;
+  style?: string | Record<string, string>;
+}
+
+const { tone, class: className, style, ...rest } = Astro.props;
+---
+
+<div
+  data-slot="icon-tile"
+  aria-hidden="true"
+  class={cn("flex size-9 shrink-0 items-center justify-center rounded-md [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4.5", tone ? softTone[tone] : "border text-primary", className)}
+  style={styleText(style)}
+  {...rest}
+>
+  <slot />
+</div>

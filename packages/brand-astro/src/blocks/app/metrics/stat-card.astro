@@ -1,0 +1,79 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { cn } from "$brand/utils";
+import { Skeleton } from "$brand/starwind/skeleton";
+import ErrorState from "$brand/blocks/app/states/error-state.astro";
+import MetricTrend from "./metric-trend.astro";
+import type { MetricTrendProps } from "./types";
+
+/*
+ * One number that matters, with its label, its trend, and room for a hint or
+ * a small chart. Usually a cell in StatGrid's ruled grid; it brings its own
+ * background so it works on its own too. Pending holds its size with a
+ * skeleton, error keeps the card and offers a retry while the other cards in
+ * the grid stay — one failed number shouldn't take the page down.
+ */
+
+interface Props extends HTMLAttributes<"div"> {
+  label: string;
+  /** Already formatted: "48,210", "42.1%", "1.8 s". */
+  value: string;
+  trend?: MetricTrendProps;
+  /** One line under the number. */
+  hint?: string;
+  /** Makes the whole card a link. */
+  href?: string;
+  status?: "pending" | "error" | "success";
+  /** With no JavaScript, "Try again" is a link: the same URL, asked for again. */
+  retryHref?: string;
+}
+
+const {
+  label,
+  value,
+  trend,
+  hint,
+  href,
+  status = "success",
+  retryHref,
+  class: className,
+  ...rest
+} = Astro.props;
+
+const hasChart = Astro.slots.has("chart");
+
+// A linked card is outlined on hover with an inset ring, which reads as
+// the plan's border-primary/50 without shifting the number by the pixel
+// a real border would add. Only colors change.
+const root = cn(
+  "flex min-w-0 flex-col gap-2.5 bg-background px-4 py-4",
+  href &&
+    "outline-none transition-colors hover:ring-1 hover:ring-inset hover:ring-primary/50 focus-visible:ring-3 focus-visible:ring-ring/50",
+  className,
+);
+
+const Tag = href ? "a" : "div";
+---
+
+<Tag href={href} data-slot="stat-card" class={root} {...rest}>
+  <span class="truncate text-sm text-muted-foreground">{label}</span>
+  {
+    status === "pending" ? (
+      /* The same two lines SkeletonStats draws, so a pending card holds
+         exactly the size the number will land in. */
+      <>
+        <Skeleton class="h-7 w-20" />
+        <Skeleton class="h-4 w-14" />
+      </>
+    ) : status === "error" ? (
+      <ErrorState size="compact" retryHref={retryHref} />
+    ) : (
+      <>
+        <span class="text-2xl font-medium tracking-[-0.02em]">{value}</span>
+        {trend && <MetricTrend {...trend} />}
+        {hint && <p class="text-sm text-muted-foreground">{hint}</p>}
+        {hasChart && <slot name="chart" />}
+      </>
+    )
+  }
+</Tag>

@@ -1,0 +1,28 @@
+---
+import { cn } from "$brand/utils";
+import { tokenize, type CodeLanguage } from "./code-tokenize";
+import CodeTokens from "./code-tokens.astro";
+
+/* Highlighted code with line numbers, for an editor window. The line under the pointer is tinted. */
+
+interface Props {
+  code: string;
+  lang?: CodeLanguage;
+  class?: string;
+}
+
+const { code, lang = "rust", class: className } = Astro.props;
+
+const lines = tokenize(code, lang);
+---
+
+<div role="presentation" class={cn("overflow-x-auto py-3 font-mono text-[0.8rem] leading-[1.75] text-(--code-foreground)", className)}>
+  {
+    lines.map((line, i) => (
+      <div class="grid grid-cols-[3rem_max-content] transition-colors hover:bg-primary/8">
+        <span class="pr-4.5 text-right text-muted-foreground select-none">{i + 1}</span>
+        <code class="pr-5 whitespace-pre">{line.length ? <CodeTokens line={line} /> : " "}</code>
+      </div>
+    ))
+  }
+</div>

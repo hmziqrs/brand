@@ -1,0 +1,37 @@
+---
+import Container from "$brand/blocks/site/container.astro";
+import PageIntro from "$brand/blocks/site/page-intro.astro";
+import Rings from "$brand/components/rings.astro";
+
+/*
+ * The 404: the words on the left, and rings drawn from "not found" beside
+ * them. What went wrong and the way out arrive as props, so the same block
+ * covers a missing page and a page that failed to draw.
+ */
+
+interface Props {
+  /** The status, shown as the small word above the title. */
+  status?: string;
+  title: string;
+  lede: string;
+  /** The rings' seed. "not found" by default. */
+  seed?: string;
+  class?: string;
+}
+
+const { status = "404", title, lede, seed = "not found", class: className } = Astro.props;
+---
+
+<Container class={className}>
+  <div class="grid min-h-88 items-center gap-8 md:grid-cols-2">
+    <PageIntro>
+      <Fragment slot="kicker">{status}</Fragment>
+      <Fragment slot="title">{title}</Fragment>
+      <Fragment slot="lede">{lede}</Fragment>
+      <div class="flex flex-wrap gap-3">
+        <slot />
+      </div>
+    </PageIntro>
+    <Rings seed={seed} label="Rings, one of them orange" />
+  </div>
+</Container>

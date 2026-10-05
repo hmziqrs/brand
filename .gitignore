@@ -26,7 +26,15 @@ dist-ssr
 *storybook.log
 storybook-static
 
+# kits.md, repo setup for the kits
+.svelte-kit
+.astro
+compare/
+
 # Storybook
 storybook-static
 debug-storybook.log
 *.tsbuildinfo
+
+# zflow chain evidence (workflow-only, never committed)
+.zflow/

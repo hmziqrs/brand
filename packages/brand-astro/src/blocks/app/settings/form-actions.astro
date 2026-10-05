@@ -1,0 +1,148 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { LoaderCircle } from "@lucide/astro";
+import { cn } from "$brand/utils";
+import { Button } from "$brand/starwind/button";
+import Marker from "$brand/components/marker.astro";
+import Notice from "$brand/components/notice.astro";
+
+/*
+ * The foot of a settings form: what state the form is in, on the left, and
+ * Cancel plus Save on the right. Save is a real submit button; the page owns
+ * the <form> and the submit. With no JavaScript the page can't know the form
+ * is dirty, so the server render keeps Save enabled and hides the unsaved
+ * line; the script shows that line and stands Save down as soon as it can
+ * see the form is dirty, and clears "Saved" after four seconds.
+ */
+
+interface Props extends HTMLAttributes<"div"> {
+  dirty: boolean;
+  pending: boolean;
+  /** Shows "Saved" for four seconds after a successful save. */
+  saved?: boolean;
+  /** A form-level error from the server. */
+  error?: string;
+  submitLabel?: string;
+  /** The id of the form Save submits, when the footer sits outside it (RecordSheet). */
+  form?: string;
+}
+
+const { dirty, pending, saved = false, error, submitLabel = "Save changes", form, class: className, ...rest } = Astro.props;
+
+const hasCancel = Astro.slots.has("cancel");
+---
+
+<div data-slot="form-actions" class={cn("border-t border-border px-4 py-4 sm:px-6", className)} {...rest}>
+  {error && (
+    <div class="mb-4">
+      <Notice tone="destructive" title={error} />
+    </div>
+  )}
+  <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+    <p class="flex min-h-6 items-center gap-2 text-sm text-muted-foreground">
+      {
+        saved ? (
+          <span data-form-actions-saved role="status" class="inline-flex items-center gap-2 text-success">
+            <Marker filled class="text-success" />
+            Saved
+          </span>
+        ) : null
+      }
+      {/* The unsaved line is always in the markup, hidden while the server
+          can't know the form is dirty — the page's script shows it, the
+          same way it shows Cancel and stands Save down. */}
+      <span
+        data-form-actions-dirty
+        class={cn("inline-flex items-center gap-2", !(dirty && !pending) && "hidden")}
+      >
+        <Marker class="text-warning" />
+        You have unsaved changes
+      </span>
+    </p>
+    <div class="flex flex-wrap items-center gap-2 sm:justify-end">
+      {/* Cancel is always in the markup, hidden while the form is clean —
+          the server can't know dirty, so the page's script shows it. */}
+      {hasCancel && (
+        <span data-cancel-slot class={cn("inline-flex", !(dirty || pending) && "hidden")}>
+          <slot name="cancel" />
+        </span>
+      )}
+      <Button
+        type="submit"
+        form={form}
+        data-form-actions-save
+        data-pending={pending ? "true" : "false"}
+        data-error={error ? "true" : undefined}
+        disabled={pending}
+      >
+        {
+          pending ? (
+            <>
+              <LoaderCircle class="lucide size-4 animate-spin motion-reduce:animate-none" aria-hidden="true" />
+              Saving…
+            </>
+          ) : (
+            submitLabel
+          )
+        }
+      </Button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // The browser can see what the server could not: whether the form is
+  // dirty. Once it can, Save stands down while the form is clean — unless a
+  // server error is showing, so the save can be tried again. The page marks
+  // its form `data-clean` whenever it knows; a form without the mark keeps
+  // the state the server rendered (Save enabled, so a page with no
+  // JavaScript can still save).
+  const watch = (foot: HTMLElement): (() => void) => {
+    const noop = () => {};
+    const save = foot.querySelector<HTMLButtonElement>("[data-form-actions-save]");
+    if (!save) return noop;
+    const formId = save.getAttribute("form");
+    const form = save.form ?? (formId ? (document.getElementById(formId) as HTMLFormElement | null) : null);
+    if (!form) return noop;
+    const dirtyLine = foot.querySelector<HTMLElement>("[data-form-actions-dirty]");
+
+    const sync = () => {
+      if (save.dataset.pending === "true") {
+        save.disabled = true;
+        dirtyLine?.classList.add("hidden");
+        return;
+      }
+      save.disabled = form.dataset.clean === "true" && save.dataset.error !== "true";
+      // The unsaved line, from what the page knows: the form's data-clean
+      // (the sheets set it on the page's form) or the foot's own data-dirty
+      // (the settings pages set both). "Saved" outranks it while it shows.
+      const unsaved = form.dataset.clean === "false" || foot.dataset.dirty === "true";
+      const showingSaved = foot.querySelector("[data-form-actions-saved]") !== null;
+      dirtyLine?.classList.toggle("hidden", !unsaved || showingSaved);
+    };
+
+    new MutationObserver(sync).observe(form, { attributes: true, attributeFilter: ["data-clean"] });
+    new MutationObserver(sync).observe(foot, { attributes: true, attributeFilter: ["data-dirty"] });
+    sync();
+    return sync;
+  };
+
+  const clearSaved = (foot: HTMLElement, sync: () => void) => {
+    const saved = foot.querySelector<HTMLElement>("[data-form-actions-saved]");
+    if (!saved) return;
+    // Once "Saved" goes, the unsaved line may take its place — the form
+    // can have moved on while the four seconds ran.
+    window.setTimeout(() => {
+      saved.remove();
+      sync();
+    }, 4000);
+  };
+
+  const run = () => {
+    for (const foot of document.querySelectorAll<HTMLElement>("[data-slot='form-actions']")) {
+      clearSaved(foot, watch(foot));
+    }
+  };
+  run();
+  document.addEventListener("astro:page-load", run);
+</script>

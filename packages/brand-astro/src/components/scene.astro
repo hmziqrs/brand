@@ -1,0 +1,141 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { Pause, Play } from "@lucide/astro";
+import { cn } from "$brand/utils";
+import { Button } from "$brand/starwind/button";
+import type { SceneKind } from "@hmziq/brand-core/motion/scenes";
+
+/*
+ * An optional 3D scene. three.js only downloads when a scene is on the
+ * page, so pages without one don't pay for it. The box sets the size: give
+ * it an aspect ratio or a height. The picture is decorative and hidden from
+ * screen readers; the pause button is not.
+ */
+
+interface Props extends Omit<HTMLAttributes<"div">, "children"> {
+  /** Beside the words in a hero: lattice, network, layers. In a thin band: helix, tiles, thread. */
+  kind: SceneKind;
+  /** The site or project name. The same name always draws the same scene. */
+  seed?: string;
+  /** The scene's own settings (lattice: atoms, spacing, sizes…), as exported from its tweaker. */
+  settings?: Record<string, unknown>;
+  /** The pause button. Keep it: anything that moves for more than five seconds needs a way to stop it. */
+  controls?: boolean;
+  /** One still picture. Scenes are already still for visitors who ask for reduced motion. */
+  still?: boolean;
+}
+
+const { kind, seed, settings, controls = true, still, class: className, ...rest } = Astro.props;
+---
+
+<div
+  data-slot="scene"
+  data-scene-kind={kind}
+  data-scene-seed={seed}
+  data-scene-still={still || undefined}
+  data-scene-settings={settings ? JSON.stringify(settings) : undefined}
+  class={cn("relative", className)}
+  {...rest}
+>
+  <div data-scene-host aria-hidden="true" class="absolute inset-0"></div>
+  {
+    Astro.slots.has("fallback") && (
+      <div data-scene-fallback hidden>
+        <slot name="fallback" />
+      </div>
+    )
+  }
+  {
+    controls && !still && (
+      <Button
+        data-scene-pause
+        hidden
+        variant="ghost"
+        size="icon-sm"
+        aria-label="Pause the animation"
+        class="absolute right-0 bottom-0 text-muted-foreground"
+      >
+        <Pause class="group-data-[paused]/button:hidden" />
+        <Play class="hidden group-data-[paused]/button:block" />
+      </Button>
+    )
+  }
+</div>
+
+<script>
+  // The way Starwind's own components run: find elements by their data
+  // attributes, initialize them, and do it again after a view transition.
+  import { canRunScenes } from "@hmziq/brand-core/motion/scenes/support";
+  import type { SceneHandle, SceneKind } from "@hmziq/brand-core/motion/scenes";
+
+  const scenes = new WeakMap<HTMLElement, SceneHandle>();
+  // Roots this script has already initialized. `astro:page-load` fires for
+  // the first page too when a site uses the <ClientRouter />, and the
+  // top-level pass below runs there as well; the guard makes the overlap a
+  // no-op instead of a second mount.
+  const started = new WeakSet<HTMLElement>();
+
+  function showFallback(root: HTMLElement) {
+    root.querySelector<HTMLElement>("[data-scene-fallback]")?.removeAttribute("hidden");
+  }
+
+  function init(root: HTMLElement) {
+    if (started.has(root)) return;
+    started.add(root);
+    const host = root.querySelector<HTMLElement>("[data-scene-host]");
+    if (!host) return;
+    if (!canRunScenes()) {
+      showFallback(root);
+      return;
+    }
+    const kind = root.dataset.sceneKind as SceneKind;
+    const { sceneSeed: seed, sceneStill, sceneSettings } = root.dataset;
+    // three.js only downloads when a scene is actually mounting.
+    import("@hmziq/brand-core/motion/scenes")
+      .then(({ mountScene }) => {
+        // The page can have been swapped out while the chunk loaded.
+        if (!root.isConnected) return;
+        const handle = mountScene(host, kind, {
+          seed,
+          still: sceneStill !== undefined,
+          settings: sceneSettings ? JSON.parse(sceneSettings) : {},
+        });
+        if (!handle) {
+          showFallback(root);
+          return;
+        }
+        scenes.set(root, handle);
+        if (handle.moving) root.querySelector<HTMLElement>("[data-scene-pause]")?.removeAttribute("hidden");
+      })
+      .catch(() => showFallback(root));
+  }
+
+  // A site with view transitions reruns the loop below on every navigation:
+  // astro:page-load fires after each swap (and once for the first page).
+  // A site without them never fires the event at all, so the scenes on the
+  // first page are initialized here too — the script is a module, deferred
+  // until the document is parsed.
+  for (const root of document.querySelectorAll<HTMLElement>("[data-slot='scene']")) init(root);
+
+  document.addEventListener("astro:page-load", () => {
+    for (const root of document.querySelectorAll<HTMLElement>("[data-slot='scene']")) init(root);
+  });
+
+  document.addEventListener("astro:before-swap", () => {
+    for (const root of document.querySelectorAll<HTMLElement>("[data-slot='scene']")) scenes.get(root)?.dispose();
+  });
+
+  document.addEventListener("click", (event) => {
+    const button = (event.target as HTMLElement | null)?.closest<HTMLElement>("[data-scene-pause]");
+    if (!button) return;
+    const root = button.closest<HTMLElement>("[data-slot='scene']");
+    const handle = root ? scenes.get(root) : undefined;
+    if (!handle) return;
+    const paused = button.dataset.paused !== "true";
+    if (paused) handle.pause();
+    else handle.play();
+    if (paused) button.dataset.paused = "true";
+    else delete button.dataset.paused;
+    button.setAttribute("aria-label", paused ? "Play the animation" : "Pause the animation");
+  });
+</script>

@@ -1,0 +1,59 @@
+---
+import { cn, styleText } from "$brand/utils";
+import Marker from "$brand/components/marker.astro";
+import type { Tone } from "@hmziq/brand-core/tones";
+
+/*
+ * Topic buttons: the topic's color on its ring. The picked one gets a line
+ * in the text color. Picking a button sets `aria-pressed` within the group
+ * and bubbles a `topic-change` event with the value; the page that filters
+ * reacts to that.
+ */
+
+interface Props {
+  items: readonly string[];
+  value?: string;
+  tone?: (item: string) => Tone | undefined;
+  class?: string;
+}
+
+const { items, value, tone, class: className } = Astro.props;
+---
+
+<div data-slot="topic-chips" role="group" aria-label="Topic" class={cn("flex flex-wrap gap-1.5", className)}>
+  {
+    items.map((t) => {
+      const c = tone?.(t);
+      return (
+        <button
+          type="button"
+          data-topic-chip
+          data-value={t}
+          aria-pressed={value === t}
+          class="inline-flex h-8 items-center gap-2 rounded-full border px-3 text-[0.8125rem] font-medium text-muted-foreground transition-colors outline-none hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50 aria-pressed:border-foreground aria-pressed:text-foreground"
+        >
+          {c && <Marker class="size-1.75 border-[1.5px]" style={styleText({ color: `var(--${c})` })} />}
+          {t}
+        </button>
+      );
+    })
+  }
+</div>
+
+<script>
+  // Picking a topic marks it in the group and tells the page: a
+  // `topic-change` CustomEvent bubbles from the group with the value.
+  // Delegated, so it survives view transitions.
+  document.addEventListener("click", (event) => {
+    const chip = (event.target as HTMLElement | null)?.closest<HTMLElement>("[data-topic-chip]");
+    if (!chip) return;
+    const group = chip.closest<HTMLElement>("[data-slot='topic-chips']");
+    if (!group) return;
+    const value = chip.dataset.value ?? "";
+    for (const button of group.querySelectorAll<HTMLElement>("[data-topic-chip]")) {
+      button.setAttribute("aria-pressed", String(button === chip));
+    }
+    group.dataset.value = value;
+    group.dispatchEvent(new CustomEvent("topic-change", { detail: { value }, bubbles: true }));
+  });
+</script>

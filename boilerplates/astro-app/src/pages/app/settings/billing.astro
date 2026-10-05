@@ -1,0 +1,81 @@
+---
+import AppPage from "$brand/blocks/app/shell/app-page.astro";
+import AppPageHeader from "$brand/blocks/app/shell/app-page-header.astro";
+import ErrorState from "$brand/blocks/app/states/error-state.astro";
+import DetailSection from "$brand/blocks/app/details/detail-section.astro";
+import SkeletonDetails from "$brand/blocks/app/states/skeleton-details.astro";
+import { Button } from "$brand/starwind/button";
+import Workspace from "../../../components/app/workspace.astro";
+import Billing from "../../../components/app/billing.astro";
+import Deferred from "../../../components/app/deferred.astro";
+import AppDocument from "../../../components/app/app-document.astro";
+import { demoLoad, settingsTabs } from "../../../lib/app/demo-state";
+
+/*
+ * The billing settings page (app-blocks.md, phase 10): the same page the
+ * SvelteKit demo has — the one settings page that takes state=denied, which
+ * shows "Back to settings" beside the retry.
+ */
+const load = demoLoad(Astro.url.searchParams.get("state"), { denied: true });
+---
+
+<AppDocument title="Billing — astro-app">
+  <Workspace currentPath={Astro.url.pathname} state={load.state}>
+    {
+      load.status === "error" ? (
+        /* The error face keeps the page's frame — the heading and the section
+           tabs — as the Svelte twin's does: its DataState swaps only what sits
+           below the header. */
+        <AppPage width="narrow">
+          <AppPageHeader
+            title="Settings"
+            description="The plan this workspace is on, and its invoices."
+            tabs={settingsTabs}
+            currentPath="/app/settings/billing"
+            tabsLabel="Settings sections"
+          />
+          <div class="mt-8">
+            <ErrorState kind={load.kind} retryHref="/app/settings/billing">
+              {load.kind === "denied" && (
+                <Fragment slot="actions">
+                  <Button variant="outline" href="/app/settings/profile">Back to settings</Button>
+                </Fragment>
+              )}
+            </ErrorState>
+          </div>
+        </AppPage>
+      ) : load.status === "pending" ? (
+        <Deferred server:defer ms={600}>
+          {/* The pending face's semantics, as the members page has them — and
+              the same frame the error face keeps. */}
+          <div slot="fallback" aria-busy="true">
+            <span class="sr-only" role="status">Loading billing</span>
+            <AppPage width="narrow">
+              <AppPageHeader
+                title="Settings"
+                description="The plan this workspace is on, and its invoices."
+                tabs={settingsTabs}
+                currentPath="/app/settings/billing"
+                tabsLabel="Settings sections"
+              />
+              <div class="mt-8 flex flex-col gap-8">
+                <DetailSection title="Plan">
+                  <SkeletonDetails rows={4} />
+                </DetailSection>
+                <DetailSection title="Usage">
+                  <SkeletonDetails rows={3} />
+                </DetailSection>
+                <DetailSection title="Invoices">
+                  <SkeletonDetails rows={6} />
+                </DetailSection>
+              </div>
+            </AppPage>
+          </div>
+          <Billing />
+        </Deferred>
+      ) : (
+        <Billing />
+      )
+    }
+  </Workspace>
+</AppDocument>

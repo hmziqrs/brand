@@ -1,0 +1,164 @@
+---
+import AppPage from "$brand/blocks/app/shell/app-page.astro";
+import AppPageHeader from "$brand/blocks/app/shell/app-page-header.astro";
+import SettingsSection from "$brand/blocks/app/settings/settings-section.astro";
+import SettingRow from "$brand/blocks/app/settings/setting-row.astro";
+import FormActions from "$brand/blocks/app/settings/form-actions.astro";
+import ConfirmAction from "$brand/blocks/app/actions/confirm-action.astro";
+import { Button } from "$brand/starwind/button";
+import { Input } from "$brand/starwind/input";
+import { settingsTabs } from "../../lib/app/demo-state";
+
+/*
+ * The workspace settings content (app-blocks.md, phase 10), as the page and
+ * its `server:defer` island share it: the name and the address, and the
+ * destructive section below whose delete asks for the word "Paperplane".
+ */
+
+interface Props {
+  values: Record<string, string>;
+  saved: Record<string, string>;
+  result?: { message: string; field?: string };
+  savedOk?: boolean;
+}
+
+const { values: form, result, savedOk = false } = Astro.props;
+
+const fieldError = (field: string) => (result?.field === field ? result.message : undefined);
+---
+
+<AppPage width="narrow">
+  <AppPageHeader
+    title="Settings"
+    description="The workspace's name and address."
+    tabs={settingsTabs}
+    currentPath="/app/settings/workspace"
+    tabsLabel="Settings sections"
+  />
+
+  <form method="POST" action="/app/settings/workspace?_action=saveWorkspace" data-settings-form class="mt-8">
+    <SettingsSection
+      title="Workspace"
+      description="The name shows in the sidebar; the address is where members sign in."
+    >
+      <SettingRow label="Name" description="Shown in the sidebar and emails." for="name" error={fieldError("name")}>
+        <Input
+          id="name"
+          name="name"
+          value={form.name}
+          aria-invalid={fieldError("name") ? true : undefined}
+          aria-describedby="name-description name-error"
+        />
+      </SettingRow>
+      <SettingRow
+        label="Address"
+        description="Lowercase letters, numbers and dashes only."
+        for="slug"
+        error={fieldError("slug")}
+      >
+        <div class="flex w-full max-w-72 items-center rounded-md border border-border bg-background shadow-xs focus-within:border-ring focus-within:ring-3 focus-within:ring-ring/50">
+          <span class="pl-2.5 text-sm text-muted-foreground">sightline.io/</span>
+          <input
+            id="slug"
+            name="slug"
+            value={form.slug}
+            class="h-9 w-full rounded-md bg-transparent pr-2.5 text-sm outline-none"
+            aria-invalid={fieldError("slug") ? true : undefined}
+            aria-describedby="slug-description slug-error"
+          />
+        </div>
+      </SettingRow>
+      <FormActions
+        slot="footer"
+        dirty={false}
+        pending={false}
+        saved={savedOk}
+        error={result && !result.field ? result.message : undefined}
+        submitLabel="Save changes"
+      >
+        <Fragment slot="cancel">
+          <Button type="reset" variant="outline">Cancel</Button>
+        </Fragment>
+      </FormActions>
+    </SettingsSection>
+  </form>
+
+  <div class="mt-8">
+    <SettingsSection tone="destructive" title="Delete this workspace" description="Events, dashboards and members go with it. This can't be undone.">
+      <SettingRow
+        label="Deleting can't be undone"
+        description="You'd need to create a new workspace to use Sightline again."
+        orientation="horizontal"
+      >
+        <ConfirmAction
+          title="Delete this workspace?"
+          description="Events, dashboards and members go with it. This can't be undone."
+          confirmLabel="Delete workspace"
+          confirmText="Paperplane"
+          successMessage="Workspace deleted."
+          data-delete-workspace
+        >
+          <Fragment slot="trigger">
+            <Button type="button" variant="error" class="shrink-0">Delete this workspace</Button>
+          </Fragment>
+        </ConfirmAction>
+      </SettingRow>
+    </SettingsSection>
+  </div>
+</AppPage>
+
+<script>
+  import { actions } from "astro:actions";
+
+  // The dirty line and Save's state, as the browser sees them (the profile
+  // page's rules, one form to watch).
+  for (const form of document.querySelectorAll<HTMLFormElement>("[data-settings-form]")) {
+    const fields = Array.from(form.elements).filter((element) => element instanceof HTMLElement && (element as HTMLInputElement).id) as HTMLInputElement[];
+    const initial = new Map(fields.map((field) => [field.id, field.value]));
+    const sync = () => {
+      const dirty = fields.some((field) => field.value !== initial.get(field.id));
+      form.dataset.clean = dirty ? "false" : "true";
+      const foot = form.querySelector<HTMLElement>("[data-slot='form-actions']");
+      if (foot) foot.dataset.dirty = dirty ? "true" : "false";
+      const cancel = foot?.querySelector<HTMLElement>("[data-cancel-slot]");
+      if (cancel) cancel.classList.toggle("hidden", !dirty);
+    };
+    form.addEventListener("input", sync);
+    form.addEventListener("reset", () => window.setTimeout(sync, 0));
+    form.dataset.clean = "true";
+
+    window.addEventListener("beforeunload", (event) => {
+      if (form.dataset.clean === "false") {
+        event.preventDefault();
+      }
+    });
+  }
+
+  // Every action answers with the contract's FormResult shape, so a refusal
+  // comes back as data ({ ok: false, message }) rather than a thrown error:
+  // both roads read the same here.
+  const run = async (name: keyof typeof actions, posted: FormData) => {
+    const outcome = await (actions[name] as (input: FormData) => Promise<{ data?: { ok?: boolean; message?: string }; error?: { message: string } }>)(posted);
+    if (outcome.error) throw new Error(outcome.error.message);
+    if (outcome.data && outcome.data.ok === false) throw new Error(outcome.data.message ?? "That didn't work. Try again.");
+    return outcome.data;
+  };
+
+  // Deleting the workspace: typed word, first try fails, later tries work.
+  // Nothing is really deleted, so success is the toast and the page stays.
+  document.addEventListener("confirm", async (event) => {
+    const root = event.target as HTMLElement | null;
+    if (!root?.matches("[data-delete-workspace]")) return;
+    try {
+      const posted = new FormData();
+      posted.set("word", "Paperplane");
+      await run("deleteWorkspace", posted);
+    } catch (error) {
+      root.dispatchEvent(
+        new CustomEvent("confirm-settle", { detail: { ok: false, message: (error as Error).message }, bubbles: false }),
+      );
+      return;
+    }
+    root.dispatchEvent(new CustomEvent("confirm-settle", { detail: { ok: true }, bubbles: false }));
+  });
+</script>

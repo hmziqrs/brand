@@ -1,0 +1,13 @@
+---
+import { cn } from "$brand/utils";
+
+interface Props {
+  class?: string;
+}
+
+const { class: className, ...rest } = Astro.props;
+---
+
+<p class={cn("max-w-prose text-lg leading-relaxed text-muted-foreground", className)} {...rest}>
+  <slot />
+</p>

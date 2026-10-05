@@ -1,0 +1,37 @@
+---
+// The document every /app demo page renders inside (app-blocks.md, phase 10):
+// the same html, charset, viewport, favicon, title and before-paint theme the
+// svelte demo's app.html carries, with the stylesheet pulled in by ThemeInit.
+//
+// The shell has to be the page's own, not Astro's synthesized one: a page
+// whose frontmatter reads an action's result with Astro.getActionResult (the
+// seven pages that post to Astro Actions) renders no synthesized head at all,
+// and with it went the page's styles — the round-2 finding this file exists
+// for. With a real head closed before the page's content renders, the
+// collected styles land inside it on every page, action or not, and the
+// charset and title sit in a real head instead of relying on hoisting.
+//
+// Dark is the brand default; ThemeInit (the same head slot every /kit and
+// site page uses) applies a remembered light choice before first paint.
+import ThemeInit from "../theme-init.astro";
+
+interface Props {
+  /** The page's own name, the way the demo's pages name themselves: "Overview — astro-app". */
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<html lang="en" class="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>{title}</title>
+    <ThemeInit />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

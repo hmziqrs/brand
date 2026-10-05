@@ -1,0 +1,325 @@
+---
+// The site blocks and content pieces, each in the states it ships. The
+// section ids are the pieces' anchors in scripts/pieces.json, which
+// `pnpm check:parity` reads, so they are written out in full. SiteShell is
+// SiteLayout in this kit (it renders the whole document), and SiteHead is
+// the head above this page.
+import { FolderTree, ScanSearch, ListChecks } from "@lucide/astro";
+import Container from "$brand/blocks/site/container.astro";
+import PageIntro from "$brand/blocks/site/page-intro.astro";
+import Section from "$brand/blocks/site/section.astro";
+import SiteLayout from "$brand/blocks/site/site-layout.astro";
+import BeforeAfter from "$brand/blocks/site/before-after.astro";
+import BigNumbers from "$brand/blocks/site/big-numbers.astro";
+import Bullets from "$brand/blocks/site/bullets.astro";
+import ButtonLink from "$brand/blocks/site/button-link.astro";
+import CheckList from "$brand/blocks/site/check-list.astro";
+import CtaBand from "$brand/blocks/site/cta-band.astro";
+import ElementCard from "$brand/blocks/site/element-card.astro";
+import EmptyNote from "$brand/blocks/site/empty-note.astro";
+import FeatureCards from "$brand/blocks/site/feature-cards.astro";
+import FeatureGrid from "$brand/blocks/site/feature-grid.astro";
+import Hero from "$brand/blocks/site/hero.astro";
+import HeroActions from "$brand/blocks/site/hero-actions.astro";
+import HeroLede from "$brand/blocks/site/hero-lede.astro";
+import HeroNote from "$brand/blocks/site/hero-note.astro";
+import HeroNotes from "$brand/blocks/site/hero-notes.astro";
+import HeroTitle from "$brand/blocks/site/hero-title.astro";
+import Kicker from "$brand/blocks/site/kicker.astro";
+import LinkBar from "$brand/blocks/site/link-bar.astro";
+import OutlineCard from "$brand/blocks/site/outline-card.astro";
+import Price from "$brand/blocks/site/price.astro";
+import PricingPlans from "$brand/blocks/site/pricing-plans.astro";
+import Prose from "$brand/blocks/site/prose.astro";
+import RingStats from "$brand/blocks/site/ring-stats.astro";
+import SearchBox from "$brand/blocks/site/search-box.astro";
+import Steps from "$brand/blocks/site/steps.astro";
+import SummaryBox from "$brand/blocks/site/summary-box.astro";
+import TopicChips from "$brand/blocks/site/topic-chips.astro";
+import Rings from "$brand/components/rings.astro";
+import ThemeInit from "../../components/theme-init.astro";
+import ThemeToggle from "../../components/theme-toggle.astro";
+import type { Tone } from "@hmziq/brand-core/tones";
+
+const kinds = {
+  library: { label: "Library", color: "var(--blue)", tone: "blue" as Tone },
+  cli: { label: "Command-line tool", color: "var(--teal)", tone: "teal" as Tone },
+};
+---
+
+<SiteLayout site="example" maker="the kit" layout="page" mainClassName="gap-14 pt-12 pb-20 md:pt-20" head={{ site: "freeoxide", title: "Site blocks — the kit", description: "Every site block and content piece the Astro kit ships.", url: "https://example.com/kit/site" }}>
+  <ThemeInit slot="head" />
+  <ThemeToggle slot="extra" />
+
+  <Container>
+    <PageIntro class="max-w-2xl">
+      <Fragment slot="kicker">The kit · site blocks</Fragment>
+      <Fragment slot="title">Site blocks</Fragment>
+      <Fragment slot="lede">The shell, the hero and its parts, sections and cards, steps, pricing and the closing band — then the content pieces that dress long-form text. Example content throughout.</Fragment>
+    </PageIntro>
+  </Container>
+
+  <Container size="wide" class="flex flex-col gap-14">
+    <section id="piece-site-shell" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">SiteShell</h2>
+      <p class="text-[0.9375rem]">SiteLayout in this kit: it renders the whole document — the header above, the page's rhythm, the footer below with the family row and the signature. This page is one.</p>
+    </section>
+
+    <section id="piece-site-head" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">SiteHead</h2>
+      <p class="text-[0.9375rem]">The page's head: title, description, canonical URL, the OG and X tags, the icon links and theme-color. It wrote the tags in this page's head.</p>
+    </section>
+
+    <section id="piece-container" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">Container</h2>
+      <div class="flex flex-col gap-2">
+        <Container size="narrow" class="rounded-lg border py-3 text-sm">narrow (max-w-[46rem])</Container>
+        <Container class="rounded-lg border py-3 text-sm">default (max-w-5xl)</Container>
+        <Container size="wide" class="rounded-lg border py-3 text-sm">wide (max-w-[82rem])</Container>
+      </div>
+    </section>
+
+    <section id="piece-hero" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">Hero</h2>
+      <div class="rounded-xl border py-8">
+        <Hero>
+          <Fragment slot="kicker">Example kicker</Fragment>
+          <Fragment slot="title">Example headline, finished before it ships.</Fragment>
+          <Fragment slot="lede">One sentence on what this is and who it is for.</Fragment>
+          <Fragment slot="actions">
+            <ButtonLink href="/kit/site" size="lg" class="px-5">Main action</ButtonLink>
+            <ButtonLink href="/kit/site" size="lg" variant="outline" class="px-5">Second action</ButtonLink>
+          </Fragment>
+          <Fragment slot="note"><HeroNote>A note under the buttons, with an orange ring.</HeroNote></Fragment>
+          <Fragment slot="aside"><Rings seed="example" /></Fragment>
+        </Hero>
+      </div>
+    </section>
+
+    <section id="piece-hero-title" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">HeroTitle</h2>
+      <HeroTitle>Example headline at the landing size</HeroTitle>
+      <HeroTitle size="compact">Example headline at the compact size</HeroTitle>
+    </section>
+
+    <section id="piece-hero-lede" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">HeroLede</h2>
+      <HeroLede>One sentence on what this is and who it is for, set the way every hero's lede is.</HeroLede>
+    </section>
+
+    <section id="piece-hero-actions" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">HeroActions</h2>
+      <HeroActions>
+        <ButtonLink href="/kit/site" size="lg" class="px-5">Main action</ButtonLink>
+        <ButtonLink href="/kit/site" size="lg" variant="outline" class="px-5">Second action</ButtonLink>
+      </HeroActions>
+    </section>
+
+    <section id="piece-hero-notes" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">HeroNotes</h2>
+      <HeroNotes>
+        <HeroNote>One line of note</HeroNote>
+        <HeroNote>Another line of note</HeroNote>
+      </HeroNotes>
+    </section>
+
+    <section id="piece-hero-note" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">HeroNote</h2>
+      <p class="text-sm text-muted-foreground">One line of the note row; shown above inside HeroNotes.</p>
+    </section>
+
+    <section id="piece-page-intro" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">PageIntro</h2>
+      <PageIntro>
+        <Fragment slot="kicker">About</Fragment>
+        <Fragment slot="title">The top of an inner page</Fragment>
+        <Fragment slot="lede">A small grey word, the title and one paragraph, for every page that isn't a landing page.</Fragment>
+      </PageIntro>
+    </section>
+
+    <section id="piece-section" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">Section</h2>
+      <div class="rounded-xl border py-8">
+        <Section>
+          <Fragment slot="caption">Example caption</Fragment>
+          <Fragment slot="title">A section</Fragment>
+          <Fragment slot="intro">One sentence on what the section holds.</Fragment>
+          <p class="text-[0.9375rem]">The section's content, in the page's own column.</p>
+        </Section>
+      </div>
+    </section>
+
+    <section id="piece-ring-stats" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">RingStats</h2>
+      <div class="rounded-xl border py-8">
+        <RingStats items={[{ value: "100%", label: "example number, filled ring", ring: 1 }, { value: "90%+", label: "example number, most of a ring", ring: 0.9 }, { value: "5", label: "example count, five segments", ring: 5 }]} />
+      </div>
+    </section>
+
+    <section id="piece-element-card" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">ElementCard</h2>
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <ElementCard n={1} symbol="Ex" name="Example one" kind={kinds.library} status={{ label: "Shipped", tone: "success" }}>
+          One line on what it does and who it is for.
+        </ElementCard>
+        <ElementCard n={2} symbol="Tw" name="Example two" kind={kinds.cli} status={{ label: "Planned" }}>
+          One line on what it does and who it is for.
+        </ElementCard>
+      </div>
+    </section>
+
+    <section id="piece-outline-card" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">OutlineCard</h2>
+      <div class="grid gap-4 sm:grid-cols-2">
+        <OutlineCard>
+          <h3 class="text-lg font-medium">A card</h3>
+          <p class="text-[0.9rem] leading-relaxed text-muted-foreground">A thin line, no fill.</p>
+        </OutlineCard>
+        <OutlineCard href="/kit/site">
+          <h3 class="text-lg font-medium">A linked card</h3>
+          <p class="text-[0.9rem] leading-relaxed text-muted-foreground">Hovering tints the line orange.</p>
+        </OutlineCard>
+      </div>
+    </section>
+
+    <section id="piece-feature-cards" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">FeatureCards</h2>
+      <FeatureCards
+        items={[
+          { icon: FolderTree, title: "Structure by hand", body: "Example copy for a feature." },
+          { icon: ScanSearch, title: "Five review rounds", body: "Example copy for a feature." },
+          { icon: ListChecks, title: "Five rounds of tests", body: "Example copy for a feature." },
+        ]}
+      />
+    </section>
+
+    <section id="piece-feature-grid" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">FeatureGrid</h2>
+      <FeatureGrid
+        items={[
+          { icon: FolderTree, title: "Structure by hand", body: "Example copy for a feature." },
+          { icon: ScanSearch, title: "Five review rounds", body: "Example copy for a feature." },
+          { icon: ListChecks, title: "Five rounds of tests", body: "Example copy for a feature." },
+        ]}
+      />
+    </section>
+
+    <section id="piece-steps" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">Steps</h2>
+      <Steps items={[{ title: "Sketch the post", body: "Example copy for a step." }, { title: "Ship it", body: "Example copy for a step." }, { title: "Fix the typos live", body: "Example copy for a step." }]} />
+    </section>
+
+    <section id="piece-before-after" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">BeforeAfter</h2>
+      <BeforeAfter
+        before="By hand"
+        after="With the example"
+        rows={[
+          ["Showing that data is loading", "A flag you set and clear by hand", "Built in"],
+          ["Showing errors", "A field you fill by hand", "Built in, with typed errors"],
+          ["Going back to a screen", "It loads again", "Instant, from the cache"],
+        ]}
+      />
+    </section>
+
+    <section id="piece-pricing-plans" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">PricingPlans</h2>
+      <PricingPlans
+        plans={[
+          { name: "Free", price: 0, blurb: "For trying it out.", features: ["One project", "Help from the community"], cta: "Choose Free" },
+          { name: "Pro", price: 12, yearly: 120, blurb: "For one person shipping real work.", features: ["Unlimited projects", "Email help within a day"], cta: "Choose Pro", pick: true },
+          { name: "Team", price: 39, yearly: 390, per: "per person", blurb: "For a small team working together.", features: ["Up to 10 people", "Shared settings"], cta: "Choose Team" },
+        ]}
+      />
+    </section>
+
+    <section id="piece-price" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">Price</h2>
+      <div class="flex flex-wrap items-end gap-10">
+        <Price plan={{ price: 0 }} />
+        <Price plan={{ price: 12, yearly: 120, per: "per person" }} />
+      </div>
+      <p class="text-[0.8125rem] text-muted-foreground">Both billing periods are rendered; the switch on PricingPlans shows the one you pick.</p>
+    </section>
+
+    <section id="piece-cta-band" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">CtaBand</h2>
+      <div class="overflow-hidden rounded-xl border">
+        <CtaBand compact title="One person. All of it.">
+          <Fragment slot="body">Example closing copy for the compact band, the size a newsletter under a post uses.</Fragment>
+          <Fragment slot="actions">
+            <ButtonLink href="/kit/site" size="lg" class="px-5">Read the full story</ButtonLink>
+          </Fragment>
+        </CtaBand>
+      </div>
+    </section>
+
+    <section id="piece-prose" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">Prose</h2>
+      <Prose class="max-w-[46rem]">
+        <p>Long-form text: paragraphs, <a href="/kit/site">links in orange</a>, lists and headings, for posts, docs and legal pages.</p>
+        <ul>
+          <li>One</li>
+          <li>Two</li>
+        </ul>
+      </Prose>
+    </section>
+
+    <section id="piece-bullets" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">Bullets</h2>
+      <Bullets items={["Write in Markdown, deploy from the laptop", "No client bundle beyond what a page asks for", "Own the words and the layout"]} />
+    </section>
+
+    <section id="piece-check-list" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">CheckList</h2>
+      <CheckList items={["One project", "Help from the community", "Every core feature"]} />
+    </section>
+
+    <section id="piece-link-bar" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">LinkBar</h2>
+      <LinkBar url="https://example.com/blog/example-post" />
+    </section>
+
+    <section id="piece-summary-box" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">SummaryBox</h2>
+      <SummaryBox label="TL;DR" class="max-w-[46rem]">
+        Example copy: the whole post in three lines, in the orange outline box.
+      </SummaryBox>
+    </section>
+
+    <section id="piece-big-numbers" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">BigNumbers</h2>
+      <BigNumbers items={[["5", "releases"], ["9", "features added"], ["6", "fixes and changes"]]} />
+    </section>
+
+    <section id="piece-search-box" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">SearchBox</h2>
+      <SearchBox label="Search posts" class="max-w-sm" />
+    </section>
+
+    <section id="piece-topic-chips" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">TopicChips</h2>
+      <TopicChips items={["All", "Engineering", "Design", "Notes"]} value="All" tone={(t) => (t === "Engineering" ? "blue" : t === "Design" ? "purple" : t === "Notes" ? "teal" : undefined)} />
+    </section>
+
+    <section id="piece-empty-note" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">EmptyNote</h2>
+      <EmptyNote>No posts match that. Try another word or topic.</EmptyNote>
+    </section>
+
+    <section id="piece-kicker" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">Kicker</h2>
+      <Kicker>Latest release</Kicker>
+    </section>
+
+    <section id="piece-button-link" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">ButtonLink</h2>
+      <p class="flex flex-wrap items-center gap-3">
+        <ButtonLink href="/kit/site">Default</ButtonLink>
+        <ButtonLink href="/kit/site" variant="outline">Outline</ButtonLink>
+        <ButtonLink href="/kit/site" variant="ghost">Ghost</ButtonLink>
+        <ButtonLink href="/kit/site" size="lg" class="px-5">Large</ButtonLink>
+      </p>
+    </section>
+  </Container>
+</SiteLayout>

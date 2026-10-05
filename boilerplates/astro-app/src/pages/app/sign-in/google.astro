@@ -1,0 +1,8 @@
+---
+/*
+ * Google's way back in: its endpoint redirects to the form with
+ * provider=google, and the failure reads like any form error — with or
+ * without JavaScript.
+ */
+return Astro.redirect("/app/sign-in?provider=google", 303);
+---

@@ -1,18 +1,20 @@
 {
   "files": [],
+  // The root solution lists every package (structure.md, "Package rules").
+  // Only the lab and brand-core are `tsc -b` references: plain tsc cannot
+  // check the others, because `.svelte` and `.astro` modules resolve only
+  // through their own language services (stock shadcn-svelte files re-export
+  // named members from `*.svelte`; `.astro` imports need the Astro plugin).
+  // Those packages are still type-checked, by their own tools:
+  //   packages/brand-svelte, boilerplates/svelte-app   pnpm check:kit (svelte-check)
+  //   packages/brand-astro                             pnpm typecheck (astro check)
+  //   boilerplates/astro-app                           its own `typecheck` script (astro check)
   "references": [
     {
-      "path": "./tsconfig.app.json"
+      "path": "./apps/lab/tsconfig.json"
     },
     {
-      "path": "./tsconfig.node.json"
+      "path": "./packages/brand-core"
     }
-  ],
-  "compilerOptions": {
-    "paths": {
-      "@/*": [
-        "./src/*"
-      ]
-    }
-  }
+  ]
 }

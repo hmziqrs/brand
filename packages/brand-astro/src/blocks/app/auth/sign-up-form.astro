@@ -1,0 +1,226 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { LoaderCircle } from "@lucide/astro";
+import { cn } from "$brand/utils";
+import { Button } from "$brand/starwind/button";
+import { Input } from "$brand/starwind/input";
+import Marker from "$brand/components/marker.astro";
+import Notice from "$brand/components/notice.astro";
+import AuthField from "./auth-field.astro";
+import PasswordInput from "./password-input.astro";
+import ProviderButtons from "./provider-buttons.astro";
+import type { FormResult, PasswordRule, Provider } from "./types";
+
+/*
+ * The inside of a sign-up form: name, email and password, the password rules
+ * as a checklist that ticks as they're met, the errors and the submit button.
+ * The page owns the <form>; the action's FormResult comes back as `result`.
+ * The rules come as regex strings, so a server can send them; the script
+ * ticks each row once the password meets its pattern.
+ */
+
+interface Props extends HTMLAttributes<"div"> {
+  result?: FormResult;
+  pending?: boolean;
+  /** The fields as the page knows them: handed back after a failed sign-up. */
+  values?: { name?: string; email?: string };
+  providers?: Provider[];
+  links: { signIn?: string; terms?: string; privacy?: string };
+  passwordRules?: PasswordRule[];
+}
+
+const {
+  result,
+  pending = false,
+  values,
+  providers = [],
+  links,
+  passwordRules = [],
+  class: className,
+  ...rest
+} = Astro.props;
+
+const name = values?.name ?? "";
+const email = values?.email ?? "";
+
+const nameError = result?.field === "name" ? result.message : undefined;
+const emailError = result?.field === "email" ? result.message : undefined;
+const passwordError = result?.field === "password" ? result.message : undefined;
+const formError = result && !result.field ? result.message : undefined;
+const passwordDescribedBy =
+  [passwordError ? "password-error" : undefined, passwordRules.length > 0 ? "password-rules" : undefined]
+    .filter(Boolean)
+    .join(" ") || undefined;
+---
+
+<div data-pending-label="Creating your account…" data-slot="sign-up-form" data-result={result ? (result.field ?? "form") : undefined} class={cn("flex flex-col gap-4", className)} {...rest}>
+  {formError && (
+    <div data-error-notice tabindex="-1">
+      <Notice tone="destructive" title={formError} />
+    </div>
+  )}
+
+  {
+    providers.length > 0 && (
+      <>
+        <ProviderButtons providers={providers} />
+        <div class="flex items-center gap-3" aria-hidden="true">
+          <span class="h-px flex-1 bg-border" />
+          <span class="text-xs text-muted-foreground">or</span>
+          <span class="h-px flex-1 bg-border" />
+        </div>
+      </>
+    )
+  }
+
+  <AuthField label="Name" for="name" error={nameError}>
+    <Input
+      id="name"
+      name="name"
+      value={name}
+      autocomplete="name"
+      placeholder="Ada Lovelace"
+      disabled={pending}
+      aria-invalid={nameError ? true : undefined}
+      aria-describedby={nameError ? "name-error" : undefined}
+    />
+  </AuthField>
+
+  <AuthField label="Email" for="email" error={emailError}>
+    <Input
+      id="email"
+      name="email"
+      type="email"
+      value={email}
+      autocomplete="email"
+      placeholder="you@example.com"
+      disabled={pending}
+      aria-invalid={emailError ? true : undefined}
+      aria-describedby={emailError ? "email-error" : undefined}
+    />
+  </AuthField>
+
+  <AuthField label="Password" for="password" error={passwordError}>
+    <PasswordInput
+      id="password"
+      name="password"
+      data-password-rules={JSON.stringify(passwordRules.map((rule) => rule.pattern))}
+      autocomplete="new-password"
+      disabled={pending}
+      aria-invalid={passwordError ? true : undefined}
+      aria-describedby={passwordDescribedBy}
+    />
+  </AuthField>
+
+  {
+    passwordRules.length > 0 && (
+      <ul id="password-rules" class="flex flex-col gap-1.5" aria-label="Password rules">
+        {passwordRules.map((rule) => (
+          <li data-rule-row class="flex items-center gap-2 text-sm text-muted-foreground">
+            <Marker data-rule-marker />
+            {rule.label}
+          </li>
+        ))}
+      </ul>
+    )
+  }
+
+  <Button type="submit" class="mt-2" disabled={pending}>
+    {
+      pending ? (
+        <>
+          <LoaderCircle class="lucide size-4 animate-spin motion-reduce:animate-none" aria-hidden="true" />
+          Creating your account…
+        </>
+      ) : (
+        "Create account"
+      )
+    }
+  </Button>
+
+  {
+    (links.terms || links.privacy) && (
+      <p class="text-sm text-muted-foreground">
+        By creating an account, you agree to our{" "}
+        {links.terms ? (
+          <a href={links.terms} class="text-primary underline underline-offset-4 hover:underline">
+            terms
+          </a>
+        ) : (
+          "terms"
+        )}{" "}
+        and{" "}
+        {links.privacy ? (
+          <a href={links.privacy} class="text-primary underline underline-offset-4 hover:underline">
+            privacy policy
+          </a>
+        ) : (
+          "privacy policy"
+        )}
+        .
+      </p>
+    )
+  }
+
+  {
+    links.signIn && (
+      <p class="text-sm text-muted-foreground">
+        Already have an account?{" "}
+        <a href={links.signIn} class="text-primary underline underline-offset-4 hover:underline">
+          Sign in
+        </a>
+      </p>
+    )
+  }
+</div>
+
+<script>
+  // Which rules the password typed so far satisfies, and the focus moves:
+  // the first field on load; after a failed submit, the field the server
+  // refused, else the form error's Notice, which takes focus so screen
+  // readers read it.
+  const tick = (field: HTMLInputElement) => {
+    const root = field.closest<HTMLElement>("[data-slot='sign-up-form']");
+    if (!root) return;
+    let patterns: string[] = [];
+    try {
+      patterns = JSON.parse(field.dataset.passwordRules ?? "[]") as string[];
+    } catch {
+      patterns = [];
+    }
+    const rows = root.querySelectorAll<HTMLElement>("[data-rule-row]");
+    patterns.forEach((pattern, at) => {
+      const row = rows[at];
+      if (!row) return;
+      const met = new RegExp(pattern).test(field.value);
+      row.classList.toggle("text-foreground", met);
+      row.classList.toggle("text-muted-foreground", !met);
+      // Marker's filled look is a background on the ring itself.
+      const marker = row.querySelector<HTMLElement>("[data-rule-marker]");
+      marker?.classList.toggle("bg-current", met);
+    });
+  };
+
+  const run = () => {
+    for (const root of document.querySelectorAll<HTMLElement>("[data-slot='sign-up-form']")) {
+      const field = root.querySelector<HTMLInputElement>('[name="password"]');
+      if (field) {
+        tick(field);
+        field.addEventListener("input", () => tick(field));
+      }
+
+      const refused = root.dataset.result;
+      if (refused && refused !== "form") {
+        root.querySelector<HTMLElement>(`[name="${refused}"]`)?.focus();
+        continue;
+      }
+      if (refused === "form") {
+        root.querySelector<HTMLElement>("[data-error-notice]")?.focus();
+        continue;
+      }
+      root.querySelector<HTMLElement>("input")?.focus();
+    }
+  };
+  run();
+  document.addEventListener("astro:page-load", run);
+</script>

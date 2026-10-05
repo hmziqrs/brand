@@ -1,0 +1,10 @@
+---
+import Marker from "$brand/components/marker.astro";
+
+/* One line of the note under a hero, with an orange ring before it. */
+---
+
+<span class="inline-flex items-center gap-2.5">
+  <Marker class="text-primary" />
+  <slot />
+</span>

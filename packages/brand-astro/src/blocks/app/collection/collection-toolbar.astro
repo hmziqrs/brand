@@ -1,0 +1,188 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { LoaderCircle, Search, X } from "@lucide/astro";
+import { cn } from "$brand/utils";
+import { Input } from "$brand/starwind/input";
+
+/*
+ * The bar over a list: the search on the left, the filter chips and the sort
+ * beside it, the count and any actions to the right. Every control is either
+ * a link or a named input, so the bar works inside the page's GET form with
+ * JavaScript off. While rows are selected, the BulkActionBar in the
+ * `selection` slot takes the box's place: both are rendered here, the bar
+ * hidden, and the selection script swaps them — the two bars are the same
+ * box, so the table below never moves.
+ */
+
+interface Props extends HTMLAttributes<"div"> {
+  /** The search: its input is named "q". Typing navigates once it pauses. */
+  search?: { value: string; label: string; placeholder?: string };
+  /** Shows "Clear filters" when set. */
+  clearFiltersHref?: string;
+  /** True while the list refetches with results still on screen. */
+  busy?: boolean;
+}
+
+const { search, clearFiltersHref, busy = false, class: className, ...rest } = Astro.props;
+
+const hasFilters = Astro.slots.has("filters");
+const hasSort = Astro.slots.has("sort");
+const hasCount = Astro.slots.has("count");
+const hasActions = Astro.slots.has("actions");
+const hasSelection = Astro.slots.has("selection");
+---
+
+<div data-slot="collection-toolbar" class={cn(className)} {...rest}>
+  <div data-toolbar-box class="flex min-h-14 flex-col gap-2.5 rounded-xl border border-border px-3 py-2 sm:flex-row sm:items-center">
+    {
+      search && (
+        <div class="relative w-full sm:w-60">
+          <Search class="lucide pointer-events-none absolute top-1/2 left-2.5 size-4 -translate-y-1/2 text-muted-foreground" aria-hidden="true" />
+          <Input
+            data-toolbar-search
+            name="q"
+            type="text"
+            value={search.value}
+            aria-label={search.label}
+            placeholder={search.placeholder ?? "Search…"}
+            enterkeyhint="search"
+            class="peer pl-8 pr-8"
+          />
+          <button
+            type="button"
+            aria-label="Clear search"
+            data-search-clear
+            class="absolute top-1/2 right-2 flex size-5 peer-placeholder-shown:hidden -translate-y-1/2 items-center justify-center rounded-sm text-muted-foreground outline-none transition-colors hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50"
+          >
+            <X class="lucide size-4" aria-hidden="true" />
+          </button>
+        </div>
+      )
+    }
+    <div class="flex min-w-0 items-center gap-2 sm:flex-wrap max-sm:-mx-3 max-sm:overflow-x-auto max-sm:px-3">
+      {hasFilters && <slot name="filters" />}
+      {hasSort && <slot name="sort" />}
+      {
+        clearFiltersHref && (
+          <a
+            href={clearFiltersHref}
+            class="rounded-md text-sm whitespace-nowrap text-muted-foreground underline-offset-4 outline-none transition-colors hover:text-foreground hover:underline focus-visible:ring-3 focus-visible:ring-ring/50"
+          >
+            Clear filters
+          </a>
+        )
+      }
+      <!-- The count and the actions sit at the right end from sm; below it
+           they join the row that scrolls inside itself. -->
+      <span class="flex items-center gap-2 sm:ml-auto">
+        {
+          hasCount && (
+            <span class="flex items-center gap-1.5 text-sm whitespace-nowrap text-muted-foreground">
+              <span class="hidden" data-busy-spinner>
+                <span class="sr-only" role="status">Updating results</span>
+                <LoaderCircle class="lucide size-3.5 animate-spin motion-reduce:animate-none" aria-hidden="true" />
+              </span>
+              <slot name="count" />
+            </span>
+          )
+        }
+        {hasActions && <slot name="actions" />}
+      </span>
+    </div>
+  </div>
+  {
+    hasSelection && (
+      <div data-selection-slot hidden>
+        <slot name="selection" />
+      </div>
+    )
+  }
+</div>
+
+<script>
+  // The search box: typing navigates once it pauses (250 ms), so the list
+  // follows without a submit; the box also follows the URL when the q
+  // changes elsewhere (a pasted link, the chips' clear link). "/" jumps to
+  // it from anywhere except a field the reader is typing in, Escape clears
+  // it while it holds focus, and the clear button clears it at once. A
+  // navigation inside the page's own list turns the busy spinner on.
+  const navigate = (q: string) => {
+    const url = new URL(window.location.href);
+    if (q) url.searchParams.set("q", q);
+    else url.searchParams.delete("q");
+    // Changing q resets the page to 1 (APP-BLOCKS.md, "List state").
+    url.searchParams.delete("page");
+    window.location.assign(url);
+  };
+
+  const run = () => {
+    for (const input of document.querySelectorAll<HTMLInputElement>("[data-toolbar-search]")) {
+      const box = input.closest<HTMLElement>("[data-slot='collection-toolbar']");
+      if (!box || input.dataset.wired === "true") continue;
+      input.dataset.wired = "true";
+      const clear = box.querySelector<HTMLElement>("[data-search-clear]");
+      const paintClear = () => clear?.classList.toggle("hidden", input.value === "");
+      paintClear();
+
+      let timer: number | undefined;
+      let last = input.value;
+      input.addEventListener("input", () => {
+        paintClear();
+        window.clearTimeout(timer);
+        const next = input.value;
+        timer = window.setTimeout(() => {
+          if (next !== last) {
+            last = next;
+            navigate(next);
+          }
+        }, 250);
+      });
+
+      const clearNow = () => {
+        input.value = "";
+        paintClear();
+        if (last !== "") {
+          last = "";
+          navigate("");
+        }
+      };
+      input.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && input.value) {
+          event.preventDefault();
+          clearNow();
+        }
+      });
+      clear?.addEventListener("click", clearNow);
+    }
+
+    document.onkeydown = (event: KeyboardEvent) => {
+      if (event.key !== "/" || event.defaultPrevented) return;
+      const target = event.target as HTMLElement | null;
+      if (target?.isContentEditable || (target && /^(input|textarea|select)$/i.test(target.tagName))) return;
+      const input = document.querySelector<HTMLInputElement>("[data-toolbar-search]");
+      if (!input) return;
+      event.preventDefault();
+      input.focus();
+    };
+  };
+  run();
+  document.addEventListener("astro:page-load", run);
+
+  // The busy spinner: a link or a submit inside the list's own form starts a
+  // navigation, and the results are on their way.
+  document.addEventListener("click", (event) => {
+    const target = event.target as HTMLElement | null;
+    if (!target) return;
+    const box = target.closest<HTMLElement>("[data-slot='collection-toolbar']");
+    if (!box) return;
+    const goesSomewhere = target.closest("a, button[type='submit']");
+    if (!goesSomewhere) return;
+    if (goesSomewhere.closest("[data-sw-dropdown], [data-sw-menu]")) return;
+    box.querySelector<HTMLElement>("[data-busy-spinner]")?.classList.remove("hidden");
+  });
+  document.addEventListener("submit", (event) => {
+    const form = event.target as HTMLElement | null;
+    const box = form?.querySelector<HTMLElement>("[data-slot='collection-toolbar']");
+    box?.querySelector<HTMLElement>("[data-busy-spinner]")?.classList.remove("hidden");
+  });
+</script>

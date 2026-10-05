@@ -1,6 +1,6 @@
 # hmziq brand: master plan
 
-**Status: planned, not started. Updated 2026-09-29.**
+**Status: implemented on the `docs-implementation` branch. Updated 2026-10-02.**
 
 One brand kit that installs into every hmziq site and app, built for **SvelteKit and Astro**. This page is the index: what ships, the plans, the order of work and the open decisions. Each plan holds the detail.
 
@@ -72,6 +72,29 @@ Content blocks come before app blocks because most of the sites are content site
 - Work on a branch per plan (`structure`, `kits`, `content-blocks`, `app-blocks`, `assets`), with one commit per step.
 - Before starting, commit or set aside any unrelated work, and merge any open branch. That's the user's call: ask, don't do it yourself.
 - Write the way BRAND.md section 11 says: plain words, short sentences.
+- Load the skills for the step before starting it (see Skills below). Install them once with the commands there.
+
+## Skills
+
+An agent works on these plans with skills loaded, and five of them are required: they hold the rules for the libraries the kits are built on, and the plans assume them. Install each one globally, once:
+
+```sh
+npx skills add astrolicious/agent-skills@astro -g
+npx skills add starwind-ui/skills@starwind-ui -g
+npx skills add huntabyte/shadcn-svelte@shadcn-svelte -g
+npx skills add alinaqi/maggy@playwright-testing -g
+npx skills add dalestudy/skills@storybook -g
+```
+
+| Skill | Needed for |
+| --- | --- |
+| `astro` | The Astro kit, `astro-app`, content collections, Astro Actions and `server:defer` (kits.md step 2, content-blocks.md step 3, app-blocks.md phase 10) |
+| `starwind-ui` | Starwind UI: the base library of the Astro kit, its CLI, its components and its registry |
+| `shadcn-svelte` | shadcn-svelte: the base library of the Svelte kit, its CLI, `components.json` and the registry (kits.md step 1, app-blocks.md phases 0–9) |
+| `playwright-testing` | Playwright, used by `pnpm compare` and the fresh-copy checks (kits.md) |
+| `storybook` | Both Storybooks: the stories, the manager theme, the a11y and themes addons (every plan gates on them) |
+
+The rest is already covered by installed skills: `svelte-code-writer` and `svelte-core-bestpractices` for the Svelte 5 kit code, `tailwind` for Tailwind 4 and the theme CSS, `three` for the scenes, `remotion-best-practices` for the video plan in assets.md, and `TanStack Table` for the app table recipe in app-blocks.md. Shiki, the remark and rehype plugins, mdsvex and Satori have no skills; their plans spell out the rules to follow instead.
 
 ## Decisions
 
@@ -94,8 +117,8 @@ Asset decisions are in [assets.md](./assets.md). All others:
 
 | Plan | Status |
 | --- | --- |
-| structure.md | Not started |
-| kits.md | Not started |
-| content-blocks.md | Not started |
-| app-blocks.md | Not started |
-| assets.md | Not started |
+| structure.md | Done — `docs-implementation` |
+| kits.md | Done — `docs-implementation` |
+| content-blocks.md | Done — `docs-implementation` |
+| app-blocks.md | Done — `docs-implementation` |
+| assets.md | Done — `docs-implementation` |

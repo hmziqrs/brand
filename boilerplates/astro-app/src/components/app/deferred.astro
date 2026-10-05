@@ -1,0 +1,22 @@
+---
+import { fakeRequest } from "@hmziq/brand-core/app/demo-data";
+
+/*
+ * The pending state as an Astro server island (app-blocks.md, phase 10): the
+ * skeleton in the `fallback` slot paints with the page, and the content —
+ * the default slot, rendered by this component when the island resolves —
+ * takes its place once the fake load is done. Demo scaffolding: a real page
+ * defers its own slow part.
+ */
+
+interface Props {
+  /** How long the fake load holds, in milliseconds. */
+  ms?: number;
+}
+
+const { ms = 600 } = Astro.props;
+
+await fakeRequest(undefined, { ms });
+---
+
+<slot />

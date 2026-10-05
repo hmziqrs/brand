@@ -1,0 +1,19 @@
+---
+import { cn } from "$brand/utils";
+
+/* The page's headline. "compact" (the inner-page size) when a product sits beside it. */
+
+interface Props {
+  size?: "default" | "compact";
+  class?: string;
+}
+
+const { size = "default", class: className, ...rest } = Astro.props;
+---
+
+<h1
+  class={cn("text-4xl leading-[1.02] font-medium tracking-[-0.035em] text-balance sm:text-5xl", size === "default" ? "lg:text-[3.9rem]" : "lg:text-[3.6rem]", className)}
+  {...rest}
+>
+  <slot />
+</h1>

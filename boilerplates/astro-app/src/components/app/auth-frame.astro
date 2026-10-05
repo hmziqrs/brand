@@ -1,0 +1,82 @@
+---
+import "../../styles/app.css";
+import AuthLayout from "$brand/blocks/app/auth-layout/auth-layout.astro";
+import Wordmark from "$brand/components/wordmark.astro";
+import Rings from "$brand/components/rings.astro";
+import Toaster from "$brand/starwind/toast/Toaster.astro";
+
+/*
+ * The demo's frame around every auth page (app-blocks.md, phase 5): the
+ * AuthLayout block with the demo's own brand, aside and footer, plus the
+ * pending face every auth form shows while its post is on the way. Demo
+ * scaffolding, not a kit piece — a real site passes its own brand, footer
+ * and aside, and posts to its own action.
+ */
+
+interface Props {
+  variant?: "centered" | "split";
+  title: string;
+  description?: string;
+}
+
+const { variant = "centered", title, description } = Astro.props;
+
+---
+
+<AuthLayout variant={variant} title={title} description={description}>
+  <a
+    slot="brand"
+    href="/"
+    aria-label="Sightline home"
+    class="rounded-sm outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
+  >
+    <Wordmark name="Sightline" class="text-lg" />
+  </a>
+  <div slot="aside" class="w-full max-w-md">
+    <Rings seed="sightline" />
+  </div>
+  <nav slot="footer" aria-label="Legal" class="flex items-center gap-4 text-sm">
+    <a href="/terms" class="text-muted-foreground underline-offset-4 hover:text-foreground hover:underline">Terms</a>
+    <a href="/privacy" class="text-muted-foreground underline-offset-4 hover:text-foreground hover:underline">Privacy</a>
+  </nav>
+  <slot />
+</AuthLayout>
+
+<Toaster />
+
+<script>
+  // The pending face every auth form shares (APP-BLOCKS.md, the forms'
+  // behavior): while the post is on its way the button spins and says what
+  // it's doing, and the fields stand down. Each form carries its own pending
+  // words; with no JavaScript the browser simply waits, and the server's
+  // answer says what happened.
+  document.addEventListener("submit", (event) => {
+    const form = event.target as HTMLFormElement | null;
+    if (!form || !form.querySelector("[data-pending-label]")) return;
+    const root = form.querySelector<HTMLElement>("[data-pending-label]")!;
+    const button = form.querySelector<HTMLButtonElement>("button[type='submit']:not([name='resend'])");
+    if (!button || button.disabled) return;
+
+    button.disabled = true;
+    button.setAttribute("aria-busy", "true");
+    // The resting label stands down, so the button says only what it is
+    // doing now ("Signing in…", never "Sign inSigning in…") — the same
+    // replacement the block's own `pending` render makes.
+    for (const child of [...button.childNodes]) {
+      if (child.nodeType === Node.TEXT_NODE && child.textContent?.trim()) child.remove();
+    }
+    const spinner = document.createElement("span");
+    spinner.className =
+      "lucide inline-block size-4 animate-spin rounded-full border-2 border-current border-t-transparent motion-reduce:animate-none";
+    spinner.setAttribute("aria-hidden", "true");
+    button.prepend(spinner);
+    button.append(root.dataset.pendingLabel ?? "Working…");
+    // A beat later: a field disabled during the submit event submits
+    // nothing, and the action needs what was typed.
+    window.setTimeout(() => {
+      for (const field of form.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLButtonElement>("input, select, button")) {
+        if (field !== button && field.type !== "hidden") field.disabled = true;
+      }
+    }, 0);
+  });
+</script>

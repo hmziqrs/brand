@@ -1,0 +1,39 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { cn } from "$brand/utils";
+import { Skeleton } from "$brand/starwind/skeleton";
+
+/*
+ * A skeleton for a whole table: a header row and `rows` body rows over the
+ * given column widths (percent strings, one per column), the same shape as
+ * the AppTableFrame it stands for.
+ */
+
+interface Props extends HTMLAttributes<"div"> {
+  rows?: number;
+  columns?: string[];
+}
+
+const { rows = 5, columns = ["40%", "20%", "20%", "20%"], class: className, ...rest } = Astro.props;
+
+// The widths come as data, so they go inline: no class names are built
+// at render time for Tailwind to miss.
+const tracks = `grid-template-columns: ${columns.join(" ")}`;
+---
+
+<div data-slot="skeleton-table" class={cn("overflow-hidden rounded-xl border border-border", className)} aria-hidden="true" {...rest}>
+  <div class="grid gap-4 border-b border-border px-4 py-2.5" style={tracks}>
+    {columns.map(() => (
+      <Skeleton class="h-3.5" />
+    ))}
+  </div>
+  {
+    Array.from({ length: rows }).map(() => (
+      <div class="grid gap-4 border-b border-border px-4 py-4 last:border-b-0" style={tracks}>
+        {columns.map(() => (
+          <Skeleton class="h-4" />
+        ))}
+      </div>
+    ))
+  }
+</div>

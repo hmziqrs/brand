@@ -1,0 +1,15 @@
+---
+import { cn } from "$brand/utils";
+
+/* Steps joined by a line. Only for things that really happen in order. */
+
+interface Props {
+  class?: string;
+}
+
+const { class: className, ...rest } = Astro.props;
+---
+
+<ol data-slot="stepper" class={cn("flex max-w-[52rem] flex-col", className)} {...rest}>
+  <slot />
+</ol>

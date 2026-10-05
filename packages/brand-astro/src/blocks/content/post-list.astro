@@ -1,0 +1,81 @@
+---
+import { cn } from "$brand/utils";
+import EmptyNote from "$brand/blocks/site/empty-note.astro";
+import type { Tone } from "@hmziq/brand-core/tones";
+import PostCard from "./post-card.astro";
+import PostMeta from "./post-meta.astro";
+import type { PostItem } from "./types";
+
+/*
+ * A blog's posts. `cards` (the default) is the lab's blog index: the newest
+ * post large with its own rings, the rest as cards in a grid. `list` is a
+ * row per post, `archive` a compact line per post, for pages with many.
+ *
+ * The list ships no script: it renders every post, each carrying its topic
+ * and its searchable text, and an empty note that starts hidden. The page
+ * that adds a SearchBox or TopicChips listens to them and shows, hides and
+ * filters the posts — the way the lab's blog index filters in React.
+ */
+
+interface Props {
+  posts: PostItem[];
+  /** `cards` (default), `list` or `archive`. */
+  variant?: "cards" | "list" | "archive";
+  /** The topic's color, for the tags and the featured card's rings. */
+  tone?: (topic: string) => Tone | undefined;
+  /** The empty note's words, when a search or a topic finds nothing. */
+  empty?: string;
+  class?: string;
+}
+
+const { posts, variant = "cards", tone, empty = "No posts match that. Try another word or topic.", class: className } = Astro.props;
+
+const searchable = (post: PostItem) => `${post.title} ${post.summary ?? ""}`.toLowerCase();
+---
+
+{
+  variant === "cards" ? (
+    <div data-slot="post-list" data-variant={variant} class={cn("flex flex-col", className)}>
+      <PostCard post={posts[0]} featured tone={tone} />
+      {posts.length > 1 && (
+        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {posts.slice(1).map((post) => (
+            <PostCard post={post} tone={tone} />
+          ))}
+        </div>
+      )}
+      <div data-empty hidden>
+        <EmptyNote>{empty}</EmptyNote>
+      </div>
+    </div>
+  ) : (
+    <div data-slot="post-list" data-variant={variant} class={cn("flex flex-col", className)}>
+      <ul class={cn("flex flex-col border-t", variant === "archive" && "text-[0.9375rem]")}>
+        {posts.map((post) =>
+          variant === "list" ? (
+            <li data-post data-topic={post.topic} data-search={searchable(post)} class="border-b">
+              <a href={post.href} class="grid gap-1.5 py-5 no-underline outline-none transition-colors focus-visible:ring-3 focus-visible:ring-ring/50 md:grid-cols-[10rem_minmax(0,1fr)] md:gap-x-6">
+                <PostMeta post={post} tone={tone} />
+                <span class="flex min-w-0 flex-col gap-1.5">
+                  <span class="text-[1.0625rem] leading-snug font-medium">{post.title}</span>
+                  {post.summary && <span class="text-[0.9rem] leading-relaxed text-muted-foreground">{post.summary}</span>}
+                </span>
+              </a>
+            </li>
+          ) : (
+            <li data-post data-topic={post.topic} data-search={searchable(post)}>
+              <a href={post.href} class="flex flex-wrap items-baseline gap-x-4 gap-y-1 border-b py-3 no-underline outline-none transition-colors hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50">
+                <span class="min-w-24 text-[0.8125rem] tabular-nums text-muted-foreground">{post.date}</span>
+                <span class="font-medium">{post.title}</span>
+                {post.topic && <span class="ml-auto text-[0.8125rem] text-muted-foreground">{post.topic}</span>}
+              </a>
+            </li>
+          ),
+        )}
+      </ul>
+      <div data-empty hidden>
+        <EmptyNote>{empty}</EmptyNote>
+      </div>
+    </div>
+  )
+}

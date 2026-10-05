@@ -1,0 +1,160 @@
+---
+import { cn } from "$brand/utils";
+import { family } from "@hmziq/brand-core/family";
+import Container from "./container.astro";
+import ButtonLink from "./button-link.astro";
+import Wordmark from "$brand/components/wordmark.astro";
+import Mark from "$brand/components/mark.astro";
+import SiteHead, { type Props as SiteHeadProps } from "./site-head.astro";
+
+/*
+ * Building block shared by every hmziq site: the header, the page's column
+ * rhythm and the footer that links the whole family together. In the Astro
+ * kit the shell is the layout: it renders the whole document, and each page
+ * is built from the site blocks plus Starwind components.
+ */
+
+interface Props {
+  /** The site's or product's name, shown as the wordmark. */
+  site: string;
+  /** Shown after the wordmark in small text, e.g. "by freeoxide". */
+  maker?: string;
+  nav?: string[];
+  /** The nav item for the page you're on. */
+  current?: string;
+  cta?: { label: string; href?: string };
+  /** "page" for inner pages: less space between sections than a landing page. */
+  layout?: "landing" | "page";
+  /** A wider header, for docs. */
+  wide?: boolean;
+  mainClassName?: string;
+  footerLinks?: { title: string; links: string[] }[];
+  /** The giant name the footer ends on, and its size in % of the footer's width. hmziq by default. */
+  signature?: { name: string; size: number };
+  /** The page's head, rendered by SiteHead. Its `site` is the family id, this `site` is the display name. */
+  head?: Omit<SiteHeadProps, "site"> & { site?: string };
+  /** The page's theme class. Dark by default; the app's toggle rewrites it before first paint. */
+  theme?: string;
+}
+
+const {
+  site,
+  maker,
+  nav = [],
+  current,
+  cta,
+  layout = "landing",
+  wide = false,
+  mainClassName,
+  footerLinks = [],
+  signature = { name: "hmziq", size: 33 },
+  head,
+  theme = "dark",
+} = Astro.props;
+
+const others = family.filter((f) => f.name !== site);
+const legalText = "© 2026 hmziq. Free and open source where it says so.";
+---
+
+<html lang="en" class={theme}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {head && <SiteHead site={head.site ?? site.toLowerCase()} title={head.title} description={head.description} url={head.url} card={head.card} image={head.image} />}
+    <slot name="head" />
+  </head>
+  <body>
+    <div class="min-h-screen bg-background text-foreground">
+      {Astro.slots.has("banner") && <slot name="banner" />}
+      <header>
+        <Container size={wide ? "wide" : "default"} class="flex h-19 items-center gap-4 md:gap-6">
+          <a href="#" class="flex shrink-0 items-baseline gap-[0.35em] text-lg">
+            <Wordmark name={site} />
+            {maker && <span class="hidden text-[0.78em] text-muted-foreground sm:inline">{maker}</span>}
+          </a>
+          <slot name="lead" />
+          <nav class="ml-auto hidden items-center gap-1 md:flex" aria-label="Main">
+            {
+              nav.map((item) => (
+                <ButtonLink
+                  href="#"
+                  variant="ghost"
+                  size="sm"
+                  aria-current={item === current ? "page" : undefined}
+                  class="text-muted-foreground aria-[current=page]:text-foreground"
+                >
+                  {item}
+                </ButtonLink>
+              ))
+            }
+          </nav>
+          {Astro.slots.has("extra") && <div class="ml-auto flex items-center gap-3 md:ml-0"><slot name="extra" /></div>}
+          {
+            cta && (
+              <ButtonLink href={cta.href ?? "#"} size="sm" class={cn("px-3 md:ml-0", !Astro.slots.has("extra") && "ml-auto")}>
+                {cta.label}
+              </ButtonLink>
+            )
+          }
+        </Container>
+      </header>
+
+      <main class={cn(layout === "landing" ? "flex flex-col gap-24 py-16 md:gap-32 md:py-24" : "flex flex-col gap-10 pt-12 pb-16 md:pt-20", mainClassName)}>
+        <slot />
+      </main>
+
+      <footer class="border-t">
+        <Container class="flex flex-col gap-5 py-11">
+          {
+            footerLinks.length > 0 && (
+              <div class="grid grid-cols-2 gap-8 pb-6 sm:grid-cols-4">
+                {footerLinks.map((col) => (
+                  <div class="flex flex-col gap-3">
+                    <h2 class="text-sm font-medium">{col.title}</h2>
+                    <ul class="flex flex-col gap-2 text-sm text-muted-foreground">
+                      {col.links.map((l) => (
+                        <li>
+                          <a href="#" class="hover:text-foreground">
+                            {l}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            )
+          }
+
+          {
+            Astro.slots.has("footer-row") ? (
+              <slot name="footer-row" />
+            ) : (
+              <>
+                <h2 class="text-sm font-medium">More from hmziq</h2>
+                <ul class="flex flex-wrap gap-x-6 gap-y-3 text-sm">
+                  {others.map((f) => (
+                    <li>
+                      <a href={f.href} class="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground">
+                        <Mark symbol={f.symbol} />
+                        {f.name}
+                        <span class="sr-only"> ({f.note})</span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )
+          }
+
+          <!-- The signature: every site signs off with the same giant wordmark. -->
+          <div class="@container mt-6 overflow-hidden border-t pt-10">
+            <Wordmark name={signature.name} class="block pb-[0.2em] leading-[0.74] tracking-[-0.05em]" style={`font-size: ${signature.size}cqw`} />
+          </div>
+
+          <div class="text-[0.8125rem] text-muted-foreground">{Astro.slots.has("legal") ? <slot name="legal" /> : legalText}</div>
+        </Container>
+      </footer>
+    </div>
+  </body>
+</html>

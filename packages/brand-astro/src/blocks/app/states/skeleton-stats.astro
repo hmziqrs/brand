@@ -1,0 +1,40 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { cn } from "$brand/utils";
+import { Skeleton } from "$brand/starwind/skeleton";
+
+/*
+ * A skeleton for a run of stat cards: `count` cells in the gap-px grid on
+ * bg-border that StatGrid draws, two lines each — a label and a number —
+ * so the real cards land where the skeletons stood.
+ */
+
+interface Props extends HTMLAttributes<"div"> {
+  count?: number;
+}
+
+const { count = 4, class: className, ...rest } = Astro.props;
+
+// The grid for each count, written out in full.
+const columns: Record<number, string> = {
+  2: "sm:grid-cols-2",
+  3: "sm:grid-cols-3",
+  4: "sm:grid-cols-4",
+};
+---
+
+<div
+  data-slot="skeleton-stats"
+  class={cn("grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-border bg-border", columns[count] ?? columns[4], className)}
+  aria-hidden="true"
+  {...rest}
+>
+  {
+    Array.from({ length: count }).map(() => (
+      <div class="flex flex-col gap-2.5 bg-background px-4 py-4">
+        <Skeleton class="h-4 w-24" />
+        <Skeleton class="h-7 w-16" />
+      </div>
+    ))
+  }
+</div>

@@ -1,0 +1,47 @@
+---
+// The privacy policy and the terms of use, from the same layout: contents in
+// a side column, sections numbered in orange, the short version in the box.
+// The words are example copy.
+import { siGithub } from "simple-icons";
+import BrandIcon from "$brand/components/brand-icon.astro";
+import LegalLayout from "$brand/blocks/content/legal-layout.astro";
+import LegalSection from "$brand/blocks/content/legal-section.astro";
+import LegalBlock from "$brand/blocks/content/legal-block.astro";
+import SiteLayout from "$brand/blocks/site/site-layout.astro";
+import ThemeInit from "../components/theme-init.astro";
+import ThemeToggle from "../components/theme-toggle.astro";
+import { legal } from "../lib/example";
+
+interface Props {
+  doc: "privacy" | "terms";
+  toc?: "side" | "top";
+}
+
+const { doc, toc = "side" } = Astro.props;
+const entry = legal[doc];
+---
+
+<SiteLayout site="example" maker="by hmziq" nav={["Docs", "Blog", "Contact"]} layout="page" head={{ site: "freeoxide", title: `${entry.title} — astro-app`, description: entry.short, url: `https://example.com/${doc}` }}>
+  <ThemeInit slot="head" />
+  <ThemeToggle slot="extra" />
+
+  <LegalLayout doc={entry} toc={toc}>
+    {entry.sections.map(([title, ...blocks], i) => (
+      <LegalSection n={i + 1} title={title}>
+        {blocks.map((block) => (
+          <LegalBlock block={block} />
+        ))}
+      </LegalSection>
+    ))}
+    <Fragment slot="foot">
+      <a href="https://github.com" class="inline-flex items-center gap-2 transition-colors hover:text-foreground">
+        <BrandIcon icon={siGithub} />
+        Every change is in the GitHub history
+      </a>
+      ·
+      <a href={doc === "privacy" ? "/terms" : "/privacy"} class="transition-colors hover:text-foreground">
+        Read the {doc === "privacy" ? "terms of use" : "privacy policy"}
+      </a>
+    </Fragment>
+  </LegalLayout>
+</SiteLayout>

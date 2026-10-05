@@ -1,0 +1,117 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { ChevronsUpDown } from "@lucide/astro";
+import { cn } from "$brand/utils";
+import Dropdown from "$brand/starwind/dropdown";
+import Avatar from "$brand/starwind/avatar";
+import type { Theme, UserMenuItem } from "./types";
+
+/*
+ * The account menu: who's signed in, where their settings live, the choice
+ * of light or dark, and signing out. The trigger shows the avatar (initials
+ * when there's no photo), the name and the email; inside a collapsed sidebar
+ * only the avatar stays. The sign-out control is a slot so the page can post
+ * to its own sign-out endpoint — a real form, not a link.
+ */
+
+interface Props extends HTMLAttributes<"button"> {
+  user: { name: string; email: string; avatarUrl?: string };
+  items?: UserMenuItem[];
+  theme?: Theme;
+  /** Adds a theme choice when set; picking one bubbles a `theme-change` event with the value. */
+  onThemeChange?: boolean;
+  class?: string;
+}
+
+const {
+  user,
+  items = [],
+  theme = "system",
+  onThemeChange = false,
+  class: className,
+  ...rest
+} = Astro.props;
+
+// Two letters stand for the name when there's no photo.
+const initials = user.name
+  .split(/\s+/)
+  .filter(Boolean)
+  .map((part) => part[0])
+  .slice(0, 2)
+  .join("")
+  .toUpperCase();
+
+const choices: Theme[] = ["light", "dark", "system"];
+const hasSignOut = Astro.slots.has("signOut");
+---
+
+<Dropdown.Root>
+  <Dropdown.Trigger
+    data-slot="user-menu"
+    aria-label={user.name}
+    class={cn(
+      "flex h-12 w-full items-center gap-2.5 rounded-md p-2 text-left text-sm outline-none transition-colors hover:bg-muted hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50 group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-0!",
+      className,
+    )}
+    {...rest}
+  >
+    <Avatar.Root class="size-8">
+      {user.avatarUrl && <Avatar.Image src={user.avatarUrl} alt={user.name} />}
+      <Avatar.Fallback>{initials}</Avatar.Fallback>
+    </Avatar.Root>
+    <span class="flex min-w-0 flex-col leading-tight group-data-[collapsible=icon]:hidden">
+      <span class="truncate font-medium">{user.name}</span>
+      <span class="truncate text-xs text-muted-foreground">{user.email}</span>
+    </span>
+    <ChevronsUpDown class="lucide ml-auto size-4 shrink-0 text-muted-foreground group-data-[collapsible=icon]:hidden" />
+  </Dropdown.Trigger>
+  <Dropdown.Content side="top" align="end" class="w-60">
+    <Dropdown.Label class="text-foreground font-normal">
+      <p class="truncate text-sm font-medium">{user.name}</p>
+      <p class="truncate text-xs">{user.email}</p>
+    </Dropdown.Label>
+    <Dropdown.Separator />
+    {items.map((entry) => (
+      <Dropdown.LinkItem href={entry.href} closeOnClick>
+        {entry.icon && <entry.icon class="lucide" aria-hidden="true" />}
+        {entry.label}
+      </Dropdown.LinkItem>
+    ))}
+    {items.length > 0 && onThemeChange && <Dropdown.Separator />}
+    {
+      onThemeChange && (
+        <Dropdown.Sub>
+          <Dropdown.SubTrigger>Theme</Dropdown.SubTrigger>
+          <Dropdown.SubContent class="w-36">
+            <Dropdown.RadioGroup value={theme} data-user-menu-theme-group>
+              {choices.map((choice) => (
+                <Dropdown.RadioItem value={choice} data-user-menu-theme={choice}>
+                  {choice[0].toUpperCase() + choice.slice(1)}
+                </Dropdown.RadioItem>
+              ))}
+            </Dropdown.RadioGroup>
+          </Dropdown.SubContent>
+        </Dropdown.Sub>
+      )
+    }
+    {hasSignOut && (
+      <>
+        <Dropdown.Separator />
+        <slot name="signOut" />
+      </>
+    )}
+  </Dropdown.Content>
+</Dropdown.Root>
+
+<script>
+  // The theme choice is the menu's one moving part: picking a value runs the
+  // page's own handler through a `theme-change` event, which the boilerplate
+  // answers by applying and remembering the choice.
+  document.addEventListener("starwind:value-change", (event) => {
+    const group = (event.target as HTMLElement | null)?.closest?.("[data-user-menu-theme-group]");
+    if (!group || !(event instanceof CustomEvent)) return;
+    const value = String((event.detail as { value?: unknown })?.value ?? "");
+    if (value !== "light" && value !== "dark" && value !== "system") return;
+    document.dispatchEvent(new CustomEvent("theme-change", { detail: { theme: value } }));
+  });
+</script>

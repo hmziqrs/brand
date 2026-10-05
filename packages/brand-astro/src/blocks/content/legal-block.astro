@@ -1,0 +1,37 @@
+---
+import Bullets from "$brand/blocks/site/bullets.astro";
+import type { LegalBlock } from "./types";
+
+/*
+ * One block of a legal section, the lab's four kinds: a paragraph, a list,
+ * definitions in a lined column, or small caps for the warranty text. A
+ * legal document is data (its sections and their blocks), so the page maps
+ * this over it inside LegalSection.
+ */
+
+interface Props {
+  block: LegalBlock;
+}
+
+const { block } = Astro.props;
+const [kind, body] = block;
+---
+
+{
+  kind === "ul" ? (
+    <Bullets items={[...body]} />
+  ) : kind === "caps" ? (
+    <p class="text-[0.8125rem] leading-[1.7] tracking-[0.02em] text-muted-foreground">{body}</p>
+  ) : kind === "defs" ? (
+    <dl class="grid gap-3">
+      {body.map(([term, text]) => (
+        <div class="grid gap-0.5 border-l pl-4.5">
+          <dt class="font-medium">{term}</dt>
+          <dd class="text-muted-foreground">{text}</dd>
+        </div>
+      ))}
+    </dl>
+  ) : (
+    <p>{body}</p>
+  )
+}

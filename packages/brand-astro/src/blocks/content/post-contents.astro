@@ -1,0 +1,127 @@
+---
+import { List } from "@lucide/astro";
+import { cn } from "$brand/utils";
+import Toc, { type TocItem } from "$brand/components/toc.astro";
+
+/*
+ * A post's "On this page" list, fed by its anchored headings (the Markdown
+ * heading-anchor plugin, or the page's own ids). `inline` (the default) is
+ * the lab's bordered box under the cover, its links in two columns on wide
+ * screens. `float` is the pill that follows the reader: the current section
+ * on it, the whole list a keypress away. `left` and `right` are the sticky
+ * columns, for pages that give the contents a margin of its own.
+ *
+ * Every variant watches the page with core's scroll spy and moves the
+ * orange ring to the heading you're reading.
+ */
+
+interface Props {
+  items: TocItem[];
+  variant?: "inline" | "float" | "left" | "right";
+  /** The list's name, for the box heading and screen readers. */
+  label?: string;
+  class?: string;
+}
+
+const { items, variant = "inline", label = "On this page", class: className } = Astro.props;
+---
+
+{
+  variant === "inline" ? (
+    <nav data-slot="post-contents" data-variant={variant} aria-label={label} class={cn("rounded-xl border px-5 py-4.5 text-[0.9375rem]", className)}>
+      <h2 class="mt-0! mb-2.5 text-xs! font-medium text-muted-foreground">{label}</h2>
+      <Toc items={items} class="sm:grid sm:grid-cols-2 sm:gap-x-6" />
+    </nav>
+  ) : variant === "float" ? (
+    <nav data-slot="post-contents" data-variant={variant} aria-label={label} class={className}>
+      <div class="fixed right-4 bottom-4 z-40 flex max-w-[calc(100vw-2rem)] flex-col items-end gap-2">
+        <div
+          data-float-list
+          hidden
+          class="max-h-[60vh] w-72 overflow-y-auto rounded-xl border bg-background px-4 py-3 text-[0.8125rem] shadow-xl"
+        >
+          <h2 class="mb-2 text-xs font-medium text-muted-foreground">{label}</h2>
+          <Toc items={items} />
+        </div>
+        <button
+          type="button"
+          data-float-button
+          aria-expanded="false"
+          class="inline-flex h-9 max-w-full items-center gap-2 rounded-full border bg-background pr-3.5 pl-4 text-[0.8125rem] font-medium shadow-xl outline-none transition-colors hover:border-foreground/45 focus-visible:ring-3 focus-visible:ring-ring/50"
+        >
+          <List class="size-3.5 shrink-0" />
+          <span data-float-current class="min-w-0 truncate">{items[0]?.label}</span>
+        </button>
+      </div>
+    </nav>
+  ) : (
+    <aside
+      data-slot="post-contents"
+      data-variant={variant}
+      aria-label={label}
+      class={cn("sticky top-4 hidden self-start text-[0.8125rem] xl:block", variant === "left" ? "border-l pl-4.5" : "border-r pr-4.5", className)}
+    >
+      <h2 class="mb-2 text-xs font-medium text-muted-foreground">{label}</h2>
+      <Toc items={items} />
+    </aside>
+  )
+}
+
+<script>
+  // The way Starwind's own components run: find elements by their data-slot,
+  // initialize them, and do it again after a view transition. One scroll spy
+  // per list; the pill keeps its label in step with the same callback.
+  import { scrollSpy } from "@hmziq/brand-core/scroll-spy";
+
+  const stop = new WeakMap<HTMLElement, () => void>();
+
+  function init(root: HTMLElement) {
+    if (stop.has(root)) return;
+    const links = [...root.querySelectorAll<HTMLAnchorElement>("a[href^='#']")];
+    const ids = links.map((link) => decodeURIComponent(link.hash.slice(1)));
+    if (!ids.length) return;
+    const current = root.querySelector<HTMLElement>("[data-float-current]");
+    stop.set(
+      root,
+      scrollSpy(ids, (id) => {
+        for (const link of links) {
+          const mine = decodeURIComponent(link.hash.slice(1)) === id;
+          if (mine) link.setAttribute("aria-current", "location");
+          else link.removeAttribute("aria-current");
+          if (current && mine) current.textContent = link.textContent;
+        }
+      }),
+    );
+  }
+
+  for (const root of document.querySelectorAll<HTMLElement>("[data-slot='post-contents']")) init(root);
+  document.addEventListener("astro:page-load", () => {
+    for (const root of document.querySelectorAll<HTMLElement>("[data-slot='post-contents']")) init(root);
+  });
+  document.addEventListener("astro:before-swap", () => {
+    for (const root of document.querySelectorAll<HTMLElement>("[data-slot='post-contents']")) stop.get(root)?.();
+  });
+
+  // The pill: the button opens and closes the list, a link or Escape closes
+  // it. Delegated, so it survives view transitions.
+  const setOpen = (root: HTMLElement, open: boolean) => {
+    root.querySelector<HTMLElement>("[data-float-list]")?.toggleAttribute("hidden", !open);
+    root.querySelector<HTMLElement>("[data-float-button]")?.setAttribute("aria-expanded", String(open));
+  };
+
+  document.addEventListener("click", (event) => {
+    const target = event.target as HTMLElement | null;
+    const root = target?.closest<HTMLElement>("[data-slot='post-contents'][data-variant='float']");
+    if (!root) return;
+    if (target?.closest("[data-float-button]")) {
+      setOpen(root, root.querySelector<HTMLElement>("[data-float-button]")?.getAttribute("aria-expanded") !== "true");
+    } else if (target?.closest("a")) {
+      setOpen(root, false);
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") return;
+    for (const root of document.querySelectorAll<HTMLElement>("[data-slot='post-contents'][data-variant='float']")) setOpen(root, false);
+  });
+</script>
