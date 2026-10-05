@@ -20,7 +20,7 @@ The two kits are separate ports of the lab's React pieces. Neither depends on th
 | Site blocks | SiteShell, Hero and its parts, PageIntro, RingStats, Section, OutlineCard, ElementCard, FeatureCards, FeatureGrid, Steps, PricingPlans, Price, BeforeAfter, CtaBand, and a new SiteHead | The same; SiteShell is a layout (`SiteLayout`) |
 | Content pieces | Prose, Bullets, CheckList, LinkBar, SummaryBox, BigNumbers, SearchBox, TopicChips, EmptyNote | The same |
 | Previewed in | Its own Storybook | A `/kit` gallery in `astro-app` |
-| Matched against | The lab's React version (`apps/lab`) | The lab's React version (`apps/lab`) |
+| Matched against | The kit is the reference (the React lab is retired) | The kit is the reference (the React lab is retired) |
 
 **SiteHead** is new (the lab is a single-page app, so it has none). It renders the page head for one site: title, description, canonical URL, OG and X tags, icon links and `theme-color`. It uses the same tags as the `head.html` in assets.md, from the site's id in `family.ts`.
 
@@ -149,14 +149,11 @@ Everything is served from the existing GitHub Pages site:
 
 | Path | What |
 | --- | --- |
-| `/` | The Svelte Storybook (the lab's Storybook until it exists) |
-| `/lab/` | The lab's React Storybook |
+| `/` | The Svelte Storybook |
 | `/r/svelte/` | The Svelte registry |
 | `/r/astro/` | The Astro registry |
 | `/theme.css` | The current theme, for projects that don't use npm |
 | `/BRAND.md`, `/APP-BLOCKS.md` | Reference documents for agents |
-
-The Svelte Storybook lists the lab's Storybook as a ref, so one sidebar shows both. The lab's manager already uses relative URLs, so moving it to `/lab/` keeps its fonts and icon working.
 
 ## Repo setup for the kits
 
@@ -232,14 +229,12 @@ The Svelte Storybook lists the lab's Storybook as a ref, so one sidebar shows bo
   remembered light toggle, a placeholder icon pack, and `SiteHead` in the layout.
 
 Still open in this step: nothing. 1.12 is wired: `.github/workflows/storybook.yml`
-builds both Storybooks, assembles them into one Pages artifact (the kit's at `/`,
-the lab's copied under `lab/`) and deploys it. Both builds emit relative asset URLs,
-so neither needs a base path. The layout was checked locally by serving that same
-assembled folder: `/` and `/lab/` each load on their own, the `refs.lab` entry shows
-in the root sidebar, and a composed story (`?path=/story/lab_<id>`) renders in a
-`/lab/iframe.html` ref iframe. The workflow also now runs `pnpm check` and
-`pnpm build` instead of the five single checks, which is what "Repo setup for the
-kits" asks CI to run.
+builds the kit's Storybook, assembles the Pages artifact (at `/`) and deploys it.
+The build emits relative asset URLs, so it needs no base path. The layout was
+checked locally by serving that same assembled folder. The workflow also now
+runs `pnpm check` and `pnpm build` instead of the five single checks, which is
+what "Repo setup for the kits" asks CI to run. (The lab's Storybook and its
+`/lab/` copy retired with the React lab.)
 
 ### Step 2: brand-astro and astro-app (work item 3)
 

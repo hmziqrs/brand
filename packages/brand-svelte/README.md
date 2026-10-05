@@ -2,8 +2,9 @@
 
 The hmziq brand kit for SvelteKit: the brand pieces (BRAND.md section 9), the
 site blocks and the content pieces, on [shadcn-svelte](https://shadcn-svelte.com).
-Ported from the React lab in `apps/lab`, which stays the picture this kit has
-to match. Never published to npm — only its registry is.
+Ported 1:1 from the React design lab the brand was worked out in (now
+retired); the kit is the reference. Never published to npm — only its
+registry is.
 
 ## Layout
 
@@ -52,19 +53,19 @@ Two things to know when writing stories:
 - Nothing may sit between `<pre>` and `<code>` (see `code-block.svelte`):
   inside a pre, whitespace renders.
 
-## The lab's changes to stock shadcn-svelte
+## The brand's changes to stock shadcn-svelte
 
-Porting rule 6 in `docs/kits.md`: the lab's changes to stock shadcn/ui apply
-here too. Comparing `apps/lab/src/components/ui` against a fresh
-`shadcn add --base base --preset vega` of each one (checked 2026-10-01), the
-lab changes exactly two things, and both are applied to the copies in `ui/`:
+The brand's changes to stock shadcn/ui apply to this kit too (porting rule 6
+in `docs/kits.md`). Across a full comparison against fresh
+`shadcn add --base base --preset vega` copies (checked 2026-10-01), exactly
+two changes exist, and both are applied to the copies in `ui/`:
 
 | Change | Why | Where |
 | --- | --- | --- |
 | `active:not-aria-[haspopup]:translate-y-px` removed | The brand rule: nothing moves on hover, press or focus (BRAND.md section 10) | `ui/button/button.svelte` |
 | `data-variant={variant}` added next to `data-slot="button"` | `theme.css` keeps outline buttons unfilled through `[data-slot="button"][data-variant="outline"]` | `ui/button/button.svelte` |
 
-Everything else in the lab's `button.tsx`, `card.tsx`, `alert.tsx`,
+Everything else in the original `button.tsx`, `card.tsx`, `alert.tsx`,
 `table.tsx`, `tooltip.tsx` and `input-group.tsx` is stock base-vega, and so are
 the shadcn-svelte copies here (the Vega preset ships the same variants,
 including the soft `destructive` fill and the `xs` / `icon-xs` / `icon-sm` /
