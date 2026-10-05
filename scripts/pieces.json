@@ -1605,7 +1605,7 @@
       "name": "NotFoundPage",
       "group": "site",
       "lab": "sites-pages--not-found",
-      "svelte": "sites-pages--404-claude-multi",
+      "svelte": "sites-pages--not-found-claude-multi",
       "astro": "not yet",
       "svelteFile": "blocks/content/pages.stories.svelte",
       "svelteItem": "not yet",

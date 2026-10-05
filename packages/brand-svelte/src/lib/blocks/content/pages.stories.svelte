@@ -398,7 +398,7 @@
 	</SiteShell>
 </Story>
 
-<Story name="404 - claude-multi" asChild>
+<Story name="Not found - claude-multi" asChild>
 	<SiteShell site="claude-multi" {nav} cta={{ label: "Get started" }} layout="page" mainClassName="pb-24">
 		{#snippet extra()}
 			<Tag class="hidden font-mono lg:inline-flex">v0.12.0</Tag>
