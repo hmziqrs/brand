@@ -7,7 +7,15 @@
 	const { Story } = defineMeta({
 		title: 'ui/base/Calendar',
 		component: CalendarRoot,
-		parameters: { layout: 'centered' },
+		parameters: {
+			layout: 'centered',
+			docs: {
+				description: {
+					component:
+						'The lab also has a Range story; bits-ui 2.19.3 has no range calendar type, so it stays unported (a custom range implementation is out of scope).',
+				},
+			},
+		},
 	})
 
 	const now = today(getLocalTimeZone())
