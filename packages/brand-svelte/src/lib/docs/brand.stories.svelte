@@ -1,6 +1,7 @@
 <script module>
 	import { defineMeta } from '@storybook/addon-svelte-csf'
 	import Colors from './colors.svelte'
+	import CustomComponents from './custom-components.svelte'
 	import Icons from './icons.svelte'
 	import Introduction from './introduction.svelte'
 	import Signature from './signature.svelte'
@@ -35,4 +36,8 @@
 
 <Story name="Signature" asChild>
 	<Signature />
+</Story>
+
+<Story name="CustomComponents" asChild>
+	<CustomComponents />
 </Story>
