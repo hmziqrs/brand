@@ -39,7 +39,7 @@
     "svelteFile": {
       "description": "The piece's file under packages/brand-svelte/src/lib; a .stories.svelte file for pieces that are patterns.",
       "type": "string",
-        "pattern": "^(blocks|components|styles|templates|tweakers|ui)/[\\w/.-]+\\.svelte$"
+        "pattern": "^(blocks|components|docs|styles|templates|tweakers|ui)/[\\w/.-]+\\.svelte$"
       },
     "astroFile": {
       "description": "The piece's file under packages/brand-astro/src, when it differs from svelteFile with .astro for .svelte (stock Starwind components are PascalCase).",

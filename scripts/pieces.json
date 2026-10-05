@@ -1530,6 +1530,256 @@
       "svelteFile": "templates/templates.stories.svelte",
       "svelteItem": "not yet",
       "astroItem": "not yet"
+    },
+    {
+      "name": "AboutPage",
+      "group": "site",
+      "lab": "sites-pages--about",
+      "svelte": "sites-pages--about-claude-multi",
+      "astro": "not yet",
+      "svelteFile": "blocks/content/pages.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "ProvidersPage",
+      "group": "site",
+      "lab": "sites-pages--providers",
+      "svelte": "sites-pages--providers-claude-multi",
+      "astro": "not yet",
+      "svelteFile": "blocks/content/pages.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "FaqPage",
+      "group": "site",
+      "lab": "sites-pages--faq",
+      "svelte": "sites-pages--faq-claude-multi",
+      "astro": "not yet",
+      "svelteFile": "blocks/content/pages.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "ChangelogPage",
+      "group": "site",
+      "lab": "sites-pages--changelog",
+      "svelte": "sites-pages--changelog-claude-multi",
+      "astro": "not yet",
+      "svelteFile": "blocks/content/pages.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "BlogIndexPage",
+      "group": "site",
+      "lab": "sites-pages--blog-index",
+      "svelte": "sites-pages--blog-index-claude-multi",
+      "astro": "not yet",
+      "svelteFile": "blocks/content/pages.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "PrivacyPage",
+      "group": "site",
+      "lab": "sites-pages--privacy",
+      "svelte": "sites-pages--privacy-claude-multi",
+      "astro": "not yet",
+      "svelteFile": "blocks/content/pages.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "TermsPage",
+      "group": "site",
+      "lab": "sites-pages--terms",
+      "svelte": "sites-pages--terms-claude-multi",
+      "astro": "not yet",
+      "svelteFile": "blocks/content/pages.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "NotFoundPage",
+      "group": "site",
+      "lab": "sites-pages--not-found",
+      "svelte": "sites-pages--404-claude-multi",
+      "astro": "not yet",
+      "svelteFile": "blocks/content/pages.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "ComponentsPage",
+      "group": "site",
+      "lab": "sites-pages--components",
+      "svelte": "sites-pages--components-hmziq-rs",
+      "astro": "not yet",
+      "svelteFile": "blocks/content/pages.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "ContactPage",
+      "group": "site",
+      "lab": "sites-pages--contact",
+      "svelte": "sites-pages--contact-oxlabs-dev",
+      "astro": "not yet",
+      "svelteFile": "blocks/content/pages.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "Radius",
+      "group": "content",
+      "lab": "design-base-radius--core",
+      "svelte": "design-base-tokens--radius",
+      "astro": "not yet",
+      "svelteFile": "styles/tokens.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "Shadow",
+      "group": "content",
+      "lab": "design-base-shadow--core",
+      "svelte": "design-base-tokens--shadow",
+      "astro": "not yet",
+      "svelteFile": "styles/tokens.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "Spacing",
+      "group": "content",
+      "lab": "design-base-spacing--core",
+      "svelte": "design-base-tokens--spacing",
+      "astro": "not yet",
+      "svelteFile": "styles/tokens.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "Color",
+      "group": "content",
+      "lab": "design-base-color--functional",
+      "svelte": "design-base-tokens--color-functional",
+      "astro": "not yet",
+      "svelteFile": "styles/tokens.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "Typography",
+      "group": "content",
+      "lab": "design-base-typography--font-family",
+      "svelte": "design-base-tokens--typography-font-family",
+      "astro": "not yet",
+      "svelteFile": "styles/tokens.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "BrandDocs",
+      "group": "brand",
+      "lab": null,
+      "svelte": "brand--introduction",
+      "astro": "not yet",
+      "svelteFile": "docs/brand.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "AspectRatio",
+      "group": "app",
+      "lab": "ui-base-aspectratio--default",
+      "svelte": "ui-base-aspectratio--default",
+      "astro": "not yet",
+      "svelteFile": "ui/aspect-ratio/aspect-ratio.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "Badge",
+      "group": "app",
+      "lab": "ui-base-badge--default",
+      "svelte": "ui-base-badge--default",
+      "astro": "not yet",
+      "svelteFile": "ui/badge/badge.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "Collapsible",
+      "group": "app",
+      "lab": "ui-base-collapsible--default",
+      "svelte": "ui-base-collapsible--default",
+      "astro": "not yet",
+      "svelteFile": "ui/collapsible/collapsible.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "Empty",
+      "group": "app",
+      "lab": "ui-base-empty--default",
+      "svelte": "ui-base-empty--default",
+      "astro": "not yet",
+      "svelteFile": "ui/empty/empty.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "Kbd",
+      "group": "app",
+      "lab": "ui-base-kbd--group",
+      "svelte": "ui-base-kbd--group",
+      "astro": "not yet",
+      "svelteFile": "ui/kbd/kbd.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "Progress",
+      "group": "app",
+      "lab": "ui-base-progress--default",
+      "svelte": "ui-base-progress--default",
+      "astro": "not yet",
+      "svelteFile": "ui/progress/progress.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "Spinner",
+      "group": "app",
+      "lab": "ui-base-spinner--with-button",
+      "svelte": "ui-base-spinner--with-button",
+      "astro": "not yet",
+      "svelteFile": "ui/spinner/spinner.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "Toggle",
+      "group": "app",
+      "lab": "ui-base-toggle--default",
+      "svelte": "ui-base-toggle--default",
+      "astro": "not yet",
+      "svelteFile": "ui/toggle/toggle.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "ToggleGroup",
+      "group": "app",
+      "lab": "ui-base-togglegroup--default",
+      "svelte": "ui-base-togglegroup--default",
+      "astro": "not yet",
+      "svelteFile": "ui/toggle-group/toggle-group.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
     }
   ]
 }
