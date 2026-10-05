@@ -487,6 +487,28 @@ export const claudeSetup: TerminalLineData[] = [
 	["ok", "ready"],
 ];
 
+/** oxlabs.dev's services (oxlabs.tsx). */
+export const oxlabsServices = [
+	{ title: "Websites and web apps", body: "Interfaces that still hold up after the second and third feature.", tools: ["React", "Next.js", "Svelte"] },
+	{ title: "Back ends", body: "Reliable systems that stay quiet in production.", tools: ["Rust", "Node", "Postgres"] },
+	{ title: "Mobile apps", body: "One codebase, in both app stores.", tools: ["React Native", "Expo", "Flutter"] },
+	{ title: "Desktop apps", body: "Apps that feel at home on Mac, Windows and Linux.", tools: ["Tauri", "Electron", "Rust"] },
+];
+
+/** oxlabs.dev's working terms (oxlabs.tsx). */
+export const oxlabsTerms = [
+	{ label: "Where", value: "Remote, with written updates, so you never wait on a meeting" },
+	{ label: "How", value: "Fixed-scope projects or a monthly retainer" },
+	{ label: "Who", value: "The engineer on your first call writes your code" },
+	{ label: "Availability", value: "Taking on new projects now" },
+];
+
+/** oxlabs.dev's footer columns (oxlabs.tsx). */
+export const oxlabsFooterLinks = [
+	{ title: "Studio", links: ["Services", "Work", "About", "Contact"] },
+	{ title: "Elsewhere", links: ["GitHub", "LinkedIn", "X"] },
+];
+
 /** gpui-query's FAQ questions (gpui-query/data.ts). */
 export const gpuiFaq: FaqItem[] = [
 	["Getting started", "How is gpui-query different from TanStack Query?", "gpui-query adapts TanStack Query's patterns to Rust and the GPUI framework. It uses Rust's type system for compile-time guarantees, Arc<AtomicBool> for cooperative cancellation, and integrates directly with GPUI's render loop."],

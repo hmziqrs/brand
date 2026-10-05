@@ -98,6 +98,9 @@
 		instances,
 		listed,
 		menu,
+		oxlabsFooterLinks,
+		oxlabsServices,
+		oxlabsTerms,
 		previewNav,
 		previewThemes,
 		providers,
@@ -692,6 +695,86 @@
 			{#snippet actions()}
 				<ButtonLink href="#" size="lg" class="px-5">Get started</ButtonLink>
 				<ButtonLink href="#" size="lg" variant="outline" class="px-5">Browse providers</ButtonLink>
+			{/snippet}
+		</CtaBand>
+	</SiteShell>
+</Story>
+
+<Story name="oxlabs.dev" asChild>
+	<SiteShell site="oxlabs" maker="studio" nav={["Services", "Work", "About", "Contact"]} cta={{ label: "Start a project" }} footerLinks={oxlabsFooterLinks}>
+		<Hero>
+			{#snippet title()}Web, mobile and desktop apps, built and shipped by a small team.{/snippet}
+			{#snippet lede()}The engineer on your first call is the one writing the code. No handoffs to people you've never met, and no demos that only work on a laptop. What we deliver runs in production.{/snippet}
+			{#snippet actions()}
+				<ButtonLink href="#" size="lg" class="px-5">Start a project</ButtonLink>
+				<ButtonLink href="#" size="lg" variant="outline" class="px-5">See what we do</ButtonLink>
+			{/snippet}
+			{#snippet note()}
+				<span class="inline-flex items-center gap-2.5">
+					<Marker filled class="text-success" />
+					Taking on new projects
+				</span>
+			{/snippet}
+			{#snippet aside()}
+				<!-- Rings are beside-the-words decoration: below md they sit out rather than stack. -->
+				<div class="hidden md:block"><Rings seed="oxlabs" /></div>
+			{/snippet}
+		</Hero>
+
+		<Section>
+			{#snippet title()}Four kinds of work, one small studio{/snippet}
+			{#snippet intro()}We build the whole thing end to end, so nothing gets lost between teams.{/snippet}
+			{#snippet children()}
+				<div class="grid gap-4 sm:grid-cols-2">
+					{#each oxlabsServices as s (s.title)}
+						<OutlineCard>
+							<h3 class="text-lg font-medium tracking-[-0.01em]">{s.title}</h3>
+							<p class="text-[0.9rem] leading-relaxed text-muted-foreground">{s.body}</p>
+							<div class="mt-auto flex flex-wrap gap-1.5 pt-2">
+								{#each s.tools as t (t)}
+									<Badge variant="outline">{t}</Badge>
+								{/each}
+							</div>
+						</OutlineCard>
+					{/each}
+				</div>
+			{/snippet}
+		</Section>
+
+		<Section>
+			{#snippet title()}Three steps, a tight loop{/snippet}
+			{#snippet intro()}You always know what's happening, because it's written down and it's live.{/snippet}
+			{#snippet children()}
+				<Steps
+					items={[
+						{ title: "Discover", body: "One focused week: calls with your team, a read of your code, and a written plan we both agree on." },
+						{ title: "Plan", body: "The plan lives in your code repository: the risks, the tradeoffs and exactly what “done” means." },
+						{ title: "Ship", body: "Live from week one behind a switch. A demo every Friday and a deploy every week." },
+					]}
+				/>
+			{/snippet}
+		</Section>
+
+		<Section>
+			{#snippet title()}Working from day one{/snippet}
+			{#snippet intro()}Every project starts with automated checks already passing and a deploy command anyone on your team can run. The boring parts come first.{/snippet}
+			{#snippet children()}
+				<dl class="grid gap-px overflow-hidden rounded-xl border bg-border sm:grid-cols-2">
+					{#each oxlabsTerms as t (t.label)}
+						<div class="flex flex-col gap-1 bg-background p-6">
+							<dt class="text-sm text-muted-foreground">{t.label}</dt>
+							<dd class="font-medium">{t.value}</dd>
+						</div>
+					{/each}
+				</dl>
+			{/snippet}
+		</Section>
+
+		<CtaBand title="Tell us what you're building">
+			{#snippet body()}A person reads every message and replies. No sales calls, no slide decks.{/snippet}
+			{#snippet actions()}
+				<ButtonLink href="#" size="lg" class="px-5">Start a project</ButtonLink>
+				<ButtonLink href="#" size="lg" variant="outline" class="px-5">See past work</ButtonLink>
 			{/snippet}
 		</CtaBand>
 	</SiteShell>
