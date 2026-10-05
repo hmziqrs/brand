@@ -1,7 +1,7 @@
 {
   "target": "logos",
   "command": "pnpm render-assets --only logos",
-  "digest": "4d42aa1cfc898b16f94abfdfcf557e6c50c4a4059c7d81f21fe768b33aad56ec",
+  "digest": "13f6e05fd48b4073c41c1873cbc394ed7b5ab39d5e25eb3ed5bf2261a4ff26a4",
   "renderers": {
     "@resvg/resvg-js": "2.6.2",
     "opentype.js": "2.0.0",
@@ -150,7 +150,7 @@
     },
     {
       "path": "pnpm-lock.yaml",
-      "sha256": "9e84ad90a9cca818b0618626f8377650cbe128b5b2ec86edf748d45fbb0aeb59"
+      "sha256": "35a202a77c2db26d00248a67fb262e3cb57499bfc0fbbb0e0f10e286cabc9dac"
     },
     {
       "path": "scripts/assets-lib.mjs",
