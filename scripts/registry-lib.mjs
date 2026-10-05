@@ -56,6 +56,70 @@ export function stripBlockComments(source) {
   return source.replace(/\/\*[\s\S]*?\*\//g, "");
 }
 
+/**
+ * Blanks template-literal text (comments and quoted strings are kept verbatim)
+ * so import-looking code samples held in literals are not read as imports.
+ */
+export function blankTemplateLiterals(source) {
+  let out = "";
+  let i = 0;
+  const keepVerbatim = (close) => {
+    const at = source.indexOf(close, i);
+    const stop = at === -1 ? source.length : at + close.length;
+    out += source.slice(i, stop);
+    i = stop;
+  };
+  const keepString = (quote) => {
+    let j = i + 1;
+    while (j < source.length && source[j] !== quote) j += source[j] === "\\" ? 2 : 1;
+    const stop = Math.min(j + 1, source.length);
+    out += source.slice(i, stop);
+    i = stop;
+  };
+  const interpolationEnd = () => {
+    let depth = 0;
+    let j = i;
+    while (j < source.length) {
+      const c = source[j];
+      if (c === '"' || c === "'" || c === "`") {
+        j += 1;
+        while (j < source.length && source[j] !== c) j += source[j] === "\\" ? 2 : 1;
+      } else if (c === "{") depth += 1;
+      else if (c === "}" && --depth === 0) return j;
+      j += 1;
+    }
+    return source.length;
+  };
+  while (i < source.length) {
+    const c = source[i];
+    if (c === "/" && source[i + 1] === "/") {
+      const at = source.indexOf("\n", i);
+      const stop = at === -1 ? source.length : at;
+      out += source.slice(i, stop);
+      i = stop;
+    } else if (c === "<" && source[i + 1] === "!") keepVerbatim("-->");
+    else if (c === '"' || c === "'") keepString(c);
+    else if (c === "`") {
+      out += " ";
+      i += 1;
+      while (i < source.length && source[i] !== "`") {
+        if (source[i] === "\\") i += 2;
+        else if (source[i] === "$" && source[i + 1] === "{") {
+          const end = interpolationEnd();
+          out += blankTemplateLiterals(source.slice(i, end + 1));
+          i = end + 1;
+        } else i += 1;
+      }
+      out += " ";
+      i += 1;
+    } else {
+      out += c;
+      i += 1;
+    }
+  }
+  return out;
+}
+
 /** Resolves an import specifier to a kit source file, or null when external. */
 export function resolveImport(spec, fromFile, srcRoot) {
   let base;
@@ -96,7 +160,7 @@ export function buildGraph(srcRoot, { codeExtensions, exclude = () => false }) {
   const importPattern =
     /(?:import|export)[^'"`]*from\s*["']([^"']+)["']|import\s*\(\s*["']([^"']+)["']\s*\)|@import\s+["']([^"']+)["']|@plugin\s+["']([^"']+)["']/g;
   for (const [file, entry] of graph) {
-    const source = stripBlockComments(readFileSync(file, "utf8"));
+    const source = blankTemplateLiterals(stripBlockComments(readFileSync(file, "utf8")));
     for (const match of source.matchAll(importPattern)) {
       const spec = match[1] ?? match[2] ?? match[3] ?? match[4];
       if (!spec) continue;
