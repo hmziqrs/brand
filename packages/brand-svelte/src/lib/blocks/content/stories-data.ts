@@ -83,7 +83,7 @@ export const privacy: LegalDoc = {
 		["Data we don't collect", ["ul", ["Your name, email, or any personally identifiable information", "API keys, credentials, or any data from your local CLI", "The content of your conversations with any AI provider", "Your full IP address (Firebase truncates it for analytics)", "Cross-site behavior (we don't run third-party advertising trackers)"]]],
 		["Cookies", ["p", "Firebase Analytics sets first-party cookies (typically _ga, _ga_*) to distinguish unique visitors and sessions. These cookies expire after up to two years. You can delete them at any time through your browser's cookie controls."]],
 		["Third-party services", ["p", "This site loads resources from a small number of external services:"], ["defs", [["Google Firebase Analytics", "Page and session analytics. See Firebase Privacy."], ["Google Fonts", "We load Inter and JetBrains Mono from Google's CDN. See the Google Fonts privacy FAQ."], ["GitHub", "External links to github.com redirect there; GitHub's privacy practices apply once you leave this site."]]]],
-		["Your rights", ["p", "Under GDPR (EU/EEA) and CCPA (California), you have the right to know what data is processed, to request deletion, and to object to processing. Because the data we collect is anonymized and not tied to an identifier we control, the practical exercise of these rights is browser-side: clear your cookies or block the analytics script and the data linking stops. If you believe data has been improperly collected, contact us using the channel below."]],
+		["Your rights", ["p", "Under GDPR (EU/EEA) and CCPA (California), you have the right to know what data is processed, to request deletion, and to object to processing. Because the data we collect is anonymized and not tied to any identifier we control, the practical exercise of these rights is browser-side: clear your cookies or block the analytics script and the data linking stops. If you believe data has been improperly collected, contact us using the channel below."]],
 		["How to opt out", ["ul", ["Use a privacy-focused browser (Brave, Firefox with Enhanced Tracking Protection)", "Browse in incognito / private mode", "Install uBlock Origin or a similar content blocker", "Use the official Google Analytics Opt-out Browser Add-on"]]],
 		["Children's privacy", ["p", "This site is a developer tool for adults building software. It is not directed at children under 13, and we do not knowingly collect data from them."]],
 		["Changes to this policy", ["p", "If we change this policy materially, we'll update the \"last updated\" date at the top of this page. The full version history lives in the GitHub repository, so you can audit every change."]],
@@ -99,12 +99,13 @@ export const channels: Channel[] = [
 	{ name: "LinkedIn", note: "in/hmziqrs", href: "https://linkedin.com/in/hmziqrs", icon: { path: shareIcons.linkedin } },
 ];
 
-/** gpui-query's docs menu (gpui-query/data.ts). */
+/** gpui-query's docs menu, every page of it (gpui-query/data.ts). */
 export const docsMenu: DocsMenu = [
 	[null, [{ title: "Introduction", href: "#" }]],
 	["Getting Started", [{ title: "Installation", href: "#" }, { title: "Quick Start", href: "#" }]],
 	["API Reference", [{ title: "Queries", href: "#" }, { title: "Mutations", href: "#" }, { title: "Infinite Queries", href: "#" }, { title: "QueryClient", href: "#" }]],
-	["Guides", [{ title: "Caching", href: "#" }, { title: "Error handling", href: "#" }, { title: "Retry", href: "#" }, { title: "Persistence", href: "#" }, { title: "HTTP cache headers", href: "#" }]],
+	["Guides", [{ title: "Caching", href: "#" }, { title: "Error handling", href: "#" }, { title: "Retry", href: "#" }, { title: "Persistence", href: "#" }, { title: "HTTP cache headers", href: "#" }, { title: "Query Keys", href: "#" }, { title: "The Select Pattern", href: "#" }, { title: "Claude Code skills", href: "#" }]],
+	["Advanced", [{ title: "Devtools", href: "#" }, { title: "Observers", href: "#" }, { title: "gpui-query vs. raw async", href: "#" }, { title: "API Reference", href: "#" }, { title: "Migrating from v1 to v2", href: "#" }]],
 ];
 
 /** The docs page's headings (gpui-query/docs.tsx). */
@@ -200,3 +201,133 @@ export const installs = [
 
 /** The InstallBlock's requirements, all met (claude-multi/blocks.tsx). */
 export const installChecks = ["Node 18+ or Bun 1+", "macOS, Linux, Windows", "Runs without sudo"];
+
+/** One row of the providers table: native providers are built in, the rest come from a template (claude-multi/data.ts). */
+export type Provider = { name: string; id?: string; native?: boolean; models: string; pay: string };
+
+/** claude-multi's providers, one row each (claude-multi/data.ts). */
+export const providers: Provider[] = [
+	{ name: "Anthropic", native: true, models: "Opus 4.7, Sonnet 4.6, Haiku 4.5", pay: "Your own Anthropic setup." },
+	{ name: "GLM Coding Plan", id: "glm", models: "GLM-5.3, GLM-5.3-Flash, GLM-5-Turbo", pay: "Coding Plan subscription via z.ai" },
+	{ name: "MiniMax", id: "minimax", models: "MiniMax-M3", pay: "Pay-per-token via minimax.io" },
+	{ name: "DeepSeek", id: "deepseek", models: "V4-Pro, V4-Flash", pay: "Pay-per-token via deepseek.com" },
+	{ name: "Xiaomi MiMo", id: "mimo", models: "MiMo-V2.5-Pro, MiMo-V2.5", pay: "Pay-per-token via xiaomimimo.com" },
+	{ name: "Moonshot Kimi", id: "kimi", models: "K2.7 Code, K2.6, K2.5", pay: "Pay-per-token via moonshot.ai" },
+	{ name: "Alibaba Qwen", id: "qwen", models: "Qwen3-Coder-Next, Plus, Flash", pay: "Pay-per-token via Alibaba DashScope" },
+];
+
+/** The providers page's cards, one per template (claude-multi/data.ts). */
+export const providerPages = [
+	["GLM-5.3 Coding Plan", "glm", "Run Claude Code with GLM-5.3, GLM-5.3-Flash, and GLM-5-Turbo via z.ai Coding Plan subscription. Full Anthropic API compatibility, up to 1M context, thinking mode enabled.", "Coding Plan subscription via z.ai"],
+	["MiniMax M3", "minimax", "Run Claude Code with MiniMax-M3 via minimax.io. 1M token context window, 512K max output, native multimodal support, one model across every role.", "Pay-per-token via minimax.io"],
+	["DeepSeek", "deepseek", "Run Claude Code with DeepSeek-V4-Pro and DeepSeek-V4-Flash via deepseek.com. 1M context, thinking mode, pay-per-token pricing, no subscription.", "Pay-per-token via deepseek.com"],
+	["Xiaomi MiMo", "mimo", "Run Claude Code with MiMo-V2.5-Pro and MiMo-V2.5 via xiaomimimo.com. 1T parameter MoE model, 1M context, pay-per-token pricing with a token plan option.", "Pay-per-token via xiaomimimo.com"],
+	["Moonshot Kimi", "kimi", "Run Claude Code with Kimi K2.7 Code, K2.6, and K2.5 via moonshot.ai. Step-by-step setup, model specs, pricing, and when to pick Kimi over DeepSeek or GLM.", "Pay-per-token via moonshot.ai"],
+	["Alibaba Qwen", "qwen", "Run Claude Code with Qwen3-Coder-Next, Qwen3-Coder-Plus, and Qwen3-Coder-Flash via Alibaba DashScope. Three model tiers, pay-per-token pricing, 128K context.", "Pay-per-token via Alibaba DashScope"],
+] as const;
+
+/** The template reference table's rows: template id, display name, endpoint, opus model, sonnet/haiku (claude-multi/data.ts). */
+export const templates = [
+	["glm", "GLM Coding Plan", "api.z.ai", "glm-5.3[1m], glm-5.3-flash", "glm-5-turbo"],
+	["minimax", "MiniMax", "api.minimax.io", "MiniMax-M3", "MiniMax-M3"],
+	["deepseek", "DeepSeek", "api.deepseek.com", "deepseek-v4-pro[1m]", "deepseek-v4-flash"],
+	["mimo", "Xiaomi MiMo", "api.xiaomimimo.com", "mimo-v2.5-pro", "mimo-v2.5"],
+	["mimo-token", "Xiaomi MiMo (Token Plan)", "token-plan-cn.xiaomimimo.com", "mimo-v2.5-pro", "mimo-v2.5"],
+	["kimi", "Moonshot Kimi", "api.moonshot.ai", "kimi-k2.7-code", "kimi-k2.6, kimi-k2.5"],
+	["qwen", "Alibaba Qwen", "dashscope-intl.aliyuncs.com", "qwen3-coder-next", "qwen3-coder-flash"],
+	["qwen-coding", "Alibaba Qwen Coding Plan", "coding-intl.dashscope.aliyuncs.com", "qwen3-coder-next", "qwen3-coder-flash"],
+] as const;
+
+/** Pay per token vs. subscription: provider, pay-per-token template, subscription template (claude-multi/data.ts). */
+export const payTemplates = [
+	["Xiaomi MiMo", "mimo", "mimo-token (regional URL)"],
+	["Alibaba Qwen", "qwen", "qwen-coding"],
+	["GLM (Z.ai)", "no Anthropic URL", "glm (coding-plan-only)"],
+	["MiniMax", "minimax", "same URL, different key type"],
+	["Moonshot Kimi", "kimi", "pay per token only"],
+	["DeepSeek", "deepseek", "pay per token only"],
+] as const;
+
+/** The notes under the pay-vs-subscription table (claude-multi/data.ts). */
+export const providerNotes = [
+	["GLM", "The Anthropic-compatible endpoint (api.z.ai/api/anthropic) is exclusive to the Z.ai Coding Plan subscription. The metered API only exposes an OpenAI-compatible URL."],
+	["MiMo Token Plan", "Defaults to the CN regional endpoint. If your subscription is SG or EU, update ANTHROPIC_BASE_URL with the endpoint shown in your subscription console."],
+	["Kimi", "No subscription plan, strictly pay per token at api.moonshot.ai."],
+	["MiniMax", "Both plans use the same api.minimax.io endpoint; the API key type determines which quota is consumed. MiniMax-M3 has a 1M token context window and accepts text, image, and video inputs."],
+] as const;
+
+/** claude-multi's terms of use, word for word (claude-multi/legal-text.ts). */
+export const terms: LegalDoc = {
+	title: "Terms of use",
+	updated: "2026-05-20",
+	short: "claude-multi is free, open source under MIT, and provided as-is. You're responsible for how you use it and for any third-party services it connects to.",
+	sections: [
+		["Acceptance", ["p", "By installing or using the claude-multi command-line tool, or by browsing this website, you agree to these terms. If you do not agree, do not install or use the software, and please leave the site."]],
+		["The software", ["p", "claude-multi is released under the MIT License. The full license text is included in the LICENSE file in the source repository. In summary, you may:"], ["ul", ["Use the software for any purpose, commercial or non-commercial", "Modify, fork, and redistribute it", "Bundle it into your own products", "Sell copies of it (with the MIT license preserved)"]], ["p", "The only obligation is that the copyright notice and license text travel with any copies or substantial portions you redistribute."]],
+		["No warranty", ["caps", "THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT."], ["p", "In plain English: this is a project maintained by an independent developer in their own time. We do our best to ship working, safe software, but we make no guarantees that it will work for your specific setup, that it will be free of bugs, or that it will be maintained indefinitely. Test in a non-critical environment first."]],
+		["Third-party providers", ["p", "claude-multi connects to AI services operated by other companies. We are not affiliated with, endorsed by, or partnered with any of these providers. Your usage of each provider is governed entirely by their own terms of service and acceptable use policies:"], ["defs", [["Anthropic", "anthropic.com/legal"], ["Z.ai (GLM)", "z.ai"], ["MiniMax", "minimax.io"], ["DeepSeek", "deepseek.com"]]]],
+		["API costs", ["p", "Each AI provider charges separately for API usage. claude-multi does not bill you, does not see your API keys (they stay on your machine in per-instance config files), and does not receive any commission from the providers it interoperates with. Any cost you incur is between you and the provider whose API key you supply."]],
+		["Your responsibilities", ["p", "When using claude-multi, you agree to:"], ["ul", ["Keep your API keys secure and not share them publicly", "Comply with the acceptable-use policies of every provider you configure", "Respect applicable laws and intellectual property rights in your jurisdiction", "Not use the software to generate or distribute illegal or harmful content", "Back up anything important. See the no-warranty clause above"]]],
+		["Trademarks", ["p", "\"Claude\" and \"Claude Code\" are trademarks of Anthropic, PBC. \"GLM\" is a trademark of Zhipu AI. \"MiniMax\" and \"DeepSeek\" are trademarks of their respective owners. claude-multi is an independent open-source project. It is not affiliated with, endorsed by, or sponsored by any of these companies. We reference their names only to identify the third-party services the tool interoperates with."]],
+		["Website use", ["p", "This website (claude-multi.hmziq.xyz) is provided for informational purposes. You may not attempt to attack, scrape at abusive rates, reverse-engineer infrastructure, or otherwise interfere with the operation of the site. Reasonable use of public assets (RSS-style fetches, link previews) is welcome."]],
+		["Modifications", ["p", "We may update these terms from time to time. Material changes will be reflected by bumping the \"last updated\" date at the top. Because this page is open source, every revision is auditable in the git history. Continued use of the software or the site after a change constitutes acceptance of the updated terms."]],
+		["Governing law", ["p", "These terms are governed by the laws of the maintainer's primary jurisdiction. To the extent any provision is found unenforceable, the remainder remains in effect. Nothing in these terms limits any rights you may have under mandatory consumer protection laws in your local jurisdiction."]],
+		["Contact", ["p", "For legal or licensing questions, open an issue on GitHub or reach out via the channels on hmziq.rs."]],
+	],
+};
+
+/** claude-multi's landing features (claude-multi/data.ts). */
+export const features = [
+	["One alias per provider", "Templates for GLM, MiniMax, DeepSeek, MiMo, Kimi and Qwen. Each one you set up gets its own command in the terminal."],
+	["Isolated configs", "Every instance owns its settings.json, history and credentials. An Anthropic setup never touches a GLM setup."],
+	["Plugin sync", "Plugins and skills symlink back to your primary install. Install once and every instance picks it up."],
+	["No fork", "It wraps the claude binary you already have, so your flags and slash commands behave exactly as they do upstream."],
+	["Keys stay on disk", "API keys live in per-instance config files under ~/.claude-multi, never in global env vars. Nothing leaves the machine."],
+] as const;
+
+/** claude-multi's about-page principles (claude-multi/data.ts). */
+export const principles = [
+	["Zero magic", "Every instance is a real directory at ~/.claude-multi/<name>. Open it, edit it, or delete it. Nothing is hidden from you."],
+	["Native passthrough", "Each alias is a thin wrapper around the official claude binary. All flags, commands, and keybindings pass through unchanged."],
+	["Templates over docs", "Provider templates come with the right base URLs, model mappings, and defaults. Drop in your API key and go."],
+	["Reversible everything", "Migrations back up config files. Plugin operations rename to backup before deleting. Health checks help you recover broken state."],
+] as const;
+
+/** How claude-multi works, one step per paragraph (claude-multi/data.ts). */
+export const howItWorks = [
+	"claude-multi creates a directory at ~/.claude-multi/glm/ with its own settings.json, .claude.json, and history.",
+	"It merges the provider's env vars (base URL, model mappings) into that instance's settings and never touches your primary ~/.claude.",
+	"It symlinks plugins and skills from your primary install. Update once and every instance sees it.",
+	"A wrapper script at ~/.bun/bin/claude-glm launches the official claude binary with CLAUDE_CONFIG_DIR pointed at the new instance.",
+];
+
+/** claude-multi at a glance: version, releases, license, providers (claude-multi/data.ts). */
+export const glance = [
+	["0.12.0", "Current version"],
+	["27", "Releases shipped"],
+	["MIT", "License"],
+	["8+", "AI providers"],
+] as const;
+
+/** gpui-query's by-hand vs. with-query comparison, one row per concern (gpui-query/data.ts). */
+export const comparison = [
+	["Showing that data is loading", "A flag you set and clear by hand", "Built in"],
+	["Showing errors", "A field you fill by hand", "Built in, with typed errors"],
+	["Ignoring an older, slower answer", "A request id you track by hand", "Built in"],
+	["Cancelling when you fetch again", "Keep the task and drop it yourself", "Built in"],
+	["One cache shared by every screen", "None, unless you build one", "Built in"],
+	["One request when two views ask at once", "None", "Built in"],
+	["Trying again after a failure", "A retry loop you write", "3 tries with growing waits, by default"],
+	["Redrawing only when something changed", "Every update redraws", "Built in"],
+	["Going back to a screen", "It loads again", "Instant, from the cache"],
+] as const;
+
+/** gpui-query's FAQ questions (gpui-query/data.ts). */
+export const gpuiFaq: FaqItem[] = [
+	["Getting started", "How is gpui-query different from TanStack Query?", "gpui-query adapts TanStack Query's patterns to Rust and the GPUI framework. It uses Rust's type system for compile-time guarantees, Arc<AtomicBool> for cooperative cancellation, and integrates directly with GPUI's render loop."],
+	["Getting started", "Can I use gpui-query outside of Zed?", "gpui-query is designed for the GPUI framework, which powers the Zed editor. While architecturally the Core layer is framework-agnostic, the Hook layer depends on GPUI's reactive primitives."],
+	["Architecture", "Why does use_query return a tuple instead of an object?", "use_query returns (Entity<QueryResource<T, E>>, Subscription). Read data and status from the resource entity during render, and store the Subscription to keep the observation alive: dropping it stops updates, which is GPUI's standard lifecycle convention."],
+	["Architecture", "What happens if my component unmounts during a fetch?", "gpui-query uses cooperative cancellation via QuerySignal (Arc<AtomicBool>). When a component unmounts, the signal is set and the query checks it between retry attempts, which keeps teardown clean."],
+	["Advanced", "How do I handle pagination?", "Use use_infinite_query for paginated data. It supports bidirectional fetching (fetch_next_page_infinite / fetch_previous_page_infinite) and configurable max_pages to limit cached pages."],
+	["Advanced", "How do I persist my query cache?", "Enable the persist feature and implement the async Persister trait to save and restore query state across restarts. gpui-query supports custom backends (files, databases, KV) and ships a ready-made disk adapter in the gpui-query-persist crate."],
+];

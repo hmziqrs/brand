@@ -581,6 +581,16 @@
       "astroItem": "cta-band"
     },
     {
+      "name": "ProvidersTable",
+      "group": "site",
+      "lab": "sites-pages--providers",
+      "svelte": "site-providers-table--default",
+      "astro": "not yet",
+      "svelteFile": "blocks/site/providers-table.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
       "name": "Prose",
       "group": "content",
       "lab": null,
