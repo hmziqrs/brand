@@ -17,22 +17,22 @@
 	components and signature on five kinds of product. Every name, number,
 	quote and price on them is example content.
 -->
-<Story name="Sightline · analytics" asChild>
+<Story name="Sightline - analytics" asChild>
 	<SightlinePage />
 </Story>
 
-<Story name="Hookline · developer API" asChild>
+<Story name="Hookline - developer API" asChild>
 	<HooklinePage />
 </Story>
 
-<Story name="Groundwork · team planning" asChild>
+<Story name="Groundwork - team planning" asChild>
 	<GroundworkPage />
 </Story>
 
-<Story name="Parley · AI support" asChild>
+<Story name="Parley - AI support" asChild>
 	<ParleyPage />
 </Story>
 
-<Story name="Openslot · scheduling" asChild>
+<Story name="Openslot - scheduling" asChild>
 	<OpenslotPage />
 </Story>
