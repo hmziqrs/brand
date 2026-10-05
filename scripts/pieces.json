@@ -1902,6 +1902,26 @@
       "astroItem": "not yet"
     },
     {
+      "name": "Field",
+      "group": "app",
+      "lab": "ui-base-field--with-input",
+      "svelte": "ui-base-field--withinput",
+      "astro": "not yet",
+      "svelteFile": "ui/field/field.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "Form",
+      "group": "app",
+      "lab": "ui-base-form-react-hook-form--default",
+      "svelte": "ui-base-form--default",
+      "astro": "not yet",
+      "svelteFile": "ui/form/form.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
       "name": "DocsPage",
       "group": "site",
       "lab": "sites-pages--docs",
@@ -1986,6 +2006,16 @@
       "group": "site",
       "lab": "sites-landing-pages--claude-multi",
       "svelte": "sites-landing-pages--claude-multi",
+      "astro": "not yet",
+      "svelteFile": "blocks/site/sites.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "OxlabsLanding",
+      "group": "site",
+      "lab": "sites-landing-pages--oxlabs",
+      "svelte": "sites-landing-pages--oxlabs-dev",
       "astro": "not yet",
       "svelteFile": "blocks/site/sites.stories.svelte",
       "svelteItem": "not yet",
