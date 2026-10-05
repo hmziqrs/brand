@@ -874,12 +874,26 @@
 			"title": "docs",
 			"description": "Files from \"docs\" the pieces roster does not list yet; they become their own items when their plan finishes and this script is re-run.",
 			"dependencies": [
-				"@hmziq/brand-core@0.0.0"
+				"@hmziq/brand-core@0.0.0",
+				"@lucide/svelte@^1.52.0",
+				"simple-icons@16.32.0"
 			],
 			"registryDependencies": [
+				"local:band-arcs",
+				"local:brand-icon",
 				"local:code-block",
+				"local:corner-rings",
+				"local:icon-tile",
+				"local:mark",
+				"local:marker",
+				"local:ring-gauge",
+				"local:rings",
 				"local:tag",
-				"local:utils"
+				"local:ui-button",
+				"local:ui-card",
+				"local:ui-tooltip",
+				"local:utils",
+				"local:wordmark"
 			],
 			"files": [
 				{
@@ -893,9 +907,19 @@
 					"target": "docs/docs-page.svelte"
 				},
 				{
+					"path": "src/lib/docs/icons.svelte",
+					"type": "registry:file",
+					"target": "docs/icons.svelte"
+				},
+				{
 					"path": "src/lib/docs/introduction.svelte",
 					"type": "registry:file",
 					"target": "docs/introduction.svelte"
+				},
+				{
+					"path": "src/lib/docs/signature.svelte",
+					"type": "registry:file",
+					"target": "docs/signature.svelte"
 				},
 				{
 					"path": "src/lib/docs/typography.svelte",
