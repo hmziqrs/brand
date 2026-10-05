@@ -1,7 +1,7 @@
 {
   "target": "social",
   "command": "pnpm render-assets --only social",
-  "digest": "a415dfe0ef88345d886ff9fa52f1bc7c670a1546c1b2aa4056dd44739a9ab2d1",
+  "digest": "c47127f97d9caaff78e55486ff52314417bedbe81a0539e626bee3c8dab43a68",
   "renderers": {
     "@resvg/resvg-js": "2.6.2",
     "opentype.js": "2.0.0",
@@ -196,7 +196,7 @@
     },
     {
       "path": "pnpm-lock.yaml",
-      "sha256": "35a202a77c2db26d00248a67fb262e3cb57499bfc0fbbb0e0f10e286cabc9dac"
+      "sha256": "ddcf65cda0a8d31c5cadc71f985c369a1f5b25d12dbdfc29f190b7cda7f4ec37"
     },
     {
       "path": "scripts/assets-lib.mjs",
