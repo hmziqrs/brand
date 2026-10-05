@@ -371,6 +371,122 @@ export const comparison = [
 	["Going back to a screen", "It loads again", "Instant, from the cache"],
 ] as const;
 
+/** freeoxide.com's kinds of project: one color each, kept everywhere (freeoxide.tsx). */
+export const freeoxideKinds = {
+	library: { label: "Library", color: "var(--blue)", tone: "blue" },
+	cli: { label: "Command-line tool", color: "var(--teal)", tone: "teal" },
+	app: { label: "Desktop app", color: "var(--purple)", tone: "purple" },
+} as const;
+
+/** freeoxide.com's status colors: green for done, yellow for work in progress, plain for later (freeoxide.tsx). */
+export const freeoxideStatus = {
+	shipped: { label: "Shipped", tone: "success" },
+	building: { label: "In progress", tone: "warning" },
+	planned: { label: "Planned" },
+} as const;
+
+/** freeoxide.com's projects, numbered like elements: 1–8 are the hmziq sites (freeoxide.tsx). */
+export const freeoxideProjects = [
+	{ n: 5, symbol: "Gs", name: "gpui-starter", kind: freeoxideKinds.app, status: freeoxideStatus.shipped, body: "Start a desktop app with the boring parts already built: windows, themes, settings and updates." },
+	{ n: 6, symbol: "Gq", name: "gpui-query", kind: freeoxideKinds.library, status: freeoxideStatus.shipped, body: "Load data in desktop apps without writing the plumbing. Fetching, caching and retries are handled for you." },
+	{ n: 9, symbol: "Tn", name: "tunnel", kind: freeoxideKinds.cli, status: freeoxideStatus.shipped, body: "Share a folder on your computer at a public web address in a few seconds. No account or setup needed." },
+	{ n: 10, symbol: "Wk", name: "wake", kind: freeoxideKinds.cli, status: freeoxideStatus.shipped, body: "Keeps your computer awake for as long as you ask. If the system refuses, it tells you instead of failing quietly." },
+	{ n: 11, symbol: "Vh", name: "vps-harden", kind: freeoxideKinds.cli, status: freeoxideStatus.building, body: "Lock down a new server with one command you can read before you run it. Every change can be undone." },
+	{ n: 12, symbol: "Ac", name: "agent-config", kind: freeoxideKinds.app, status: freeoxideStatus.planned, body: "A desktop app to see and manage your AI agents' settings and usage, built on gpui-starter." },
+] as const;
+
+/** freeoxide.com's standards, one icon each on the page (freeoxide.tsx). */
+export const freeoxideStandards = [
+	["Structure by hand", "How the code is organised is decided up front, from experience, before anything else is written."],
+	["Five review rounds", "The code is reviewed in five separate AI sessions. Each one finds things the last one missed."],
+	["Five rounds of tests", "AI writes tests, I review them, and the next round catches what the previous one didn't."],
+	["Clean and documented", "Anything you need to know to use it safely is written down right next to the code."],
+	["Open by default", "MIT or Apache-2.0 licensed, with a readable history and no hidden dependencies."],
+] as const;
+
+/** freeoxide.com's key numbers, each beside a ring that draws it (freeoxide.tsx). */
+export const freeoxideFacts = [
+	{ value: "100%", label: "free and open source", ring: 1 },
+	{ value: "90%+", label: "of the code covered by tests", ring: 0.9 },
+	{ value: "5", label: "review rounds before release", ring: 5 },
+];
+
+/** gpui-starter's features; the quick launcher's body is the page's ⌘K snippet (gpui-starter.tsx). */
+export const starterFeatures = [
+	["The app window", "Custom title bar, a sidebar that collapses, a status bar and pages you can move between."],
+	["Saving data", "A local database, settings that upgrade themselves between versions, and secrets kept in the system keychain."],
+	["Works with the system", "Menu bar icon, native notifications, a global shortcut, and links that open straight into your app."],
+	["24 themes", "Themes are plain files. Drop a new one in and it shows up while the app is still running."],
+	["Translations", "English and Chinese are included. Form errors are translated too, and adding a language doesn't touch code."],
+	["Safe updates", "Every release is signed, so people only ever install updates that really came from you."],
+	["Data loading", "Fetching, caching and retries are handled by gpui-query, so screens show fresh data without extra code."],
+	["Quick launcher", null],
+] as const;
+
+/** gpui-starter's six working pages (gpui-starter.tsx). */
+export const starterPages = [
+	["Home", "Shows data loaded through gpui-query on the very first screen."],
+	["Form", "Inputs checked as you type, with errors in the user's language."],
+	["Settings", "Theme, language and privacy choices, saved between launches."],
+	["About", "Version details and a check for updates."],
+	["Diagnostics", "What's running, which theme is active, and tools for support."],
+	["Notifications", "System notifications, with an inbox people can reopen."],
+] as const;
+
+/** gpui-starter's route example (gpui-starter.tsx). */
+export const starterRoute =
+	'// Register a page once. The sidebar, the ⌘K launcher and links all follow.\npub fn routes(cx: &mut App) -> Vec<Route> {\n    vec![\n        Route::new(Page::Home).icon("house"),\n        Route::new(Page::Form).icon("file-text"),\n        Route::new(Page::Settings).icon("settings"),\n        Route::new(Page::Diagnostics).dev_only(),\n    ]\n}';
+
+/** gpui-starter's footer columns (gpui-starter.tsx). */
+export const starterFooterLinks = [
+	{ title: "Docs", links: ["Quickstart", "Themes", "Translations", "Updates"] },
+	{ title: "Project", links: ["Changelog", "Blog", "FAQ"] },
+	{ title: "Code", links: ["GitHub", "Releases"] },
+	{ title: "freeoxide", links: ["All projects", "About"] },
+];
+
+/** The app preview's sidebar and theme picker (gpui-starter.tsx AppPreview). */
+export const previewNav = ["Home", "Form", "Settings", "About"];
+export const previewThemes = ["Catppuccin", "Tokyo Night", "Dracula", "One Dark"];
+
+/** gpui-query's features (gpui-query.tsx). */
+export const queryFeatures = [
+	["Say what to load", "Describe the data once. Your view just reads the result, and gpui-query keeps it up to date."],
+	["Caching that fits", "Pick a rule per query: keep data for a while, show saved data while refreshing, or always fetch fresh."],
+	["Changes with rollback", "Update the screen as soon as someone saves. If the server says no, it goes back to how it was."],
+	["Endless lists", "Load more results as people scroll, in either direction, without tracking pages yourself."],
+	["Clean cancelling", "Close a view and its work stops. Retries stop too. No stray tasks left running in the background."],
+	["Remembers between launches", "Save loaded data and bring it back the next time the app opens, with the storage you choose."],
+] as const;
+
+/** gpui-query's three API functions, one tab each (gpui-query.tsx). */
+export const querySamples = [
+	{ value: "query", label: "Load data", fn: "use_query", code: 'let (users, _sub) = use_query(\n    QueryOptions::new("users")\n        .cache_policy(CachePolicy::StaleWhileRevalidate {\n            ttl_ms: 60_000,\n            stale_ms: 300_000,\n        })\n        .retry_policy(RetryPolicy::new(3).with_exponential_backoff()),\n    |signal| async move { fetch_users(&signal).await },\n    cx,\n);' },
+	{ value: "mutation", label: "Save changes", fn: "use_mutation", code: 'let (create, _sub) = use_mutation((), cx);\n\nmutate_with_callbacks(\n    &create,\n    NewUser { name: "Alice" },\n    |vars| async move { create_user(vars).await },\n    MutationCallbacks::new()\n        .on_success(|_| { /* refresh "users" */ })\n        .on_error(|err| eprintln!("failed: {err:?}")),\n    cx,\n);' },
+	{ value: "infinite", label: "Load pages", fn: "use_infinite_query", code: 'let (feed, _sub) = use_infinite_query(\n    InfiniteQueryOptions::new(QueryKey::from(["feed"])).max_pages(Some(10)),\n    |last_page| async move {\n        let cursor = last_page.map(|p| p.cursor());\n        let page = fetch_page(cursor).await?;\n        Ok((page.items, page.has_more))\n    },\n    cx,\n);' },
+] as const;
+
+/** gpui-query's footer columns (gpui-query.tsx). */
+export const queryFooterLinks = [
+	{ title: "Docs", links: ["Getting started", "Core concepts", "API"] },
+	{ title: "Community", links: ["GitHub", "Blog", "Changelog"] },
+	{ title: "Legal", links: ["Privacy", "Terms", "MIT License"] },
+	{ title: "freeoxide", links: ["All projects", "About"] },
+];
+
+/** claude-multi's setup session, the lines under the two steps (claude-multi.tsx). */
+export const claudeSetup: TerminalLineData[] = [
+	["cmd", "claude-multi"],
+	["step", "add new instance"],
+	["step", "name", "glm"],
+	["step", "provider", "GLM"],
+	["step", "api key", "••••••••••••"],
+	["ok", "instance 'glm' created"],
+	["cmd", "claude-glm"],
+	["step", "Claude Code 2.1.4 · provider glm · model GLM-5.3"],
+	["ok", "ready"],
+];
+
 /** gpui-query's FAQ questions (gpui-query/data.ts). */
 export const gpuiFaq: FaqItem[] = [
 	["Getting started", "How is gpui-query different from TanStack Query?", "gpui-query adapts TanStack Query's patterns to Rust and the GPUI framework. It uses Rust's type system for compile-time guarantees, Arc<AtomicBool> for cooperative cancellation, and integrates directly with GPUI's render loop."],
