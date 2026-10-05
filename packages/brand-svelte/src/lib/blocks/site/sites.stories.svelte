@@ -590,9 +590,9 @@
 			{#snippet intro()}Straight answers, grouped by topic.{/snippet}
 			{#snippet children()}
 				<Questions>
-					{#each gpuiFaq as [, question, answer], i (question)}
+					{#each gpuiFaq as [, q, answer], i (q)}
 						<Question open={i === 0}>
-							{#snippet question()}{question}{/snippet}
+							{#snippet question()}{q}{/snippet}
 							{answer}
 						</Question>
 					{/each}
