@@ -18,12 +18,12 @@
 	];
 
 	const neutrals: [string, string, string, string][] = [
-		["background", "#0A0A0A", "#FFFFFF", "The page"],
-		["card / popover", "#171717", "#FFFFFF", "Cards, popovers and code blocks"],
-		["muted / secondary / accent", "#262626", "#F5F5F5", "Quiet surfaces and hover states"],
-		["foreground", "#FAFAFA", "#0A0A0A", "Main text"],
-		["muted-foreground", "#A1A1A1", "#6F6F6F", "Secondary text, captions, dates"],
-		["border / input", "white 10% / 15%", "#E5E5E5", "Lines and fields"],
+		["background", hex("dark", "background"), hex("light", "background"), "The page"],
+		["card / popover", hex("dark", "card"), hex("light", "card"), "Cards, popovers and code blocks"],
+		["muted / secondary / accent", hex("dark", "muted"), hex("light", "muted"), "Quiet surfaces and hover states"],
+		["foreground", hex("dark", "foreground"), hex("light", "foreground"), "Main text"],
+		["muted-foreground", hex("dark", "muted-foreground"), hex("light", "muted-foreground"), "Secondary text, captions, dates"],
+		["border / input", "white 10% / 15%", hex("light", "border"), "Lines and fields"],
 	];
 
 	const sample = `// Load the user list once; every view that asks gets the same data.
