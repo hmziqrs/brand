@@ -64,6 +64,8 @@
 		"@tanstack/table-core": "^8.21.3",
 		"@types/node": "^26.6.3",
 		"bits-ui": "^2.18.0",
+		"embla-carousel-svelte": "^8.6.0",
+		"paneforge": "^1.0.2",
 		"publint": "^0.3.21",
 		"shadcn-svelte": "^1.7.0",
 		"storybook": "^10.6.0",
@@ -72,6 +74,7 @@
 		"tailwind-variants": "^3.3.1",
 		"tailwindcss": "^4.3.0",
 		"typescript": "~6.0.2",
+		"vaul-svelte": "1.0.0-next.7",
 		"vite": "^8.0.16"
 	},
 	"keywords": [
