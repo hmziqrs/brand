@@ -898,6 +898,11 @@
 			],
 			"files": [
 				{
+					"path": "src/lib/docs/brand-kit.svelte",
+					"type": "registry:file",
+					"target": "docs/brand-kit.svelte"
+				},
+				{
 					"path": "src/lib/docs/colors.svelte",
 					"type": "registry:file",
 					"target": "docs/colors.svelte"
@@ -1596,6 +1601,7 @@
 				"local:ui-alert",
 				"local:ui-alert-dialog",
 				"local:ui-aspect-ratio",
+				"local:ui-attachment",
 				"local:ui-avatar",
 				"local:ui-badge",
 				"local:ui-breadcrumb",
@@ -3770,6 +3776,71 @@
 					"path": "src/lib/ui/aspect-ratio/index.ts",
 					"type": "registry:file",
 					"target": "ui/aspect-ratio/index.ts"
+				}
+			]
+		},
+		{
+			"name": "ui-attachment",
+			"type": "registry:lib",
+			"title": "ui-attachment",
+			"description": "shadcn-svelte's attachment, vendored with the brand's changes (packages/brand-svelte/README.md).",
+			"dependencies": [
+				"tailwind-variants@^3.3.1"
+			],
+			"registryDependencies": [
+				"local:ui-button",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/ui/attachment/attachment-action.svelte",
+					"type": "registry:file",
+					"target": "ui/attachment/attachment-action.svelte"
+				},
+				{
+					"path": "src/lib/ui/attachment/attachment-actions.svelte",
+					"type": "registry:file",
+					"target": "ui/attachment/attachment-actions.svelte"
+				},
+				{
+					"path": "src/lib/ui/attachment/attachment-content.svelte",
+					"type": "registry:file",
+					"target": "ui/attachment/attachment-content.svelte"
+				},
+				{
+					"path": "src/lib/ui/attachment/attachment-description.svelte",
+					"type": "registry:file",
+					"target": "ui/attachment/attachment-description.svelte"
+				},
+				{
+					"path": "src/lib/ui/attachment/attachment-group.svelte",
+					"type": "registry:file",
+					"target": "ui/attachment/attachment-group.svelte"
+				},
+				{
+					"path": "src/lib/ui/attachment/attachment-media.svelte",
+					"type": "registry:file",
+					"target": "ui/attachment/attachment-media.svelte"
+				},
+				{
+					"path": "src/lib/ui/attachment/attachment-title.svelte",
+					"type": "registry:file",
+					"target": "ui/attachment/attachment-title.svelte"
+				},
+				{
+					"path": "src/lib/ui/attachment/attachment-trigger.svelte",
+					"type": "registry:file",
+					"target": "ui/attachment/attachment-trigger.svelte"
+				},
+				{
+					"path": "src/lib/ui/attachment/attachment.svelte",
+					"type": "registry:file",
+					"target": "ui/attachment/attachment.svelte"
+				},
+				{
+					"path": "src/lib/ui/attachment/index.ts",
+					"type": "registry:file",
+					"target": "ui/attachment/index.ts"
 				}
 			]
 		},
