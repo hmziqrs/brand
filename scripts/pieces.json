@@ -2090,6 +2090,216 @@
       "svelteFile": "docs/brand.stories.svelte",
       "svelteItem": "not yet",
       "astroItem": "not yet"
+    },
+    {
+      "name": "Alert",
+      "group": "app",
+      "lab": "ui-base-alert--default",
+      "svelte": "ui-base-alert--default",
+      "astro": "not yet",
+      "svelteFile": "ui/alert/alert.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "AlertDialog",
+      "group": "app",
+      "lab": "ui-base-alertdialog--default",
+      "svelte": "ui-base-alertdialog--default",
+      "astro": "not yet",
+      "svelteFile": "ui/alert-dialog/alert-dialog.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "Attachment",
+      "group": "app",
+      "lab": "ui-base-attachment--default",
+      "svelte": "ui-base-attachment--default",
+      "astro": "not yet",
+      "svelteFile": "ui/attachment/attachment.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "Avatar",
+      "group": "app",
+      "lab": "ui-base-avatar--default",
+      "svelte": "ui-base-avatar--default",
+      "astro": "not yet",
+      "svelteFile": "ui/avatar/avatar.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "Breadcrumb",
+      "group": "app",
+      "lab": "ui-base-breadcrumb--default",
+      "svelte": "ui-base-breadcrumb--default",
+      "astro": "not yet",
+      "svelteFile": "ui/breadcrumb/breadcrumb.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "Button",
+      "group": "app",
+      "lab": "ui-base-button--default",
+      "svelte": "ui-base-button--default",
+      "astro": "not yet",
+      "svelteFile": "ui/button/button.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "Card",
+      "group": "app",
+      "lab": "not yet",
+      "svelte": "ui-base-card--default",
+      "astro": "not yet",
+      "svelteFile": "ui/card/card.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "Chart",
+      "group": "app",
+      "lab": "ui-base-chart--stacked-area-chart",
+      "svelte": "ui-base-chart--stacked-area-chart",
+      "astro": "not yet",
+      "svelteFile": "ui/chart/chart.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "Checkbox",
+      "group": "app",
+      "lab": "ui-base-checkbox--default",
+      "svelte": "ui-base-checkbox--default",
+      "astro": "not yet",
+      "svelteFile": "ui/checkbox/checkbox.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "Input",
+      "group": "app",
+      "lab": "ui-base-input--default",
+      "svelte": "ui-base-input--default",
+      "astro": "not yet",
+      "svelteFile": "ui/input/input.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "Label",
+      "group": "app",
+      "lab": "ui-base-label--default",
+      "svelte": "ui-base-label--default",
+      "astro": "not yet",
+      "svelteFile": "ui/label/label.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "Popover",
+      "group": "app",
+      "lab": "ui-base-popover--default",
+      "svelte": "ui-base-popover--default",
+      "astro": "not yet",
+      "svelteFile": "ui/popover/popover.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "RadioGroup",
+      "group": "app",
+      "lab": "ui-base-radiogroup--default",
+      "svelte": "ui-base-radiogroup--default",
+      "astro": "not yet",
+      "svelteFile": "ui/radio-group/radio-group.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "Select",
+      "group": "app",
+      "lab": "ui-base-select--default",
+      "svelte": "ui-base-select--default",
+      "astro": "not yet",
+      "svelteFile": "ui/select/select.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "Separator",
+      "group": "app",
+      "lab": "ui-base-separator--default",
+      "svelte": "ui-base-separator--default",
+      "astro": "not yet",
+      "svelteFile": "ui/separator/separator.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "Skeleton",
+      "group": "app",
+      "lab": "ui-base-skeleton--default",
+      "svelte": "ui-base-skeleton--default",
+      "astro": "not yet",
+      "svelteFile": "ui/skeleton/skeleton.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "Slider",
+      "group": "app",
+      "lab": "ui-base-slider--default",
+      "svelte": "ui-base-slider--default",
+      "astro": "not yet",
+      "svelteFile": "ui/slider/slider.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "Sonner",
+      "group": "app",
+      "lab": "ui-base-sonner--default",
+      "svelte": "ui-base-sonner--default",
+      "astro": "not yet",
+      "svelteFile": "ui/sonner/sonner.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "Switch",
+      "group": "app",
+      "lab": "ui-base-switch--default",
+      "svelte": "ui-base-switch--default",
+      "astro": "not yet",
+      "svelteFile": "ui/switch/switch.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "Table",
+      "group": "app",
+      "lab": "ui-base-table--default",
+      "svelte": "ui-base-table--default",
+      "astro": "not yet",
+      "svelteFile": "ui/table/table.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "Textarea",
+      "group": "app",
+      "lab": "ui-base-textarea--default",
+      "svelte": "ui-base-textarea--default",
+      "astro": "not yet",
+      "svelteFile": "ui/textarea/textarea.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
     }
   ]
 }
