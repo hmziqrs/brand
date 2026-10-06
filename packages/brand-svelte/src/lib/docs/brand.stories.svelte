@@ -1,5 +1,6 @@
 <script module>
 	import { defineMeta } from '@storybook/addon-svelte-csf'
+	import BrandKit from './brand-kit.svelte'
 	import Colors from './colors.svelte'
 	import CustomComponents from './custom-components.svelte'
 	import Icons from './icons.svelte'
@@ -38,6 +39,10 @@
 	<Signature />
 </Story>
 
-<Story name="CustomComponents" asChild>
+<Story name="Custom components" asChild>
 	<CustomComponents />
+</Story>
+
+<Story name="Brand kit for AI agents" asChild>
+	<BrandKit />
 </Story>

@@ -10,7 +10,10 @@
 	import type { SceneKind } from '@hmziq/brand-core/motion/scenes'
 
 	const hero: readonly { kind: SceneKind; note: string }[] = [
-		{ kind: 'lattice', note: "Iron oxide's crystal, from freeoxide. Iron in orange." },
+		{
+			kind: 'lattice',
+			note: "Iron oxide's crystal, from freeoxide. Iron in orange. Tune it on Custom → Lattice → Tweaker.",
+		},
 		{ kind: 'network', note: 'Points joined up, with pulses running along. From oxlabs.' },
 		{ kind: 'layers', note: 'A stack of outline cards, one in orange.' },
 	]
@@ -25,6 +28,9 @@
 		title: 'Custom/Scenes (3D)',
 		component: Scene,
 		args: { kind: 'lattice', seed: 'freeoxide' },
+		argTypes: {
+			kind: { control: 'select', options: ['lattice', 'network', 'layers', 'helix', 'tiles', 'thread'] },
+		},
 	})
 </script>
 
@@ -35,9 +41,11 @@
 	Drawn from a name, so every site gets its own. They only run on screen,
 	stop for reduced motion, and have a pause button.
 -->
-<Story name="Default" asChild>
-	<Scene kind="lattice" seed="freeoxide" class="aspect-[520/440] w-full max-w-lg" />
-</Story>
+{#snippet template(args)}
+	<Scene {...args} class="aspect-[520/440] w-full max-w-lg" />
+{/snippet}
+
+<Story name="Default" {template} />
 
 <!-- For the space beside the words in a hero. Roughly square. -->
 <Story name="Beside the words" asChild>

@@ -278,7 +278,7 @@
 	</div>
 {/snippet}
 
-<Story name="WithPopover" asChild>
+<Story name="With popover" asChild>
 	{@render withPopover()}
 </Story>
 
@@ -291,7 +291,7 @@
 	{@render withPopover()}
 </Story>
 
-<Story name="WithInput" asChild>
+<Story name="With input" asChild>
 	{@render withInput()}
 </Story>
 
@@ -304,7 +304,7 @@
 	{@render withInput()}
 </Story>
 
-<Story name="WithDateTime" asChild>
+<Story name="With date time" asChild>
 	{@render withDateTime()}
 </Story>
 

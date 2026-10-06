@@ -28,7 +28,7 @@
 	let price = $state([200, 800])
 </script>
 
-<Story name="WithInput" asChild>
+<Story name="With input" asChild>
 	<div class="w-full min-w-sm max-w-md">
 		<FieldSet>
 			<FieldGroup>
@@ -42,7 +42,7 @@
 	</div>
 </Story>
 
-<Story name="WithTextarea" asChild>
+<Story name="With textarea" asChild>
 	<div class="w-full min-w-sm max-w-md">
 		<FieldSet>
 			<FieldGroup>
@@ -56,7 +56,7 @@
 	</div>
 </Story>
 
-<Story name="WithSelect" asChild>
+<Story name="With select" asChild>
 	<div class="w-full min-w-sm max-w-md">
 		<FieldRoot>
 			<FieldLabel>Department</FieldLabel>
@@ -80,7 +80,7 @@
 	</div>
 </Story>
 
-<Story name="WithSlider" asChild>
+<Story name="With slider" asChild>
 	<div class="w-full min-w-sm max-w-md">
 		<FieldRoot>
 			<FieldTitle>Price Range</FieldTitle>
@@ -101,7 +101,7 @@
 	</div>
 </Story>
 
-<Story name="WithFieldset" asChild>
+<Story name="With fieldset" asChild>
 	<div class="w-full min-w-sm max-w-md">
 		<div class="w-full max-w-md space-y-6">
 			<FieldSet>
@@ -128,7 +128,7 @@
 	</div>
 </Story>
 
-<Story name="WithCheckbox" asChild>
+<Story name="With checkbox" asChild>
 	<div class="w-full min-w-sm max-w-md">
 		<FieldGroup>
 			<FieldSet>
@@ -167,7 +167,7 @@
 	</div>
 </Story>
 
-<Story name="WithRadio" asChild>
+<Story name="With radio" asChild>
 	<div class="w-full min-w-sm max-w-md">
 		<FieldSet>
 			<FieldLabel>Subscription Plan</FieldLabel>
@@ -190,7 +190,7 @@
 	</div>
 </Story>
 
-<Story name="WithSwitch" asChild>
+<Story name="With switch" asChild>
 	<div class="w-full min-w-sm max-w-md">
 		<FieldRoot orientation="horizontal">
 			<FieldContent>
@@ -204,7 +204,7 @@
 	</div>
 </Story>
 
-<Story name="ChoiceCard" asChild>
+<Story name="Choice card" asChild>
 	<div class="w-full min-w-sm max-w-md">
 		<FieldGroup>
 			<FieldSet>

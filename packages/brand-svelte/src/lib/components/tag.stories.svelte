@@ -7,12 +7,20 @@
 		title: 'Custom/Tag',
 		component: Tag,
 		args: { tone: 'success', marker: true },
+		argTypes: {
+			tone: {
+				control: 'select',
+				options: [undefined, 'success', 'warning', 'info', 'destructive', ...hues],
+			},
+		},
 	})
 </script>
 
-<Story name="Default" asChild>
-	<Tag tone="success" marker>Shipped</Tag>
-</Story>
+{#snippet template(args)}
+	<Tag {...args}>Shipped</Tag>
+{/snippet}
+
+<Story name="Default" {template} />
 
 <!-- Status: write the role (success, warning…), not the color. -->
 <Story name="Status" asChild>

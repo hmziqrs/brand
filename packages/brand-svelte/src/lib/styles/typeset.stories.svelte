@@ -10,6 +10,85 @@
 	})
 </script>
 
+<script lang="ts">
+	const streamedResponse =
+		'New text arrives a few characters at a time while the completed paragraph above stays visually stable.'
+
+	const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
+
+	async function waitFor(predicate: () => boolean, ms: number) {
+		for (let waited = 0; !predicate() && waited < ms; waited += 30) {
+			await sleep(30)
+		}
+		return predicate()
+	}
+
+	function presentationOf(element: Element) {
+		const style = window.getComputedStyle(element)
+		const bounds = element.getBoundingClientRect()
+		return JSON.stringify({
+			backgroundColor: style.backgroundColor,
+			borderBlockEnd: style.borderBlockEnd,
+			borderBlockStart: style.borderBlockStart,
+			color: style.color,
+			fontFamily: style.fontFamily,
+			fontSize: style.fontSize,
+			fontWeight: style.fontWeight,
+			height: bounds.height,
+			letterSpacing: style.letterSpacing,
+			lineHeight: style.lineHeight,
+			marginBlockEnd: style.marginBlockEnd,
+			marginBlockStart: style.marginBlockStart,
+			paddingBlockEnd: style.paddingBlockEnd,
+			paddingBlockStart: style.paddingBlockStart,
+			width: bounds.width,
+		})
+	}
+
+	async function shouldPreserveExistingContentWhenAppendingResponse({
+		canvasElement,
+	}: {
+		canvasElement: HTMLElement
+	}) {
+		const existing = canvasElement.querySelector('[data-testid="existing-block"]')
+		if (!existing) throw new Error('the existing chat block is missing')
+		const presentation = presentationOf(existing)
+		const button = [...canvasElement.querySelectorAll('button')].find(
+			(button) => button.textContent === 'Continue response'
+		)
+		if (!(button instanceof HTMLButtonElement)) throw new Error('the continue button is missing')
+		button.click()
+		const arrived = () =>
+			[...canvasElement.querySelectorAll('p')].some((p) =>
+				p.textContent?.includes('This paragraph arrived later')
+			)
+		if (!(await waitFor(arrived, 2000))) throw new Error('appending did not add the later paragraph')
+		if (presentationOf(existing) !== presentation) {
+			throw new Error('appending a response restyled the completed block')
+		}
+	}
+
+	async function shouldRestartStreamingWhenReplayed({ canvasElement }: { canvasElement: HTMLElement }) {
+		const streamed = () => canvasElement.querySelector<HTMLElement>('[data-testid="streamed-text"]')
+		const finished = () => streamed()?.textContent?.trim() === streamedResponse
+		if (!streamed()) throw new Error('the streamed text is missing')
+		if (!(await waitFor(finished, 2000))) {
+			throw new Error('the stream did not finish')
+		}
+		const replay = [...canvasElement.querySelectorAll('button')].find(
+			(button) => button.textContent === 'Replay stream'
+		)
+		if (!(replay instanceof HTMLButtonElement)) throw new Error('the replay button is missing')
+		replay.click()
+		if (!(await waitFor(() => streamed()?.textContent?.includes('▍'), 2000))) {
+			throw new Error('replaying did not restart the stream')
+		}
+		if (!(await waitFor(finished, 2000))) {
+			throw new Error('the replayed stream did not finish')
+		}
+	}
+</script>
+
 <Story name="Documentation" asChild>
 	<div class="w-full min-w-sm max-w-2xl px-6">
 		<article class="typeset typeset-docs">
@@ -102,6 +181,30 @@ bun run registry:build</code></pre>
 <Story name="Streaming" asChild>
 	<div class="w-full min-w-sm max-w-2xl px-6">
 		<TypesetStreaming />
+	</div>
+</Story>
+
+<!-- Verify appending a response does not restyle completed content. -->
+<Story
+	name="should preserve existing content when appending response"
+	tags={['!dev', '!autodocs']}
+	play={shouldPreserveExistingContentWhenAppendingResponse}
+	asChild
+>
+	<div class="w-full min-w-sm max-w-2xl px-6">
+		<TypesetChat />
+	</div>
+</Story>
+
+<!-- Verify timed content completes and restarts when replayed. -->
+<Story
+	name="should restart streaming when replayed"
+	tags={['!dev', '!autodocs']}
+	play={shouldRestartStreamingWhenReplayed}
+	asChild
+>
+	<div class="w-full min-w-sm max-w-2xl px-6">
+		<TypesetStreaming intervalMs={1} startDelay={50} />
 	</div>
 </Story>
 
