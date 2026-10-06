@@ -2310,6 +2310,46 @@
       "svelteFile": "ui/textarea/textarea.stories.svelte",
       "svelteItem": "not yet",
       "astroItem": "not yet"
+    },
+    {
+      "name": "Dialog",
+      "group": "app",
+      "lab": "ui-base-dialog--default",
+      "svelte": "ui-base-dialog--default",
+      "astro": "not yet",
+      "svelteFile": "ui/dialog/dialog.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "DropdownMenu",
+      "group": "app",
+      "lab": "ui-base-dropdownmenu--default",
+      "svelte": "ui-base-dropdownmenu--default",
+      "astro": "not yet",
+      "svelteFile": "ui/dropdown-menu/dropdown-menu.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "Sidebar",
+      "group": "app",
+      "lab": "ui-base-sidebar--simple",
+      "svelte": "ui-base-sidebar--simple",
+      "astro": "not yet",
+      "svelteFile": "ui/sidebar/sidebar.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "Tooltip",
+      "group": "app",
+      "lab": "ui-base-tooltip--default",
+      "svelte": "ui-base-tooltip--default",
+      "astro": "not yet",
+      "svelteFile": "ui/tooltip/tooltip.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
     }
   ]
 }
