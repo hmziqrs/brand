@@ -2122,6 +2122,16 @@
       "astroItem": "not yet"
     },
     {
+      "name": "UiMarker",
+      "group": "app",
+      "lab": "ui-base-marker--default",
+      "svelte": "ui-base-marker--default",
+      "astro": "not yet",
+      "svelteFile": "ui/marker/marker.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
       "name": "Avatar",
       "group": "app",
       "lab": "ui-base-avatar--default",
