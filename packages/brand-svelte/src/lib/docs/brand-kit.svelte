@@ -140,7 +140,7 @@ pnpm new-project astro ../my-site     # Astro + Starwind UI`;
 		never copy <code>theme.css</code> into a site or edit its tokens per site:
 	</p>
 	<div data-panel>
-		<CodeBlock code={stylesheet} lang="text" label="src/index.css" copy={false} />
+		<CodeBlock code={stylesheet} lang="css" label="src/index.css" copy={false} />
 	</div>
 	<p>
 		App screens have their own document: <strong><code>APP-BLOCKS.md</code></strong> in the

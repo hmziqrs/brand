@@ -7,6 +7,7 @@
 import { createHighlighterCoreSync } from "shiki/core";
 import { createJavaScriptRegexEngine } from "shiki/engine/javascript";
 import bash from "shiki/langs/bash.mjs";
+import css from "shiki/langs/css.mjs";
 import json from "shiki/langs/json.mjs";
 import python from "shiki/langs/python.mjs";
 import rust from "shiki/langs/rust.mjs";
@@ -15,12 +16,12 @@ import toml from "shiki/langs/toml.mjs";
 import typescript from "shiki/langs/typescript.mjs";
 import { hmziqCode } from "@hmziq/brand-core/code-theme";
 
-export type CodeLanguage = "bash" | "json" | "python" | "rust" | "svelte" | "toml" | "typescript" | "text";
+export type CodeLanguage = "bash" | "css" | "json" | "python" | "rust" | "svelte" | "toml" | "typescript" | "text";
 export type Token = { content: string; color?: string };
 
 const highlighter = createHighlighterCoreSync({
 	themes: [hmziqCode],
-	langs: [bash, json, python, rust, svelte, toml, typescript],
+	langs: [bash, css, json, python, rust, svelte, toml, typescript],
 	engine: createJavaScriptRegexEngine(),
 });
 
