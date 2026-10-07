@@ -2142,6 +2142,16 @@
       "astroItem": "not yet"
     },
     {
+      "name": "MessageScroller",
+      "group": "app",
+      "lab": "ui-base-messagescroller--default",
+      "svelte": "ui-base-messagescroller--default",
+      "astro": "not yet",
+      "svelteFile": "ui/message-scroller/message-scroller.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
       "name": "Avatar",
       "group": "app",
       "lab": "ui-base-avatar--default",
