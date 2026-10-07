@@ -8,3 +8,12 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn-svelte/tailwind.css";
+
+/* Crisp text everywhere: match the reference rendering (macOS defaults to
+   subpixel-antialiased, which reads heavier than the lab's docs pages). */
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
