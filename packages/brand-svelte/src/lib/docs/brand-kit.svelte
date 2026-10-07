@@ -79,8 +79,7 @@ pnpm new-project astro ../my-site     # Astro + Starwind UI`;
 
 <DocsPage title="Brand kit for AI agents">
 	{#snippet lead()}
-		Everything on these pages in one place, for agents and people doing migrations or
-		redesigns.
+		<p>Everything on these pages in one place, for agents and people doing migrations or redesigns.</p>
 	{/snippet}
 
 	<p>

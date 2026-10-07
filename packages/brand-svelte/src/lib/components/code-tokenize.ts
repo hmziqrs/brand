@@ -10,16 +10,17 @@ import bash from "shiki/langs/bash.mjs";
 import json from "shiki/langs/json.mjs";
 import python from "shiki/langs/python.mjs";
 import rust from "shiki/langs/rust.mjs";
+import svelte from "shiki/langs/svelte.mjs";
 import toml from "shiki/langs/toml.mjs";
 import typescript from "shiki/langs/typescript.mjs";
 import { hmziqCode } from "@hmziq/brand-core/code-theme";
 
-export type CodeLanguage = "bash" | "json" | "python" | "rust" | "toml" | "typescript" | "text";
+export type CodeLanguage = "bash" | "json" | "python" | "rust" | "svelte" | "toml" | "typescript" | "text";
 export type Token = { content: string; color?: string };
 
 const highlighter = createHighlighterCoreSync({
 	themes: [hmziqCode],
-	langs: [bash, json, python, rust, toml, typescript],
+	langs: [bash, json, python, rust, svelte, toml, typescript],
 	engine: createJavaScriptRegexEngine(),
 });
 

@@ -44,9 +44,11 @@ pub fn users(cx: &mut App) -> Query<Vec<User>> {
 
 <DocsPage title="Colors">
 	{#snippet lead()}
-		Plain neutral greys, one brand color, and seven supporting colors that bring a page to life
-		where color actually means something. Everything on this page is read straight from
-		<code>theme.css</code>, so it always shows the current theme.
+		<p>
+			Plain neutral greys, one brand color, and seven supporting colors that bring a page to life
+			where color actually means something. Everything on this page is read straight from
+			<code>theme.css</code>, so it always shows the current theme.
+		</p>
 	{/snippet}
 
 	<h2>Oxide orange</h2>

@@ -89,7 +89,7 @@ export { Stat }`;
 
 <DocsPage title="Custom components">
 	{#snippet lead()}
-		How to build something shadcn doesn't have, so it still looks like it belongs.
+		<p>How to build something shadcn doesn't have, so it still looks like it belongs.</p>
 	{/snippet}
 
 	<h2>First, try not to build it</h2>

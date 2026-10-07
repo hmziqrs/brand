@@ -106,9 +106,11 @@
 
 <DocsPage title="Signature">
 	{#snippet lead()}
-		The theme makes a page tidy. These pieces make it look like hmziq: the wordmark and its square, the marks, the ring
-		marker, the rings, and the bands. Every site uses all of them. To see them together, open
-		<strong>Sites → freeoxide.com</strong>.
+		<p>
+			The theme makes a page tidy. These pieces make it look like hmziq: the wordmark and its square, the marks, the ring
+			marker, the rings, and the bands. Every site uses all of them. To see them together, open
+			<strong>Sites → freeoxide.com</strong>.
+		</p>
 	{/snippet}
 
 	<p>
