@@ -2360,6 +2360,36 @@
       "svelteFile": "ui/tooltip/tooltip.stories.svelte",
       "svelteItem": "not yet",
       "astroItem": "not yet"
+    },
+    {
+      "name": "InputOtp",
+      "group": "app",
+      "lab": "ui-base-inputotp--default",
+      "svelte": "ui-base-inputotp--default",
+      "astro": "not yet",
+      "svelteFile": "ui/input-otp/input-otp.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "InputGroup",
+      "group": "app",
+      "lab": "ui-base-inputgroup--with-icons",
+      "svelte": "ui-base-inputgroup--with-icons",
+      "astro": "not yet",
+      "svelteFile": "ui/input-group/input-group.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "UiCommand",
+      "group": "app",
+      "lab": "ui-base-command--default",
+      "svelte": "ui-base-command--default",
+      "astro": "not yet",
+      "svelteFile": "ui/command/command.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
     }
   ]
 }
