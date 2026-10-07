@@ -2152,6 +2152,16 @@
       "astroItem": "not yet"
     },
     {
+      "name": "Questionnaire",
+      "group": "app",
+      "lab": "ui-base-questionnaire--default",
+      "svelte": "ui-base-questionnaire--default",
+      "astro": "not yet",
+      "svelteFile": "ui/questionnaire/questionnaire.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
       "name": "Avatar",
       "group": "app",
       "lab": "ui-base-avatar--default",
