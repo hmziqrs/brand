@@ -1,4 +1,4 @@
-import { getContext, setContext } from "svelte";
+import { getContext, setContext, untrack } from "svelte";
 
 export type QuestionnaireItemStatus = "unanswered" | "answered" | "skipped";
 export type QuestionnaireShortcutMode = "letters" | "numbers";
@@ -215,51 +215,69 @@ export class QuestionnaireItemController {
 	}
 
 	registerAnswerSelection(id: string, defaultSelected: boolean): () => void {
-		if (defaultSelected) {
-			this.defaults = [...this.defaults.filter((entry) => entry !== id), id];
-			this.selectedAnswerIds = this.multiple
-				? this.selectedAnswerIds.includes(id)
-					? this.selectedAnswerIds
-					: [...this.selectedAnswerIds, id]
-				: this.selectedAnswerIds.length
-					? this.selectedAnswerIds
-					: [id];
-		}
+		untrack(() => {
+			if (defaultSelected) {
+				this.defaults = [...this.defaults.filter((entry) => entry !== id), id];
+				this.selectedAnswerIds = this.multiple
+					? this.selectedAnswerIds.includes(id)
+						? this.selectedAnswerIds
+						: [...this.selectedAnswerIds, id]
+					: this.selectedAnswerIds.length
+						? this.selectedAnswerIds
+						: [id];
+			}
+		});
 		return () => {
-			this.defaults = this.defaults.filter((entry) => entry !== id);
-			this.selectedAnswerIds = this.selectedAnswerIds.filter((entry) => entry !== id);
+			untrack(() => {
+				this.defaults = this.defaults.filter((entry) => entry !== id);
+				this.selectedAnswerIds = this.selectedAnswerIds.filter((entry) => entry !== id);
+			});
 		};
 	}
 
 	setAnswerDefault(id: string, defaultSelected: boolean) {
-		this.defaults = defaultSelected
-			? this.defaults.includes(id)
-				? this.defaults
-				: [...this.defaults, id]
-			: this.defaults.filter((entry) => entry !== id);
+		untrack(() => {
+			this.defaults = defaultSelected
+				? this.defaults.includes(id)
+					? this.defaults
+					: [...this.defaults, id]
+				: this.defaults.filter((entry) => entry !== id);
+		});
 	}
 
 	registerAnswerControl(control: QuestionnaireAnswerControl): () => void {
-		this.answerControls = [
-			...this.answerControls.filter((entry) => entry.element !== control.element && entry.id !== control.id),
-			control,
-		];
+		untrack(() => {
+			this.answerControls = [
+				...this.answerControls.filter((entry) => entry.element !== control.element && entry.id !== control.id),
+				control,
+			];
+		});
 		return () => {
-			this.answerControls = this.answerControls.filter((entry) => entry !== control);
+			untrack(() => {
+				this.answerControls = this.answerControls.filter((entry) => entry !== control);
+			});
 		};
 	}
 
 	registerDescription(id: string): () => void {
-		this.descriptionIds = this.descriptionIds.includes(id) ? this.descriptionIds : [...this.descriptionIds, id];
+		untrack(() => {
+			this.descriptionIds = this.descriptionIds.includes(id) ? this.descriptionIds : [...this.descriptionIds, id];
+		});
 		return () => {
-			this.descriptionIds = this.descriptionIds.filter((entry) => entry !== id);
+			untrack(() => {
+				this.descriptionIds = this.descriptionIds.filter((entry) => entry !== id);
+			});
 		};
 	}
 
 	registerError(id: string): () => void {
-		this.errorIds = this.errorIds.includes(id) ? this.errorIds : [...this.errorIds, id];
+		untrack(() => {
+			this.errorIds = this.errorIds.includes(id) ? this.errorIds : [...this.errorIds, id];
+		});
 		return () => {
-			this.errorIds = this.errorIds.filter((entry) => entry !== id);
+			untrack(() => {
+				this.errorIds = this.errorIds.filter((entry) => entry !== id);
+			});
 		};
 	}
 
@@ -427,9 +445,13 @@ export class QuestionnaireController {
 	last = $derived(this.total > 0 && this.currentIndex === this.total - 1);
 
 	registerItem(item: QuestionnaireItemController): () => void {
-		this.renderedItems = [...this.renderedItems.filter((entry) => entry.element !== item.element && entry.name !== item.name), item];
+		untrack(() => {
+			this.renderedItems = [...this.renderedItems.filter((entry) => entry.element !== item.element && entry.name !== item.name), item];
+		});
 		return () => {
-			this.renderedItems = this.renderedItems.filter((entry) => entry !== item);
+			untrack(() => {
+				this.renderedItems = this.renderedItems.filter((entry) => entry !== item);
+			});
 		};
 	}
 
