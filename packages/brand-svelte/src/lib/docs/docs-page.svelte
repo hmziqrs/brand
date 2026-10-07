@@ -27,7 +27,7 @@
 	)}
 >
 	<h1 class="text-[32px] font-bold leading-12 text-balance">{title}</h1>
-	{#if lead}<div class="text-foreground">{@render lead()}</div>{/if}
+	{#if lead}<div class="text-foreground leading-6">{@render lead()}</div>{/if}
 	{@render children()}
 </article>
 

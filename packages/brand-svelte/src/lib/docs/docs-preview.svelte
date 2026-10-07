@@ -8,7 +8,6 @@
 	import CodeTokens from "$brand/components/code-tokens.svelte";
 	import Check from "@lucide/svelte/icons/check";
 	import CodeXml from "@lucide/svelte/icons/code-xml";
-	import Copy from "@lucide/svelte/icons/copy";
 	import type { Snippet } from "svelte";
 
 	let {
@@ -38,7 +37,7 @@
 
 <section data-preview class={cn("flex flex-col", className)}>
 	<div class="mt-[9px] overflow-hidden rounded-[10px] border border-border bg-background shadow-[0_2px_5px_rgba(0,0,0,0.2)]">
-		<div class="bg-background px-[22px] py-10">{@render children()}</div>
+		<div class="bg-background p-8 px-[22px]"><div class="p-2">{@render children()}</div></div>
 		{#if open}
 			<pre class="overflow-x-auto p-5 font-mono text-[13px] leading-[19px] text-foreground"><code>{#each lines as line, i (i)}<CodeTokens {line} />{#if i < lines.length - 1}{"\n"}{/if}{/each}</code></pre>
 		{/if}
@@ -49,7 +48,24 @@
 			{open ? "Hide code" : "Show code"}
 		</button>
 		<button type="button" class={button} onclick={copy}>
-			{#if copied}<Check class="lucide size-3.5" />{:else}<Copy class="lucide size-3.5" />{/if}
+			{#if copied}
+				<Check class="lucide size-3.5" />
+			{:else}
+				<svg
+					class="lucide size-3.5"
+					viewBox="0 0 14 15"
+					fill="none"
+					xmlns="http://www.w3.org/2000/svg"
+					aria-hidden="true"
+				>
+					<path
+						fill-rule="evenodd"
+						clip-rule="evenodd"
+						d="M11.746.07A.5.5 0 0011.5.003h-6a.5.5 0 00-.5.5v2.5H.5a.5.5 0 00-.5.5v10a.5.5 0 00.5.5h8a.5.5 0 00.5-.5v-2.5h4.5a.5.5 0 00.5-.5v-8a.498.498 0 00-.15-.357L11.857.154a.506.506 0 00-.11-.085zM9 10.003h4v-7h-1.5a.5.5 0 01-.5-.5v-1.5H6v2h.5a.5.5 0 01.357.15L8.85 5.147c.093.09.15.217.15.357v4.5zm-8-6v9h7v-7H6.5a.5.5 0 01-.5-.5v-1.5H1z"
+						fill="currentColor"
+					/>
+				</svg>
+			{/if}
 			{copied ? "Copied" : "Copy code"}
 		</button>
 	</div>
