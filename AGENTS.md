@@ -35,6 +35,13 @@ When driving a browser, also read and follow `/Users/hmziq/.zcode/skills/agent-b
 - Gates live in the root `package.json`; `pnpm check` chains them. Never invent a gate; never pass `--fix`/`--write` to a gate.
 - `pnpm compare` needs all five servers up: lab Storybook 6006, kit Storybook 6007, astro gallery 4321, svelte-app 5173, astro-app 4322.
 
+## Port fidelity rules (learned from the brand-docs drift)
+
+- **1:1 includes presentation.** Content parity (same words) and presentation parity (same computed styles against the rendered lab page) are separate acceptance criteria; both are required, checked in the same round as the port.
+- **When porting a surface rendered by a system the kit lacks** (e.g. Storybook addon-docs), extract that system's styling wholesale first — measured from the rendered lab page or read from its stylesheets — before writing any markup. Never rebuild a look property-by-property from complaints.
+- **Rebuilt surfaces have no twin to diff against** — they are the highest drift risk. Any page whose shell/layout an agent designs (rather than copies) needs measured extraction from the rendered lab reference or explicit owner sign-off on the design.
+- **Vision/audit runs must diff kit-vs-lab rendered twins**, not just confirm "renders without errors." Unstyled-but-loading is a failure.
+
 ## Git discipline
 
 - Explicit paths only in `git add`/`git commit`; never `git add -A`; never `--no-verify`; never push. One logical unit per commit, size-budgeted; match `git log` style.
