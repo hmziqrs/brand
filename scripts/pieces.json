@@ -2282,6 +2282,16 @@
       "astroItem": "not yet"
     },
     {
+      "name": "Sheet",
+      "group": "app",
+      "lab": "ui-base-sheet--default",
+      "svelte": "ui-base-sheet--default",
+      "astro": "not yet",
+      "svelteFile": "ui/sheet/sheet.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
       "name": "Skeleton",
       "group": "app",
       "lab": "ui-base-skeleton--default",
