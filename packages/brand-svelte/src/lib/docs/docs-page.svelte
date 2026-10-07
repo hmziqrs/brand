@@ -21,7 +21,7 @@
 		"[&_p]:leading-6 [&_strong]:font-bold [&_code:not(pre_code)]:rounded-md [&_code:not(pre_code)]:bg-muted [&_code:not(pre_code)]:px-1.5 [&_code:not(pre_code)]:py-0.5 [&_code:not(pre_code)]:font-mono [&_code:not(pre_code)]:text-[0.85em]",
 		"[&_ul]:flex [&_ul]:list-disc [&_ul]:flex-col [&_ul]:gap-2 [&_ul]:pl-5 [&_ol]:flex [&_ol]:list-decimal [&_ol]:flex-col [&_ol]:gap-2 [&_ol]:pl-5 [&_li]:leading-6 [&_li::marker]:text-muted-foreground",
 		"[&_[data-bare]]:list-none [&_[data-bare]]:flex-row [&_[data-bare]]:pl-0",
-		"[&_table]:mb-2 [&_table]:w-full [&_table]:border-collapse [&_table]:text-sm [&_th]:border-b [&_th]:pr-6 [&_th]:pb-2 [&_th]:text-left [&_th]:font-medium [&_td]:border-b [&_td]:py-2.5 [&_td]:pr-6 [&_td]:align-top",
+		"[&_table]:mb-2 [&_table]:border-collapse [&_table]:text-sm [&_th]:border-b [&_th]:pr-6 [&_th]:pb-2 [&_th]:text-left [&_th]:font-medium [&_td]:border-b [&_td]:py-2.5 [&_td]:pr-6 [&_td]:align-top",
 		"[&_[data-panel]]:overflow-hidden [&_[data-panel]]:rounded-xl [&_[data-panel]]:border [&_[data-panel]]:bg-background [&_[data-panel]]:p-5",
 		className,
 	)}
@@ -32,10 +32,8 @@
 </article>
 
 <style>
-	/* Unlayered :where() zeroes specificity so per-cell utilities (text-right,
-	   w-10 …) win; the child combinator keeps panel-nested tables on their quiet row style. */
 	:global(:where(article.docs-page) > table) {
-		width: 100%;
+		align-self: start;
 		margin: 0;
 		border-collapse: collapse;
 		font-size: 14px;
@@ -50,5 +48,12 @@
 	:global(:where(article.docs-page) > table > thead :where(th)) {
 		text-align: center;
 		font-weight: 700;
+	}
+	:global(:where(article.docs-page) > table > tbody :where(tr:nth-of-type(2n))) {
+		background-color: var(--card);
+	}
+	:global(:where(article.docs-page) > table :where(code)) {
+		font-size: 13px;
+		line-height: 13px;
 	}
 </style>

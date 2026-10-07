@@ -8,26 +8,7 @@
 @import "@fontsource-variable/onest";
 @import "@fontsource-variable/jetbrains-mono";
 @import "@hmziq/brand-core/theme.css";
-@source "../node_modules/@hmziq/brand-core/src";`;
-
-	const short: [string, string][] = [
-		["Typeface", "Onest for everything people read. JetBrains Mono only for code."],
-		["Weights", "400 for text, 500 for headings, 600 for the wordmark. Nothing heavier."],
-		[
-			"Color",
-			"Plain neutral greys, oxide orange for the brand, and seven supporting colors for status, categories, charts and code.",
-		],
-		["Icons", "Lucide, drawn a little lighter (1.75) to match Onest. Company logos from Simple Icons."],
-		[
-			"Signature",
-			"The wordmark's orange square, marks on inverse tiles, ring markers, rings drawn from each name, an orange closing band. See Signature.",
-		],
-		["Mode", "Dark by default, light available. Both pass readability checks."],
-		["Corners", "0.625rem radius, the shadcn default."],
-		["Motion", "Nothing moves when you hover, press or focus it. Only colors change."],
-		["Components", "shadcn/ui on Tailwind v4, Vega style."],
-		["Words", "Plain language. Say what a thing does for the person reading."],
-	];
+	@source "../node_modules/@hmziq/brand-core/src";`;
 </script>
 
 <DocsPage title="hmziq brand">
@@ -44,13 +25,30 @@
 
 	<h2>The short version</h2>
 	<table>
+		<thead><tr><th></th><th></th></tr></thead>
 		<tbody>
-			{#each short as [what, rule] (what)}
-				<tr>
-					<th scope="row" class="w-32 font-medium">{what}</th>
-					<td class="text-muted-foreground">{rule}</td>
-				</tr>
-			{/each}
+			<tr><td>Typeface</td><td>Onest for everything people read. JetBrains Mono only for code.</td></tr>
+			<tr><td>Weights</td><td>400 for text, 500 for headings, 600 for the wordmark. Nothing heavier.</td></tr>
+			<tr>
+				<td>Color</td>
+				<td>
+					Plain neutral greys, <strong>oxide orange</strong> for the brand, and seven supporting
+					colors for status, categories, charts and code.
+				</td>
+			</tr>
+			<tr><td>Icons</td><td>Lucide, drawn a little lighter (1.75) to match Onest. Company logos from Simple Icons.</td></tr>
+			<tr>
+				<td>Signature</td>
+				<td>
+					The wordmark's orange square, marks on inverse tiles, ring markers, rings drawn from each
+					name, an orange closing band. See <strong>Signature</strong>.
+				</td>
+			</tr>
+			<tr><td>Mode</td><td>Dark by default, light available. Both pass readability checks.</td></tr>
+			<tr><td>Corners</td><td><code>0.625rem</code> radius, the shadcn default.</td></tr>
+			<tr><td>Motion</td><td>Nothing moves when you hover, press or focus it. Only colors change.</td></tr>
+			<tr><td>Components</td><td>shadcn/ui on Tailwind v4, Vega style, built on Base UI.</td></tr>
+			<tr><td>Words</td><td>Plain language. Say what a thing does for the person reading.</td></tr>
 		</tbody>
 	</table>
 

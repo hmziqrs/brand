@@ -21,11 +21,6 @@
 		["7", "claude-multi", "Cm"],
 		["8", "oxlabs", "Ox"],
 	];
-	const bands: [string, string][] = [
-		["band-orange", "The closing call to action and the newsletter band. At most one per page."],
-		["band-gray", "A quiet band for numbers or a group of cards."],
-		["light / dark", "The other mode inside a page."],
-	];
 	const projects = [
 		{ name: "gpui-query", color: "var(--blue)", kind: "Library" },
 		{ name: "tunnel", color: "var(--teal)", kind: "Command-line tool" },
@@ -158,7 +153,7 @@
 		</div>
 	</DocsPreview>
 	<table>
-		<thead><tr><th class="w-10">#</th><th>Site</th><th>Mark</th></tr></thead>
+		<thead><tr><th>#</th><th>Site</th><th>Mark</th></tr></thead>
 		<tbody>
 			{#each marks as [n, site, mark] (n)}
 				<tr><td>{n}</td><td>{site}</td><td>{mark}</td></tr>
@@ -253,11 +248,20 @@
 		inside them, so buttons and text just work.
 	</p>
 	<table>
-		<thead><tr><th class="w-36">Class</th><th>For</th></tr></thead>
+		<thead><tr><th>Class</th><th>For</th></tr></thead>
 		<tbody>
-			{#each bands as [cls, use] (cls)}
-				<tr><td><code>{cls}</code></td><td class="text-muted-foreground">{use}</td></tr>
-			{/each}
+			<tr>
+				<td><code>band-orange</code></td>
+				<td>The closing call to action and the newsletter band. At most one per page.</td>
+			</tr>
+			<tr>
+				<td><code>band-gray</code></td>
+				<td>A quiet band for numbers or a group of cards.</td>
+			</tr>
+			<tr>
+				<td><code>light</code> / <code>dark</code></td>
+				<td>The other mode inside a page.</td>
+			</tr>
 		</tbody>
 	</table>
 	<DocsPreview code={code.band}>
