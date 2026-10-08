@@ -124,7 +124,7 @@
 		The site's name in Onest 600, ending in a small orange square. It's the only logo in the header, followed by the
 		maker line in small grey text.
 	</p>
-	<DocsPreview code={code.wordmark}>
+	<DocsPreview story="Wordmark" code={code.wordmark}>
 		<a href="#" class="flex items-baseline gap-[0.35em] text-lg">
 			<Wordmark name="freeoxide" />
 			<span class="text-[0.78em] text-muted-foreground">by hmziq</span>
@@ -137,7 +137,7 @@
 		tile in the opposite of the page color: white on dark pages, black on light ones. The square stays bright orange in
 		both modes. No rings in logos.
 	</p>
-	<DocsPreview code={code.marks}>
+	<DocsPreview story="Sizes" code={code.marks}>
 		<div class="flex flex-col gap-8">
 			<div class="flex items-end gap-4">
 				{#each [16, 20, 32, 48, 96] as size (size)}
@@ -166,7 +166,7 @@
 
 	<h2>Signature</h2>
 	<p>Every footer ends with a giant <code>hmziq■</code> that fills the width.</p>
-	<DocsPreview code={code.signature}>
+	<DocsPreview story="Footer" code={code.signature}>
 		<div class="@container max-w-3xl overflow-hidden border-t pt-10">
 			<Wordmark name="hmziq" class="block pb-[0.2em] text-[33cqw] leading-[0.74] tracking-[-0.05em]" />
 		</div>
@@ -177,7 +177,7 @@
 		A hollow ring is the brand's bullet: status tags, the note under a hero, kinds of project, list bullets. Filled
 		means on, open, done or selected. Never a solid dot, a square or an emoji.
 	</p>
-	<DocsPreview code={code.marker}>
+	<DocsPreview story="Marker" code={code.marker}>
 		<ul class="flex flex-col gap-2">
 			<li class="flex items-center gap-2.5">
 				<Marker filled class="text-primary" />
@@ -199,7 +199,7 @@
 		Thin circles with one gap each, like layers of oxide: faint ones in the text color, one accent with a dot where it
 		ends. Each picture is drawn from a name, so every site and project gets its own and it never changes.
 	</p>
-	<DocsPreview code={code.seeds}>
+	<DocsPreview story="Rings" code={code.seeds}>
 		<div class="grid max-w-3xl grid-cols-2 gap-8 sm:grid-cols-4">
 			{#each ["hmziq", "freeoxide", "gpui-query", "claude-multi"] as seed (seed)}
 				<figure class="flex flex-col gap-2">
@@ -213,7 +213,7 @@
 		On a project card, its own rings sit in the corner in the color of its kind: its fingerprint. Library is blue,
 		Command-line tool teal, Desktop app purple.
 	</p>
-	<DocsPreview code={code.fingerprint}>
+	<DocsPreview story="Fingerprint" code={code.fingerprint}>
 		<div class="grid max-w-3xl gap-4 sm:grid-cols-3">
 			{#each projects as p (p.name)}
 				<Card.Root class="relative h-44 justify-end gap-2 bg-transparent px-6 shadow-none">
@@ -228,7 +228,7 @@
 		</div>
 	</DocsPreview>
 	<p>Key numbers get a ring that draws them.</p>
-	<DocsPreview code={code.gauges}>
+	<DocsPreview story="RingGauge" code={code.gauges}>
 		<div class="flex flex-wrap gap-10">
 			{#each [
 				{ value: "100%", ring: 1 },
@@ -266,7 +266,7 @@
 			</tr>
 		</tbody>
 	</table>
-	<DocsPreview code={code.band}>
+	<DocsPreview story="Band" code={code.band}>
 		<section class="band-orange relative overflow-hidden rounded-xl">
 			<BandArcs />
 			<div class="relative p-12">

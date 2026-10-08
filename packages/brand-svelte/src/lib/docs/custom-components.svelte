@@ -158,7 +158,7 @@ export { Stat }`;
 		<li>If it should sometimes render as another element (a tag that's a link), use Base UI's <code>useRender</code> and a <code>render</code> prop, as <code>Tag</code> does.</li>
 	</ul>
 	<div data-panel>
-		<CodeBlock code={stat} lang="typescript" copy={false} />
+		<CodeBlock code={stat} lang="typescript" copy={false} langChip />
 	</div>
 	<p><strong>Svelte, Astro and Dioxus</strong> use the same class names. Copy the classes from the React component in this repo, and keep the same <code>data-slot</code> names.</p>
 

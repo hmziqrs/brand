@@ -1,6 +1,7 @@
 <script lang="ts">
 	import themeCss from "@hmziq/brand-core/theme.css?raw";
 	import { color, hues, hueUses, measure, readTheme, toHex, type Mode } from "@hmziq/brand-core/color";
+	import Check from "@lucide/svelte/icons/check";
 	import CodeBlock from "$brand/components/code-block.svelte";
 	import Tag from "$brand/components/tag.svelte";
 	import DocsPage from "./docs-page.svelte";
@@ -9,6 +10,20 @@
 	const hex = (mode: Mode, name: string) => toHex(color(theme[mode], name).rgb);
 	const modes: Mode[] = ["dark", "light"];
 	const results = measure(themeCss);
+
+	let copied = $state("");
+	let timer: number | undefined;
+
+	function copyHex(key: string, value: string) {
+		navigator.clipboard?.writeText(value).then(
+			() => {
+				copied = key;
+				window.clearTimeout(timer);
+				timer = window.setTimeout(() => (copied = ""), 2000);
+			},
+			() => {},
+		);
+	}
 
 	const status: [string, string, string][] = [
 		["success", "green", "Done, shipped, saved, available"],
@@ -85,11 +100,28 @@ pub fn users(cx: &mut App) -> Query<Vec<User>> {
 					<span class="text-sm leading-relaxed text-muted-foreground">{hueUses[hue].use}</span>
 				</div>
 				{#each modes as mode (mode)}
-					<div class="flex flex-col gap-1.5">
-						<div class="h-9 rounded-md border" style={`background-color: ${hex(mode, hue)}`}></div>
-						<span class="font-mono text-xs text-muted-foreground">{hex(mode, hue)}</span>
-					</div>
-				{/each}
+						{@const value = hex(mode, hue)}
+						{@const key = `${hue}-${mode}`}
+						<button
+							type="button"
+							class="flex flex-col items-start gap-1.5 text-left"
+							aria-label={`Copy ${hue} ${mode} mode value, ${value}`}
+							onclick={() => copyHex(key, value)}
+						>
+							<div
+								class="h-9 w-full rounded-md border transition-colors hover:border-primary/60 motion-reduce:transition-none"
+								style={`background-color: ${value}`}
+							></div>
+							<span class="flex items-center gap-1 font-mono text-xs text-muted-foreground">
+								{#if copied === key}
+									<Check class="lucide size-3" />
+									Copied
+								{:else}
+									{value}
+								{/if}
+							</span>
+						</button>
+					{/each}
 				<div class="flex flex-col items-start gap-2 pt-1.5">
 					<Tag tone={hue}>{hue[0].toUpperCase() + hue.slice(1)}</Tag>
 					<span class="text-sm" style={`color: var(--${hue})`}>Text in {hue}</span>
@@ -125,20 +157,26 @@ pub fn users(cx: &mut App) -> Query<Vec<User>> {
 		Status colors are always <strong>soft</strong>: a light fill of the color behind text in
 		the same color. It's the same recipe shadcn uses for its destructive badge:
 	</p>
-	<CodeBlock code={badgeMarkup} />
+	<CodeBlock code={badgeMarkup} langChip />
 	<div data-panel class="flex flex-col gap-4">
-		<div class="flex flex-wrap gap-2">
-			<Tag tone="success" marker>Shipped</Tag>
-			<Tag tone="warning" marker>In progress</Tag>
-			<Tag>Planned</Tag>
-			<Tag tone="info">Tip</Tag>
-			<Tag tone="destructive">Failed</Tag>
+		<div class="flex flex-col gap-2">
+			<span class="text-xs font-medium text-muted-foreground">Status</span>
+			<div class="flex flex-wrap gap-2">
+				<Tag tone="success" marker>Shipped</Tag>
+				<Tag tone="warning" marker>In progress</Tag>
+				<Tag>Planned</Tag>
+				<Tag tone="info">Tip</Tag>
+				<Tag tone="destructive">Failed</Tag>
+			</div>
 		</div>
-		<div class="flex flex-wrap gap-2">
-			<Tag tone="blue">Engineering</Tag>
-			<Tag tone="pink">Design</Tag>
-			<Tag tone="teal">Notes</Tag>
-			<Tag tone="purple">Talks</Tag>
+		<div class="flex flex-col gap-2">
+			<span class="text-xs font-medium text-muted-foreground">Categories</span>
+			<div class="flex flex-wrap gap-2">
+				<Tag tone="blue">Engineering</Tag>
+				<Tag tone="pink">Design</Tag>
+				<Tag tone="teal">Notes</Tag>
+				<Tag tone="purple">Talks</Tag>
+			</div>
 		</div>
 	</div>
 	<p>
@@ -155,7 +193,7 @@ pub fn users(cx: &mut App) -> Query<Vec<User>> {
 		mode and the brand color.
 	</p>
 	<div data-panel class="flex flex-col gap-4">
-		<CodeBlock code={sample} lang="rust" label="src/users.rs" />
+		<CodeBlock code={sample} lang="rust" label="src/users.rs" langChip />
 		<ul data-bare class="flex-row flex-wrap gap-x-5 gap-y-2 text-sm text-muted-foreground">
 			{#each legend as [label, value] (label)}
 				<li class="flex items-center gap-2"><span class="size-2 rounded-full" style={`background-color: ${value}`}></span>{label}</li>

@@ -112,7 +112,7 @@ pnpm new-project astro ../my-site     # Astro + Starwind UI`;
 		the kit folder:
 	</p>
 	<div data-panel>
-		<CodeBlock code={newSite} lang="bash" copy={false} />
+		<CodeBlock code={newSite} lang="bash" copy={false} langChip />
 	</div>
 	<p>
 		<strong>An existing site</strong> gets the theme from npm (<code>@hmziq/brand-core</code>)
@@ -132,15 +132,15 @@ pnpm new-project astro ../my-site     # Astro + Starwind UI`;
 	</table>
 	<p>Pieces are lowercase kebab names: <code>wordmark</code>, <code>hero</code>, <code>pricing-plans</code>. The <code>kit</code> item installs everything at once; each piece pulls the pieces it imports.</p>
 	<div class="flex flex-col gap-3">
-		<CodeBlock code={svelteAdd} lang="bash" label="SvelteKit" copy={false} />
-		<CodeBlock code={astroAdd} lang="bash" label="Astro" copy={false} />
+		<CodeBlock code={svelteAdd} lang="bash" label="SvelteKit" copy={false} langChip />
+		<CodeBlock code={astroAdd} lang="bash" label="Astro" copy={false} langChip />
 	</div>
 	<p>
 		The main stylesheet loads Tailwind, shadcn's base CSS and the fonts, then the theme —
 		never copy <code>theme.css</code> into a site or edit its tokens per site:
 	</p>
 	<div data-panel>
-		<CodeBlock code={stylesheet} lang="css" label="src/index.css" copy={false} />
+		<CodeBlock code={stylesheet} lang="css" label="src/index.css" copy={false} langChip />
 	</div>
 	<p>
 		App screens have their own document: <strong><code>APP-BLOCKS.md</code></strong> in the

@@ -84,7 +84,7 @@
 		<code>@hmziq/brand-core</code> package:
 	</p>
 	<div data-panel>
-		<CodeBlock code={imports} lang="css" label="src/index.css" />
+		<CodeBlock code={imports} lang="css" label="src/index.css" langChip />
 	</div>
 	<p>
 		The <code>@source</code> line makes Tailwind scan the package, so the tone class lists in

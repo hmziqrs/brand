@@ -28,6 +28,7 @@
 	import { Button } from "$brand/ui/button/index.js";
 	import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "$brand/ui/tooltip/index.js";
 	import DocsPage from "./docs-page.svelte";
+	import DocsPreview from "./docs-preview.svelte";
 
 	type Icon = typeof Search;
 	const strokeIcons: Icon[] = [Search, Settings, Download, Database, Mail];
@@ -71,6 +72,70 @@ export const Windows = createLucideIcon("windows", [
   ["rect", { x: "3", y: "7", width: "14", height: "14", rx: "2", key: "front" }],
   ["path", { d: "M7 3h12a2 2 0 0 1 2 2v12", key: "back" }],
 ])`;
+
+const strokeDemo = `{#each [1.5, 1.75, 2] as stroke (stroke)}
+	<div class="flex flex-wrap items-center gap-x-6 gap-y-3 px-5 py-4">
+		<span class="w-28 text-sm text-muted-foreground">{stroke}</span>
+		{#each strokeIcons as Icon, i (i)}
+			<span class="flex items-center gap-1.5 text-sm">
+				<Icon class="lucide size-4" style="stroke-width: {stroke}" />
+				Label
+			</span>
+		{/each}
+		<span class="flex gap-3">
+			{#each strokeIcons.slice(0, 3) as Icon, i (i)}
+				<Icon class="lucide size-6" style="stroke-width: {stroke}" />
+			{/each}
+		</span>
+	</div>
+{/each}`;
+
+const sizesDemo = `<div class="flex flex-col divide-y">
+	{#each sizes as [cls, px, use] (cls)}
+		<div class="grid grid-cols-[3rem_8rem_1fr] items-center gap-4 px-5 py-3">
+			<span class="flex justify-center"><Star class={cn("lucide", cls)} /></span>
+			<span class="font-mono text-xs text-muted-foreground">{cls} · {px}</span>
+			<span class="text-sm">{use}</span>
+		</div>
+	{/each}
+</div>`;
+
+const inUse = `<TooltipProvider>
+	<div class="flex flex-wrap items-center gap-3">
+		<Button>
+			<Download class="lucide" data-icon="inline-start" />
+			Download
+		</Button>
+		<Button variant="outline">
+			<BrandIcon icon={siGithub} data-icon="inline-start" />
+			View on GitHub
+		</Button>
+		<Button variant="ghost">
+			Read the docs
+			<ArrowRight class="lucide" data-icon="inline-end" />
+		</Button>
+		<Button variant="ghost" size="icon" aria-label="Search">
+			<Search class="lucide" />
+		</Button>
+	</div>
+</TooltipProvider>
+
+<div class="flex flex-wrap items-center gap-5 text-sm text-muted-foreground">
+	{#each socials as s (s.name)}
+		<a href="#" class="flex items-center gap-1.5 hover:text-foreground">
+			<BrandIcon icon={s.icon} />
+			{s.name}
+		</a>
+	{/each}
+</div>
+
+<div class="flex flex-wrap items-center gap-3">
+	<IconTile><Database class="lucide" /></IconTile>
+	<IconTile tone="success"><Check class="lucide" /></IconTile>
+	<IconTile tone="warning"><TriangleAlert class="lucide" /></IconTile>
+	<IconTile tone="info"><Info class="lucide" /></IconTile>
+	<IconTile tone="purple"><PenLine class="lucide" /></IconTile>
+</div>`;
 </script>
 
 <DocsPage title="Icons">
@@ -91,41 +156,45 @@ export const Windows = createLucideIcon("windows", [
 		Lucide draws at 2 by default, which looks heavier than Onest's regular text. At 1.75, an icon's lines are about as
 		thick as the letters beside it.
 	</p>
-	<div data-panel class="flex flex-col divide-y p-0!">
-		{#each [1.5, 1.75, 2] as stroke (stroke)}
-			<div class="flex flex-wrap items-center gap-x-6 gap-y-3 px-5 py-4">
-				<span class="w-28 text-sm text-muted-foreground">
-					{#if stroke === 1.75}<span class="font-medium text-foreground">1.75 (brand)</span>{:else}{stroke}{/if}
-				</span>
-				{#each strokeIcons as Icon, i (i)}
-					<span class="flex items-center gap-1.5 text-sm">
-						<Icon class="lucide size-4" style={`stroke-width: ${stroke}`} />
-						Label
+	<DocsPreview story="Line weight" code={strokeDemo}>
+		<div class="flex flex-col divide-y">
+			{#each [1.5, 1.75, 2] as stroke (stroke)}
+				<div class="flex flex-wrap items-center gap-x-6 gap-y-3 px-5 py-4">
+					<span class="w-28 text-sm text-muted-foreground">
+						{#if stroke === 1.75}<span class="font-medium text-foreground">1.75 (brand)</span>{:else}{stroke}{/if}
 					</span>
-				{/each}
-				<span class="flex gap-3">
-					{#each strokeIcons.slice(0, 3) as Icon, i (i)}
-						<Icon class="lucide size-6" style={`stroke-width: ${stroke}`} />
+					{#each strokeIcons as Icon, i (i)}
+						<span class="flex items-center gap-1.5 text-sm">
+							<Icon class="lucide size-4" style={`stroke-width: ${stroke}`} />
+							Label
+						</span>
 					{/each}
-				</span>
-			</div>
-		{/each}
-	</div>
+					<span class="flex gap-3">
+						{#each strokeIcons.slice(0, 3) as Icon, i (i)}
+							<Icon class="lucide size-6" style={`stroke-width: ${stroke}`} />
+						{/each}
+					</span>
+				</div>
+			{/each}
+		</div>
+	</DocsPreview>
 	<p>
 		<code>theme.css</code> sets this once for every icon with the <code>lucide</code> class, through
 		<code>--icon-stroke</code>. Don't set <code>strokeWidth</code> on single icons.
 	</p>
 
 	<h2>Sizes</h2>
-	<div data-panel class="flex flex-col divide-y p-0!">
-		{#each sizes as [cls, px, use] (cls)}
-			<div class="grid grid-cols-[3rem_8rem_1fr] items-center gap-4 px-5 py-3">
-				<span class="flex justify-center"><Star class={cn("lucide", cls)} /></span>
-				<span class="font-mono text-xs text-muted-foreground">{cls} · {px}</span>
-				<span class="text-sm">{use}</span>
-			</div>
-		{/each}
-	</div>
+	<DocsPreview story="Sizes" code={sizesDemo}>
+		<div class="flex flex-col divide-y">
+			{#each sizes as [cls, px, use] (cls)}
+				<div class="grid grid-cols-[3rem_8rem_1fr] items-center gap-4 px-5 py-3">
+					<span class="flex justify-center"><Star class={cn("lucide", cls)} /></span>
+					<span class="font-mono text-xs text-muted-foreground">{cls} · {px}</span>
+					<span class="text-sm">{use}</span>
+				</div>
+			{/each}
+		</div>
+	</DocsPreview>
 	<p>shadcn components already size the icons inside them to 16px. Only set a size when an icon stands on its own.</p>
 
 	<h2>Color</h2>
@@ -170,8 +239,9 @@ export const Windows = createLucideIcon("windows", [
 	</p>
 
 	<h2>In use</h2>
-	<div data-panel class="flex flex-col gap-6">
-		<TooltipProvider>
+	<DocsPreview story="In use" code={inUse}>
+		<div class="flex flex-col gap-6">
+			<TooltipProvider>
 			<div class="flex flex-wrap items-center gap-3">
 				<Button>
 					<Download class="lucide" data-icon="inline-start" />
@@ -226,10 +296,11 @@ export const Windows = createLucideIcon("windows", [
 			<IconTile tone="info"><Info class="lucide" /></IconTile>
 			<IconTile tone="purple"><PenLine class="lucide" /></IconTile>
 			<span class="text-sm text-muted-foreground">
-				Icon tiles: orange on neutral by default, or one soft color when the color means something.
-			</span>
+					Icon tiles: orange on neutral by default, or one soft color when the color means something.
+				</span>
+			</div>
 		</div>
-	</div>
+	</DocsPreview>
 
 	<h2>When Lucide doesn't have it</h2>
 	<p>
@@ -239,6 +310,6 @@ export const Windows = createLucideIcon("windows", [
 		every other icon. Keep custom icons in <code>src/components/icons/</code>.
 	</p>
 	<div data-panel>
-		<CodeBlock code={windows} lang="typescript" copy={false} />
+		<CodeBlock code={windows} lang="typescript" copy={false} langChip />
 	</div>
 </DocsPage>

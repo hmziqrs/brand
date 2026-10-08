@@ -1,6 +1,7 @@
 <!--
-  A docs canvas: the live piece in a boxed preview panel, with the storybook-docs
-  show/hide code toggle and copy button under it.
+  A docs canvas: the live piece in a boxed preview panel, with the story's
+  name as a tab label above it, and the storybook-docs show/hide code toggle
+  and copy button under it.
 -->
 <script lang="ts">
 	import { cn } from "$brand/utils.js";
@@ -11,10 +12,11 @@
 	import type { Snippet } from "svelte";
 
 	let {
+		story,
 		code,
 		children,
 		class: className,
-	}: { code: string; children: Snippet; class?: string } = $props();
+	}: { story?: string; code: string; children: Snippet; class?: string } = $props();
 
 	let open = $state(false);
 	let copied = $state(false);
@@ -37,6 +39,14 @@
 
 <section data-preview class={cn("flex flex-col", className)}>
 	<div class="mt-[9px] overflow-hidden rounded-[10px] border border-border bg-background shadow-[0_2px_5px_rgba(0,0,0,0.2)]">
+		{#if story}
+			<div class="flex h-10 items-center justify-between gap-4 border-b border-border px-3.5">
+				<span class="text-xs font-medium text-foreground">{story}</span>
+				<span class="rounded-md border border-border px-1.5 py-px font-mono text-[10px] leading-4 text-muted-foreground">
+					svelte
+				</span>
+			</div>
+		{/if}
 		<div class="bg-background p-8 px-[22px]"><div class="p-2">{@render children()}</div></div>
 		{#if open}
 			<pre class="overflow-x-auto p-5 font-mono text-[13px] leading-[19px] text-foreground"><code>{#each lines as line, i (i)}<CodeTokens {line} />{#if i < lines.length - 1}{"\n"}{/if}{/each}</code></pre>

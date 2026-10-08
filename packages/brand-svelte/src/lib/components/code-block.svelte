@@ -18,6 +18,8 @@
 		files,
 		/** Show a copy button. On by default; turn it off for code people only read. */
 		copy = true,
+		/** Show the language as a small chip beside the label in the bar. */
+		langChip = false,
 		class: className,
 	}: {
 		code?: string;
@@ -25,6 +27,7 @@
 		label?: string;
 		files?: CodeFile[];
 		copy?: boolean;
+		langChip?: boolean;
 		class?: string;
 	} = $props();
 
@@ -33,34 +36,41 @@
 	const id = nextCodeId();
 	const current = $derived(list[Math.min(index, list.length - 1)]);
 	const lines = $derived(tokenize(current.code, current.lang ?? "text"));
-	const bar = $derived(Boolean(files || label));
+	const bar = $derived(Boolean(files || label || langChip));
+	const chip =
+		"rounded-md border border-border px-1.5 py-px font-mono text-[10px] leading-4 text-muted-foreground";
 </script>
 
-<div data-slot="code-block" class={cn("relative overflow-hidden rounded-xl border", className)}>
-	{#if bar}
-		<div class="flex h-10 items-center justify-between gap-4 border-b pr-1.5 pl-3.5">
-			{#if files}
-				<div role="tablist" aria-label="Versions" class="-ml-2 flex gap-1">
-					{#each files as f, i (f.label)}
-						<button
-							type="button"
-							role="tab"
-							id={`${id}-tab-${i}`}
-							aria-selected={i === index}
-							aria-controls={`${id}-panel`}
-							onclick={() => (index = i)}
-							class="h-7 rounded-md px-2.5 text-xs text-muted-foreground transition-colors outline-none hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50 aria-selected:bg-foreground/8 aria-selected:text-foreground"
-						>
-							{f.label}
-						</button>
-					{/each}
+	<div data-slot="code-block" class={cn("relative overflow-hidden rounded-xl border", className)}>
+		{#if bar}
+			<div class="flex h-10 items-center justify-between gap-4 border-b pr-1.5 pl-3.5">
+				<div class="flex min-w-0 items-center gap-2.5">
+					{#if files}
+						<div role="tablist" aria-label="Versions" class="-ml-2 flex gap-1">
+							{#each files as f, i (f.label)}
+								<button
+									type="button"
+									role="tab"
+									id={`${id}-tab-${i}`}
+									aria-selected={i === index}
+									aria-controls={`${id}-panel`}
+									onclick={() => (index = i)}
+									class="h-7 rounded-md px-2.5 text-xs text-muted-foreground transition-colors outline-none hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50 aria-selected:bg-foreground/8 aria-selected:text-foreground"
+								>
+									{f.label}
+								</button>
+							{/each}
+						</div>
+					{:else if label}
+						<span class="truncate text-xs text-muted-foreground">{label}</span>
+					{/if}
+					{#if langChip && current.lang}
+						<span class={chip}>{current.lang}</span>
+					{/if}
 				</div>
-			{:else}
-				<span class="text-xs text-muted-foreground">{label}</span>
-			{/if}
-			{#if copy}<CopyButton text={current.code} />{/if}
-		</div>
-	{/if}
+				{#if copy}<CopyButton text={current.code} />{/if}
+			</div>
+		{/if}
 	{#if copy && !bar}
 		<div class="absolute top-1.5 right-1.5">
 			<CopyButton text={current.code} />
