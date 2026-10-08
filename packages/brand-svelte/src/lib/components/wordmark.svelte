@@ -52,9 +52,6 @@
 		style={styleText(styles)}
 		{...rest}
 	>
-		{#if motion?.css}{@html `<style>${motion.css}</style>`}{/if}
-		{#if plate && l.surfaceMove === "shimmer"}<span data-part="sheen" aria-hidden="true" ></span>{/if}
-		<LogoLetters text={name} look={l} perLetter={motion?.perLetter} />
-		<LogoSquare look={l} size={l.size} color={l.square} />
+		{#if motion?.css}{@html `<style>${motion.css}</style>`}{/if}{#if plate && l.surfaceMove === "shimmer"}<span data-part="sheen" aria-hidden="true" ></span>{/if}<LogoLetters text={name} look={l} perLetter={motion?.perLetter} /><LogoSquare look={l} size={l.size} color={l.square} />
 	</span>
 {/if}
