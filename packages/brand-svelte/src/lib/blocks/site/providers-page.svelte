@@ -99,9 +99,9 @@
 								<Table.Row class="hover:bg-transparent">
 									<Table.Cell class="whitespace-nowrap px-4 py-3 align-top leading-relaxed text-foreground">{@render inline(id)}</Table.Cell>
 									<Table.Cell class="min-w-36 px-4 py-3 leading-relaxed text-muted-foreground">{name}</Table.Cell>
-									<Table.Cell class="min-w-36 px-4 py-3 leading-relaxed text-muted-foreground">{@render inline(url)}</Table.Cell>
-									<Table.Cell class="min-w-36 px-4 py-3 leading-relaxed text-muted-foreground">{@render inline(opus)}</Table.Cell>
-									<Table.Cell class="min-w-36 bg-primary/7 px-4 py-3 leading-relaxed text-muted-foreground">{@render inline(rest)}</Table.Cell>
+									<Table.Cell class="min-w-36 whitespace-normal px-4 py-3 leading-relaxed text-muted-foreground">{@render inline(url)}</Table.Cell>
+									<Table.Cell class="min-w-36 whitespace-normal px-4 py-3 leading-relaxed text-muted-foreground">{@render inline(opus)}</Table.Cell>
+									<Table.Cell class="min-w-36 whitespace-normal bg-primary/7 px-4 py-3 leading-relaxed text-muted-foreground">{@render inline(rest)}</Table.Cell>
 								</Table.Row>
 							{/each}
 						</Table.Body>
