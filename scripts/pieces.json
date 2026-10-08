@@ -326,7 +326,7 @@
     {
       "name": "SiteShell",
       "group": "site",
-      "svelte": "site-site-shell--landing",
+      "svelte": "site-structure-site-shell--landing",
       "astro": "site-shell",
       "svelteFile": "blocks/site/site-shell.svelte",
       "svelteItem": "site-shell",
@@ -336,7 +336,7 @@
     {
       "name": "SiteHead",
       "group": "site",
-      "svelte": "site-site-head--default",
+      "svelte": "site-structure-site-head--default",
       "astro": "site-head",
       "svelteFile": "blocks/site/site-head.svelte",
       "svelteItem": "site-head",
@@ -417,7 +417,7 @@
     {
       "name": "PageIntro",
       "group": "site",
-      "svelte": "site-page-intro--default",
+      "svelte": "site-sections-page-intro--default",
       "astro": "page-intro",
       "svelteFile": "blocks/site/page-intro.svelte",
       "svelteItem": "page-intro",
@@ -426,7 +426,7 @@
     {
       "name": "RingStats",
       "group": "site",
-      "svelte": "site-ring-stats--default",
+      "svelte": "site-sections-ring-stats--default",
       "astro": "ring-stats",
       "svelteFile": "blocks/site/ring-stats.svelte",
       "svelteItem": "ring-stats",
@@ -435,7 +435,7 @@
     {
       "name": "Section",
       "group": "site",
-      "svelte": "site-section--default",
+      "svelte": "site-sections-section--default",
       "astro": "section",
       "svelteFile": "blocks/site/section.svelte",
       "svelteItem": "section",
@@ -444,7 +444,7 @@
     {
       "name": "OutlineCard",
       "group": "site",
-      "svelte": "site-outline-card--default",
+      "svelte": "site-cards-outline-card--default",
       "astro": "outline-card",
       "svelteFile": "blocks/site/outline-card.svelte",
       "svelteItem": "outline-card",
@@ -453,7 +453,7 @@
     {
       "name": "ElementCard",
       "group": "site",
-      "svelte": "site-element-card--default",
+      "svelte": "site-cards-element-card--default",
       "astro": "element-card",
       "svelteFile": "blocks/site/element-card.svelte",
       "svelteItem": "element-card",
@@ -462,7 +462,7 @@
     {
       "name": "FeatureCards",
       "group": "site",
-      "svelte": "site-feature-cards--default",
+      "svelte": "site-cards-feature-cards--default",
       "astro": "feature-cards",
       "svelteFile": "blocks/site/feature-cards.svelte",
       "svelteItem": "feature-cards",
@@ -471,7 +471,7 @@
     {
       "name": "FeatureGrid",
       "group": "site",
-      "svelte": "site-feature-grid--default",
+      "svelte": "site-cards-feature-grid--default",
       "astro": "feature-grid",
       "svelteFile": "blocks/site/feature-grid.svelte",
       "svelteItem": "feature-grid",
@@ -480,7 +480,7 @@
     {
       "name": "Steps",
       "group": "site",
-      "svelte": "site-steps--default",
+      "svelte": "site-sections-steps--default",
       "astro": "steps",
       "svelteFile": "blocks/site/steps.svelte",
       "svelteItem": "steps",
@@ -489,7 +489,7 @@
     {
       "name": "PricingPlans",
       "group": "site",
-      "svelte": "site-pricing-plans--default",
+      "svelte": "site-pricing-pricing-plans--default",
       "astro": "pricing-plans",
       "svelteFile": "blocks/site/pricing-plans.svelte",
       "svelteItem": "pricing-plans",
@@ -498,7 +498,7 @@
     {
       "name": "Price",
       "group": "site",
-      "svelte": "site-pricing-plans--default",
+      "svelte": "site-pricing-pricing-plans--default",
       "astro": "price",
       "svelteFile": "blocks/site/price.svelte",
       "svelteItem": "price",
@@ -507,7 +507,7 @@
     {
       "name": "BeforeAfter",
       "group": "site",
-      "svelte": "site-before-after--default",
+      "svelte": "site-cards-before-after--default",
       "astro": "before-after",
       "svelteFile": "blocks/site/before-after.svelte",
       "svelteItem": "before-after",
@@ -516,7 +516,7 @@
     {
       "name": "CtaBand",
       "group": "site",
-      "svelte": "site-cta-band--default",
+      "svelte": "site-sections-cta-band--default",
       "astro": "cta-band",
       "svelteFile": "blocks/site/cta-band.svelte",
       "svelteItem": "cta-band",
@@ -525,7 +525,7 @@
     {
       "name": "ProvidersTable",
       "group": "site",
-      "svelte": "site-providers-table--default",
+      "svelte": "site-pricing-providers-table--default",
       "astro": "not yet",
       "svelteFile": "blocks/site/providers-table.stories.svelte",
       "svelteItem": "not yet",
@@ -1066,7 +1066,7 @@
     {
       "name": "PostHeader",
       "group": "content",
-      "svelte": "content-post-header--with-cover",
+      "svelte": "content-blog-post-header--with-cover",
       "astro": "post-header",
       "svelteFile": "blocks/content/post-header.svelte",
       "svelteItem": "post-header",
@@ -1075,7 +1075,7 @@
     {
       "name": "PostContents",
       "group": "content",
-      "svelte": "content-post-contents--inline",
+      "svelte": "content-blog-post-contents--inline",
       "astro": "post-contents",
       "svelteFile": "blocks/content/post-contents.svelte",
       "svelteItem": "post-contents",
@@ -1084,7 +1084,7 @@
     {
       "name": "PullQuote",
       "group": "content",
-      "svelte": "content-pull-quote--margin",
+      "svelte": "content-blog-pull-quote--margin",
       "astro": "pull-quote",
       "svelteFile": "blocks/content/pull-quote.svelte",
       "svelteItem": "pull-quote",
@@ -1093,7 +1093,7 @@
     {
       "name": "ShareBar",
       "group": "content",
-      "svelte": "content-share-bar--bar",
+      "svelte": "content-blog-share-bar--bar",
       "astro": "share-bar",
       "svelteFile": "blocks/content/share-bar.svelte",
       "svelteItem": "share-bar",
@@ -1102,7 +1102,7 @@
     {
       "name": "NewsletterBand",
       "group": "content",
-      "svelte": "content-newsletter-band--default",
+      "svelte": "content-blog-newsletter-band--default",
       "astro": "newsletter-band",
       "svelteFile": "blocks/content/newsletter-band.svelte",
       "svelteItem": "newsletter-band",
@@ -1111,7 +1111,7 @@
     {
       "name": "PostList",
       "group": "content",
-      "svelte": "content-post-list--cards",
+      "svelte": "content-blog-post-list--cards",
       "astro": "post-list",
       "svelteFile": "blocks/content/post-list.svelte",
       "svelteItem": "post-list",
@@ -1120,7 +1120,7 @@
     {
       "name": "PostCard",
       "group": "content",
-      "svelte": "content-post-card--default",
+      "svelte": "content-blog-post-card--default",
       "astro": "post-card",
       "svelteFile": "blocks/content/post-card.svelte",
       "svelteItem": "post-card",
@@ -1129,7 +1129,7 @@
     {
       "name": "PostMeta",
       "group": "content",
-      "svelte": "content-post-meta--on-a-card",
+      "svelte": "content-blog-post-meta--on-a-card",
       "astro": "post-meta",
       "svelteFile": "blocks/content/post-meta.svelte",
       "svelteItem": "post-meta",
@@ -1174,7 +1174,7 @@
     {
       "name": "ReleaseTimeline",
       "group": "content",
-      "svelte": "content-release-timeline--default",
+      "svelte": "content-changelog-release-timeline--default",
       "astro": "release-timeline",
       "svelteFile": "blocks/content/release-timeline.svelte",
       "svelteItem": "release-timeline",
@@ -1183,7 +1183,7 @@
     {
       "name": "ReleaseHead",
       "group": "content",
-      "svelte": "content-release-head--in-a-timeline",
+      "svelte": "content-changelog-release-head--in-a-timeline",
       "astro": "release-head",
       "svelteFile": "blocks/content/release-head.svelte",
       "svelteItem": "release-head",
@@ -1192,7 +1192,7 @@
     {
       "name": "KindTag",
       "group": "content",
-      "svelte": "content-kind-tag--default",
+      "svelte": "content-changelog-kind-tag--default",
       "astro": "kind-tag",
       "svelteFile": "blocks/content/kind-tag.svelte",
       "svelteItem": "kind-tag",
@@ -1201,7 +1201,7 @@
     {
       "name": "ReleaseNotes",
       "group": "content",
-      "svelte": "content-release-notes--grouped",
+      "svelte": "content-changelog-release-notes--grouped",
       "astro": "release-notes",
       "svelteFile": "blocks/content/release-notes.svelte",
       "svelteItem": "release-notes",
@@ -1210,7 +1210,7 @@
     {
       "name": "PastReleases",
       "group": "content",
-      "svelte": "content-past-releases--default",
+      "svelte": "content-changelog-past-releases--default",
       "astro": "past-releases",
       "svelteFile": "blocks/content/past-releases.svelte",
       "svelteItem": "past-releases",
@@ -1273,7 +1273,7 @@
     {
       "name": "InstallSteps",
       "group": "content",
-      "svelte": "content-install-steps--default",
+      "svelte": "content-docs-install-steps--default",
       "astro": "install-steps",
       "svelteFile": "blocks/content/install-steps.svelte",
       "svelteItem": "install-steps",
@@ -1282,7 +1282,7 @@
     {
       "name": "TypingTerminal",
       "group": "content",
-      "svelte": "content-typing-terminal--default",
+      "svelte": "content-docs-typing-terminal--default",
       "astro": "typing-terminal",
       "svelteFile": "blocks/content/typing-terminal.svelte",
       "svelteItem": "typing-terminal",
@@ -1291,7 +1291,7 @@
     {
       "name": "CodeEditor",
       "group": "content",
-      "svelte": "content-code-editor--default",
+      "svelte": "content-docs-code-editor--default",
       "astro": "code-editor",
       "svelteFile": "blocks/content/code-editor.svelte",
       "svelteItem": "code-editor",
@@ -1309,7 +1309,7 @@
     {
       "name": "InstallBlock",
       "group": "content",
-      "svelte": "content-install-block--default",
+      "svelte": "content-docs-install-block--default",
       "astro": "not yet",
       "svelteFile": "blocks/content/install-block.stories.svelte",
       "svelteItem": "not yet",
@@ -1318,7 +1318,7 @@
     {
       "name": "MenuDemo",
       "group": "content",
-      "svelte": "content-menu-demo--default",
+      "svelte": "content-docs-menu-demo--default",
       "astro": "not yet",
       "svelteFile": "blocks/content/menu-demo.stories.svelte",
       "svelteItem": "not yet",
@@ -1327,7 +1327,7 @@
     {
       "name": "InstanceGraph",
       "group": "content",
-      "svelte": "content-instance-graph--default",
+      "svelte": "content-docs-instance-graph--default",
       "astro": "not yet",
       "svelteFile": "blocks/content/instance-graph.stories.svelte",
       "svelteItem": "not yet",

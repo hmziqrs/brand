@@ -2,7 +2,7 @@
 	import { defineMeta } from '@storybook/addon-svelte-csf'
 	import ContactChannels from './contact-channels.svelte'
 
-	const { Story } = defineMeta({ title: 'Content/Contact channels', component: ContactChannels })
+	const { Story } = defineMeta({ title: 'Content/Contact/Channels', component: ContactChannels })
 </script>
 
 <script lang="ts">

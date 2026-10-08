@@ -2,7 +2,7 @@
 	import { defineMeta } from '@storybook/addon-svelte-csf'
 	import InstanceGraph from './instance-graph.svelte'
 
-	const { Story } = defineMeta({ title: 'Content/Instance graph', component: InstanceGraph })
+	const { Story } = defineMeta({ title: 'Content/Docs/Instance graph', component: InstanceGraph })
 </script>
 
 <script lang="ts">

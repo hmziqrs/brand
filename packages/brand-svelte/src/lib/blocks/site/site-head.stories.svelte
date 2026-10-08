@@ -3,7 +3,7 @@
 	import SiteHead from './site-head.svelte'
 
 	const { Story } = defineMeta({
-		title: 'Site/Site head',
+		title: 'Site/Structure/Site head',
 		component: SiteHead,
 		// SiteHead only fills the document head, which the canvas cannot show —
 		// each story pairs the real component with a visible card of the same

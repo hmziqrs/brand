@@ -2,7 +2,7 @@
 	import { defineMeta } from '@storybook/addon-svelte-csf'
 	import FeatureCards from './feature-cards.svelte'
 
-	const { Story } = defineMeta({ title: 'Site/Feature cards', component: FeatureCards })
+	const { Story } = defineMeta({ title: 'Site/Cards/Feature cards', component: FeatureCards })
 </script>
 
 <script lang="ts">

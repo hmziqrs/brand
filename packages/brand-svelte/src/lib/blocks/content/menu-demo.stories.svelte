@@ -2,7 +2,7 @@
 	import { defineMeta } from '@storybook/addon-svelte-csf'
 	import MenuDemo from './menu-demo.svelte'
 
-	const { Story } = defineMeta({ title: 'Content/Menu demo', component: MenuDemo })
+	const { Story } = defineMeta({ title: 'Content/Docs/Menu demo', component: MenuDemo })
 </script>
 
 <script lang="ts">

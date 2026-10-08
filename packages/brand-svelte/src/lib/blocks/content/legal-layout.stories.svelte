@@ -3,7 +3,7 @@
 	import LegalLayout from './legal-layout.svelte'
 
 	const { Story } = defineMeta({
-		title: 'Content/Legal layout',
+		title: 'Content/Legal/Layout',
 		component: LegalLayout,
 		parameters: { layout: 'fullscreen' },
 	})

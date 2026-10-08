@@ -3,7 +3,7 @@
 	import ButtonLink from './button-link.svelte'
 	import CtaBand from './cta-band.svelte'
 
-	const { Story } = defineMeta({ title: 'Site/CTA band', component: CtaBand, parameters: { layout: 'fullscreen' } })
+	const { Story } = defineMeta({ title: 'Site/Sections/CTA band', component: CtaBand, parameters: { layout: 'fullscreen' } })
 </script>
 
 <!-- The closing band: full width, in orange, with the band arcs on the right. -->

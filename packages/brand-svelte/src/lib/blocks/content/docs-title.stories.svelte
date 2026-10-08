@@ -2,7 +2,7 @@
 	import { defineMeta } from '@storybook/addon-svelte-csf'
 	import DocsTitle from './docs-title.svelte'
 
-	const { Story } = defineMeta({ title: 'Content/Docs title', component: DocsTitle })
+	const { Story } = defineMeta({ title: 'Content/Docs/Title', component: DocsTitle })
 </script>
 
 <!-- A docs page's own title, with gpui-query's own rings faintly beside it. -->

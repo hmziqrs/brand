@@ -2,7 +2,7 @@
 	import { defineMeta } from '@storybook/addon-svelte-csf'
 	import TypingTerminal from './typing-terminal.svelte'
 
-	const { Story } = defineMeta({ title: 'Content/Typing terminal', component: TypingTerminal })
+	const { Story } = defineMeta({ title: 'Content/Docs/Typing terminal', component: TypingTerminal })
 </script>
 
 <script lang="ts">

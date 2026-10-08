@@ -3,7 +3,7 @@
 	import BlogLayout from './blog-layout.svelte'
 
 	const { Story } = defineMeta({
-		title: 'Content/Blog layout',
+		title: 'Content/Blog/Layout',
 		component: BlogLayout,
 		parameters: { layout: 'fullscreen' },
 	})

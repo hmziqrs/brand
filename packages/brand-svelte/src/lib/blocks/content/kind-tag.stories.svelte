@@ -2,7 +2,7 @@
 	import { defineMeta } from '@storybook/addon-svelte-csf'
 	import KindTag from './kind-tag.svelte'
 
-	const { Story } = defineMeta({ title: 'Content/Kind tag', component: KindTag })
+	const { Story } = defineMeta({ title: 'Content/Changelog/Kind tag', component: KindTag })
 </script>
 
 <!-- A release's kind of change as a tag, each kind in its own color (the lab's changelog). -->

@@ -2,7 +2,7 @@
 	import { defineMeta } from '@storybook/addon-svelte-csf'
 	import CodeEditor from './code-editor.svelte'
 
-	const { Story } = defineMeta({ title: 'Content/Code editor', component: CodeEditor })
+	const { Story } = defineMeta({ title: 'Content/Docs/Code editor', component: CodeEditor })
 </script>
 
 <script lang="ts">

@@ -2,7 +2,7 @@
 	import { defineMeta } from '@storybook/addon-svelte-csf'
 	import ShareBar from './share-bar.svelte'
 
-	const { Story } = defineMeta({ title: 'Content/Share bar', component: ShareBar })
+	const { Story } = defineMeta({ title: 'Content/Blog/Share bar', component: ShareBar })
 </script>
 
 <script lang="ts">

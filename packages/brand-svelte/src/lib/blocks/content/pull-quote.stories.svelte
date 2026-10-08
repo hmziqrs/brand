@@ -2,7 +2,7 @@
 	import { defineMeta } from '@storybook/addon-svelte-csf'
 	import PullQuote from './pull-quote.svelte'
 
-	const { Story } = defineMeta({ title: 'Content/Pull quote', component: PullQuote })
+	const { Story } = defineMeta({ title: 'Content/Blog/Pull quote', component: PullQuote })
 </script>
 
 <script lang="ts">

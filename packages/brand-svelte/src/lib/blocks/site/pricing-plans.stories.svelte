@@ -8,7 +8,7 @@
 		{ name: 'Studio', price: 'Talk to us', blurb: 'For shared workspaces and SSO.', features: ['Everything in Pro', 'SSO', 'A named contact'], cta: 'Contact us' },
 	]
 
-	const { Story } = defineMeta({ title: 'Site/Pricing plans', component: PricingPlans })
+	const { Story } = defineMeta({ title: 'Site/Pricing/Pricing plans', component: PricingPlans })
 </script>
 
 <!-- Plans in outline cards, with a monthly / yearly switch. -->

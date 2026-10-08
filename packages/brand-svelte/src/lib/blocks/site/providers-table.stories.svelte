@@ -2,7 +2,7 @@
 	import { defineMeta } from '@storybook/addon-svelte-csf'
 	import ProvidersTable from './providers-table.svelte'
 
-	const { Story } = defineMeta({ title: 'Site/Providers table', component: ProvidersTable })
+	const { Story } = defineMeta({ title: 'Site/Pricing/Providers table', component: ProvidersTable })
 </script>
 
 <script lang="ts">

@@ -2,7 +2,7 @@
 	import { defineMeta } from '@storybook/addon-svelte-csf'
 	import FeatureGrid from './feature-grid.svelte'
 
-	const { Story } = defineMeta({ title: 'Site/Feature grid', component: FeatureGrid })
+	const { Story } = defineMeta({ title: 'Site/Cards/Feature grid', component: FeatureGrid })
 </script>
 
 <script lang="ts">

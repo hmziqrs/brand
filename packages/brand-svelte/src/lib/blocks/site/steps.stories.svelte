@@ -2,7 +2,7 @@
 	import { defineMeta } from '@storybook/addon-svelte-csf'
 	import Steps from './steps.svelte'
 
-	const { Story } = defineMeta({ title: 'Site/Steps', component: Steps })
+	const { Story } = defineMeta({ title: 'Site/Sections/Steps', component: Steps })
 </script>
 
 <!-- Numbered steps joined by a line. Only for things that really happen in order. -->

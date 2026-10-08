@@ -2,7 +2,7 @@
 	import { defineMeta } from '@storybook/addon-svelte-csf'
 	import PostCard from './post-card.svelte'
 
-	const { Story } = defineMeta({ title: 'Content/Post card', component: PostCard })
+	const { Story } = defineMeta({ title: 'Content/Blog/Post card', component: PostCard })
 </script>
 
 <script lang="ts">

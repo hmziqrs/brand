@@ -2,7 +2,7 @@
 	import { defineMeta } from '@storybook/addon-svelte-csf'
 	import LegalBlock from './legal-block.svelte'
 
-	const { Story } = defineMeta({ title: 'Content/Legal block', component: LegalBlock })
+	const { Story } = defineMeta({ title: 'Content/Legal/Block', component: LegalBlock })
 </script>
 
 <!-- The lab's four kinds: a paragraph, a list, definitions in a lined column, and small caps for the warranty text. -->

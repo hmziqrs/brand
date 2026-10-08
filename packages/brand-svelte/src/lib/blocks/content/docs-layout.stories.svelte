@@ -3,7 +3,7 @@
 	import DocsLayout from './docs-layout.svelte'
 
 	const { Story } = defineMeta({
-		title: 'Content/Docs layout',
+		title: 'Content/Docs/Layout',
 		component: DocsLayout,
 		parameters: { layout: 'fullscreen' },
 	})

@@ -2,7 +2,7 @@
 	import { defineMeta } from '@storybook/addon-svelte-csf'
 	import PageIntro from './page-intro.svelte'
 
-	const { Story } = defineMeta({ title: 'Site/Page intro', component: PageIntro })
+	const { Story } = defineMeta({ title: 'Site/Sections/Page intro', component: PageIntro })
 </script>
 
 <!-- The top of an inner page: a small grey word, the title and one paragraph. -->

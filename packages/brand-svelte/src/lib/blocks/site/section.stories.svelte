@@ -2,7 +2,7 @@
 	import { defineMeta } from '@storybook/addon-svelte-csf'
 	import Section from './section.svelte'
 
-	const { Story } = defineMeta({ title: 'Site/Section', component: Section })
+	const { Story } = defineMeta({ title: 'Site/Sections/Section', component: Section })
 </script>
 
 <!-- A section heading: a small orange label, the title and one paragraph. -->

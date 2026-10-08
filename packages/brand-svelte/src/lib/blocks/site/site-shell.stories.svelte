@@ -3,7 +3,7 @@
 	import SiteShell from './site-shell.svelte'
 
 	const { Story } = defineMeta({
-		title: 'Site/Site shell',
+		title: 'Site/Structure/Site shell',
 		component: SiteShell,
 		parameters: { layout: 'fullscreen' },
 	})

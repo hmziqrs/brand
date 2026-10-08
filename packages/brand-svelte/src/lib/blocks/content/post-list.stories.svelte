@@ -2,7 +2,7 @@
 	import { defineMeta } from '@storybook/addon-svelte-csf'
 	import PostList from './post-list.svelte'
 
-	const { Story } = defineMeta({ title: 'Content/Post list', component: PostList })
+	const { Story } = defineMeta({ title: 'Content/Blog/Post list', component: PostList })
 </script>
 
 <script lang="ts">

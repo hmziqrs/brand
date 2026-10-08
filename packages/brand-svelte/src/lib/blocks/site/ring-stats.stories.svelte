@@ -2,7 +2,7 @@
 	import { defineMeta } from '@storybook/addon-svelte-csf'
 	import RingStats from './ring-stats.svelte'
 
-	const { Story } = defineMeta({ title: 'Site/Ring stats', component: RingStats })
+	const { Story } = defineMeta({ title: 'Site/Sections/Ring stats', component: RingStats })
 </script>
 
 <!-- Key numbers, each beside a ring gauge that draws it. -->

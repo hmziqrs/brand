@@ -2,7 +2,7 @@
 	import { defineMeta } from '@storybook/addon-svelte-csf'
 	import ReleaseNotes from './release-notes.svelte'
 
-	const { Story } = defineMeta({ title: 'Content/Release notes', component: ReleaseNotes })
+	const { Story } = defineMeta({ title: 'Content/Changelog/Release notes', component: ReleaseNotes })
 </script>
 
 <script lang="ts">

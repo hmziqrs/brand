@@ -2,7 +2,7 @@
 	import { defineMeta } from '@storybook/addon-svelte-csf'
 	import LegalSection from './legal-section.svelte'
 
-	const { Story } = defineMeta({ title: 'Content/Legal section', component: LegalSection })
+	const { Story } = defineMeta({ title: 'Content/Legal/Section', component: LegalSection })
 </script>
 
 <script lang="ts">

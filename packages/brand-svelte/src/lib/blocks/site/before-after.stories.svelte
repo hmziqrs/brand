@@ -2,7 +2,7 @@
 	import { defineMeta } from '@storybook/addon-svelte-csf'
 	import BeforeAfter from './before-after.svelte'
 
-	const { Story } = defineMeta({ title: 'Site/Before after', component: BeforeAfter })
+	const { Story } = defineMeta({ title: 'Site/Cards/Before after', component: BeforeAfter })
 </script>
 
 <!-- Before and after: the old way struck through, then what the product does instead. -->

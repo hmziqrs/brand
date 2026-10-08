@@ -2,7 +2,7 @@
 	import { defineMeta } from '@storybook/addon-svelte-csf'
 	import PostHeader from './post-header.svelte'
 
-	const { Story } = defineMeta({ title: 'Content/Post header', component: PostHeader })
+	const { Story } = defineMeta({ title: 'Content/Blog/Post header', component: PostHeader })
 </script>
 
 <script lang="ts">

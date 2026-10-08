@@ -2,7 +2,7 @@
 	import { defineMeta } from '@storybook/addon-svelte-csf'
 	import DocsPager from './docs-pager.svelte'
 
-	const { Story } = defineMeta({ title: 'Content/Docs pager', component: DocsPager })
+	const { Story } = defineMeta({ title: 'Content/Docs/Pager', component: DocsPager })
 </script>
 
 <!-- The pages on either side of this one, as two cards (the lab's Installation page). -->

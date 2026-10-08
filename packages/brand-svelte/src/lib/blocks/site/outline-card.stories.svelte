@@ -2,7 +2,7 @@
 	import { defineMeta } from '@storybook/addon-svelte-csf'
 	import OutlineCard from './outline-card.svelte'
 
-	const { Story } = defineMeta({ title: 'Site/Outline card', component: OutlineCard })
+	const { Story } = defineMeta({ title: 'Site/Cards/Outline card', component: OutlineCard })
 </script>
 
 <!-- The brand's card: a thin line, no fill. -->

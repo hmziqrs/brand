@@ -2,7 +2,7 @@
 	import { defineMeta } from '@storybook/addon-svelte-csf'
 	import InstallBlock from './install-block.svelte'
 
-	const { Story } = defineMeta({ title: 'Content/Install block', component: InstallBlock })
+	const { Story } = defineMeta({ title: 'Content/Docs/Install block', component: InstallBlock })
 </script>
 
 <script lang="ts">

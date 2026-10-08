@@ -2,7 +2,7 @@
 	import { defineMeta } from '@storybook/addon-svelte-csf'
 	import DocsSearch from './docs-search.svelte'
 
-	const { Story } = defineMeta({ title: 'Content/Docs search', component: DocsSearch })
+	const { Story } = defineMeta({ title: 'Content/Docs/Search', component: DocsSearch })
 </script>
 
 <!-- The docs search, in the header where the lab puts it. On its own here; DocsLayout owns the menu it filters. -->

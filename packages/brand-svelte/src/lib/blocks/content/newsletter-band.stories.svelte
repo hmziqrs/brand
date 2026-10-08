@@ -3,7 +3,7 @@
 	import NewsletterBand from './newsletter-band.svelte'
 
 	const { Story } = defineMeta({
-		title: 'Content/Newsletter band',
+		title: 'Content/Blog/Newsletter band',
 		component: NewsletterBand,
 		parameters: { layout: 'fullscreen' },
 	})
