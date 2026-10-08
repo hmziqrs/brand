@@ -37,7 +37,7 @@
 		{#each set.sizes as size (size)}
 			<div class="flex items-baseline gap-5 border-b py-2.5 last:border-b-0">
 				<span class="w-8 shrink-0 font-mono text-xs text-muted-foreground">{size}</span>
-				<p style="font-family: {set.font}; font-size: {size}px; font-weight: {set.weight}; line-height: 1.25;">
+				<p style="font-family: {set.font}; font-size: {size}px; font-weight: {set.weight}; line-height: 1.2;">
 					{set.sample}
 				</p>
 			</div>

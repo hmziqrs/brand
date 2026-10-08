@@ -40,6 +40,7 @@ pub fn users(cx: &mut App) -> Query<Vec<User>> {
 		["Numbers and constants", "var(--code-token-constant)"],
 		["Comments and punctuation", "var(--code-token-comment)"],
 	];
+	const badgeMarkup = `<span class="bg-success/10 text-success dark:bg-success/20">Shipped</span>`;
 </script>
 
 <DocsPage title="Colors">
@@ -124,6 +125,7 @@ pub fn users(cx: &mut App) -> Query<Vec<User>> {
 		Status colors are always <strong>soft</strong>: a light fill of the color behind text in
 		the same color. It's the same recipe shadcn uses for its destructive badge:
 	</p>
+	<CodeBlock code={badgeMarkup} />
 	<div data-panel class="flex flex-col gap-4">
 		<div class="flex flex-wrap gap-2">
 			<Tag tone="success" marker>Shipped</Tag>
@@ -153,7 +155,7 @@ pub fn users(cx: &mut App) -> Query<Vec<User>> {
 		mode and the brand color.
 	</p>
 	<div data-panel class="flex flex-col gap-4">
-		<CodeBlock code={sample} lang="rust" label="src/users.rs" copy={false} />
+		<CodeBlock code={sample} lang="rust" label="src/users.rs" />
 		<ul data-bare class="flex-row flex-wrap gap-x-5 gap-y-2 text-sm text-muted-foreground">
 			{#each legend as [label, value] (label)}
 				<li class="flex items-center gap-2"><span class="size-2 rounded-full" style={`background-color: ${value}`}></span>{label}</li>
