@@ -687,16 +687,14 @@
 			{#snippet title()}Questions people ask{/snippet}
 			{#snippet intro()}Straight answers, grouped by topic.{/snippet}
 			{#snippet children()}
-				<Questions>
-					{#each gpuiFaq as [, question, answer], i (question)}
-						<Question open={i === 0}>
-							{#snippet question()}
-								{question}
-							{/snippet}
-							{answer}
-						</Question>
-					{/each}
-				</Questions>
+					<Questions>
+						{#each gpuiFaq as [, q, answer], i (q)}
+							<Question open={i === 0}>
+								{#snippet question()}{q}{/snippet}
+								{answer}
+							</Question>
+						{/each}
+					</Questions>
 			{/snippet}
 		</Section>
 	</SiteShell>
