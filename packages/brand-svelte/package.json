@@ -2,7 +2,7 @@
 	"name": "@hmziq/brand-svelte",
 	"version": "0.0.1",
 	"private": true,
-	"description": "The hmziq brand kit for SvelteKit: the brand pieces and the site blocks, on shadcn-svelte. Ported from the React lab in apps/lab; never published to npm, only its registry is.",
+	"description": "The hmziq brand kit for SvelteKit: the brand pieces and the site blocks, on shadcn-svelte. Never published to npm, only its registry is.",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",

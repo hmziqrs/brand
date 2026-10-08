@@ -3,7 +3,7 @@
 // generated comes from @hmziq/brand-core and the fonts in assets/fonts — the
 // renderers are passed in, so templates stay plain code.
 //
-//   pnpm render-assets                  every target, then the lab's public copy
+//   pnpm render-assets                  every target
 //   pnpm render-assets --only test-card one target
 //   pnpm render-assets --name "Paperplane" --symbol Pp --out <folder>
 //                                       an icon pack for a name outside the roster
@@ -151,9 +151,8 @@ for (const target of selected) {
   console.log(`rendered ${target.id}: ${entries.map((e) => `${e.path} (${e.bytes} bytes)`).join(", ")}`)
 }
 
-// The public copies (assets-lib): the lab gets the hmziq pack from the
-// committed exports, so a fresh render and a fresh copy always agree. An
-// --emit run never touches them.
+// The public copies (assets-lib): the committed exports, so a fresh render
+// and a fresh copy always agree. An --emit run never touches them.
 if (!emitDir) for (const copy of publicCopies) {
   for (const file of copy.files) {
     const from = join(root, copy.from, file)

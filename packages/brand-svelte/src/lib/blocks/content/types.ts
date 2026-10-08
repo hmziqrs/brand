@@ -2,11 +2,9 @@ import type { Component } from "svelte";
 import type { Tone } from "@hmziq/brand-core/tones";
 
 /*
- * The shapes the content blocks take, ported from the lab's page code
- * (apps/lab/src/sites): the lab keeps them next to each site's content, the
- * kits keep them next to the blocks so both frameworks read the same shape.
- * The Astro kit's blocks/content/types.ts is the same file; keep the two in
- * step.
+ * The shapes the content blocks take; the kits keep them next to the blocks
+ * so both frameworks read the same shape. The Astro kit's
+ * blocks/content/types.ts is the same file; keep the two in step.
  */
 
 /** A topic's color, looked up from the topic's name. */

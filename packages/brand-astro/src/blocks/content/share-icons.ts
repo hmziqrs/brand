@@ -1,10 +1,9 @@
 import type { Tone } from "@hmziq/brand-core/tones";
 
 /*
- * Sharing: the networks a post can be shared on, with the logo paths the
- * lab's share bar uses (apps/lab/src/sites/blog/share-icons.ts, from Simple
- * Icons; LinkedIn from v9.21.0, before it was removed). The share URLs are
- * the lab's too. Each network carries the theme tone nearest its own color
+ * Sharing: the networks a post can be shared on, with the logo paths (from
+ * Simple Icons; LinkedIn from v9.21.0, before it was removed). Each network
+ * carries the theme tone nearest its own color
  * for the variant that colors the logos on hover: the brand's colors come
  * only from core's theme.css (kits.md, porting rule 4), so X, whose logo is
  * black and white, keeps the text color.

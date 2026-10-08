@@ -2,30 +2,25 @@
 // (bg-card, text-muted-foreground, text-green, bg-primary/10 …).
 // Fails on Tailwind's numbered palette (bg-green-500), arbitrary colors
 // (text-[#f80], bg-[oklch(…)]), black/white utilities and hex literals.
-// Reads .tsx, .css, .astro and .svelte files (markup, <style> and <script>
-// alike). Stock files are left as their library ships them — shadcn's ui/ in
-// the lab, shadcn-svelte's ui/ in the Svelte kit (minus the kit's own
-// Combobox), Starwind's starwind/ in the
-// Astro kit — and theme.css itself is core's, not a component's.
+// Reads .astro, .css, .svelte and .ts files (markup, <style> and <script>
+// alike). Stock files are left as their library ships them — shadcn-svelte's
+// ui/ in the Svelte kit (minus the kit's own Combobox), Starwind's starwind/
+// in the Astro kit — and theme.css itself is core's, not a component's.
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs"
 import { join } from "node:path"
 import { fileURLToPath } from "node:url"
 
 const root = fileURLToPath(new URL("..", import.meta.url))
 const roots = [
-  "apps/lab/src/components/brand",
-  "apps/lab/src/sites",
-  "apps/lab/src/templates",
-  "apps/lab/src/brand",
   // Core's src holds the tone class lists and color math; its theme.css and
   // the CSS next to it define the colors themselves, so they stay exempt.
   "packages/brand-core/src",
   // The Astro kit's own files (components, blocks, kit.css). Stock Starwind
-  // is exempt, like the lab's stock ui/: it ships as Starwind wrote it.
+  // is exempt: it ships as Starwind wrote it.
   "packages/brand-astro/src",
   "boilerplates/astro-app/src",
   // The Svelte kit's own files (components, blocks, kit.css) and its
-  // boilerplate's pages. Stock shadcn-svelte is exempt, like the lab's ui/.
+  // boilerplate's pages. Stock shadcn-svelte is exempt.
   "packages/brand-svelte/src/lib",
   "boilerplates/svelte-app/src",
 ].map((path) => join(root, path))

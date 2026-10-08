@@ -3,8 +3,8 @@
  * function color, flags in the keyword color, quoted text in the string
  * color. The same --code-* tokens Shiki uses for everything else.
  *
- * The React lab returns nodes; here each part is a { text, tone } pair and
- * the component paints it, so no framework types leak into the kit.
+ * Each part is a { text, tone } pair and the component paints it, so no
+ * framework types leak into the kit.
  */
 const shellToken = /("(?:[^"\\]|\\.)*")|(\s--?[\w-]+)/g;
 

@@ -13,9 +13,6 @@ import { hash } from "./motion/rings.ts"
  * Movement is plain CSS: logo.css, next to this package's theme.css, plus
  * keyframes made here from the timing settings. It stops for visitors who
  * ask for reduced motion and pauses with `paused`.
- *
- * Framework-free: the React style helpers that turn a look into CSS live in
- * the lab, as apps/lab/src/components/brand/logo-style.ts.
  */
 
 /**

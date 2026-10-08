@@ -50,10 +50,9 @@ assets/
 ## Getting assets into sites and apps
 
 - A site copies its folder from `assets/logos/exports/<site-id>/` into its `public/`. Sites on a kit get the head tags from `SiteHead` (kits.md), which renders the same tags as `head.html` from the site's id. Other sites paste `head.html` into the page head.
-- The lab (`apps/lab/public`) gets the hmziq pack through a sync step in `pnpm render-assets`; `check:assets` confirms the copy matches.
 - New apps and boilerplates: `pnpm render-assets --name "Paperplane" --symbol Pp --out <folder>` renders a full icon pack for a name that isn't in the roster.
 - `svelte-app` and `astro-app` ship with a pack for a placeholder name, and that command in their README.
-- Link previews need each site to serve its own HTML head. The lab is one page with hash routes, so only the hmziq identity is wired there. The other cards stay as files until their sites use them.
+- Link previews need each site to serve its own HTML head. The other cards stay as files until their sites use them.
 
 ## Rendering rules
 
@@ -70,7 +69,7 @@ assets/
 - Browser rendering (the Storybook manager, video) uses the variable WOFF2.
 - resvg loads only the listed fonts, with system fonts off. Browser renders wait until fonts have loaded.
 - Each font file records where it came from and which Fontsource version it matches.
-- Logo and favicon text is outlined. Compare with the `Mark` and `Wordmark` components (the lab's, and the Svelte kit's once they exist), including at 16px.
+- Logo and favicon text is outlined. Compare with the kits' `Mark` and `Wordmark` components, including at 16px.
 
 ### Shapes and crops
 
@@ -84,14 +83,14 @@ assets/
 | --- | --- | --- | --- |
 | 1 | Foundations | Fonts with licenses; color resolver with alpha and band contexts; stable site ids; one test render; `check:assets` | Alpha, band colors and fonts render correctly; the check fails on a stale file and passes after a re-render |
 | 2 | Logos | Per site: tile, wordmark and lockup SVGs; mark PNGs at 16, 32, 48, 64, 128, 256, 512, 1024; wordmark and lockup PNGs at 512 and 1024 wide | All 8 match the `Mark` and `Wordmark` components side by side, including at 16px |
-| 3 | Icon packs | Per site: `favicon.svg`, PNG 16/32/48, ICO, apple-touch 180, Android 192/512, maskable 512, `site.webmanifest`, `head.html`. The `--name --symbol` command. | Crops checked; the lab uses the hmziq pack; a pack renders for a name outside the roster |
+| 3 | Icon packs | Per site: `favicon.svg`, PNG 16/32/48, ICO, apple-touch 180, Android 192/512, maskable 512, `site.webmanifest`, `head.html`. The `--name --symbol` command. | Crops checked; a pack renders for a name outside the roster |
 | 4 | OG cards | 1200×630 OG and 1200×675 X cards for the 8 sites | Reviewed. Each site's preview goes live when that site serves its own head. |
 | 5 | Blog cover template | 1200×675 cover and 1200×630 OG per post: title, date, site mark, no rings | A sample is approved; the existing blog photo stays |
 | 6 | Profiles and repo previews | Avatars 400×400; X and LinkedIn banners; GitHub previews 1280×640 for confirmed repos | Sizes checked; an upload list for the real accounts |
 | 7 | Video | 1920×1080 intro and outro MP4; a 16:9 thumbnail template | The frame test passes; fonts load; end-screen timing checked |
 | 8 | Motion loops | Each moving ring preset as a 1920×1080 WebM; a 640-wide `ripple-turn` GIF; lattice loop optional | Each loop has a set period; the seam is checked |
 
-- Sites come from `family.ts`. The lab's SaaS templates get no assets.
+- Sites come from `family.ts`.
 - Moving presets come from `ringPresets` minus `still`.
 - APNG and Lottie are out.
 - Uploading to platforms and wiring previews on live sites are separate steps, done after the files exist.
@@ -134,7 +133,7 @@ The browser versions of the rings and scenes stay as they are.
 
 | Command | Does |
 | --- | --- |
-| `pnpm render-assets` | Static logos, icons and social images, their manifests, and the lab's public copy |
+| `pnpm render-assets` | Static logos, icons and social images, and their manifests |
 | `pnpm render-assets --name --symbol --out` | An icon pack for a name outside the roster |
 | `pnpm render:video` | Video exports |
 | `pnpm render:motion` | Motion loops |
@@ -147,7 +146,7 @@ Static renderers (Satori, `@resvg/resvg-js`, `png-to-ico`, an outline tool) go i
 
 | Decision | Default | Needed before |
 | --- | --- | --- |
-| Production URLs and per-site HTML | Only the hmziq identity is wired, in the lab | Turning on link previews for a site |
+| Production URLs and per-site HTML | No page serves them yet | Turning on link previews for a site |
 | The existing blog photo | Keep it | Replacing it |
 | Rings in social banners | Ring-free until decided | Final social layouts |
 | Which accounts and repos exist | Only confirmed ones | Phase 6 |

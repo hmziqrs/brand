@@ -2,7 +2,7 @@
 
 This document is the single source of truth for how every hmziq site looks, reads and behaves. It is written for AI agents and people doing migrations or redesigns. Follow it exactly. When something here conflicts with a site's existing code, this document wins.
 
-Live reference: the Storybook in the `hmziq/brand` repo (`pnpm storybook`), which shows every component and a finished landing page for each site. Source for those pages: `apps/lab/src/sites/*.tsx`.
+Live reference: the Storybook in the `hmziq/brand` repo (`pnpm storybook`), which shows every component and a finished landing page for each site. The kit sources under `packages/` and the starters under `boilerplates/` are the code to copy from.
 
 ---
 
@@ -110,10 +110,10 @@ Dark is the default. A theme toggle removes or adds the `dark` class and remembe
 
 ### Per framework
 
-- **React (Vite, Next.js, TanStack Start):** use shadcn/ui as above. There is no React registry; the lab (`apps/lab`) stays the reference.
+- **React (Vite, Next.js, TanStack Start):** use shadcn/ui as above. There is no React registry or React kit; rebuild components by copying the classes from the kit sources.
 - **Svelte / SvelteKit:** install pieces from the Svelte registry (shadcn-svelte CLI, same token names, `theme.css` works as is). Apply the same motion and writing rules.
 - **Astro:** install pieces from the Astro registry — Starwind UI (Astro-native, shadcn-style), no React, Svelte or Vue islands. Starwind needs a few extra tokens; see section 3.1.
-- **Dioxus or anything else with Tailwind v4:** load the same stylesheet (`/theme.css` from the Pages site works without npm) and use the same utility classes (`bg-primary`, `text-muted-foreground`, …). Rebuild components by copying the classes from the kit sources (`packages/brand-svelte/src/lib`, `packages/brand-astro/src`) or the lab (`apps/lab/src`).
+- **Dioxus or anything else with Tailwind v4:** load the same stylesheet (`/theme.css` from the Pages site works without npm) and use the same utility classes (`bg-primary`, `text-muted-foreground`, …). Rebuild components by copying the classes from the kit sources (`packages/brand-svelte/src/lib`, `packages/brand-astro/src`).
 
 App screens — admin panels, dashboards, settings, sign-in, the signed-in side of a product — have their own blocks and their own contract: **`APP-BLOCKS.md`** in the brand repo. It lists every app block with its props, states, copy, keyboard behavior and how each one is built in Astro, and it's the reference for both kits. Install the blocks from either registry (`app-shell`, `settings-section`, `collection-toolbar`, …) and follow that document for anything it doesn't cover as a piece.
 
@@ -125,7 +125,7 @@ Code blocks use **Shiki** with its css-variables theme pointed at the `--code-*`
 import { hmziqCode } from "@hmziq/brand-core/code-theme"
 ```
 
-- **React:** see `apps/lab/src/components/brand/code-block.tsx` (a synchronous highlighter with only the languages the site needs, and a copy button).
+- **React:** use Shiki directly with `hmziqCode` — a synchronous highlighter with only the languages the site needs — and add a copy button.
 - **Svelte / SvelteKit:** `codeToHtml(code, { lang, theme: hmziqCode })` on the server or at build time.
 - **Astro:** leave the built-in highlighter off (`markdown.syntaxHighlight: false`) and run core's Markdown plugins through `markdown.processor`, as `boilerplates/astro-app/astro.config.mjs` does — fenced code is highlighted by core's `code-meta` rehype plugin with `hmziqCode`, so Astro pages and SvelteKit pages get the same markup (section 8, "Markdown"). Code outside Markdown uses the kit's `CodeBlock`, tokenized at build time.
 - **Dioxus or anything else:** highlight at build time with Shiki, or point another highlighter's token classes at the `--code-token-*` variables.
@@ -731,7 +731,7 @@ A small hollow ring is the brand's bullet: `inline-block size-2.25 shrink-0 roun
 
 ### Rings
 
-Thin circles, each with one gap, like layers of oxide. Faint rings use `--line` (the text color, faint); one ring is the accent, with a dot where it ends. They're drawn from a name with a seeded random generator, so each site, project and post gets its own picture and it never changes between visits. Copy `motion/rings.ts` from `@hmziq/brand-core` (the hash and generator, no dependencies) and the React `apps/lab/src/components/brand/rings.tsx`.
+Thin circles, each with one gap, like layers of oxide. Faint rings use `--line` (the text color, faint); one ring is the accent, with a dot where it ends. They're drawn from a name with a seeded random generator, so each site, project and post gets its own picture and it never changes between visits. Copy `motion/rings.ts` from `@hmziq/brand-core` (the hash and generator, no dependencies); the kits' `Rings` components wrap it.
 
 | Piece | Where | Recipe |
 | --- | --- | --- |
@@ -768,7 +768,7 @@ Cards and icon tiles have **no grey fill**: a thin line only.
 
 ### 3D scenes (optional)
 
-Most pages don't need one. When a page wants something moving, it can have **one** 3D scene, drawn with three.js in the rings' language: thin lines in the text color, one thing in orange, and the same picture every time for the same name. The scenes come from freeoxide's lattice and oxlabs' scenes, redrawn in the kit's colors. Source: `motion/scenes/` in `@hmziq/brand-core` (plain TypeScript and three.js, no framework) and the React wrapper `apps/lab/src/components/brand/scene.tsx`. Storybook: **Custom → Scenes (3D)**.
+Most pages don't need one. When a page wants something moving, it can have **one** 3D scene, drawn with three.js in the rings' language: thin lines in the text color, one thing in orange, and the same picture every time for the same name. The scenes come from freeoxide's lattice and oxlabs' scenes, redrawn in the kit's colors. Source: `motion/scenes/` in `@hmziq/brand-core` (plain TypeScript and three.js, no framework), wrapped by the kits' `Scene`. Storybook: **Custom → Scenes (3D)**.
 
 | Scene | Where | What it shows |
 | --- | --- | --- |
@@ -819,7 +819,7 @@ Svelte (Astro and plain HTML work the same way). Show the pause button only when
 
 ### Page patterns
 
-What each kind of page uses. Each one is in the explorations file, working, and built in the Storybook: **Sites → Landing pages** for every site's front page, **Sites → Pages** for the rest (claude-multi's about, providers, FAQ, changelog, blog, privacy, terms and 404; gpui-query's docs; a blog post; oxlabs' contact page; and hmziq.rs/components, a catalog of the interactive pieces). Copy from `apps/lab/src/sites/`.
+What each kind of page uses. Each one is in the explorations file, working, and built in the Storybook: **Sites → Landing pages** for every site's front page, **Sites → Pages** for the rest (claude-multi's about, providers, FAQ, changelog, blog, privacy, terms and 404; gpui-query's docs; a blog post; oxlabs' contact page; and hmziq.rs/components, a catalog of the interactive pieces). The starters under `boilerplates/` show the same pages built from the kits' blocks.
 
 | Page | Pattern |
 | --- | --- |
@@ -842,7 +842,7 @@ What each kind of page uses. Each one is in the explorations file, working, and 
 | 404 | The rings beside the words. |
 | SaaS landing (templates) | The sites' own `SiteShell`: the same header, rhythm, orange close and signature footer, signed with the product's name, with the product's mark and one line in place of the "More from hmziq" row · the kit's hero parts, so headlines stay at the landing size · a product demo you can click in the hero or right under it, at a fixed height · customers as plain grey wordmarks · quotes in outline cards with a hollow ring for the person · plans in outline cards (the recommended one with its fingerprint) or as an accent table · at most one orange band: a terminal or a second band goes on grey. Five of them in the Storybook under **Templates → SaaS landing pages**, all with example content. |
 
-The five SaaS templates, so a new product can start from the closest one (`apps/lab/src/templates/saas/`):
+The five SaaS templates, so a new product can start from the closest one (in the Storybook under **Templates → SaaS landing pages**, source in `packages/brand-svelte/src/lib/templates/`):
 
 | Template | Product | What makes it different |
 | --- | --- | --- |
@@ -966,7 +966,7 @@ Everything else carries over from the sections above: outline panels, color only
 
 ### Where things live
 
-The kits are the source now; the React lab (`apps/lab`) is the picture they have to match, not the thing you copy from. In a site with a kit installed, `$brand` points at the kit folder — `src/lib/brand` in SvelteKit, `src/components/brand` in Astro — and everything below sits under it:
+The kits are the source. In a site with a kit installed, `$brand` points at the kit folder — `src/lib/brand` in SvelteKit, `src/components/brand` in Astro — and everything below sits under it:
 
 | Folder (under `$brand`) | What | Rule |
 | --- | --- | --- |
@@ -974,7 +974,7 @@ The kits are the source now; the React lab (`apps/lab`) is the picture they have
 | `components` | small brand pieces (Wordmark, Mark, Marker, Rings, Scene, Tag, IconTile, Notice, CodeBlock, CodeLines, CopyButton, CommandBar, TerminalWindow, Stepper, Segmented, Question, Toc, DataTable, BrandIcon) | Tokens only. Install from the registry; the logic (tones, logo recipe, rings, scroll spy, code theme) comes from `@hmziq/brand-core`, never copied. A site using Scene adds `three` itself. |
 | `blocks/site` | page blocks (SiteShell/SiteLayout, Hero and its parts HeroTitle, HeroLede, HeroActions, HeroNotes, HeroNote, PageIntro, RingStats, Section, OutlineCard, ElementCard, FeatureCards, FeatureGrid, Steps, PricingPlans, Price, BeforeAfter, CtaBand) and content pieces (Prose, Bullets, CheckList, LinkBar, SummaryBox, BigNumbers, SearchBox, TopicChips, EmptyNote) | Same on every site. |
 | `blocks/content` | content-page blocks (blog, docs, changelog, FAQ, legal, contact, 404) | Same on every site; pages pass the content in. |
-| `blocks/app` | app blocks: the shell (AppShell, AppPage, AppPageHeader, WorkspaceSwitcher, UserMenu), settings (SettingsSection, SettingRow, FormActions), states (EmptyState, NoResults, ErrorState, DataState, the skeletons), lists and tables (CollectionToolbar, FilterChip, SortMenu, BulkActionBar, the table parts), sign-in (AuthLayout, the forms, ProviderButtons, PasswordInput), records (DetailList, DetailSection), metrics (MetricTrend, StatCard, StatGrid, UsageMeter) and actions (ConfirmAction, RecordSheet) | For app screens, on both kits. Their contract is `APP-BLOCKS.md`; follow it, not the lab. |
+| `blocks/app` | app blocks: the shell (AppShell, AppPage, AppPageHeader, WorkspaceSwitcher, UserMenu), settings (SettingsSection, SettingRow, FormActions), states (EmptyState, NoResults, ErrorState, DataState, the skeletons), lists and tables (CollectionToolbar, FilterChip, SortMenu, BulkActionBar, the table parts), sign-in (AuthLayout, the forms, ProviderButtons, PasswordInput), records (DetailList, DetailSection), metrics (MetricTrend, StatCard, StatGrid, UsageMeter) and actions (ConfirmAction, RecordSheet) | For app screens, on both kits. Their contract is `APP-BLOCKS.md`; follow it. |
 | pages / routes | one per route | Put blocks together; no new styles. |
 
 Kit sources in the brand repo: `packages/brand-svelte/src/lib` and `packages/brand-astro/src` — port new pieces to both, add them to `scripts/pieces.json`, and re-run `pnpm registry:generate` (docs/kits.md).

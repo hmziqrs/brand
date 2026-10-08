@@ -32,9 +32,9 @@ const Icon = t.icon;
 const hasBody = Astro.slots.has("default");
 const hasIcon = Astro.slots.has("icon");
 
-/* The lab's Alert layout (apps/lab/src/components/ui/alert.tsx), carried by
-   the piece: Starwind's stock Alert is one size larger and fills the card
-   color, and the brand's Notice is an outlined, unfilled note. */
+/* The Alert layout the piece carries: Starwind's stock Alert is one size
+   larger and fills the card color, and the brand's Notice is an outlined,
+   unfilled note. */
 const layout =
   "group/alert grid gap-0.5 px-4 py-3 text-left text-sm bg-transparent dark:bg-transparent has-data-[slot=alert-action]:relative has-data-[slot=alert-action]:pr-18 has-[>svg]:grid-cols-[auto_1fr] has-[>svg]:gap-x-2.5 *:[svg]:row-span-2 *:[svg]:translate-y-0.5 *:[svg]:text-current *:[svg:not([class*='size-'])]:size-4";
 ---

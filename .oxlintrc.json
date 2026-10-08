@@ -7,13 +7,6 @@
   },
   "overrides": [
     {
-      "files": ["apps/lab/src/components/ui/*.tsx", "apps/lab/src/hooks/*.ts"],
-      "rules": {
-        "react/only-export-components": "off",
-        "react/set-state-in-effect": "off"
-      }
-    },
-    {
       "files": ["**/*.stories.tsx"],
       "rules": {
         "react/rules-of-hooks": "off"

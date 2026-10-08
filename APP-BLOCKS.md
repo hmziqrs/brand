@@ -1,5 +1,7 @@
 # App blocks contract
 
+**Done 2026-10-09. Historical plan: the React lab (`apps/lab`) it ports from was deleted after the port finished. The kits and `boilerplates/` are the living reference.**
+
 The blocks for app screens: admin panels, dashboards, settings, sign-in. The kit already covers landing, docs and blog pages (BRAND.md, the site blocks); this document covers the signed-in side.
 
 The **Svelte blocks are the reference**: `packages/brand-svelte/src/lib/blocks/app/`, shown in the Svelte Storybook under `App/<Group>` and used by a working demo in `boilerplates/svelte-app/src/routes/app/`. The Astro blocks (`packages/brand-astro/src/blocks/app/`, the same demo in `boilerplates/astro-app`) are built from this contract, never the other way round. Where the two differ, Svelte is right until this contract says otherwise.

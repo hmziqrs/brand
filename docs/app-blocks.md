@@ -1,6 +1,8 @@
 # App blocks plan
 
-**Part of the [master plan](./README.md). Work items 6 and 7.** Phases 0–9 start after [kits.md](./kits.md) step 1 (the Svelte kit and `svelte-app` exist). Phase 10 also needs kits.md step 2 (the Astro kit and `astro-app`).
+**Part of the [master plan](./README.md). Work items 6 and 7.**
+
+**Done 2026-10-09. Historical plan: the React lab (`apps/lab`) it ports from was deleted after the port finished. The kits and `boilerplates/` are the living reference.** Phases 0–9 start after [kits.md](./kits.md) step 1 (the Svelte kit and `svelte-app` exist). Phase 10 also needs kits.md step 2 (the Astro kit and `astro-app`).
 
 This plan covers the blocks for app screens: admin panels, dashboards, settings, sign-in. The kit already covers landing, docs and blog pages; this adds the signed-in side.
 

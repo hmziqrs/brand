@@ -2,6 +2,8 @@
 
 **Part of the [master plan](./README.md). Work items 2, 3 and 4.** Starts after [structure.md](./structure.md).
 
+**Updated 2026-10-09:** the React lab (`apps/lab`) is deleted, the port having finished. Lab mentions below are historical. The Svelte kit's Storybook is the piece reference; `pnpm compare` shoots it against the Astro gallery and the two boilerplates.
+
 This plan builds the Svelte kit and the Astro kit, and their two boilerplates, then puts them where other repos can install them. Each kit is built on the component library its sites already use:
 
 - **SvelteKit sites use shadcn-svelte** (Bits UI).
@@ -20,13 +22,15 @@ The two kits are separate ports of the lab's React pieces. Neither depends on th
 | Site blocks | SiteShell, Hero and its parts, PageIntro, RingStats, Section, OutlineCard, ElementCard, FeatureCards, FeatureGrid, Steps, PricingPlans, Price, BeforeAfter, CtaBand, and a new SiteHead | The same; SiteShell is a layout (`SiteLayout`) |
 | Content pieces | Prose, Bullets, CheckList, LinkBar, SummaryBox, BigNumbers, SearchBox, TopicChips, EmptyNote | The same |
 | Previewed in | Its own Storybook | A `/kit` gallery in `astro-app` |
-| Matched against | The lab's React version (`apps/lab`) | The lab's React version (`apps/lab`) |
+| Matched against | — (the reference) | The Svelte kit's Storybook |
 
-**SiteHead** is new (the lab is a single-page app, so it has none). It renders the page head for one site: title, description, canonical URL, OG and X tags, icon links and `theme-color`. It uses the same tags as the `head.html` in assets.md, from the site's id in `family.ts`.
+**SiteHead** is new (the lab was a single-page app, so it had none). It renders the page head for one site: title, description, canonical URL, OG and X tags, icon links and `theme-color`. It uses the same tags as the `head.html` in assets.md, from the site's id in `family.ts`.
 
-The lab's SaaS-only blocks (AppWindow, LogoCloud, Person, QuoteCard, IntegrationGrid, Faq, InverseBand) are not ported.
+The lab's SaaS-only blocks (AppWindow, LogoCloud, Person, QuoteCard, IntegrationGrid, Faq, InverseBand) were ported too, with the rest of the lab content (see [lab-to-svelte-migration-plan.md](./lab-to-svelte-migration-plan.md)).
 
 ## Porting rules (both kits)
+
+(The React lab these rules ported from is gone; rules 4, 5 and 7 still govern kit code, and the Svelte kit is the reference the Astro kit is matched against.)
 
 1. **Same as the lab.** Component names, prop names, `data-slot` names, classes, copy and motion match the lab's React version. Motion includes the ring motion, the scene's pause button, reduced motion, and three.js loading only when a scene is on the page. Where the two differ, React is right.
 2. Framework-free logic (tones, rings, logo recipe, scroll spy, code theme) is imported from `@hmziq/brand-core`, never copied.
@@ -60,7 +64,7 @@ packages/brand-svelte/
 - Svelte 5 only: runes, snippets, callback props. React's `className` becomes `class`, `children` becomes a snippet, and `render` props become snippets or an `href`.
 - No `$app/*` imports. The page owns routing, and the components stay easy to preview in Storybook.
 - The `components.json` aliases use `$brand/…`. In a copied project, `$brand` points at `src/lib/brand`.
-- The Storybook reuses the lab's manager theme, fonts and preview styles (`brand-theme.ts`, `manager-head.html`, `preview-head.html`), so the two look the same.
+- The Storybook's manager theme, fonts and preview styles (`brand-theme.ts`, `manager-head.html`, `preview-head.html`) match the old lab's, so the kit's Storybook looks the same.
 
 ### brand-astro
 
@@ -90,7 +94,6 @@ packages/brand-astro/
 `scripts/pieces.json` lists every piece once. For each one it records:
 
 - its name and group (brand, site, content page, app);
-- its lab story id;
 - its Svelte story id;
 - its anchor in the Astro `/kit` gallery;
 - its registry item name in each kit.
@@ -98,7 +101,7 @@ packages/brand-astro/
 Every plan adds its own pieces to the roster. Two tools read it:
 
 - **`pnpm check:parity`** fails when a piece in the roster is missing from either kit, from either kit's stories or gallery, or from either registry. A piece can be marked "not yet" while its plan is in progress. It runs in `pnpm check`.
-- **`pnpm compare <piece|group>`** (`scripts/compare.mjs`, with Playwright) screenshots the lab story, the Svelte story and the Astro gallery entry, in light and dark, at 360px and 1280px. It lays them side by side in `compare/` (git-ignored). When a piece has no lab story (the app blocks), the Svelte story is the reference. `pnpm compare --pages <path>` does the same for a demo page in both boilerplates. The report relays every shot in the folder, not just the latest run's — so a page-pair run no longer drops the per-piece rows a full run laid down — and `pnpm compare --report` rebuilds it from what is there without shooting anything. Every "matches" check in these plans is done from this report.
+- **`pnpm compare <piece|group>`** (`scripts/compare.mjs`, with Playwright) screenshots the Svelte story and the Astro gallery entry, in light and dark, at 360px and 1280px. It lays them side by side in `compare/` (git-ignored). `pnpm compare --pages <path>` does the same for a demo page in both boilerplates. The report relays every shot in the folder, not just the latest run's — so a page-pair run no longer drops the per-piece rows a full run laid down — and `pnpm compare --report` rebuilds it from what is there without shooting anything. Every "matches" check in these plans is done from this report.
 
 ## Boilerplates
 
@@ -109,8 +112,8 @@ Every plan adds its own pieces to the roster. Two tools read it:
 - gets its kit through `$brand`, so kit changes show up right away inside this repo;
 - is dark by default with a light toggle that remembers the choice. The `dark` class is set before first paint, so the wrong theme never flashes.
 - has `SiteHead` in its layout and a placeholder icon pack (assets.md) until the project gets its own;
-- has a landing page built from the site blocks, with example content marked as example (like the lab's SaaS templates);
-- has a 404 page with the lab's not-found design;
+- has a landing page built from the site blocks, with example content marked as example;
+- has a 404 page with the kit's not-found block;
 - has the content pages from content-blocks.md and the app demo from app-blocks.md.
 
 `astro-app` also has a `/kit` gallery: one page per group, showing every piece in every state. It stands in for Storybook, which doesn't support Astro components. `astro-app` renders on demand with the `@astrojs/node` adapter, so Astro Actions, URL params and server islands work.
@@ -149,14 +152,11 @@ Everything is served from the existing GitHub Pages site:
 
 | Path | What |
 | --- | --- |
-| `/` | The Svelte Storybook (the lab's Storybook until it exists) |
-| `/lab/` | The lab's React Storybook |
+| `/` | The Svelte Storybook |
 | `/r/svelte/` | The Svelte registry |
 | `/r/astro/` | The Astro registry |
 | `/theme.css` | The current theme, for projects that don't use npm |
 | `/BRAND.md`, `/APP-BLOCKS.md` | Reference documents for agents |
-
-The Svelte Storybook lists the lab's Storybook as a ref, so one sidebar shows both. The lab's manager already uses relative URLs, so moving it to `/lab/` keeps its fonts and icon working.
 
 ## Repo setup for the kits
 

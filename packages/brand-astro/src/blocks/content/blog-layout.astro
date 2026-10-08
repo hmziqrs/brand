@@ -3,11 +3,10 @@ import SiteLayout from "$brand/blocks/site/site-layout.astro";
 import type { Props as SiteHeadProps } from "$brand/blocks/site/site-head.astro";
 
 /*
- * The blog's shell: the lab's BlogShell (apps/lab/src/sites/blog), which is
- * the site shell set up for reading — the wordmark with "by hmziq" after
- * it, the posts nav, a Subscribe button, the inner-page rhythm, and no
- * padding under the main column so the newsletter band closes the page
- * flush.
+ * The blog's shell: the site shell set up for reading — the wordmark with
+ * "by hmziq" after it, the posts nav, a Subscribe button, the inner-page
+ * rhythm, and no padding under the main column so the newsletter band
+ * closes the page flush.
  */
 
 type Head = Omit<SiteHeadProps, "site"> & { site?: string };

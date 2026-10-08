@@ -1,11 +1,10 @@
 <!--
-  The blog's shell: the lab's BlogShell (apps/lab/src/sites/blog), which is
-  the site shell set up for reading — the wordmark with "by hmziq" after
-  it, the posts nav, a Subscribe button, the inner-page rhythm, and no
-  padding under the main column so the newsletter band closes the page
-  flush. `extra` (the theme toggle, a GitHub link) reaches the shell's
-  header through a spread, because a snippet prop has to be passed either
-  always or never.
+  The blog's shell: the site shell set up for reading — the wordmark with
+  "by hmziq" after it, the posts nav, a Subscribe button, the inner-page
+  rhythm, and no padding under the main column so the newsletter band
+  closes the page flush. `extra` (the theme toggle, a GitHub link) reaches
+  the shell's header through a spread, because a snippet prop has to be
+  passed either always or never.
 -->
 <script lang="ts">
 	import SiteShell from "$brand/blocks/site/site-shell.svelte";

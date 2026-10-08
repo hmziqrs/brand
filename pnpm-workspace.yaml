@@ -1,6 +1,4 @@
 packages:
-  # The design lab, the shared core, and the two kit packages.
-  - apps/*
   - packages/*
   # The Svelte and Astro starters, and later the Remotion project (assets.md).
   - boilerplates/*

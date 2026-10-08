@@ -1,7 +1,7 @@
 {
   "target": "test-card",
   "command": "pnpm render-assets --only test-card",
-  "digest": "55ec5818c50521fdfb40f5ad6598158a9a329472f175f05df4a2a702e0fc83a1",
+  "digest": "1467f8f3e04b2a49017d831bb75189ca9f8f2f3f46b52a650397b0a61f7601aa",
   "renderers": {
     "@resvg/resvg-js": "2.6.2",
     "opentype.js": "2.0.0",
@@ -52,7 +52,7 @@
     },
     {
       "path": "packages/brand-core/src/logo.ts",
-      "sha256": "38420c7f854a4391c2f6e387f72561082b8c3acabb266ce8c2a470e4661a107b"
+      "sha256": "0296e083a118b24f656c842bd10ba5e85ac01fb7152876b28d4aec9e57df346f"
     },
     {
       "path": "packages/brand-core/src/motion/frame.ts",
@@ -104,15 +104,15 @@
     },
     {
       "path": "pnpm-lock.yaml",
-      "sha256": "ddcf65cda0a8d31c5cadc71f985c369a1f5b25d12dbdfc29f190b7cda7f4ec37"
+      "sha256": "df50d72f095fd748daec64d64aead12eff7eafbe30914758f857f578f6d35c2a"
     },
     {
       "path": "scripts/assets-lib.mjs",
-      "sha256": "6a277612cbc3d79abec201403716d3fc992a3701c38a22a5abe38e0daaf06917"
+      "sha256": "735bfd1fa57b2b1b5a28917d315c0b1e25f1c3cb425ae36e9f0c23d3afadee65"
     },
     {
       "path": "scripts/render-assets.mjs",
-      "sha256": "26ad610a8378b32f1e5831ec5f13fdf0759622aa824e2318982361cf18220df2"
+      "sha256": "77ee6dee609bc380f2be19a9a826c8110e6906aedf258653e0a0e9a4eff1411c"
     }
   ],
   "files": [

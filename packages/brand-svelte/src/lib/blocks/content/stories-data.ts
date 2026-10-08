@@ -6,16 +6,16 @@ import type { TerminalLineData } from "$brand/components/terminal-line.js";
 import { shareIcons } from "./share-icons.js";
 
 /*
- * The lab pages' own content (apps/lab/src/sites), copied word for word so
- * the content blocks' stories line up 1:1 with the lab stories in
- * `pnpm compare`. Stories only; nothing in the kit reads this at runtime.
+ * Example content for the content blocks' stories, word for word across
+ * both kits so a story lines up with its twin in `pnpm compare`. Stories
+ * only; nothing in the kit reads this at runtime.
  */
 
-/** claude-multi's topics, one color each (claude-multi/blog.tsx). */
+/** claude-multi's topics, one color each. */
 const topicTones: Record<string, Tone> = { Models: "blue", MCP: "purple", Routing: "teal", "Deep dive": "pink" };
 export const topicTone = (topic: string): Tone | undefined => topicTones[topic];
 
-/** claude-multi's posts (claude-multi/data.ts). */
+/** claude-multi's posts. */
 export const posts: PostItem[] = [
 	{ date: "August 14, 2026", topic: "Models", title: "GLM-5.3 for Claude Code: post-training gains and a two-model mapping", summary: "GLM-5.3 landed on the Z.ai Coding Plan on 2026-08-14. The claude-multi GLM template now runs it in both the opus and sonnet slots at 1M context, with 128K max output and the new points-based quota.", href: "#" },
 	{ date: "June 13, 2026", topic: "Models", title: "GLM-5.2 for Claude Code: 1M context and three-tier model mapping", summary: "GLM-5.2 brings a 1,000,000-token context window to the Z.ai Coding Plan. The claude-multi GLM template now maps it to the opus slot, with GLM-5.1 as sonnet and GLM-5-Turbo as haiku.", href: "#" },
@@ -26,7 +26,7 @@ export const posts: PostItem[] = [
 	{ date: "May 25, 2026", topic: "Deep dive", title: "Inside claude-multi: a tour of every menu", summary: "A walkthrough of every screen in the claude-multi TUI. What each option does, when to use it, and the design calls I made along the way.", href: "#" },
 ];
 
-/** The blog post's own facts (blog/post.tsx). */
+/** The blog post's own facts. */
 export const post = {
 	title: "Vibe coding my blog in Astro, deployed on Cloudflare",
 	summary: "Third attempt at a blog. Finally got this one built.",
@@ -39,17 +39,17 @@ export const post = {
 
 export const postTone = (topic: string): Tone | undefined => ({ Engineering: "blue" } as Record<string, Tone>)[topic];
 
-/** The post's headings, which its contents list links to (blog/post.tsx). */
+/** The post's headings, which its contents list links to. */
 export const headings = ["Framework", "Architecture", "Deployment", "CI/CD", "Vibe coding", "Goal and roadmap", "End notes"];
 
-/** The post's side projects, for its end notes (blog/post.tsx). */
+/** The post's side projects, for its end notes. */
 export const sideProjects = [
 	{ name: "vibekit.link", symbol: "Vk", note: "SvelteKit based fullstack boilerplate for SaaS" },
 	{ name: "torii.tools", symbol: "To", note: "GPUI based native desktop Request client" },
 	{ name: "nutter.tools", symbol: "Nu", note: "An arsenal of tools: image conversions, video, audio, JSON, and whatnot." },
 ];
 
-/** claude-multi's releases (claude-multi/data.ts). */
+/** claude-multi's releases. */
 export const releases: Release[] = [
 	{ v: "0.12.0", date: "2026-08-26", groups: [["Changed", ["GLM template updated: sonnet-tier now maps to glm-5.3-flash[1m] instead of mirroring glm-5.3[1m]. Three-tier split restored: opus → glm-5.3[1m], sonnet → glm-5.3-flash[1m], haiku → glm-5-turbo. Existing instances are migrated automatically on next launch."]]] },
 	{ v: "0.11.1", date: "2026-08-22", groups: [["Fixed", ["Existing instances can now pick up provider template changes. claude-multi doctor check spots model and structural environment values that differ from the current template, even when the stored migration version is current.", "Provider detection now accepts endpoints with a trailing slash, so a valid edited GLM URL does not cause template sync to be skipped.", "The TUI migration option and health warning no longer appear for a version mismatch with no work to do."]], ["Changed", ["Migrations and the instance-details \"Sync template\" action now use the same provider environment sync code. API keys and user-tuned values stay in place."]]] },
@@ -59,7 +59,7 @@ export const releases: Release[] = [
 	{ v: "0.8.1", date: "2026-06-03", groups: [["Fixed", ["CLI build output moved from dist/ to build/, so the published npm package contains cli.js instead of the docs site.", "Updated bin/claude-multi.js to resolve ../build/cli.js instead of ../dist/cli.js.", "Updated CI workflows to verify build/cli.js instead of dist/cli.js."]]] },
 ];
 
-/** claude-multi's FAQ questions (claude-multi/data.ts). */
+/** claude-multi's FAQ questions. */
 export const faq: FaqItem[] = [
 	["Getting started", "What is claude-multi and why should I use it?", "claude-multi is a CLI that lets you run multiple Claude Code instances at the same time, each pointed at a different AI provider. Every instance gets its own config directory under ~/.claude-<name>/, so settings, history, and MCP servers don't bleed into each other."],
 	["Getting started", "How do I install claude-multi?", "Pick whichever package manager you already use: bun add -g claude-multi, npm install -g claude-multi, pnpm add -g claude-multi, or deno install -g npm:claude-multi. Then launch the interactive TUI with claude-multi. You need Claude Code installed, a supported runtime (Bun 1+, Node 18+, or Deno 1+), and an API key for at least one provider."],
@@ -72,7 +72,7 @@ export const faq: FaqItem[] = [
 	["Security", "Is my API key stored safely?", "Your API keys stay on your machine. claude-multi has no backend, no telemetry, and makes no network calls during normal operation. Each instance stores its key in its own settings.json, and Claude Code reads it directly from there."],
 ];
 
-/** claude-multi's privacy policy, word for word (claude-multi/legal-text.ts). */
+/** claude-multi's privacy policy, word for word. */
 export const privacy: LegalDoc = {
 	title: "Privacy policy",
 	updated: "2026-05-20",
@@ -91,7 +91,7 @@ export const privacy: LegalDoc = {
 	],
 };
 
-/** oxlabs.dev's contact channels (oxlabs/contact.tsx). The email's address stays off the page. */
+/** oxlabs.dev's contact channels. The email's address stays off the page. */
 export const channels: Channel[] = [
 	{ name: "Email", note: "The most direct line", href: "mailto:hello@oxlabs.dev", icon: Mail },
 	{ name: "GitHub", note: "github.com/hmziqrs", href: "https://github.com/hmziqrs", icon: siGithub },
@@ -99,7 +99,7 @@ export const channels: Channel[] = [
 	{ name: "LinkedIn", note: "in/hmziqrs", href: "https://linkedin.com/in/hmziqrs", icon: { path: shareIcons.linkedin } },
 ];
 
-/** gpui-query's docs menu, every page of it (gpui-query/data.ts). */
+/** gpui-query's docs menu, every page of it. */
 export const docsMenu: DocsMenu = [
 	[null, [{ title: "Introduction", href: "#" }]],
 	["Getting Started", [{ title: "Installation", href: "#" }, { title: "Quick Start", href: "#" }]],
@@ -108,10 +108,10 @@ export const docsMenu: DocsMenu = [
 	["Advanced", [{ title: "Devtools", href: "#" }, { title: "Observers", href: "#" }, { title: "gpui-query vs. raw async", href: "#" }, { title: "API Reference", href: "#" }, { title: "Migrating from v1 to v2", href: "#" }]],
 ];
 
-/** The docs page's headings (gpui-query/docs.tsx). */
+/** The docs page's headings. */
 export const docsHeadings = ["Add the dependency", "Feature flags", "Companion crates", "Set up the QueryClient", "Verify it is reachable", "Next steps"];
 
-/** hmziq.rs/components' install steps (hmziq/components.tsx). */
+/** hmziq.rs/components' install steps. */
 export const installSteps = [
 	{
 		title: "Install claude-multi",
@@ -127,7 +127,7 @@ export const installSteps = [
 	{ title: "Run your new command", body: "claude-multi wrote a command for your provider. It works like Claude Code always does.", command: "claude-deepseek" },
 ];
 
-/** The terminal session the typing terminal replays (hmziq/components.tsx). */
+/** The terminal session the typing terminal replays. */
 export const session: TerminalLineData[] = [
 	["cmd", "bun add -g claude-multi"],
 	["note", "Installs the claude-multi command."],
@@ -151,10 +151,10 @@ export const editorFiles = [
 	},
 ];
 
-/** claude-multi's TUI menu (claude-multi/data.ts). */
+/** claude-multi's TUI menu. */
 export const menu = ["Add new instance", "List all instances", "Manage plugins", "Sync mode", "MCP servers", "Exit"];
 
-/** The session Add new instance plays back, one line at a time (claude-multi/blocks.tsx). */
+/** The session Add new instance plays back, one line at a time. */
 export const addInstance: TerminalLineData[] = [
 	["step", "Step 1 / 8 · instance name", "glm"],
 	["step", "Step 2 / 8 · provider", "GLM"],
@@ -165,10 +165,10 @@ export const addInstance: TerminalLineData[] = [
 	["kv", "config", "~/.claude-glm"],
 ];
 
-/** The instances the demo's screens name (claude-multi/blocks.tsx). */
+/** The instances the demo's screens name. */
 export const listed = ["glm", "dsv3"];
 
-/** The settings file the demo's third pane shows (claude-multi/data.ts). */
+/** The settings file the demo's third pane shows. */
 export const settingsJson = `{
   "provider": "glm",
   "baseUrl": "https://api.z.ai",
@@ -176,14 +176,14 @@ export const settingsJson = `{
   "syncPlugins": true
 }`;
 
-/** The instance graph's folders (claude-multi/data.ts). */
+/** The instance graph's folders. */
 export const instances = [
 	{ name: "work", provider: "anthropic", models: [["sonnet-4.6", "api.anthropic.com"]] },
 	{ name: "lab", provider: "glm", models: [["GLM-5.3", "api.z.ai"], ["GLM-5.3-Flash", "api.z.ai"]] },
 	{ name: "cheap", provider: "kimi", models: [["K2.7 Code", "api.moonshot.ai"]] },
 ] as const;
 
-/** What sits inside every instance folder (claude-multi/data.ts). */
+/** What sits inside every instance folder. */
 export const inside = [
 	["settings.json", "provider env vars and merged settings"],
 	[".claude.json", "instance-level Claude config"],
@@ -191,7 +191,7 @@ export const inside = [
 	["projects/", "conversation history, per project"],
 ] as const;
 
-/** claude-multi's install commands, one per package manager (claude-multi/data.ts). */
+/** claude-multi's install commands, one per package manager. */
 export const installs = [
 	["bun", "bun add -g claude-multi"],
 	["npm", "npm install -g claude-multi"],
@@ -199,13 +199,13 @@ export const installs = [
 	["deno", "deno install -g npm:claude-multi"],
 ] as const;
 
-/** The InstallBlock's requirements, all met (claude-multi/blocks.tsx). */
+/** The InstallBlock's requirements, all met. */
 export const installChecks = ["Node 18+ or Bun 1+", "macOS, Linux, Windows", "Runs without sudo"];
 
-/** One row of the providers table: native providers are built in, the rest come from a template (claude-multi/data.ts). */
+/** One row of the providers table: native providers are built in, the rest come from a template. */
 export type Provider = { name: string; id?: string; native?: boolean; models: string; pay: string };
 
-/** claude-multi's providers, one row each (claude-multi/data.ts). */
+/** claude-multi's providers, one row each. */
 export const providers: Provider[] = [
 	{ name: "Anthropic", native: true, models: "Opus 4.7, Sonnet 4.6, Haiku 4.5", pay: "Your own Anthropic setup." },
 	{ name: "GLM Coding Plan", id: "glm", models: "GLM-5.3, GLM-5.3-Flash, GLM-5-Turbo", pay: "Coding Plan subscription via z.ai" },
@@ -216,7 +216,7 @@ export const providers: Provider[] = [
 	{ name: "Alibaba Qwen", id: "qwen", models: "Qwen3-Coder-Next, Plus, Flash", pay: "Pay-per-token via Alibaba DashScope" },
 ];
 
-/** The providers page's cards, one per template (claude-multi/data.ts). */
+/** The providers page's cards, one per template. */
 export const providerPages = [
 	["GLM-5.3 Coding Plan", "glm", "Run Claude Code with GLM-5.3, GLM-5.3-Flash, and GLM-5-Turbo via z.ai Coding Plan subscription. Full Anthropic API compatibility, up to 1M context, thinking mode enabled.", "Coding Plan subscription via z.ai"],
 	["MiniMax M3", "minimax", "Run Claude Code with MiniMax-M3 via minimax.io. 1M token context window, 512K max output, native multimodal support, one model across every role.", "Pay-per-token via minimax.io"],
@@ -226,7 +226,7 @@ export const providerPages = [
 	["Alibaba Qwen", "qwen", "Run Claude Code with Qwen3-Coder-Next, Qwen3-Coder-Plus, and Qwen3-Coder-Flash via Alibaba DashScope. Three model tiers, pay-per-token pricing, 128K context.", "Pay-per-token via Alibaba DashScope"],
 ] as const;
 
-/** The template reference table's rows: template id, display name, endpoint, opus model, sonnet/haiku (claude-multi/data.ts). */
+/** The template reference table's rows: template id, display name, endpoint, opus model, sonnet/haiku. */
 export const templates = [
 	["glm", "GLM Coding Plan", "api.z.ai", "glm-5.3[1m], glm-5.3-flash", "glm-5-turbo"],
 	["minimax", "MiniMax", "api.minimax.io", "MiniMax-M3", "MiniMax-M3"],
@@ -238,7 +238,7 @@ export const templates = [
 	["qwen-coding", "Alibaba Qwen Coding Plan", "coding-intl.dashscope.aliyuncs.com", "qwen3-coder-next", "qwen3-coder-flash"],
 ] as const;
 
-/** Pay per token vs. subscription: provider, pay-per-token template, subscription template (claude-multi/data.ts). */
+/** Pay per token vs. subscription: provider, pay-per-token template, subscription template. */
 export const payTemplates = [
 	["Xiaomi MiMo", "mimo", "mimo-token (regional URL)"],
 	["Alibaba Qwen", "qwen", "qwen-coding"],
@@ -248,7 +248,7 @@ export const payTemplates = [
 	["DeepSeek", "deepseek", "pay per token only"],
 ] as const;
 
-/** The notes under the pay-vs-subscription table (claude-multi/data.ts). */
+/** The notes under the pay-vs-subscription table. */
 export const providerNotes = [
 	["GLM", "The Anthropic-compatible endpoint (api.z.ai/api/anthropic) is exclusive to the Z.ai Coding Plan subscription. The metered API only exposes an OpenAI-compatible URL."],
 	["MiMo Token Plan", "Defaults to the CN regional endpoint. If your subscription is SG or EU, update ANTHROPIC_BASE_URL with the endpoint shown in your subscription console."],
@@ -256,7 +256,7 @@ export const providerNotes = [
 	["MiniMax", "Both plans use the same api.minimax.io endpoint; the API key type determines which quota is consumed. MiniMax-M3 has a 1M token context window and accepts text, image, and video inputs."],
 ] as const;
 
-/** claude-multi's terms of use, word for word (claude-multi/legal-text.ts). */
+/** claude-multi's terms of use, word for word. */
 export const terms: LegalDoc = {
 	title: "Terms of use",
 	updated: "2026-05-20",
@@ -325,7 +325,7 @@ export const activity = [
 	{ repo: "superai", what: "Made the repository public", when: "6 days ago" },
 ] as const;
 
-/** claude-multi's landing features (claude-multi/data.ts). */
+/** claude-multi's landing features. */
 export const features = [
 	["One alias per provider", "Templates for GLM, MiniMax, DeepSeek, MiMo, Kimi and Qwen. Each one you set up gets its own command in the terminal."],
 	["Isolated configs", "Every instance owns its settings.json, history and credentials. An Anthropic setup never touches a GLM setup."],
@@ -334,7 +334,7 @@ export const features = [
 	["Keys stay on disk", "API keys live in per-instance config files under ~/.claude-multi, never in global env vars. Nothing leaves the machine."],
 ] as const;
 
-/** claude-multi's about-page principles (claude-multi/data.ts). */
+/** claude-multi's about-page principles. */
 export const principles = [
 	["Zero magic", "Every instance is a real directory at ~/.claude-multi/<name>. Open it, edit it, or delete it. Nothing is hidden from you."],
 	["Native passthrough", "Each alias is a thin wrapper around the official claude binary. All flags, commands, and keybindings pass through unchanged."],
@@ -342,7 +342,7 @@ export const principles = [
 	["Reversible everything", "Migrations back up config files. Plugin operations rename to backup before deleting. Health checks help you recover broken state."],
 ] as const;
 
-/** How claude-multi works, one step per paragraph (claude-multi/data.ts). */
+/** How claude-multi works, one step per paragraph. */
 export const howItWorks = [
 	"claude-multi creates a directory at ~/.claude-multi/glm/ with its own settings.json, .claude.json, and history.",
 	"It merges the provider's env vars (base URL, model mappings) into that instance's settings and never touches your primary ~/.claude.",
@@ -350,7 +350,7 @@ export const howItWorks = [
 	"A wrapper script at ~/.bun/bin/claude-glm launches the official claude binary with CLAUDE_CONFIG_DIR pointed at the new instance.",
 ];
 
-/** claude-multi at a glance: version, releases, license, providers (claude-multi/data.ts). */
+/** claude-multi at a glance: version, releases, license, providers. */
 export const glance = [
 	["0.12.0", "Current version"],
 	["27", "Releases shipped"],
@@ -358,7 +358,7 @@ export const glance = [
 	["8+", "AI providers"],
 ] as const;
 
-/** gpui-query's by-hand vs. with-query comparison, one row per concern (gpui-query/data.ts). */
+/** gpui-query's by-hand vs. with-query comparison, one row per concern. */
 export const comparison = [
 	["Showing that data is loading", "A flag you set and clear by hand", "Built in"],
 	["Showing errors", "A field you fill by hand", "Built in, with typed errors"],
@@ -509,7 +509,7 @@ export const oxlabsFooterLinks = [
 	{ title: "Elsewhere", links: ["GitHub", "LinkedIn", "X"] },
 ];
 
-/** gpui-query's FAQ questions (gpui-query/data.ts). */
+/** gpui-query's FAQ questions. */
 export const gpuiFaq: FaqItem[] = [
 	["Getting started", "How is gpui-query different from TanStack Query?", "gpui-query adapts TanStack Query's patterns to Rust and the GPUI framework. It uses Rust's type system for compile-time guarantees, Arc<AtomicBool> for cooperative cancellation, and integrates directly with GPUI's render loop."],
 	["Getting started", "Can I use gpui-query outside of Zed?", "gpui-query is designed for the GPUI framework, which powers the Zed editor. While architecturally the Core layer is framework-agnostic, the Hook layer depends on GPUI's reactive primitives."],

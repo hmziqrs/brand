@@ -1,6 +1,6 @@
 # Structure plan
 
-**Part of the [master plan](./README.md). Work item 1.**
+**Part of the [master plan](./README.md). Work item 1. Done — and superseded in part: `apps/lab` was deleted on 2026-10-09 once the kits reached full parity (docs/README.md). The lab sections below are the historical record.**
 
 This plan reorganizes the repo into packages, and does two things. It pulls everything that isn't tied to a framework into `@hmziq/brand-core`, so the Svelte and Astro kits share one copy of it. And it moves the React code into `apps/lab`, where it stays as the design lab. The Svelte and Astro kits themselves are in [kits.md](./kits.md).
 

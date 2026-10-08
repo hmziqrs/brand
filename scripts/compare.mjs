@@ -1,11 +1,10 @@
-// kits.md: `pnpm compare <piece|group|all>` screenshots the lab story, the
-// Svelte story and the Astro gallery entry for a piece, in light and dark, at
-// 360px and 1280px, and lays them side by side in compare/ (git-ignored).
-// That report is what every "matches" check in the plans is read from.
+// kits.md: `pnpm compare <piece|group|all>` screenshots the Svelte story and
+// the Astro gallery entry for a piece, in light and dark, at 360px and
+// 1280px, and lays them side by side in compare/ (git-ignored). That report
+// is what every "matches" check in the plans is read from.
 //
 // `pnpm compare --pages <path>` does the same for a page in both
-// boilerplates. When a piece has no lab story (the app blocks), the Svelte
-// story is the reference.
+// boilerplates.
 //
 // The report is relayed from every shot in compare/, not just the current
 // run's, so a later run (a page pair, one piece) never drops the rows an
@@ -14,7 +13,7 @@
 //
 // Servers have to be running. The script starts from these URLs, overridable
 // with environment variables of the same names:
-//   LAB_URL (the lab Storybook, 6006)      SVELTE_URL (the kit Storybook, 6007)
+//   SVELTE_URL (the kit Storybook, 6007)
 //   ASTRO_URL (the /kit gallery, 4321)     SVELTE_APP_URL / ASTRO_APP_URL (the boilerplates)
 import { chromium } from "playwright";
 import { mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
@@ -25,7 +24,6 @@ const root = fileURLToPath(new URL("..", import.meta.url));
 const OUT = join(root, "compare");
 const roster = JSON.parse(readFileSync(join(root, "scripts/pieces.json"), "utf8")).pieces;
 
-const LAB = process.env.LAB_URL ?? "http://localhost:6006";
 const SVELTE = process.env.SVELTE_URL ?? "http://localhost:6007";
 const ASTRO = process.env.ASTRO_URL ?? "http://localhost:4321";
 const SVELTE_APP = process.env.SVELTE_APP_URL ?? "http://localhost:5173";
@@ -35,7 +33,7 @@ const [argument, ...pagePaths] = process.argv.slice(2);
 const reportOnly = argument === "--report";
 const themes = ["dark", "light"];
 const widths = [360, 1280];
-const viewLabels = ["lab", "svelte", "astro", "svelte-app", "astro-app"];
+const viewLabels = ["svelte", "astro", "svelte-app", "astro-app"];
 
 // Which gallery page each piece's anchor lives on, read from the gallery
 // pages themselves the same way check-parity reads them
@@ -61,7 +59,6 @@ function views(subject) {
     ];
   }
   return [
-    subject.lab && { label: "lab", url: `${LAB}/iframe.html?id=${subject.lab}&viewMode=story` },
     subject.svelte && { label: "svelte", url: `${SVELTE}/iframe.html?id=${subject.svelte}&viewMode=story` },
     subject.astro &&
       subject.astro !== "not yet" && {
@@ -154,7 +151,7 @@ for (const subject of subjects) display.set(slug(subject.name), subject.name);
 
 const onDisk = new Map();
 for (const file of readdirSync(OUT).sort()) {
-  const match = /^(.*)-(lab|svelte|astro|svelte-app|astro-app)-(dark|light)-(\d+)\.png$/.exec(file);
+  const match = /^(.*)-(svelte|astro|svelte-app|astro-app)-(dark|light)-(\d+)\.png$/.exec(file);
   if (!match) continue;
   const [, subject, label, theme, width] = match;
   if (!onDisk.has(subject)) onDisk.set(subject, new Map());

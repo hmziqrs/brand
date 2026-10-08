@@ -1,8 +1,6 @@
 /*
  * Follows the reader down the page: the id of the last heading that has
- * reached the top third of the screen. Framework-free; React wraps it in a
- * hook in the lab (src/hooks/use-scroll-spy.ts), Svelte and Astro call it
- * directly.
+ * reached the top third of the screen.
  */
 
 /** Watches the page scroll. Calls `onChange` with the id of the last heading that has reached the top third of the screen. Returns a function that stops watching. */

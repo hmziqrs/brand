@@ -1,6 +1,8 @@
 # Content blocks plan
 
-**Part of the [master plan](./README.md). Work item 5.** Starts after [kits.md](./kits.md) steps 1 and 2 (both kits exist).
+**Part of the [master plan](./README.md). Work item 5.**
+
+**Done 2026-10-09. Historical plan: the React lab (`apps/lab`) it ports from was deleted after the port finished. The kits and `boilerplates/` are the living reference.** Starts after [kits.md](./kits.md) steps 1 and 2 (both kits exist).
 
 The lab already has finished designs for every kind of content page: blog post, blog index, docs, changelog, FAQ, legal, about, contact, 404, and the interactive landing pieces. They were built as one-off pages. This plan turns them into reusable blocks in both kits, plus a shared Markdown setup that feeds them. Most of the sites are content sites (the blog, gpui-query's docs, claude-multi's blog, changelog, FAQ and legal pages), so this comes right after the foundation.
 

@@ -244,7 +244,7 @@
 		docs: {
 			description: {
 				story:
-					'Combine multiple bars into one chart. The lab Bars carry no stackId, so they render side by side; the kit reproduces that with hand-rolled SVG and a dashed-indicator tooltip like the lab.',
+					'Combine multiple bars into one chart. Bars without a stackId render side by side, drawn with hand-rolled SVG and a dashed-indicator tooltip.',
 			},
 		},
 	}}

@@ -1,11 +1,10 @@
 import { tv } from "tailwind-variants";
 
-/* The brand's button. Base, variants and sizes are the lab's shadcn Button
-   (apps/lab/src/components/ui/button.tsx), which is the reference. On top of
-   Starwind's own naming:
-   - `primary` is the lab's `default` variant and the default here, so a
-     bare <Button> is the orange one like in the lab.
-   - `error` is the lab's `destructive`, and `info` / `success` / `warning`
+/* The brand's button. Base, variants and sizes follow shadcn's Button, on
+   top of Starwind's own naming:
+   - `primary` is shadcn's `default` variant and the default here, so a
+     bare <Button> is the orange one.
+   - `error` is shadcn's `destructive`, and `info` / `success` / `warning`
      follow the same soft recipe: only orange is ever a solid fill behind
      text (BRAND.md section 4).
    - sizes are the brand's heights (h-8 small, h-9 default, h-10 large). */

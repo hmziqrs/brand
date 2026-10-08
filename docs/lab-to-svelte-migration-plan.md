@@ -1,5 +1,7 @@
 # Lab → Svelte migration plan
 
+**DONE. The port finished and `apps/lab` was deleted on 2026-10-09; everything below is the historical record of the migration. The Svelte kit (`packages/brand-svelte` + `boilerplates/svelte-app`) is the surviving reference.**
+
 Goal: the React lab (apps/lab) hands everything worth keeping to the Svelte kit (packages/brand-svelte + boilerplates). After this plan, React retires from use — no hmziq work happens in React.
 
 **Freeze policy: NOTHING in apps/lab gets deleted or modified — source, config and assets alike. Generated build output is exempt: apps/lab/storybook-static (327 git-ignored files, served at /lab) and apps/lab/dist (27 git-ignored files, rewritten by the root build's lab half — package.json:11 runs pnpm --filter lab build). Both exist only to be built and served; rebuilding them changes no source. The lab stays as the owner's manual-verification reference, served by the kit Storybook's /lab/ ref (apps/lab/storybook-static is served at /lab in dev by packages/brand-svelte/.storybook/main.ts:34-36; the Pages deploy copies the same build there).**

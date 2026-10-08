@@ -48,7 +48,7 @@
     },
     "piece": {
       "type": "object",
-      "required": ["name", "group", "lab", "svelte", "astro", "svelteFile", "svelteItem", "astroItem"],
+      "required": ["name", "group", "svelte", "astro", "svelteFile", "svelteItem", "astroItem"],
       "additionalProperties": false,
       "properties": {
         "name": {
@@ -59,14 +59,6 @@
         "group": {
           "description": "Which plan owns the piece.",
           "enum": ["brand", "site", "content", "app"]
-        },
-        "lab": {
-          "description": "The story id that shows the piece in the lab's Storybook, or null when it has no story of its own (internal helpers, parts always shown inside another piece).",
-          "anyOf": [
-            { "$ref": "#/$defs/storyId" },
-            { "type": "null" },
-            { "$ref": "#/$defs/notYet" }
-          ]
         },
         "svelte": {
           "description": "The story id that shows the piece in the Svelte kit's Storybook, or null when it has no story of its own.",

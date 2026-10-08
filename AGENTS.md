@@ -11,38 +11,31 @@ Before doing any work, read and follow both of these:
 
 When driving a browser, also read and follow `/Users/hmziq/.zcode/skills/agent-browser/SKILL.md`.
 
-## Freeze: apps/lab is read-only
+## The React lab is gone
 
-- NOTHING under `apps/lab/` gets deleted or modified — source, config and assets alike.
-- Exempt from the freeze (generated build output only): `apps/lab/storybook-static/` and `apps/lab/dist/`. Only builds may rewrite them.
-- The lab is the frozen manual-verification reference. The kit Storybook serves its build at `/lab`.
-
-## Migration work is additive Svelte
-
-- Migration work only adds files under `packages/brand-svelte/` (plus roster/scripts entries a plan names). It never edits or deletes lab files.
-- **Active directive: port 100% of the remaining React content to Svelte** — the five SaaS templates and their SaaS-only blocks, the site landing/page fullscreen stories, the remaining stock-ui stories, and the brand-guidelines content. This supersedes the "reference-only" rows in `docs/lab-to-svelte-migration-plan.md`; `apps/lab` stays untouched as the frozen reference until every row is ported.
-- Kit rules: `docs/kits.md` and `packages/brand-svelte/README.md`.
-- Port lab behavior 1:1, edge cases included: shared localStorage keys (`hmziq-lattice-tweaks`, `hmziq-ring-tweaks`, `hmziq-logo-tweaks`) so lab-saved settings carry over, paste clamping to the same ranges, merge-only paste semantics, `CSS.supports('color', …)` validation, browser-guarded canvas probes, `URL.createObjectURL` downloads, pause/seed controls.
+- The React design lab (`apps/lab/`) was deleted after the 100% Svelte port finished; its git history is the only record left. There is no React code to port from or compare against anymore.
+- The kits are the reference now. The Svelte kit's Storybook is the piece reference; `pnpm compare` diffs Svelte against the Astro kit and the two boilerplates.
 
 ## Kit conventions
 
 - Svelte 5 runes; stock ui comes from the shadcn-svelte CLI (Bits UI); lucide class on icons; `motion-reduce` on animations; the kit is never published (registry only).
 - `packages/brand-svelte/src/lib/ui/button/button.svelte` must keep both brand changes: `data-variant` present, no `translate-y-px`. The CLI can revert them — re-verify after any CLI add.
 - Every Svelte story file must belong to a roster entry in `scripts/pieces.json` (`scripts/check-parity.mjs` fails on any story outside the roster). Read `scripts/pieces.schema.json` before editing the roster.
+- Kit rules: `docs/kits.md` and `packages/brand-svelte/README.md`. The port behavior contract (shared localStorage keys `hmziq-lattice-tweaks` / `hmziq-ring-tweaks` / `hmziq-logo-tweaks`, paste clamping, merge-only paste semantics, `CSS.supports('color', …)` validation, browser-guarded canvas probes, `URL.createObjectURL` downloads, pause/seed controls) is 1:1 with what the old lab shipped — keep it that way.
 
 ## Verification
 
 - Gates live in the root `package.json`; `pnpm check` chains them. Never invent a gate; never pass `--fix`/`--write` to a gate.
-- `pnpm compare` needs all five servers up: lab Storybook 6006, kit Storybook 6007, astro gallery 4321, svelte-app 5173, astro-app 4322.
+- `pnpm compare` needs all four servers up: kit Storybook 6007, astro gallery 4321, svelte-app 5173, astro-app 4322.
 
-## Port fidelity rules (learned from the brand-docs drift)
+## Presentation parity rules (learned from the brand-docs drift)
 
-- **1:1 includes presentation.** Content parity (same words) and presentation parity (same computed styles against the rendered lab page) are separate acceptance criteria; both are required, checked in the same round as the port.
-- **When porting a surface rendered by a system the kit lacks** (e.g. Storybook addon-docs), extract that system's styling wholesale first — measured from the rendered lab page or read from its stylesheets — before writing any markup. Never rebuild a look property-by-property from complaints.
-- **Rebuilt surfaces have no twin to diff against** — they are the highest drift risk. Any page whose shell/layout an agent designs (rather than copies) needs measured extraction from the rendered lab reference or explicit owner sign-off on the design.
-- **Vision/audit runs must diff kit-vs-lab rendered twins**, not just confirm "renders without errors." Unstyled-but-loading is a failure.
+- **1:1 includes presentation.** Content parity (same words) and presentation parity (same computed styles against the rendered reference) are separate acceptance criteria; both are required, checked in the same round as the change.
+- **When rebuilding a surface rendered by a system the kit lacks** (e.g. Storybook addon-docs), extract that system's styling wholesale first — measured from the rendered reference or read from its stylesheets — before writing any markup. Never rebuild a look property-by-property from complaints.
+- **Rebuilt surfaces have no twin to diff against** — they are the highest drift risk. Any page whose shell/layout an agent designs (rather than copies) needs measured extraction from the rendered reference or explicit owner sign-off on the design.
+- **Vision/audit runs must diff rendered twins kit-vs-kit**, not just confirm "renders without errors." Unstyled-but-loading is a failure.
 
 ## Git discipline
 
 - Explicit paths only in `git add`/`git commit`; never `git add -A`; never `--no-verify`; never push. One logical unit per commit, size-budgeted; match `git log` style.
-- Working branch: `docs-implementation`.
+- Working branch: `master` (the repo commits directly to it; `docs-implementation` no longer exists).

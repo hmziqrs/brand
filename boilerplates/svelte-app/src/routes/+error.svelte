@@ -1,7 +1,7 @@
 <script lang="ts">
-	// The 404, with the lab's not-found design: the words, and rings drawn from
-	// "not found" beside them (apps/lab/src/sites/claude-multi/not-found). The
-	// same block covers a page that failed to draw, with its status and words.
+	// The 404: the not-found words, and rings drawn from "not found" beside
+	// them. The same block covers a page that failed to draw, with its status
+	// and words.
 	import { page } from '$app/state';
 	import SiteHead from '$brand/blocks/site/site-head.svelte';
 	import NotFound from '$brand/blocks/content/not-found.svelte';

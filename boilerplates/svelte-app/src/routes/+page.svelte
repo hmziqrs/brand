@@ -1,7 +1,6 @@
 <script lang="ts">
-	// The landing page, built from the kit's site blocks the way the lab's site
-	// pages are (apps/lab/src/sites). Every word here is example copy: replace
-	// it with the project's own before shipping.
+	// The landing page, built from the kit's site blocks. Every word here is
+	// example copy: replace it with the project's own before shipping.
 	import { siGithub } from 'simple-icons';
 	import BookOpenText from '@lucide/svelte/icons/book-open-text';
 	import FolderTree from '@lucide/svelte/icons/folder-tree';

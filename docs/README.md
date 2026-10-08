@@ -1,6 +1,6 @@
 # hmziq brand: master plan
 
-**Status: implemented on the `docs-implementation` branch. Updated 2026-10-02.**
+**Status: implemented. Updated 2026-10-09: with every plan done and both kits at full parity, the React design lab (`apps/lab`) was deleted — mentions of it below are historical.**
 
 One brand kit that installs into every hmziq site and app, built for **SvelteKit and Astro**. This page is the index: what ships, the plans, the order of work and the open decisions. Each plan holds the detail.
 
@@ -31,9 +31,9 @@ Every consumer lives in its own repo. So the brand has to install from outside t
 | `svelte-app`, `astro-app` | Starters with the theme, the kit, a landing page, content pages and the app demo | `pnpm new-project` |
 | Generated assets | Logos, icons, social images, later video | Files per site |
 
-Each kit is built on the library its sites already use: shadcn-svelte for SvelteKit, Starwind UI for Astro. Both are ported from the lab and share `brand-core`; neither depends on the other.
+Each kit is built on the library its sites already use: shadcn-svelte for SvelteKit, Starwind UI for Astro. Both share `brand-core`; neither depends on the other.
 
-**React is not shipped.** The React code in this repo becomes `apps/lab`: the design lab where the brand was worked out (site pages, content pages, SaaS templates, tweakers, Storybook). It stays as the picture both kits have to match.
+**React is not shipped.** The brand was worked out in a React design lab (`apps/lab`, deleted once both kits matched it piece for piece); the kits were ported from it and the git history keeps it.
 
 ## The plans
 
@@ -110,7 +110,7 @@ Asset decisions are in [assets.md](./assets.md). All others:
 | Forms in `svelte-app` | Plain SvelteKit form actions with `use:enhance` and zod | Work item 6 |
 | First sites to move onto the kits | One Astro site and one SvelteKit site, chosen after work item 4 | Migrations |
 | Where hmziq.rs moves | SvelteKit or Astro | Migrating that site |
-| The lab once both kits cover everything | Keep it frozen as the design record, or port its tweakers to Svelte and delete React | Work item 9 |
+| The lab once both kits cover everything | Decided 2026-10-09: delete React once the kits cover everything | — |
 | Deploying sites from this repo | No. Only the Storybooks, the registries and the reference documents deploy from here | — |
 
 ## Status

@@ -1,7 +1,7 @@
 <script lang="ts">
 	// The package's own demo route: one screen that says what this is. The
-	// pieces live in Storybook (`pnpm storybook`); the finished site pages live
-	// in apps/lab, and svelte-app is the starter that uses this kit.
+	// pieces live in Storybook (`pnpm storybook`); svelte-app is the starter
+	// that uses this kit.
 	import "../app.css";
 	import Marker from "$brand/components/marker.svelte";
 	import Rings from "$brand/components/rings.svelte";
@@ -16,7 +16,7 @@
 		<span class="text-[0.78em] text-muted-foreground">by hmziq</span>
 	</h1>
 	<p class="max-w-prose text-lg leading-relaxed text-muted-foreground">
-		The Svelte kit for hmziq sites: the brand pieces and the site blocks, on shadcn-svelte. Ported from the React lab, which stays the picture it has to match.
+		The Svelte kit for hmziq sites: the brand pieces and the site blocks, on shadcn-svelte.
 	</p>
 	<ul class="flex flex-col gap-2.5 text-[0.9375rem]">
 		<li class="grid grid-cols-[0.5rem_minmax(0,1fr)] items-baseline gap-3">
@@ -25,7 +25,7 @@
 		</li>
 		<li class="grid grid-cols-[0.5rem_minmax(0,1fr)] items-baseline gap-3">
 			<Marker class="-translate-y-[0.1em] text-primary" />
-			<span><code class="font-mono">pnpm compare &lt;piece&gt;</code> — the piece next to its lab story, in light and dark.</span>
+			<span><code class="font-mono">pnpm compare &lt;piece&gt;</code> — the piece next to its Astro twin, in light and dark.</span>
 		</li>
 		<li class="grid grid-cols-[0.5rem_minmax(0,1fr)] items-baseline gap-3">
 			<Marker class="-translate-y-[0.1em] text-primary" />
