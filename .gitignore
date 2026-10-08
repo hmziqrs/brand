@@ -38,3 +38,8 @@ debug-storybook.log
 
 # zflow chain evidence (workflow-only, never committed)
 .zflow/
+
+# Agent/tool artifacts
+.mimosa/
+.v2c/
+.video_agent/
