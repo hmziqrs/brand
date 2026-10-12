@@ -2214,6 +2214,15 @@
       "svelteFile": "templates/shader-sections.stories.svelte",
       "svelteItem": "not yet",
       "astroItem": "not yet"
+    },
+    {
+      "name": "OxideSaasPages",
+      "group": "site",
+      "svelte": "templates-oxide-saas-pages--analytics",
+      "astro": "not yet",
+      "svelteFile": "templates/oxide-saas.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
     }
   ]
 }

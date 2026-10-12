@@ -158,6 +158,12 @@ Storybook includes `Custom/Shaders`, `Tweakers/Shader studio`,
 copyable implementation recipes). The Svelte starter's `/shaders` route
 opens the guide; separate product, editorial, and showcase variants remain.
 
+`Templates/Oxide SaaS pages` copies the complete Sightline, Groundwork, and
+Hookline examples with oxide-only materials. The originals stay unchanged.
+Static stories create no GPU devices; animated variants use one live field.
+The starter exposes `/shaders/saas/analytics`, `/shaders/saas/team-planning`,
+and `/shaders/saas/developer-api`. Enable motion explicitly with `?motion=on`.
+
 Framework-free recipes and uniforms live in `@hmziq/brand-core/shaders/catalog`.
 `/shaders/posters` is the Vite asset URL module used by both kits; it serves
 separate 480/960px WebPs. `/shaders/renderer` loads only for a live preview;

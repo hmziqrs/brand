@@ -1444,8 +1444,6 @@
 			"title": "kit",
 			"description": "The kit barrel and stylesheet. Depends on every other item, so installing it installs the whole kit.",
 			"dependencies": [
-				"@hmziq/brand-core@0.0.0",
-				"@lucide/svelte@^1.52.0",
 				"shadcn-svelte@^1.7.0"
 			],
 			"registryDependencies": [
@@ -1680,31 +1678,6 @@
 					"path": "src/lib/styles/kit.css",
 					"type": "registry:file",
 					"target": "styles/kit.css"
-				},
-				{
-					"path": "src/lib/templates/shader-guide.svelte",
-					"type": "registry:file",
-					"target": "templates/shader-guide.svelte"
-				},
-				{
-					"path": "src/lib/templates/shader-pages.svelte",
-					"type": "registry:file",
-					"target": "templates/shader-pages.svelte"
-				},
-				{
-					"path": "src/lib/templates/shader-sections.svelte",
-					"type": "registry:file",
-					"target": "templates/shader-sections.svelte"
-				},
-				{
-					"path": "src/lib/tweakers/shader-studio.svelte",
-					"type": "registry:file",
-					"target": "tweakers/shader-studio.svelte"
-				},
-				{
-					"path": "src/lib/tweakers/tweaker-parts.svelte",
-					"type": "registry:file",
-					"target": "tweakers/tweaker-parts.svelte"
 				}
 			]
 		},
@@ -3380,6 +3353,7 @@
 				"local:marker",
 				"local:notice",
 				"local:outline-card",
+				"local:page-intro",
 				"local:price",
 				"local:pricing-plans",
 				"local:question",
@@ -3390,7 +3364,9 @@
 				"local:saas-blocks",
 				"local:section",
 				"local:segmented",
+				"local:shader-material",
 				"local:site-blocks-shared",
+				"local:site-shell",
 				"local:step",
 				"local:stepper",
 				"local:tag",
@@ -3451,6 +3427,31 @@
 					"target": "templates/openslot.svelte"
 				},
 				{
+					"path": "src/lib/templates/oxide-groundwork-board.svelte",
+					"type": "registry:file",
+					"target": "templates/oxide-groundwork-board.svelte"
+				},
+				{
+					"path": "src/lib/templates/oxide-groundwork.svelte",
+					"type": "registry:file",
+					"target": "templates/oxide-groundwork.svelte"
+				},
+				{
+					"path": "src/lib/templates/oxide-hookline.svelte",
+					"type": "registry:file",
+					"target": "templates/oxide-hookline.svelte"
+				},
+				{
+					"path": "src/lib/templates/oxide-saas-pages.svelte",
+					"type": "registry:file",
+					"target": "templates/oxide-saas-pages.svelte"
+				},
+				{
+					"path": "src/lib/templates/oxide-sightline.svelte",
+					"type": "registry:file",
+					"target": "templates/oxide-sightline.svelte"
+				},
+				{
 					"path": "src/lib/templates/parley-channels.svelte",
 					"type": "registry:file",
 					"target": "templates/parley-channels.svelte"
@@ -3464,6 +3465,21 @@
 					"path": "src/lib/templates/parley.svelte",
 					"type": "registry:file",
 					"target": "templates/parley.svelte"
+				},
+				{
+					"path": "src/lib/templates/shader-guide.svelte",
+					"type": "registry:file",
+					"target": "templates/shader-guide.svelte"
+				},
+				{
+					"path": "src/lib/templates/shader-pages.svelte",
+					"type": "registry:file",
+					"target": "templates/shader-pages.svelte"
+				},
+				{
+					"path": "src/lib/templates/shader-sections.svelte",
+					"type": "registry:file",
+					"target": "templates/shader-sections.svelte"
 				},
 				{
 					"path": "src/lib/templates/sightline-dashboard.svelte",
@@ -3587,16 +3603,21 @@
 			"registryDependencies": [
 				"local:brand-icon",
 				"local:button-link",
+				"local:code-block",
 				"local:hero",
 				"local:hero-note",
-				"local:kit",
 				"local:mark",
 				"local:rings",
 				"local:scene",
 				"local:segmented",
+				"local:shader-material",
 				"local:ui-button",
 				"local:ui-input",
 				"local:ui-label",
+				"local:ui-select",
+				"local:ui-slider",
+				"local:ui-switch",
+				"local:ui-textarea",
 				"local:utils",
 				"local:wordmark"
 			],
@@ -3620,6 +3641,16 @@
 					"path": "src/lib/tweakers/saved.ts",
 					"type": "registry:file",
 					"target": "tweakers/saved.ts"
+				},
+				{
+					"path": "src/lib/tweakers/shader-studio.svelte",
+					"type": "registry:file",
+					"target": "tweakers/shader-studio.svelte"
+				},
+				{
+					"path": "src/lib/tweakers/tweaker-parts.svelte",
+					"type": "registry:file",
+					"target": "tweakers/tweaker-parts.svelte"
 				}
 			]
 		},
