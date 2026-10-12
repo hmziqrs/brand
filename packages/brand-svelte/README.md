@@ -115,6 +115,61 @@ dependencies, and both Vite configs keep them in `ssr.noExternal` next to
   registries in step; `pnpm compare <piece>` screenshots a piece next to its
   lab story in light and dark, at 360px and 1280px.
 
+## Shaders
+
+For fixed page decoration, use `rendering="image"`. It renders a responsive,
+cacheable poster with no canvas, shader compilation, or WebGPU device.
+`rendering="live"` renders the current recipe; `animated` enables playback
+with a pause button. The default remains live for compatibility with studio
+previews. Both paths need a height or aspect ratio.
+
+```svelte
+<script lang="ts">
+  import ShaderMaterial from "$brand/components/shader-material.svelte";
+</script>
+
+<ShaderMaterial rendering="image" preset="oxide-bloom" class="aspect-[8/5] w-full" />
+<ShaderMaterial rendering="live" preset="liquid-ink" animated class="aspect-[8/5] w-full" />
+```
+
+Live previews initialize near the viewport, then pause offscreen, in hidden
+tabs, and for reduced motion. `loading="eager"` initializes immediately.
+For an important hero image, use `loading="eager" fetchpriority="high"`; leave
+below-the-fold images lazy and provide `sizes` for their actual slot width.
+
+Pass `recipe={document.recipe}` for a studio export. `time` selects a still
+frame; `output` selects surface (0), height (1), normal (2), or pigment (3).
+Use a matching exported `poster` for custom seeds/palettes: the default
+factory image cannot reproduce edits. `posterSrcset` supports responsive
+custom posters. Images remain usable without WebGPU or JavaScript.
+
+`transparent`, `opacity`, and `blend` control CSS compositing of the visual
+layer. Text and pause controls stay opaque. These options do not add alpha to
+the shader or PNG export: the supplied materials are opaque. Keep animation
+controls visible; `controls={false}` suits decorative stills.
+
+Svelte exposes `onstatus`, `ontime`, and `bind:exportPng`. The Astro adapter
+emits bubbling `shader:status` / `shader:time` events and exposes `exportPng`
+on the mounted root element while its live renderer is ready.
+
+Storybook includes `Custom/Shaders`, `Tweakers/Shader studio`,
+`Templates/Shader sections` (six section treatments), and
+`Templates/Shader pages/Usage guide` (image/live comparisons, tradeoffs, and
+copyable implementation recipes). The Svelte starter's `/shaders` route
+opens the guide; separate product, editorial, and showcase variants remain.
+
+Framework-free recipes and uniforms live in `@hmziq/brand-core/shaders/catalog`.
+`/shaders/posters` is the Vite asset URL module used by both kits; it serves
+separate 480/960px WebPs. `/shaders/renderer` loads only for a live preview;
+`/shaders/source` provides WGSL. A raw PNG example is also included.
+The legacy `/shaders` export retains embedded previews for compatibility;
+kit components and the studio use cacheable poster assets instead.
+
+Source recipes and WGSL came from `hmziq-shader-pack/`. Core tests compare
+all recipes, uniforms, shader tokens, source image hashes, and generated poster
+hashes. After changing source textures, run `node scripts/generate-shader-posters.mjs`
+from the repository root, then run `pnpm check` and inspect rendered twins.
+
 ## Registry
 
 `registry.json` is generated, never hand-edited: `pnpm registry:generate`

@@ -26,6 +26,7 @@ import Question from "$brand/components/question.astro";
 import RingGauge from "$brand/components/ring-gauge.astro";
 import Rings from "$brand/components/rings.astro";
 import Scene from "$brand/components/scene.astro";
+import ShaderMaterial from "$brand/components/shader-material.astro";
 import Segmented from "$brand/components/segmented.astro";
 import Step from "$brand/components/step.astro";
 import StepNumber from "$brand/components/step-number.astro";
@@ -126,6 +127,11 @@ import ThemeToggle from "../../components/theme-toggle.astro";
         <Scene kind="network" seed="freeoxide" still />
       </div>
       <p class="text-[0.8125rem] text-muted-foreground">Still here; a moving scene carries its own pause button.</p>
+    </section>
+
+    <section id="piece-shader-material" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">ShaderMaterial</h2>
+      <ShaderMaterial preset="oxide-bloom" rendering={Astro.url.searchParams.get("shader-rendering") === "image" ? "image" : "live"} class="aspect-[8/5] w-full max-w-3xl" />
     </section>
 
     <section id="piece-brand-icon" class="flex flex-col gap-4 border-t pt-8">

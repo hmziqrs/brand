@@ -1,0 +1,316 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { Pause, Play } from "@lucide/astro";
+import { shaderLooks, type ShaderRecipe } from "@hmziq/brand-core/shaders/catalog";
+import { shaderPosters } from "@hmziq/brand-core/shaders/posters";
+import { cn } from "$brand/utils";
+import { Button } from "$brand/starwind/button";
+
+interface Props extends Omit<HTMLAttributes<"div">, "children"> {
+  preset?: string;
+  recipe?: ShaderRecipe;
+  animated?: boolean;
+  time?: number;
+  output?: 0 | 1 | 2 | 3;
+  quality?: number;
+  compare?: number;
+  controls?: boolean;
+  class?: string;
+  rendering?: "image" | "live";
+  poster?: string;
+  posterSrcset?: string;
+  sizes?: string;
+  loading?: "eager" | "lazy";
+  fetchpriority?: "high" | "low" | "auto";
+  opacity?: number;
+  transparent?: boolean;
+  blend?: "normal" | "multiply" | "screen";
+}
+
+const {
+  preset = "oxide-bloom",
+  recipe,
+  animated = false,
+  time,
+  output = 0,
+  quality = 0.75,
+  compare = -1,
+  controls = true,
+  rendering = "live",
+  poster,
+  posterSrcset,
+  sizes = "100vw",
+  loading = "lazy",
+  fetchpriority = "auto",
+  opacity = 1,
+  transparent = false,
+  blend = "normal",
+  class: className,
+  ...rest
+} = Astro.props;
+const selected = shaderLooks.find((look) => look.id === (recipe?.id ?? preset)) ?? shaderLooks[0];
+const posterInfo = shaderPosters[selected.id] ?? shaderPosters["oxide-bloom"];
+const visualOpacity = Number.isFinite(opacity) ? Math.max(0, Math.min(1, opacity)) : 1;
+---
+
+<div
+  data-slot="shader-material"
+  data-rendering={rendering}
+  data-status={rendering === "image" ? "image" : "loading"}
+  data-preset={preset}
+  data-poster-preset={selected.id}
+  data-recipe={recipe ? JSON.stringify(recipe) : undefined}
+  data-time={time}
+  data-animated={animated ? "true" : "false"}
+  data-quality={quality}
+  data-output={output}
+  data-compare={compare}
+  data-controls={controls ? "true" : "false"}
+  data-loading={loading}
+  data-image-status={rendering === "image" ? "ready" : undefined}
+  data-poster-custom={poster ? "true" : "false"}
+  data-poster-state="source"
+  class={cn("relative overflow-hidden antialiased", blend === "normal" && "isolate", transparent || blend !== "normal" ? "bg-transparent" : "bg-muted", className)}
+  {...rest}
+>
+  <img
+    data-shader-poster
+    src={poster ?? posterInfo.src}
+    srcset={poster ? posterSrcset : posterInfo.srcset}
+    sizes={sizes}
+    loading={loading}
+    fetchpriority={fetchpriority}
+    width={posterInfo.width}
+    height={posterInfo.height}
+    decoding="async"
+    alt=""
+    aria-hidden="true"
+    class="absolute inset-0 h-full w-full object-cover"
+    style={`opacity:${visualOpacity};mix-blend-mode:${blend}`}
+  />
+  {
+    rendering === "live" && (
+      <canvas
+        data-shader-canvas
+        aria-hidden="true"
+        class="absolute inset-0 h-full w-full"
+        style={`opacity:${visualOpacity};mix-blend-mode:${blend};visibility:hidden`}
+      />
+    )
+  }
+  {
+    controls && rendering === "live" && animated && (
+      <Button
+        data-shader-pause
+        hidden
+        variant="secondary"
+        size="sm"
+        class="absolute right-3 bottom-3 bg-background text-foreground"
+        aria-label="Pause shader animation"
+        aria-pressed="false"
+      >
+        <Pause class="lucide" />
+        <Play class="lucide hidden" />
+        <span data-shader-label>Pause</span>
+      </Button>
+    )
+  }
+  {controls && rendering === "live" && <span data-shader-static hidden class="absolute right-3 bottom-3 rounded-sm border bg-background px-2 py-1 text-xs text-muted-foreground">Static preset preview</span>}
+</div>
+
+<script>
+  import { normalizeShaderRecipe, shaderLooks } from "@hmziq/brand-core/shaders/catalog";
+  import { shaderPosters } from "@hmziq/brand-core/shaders/posters";
+  import type { ShaderHandle, ShaderRenderOptions } from "@hmziq/brand-core/shaders/renderer";
+
+  type ShaderRoot = HTMLElement & { exportPng?: (width: number) => Promise<Blob> };
+  type ShaderState = {
+    controller: AbortController;
+    handle?: ShaderHandle;
+    media?: MediaQueryList;
+    motionChanged?: () => void;
+    observer?: IntersectionObserver;
+    options?: ShaderRenderOptions;
+    paused: boolean;
+  };
+  const states = new WeakMap<ShaderRoot, ShaderState>();
+  const started = new WeakSet<ShaderRoot>();
+
+  function status(root: ShaderRoot, next: "loading" | "ready" | "fallback", message: string) {
+    root.dataset.status = root.dataset.rendering === "image" && next === "ready" ? "image" : next;
+    root.dataset.imageStatus = next;
+    root.dataset.imageMessage = message;
+    root.dispatchEvent(new CustomEvent("shader:status", { bubbles: true, detail: { status: next, message } }));
+    const canvas = root.querySelector<HTMLCanvasElement>("[data-shader-canvas]");
+    const image = root.querySelector<HTMLImageElement>("[data-shader-poster]");
+    const button = root.querySelector<HTMLButtonElement>("[data-shader-pause]");
+    const badge = root.querySelector<HTMLElement>("[data-shader-static]");
+    const state = states.get(root);
+    if (canvas) canvas.style.visibility = next === "ready" ? "visible" : "hidden";
+    if (image) image.hidden = next === "ready" && root.dataset.rendering === "live";
+    if (button) button.hidden = next !== "ready" || root.dataset.animated !== "true" || state?.media?.matches === true;
+    if (badge) {
+      badge.hidden = next !== "fallback";
+      badge.title = message;
+    }
+  }
+
+  function updatePauseButton(root: ShaderRoot, paused: boolean) {
+    const button = root.querySelector<HTMLButtonElement>("[data-shader-pause]");
+    if (!button) return;
+    button.setAttribute("aria-label", paused ? "Play shader animation" : "Pause shader animation");
+    button.setAttribute("aria-pressed", String(paused));
+    const pauseIcon = button.querySelector<SVGElement>("svg:first-of-type");
+    const playIcon = button.querySelector<SVGElement>("svg:last-of-type");
+    const label = button.querySelector<HTMLElement>("[data-shader-label]");
+    pauseIcon?.classList.toggle("hidden", paused);
+    playIcon?.classList.toggle("hidden", !paused);
+    if (label) label.textContent = paused ? "Play" : "Pause";
+  }
+
+  function dispose(root: ShaderRoot) {
+    const state = states.get(root);
+    if (!state) return;
+    state.controller.abort();
+    state.observer?.disconnect();
+    state.handle?.dispose();
+    if (state.motionChanged) state.media?.removeEventListener("change", state.motionChanged);
+    root.exportPng = undefined;
+    delete root.dataset.shaderStarted;
+    states.delete(root);
+    started.delete(root);
+  }
+
+  function init(root: ShaderRoot) {
+    if (root.dataset.rendering === "image") {
+      if (!started.has(root)) {
+        started.add(root);
+        status(root, "ready", "Static image. No shader device or animation loop.");
+      }
+      return;
+    }
+    if (started.has(root)) return;
+    started.add(root);
+    const canvas = root.querySelector<HTMLCanvasElement>("[data-shader-canvas]");
+    if (!canvas) return;
+    const controller = new AbortController();
+    const media = matchMedia("(prefers-reduced-motion: reduce)");
+    const state: ShaderState = { controller, media, paused: false };
+    states.set(root, state);
+    const motionChanged = () => {
+      const current = states.get(root);
+      if (current?.handle && current.options) {
+        current.handle.update({ ...current.options, animated: current.options.animated && !current.paused });
+      }
+      status(root, root.dataset.imageStatus === "fallback" ? "fallback" : root.dataset.imageStatus === "ready" ? "ready" : "loading", root.dataset.imageMessage ?? "");
+    };
+    state.motionChanged = motionChanged;
+    media.addEventListener("change", motionChanged);
+    status(root, "loading", "Waiting for the shader preview to enter view.");
+
+    function start() {
+      if (controller.signal.aborted || state.handle || root.dataset.shaderStarted === "true" || !canvas) return;
+      const target = canvas;
+      root.dataset.shaderStarted = "true";
+      state.observer?.disconnect();
+      status(root, "loading", "Starting WebGPU.");
+      const preset = shaderLooks.find((look) => look.id === root.dataset.preset) ?? shaderLooks[0];
+      let recipe;
+      try {
+        recipe = normalizeShaderRecipe(root.dataset.recipe ? JSON.parse(root.dataset.recipe) : preset);
+        if (root.dataset.time !== undefined) recipe.time = Number(root.dataset.time);
+      } catch (error) {
+        status(root, "fallback", error instanceof Error ? error.message : "Invalid shader recipe.");
+        root.exportPng = undefined;
+        return;
+      }
+      const options: ShaderRenderOptions = {
+        recipe,
+        animated: root.dataset.animated === "true" && !state.paused,
+        quality: Number(root.dataset.quality ?? 0.75),
+        output: Number(root.dataset.output ?? 0),
+        compare: Number(root.dataset.compare ?? -1),
+      };
+      state.options = options;
+      import("@hmziq/brand-core/shaders/renderer")
+        .then(async ({ mountShader }) => {
+          if (controller.signal.aborted || !root.isConnected) return;
+          const handle = await mountShader(target, options, controller.signal, (detail) => {
+            if (!controller.signal.aborted) {
+              root.exportPng = undefined;
+              root.dataset.imageStatus = "fallback";
+              root.dataset.imageMessage = detail;
+              status(root, "fallback", detail);
+            }
+          }, (time) => {
+            root.dispatchEvent(new CustomEvent("shader:time", { bubbles: true, detail: { time } }));
+          });
+          if (controller.signal.aborted || !root.isConnected) {
+            handle.dispose();
+            return;
+          }
+          state.handle = handle;
+          handle.update(options);
+          root.exportPng = (width) => handle.png(width);
+          status(root, "ready", "WebGPU ready.");
+          updatePauseButton(root, false);
+        })
+        .catch((error) => {
+          if (!controller.signal.aborted) {
+            root.exportPng = undefined;
+            const detail = error instanceof Error ? error.message : "GPU unavailable. Showing the preset snapshot.";
+            root.dataset.imageStatus = "fallback";
+            root.dataset.imageMessage = detail;
+            status(root, "fallback", detail);
+          }
+        });
+    }
+
+    if (root.dataset.loading === "eager") start();
+    else {
+      state.observer = new IntersectionObserver((entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) start();
+      }, { rootMargin: "200px" });
+      state.observer.observe(root);
+    }
+  }
+
+  function initAll() {
+    for (const root of document.querySelectorAll<ShaderRoot>("[data-slot='shader-material']")) init(root);
+  }
+
+  function posterError(event: Event) {
+    const image = event.target;
+    if (!(image instanceof HTMLImageElement) || !image.matches("[data-shader-poster]")) return;
+    const root = image.closest<ShaderRoot>("[data-slot='shader-material']");
+    if (!root || root.dataset.posterState === "failed") return;
+    const preset = shaderLooks.find((look) => look.id === root.dataset.posterPreset) ?? shaderLooks[0];
+    const fallback = shaderPosters[preset.id] ?? shaderPosters["oxide-bloom"];
+    if (root.dataset.posterCustom === "true" && root.dataset.posterState === "source") {
+      root.dataset.posterState = "fallback";
+      image.srcset = fallback.srcset;
+      image.src = fallback.src;
+      return;
+    }
+    root.dataset.posterState = "failed";
+    root.dataset.imageStatus = "fallback";
+    root.dataset.imageMessage = "The preset image could not be loaded. The page content is still available.";
+    status(root, "fallback", root.dataset.imageMessage);
+  }
+
+  initAll();
+  document.addEventListener("astro:page-load", initAll);
+  document.addEventListener("astro:before-swap", () => {
+    for (const root of document.querySelectorAll<ShaderRoot>("[data-slot='shader-material']")) dispose(root);
+  });
+  document.addEventListener("error", posterError, true);
+  document.addEventListener("click", (event) => {
+    const button = (event.target as HTMLElement | null)?.closest<HTMLButtonElement>("[data-shader-pause]");
+    const root = button?.closest<ShaderRoot>("[data-slot='shader-material']");
+    const state = root ? states.get(root) : undefined;
+    if (!button || !root || !state?.handle || !state.options) return;
+    state.paused = !state.paused;
+    state.handle.update({ ...state.options, animated: state.options.animated && !state.paused });
+    updatePauseButton(root, state.paused);
+  });
+</script>

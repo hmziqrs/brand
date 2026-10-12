@@ -147,3 +147,9 @@ export { default as UsageMeter } from "./blocks/app/metrics/usage-meter.svelte";
 export { default as UserMenu } from "./blocks/app/account/user-menu.svelte";
 export { default as VerifyEmail } from "./blocks/app/auth/verify-email.svelte";
 export { default as WorkspaceSwitcher } from "./blocks/app/account/workspace-switcher.svelte";
+
+export { default as ShaderMaterial } from "./components/shader-material.svelte";
+export { default as ShaderStudio } from "./tweakers/shader-studio.svelte";
+export { default as ShaderPages } from "./templates/shader-pages.svelte";
+export { default as ShaderGuide } from "./templates/shader-guide.svelte";
+export { default as ShaderSections } from "./templates/shader-sections.svelte";

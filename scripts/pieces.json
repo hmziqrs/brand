@@ -2178,6 +2178,42 @@
       "svelteFile": "ui/command/command.stories.svelte",
       "svelteItem": "not yet",
       "astroItem": "not yet"
+    },
+    {
+      "name": "ShaderMaterial",
+      "group": "brand",
+      "svelte": "custom-shaders--static-oxide",
+      "astro": "shader-material",
+      "svelteFile": "components/shader-material.svelte",
+      "svelteItem": "shader-material",
+      "astroItem": "shader-material"
+    },
+    {
+      "name": "ShaderStudio",
+      "group": "brand",
+      "svelte": "tweakers-shader-studio--page",
+      "astro": "not yet",
+      "svelteFile": "tweakers/shader-studio.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "ShaderPages",
+      "group": "site",
+      "svelte": "templates-shader-pages--product",
+      "astro": "not yet",
+      "svelteFile": "templates/shader-pages.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "ShaderSections",
+      "group": "site",
+      "svelte": "templates-shader-sections--complete-catalog",
+      "astro": "not yet",
+      "svelteFile": "templates/shader-sections.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
     }
   ]
 }

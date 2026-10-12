@@ -1299,6 +1299,7 @@
 				"@hmziq/select-all-checkbox",
 				"@hmziq/setting-row",
 				"@hmziq/settings-section",
+				"@hmziq/shader-material",
 				"@hmziq/share-bar",
 				"@hmziq/shell-app-blocks-shared",
 				"@hmziq/sign-in-form",
@@ -2260,6 +2261,27 @@
 				{
 					"path": "src/blocks/app/settings/settings-section.astro",
 					"target": "src/components/brand/blocks/app/settings/settings-section.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "shader-material",
+			"type": "registry:file",
+			"title": "shader-material",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0",
+				"@lucide/astro@^1.48.0"
+			],
+			"registryDependencies": [
+				"@hmziq/starwind-button",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/components/shader-material.astro",
+					"target": "src/components/brand/components/shader-material.astro",
 					"type": "registry:file"
 				}
 			]
