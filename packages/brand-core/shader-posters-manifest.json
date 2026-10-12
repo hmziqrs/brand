@@ -1,0 +1,476 @@
+{
+  "outputs": [
+    {
+      "suffix": "960",
+      "width": 960,
+      "height": 600,
+      "quality": 85,
+      "format": "webp"
+    },
+    {
+      "suffix": "480",
+      "width": 480,
+      "height": 300,
+      "quality": 82,
+      "format": "webp"
+    }
+  ],
+  "presetIds": [
+    "oxide-bloom",
+    "cast-iron",
+    "copper-sweep",
+    "brushed-alloy",
+    "folded-foil",
+    "mineral-fault",
+    "sediment",
+    "woven-field",
+    "caustic-glass",
+    "etched-silk",
+    "powder-coat",
+    "optical-field",
+    "porous-ceramic",
+    "hammered-copper",
+    "ink-diffusion",
+    "frosted-glass",
+    "terrazzo",
+    "liquid-chrome",
+    "wind-sand",
+    "halftone-print",
+    "porous-carbon",
+    "hammered-silver",
+    "chalk-diffusion",
+    "black-ice",
+    "salt-pepper",
+    "liquid-ink",
+    "chalk-dunes",
+    "halftone-negative",
+    "oxide-ink",
+    "oxide-chalk",
+    "white-sweep",
+    "black-sweep",
+    "endgrain-wood",
+    "woven-linen",
+    "carbon-twill",
+    "pebbled-leather",
+    "creased-paper",
+    "scratched-enamel",
+    "mica-flakes",
+    "lava-fissures",
+    "condensation",
+    "interference-film",
+    "embossed-labyrinth",
+    "fibrous-paper"
+  ],
+  "sourcePngSha256": {
+    "oxide-bloom": "916cef07a8bce883e56b95915d838ea97b80506c94c0d5efe3a1ea374f445d18",
+    "cast-iron": "5721c014aacfb93acce71c96898be92db12ffcabd089de68bbaffd94b87fcf53",
+    "copper-sweep": "67c2b814a1d2ff46e253aba8c40c474437c2c6472810d64ef5d85e7ea4388077",
+    "brushed-alloy": "4195a7276fe616774a0348f5e7ab940146e419024d502dddc714f86d7d6cbaef",
+    "folded-foil": "dd7639d0766130bc5f2601cb1a2091504f40f98db7a7b6723b9f1474cd1c5459",
+    "mineral-fault": "8b6619951bd91e44ea1cdfbc3d6c5575d3a010e7b92e4be742868127d25cd683",
+    "sediment": "f7aff90b574eea32961b4ef9cb8c6dc2a6f2c9701a8c96fd1c63fd2fca1d5b73",
+    "woven-field": "687a997e12fd0e3a35612da1c5ad213f8853434760c4285333ef525199acee52",
+    "caustic-glass": "c67e508a7b3b5aa997e0663c91c175af0cf61d9813ca8b250860a64d42b73ac9",
+    "etched-silk": "b87bdf861335a1afcbe3d8fe64c45ce2d5f4b25fb4b002597c301fe4fefa4e5f",
+    "powder-coat": "442b4962387ab534b71ebbb66cca2a38b44b4cbc66509ad8a2469c35d2485160",
+    "optical-field": "d84fe17e04a70f8c1073ebc13cdf1af535e229f547f877706b09bd1d8242305a",
+    "porous-ceramic": "077244e6da69b013fbafe4819e34ad73036bcdf1588fe26ea22d5073085eb363",
+    "hammered-copper": "3ac35b48c622647538485e18a0ef4a2d6d4e5ab9bd92a3ea0a1d4a4e23b4dce4",
+    "ink-diffusion": "a9c9ae3299044fc06725c550575d14315aa3c5c8eff2128c13111a6a8416bebe",
+    "frosted-glass": "53064add5ba5e69feb375a8899a2d0cc79b95ef2572d5d17e6b8e0649ab00871",
+    "terrazzo": "d6b65ae874ec797b479d664db5bf63bbb85ed03b9a9427e21b5d397e0879bbd5",
+    "liquid-chrome": "d992730c38642d16ef0d0261f754ea90c07681b9de98b1677e3cc16af93e4408",
+    "wind-sand": "47f085362c139e74c0c8919dc5f88329d3c0138afe46b3fabeae43ce4bf9e0f2",
+    "halftone-print": "45b7bfbd6495bff8c916d721c46e85bf3095649095147b2b6800e5ea0bc1f088",
+    "porous-carbon": "bc38b34452df756441427cbfc8cc6beb0823f21121007ba8bc1553f8bf3239dc",
+    "hammered-silver": "fe666c4cec43aaeed034e750dfb41221d9a02345fffe3401fb0f68c949f1aace",
+    "chalk-diffusion": "54af96decdddcb8d8fb2a79728524eb9e737bba34e22a72f23c0e7e4701bf708",
+    "black-ice": "448e3f52fab3c2b268922e3bfef0bc665526dcec2d2c48b2550d3a1ff606dc24",
+    "salt-pepper": "698bcc77a22d421c088c4e62442d148c7a568cee3c4bb649550408a8fd86f814",
+    "liquid-ink": "2d518affe9233179ccb1e0d5486894b94dc3bb13c252a89b9ae55188bafc8933",
+    "chalk-dunes": "cc06ae61670b0065b8454ccda6d1063cc3e422c27cfe1f7cd863830fa665bac0",
+    "halftone-negative": "cf2fc2ee7e343f740046f8d2e564c39ef3203ce0dfe0245ecfe7321621e3a6bf",
+    "oxide-ink": "ff51238f30e7e0e16c272463334bdb0cbc53ee1044f7f25dfe39b1ad5c198022",
+    "oxide-chalk": "b888ac8ac0f4245e47183a2149597c2ea81be52b661160b219767185e0df76c4",
+    "white-sweep": "452cb89bb4d362df68ec17f5bc18c86e3c5d20f5b08f7d9ddbfc51e2a2f4eff9",
+    "black-sweep": "8a741b6efa2c836be75545530a54301aa2ee93b428dfc175337c6679545d60a8",
+    "endgrain-wood": "4de0bc7a477bcc0b6b688eb06c1d507d75b199106d036de8ae33955231bcfd8b",
+    "woven-linen": "97e64275dd417c916f31d473f412eb69eed82cb5015b89b8a538446e494e1c6a",
+    "carbon-twill": "9028803f04450916ca058dfb93f6f51394280666472fd012595dafeb29db6d4c",
+    "pebbled-leather": "6295e7462f3dc97f2b456399624a27d55ed87c63fbfccdd73ef1928543c7977a",
+    "creased-paper": "b816c43abbe295c7c6bb7c18348b7e6288186c5550e50e4ab963efe6ccb1c360",
+    "scratched-enamel": "bfe9b5933876b20aa29ace2c4f1fbbd8977133ae8125944354844f5a99037c07",
+    "mica-flakes": "6b86daaa1f9048f48a04e1fbac4f05b89fca4a9604a63c699dccb87dc26a5720",
+    "lava-fissures": "620b1358b2e2366e013000510fdcfc3f3dc3078ee40291a9a23b57054a5a7490",
+    "condensation": "a3a3de9e02b5b63442374bbfe786f13ec0eb9855284239723391e472969ad502",
+    "interference-film": "1f5066036f58dad53beff693b4ee4990a9fc335e6c6b33d80b011c3bdd3eff6b",
+    "embossed-labyrinth": "027fc7e2ebdacb8faab732621b6354b809fc063477a387a87ced82e5af2154cc",
+    "fibrous-paper": "9d6a6dad688802def40d7f1ff1f8e0915fdbd0423f61a83b3342c5202645a916"
+  },
+  "generatedFiles": [
+    {
+      "path": "packages/brand-core/shader-textures/oxide-bloom-960.webp",
+      "sha256": "c89031c0bab8ffc6cdf3182d3fe0c6a251ce15e7f2ecee0ab60c6af4bb7c3a65"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/oxide-bloom-480.webp",
+      "sha256": "0ab6913a44c915df0beb32fd7ea96f5d6a8f73ee2fb8f7598df57cf545fee4d1"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/cast-iron-960.webp",
+      "sha256": "394d73b59c159b05a71480d359868679db0ab93fd9485f750da9d59ac6b76337"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/cast-iron-480.webp",
+      "sha256": "d99b09f4f92ca515be5867a9212ab1b5e33ad1bb804c654f2237f506d4998afc"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/copper-sweep-960.webp",
+      "sha256": "8e87cf38448750837e3ca0eb376fcc5b6ed18944244b27d7c873fe4035802d3a"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/copper-sweep-480.webp",
+      "sha256": "001f1e2a9df4d7cdbc4ae86e4e238aa1e19df17defa1cb5a6e5fab5e97bc8ea5"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/brushed-alloy-960.webp",
+      "sha256": "5f067e4f5b4be4e9c22b48411f42edab764834bf278bc38e2c437555f6b4c5e0"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/brushed-alloy-480.webp",
+      "sha256": "817eaeeeaa56c4a898d00aef96d4b1af3c5283d958d37a7cd4c0c3641e3b59d0"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/folded-foil-960.webp",
+      "sha256": "6d0c52603ad4d87d0f6a8aa200ea0475951acdafd0b68068127a83989bce720b"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/folded-foil-480.webp",
+      "sha256": "5402f217529461b49343df7a79f61d0e32911217d8c1f2ccb5ffb64855cca7b5"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/mineral-fault-960.webp",
+      "sha256": "8b21db44770d7ca782ea346a29c7117a3ca75f3ce2639cf6aa9ac2bea981766c"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/mineral-fault-480.webp",
+      "sha256": "8064d63eef13d879f2ce01af651c4ebfd720384f32ba43439d5453058e516bec"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/sediment-960.webp",
+      "sha256": "6f6f3ce854263693b6d359cb6a9bed5af1b85bd649af63f30b9a615a92df1ca8"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/sediment-480.webp",
+      "sha256": "e0304c63fd7e8a442bf61a7b1da0d5a4656108249f3d555c99e5bb48b3c2151c"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/woven-field-960.webp",
+      "sha256": "0425aede1843fbfb524336b0f11972073fdaf1e7b41a6223e0f631f2f08a2473"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/woven-field-480.webp",
+      "sha256": "155ff248a968ae94f79269c0672023a00e4ea42ad0444f356d5944e2c67fcb24"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/caustic-glass-960.webp",
+      "sha256": "3ddb07d8f2aef40cc1d4937f8e61ee7ac6881c26d6310f413b07746ea1163518"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/caustic-glass-480.webp",
+      "sha256": "2245ce9f57755a727cd4b45da8b5dfcee85de396783f4d6f1aea8b274d91befd"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/etched-silk-960.webp",
+      "sha256": "bb07fab9242b1fa7e08bf85bc81e23e6402787ab9d6654f0ccf926ded5560958"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/etched-silk-480.webp",
+      "sha256": "a727ac4a20198a07c48fb96c10534c04a121c58c785ba282c4244d472c23d60a"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/powder-coat-960.webp",
+      "sha256": "7999d247df93d95f9cb652840381729696b6c54ff07995535f1f49377bcaa3e1"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/powder-coat-480.webp",
+      "sha256": "a7e1b1af0121ff78484803b611c62a73aca3a737dfdafb4b08a4ef61a24d4a1e"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/optical-field-960.webp",
+      "sha256": "5c6e17cfa83beb544898b9ca05671929b16275e56c20d5af90606bed33523fe1"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/optical-field-480.webp",
+      "sha256": "b67ec0c40367de0f3d3b5966c6cb22e87726383c2686ec1d4d5484841916a607"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/porous-ceramic-960.webp",
+      "sha256": "4c7f809c4bd3da6f095b87fc56a3ecdb71b8feba3b5a265b1857c1b6d2ad99ac"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/porous-ceramic-480.webp",
+      "sha256": "a4b4e621eed3481c85ab8e0a7f2d35a270a47e0a2290f8c4e0e5e3aea6f65537"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/hammered-copper-960.webp",
+      "sha256": "3ba18a503553767dcdb9a0e9ebeb47ac3ac0320cb77d9a078bfc7d8bd1a41325"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/hammered-copper-480.webp",
+      "sha256": "e39e49b8566a899c8e8e31bf922825fc64de8cbd86fc7554522b91ddda792841"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/ink-diffusion-960.webp",
+      "sha256": "becdd984518c26f678cc3937b614ad32d63a9358a9e3640ab3b7fe77a8a7c573"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/ink-diffusion-480.webp",
+      "sha256": "1b9de7f930f53f4cdcd8bcc32245df643ab91be13bb9fcb9b8b9ee8626934614"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/frosted-glass-960.webp",
+      "sha256": "48bca5db805d30ff460c5cac0bff43524d0f2dc3fccad89a7e4937ebdb409791"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/frosted-glass-480.webp",
+      "sha256": "c3cd30d150bcea925231a2852c17aa887944d5512891ed660ee16257225a8136"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/terrazzo-960.webp",
+      "sha256": "6fedac19af0570f12327848d1c77009143503b07dcfac6205e7eb295bf0a99ab"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/terrazzo-480.webp",
+      "sha256": "b55bae661b5fc05e6fd087d1be86a60fbce806b7c4b7129433ac3c4a96ceb082"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/liquid-chrome-960.webp",
+      "sha256": "601b4b5aff4b5c8041898bcff89fab5a336e047b298c89f01fdad91fd0fedd17"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/liquid-chrome-480.webp",
+      "sha256": "13de07c3c7a252c051b2eb227c6d4fdc21152ff558e2aa49c72e47145f19e221"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/wind-sand-960.webp",
+      "sha256": "01b9c335d657ecee2825927d7dfd71c8bf9a269cb944b3463196e78339b82053"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/wind-sand-480.webp",
+      "sha256": "9084c9a38d0c0fce98b8f97c5612e34333df6969342eb961a6ee039df5445a98"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/halftone-print-960.webp",
+      "sha256": "375744465eaebc85374369ca7af7369b1723829c71f731fba4fb8f082bba7c46"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/halftone-print-480.webp",
+      "sha256": "39deb80432b4f2089dcc114277df9802d3bcf4abe65a76d3ff151749b7b549f7"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/porous-carbon-960.webp",
+      "sha256": "3d506b69d12a222955dfede492c2623fc66c50bfec493451d74143bf59c567de"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/porous-carbon-480.webp",
+      "sha256": "1bdea30d21112bc675c71fe3567e34ed15f3a8216def05ab05a9abe622ca98fd"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/hammered-silver-960.webp",
+      "sha256": "c4eb2e2e4df7d9aef88274746ae9327748702f19ae71e3a21c610c0407957153"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/hammered-silver-480.webp",
+      "sha256": "b6009196a7ddc3f8e5570967fead4a1af6d0736710242ff40987fb3559474862"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/chalk-diffusion-960.webp",
+      "sha256": "109f671525d8f7c9381b07e2719a21fd421b92c004777288c1264f43f9023287"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/chalk-diffusion-480.webp",
+      "sha256": "f6150f2b6d1c3b59ba2e509d5190b54359b5485fd2e9c175b21a63053f5561b3"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/black-ice-960.webp",
+      "sha256": "9e80813ddb1890180bbdff4e52ba3eb11bec624f6a3caa056f05069f6e038129"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/black-ice-480.webp",
+      "sha256": "09423639235f3c1cc243227ccf676f96b914abdb6fd9d2b032079512366baf78"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/salt-pepper-960.webp",
+      "sha256": "0dab346056acebd90dd40e0ec2d755b8c1bbda6fc50b2b2f75255bcaaee93c4d"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/salt-pepper-480.webp",
+      "sha256": "0f3ca8caed31151630914ded4316d5572818dd70e211cbdef6b0546b2eea1c2a"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/liquid-ink-960.webp",
+      "sha256": "30148bde62f247d4fa2a627a393ed1829a77c06a58a9625fe4a1dbef220e55d0"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/liquid-ink-480.webp",
+      "sha256": "28fb9a288c5b96802acb23056f571d22ed562c2fd54eaf4bd8688a6fa7f1975c"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/chalk-dunes-960.webp",
+      "sha256": "ef4d156d32ccd4988123a1df9faa65fcdf6cf3e3850e83d1cbca67df2dd0f468"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/chalk-dunes-480.webp",
+      "sha256": "3b89b7dd0e25ad06f1ab65b061efa088292b568c1e02a5e680090e1ab6f1f7bc"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/halftone-negative-960.webp",
+      "sha256": "01e2da025c7beb8e9461a1f4def923632557ae97a1a33c832b535afa9e21a630"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/halftone-negative-480.webp",
+      "sha256": "6f476bcf4344a8f49b3f6bcaedc288e08bd862029453a256edb3aa5e386dc4a4"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/oxide-ink-960.webp",
+      "sha256": "5e1c38a481864b252e87ebbc322d18fd8ab99c482d662d6a97e72b7d3e85a9d4"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/oxide-ink-480.webp",
+      "sha256": "df40778b3b18772bb2020b2a3671283243cd655690e8bc5edf7ee9f26c80551f"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/oxide-chalk-960.webp",
+      "sha256": "f11110614e86d020764d661f7c636b55007ebd929ffb14d55c7f3fe30d087118"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/oxide-chalk-480.webp",
+      "sha256": "2ca2179bffff227d2c48a6cf12e16c0c60f50959297e2f1e755cc24d4862e5cf"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/white-sweep-960.webp",
+      "sha256": "cc7f18dc24a02d00e8b98c41fd190545118450ed2c37fb91618fd404391c1c00"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/white-sweep-480.webp",
+      "sha256": "d071e6dd40d97bd4165ede1a48ca7cb50063d915d5bdd10786214f701f0626ae"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/black-sweep-960.webp",
+      "sha256": "413c2573ada563aeb92ad1815735d52e7b4cd02c9e54a919f2a7a26152186dcb"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/black-sweep-480.webp",
+      "sha256": "c56ddf2d54614394bb9624ee5439bee58000148dec1338967dd760c02d579757"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/endgrain-wood-960.webp",
+      "sha256": "68453b14dd20a430a44224f01ce9895785fca8dd7ad0a0df04565e1181e133fb"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/endgrain-wood-480.webp",
+      "sha256": "cde5fa76ef3f4f705f047628b44dff260f133f95c9dae08e6e70a31ca4c6c876"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/woven-linen-960.webp",
+      "sha256": "21b517fa56ca46ace64aec4d6a62ce65b9da47060a1b21f0180b20eaafdc04e4"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/woven-linen-480.webp",
+      "sha256": "b2565bb5abddfc481441fbedee18eabd704a9142cb5c84f31d4c18eb4e3006bc"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/carbon-twill-960.webp",
+      "sha256": "68c3ba71f18bbb44f26a08724e82364f4c054c89898b4bd0f7e11be7f9e08564"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/carbon-twill-480.webp",
+      "sha256": "d7a80f0b5b7b29a492df926aeab0b4f45fca1160142fcce062bf0c09303053fb"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/pebbled-leather-960.webp",
+      "sha256": "44db1627aef739edc8b22445a3a8e74350ff63908857fc54b2ab804d79d8b219"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/pebbled-leather-480.webp",
+      "sha256": "b9e2f670666fc93314f55d25dd88c2a9333792bf332c47dc5d08e186e29bf1a0"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/creased-paper-960.webp",
+      "sha256": "ce670ad60c8971e242f73faf709fa5ec55e6bb58b0bc758257f37b38b3ded1ca"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/creased-paper-480.webp",
+      "sha256": "4621298daddb478eab45262647b0dbc88fb4260d2c898631484f58e0e7599647"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/scratched-enamel-960.webp",
+      "sha256": "4e532a52ce18b10a4db218590fa8d5dd3ea7cbb2df3193eb43b1c3d6e935f594"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/scratched-enamel-480.webp",
+      "sha256": "0725f611b33d2bb1a75f479ef38f525c7d309e4d2790cc765d75520f0e7afcac"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/mica-flakes-960.webp",
+      "sha256": "bdbeef298d5bfe3781861be95c027c52000fd976d48581a901fcde2c7a2efbc7"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/mica-flakes-480.webp",
+      "sha256": "f8c9387e4d604b6f140ad3c79161c344490924a66215adeb8cf7d0f15d05f353"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/lava-fissures-960.webp",
+      "sha256": "b0a493b64fa342f409514e47a8c0b17fdd66c1003355e5b773d1586574d4de11"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/lava-fissures-480.webp",
+      "sha256": "97b7b254243ac5e9a472d007735a8de061f04e29b2cd22c8daa3cd207cef209e"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/condensation-960.webp",
+      "sha256": "6a1e74464e18f1d343b3996185d2c627e527cf03bca35c882270caa104c666ed"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/condensation-480.webp",
+      "sha256": "7dd7ddc180e2ea33959c064e3d137bdcee26b7dbb8bb8a2384ac692f57e454e5"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/interference-film-960.webp",
+      "sha256": "a8889cb144357d21146489cb0090bbb62d4208dbe3067d2ec355b47b1be1006a"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/interference-film-480.webp",
+      "sha256": "87d8c823baf8c1c6f45c04bb4ca1c75d1ed0b3c5f4202161a40357bbb933ecfc"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/embossed-labyrinth-960.webp",
+      "sha256": "3bad0932e241d8b1e08dfec5d2481943ea50e015a30a97a465c90b40dc1a9216"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/embossed-labyrinth-480.webp",
+      "sha256": "0af5afa2c29773faaff5464e066c740506b5375cb44a13281a46227bf3e054ba"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/fibrous-paper-960.webp",
+      "sha256": "03568fa57cc7879e7179e125af541d6ac3ccbf5824474c06a27f65f790450c0b"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/fibrous-paper-480.webp",
+      "sha256": "dbf7e3d9cdf2e90f04997f237ffb721f75c558a8c67f6aaf019a5d8af031ae90"
+    },
+    {
+      "path": "packages/brand-core/shader-textures/oxide-bloom.png",
+      "sha256": "916cef07a8bce883e56b95915d838ea97b80506c94c0d5efe3a1ea374f445d18"
+    },
+    {
+      "path": "packages/brand-core/shader-posters.js",
+      "sha256": "402832c882bd895f3221675237b599848677198d0770b6c985df4d366002e8f9"
+    },
+    {
+      "path": "packages/brand-core/shader-posters.d.ts",
+      "sha256": "01b95f325506dd5936f22fbad19614fca27a686784063186cfbcc45c0ae3ac0f"
+    }
+  ]
+}

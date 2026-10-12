@@ -15,7 +15,11 @@
     "src",
     "dist",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "shader-textures",
+    "shader-posters.js",
+    "shader-posters.d.ts",
+    "shader-posters-manifest.json"
   ],
   "type": "module",
   "exports": {
@@ -121,6 +125,27 @@
     "./motion/scenes/tiles": {
       "types": "./dist/motion/scenes/tiles.d.ts",
       "default": "./dist/motion/scenes/tiles.js"
+    },
+    "./shaders": {
+      "types": "./dist/shaders/index.d.ts",
+      "default": "./dist/shaders/index.js"
+    },
+    "./shaders/renderer": {
+      "types": "./dist/shaders/renderer.d.ts",
+      "default": "./dist/shaders/renderer.js"
+    },
+    "./shaders/catalog": {
+      "types": "./dist/shaders/catalog.d.ts",
+      "default": "./dist/shaders/catalog.js"
+    },
+    "./shaders/posters": {
+      "types": "./shader-posters.d.ts",
+      "default": "./shader-posters.js"
+    },
+    "./shader-textures/*": "./shader-textures/*",
+    "./shaders/source": {
+      "types": "./dist/shaders/source.d.ts",
+      "default": "./dist/shaders/source.js"
     }
   },
   "scripts": {
@@ -147,6 +172,7 @@
     "@types/node": "^24.13.3",
     "@types/three": "^0.184.1",
     "@types/unist": "^3.0.3",
+    "@webgpu/types": "^0.1.74",
     "rehype-stringify": "^10.0.1",
     "remark-gfm": "^4.0.1",
     "remark-parse": "^11.0.0",
