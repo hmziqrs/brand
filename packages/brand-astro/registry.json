@@ -987,6 +987,25 @@
 			]
 		},
 		{
+			"name": "glass",
+			"type": "registry:file",
+			"title": "glass",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/components/glass.astro",
+					"target": "src/components/brand/components/glass.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
 			"name": "hero",
 			"type": "registry:file",
 			"title": "hero",
@@ -1089,6 +1108,26 @@
 				{
 					"path": "src/blocks/site/hero-title.astro",
 					"target": "src/components/brand/blocks/site/hero-title.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "horizon-rings",
+			"type": "registry:file",
+			"title": "horizon-rings",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"@hmziq/code-block",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/components/horizon-rings.astro",
+					"target": "src/components/brand/components/horizon-rings.astro",
 					"type": "registry:file"
 				}
 			]
@@ -1243,12 +1282,14 @@
 				"@hmziq/filter-chip",
 				"@hmziq/forgot-password-form",
 				"@hmziq/form-actions",
+				"@hmziq/glass",
 				"@hmziq/hero",
 				"@hmziq/hero-actions",
 				"@hmziq/hero-lede",
 				"@hmziq/hero-note",
 				"@hmziq/hero-notes",
 				"@hmziq/hero-title",
+				"@hmziq/horizon-rings",
 				"@hmziq/icon-tile",
 				"@hmziq/inline-code",
 				"@hmziq/install-steps",
@@ -1343,6 +1384,7 @@
 				"@hmziq/starwind-tooltip",
 				"@hmziq/stat-card",
 				"@hmziq/stat-grid",
+				"@hmziq/status-ring",
 				"@hmziq/step",
 				"@hmziq/step-number",
 				"@hmziq/stepper",
@@ -3974,6 +4016,23 @@
 				{
 					"path": "src/blocks/app/metrics/stat-grid.astro",
 					"target": "src/components/brand/blocks/app/metrics/stat-grid.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "status-ring",
+			"type": "registry:file",
+			"title": "status-ring",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/components/status-ring.astro",
+					"target": "src/components/brand/components/status-ring.astro",
 					"type": "registry:file"
 				}
 			]

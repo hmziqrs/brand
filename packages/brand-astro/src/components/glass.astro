@@ -1,0 +1,18 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { cn } from "$brand/utils";
+import "@hmziq/brand-core/glass.css";
+
+interface Props extends HTMLAttributes<"div"> {
+  /** frost for text, smoke for long text over busy pictures, tint in the accent, clear for labels and controls only. */
+  variant?: "frost" | "smoke" | "tint" | "clear";
+  grain?: boolean;
+  as?: "div" | "section" | "article" | "aside" | "nav" | "span" | "li";
+}
+
+const { variant = "frost", grain = false, as: Tag = "div", class: className, ...rest } = Astro.props;
+---
+
+<Tag data-slot="glass" data-glass={variant} data-grain={grain || undefined} class={cn(className)} {...rest}>
+  <slot />
+</Tag>

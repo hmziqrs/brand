@@ -1,0 +1,22 @@
+/* Metal drawn into shapes (rings, gauges): a floor under the material keeps its dark or light
+   patches readable on either page color. Put data-material-sheet on the masked group. */
+
+[data-material-sheet] {
+  isolation: isolate;
+}
+
+[data-material-sheet] > [data-part="floor"] {
+  fill: color-mix(in oklab, var(--foreground) 24%, var(--background));
+}
+
+[data-material-sheet] > [data-part="metal"] {
+  mix-blend-mode: multiply;
+}
+
+.dark [data-material-sheet] > [data-part="metal"] {
+  mix-blend-mode: screen;
+}
+
+.dark .light [data-material-sheet] > [data-part="metal"] {
+  mix-blend-mode: multiply;
+}

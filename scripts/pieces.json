@@ -2223,6 +2223,420 @@
       "svelteFile": "templates/oxide-saas.stories.svelte",
       "svelteItem": "not yet",
       "astroItem": "not yet"
+    },
+    {
+      "name": "Glass",
+      "group": "brand",
+      "svelte": "custom-glass--over-a-shader",
+      "astro": "glass",
+      "svelteFile": "components/glass.svelte",
+      "svelteItem": "glass",
+      "astroItem": "glass"
+    },
+    {
+      "name": "HorizonRings",
+      "group": "brand",
+      "svelte": "custom-horizon-rings--awake",
+      "astro": "horizon-rings",
+      "svelteFile": "components/horizon-rings.svelte",
+      "svelteItem": "horizon-rings",
+      "astroItem": "horizon-rings"
+    },
+    {
+      "name": "StatusRing",
+      "group": "brand",
+      "svelte": "custom-status-ring--states",
+      "astro": "status-ring",
+      "svelteFile": "components/status-ring.svelte",
+      "svelteItem": "status-ring",
+      "astroItem": "status-ring"
+    },
+    {
+      "name": "GlassSections",
+      "group": "site",
+      "svelte": "templates-glass-sections--complete-catalog",
+      "astro": "not yet",
+      "svelteFile": "templates/glass-sections.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "ToolPages",
+      "group": "site",
+      "svelte": "sites-freeoxide-tools--tunnel",
+      "astro": "not yet",
+      "svelteFile": "templates/freeoxide-tools.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "MaterialCard",
+      "group": "brand",
+      "svelte": "custom-material-card--cover",
+      "astro": "not yet",
+      "svelteFile": "components/material-card.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "MaterialTile",
+      "group": "brand",
+      "svelte": "custom-material-tile--with-icons",
+      "astro": "not yet",
+      "svelteFile": "components/material-tile.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "MaterialRings",
+      "group": "brand",
+      "svelte": "custom-material-rings--chrome",
+      "astro": "not yet",
+      "svelteFile": "components/material-rings.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "MaterialBar",
+      "group": "brand",
+      "svelte": "custom-material-bar--usage",
+      "astro": "not yet",
+      "svelteFile": "components/material-bar.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "RingLoader",
+      "group": "brand",
+      "svelte": "custom-ring-loader--default",
+      "astro": "not yet",
+      "svelteFile": "components/ring-loader.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "RingDivider",
+      "group": "brand",
+      "svelte": "custom-ring-divider--default",
+      "astro": "not yet",
+      "svelteFile": "components/ring-divider.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "RingMeter",
+      "group": "brand",
+      "svelte": "custom-ring-meter--usage",
+      "astro": "not yet",
+      "svelteFile": "components/ring-meter.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "GlassDock",
+      "group": "brand",
+      "svelte": "custom-glass-dock--reading",
+      "astro": "not yet",
+      "svelteFile": "components/glass-dock.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "MaterialFrame",
+      "group": "brand",
+      "svelte": "custom-material-frame--pricing",
+      "astro": "not yet",
+      "svelteFile": "components/material-frame.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "MaterialStage",
+      "group": "brand",
+      "svelte": "custom-material-stage--product-screen",
+      "astro": "not yet",
+      "svelteFile": "components/material-stage.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "MaterialTabs",
+      "group": "brand",
+      "svelte": "custom-material-tabs--default",
+      "astro": "not yet",
+      "svelteFile": "components/material-tabs.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "MaterialGauge",
+      "group": "brand",
+      "svelte": "custom-material-gauge--numbers",
+      "astro": "not yet",
+      "svelteFile": "components/material-gauge.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "MaterialRule",
+      "group": "brand",
+      "svelte": "custom-material-rule--between-sections",
+      "astro": "not yet",
+      "svelteFile": "components/material-rule.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "Announce",
+      "group": "brand",
+      "svelte": "custom-announce--pill",
+      "astro": "not yet",
+      "svelteFile": "components/announce.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "MaterialSlider",
+      "group": "brand",
+      "svelte": "custom-material-slider--pricing",
+      "astro": "not yet",
+      "svelteFile": "components/material-slider.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "MaterialSparkline",
+      "group": "brand",
+      "svelte": "custom-material-sparkline--in-a-card",
+      "astro": "not yet",
+      "svelteFile": "components/material-sparkline.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "MaterialTag",
+      "group": "brand",
+      "svelte": "custom-material-tag--default",
+      "astro": "not yet",
+      "svelteFile": "components/material-tag.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "CommandPalette",
+      "group": "brand",
+      "svelte": "custom-command-palette--inline",
+      "astro": "not yet",
+      "svelteFile": "components/command-palette.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "Bento",
+      "group": "brand",
+      "svelte": "custom-bento--freeoxide",
+      "astro": "not yet",
+      "svelteFile": "components/bento.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "Cards",
+      "group": "brand",
+      "svelte": "custom-cards--release",
+      "astro": "not yet",
+      "svelteFile": "components/cards.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "RollingNumber",
+      "group": "brand",
+      "svelte": "custom-rolling-number--price",
+      "astro": "not yet",
+      "svelteFile": "components/rolling-number.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "ThemeToggle",
+      "group": "brand",
+      "svelte": "custom-theme-toggle--in-a-header",
+      "astro": "not yet",
+      "svelteFile": "components/theme-toggle.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "ScrollRings",
+      "group": "brand",
+      "svelte": "custom-scroll-rings--on-scroll",
+      "astro": "not yet",
+      "svelteFile": "components/scroll-rings.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "LiquidGlass",
+      "group": "brand",
+      "svelte": "custom-liquid-glass--over-a-material",
+      "astro": "not yet",
+      "svelteFile": "components/liquid-glass.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "StackCards",
+      "group": "brand",
+      "svelte": "custom-stack-cards--steps",
+      "astro": "not yet",
+      "svelteFile": "components/stack-cards.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "NavBar",
+      "group": "brand",
+      "svelte": "custom-nav-bar--bar",
+      "astro": "not yet",
+      "svelteFile": "components/nav-bar.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "SiteFooter",
+      "group": "brand",
+      "svelte": "custom-site-footer--columns",
+      "astro": "not yet",
+      "svelteFile": "components/site-footer.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "Roadmap",
+      "group": "brand",
+      "svelte": "custom-roadmap--board",
+      "astro": "not yet",
+      "svelteFile": "components/roadmap.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "PersonCard",
+      "group": "brand",
+      "svelte": "custom-person-card--team",
+      "astro": "not yet",
+      "svelteFile": "components/person-card.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "Gallery",
+      "group": "brand",
+      "svelte": "custom-gallery--materials",
+      "astro": "not yet",
+      "svelteFile": "components/gallery.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "FileDrop",
+      "group": "brand",
+      "svelte": "custom-file-drop--default",
+      "astro": "not yet",
+      "svelteFile": "components/file-drop.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "ConsentBanner",
+      "group": "brand",
+      "svelte": "custom-consent-banner--card",
+      "astro": "not yet",
+      "svelteFile": "components/consent-banner.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "CommentThread",
+      "group": "brand",
+      "svelte": "custom-comment-thread--default",
+      "astro": "not yet",
+      "svelteFile": "components/comment-thread.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "NotificationList",
+      "group": "brand",
+      "svelte": "custom-notification-list--default",
+      "astro": "not yet",
+      "svelteFile": "components/notification-list.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "LineTabs",
+      "group": "brand",
+      "svelte": "custom-line-tabs--default",
+      "astro": "not yet",
+      "svelteFile": "components/line-tabs.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "CardCarousel",
+      "group": "brand",
+      "svelte": "custom-carousel--posts",
+      "astro": "not yet",
+      "svelteFile": "components/carousel.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "SystemOverview",
+      "group": "site",
+      "svelte": "system-overview--all-components",
+      "astro": "not yet",
+      "svelteFile": "templates/system.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "ProductVisuals",
+      "group": "site",
+      "svelte": "showcase-product-visuals--retention-grid",
+      "astro": "not yet",
+      "svelteFile": "blocks/showcase/showcase.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "BentoSection",
+      "group": "site",
+      "svelte": "sections-bento--a-analytics",
+      "astro": "not yet",
+      "svelteFile": "blocks/sections/bento-section.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "BandSection",
+      "group": "site",
+      "svelte": "sections-band--call-to-action",
+      "astro": "not yet",
+      "svelteFile": "blocks/sections/band-section.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "ShowcaseSection",
+      "group": "site",
+      "svelte": "sections-showcase--a-over-a-material",
+      "astro": "not yet",
+      "svelteFile": "blocks/sections/showcase-section.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
     }
   ]
 }

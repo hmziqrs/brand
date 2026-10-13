@@ -176,6 +176,47 @@ all recipes, uniforms, shader tokens, source image hashes, and generated poster
 hashes. After changing source textures, run `node scripts/generate-shader-posters.mjs`
 from the repository root, then run `pnpm check` and inspect rendered twins.
 
+## Glass
+
+`Glass` is a frosted surface (`glass.css` in core): `frost` for text, `smoke`
+for long text over busy pictures, `tint` in orange, `clear` for labels and
+controls only. It needs a real picture behind it: the rings or a shader
+image, never a soft gradient. Reduced transparency gets a solid card.
+
+```svelte
+<section class="relative isolate">
+  <ShaderMaterial rendering="image" preset="copper-sweep" controls={false} class="absolute inset-0 -z-10" />
+  <Glass variant="smoke" class="p-8">…</Glass>
+</section>
+```
+
+Materials (shader images in the brand's palette; `brandMaterials` and
+`materialFor(seed)` in `@hmziq/brand-core/shaders/materials` pick one by
+name; `materials.css` keeps metal drawn into shapes readable in both modes):
+`MaterialCard` (cover, panel, side, frame), `MaterialStage` (a product
+screen or code on metal), `MaterialTabs`, `MaterialFrame`, `MaterialGauge`, `MaterialSparkline`,
+`MaterialBar`, `MaterialSlider`, `MaterialRule`, `MaterialTag`,
+`MaterialTile`, `MaterialRings`, and `AnnouncePill` / `AnnounceBar`. Code has
+no fill of its own: on a material, give `CodeBlock` `bg-background`.
+
+Rings: `RingLoader` (`tone="current"` inside buttons), `RingDivider`,
+`RingMeter`, `ScrollRings` (draw themselves on scroll), `HorizonRings`,
+`StatusRing`. Glass: `GlassDock`, `LiquidGlass` (edge refraction, Chromium
+only, frosted elsewhere), `CommandPalette` (⌘K, glass, actions panel).
+Layout: `Bento` + `BentoTile`, `StackCards`. Cards: `ReleaseCard`,
+`ProjectCard`, `EndpointCard`, `PlanCard`. Motion that answers data or a mode,
+never hover: `RollingNumber`, `ThemeToggle` (view-transition reveal).
+
+Pages and navigation: `NavBar` (bar, floating, centered; menus; a phone
+sheet), `SiteFooter` (columns, simple, minimal), `CardCarousel`,
+`FeatureCarousel`, `LineTabs`, `Roadmap`, `PersonCard`, `Gallery`,
+`CommentThread`, `NotificationList`, `FileDrop`, `ConsentBanner`.
+`System/Overview` in Storybook lists every piece by what it's for.
+
+These pieces are Svelte-only until picked (roster: `astro: "not yet"`).
+Storybook: everything under `Custom/` named Material…, Ring…, Glass… and
+Announce, plus `Templates/Glass sections` and `Sites/freeoxide tools`.
+
 ## Registry
 
 `registry.json` is generated, never hand-edited: `pnpm registry:generate`

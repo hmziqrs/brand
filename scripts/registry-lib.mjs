@@ -158,11 +158,11 @@ export function buildGraph(srcRoot, { codeExtensions, exclude = () => false }) {
   }
 
   const importPattern =
-    /(?:import|export)[^'"`]*from\s*["']([^"']+)["']|import\s*\(\s*["']([^"']+)["']\s*\)|@import\s+["']([^"']+)["']|@plugin\s+["']([^"']+)["']/g;
+    /(?:import|export)[^'"`]*from\s*["']([^"']+)["']|import\s*\(\s*["']([^"']+)["']\s*\)|@import\s+["']([^"']+)["']|@plugin\s+["']([^"']+)["']|(?<![@\w])import\s+["']([^"']+)["']/g;
   for (const [file, entry] of graph) {
     const source = blankTemplateLiterals(stripBlockComments(readFileSync(file, "utf8")));
     for (const match of source.matchAll(importPattern)) {
-      const spec = match[1] ?? match[2] ?? match[3] ?? match[4];
+      const spec = match[1] ?? match[2] ?? match[3] ?? match[4] ?? match[5];
       if (!spec) continue;
       const resolved = resolveImport(spec, file, srcRoot);
       if (resolved && resolved !== file) entry.kitImports.add(resolved);

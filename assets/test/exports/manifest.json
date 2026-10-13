@@ -1,7 +1,7 @@
 {
   "target": "test-card",
   "command": "pnpm render-assets --only test-card",
-  "digest": "e2d110b02ee3e690f5e95cfbe81f82afb52017da92bc458d8ce4a9235a0788a7",
+  "digest": "2a18dc04f4a9a36d0ec72aae148f8de8808724784ab3df3f0a3facff5f5ac263",
   "renderers": {
     "@resvg/resvg-js": "2.6.2",
     "opentype.js": "2.0.0",
@@ -57,6 +57,10 @@
     {
       "path": "packages/brand-core/src/motion/frame.ts",
       "sha256": "feb3426b5bd0bf90ae617fd7cd0b6161c64cda73998c7fdf074a2d5e5b04ddf2"
+    },
+    {
+      "path": "packages/brand-core/src/motion/ring-shapes.ts",
+      "sha256": "a5ceca52f9733ef32a7758694a3eb2a699f355cc0a0fc37946da7571bfe2d286"
     },
     {
       "path": "packages/brand-core/src/motion/rings.ts",

@@ -1,7 +1,7 @@
 {
   "target": "social",
   "command": "pnpm render-assets --only social",
-  "digest": "862c14f5a47d90034f1f63d16607377bfb63e8b4ed72930a15ce426c347f7299",
+  "digest": "9baaf8d5c59dbde39c842c7fc72c09d199e1fb8c935c7e68020b16ebfbf4bd10",
   "renderers": {
     "@resvg/resvg-js": "2.6.2",
     "opentype.js": "2.0.0",
@@ -149,6 +149,10 @@
     {
       "path": "packages/brand-core/src/motion/frame.ts",
       "sha256": "feb3426b5bd0bf90ae617fd7cd0b6161c64cda73998c7fdf074a2d5e5b04ddf2"
+    },
+    {
+      "path": "packages/brand-core/src/motion/ring-shapes.ts",
+      "sha256": "a5ceca52f9733ef32a7758694a3eb2a699f355cc0a0fc37946da7571bfe2d286"
     },
     {
       "path": "packages/brand-core/src/motion/rings.ts",

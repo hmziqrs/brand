@@ -17,6 +17,8 @@ import CommandBox from "$brand/components/command-box.astro";
 import CopyButton from "$brand/components/copy-button.astro";
 import CornerRings from "$brand/components/corner-rings.astro";
 import DataTable from "$brand/components/data-table.astro";
+import Glass from "$brand/components/glass.astro";
+import HorizonRings from "$brand/components/horizon-rings.astro";
 import IconTile from "$brand/components/icon-tile.astro";
 import InlineCode from "$brand/components/inline-code.astro";
 import Mark from "$brand/components/mark.astro";
@@ -28,6 +30,7 @@ import Rings from "$brand/components/rings.astro";
 import Scene from "$brand/components/scene.astro";
 import ShaderMaterial from "$brand/components/shader-material.astro";
 import Segmented from "$brand/components/segmented.astro";
+import StatusRing from "$brand/components/status-ring.astro";
 import Step from "$brand/components/step.astro";
 import StepNumber from "$brand/components/step-number.astro";
 import Stepper from "$brand/components/stepper.astro";
@@ -127,6 +130,38 @@ import ThemeToggle from "../../components/theme-toggle.astro";
         <Scene kind="network" seed="freeoxide" still />
       </div>
       <p class="text-[0.8125rem] text-muted-foreground">Still here; a moving scene carries its own pause button.</p>
+    </section>
+
+    <section id="piece-glass" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">Glass</h2>
+      <div class="relative isolate grid gap-4 overflow-hidden rounded-xl p-6 sm:grid-cols-2 lg:grid-cols-4">
+        <ShaderMaterial rendering="image" preset="copper-sweep" controls={false} class="absolute inset-0 -z-10" />
+        {
+          (["frost", "smoke", "tint", "clear"] as const).map((variant) => (
+            <Glass variant={variant} class="flex min-h-36 flex-col justify-end gap-1 p-5">
+              <span class="font-medium capitalize">{variant}</span>
+              <span class="text-sm text-muted-foreground">Glass over copper</span>
+            </Glass>
+          ))
+        }
+      </div>
+    </section>
+
+    <section id="piece-horizon-rings" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">HorizonRings</h2>
+      <div class="grid gap-8 md:grid-cols-2">
+        <HorizonRings seed="oxiwake" ripple />
+        <HorizonRings seed="oxiwake" awake={false} />
+      </div>
+    </section>
+
+    <section id="piece-status-ring" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">StatusRing</h2>
+      <p class="flex flex-wrap items-center gap-6 text-sm">
+        <span class="flex items-center gap-2"><StatusRing state="on" />Live</span>
+        <span class="flex items-center gap-2"><StatusRing state="stale" />Stopped answering</span>
+        <span class="flex items-center gap-2"><StatusRing state="off" />Off</span>
+      </p>
     </section>
 
     <section id="piece-shader-material" class="flex flex-col gap-4 border-t pt-8">

@@ -1240,6 +1240,25 @@
 			]
 		},
 		{
+			"name": "glass",
+			"type": "registry:lib",
+			"title": "glass",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/components/glass.svelte",
+					"type": "registry:file",
+					"target": "components/glass.svelte"
+				}
+			]
+		},
+		{
 			"name": "hero",
 			"type": "registry:lib",
 			"title": "hero",
@@ -1343,6 +1362,25 @@
 					"path": "src/lib/blocks/site/hero-title.svelte",
 					"type": "registry:file",
 					"target": "blocks/site/hero-title.svelte"
+				}
+			]
+		},
+		{
+			"name": "horizon-rings",
+			"type": "registry:lib",
+			"title": "horizon-rings",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/components/horizon-rings.svelte",
+					"type": "registry:file",
+					"target": "components/horizon-rings.svelte"
 				}
 			]
 		},
@@ -1505,12 +1543,14 @@
 				"local:filter-chip",
 				"local:forgot-password-form",
 				"local:form-actions",
+				"local:glass",
 				"local:hero",
 				"local:hero-actions",
 				"local:hero-lede",
 				"local:hero-note",
 				"local:hero-notes",
 				"local:hero-title",
+				"local:horizon-rings",
 				"local:icon-tile",
 				"local:inline-code",
 				"local:install-steps",
@@ -1584,6 +1624,7 @@
 				"local:stat-card",
 				"local:stat-grid",
 				"local:states-app-blocks",
+				"local:status-ring",
 				"local:step",
 				"local:step-number",
 				"local:stepper",
@@ -3097,6 +3138,23 @@
 			]
 		},
 		{
+			"name": "status-ring",
+			"type": "registry:lib",
+			"title": "status-ring",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/components/status-ring.svelte",
+					"type": "registry:file",
+					"target": "components/status-ring.svelte"
+				}
+			]
+		},
+		{
 			"name": "step",
 			"type": "registry:lib",
 			"title": "step",
@@ -3336,18 +3394,23 @@
 				"local:code-lines",
 				"local:command-bar",
 				"local:container",
+				"local:content-blocks",
+				"local:copy-button",
 				"local:cta-band",
 				"local:data-table",
 				"local:element-card",
 				"local:feature-cards",
 				"local:feature-grid",
+				"local:glass",
 				"local:hero",
 				"local:hero-actions",
 				"local:hero-lede",
 				"local:hero-note",
 				"local:hero-notes",
 				"local:hero-title",
+				"local:horizon-rings",
 				"local:icon-tile",
+				"local:inline-code",
 				"local:link-bar",
 				"local:mark",
 				"local:marker",
@@ -3367,8 +3430,10 @@
 				"local:shader-material",
 				"local:site-blocks-shared",
 				"local:site-shell",
+				"local:status-ring",
 				"local:step",
 				"local:stepper",
+				"local:steps",
 				"local:tag",
 				"local:terminal-body",
 				"local:terminal-line",
@@ -3383,9 +3448,15 @@
 				"local:ui-progress",
 				"local:ui-slider",
 				"local:ui-tabs",
-				"local:utils"
+				"local:utils",
+				"local:wordmark"
 			],
 			"files": [
+				{
+					"path": "src/lib/templates/glass-sections.svelte",
+					"type": "registry:file",
+					"target": "templates/glass-sections.svelte"
+				},
 				{
 					"path": "src/lib/templates/groundwork-board.svelte",
 					"type": "registry:file",
@@ -3452,6 +3523,16 @@
 					"target": "templates/oxide-sightline.svelte"
 				},
 				{
+					"path": "src/lib/templates/oxiwake-switch.svelte",
+					"type": "registry:file",
+					"target": "templates/oxiwake-switch.svelte"
+				},
+				{
+					"path": "src/lib/templates/oxiwake.svelte",
+					"type": "registry:file",
+					"target": "templates/oxiwake.svelte"
+				},
+				{
 					"path": "src/lib/templates/parley-channels.svelte",
 					"type": "registry:file",
 					"target": "templates/parley-channels.svelte"
@@ -3490,6 +3571,16 @@
 					"path": "src/lib/templates/sightline.svelte",
 					"type": "registry:file",
 					"target": "templates/sightline.svelte"
+				},
+				{
+					"path": "src/lib/templates/tunnel-share.svelte",
+					"type": "registry:file",
+					"target": "templates/tunnel-share.svelte"
+				},
+				{
+					"path": "src/lib/templates/tunnel.svelte",
+					"type": "registry:file",
+					"target": "templates/tunnel.svelte"
 				}
 			]
 		},

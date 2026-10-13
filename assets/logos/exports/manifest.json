@@ -1,7 +1,7 @@
 {
   "target": "logos",
   "command": "pnpm render-assets --only logos",
-  "digest": "31d37c5542e10b2a8d236237a203486c0f05eeda21c03aafcad86cdb182d81f3",
+  "digest": "3fb5d2c5e4474df0ccec4a75c35d66f2f4e7616696593dedbade7a7da5d03162",
   "renderers": {
     "@resvg/resvg-js": "2.6.2",
     "opentype.js": "2.0.0",
@@ -103,6 +103,10 @@
     {
       "path": "packages/brand-core/src/motion/frame.ts",
       "sha256": "feb3426b5bd0bf90ae617fd7cd0b6161c64cda73998c7fdf074a2d5e5b04ddf2"
+    },
+    {
+      "path": "packages/brand-core/src/motion/ring-shapes.ts",
+      "sha256": "a5ceca52f9733ef32a7758694a3eb2a699f355cc0a0fc37946da7571bfe2d286"
     },
     {
       "path": "packages/brand-core/src/motion/rings.ts",

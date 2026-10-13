@@ -12,6 +12,8 @@
     "theme.css",
     "rings.css",
     "logo.css",
+    "glass.css",
+    "materials.css",
     "src",
     "dist",
     "README.md",
@@ -26,6 +28,8 @@
     "./theme.css": "./theme.css",
     "./rings.css": "./rings.css",
     "./logo.css": "./logo.css",
+    "./glass.css": "./glass.css",
+    "./materials.css": "./materials.css",
     "./app/nav": {
       "types": "./dist/app/nav.d.ts",
       "default": "./dist/app/nav.js"
@@ -45,6 +49,10 @@
     "./color": {
       "types": "./dist/color.d.ts",
       "default": "./dist/color.js"
+    },
+    "./charts": {
+      "types": "./dist/charts.d.ts",
+      "default": "./dist/charts.js"
     },
     "./family": {
       "types": "./dist/family.d.ts",
@@ -85,6 +93,10 @@
     "./motion/rings": {
       "types": "./dist/motion/rings.d.ts",
       "default": "./dist/motion/rings.js"
+    },
+    "./motion/ring-shapes": {
+      "types": "./dist/motion/ring-shapes.d.ts",
+      "default": "./dist/motion/ring-shapes.js"
     },
     "./motion/frame": {
       "types": "./dist/motion/frame.d.ts",
@@ -137,6 +149,10 @@
     "./shaders/catalog": {
       "types": "./dist/shaders/catalog.d.ts",
       "default": "./dist/shaders/catalog.js"
+    },
+    "./shaders/materials": {
+      "types": "./dist/shaders/materials.d.ts",
+      "default": "./dist/shaders/materials.js"
     },
     "./shaders/posters": {
       "types": "./shader-posters.d.ts",
