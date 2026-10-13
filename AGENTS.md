@@ -37,5 +37,7 @@ When driving a browser, also read and follow `/Users/hmziq/.zcode/skills/agent-b
 
 ## Git discipline
 
+- Never commit without explicit user confirmation for the reviewed changes.
+
 - Explicit paths only in `git add`/`git commit`; never `git add -A`; never `--no-verify`; never push. One logical unit per commit, size-budgeted; match `git log` style.
 - Working branch: `master` (the repo commits directly to it; `docs-implementation` no longer exists).
