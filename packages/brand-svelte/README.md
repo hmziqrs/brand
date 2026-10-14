@@ -241,3 +241,11 @@ keeps its status nearby. Demos run automatically with pause, replay,
 and reduced-motion support. Pass a snapshot to render your own data.
 Both starters expose `/live`, `/live/product`, `/live/workspace`, and
 `/live/studio`. See [live-components.md](../../docs/live-components.md).
+
+## Material text
+
+`Tweakers/Material text` tunes selectable lettering filled with any kit material. It uses the shared tweaker controls, saves settings locally, and exports a JSON look for `MaterialText`. See [the controls and usage](../../docs/material-text.md).
+
+```svelte
+<MaterialText look={settings.materialText} paused={false} />
+```

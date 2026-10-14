@@ -197,6 +197,8 @@
 			items: [
 				{ name: "Glass", use: "Frosted, over rings or a material", id: "custom-glass--over-a-shader", fresh: true },
 				{ name: "Liquid glass", use: "Glass that bends at its edges", id: "custom-liquid-glass--over-a-material", fresh: true },
+				{ name: "Material text", use: "Material fills inside selectable lettering", id: "custom-material-text--copper", fresh: true },
+				{ name: "Material text tweaker", use: "Tune typography, texture and light", id: "tweakers-material-text--page", fresh: true },
 				{ name: "Shader material", use: "The materials themselves, still or moving", id: "custom-shaders--static-oxide" },
 				{ name: "Material stage", use: "A product screen or code on metal", id: "custom-material-stage--product-screen", fresh: true },
 				{ name: "Material rule", use: "A strip of metal between sections", id: "custom-material-rule--between-sections", fresh: true },

@@ -1307,6 +1307,7 @@
 				"@hmziq/live-widget",
 				"@hmziq/mark",
 				"@hmziq/marker",
+				"@hmziq/material-text",
 				"@hmziq/metric-trend",
 				"@hmziq/metrics-app-blocks-shared",
 				"@hmziq/newsletter-band",
@@ -1683,6 +1684,25 @@
 				{
 					"path": "src/components/marker.astro",
 					"target": "src/components/brand/components/marker.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "material-text",
+			"type": "registry:file",
+			"title": "material-text",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/components/material-text.astro",
+					"target": "src/components/brand/components/material-text.astro",
 					"type": "registry:file"
 				}
 			]

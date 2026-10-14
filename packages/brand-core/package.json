@@ -26,7 +26,8 @@
     "live-media",
     "live-carousel-scenes.js",
     "live-carousel-scenes.d.ts",
-    "live-carousel.css"
+    "live-carousel.css",
+    "material-text.css"
   ],
   "type": "module",
   "exports": {
@@ -185,7 +186,12 @@
       "types": "./live-carousel-scenes.d.ts",
       "default": "./live-carousel-scenes.js"
     },
-    "./live-carousel.css": "./live-carousel.css"
+    "./live-carousel.css": "./live-carousel.css",
+    "./material-text": {
+      "types": "./dist/material-text.d.ts",
+      "default": "./dist/material-text.js"
+    },
+    "./material-text.css": "./material-text.css"
   },
   "scripts": {
     "test": "vitest run",

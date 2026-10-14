@@ -2697,6 +2697,24 @@
       "astroFile": "components/live-bento-card.astro",
       "svelteItem": "live-bento-card",
       "astroItem": "live-bento-card"
+    },
+    {
+      "name": "MaterialText",
+      "group": "brand",
+      "svelte": "custom-material-text--copper",
+      "astro": "material-text",
+      "svelteFile": "components/material-text.svelte",
+      "svelteItem": "material-text",
+      "astroItem": "material-text"
+    },
+    {
+      "name": "MaterialTextTweaker",
+      "group": "brand",
+      "svelte": "tweakers-material-text--page",
+      "astro": "not yet",
+      "svelteFile": "tweakers/material-text.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
     }
   ]
 }

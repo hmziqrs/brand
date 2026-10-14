@@ -1568,6 +1568,7 @@
 				"local:live-widget",
 				"local:mark",
 				"local:marker",
+				"local:material-text",
 				"local:metric-trend",
 				"local:metrics-app-blocks",
 				"local:metrics-app-blocks-shared",
@@ -1991,6 +1992,25 @@
 					"path": "src/lib/components/marker.svelte",
 					"type": "registry:file",
 					"target": "components/marker.svelte"
+				}
+			]
+		},
+		{
+			"name": "material-text",
+			"type": "registry:lib",
+			"title": "material-text",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/components/material-text.svelte",
+					"type": "registry:file",
+					"target": "components/material-text.svelte"
 				}
 			]
 		},
@@ -3854,6 +3874,7 @@
 				"local:hero",
 				"local:hero-note",
 				"local:mark",
+				"local:material-text",
 				"local:rings",
 				"local:scene",
 				"local:segmented",
@@ -3878,6 +3899,11 @@
 					"path": "src/lib/tweakers/logo-tweaker.svelte",
 					"type": "registry:file",
 					"target": "tweakers/logo-tweaker.svelte"
+				},
+				{
+					"path": "src/lib/tweakers/material-text-tweaker.svelte",
+					"type": "registry:file",
+					"target": "tweakers/material-text-tweaker.svelte"
 				},
 				{
 					"path": "src/lib/tweakers/ring-tweaker.svelte",

@@ -1,0 +1,21 @@
+---
+import { materialTextDefaults, normalizeMaterialText, materialTextStyle, type MaterialTextLook } from "@hmziq/brand-core/material-text";
+import { shaderPosters } from "@hmziq/brand-core/shaders/posters";
+import "@hmziq/brand-core/material-text.css";
+import { cn } from "$brand/utils";
+interface Props { time?: number; look?: Partial<MaterialTextLook>; paused?: boolean; class?: string }
+const { look, time, paused = false, class: className } = Astro.props;
+const settings = normalizeMaterialText({ ...materialTextDefaults, ...look });
+---
+<span data-slot="material-text" data-animated={settings.animated} data-look={JSON.stringify({...settings,time:time ?? settings.time})} data-status="loading" data-paused={paused} data-active="false" class={cn(className)} style={materialTextStyle(settings, shaderPosters[settings.material].src)}><span class="material-text-ink"><span class="material-text-label">{settings.text}</span><span class="material-text-surface" aria-hidden="true"><img src={shaderPosters[settings.material].src} alt="" /><canvas></canvas></span><span class="material-text-tint" aria-hidden="true">{settings.text}</span></span></span>
+<script>
+  import { mountMaterialText } from "@hmziq/brand-core/material-text";
+  const mounted = new Map<HTMLElement, () => void>();
+  function init() {
+    for (const [root, destroy] of mounted) if (!root.isConnected) { destroy(); mounted.delete(root); }
+    document.querySelectorAll<HTMLElement>('[data-slot="material-text"]').forEach(root => { if (!mounted.has(root)) mounted.set(root, mountMaterialText(root)); });
+  }
+  init();
+  document.addEventListener("astro:page-load", init);
+  document.addEventListener("astro:before-swap", () => { for (const destroy of mounted.values()) destroy(); mounted.clear(); });
+</script>

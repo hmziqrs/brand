@@ -3,6 +3,7 @@ import "../../styles/app.css";
 import SiteLayout from "$brand/blocks/site/site-layout.astro";
 import Container from "$brand/blocks/site/container.astro";
 import PageIntro from "$brand/blocks/site/page-intro.astro";
+import MaterialText from "$brand/components/material-text.astro";
 import LiveBentoCard from "$brand/components/live-bento-card.astro";
 import LiveDemo from "$brand/blocks/live/live-demo.astro";
 import ThemeInit from "../../components/theme-init.astro";
@@ -11,6 +12,7 @@ import ThemeInit from "../../components/theme-init.astro";
   <ThemeInit slot="head" />
   <Container><PageIntro><Fragment slot="kicker">The kit</Fragment><Fragment slot="title">Live components</Fragment><Fragment slot="lede">Charts, rings, presence and sync, with automatic updates.</Fragment></PageIntro></Container>
   <Container class="flex flex-col gap-10">
+    <section id="piece-material-text"><h2 class="mb-4 text-lg font-medium">Material text</h2><MaterialText class="w-full max-w-2xl" /><div data-carbon-example class="mt-6 grid min-h-80 w-full max-w-2xl items-center rounded-xl bg-primary text-on-orange p-6 sm:min-h-[28rem] sm:p-10"><MaterialText look={{material:"carbon-twill",text:"Carbon\nfiber.",align:"center",size:144,weight:800,zoom:.5,tintAmount:0}} /></div></section>
     <section id="piece-live-bento-card"><h2 class="mb-4 text-lg font-medium">Live Bento card</h2><LiveBentoCard label="Product preview" class="max-w-2xl" /></section>
     <section id="piece-live-activity"><h2 class="mb-4 text-lg font-medium">Live activity</h2><LiveDemo kind="build" placement="activity" /></section>
     <section id="piece-live-notification"><h2 class="mb-4 text-lg font-medium">Live notification</h2><LiveDemo kind="sync" placement="notification" /></section>
