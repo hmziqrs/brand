@@ -227,3 +227,17 @@ folder (`ui-*`), plus `utils`, a `kit` item that depends on everything, and a
 catch-all per blocks folder the roster doesn't list yet. `pnpm check:parity`
 fails when a roster piece has no registry item; `pnpm registry:build` writes
 the Pages layout (`r/svelte/`, `r/astro/`, `theme.css`) the workflow deploys.
+
+## Live components
+
+`LiveBentoCard` cycles through images, text, and moving materials inside a
+Bento tile. `/live` shows four treatments. Pass your own scenes, or use
+`showcase`, `words`, `materials`, or `gallery`. Pause, scene selection,
+offscreen suspension, and reduced motion are built in.
+
+`LiveWidget` fills a Bento media slot with downloads, builds, active previews,
+file sync, or presence. `LiveActivity` expands a task; `LiveNotification`
+keeps its status nearby. Demos run automatically with pause, replay,
+and reduced-motion support. Pass a snapshot to render your own data.
+Both starters expose `/live`, `/live/product`, `/live/workspace`, and
+`/live/studio`. See [live-components.md](../../docs/live-components.md).

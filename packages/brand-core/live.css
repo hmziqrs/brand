@@ -1,0 +1,4 @@
+[data-slot="rolling-number"] .digit { position: relative; display: inline-block; height: 1lh; overflow: hidden; }
+[data-slot="rolling-number"] .strip { display: flex; flex-direction: column; translate: 0 calc(var(--n) * -1lh); transition: translate 0.6s cubic-bezier(0.2, 0.8, 0.2, 1); }
+[data-slot="rolling-number"] .strip > span { height: 1lh; }
+@media (prefers-reduced-motion: reduce) { [data-slot="rolling-number"] .strip { transition: none; } }

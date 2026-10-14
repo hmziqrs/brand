@@ -1,0 +1,9 @@
+---
+import LiveWidget from "$brand/components/live-widget.astro";
+import LiveActivity from "$brand/components/live-activity.astro";
+import LiveNotification from "$brand/components/live-notification.astro";
+import type { LiveTileKind } from "@hmziq/brand-core/live";
+interface Props { kind?: LiveTileKind; placement?: "all" | "activity" | "notification" | "widget"; autoplay?: boolean }
+const { kind = "downloads", placement = "widget", autoplay = true } = Astro.props;
+---
+<div data-slot="live-demo" class="min-w-0">{placement === "activity" ? <LiveActivity kind={kind} autoplay={autoplay} /> : placement === "notification" ? <LiveNotification kind={kind} autoplay={autoplay} /> : <LiveWidget kind={kind} autoplay={autoplay} />}</div>

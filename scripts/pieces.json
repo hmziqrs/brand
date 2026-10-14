@@ -2637,6 +2637,66 @@
       "svelteFile": "blocks/sections/showcase-section.stories.svelte",
       "svelteItem": "not yet",
       "astroItem": "not yet"
+    },
+    {
+      "name": "LiveActivity",
+      "group": "app",
+      "svelte": "custom-live-activity--build",
+      "astro": "live-activity",
+      "svelteFile": "components/live-activity.svelte",
+      "astroFile": "components/live-activity.astro",
+      "svelteItem": "live-activity",
+      "astroItem": "live-activity"
+    },
+    {
+      "name": "LiveNotification",
+      "group": "app",
+      "svelte": "custom-live-notification--sync",
+      "astro": "live-notification",
+      "svelteFile": "components/live-notification.svelte",
+      "astroFile": "components/live-notification.astro",
+      "svelteItem": "live-notification",
+      "astroItem": "live-notification"
+    },
+    {
+      "name": "LiveWidget",
+      "group": "app",
+      "svelte": "custom-live-widget--downloads",
+      "astro": "live-widget",
+      "svelteFile": "components/live-widget.svelte",
+      "astroFile": "components/live-widget.astro",
+      "svelteItem": "live-widget",
+      "astroItem": "live-widget"
+    },
+    {
+      "name": "LiveDemo",
+      "group": "app",
+      "svelte": null,
+      "astro": "live-demo",
+      "svelteFile": "blocks/live/live-demo.svelte",
+      "astroFile": "blocks/live/live-demo.astro",
+      "svelteItem": "live-demo",
+      "astroItem": "live-demo"
+    },
+    {
+      "name": "LivePages",
+      "group": "app",
+      "svelte": "templates-live-pages--collection",
+      "astro": "live-pages",
+      "svelteFile": "templates/live-pages.svelte",
+      "astroFile": "blocks/live/live-pages.astro",
+      "svelteItem": "live-pages",
+      "astroItem": "live-pages"
+    },
+    {
+      "name": "LiveBentoCard",
+      "group": "brand",
+      "svelte": "custom-live-bento-card--showcase",
+      "astro": "live-bento-card",
+      "svelteFile": "components/live-bento-card.svelte",
+      "astroFile": "components/live-bento-card.astro",
+      "svelteItem": "live-bento-card",
+      "astroItem": "live-bento-card"
     }
   ]
 }

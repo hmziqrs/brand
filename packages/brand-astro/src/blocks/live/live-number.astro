@@ -1,0 +1,6 @@
+---
+import "@hmziq/brand-core/live.css";
+interface Props { value: number }
+const text = new Intl.NumberFormat("en-US").format(Astro.props.value);
+---
+<span data-slot="rolling-number" class="inline-flex tabular-nums"><span class="sr-only">{text}</span>{[...text].map((character) => character >= "0" && character <= "9" ? <span aria-hidden="true" class="digit"><span class="strip" style={`--n: ${character}`}>{[..."0123456789"].map((digit) => <span>{digit}</span>)}</span></span> : <span aria-hidden="true">{character}</span>)}</span>

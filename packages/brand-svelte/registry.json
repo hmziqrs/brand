@@ -1560,6 +1560,12 @@
 				"local:legal-layout",
 				"local:legal-section",
 				"local:link-bar",
+				"local:live-activity",
+				"local:live-bento-card",
+				"local:live-demo",
+				"local:live-notification",
+				"local:live-pages",
+				"local:live-widget",
 				"local:mark",
 				"local:marker",
 				"local:metric-trend",
@@ -1798,6 +1804,156 @@
 					"path": "src/lib/blocks/site/link-bar.svelte",
 					"type": "registry:file",
 					"target": "blocks/site/link-bar.svelte"
+				}
+			]
+		},
+		{
+			"name": "live-activity",
+			"type": "registry:lib",
+			"title": "live-activity",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"local:live-widget"
+			],
+			"files": [
+				{
+					"path": "src/lib/components/live-activity.svelte",
+					"type": "registry:file",
+					"target": "components/live-activity.svelte"
+				}
+			]
+		},
+		{
+			"name": "live-bento-card",
+			"type": "registry:lib",
+			"title": "live-bento-card",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0",
+				"@lucide/svelte@^1.52.0"
+			],
+			"registryDependencies": [
+				"local:glass",
+				"local:ui-button",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/components/live-bento-card.svelte",
+					"type": "registry:file",
+					"target": "components/live-bento-card.svelte"
+				}
+			]
+		},
+		{
+			"name": "live-demo",
+			"type": "registry:lib",
+			"title": "live-demo",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"local:live-activity",
+				"local:live-notification",
+				"local:live-widget"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/live/live-demo.svelte",
+					"type": "registry:file",
+					"target": "blocks/live/live-demo.svelte"
+				}
+			]
+		},
+		{
+			"name": "live-notification",
+			"type": "registry:lib",
+			"title": "live-notification",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"local:live-widget"
+			],
+			"files": [
+				{
+					"path": "src/lib/components/live-notification.svelte",
+					"type": "registry:file",
+					"target": "components/live-notification.svelte"
+				}
+			]
+		},
+		{
+			"name": "live-pages",
+			"type": "registry:lib",
+			"title": "live-pages",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"local:code-block",
+				"local:container",
+				"local:live-activity",
+				"local:live-bento-card",
+				"local:live-notification",
+				"local:live-widget",
+				"local:utils",
+				"local:wordmark"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/live/live-pages.svelte",
+					"type": "registry:file",
+					"target": "blocks/live/live-pages.svelte"
+				},
+				{
+					"path": "src/lib/components/bento-tile.svelte",
+					"type": "registry:file",
+					"target": "components/bento-tile.svelte"
+				},
+				{
+					"path": "src/lib/components/bento.svelte",
+					"type": "registry:file",
+					"target": "components/bento.svelte"
+				},
+				{
+					"path": "src/lib/templates/live-pages.svelte",
+					"type": "registry:file",
+					"target": "templates/live-pages.svelte"
+				}
+			]
+		},
+		{
+			"name": "live-widget",
+			"type": "registry:lib",
+			"title": "live-widget",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0",
+				"@lucide/svelte@^1.52.0"
+			],
+			"registryDependencies": [
+				"local:glass",
+				"local:shader-material",
+				"local:ui-button",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/components/live-widget.svelte",
+					"type": "registry:file",
+					"target": "components/live-widget.svelte"
+				},
+				{
+					"path": "src/lib/components/rolling-number.svelte",
+					"type": "registry:file",
+					"target": "components/rolling-number.svelte"
 				}
 			]
 		},

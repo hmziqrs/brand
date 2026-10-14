@@ -29,6 +29,17 @@
 
 	const groups: Group[] = [
 		{
+			title: "Live components",
+			line: "Carousel cards, activities, notifications and widgets.",
+			items: [
+				{ name: "Live Bento card", use: "Image fades, text reveals and material motion inside a tile", id: "custom-live-bento-card--showcase", fresh: true },
+				{ name: "Live activity", use: "Build progress on a wider surface", id: "custom-live-activity--build", fresh: true },
+				{ name: "Live notification", use: "A compact task update beside your page", id: "custom-live-notification--sync", fresh: true },
+				{ name: "Live widget", use: "Downloads, builds, previews, sync and presence", id: "custom-live-widget--downloads", fresh: true },
+				{ name: "Live pages", use: "A collection with product, workspace and release layouts", id: "templates-live-pages--collection", fresh: true },
+			],
+		},
+		{
 			title: "Sections",
 			line: "Whole page sections, each in several versions to pick from.",
 			items: [

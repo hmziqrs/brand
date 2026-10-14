@@ -1,0 +1,95 @@
+<script>
+  import { liveTileSnapshot, liveChartPath, previewPackets, startLiveDemo, playbackLabels, type LiveTileKind, type LiveTileSnapshot } from "@hmziq/brand-core/live";
+  const mounted = new Map<HTMLElement, () => void>();
+  function number(root: Element, value: number) {
+    const text = new Intl.NumberFormat("en-US").format(value);
+    if (root.getAttribute("data-number") === text) return;
+    root.setAttribute("data-number", text);
+    const reader = root.querySelector(".sr-only");
+    if (reader) reader.textContent = text;
+    let characters = Array.from(root.children).slice(1) as HTMLElement[];
+    if (characters.length !== text.length) {
+      for (const child of characters) child.remove();
+      characters = [...text].map((character) => {
+        const span = document.createElement("span");
+        span.setAttribute("aria-hidden", "true");
+        if (/\d/.test(character)) {
+          span.className = "digit";
+          const strip = document.createElement("span");
+          strip.className = "strip";
+          for (const digit of "0123456789") { const row = document.createElement("span"); row.textContent = digit; strip.append(row); }
+          span.append(strip);
+        } else span.textContent = character;
+        root.append(span);
+        return span;
+      });
+    }
+    characters.forEach((character, i) => {
+      const strip = character.querySelector<HTMLElement>(".strip");
+      if (strip) strip.style.setProperty("--n", text[i]); else character.textContent = text[i];
+    });
+  }
+  function paint(root: HTMLElement, snapshot: LiveTileSnapshot) {
+        root.dataset.complete = String(snapshot.complete);
+        root.querySelectorAll<HTMLElement>("[data-live-field]").forEach((field) => {
+          const text = String(snapshot[field.dataset.liveField as keyof typeof snapshot]);
+          if (field.textContent !== text) field.textContent = text;
+        });
+        root.querySelectorAll("[data-live-number] [data-slot='rolling-number']").forEach((counter) => number(counter, snapshot.number));
+        root.querySelectorAll("[data-live-progress]").forEach((bar) => bar.setAttribute("aria-valuenow", String(snapshot.progress)));
+        root.querySelectorAll("[data-live-gauge]").forEach((circle) => circle.setAttribute("stroke-dashoffset", String(389.56 * (1 - snapshot.progress / 100))));
+        root.querySelectorAll("[data-live-badge]").forEach((badge) => badge.textContent = snapshot.complete ? "Complete" : "Live");
+        const chart = liveChartPath(snapshot.points);
+        root.querySelector("[data-live-chart-area]")?.setAttribute("d", chart.area);
+        root.querySelector("[data-live-chart-line]")?.setAttribute("d", chart.line);
+        const dot = root.querySelector("[data-live-chart-dot]");
+        dot?.setAttribute("cx", String(chart.last.x)); dot?.setAttribute("cy", String(chart.last.y));
+        const packets = previewPackets(snapshot.seconds);
+        root.querySelectorAll<SVGCircleElement>("[data-live-packet]").forEach((packet) => { const point = packets[Number(packet.dataset.livePacket)]; packet.style.transition = point.reset ? "none" : ""; packet.style.transform = `translate(${point.x}px, ${point.y}px)`; });
+        root.querySelectorAll<HTMLElement>("[data-live-row]").forEach((field) => {
+          const row = snapshot.rows.find((row) => row.id === field.dataset.liveRow);
+          if (!row) return;
+          field.textContent = snapshot.kind === "sync" && !row.active ? "Syncing" : row.value;
+          field.classList.toggle("text-success", row.active);
+          field.classList.toggle("text-muted-foreground", !row.active);
+        });
+        const people = root.querySelector<HTMLElement>("[data-live-people]");
+        if (people && people.dataset.people !== snapshot.people.map((person) => person.id).join(",")) {
+          const existing = new Map(Array.from(people.children).map((element) => [element.getAttribute("data-person"), element]));
+          const children = snapshot.people.map((person) => {
+            const retained = existing.get(person.id);
+            if (retained) return retained;
+            const row = document.createElement("li"); row.className = "flex min-w-0 items-center gap-3"; row.dataset.person = person.id;
+            const avatar = document.createElement("span"); avatar.className = "relative grid size-8 shrink-0 place-items-center rounded-full bg-muted text-[0.625rem] font-medium"; avatar.textContent = person.initials;
+            const dot = document.createElement("span"); dot.className = "absolute right-0 bottom-0 size-1.5 rounded-full bg-success ring-2 ring-card"; avatar.append(dot);
+            const copy = document.createElement("div"); copy.className = "min-w-0";
+            const name = document.createElement("p"); name.className = "truncate text-xs font-medium"; name.textContent = person.name;
+            const action = document.createElement("p"); action.className = "truncate text-[0.6875rem] text-muted-foreground"; action.textContent = person.action;
+            copy.append(name, action); row.append(avatar, copy); return row;
+          });
+          people.replaceChildren(...children); people.dataset.people = snapshot.people.map((person) => person.id).join(",");
+        }
+  }
+  function init() {
+    for (const [root, destroy] of mounted) if (!root.isConnected) { destroy(); mounted.delete(root); }
+    document.querySelectorAll<HTMLElement>("[data-live-player]").forEach((root) => {
+      if (mounted.has(root)) return;
+      const kind = root.dataset.kind as LiveTileKind;
+      const pause = root.querySelector<HTMLButtonElement>("[data-live-pause]");
+      const controller = startLiveDemo(root, (elapsed) => {
+        const snapshot = liveTileSnapshot(kind, elapsed);
+        const targets = root.dataset.liveGroup ? Array.from(document.querySelectorAll<HTMLElement>(`[data-live-group="${CSS.escape(root.dataset.liveGroup)}"]`)) : [root];
+        for (const target of targets) paint(target, snapshot);
+      }, (state) => {
+        root.dataset.playback = state;
+        pause?.setAttribute("aria-label", playbackLabels[state]);
+        root.querySelectorAll<SVGElement>("[data-live-icon]").forEach((icon) => icon.classList.toggle("hidden", icon.dataset.liveIcon !== (state === "complete" ? "replay" : state === "running" || state === "waiting" ? "pause" : "play")));
+      }, root.dataset.autoplay === "true", kind === "build" ? "task" : "stream");
+      const toggle = () => controller.toggle(); pause?.addEventListener("click", toggle);
+      mounted.set(root, () => { controller.destroy(); pause?.removeEventListener("click", toggle); });
+    });
+  }
+  init();
+  document.addEventListener("astro:page-load", init);
+  document.addEventListener("astro:before-swap", () => { for (const destroy of mounted.values()) destroy(); mounted.clear(); });
+</script>

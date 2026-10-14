@@ -1299,6 +1299,12 @@
 				"@hmziq/legal-layout",
 				"@hmziq/legal-section",
 				"@hmziq/link-bar",
+				"@hmziq/live-activity",
+				"@hmziq/live-bento-card",
+				"@hmziq/live-demo",
+				"@hmziq/live-notification",
+				"@hmziq/live-pages",
+				"@hmziq/live-widget",
 				"@hmziq/mark",
 				"@hmziq/marker",
 				"@hmziq/metric-trend",
@@ -1495,6 +1501,151 @@
 				{
 					"path": "src/blocks/site/link-bar.astro",
 					"target": "src/components/brand/blocks/site/link-bar.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "live-activity",
+			"type": "registry:file",
+			"title": "live-activity",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"@hmziq/live-widget"
+			],
+			"files": [
+				{
+					"path": "src/components/live-activity.astro",
+					"target": "src/components/brand/components/live-activity.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "live-bento-card",
+			"type": "registry:file",
+			"title": "live-bento-card",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0",
+				"@lucide/astro@^1.48.0"
+			],
+			"registryDependencies": [
+				"@hmziq/glass",
+				"@hmziq/starwind-button",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/components/live-bento-card.astro",
+					"target": "src/components/brand/components/live-bento-card.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "live-demo",
+			"type": "registry:file",
+			"title": "live-demo",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"@hmziq/live-activity",
+				"@hmziq/live-notification",
+				"@hmziq/live-widget"
+			],
+			"files": [
+				{
+					"path": "src/blocks/live/live-demo.astro",
+					"target": "src/components/brand/blocks/live/live-demo.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "live-notification",
+			"type": "registry:file",
+			"title": "live-notification",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"@hmziq/live-widget"
+			],
+			"files": [
+				{
+					"path": "src/components/live-notification.astro",
+					"target": "src/components/brand/components/live-notification.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "live-pages",
+			"type": "registry:file",
+			"title": "live-pages",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"@hmziq/code-block",
+				"@hmziq/container",
+				"@hmziq/live-activity",
+				"@hmziq/live-bento-card",
+				"@hmziq/live-notification",
+				"@hmziq/live-widget",
+				"@hmziq/utils",
+				"@hmziq/wordmark"
+			],
+			"files": [
+				{
+					"path": "src/blocks/live/live-bento-tile.astro",
+					"target": "src/components/brand/blocks/live/live-bento-tile.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/blocks/live/live-pages.astro",
+					"target": "src/components/brand/blocks/live/live-pages.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "live-widget",
+			"type": "registry:file",
+			"title": "live-widget",
+			"description": "App block from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0",
+				"@lucide/astro@^1.48.0"
+			],
+			"registryDependencies": [
+				"@hmziq/glass",
+				"@hmziq/shader-material",
+				"@hmziq/starwind-button",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/live/live-number.astro",
+					"target": "src/components/brand/blocks/live/live-number.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/blocks/live/live-runtime.astro",
+					"target": "src/components/brand/blocks/live/live-runtime.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/components/live-widget.astro",
+					"target": "src/components/brand/components/live-widget.astro",
 					"type": "registry:file"
 				}
 			]

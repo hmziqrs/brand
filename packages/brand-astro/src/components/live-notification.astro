@@ -1,0 +1,9 @@
+---
+import LiveWidget from "$brand/components/live-widget.astro";
+import type { LiveTileSnapshot, LiveTileKind } from "@hmziq/brand-core/live";
+interface Props { snapshot?: LiveTileSnapshot; kind?: LiveTileKind; autoplay?: boolean; group?: string; class?: string }
+const { kind = "sync" } = Astro.props;
+---
+{Astro.slots.has("controls") ? (
+  <LiveWidget {...Astro.props} kind={kind} presentation="notification"><Fragment slot="controls"><slot name="controls" /></Fragment></LiveWidget>
+) : <LiveWidget {...Astro.props} kind={kind} presentation="notification" />}

@@ -1,0 +1,8 @@
+---
+import { cn } from "$brand/utils";
+interface Props { cols?: 2 | 3 | 4; rows?: 1 | 2; class?: string }
+const { cols = 2, rows = 1, class: className } = Astro.props;
+const lg = { 2: "lg:col-span-2", 3: "lg:col-span-3", 4: "lg:col-span-4" };
+const md = { 2: "md:col-span-2", 3: "md:col-span-4", 4: "md:col-span-4" };
+---
+<article data-slot="bento-tile" data-layout="top" class={cn("group/tile relative flex min-w-0 flex-col overflow-hidden rounded-xl ring-1 ring-foreground/10 transition-[box-shadow] has-[a:focus-visible]:ring-2 has-[a:focus-visible]:ring-ring", lg[cols], md[cols], rows === 2 && "md:row-span-2", className)}><div class="relative min-h-0 min-w-0 flex-1"><slot name="media" /></div></article>

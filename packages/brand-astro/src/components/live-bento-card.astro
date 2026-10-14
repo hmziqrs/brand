@@ -1,0 +1,58 @@
+---
+import Glass from "$brand/components/glass.astro";
+import { Pause, Play } from "@lucide/astro";
+import Button from "$brand/starwind/button/Button.astro";
+import { cn } from "$brand/utils";
+import { liveBentoPresets } from "@hmziq/brand-core/live-carousel-scenes";
+import { shaderPosters } from "@hmziq/brand-core/shaders/posters";
+import { carouselIndex, type LiveBentoPreset, type LiveBentoScene } from "@hmziq/brand-core/live-carousel";
+import "@hmziq/brand-core/live-carousel.css";
+interface Props { preset?: LiveBentoPreset; items?: readonly LiveBentoScene[]; label?: string; autoplay?: boolean; glass?: boolean; interval?: number; initial?: number; class?: string }
+const { preset = "showcase", items, label = "Live Bento", autoplay = true, glass = true, interval = 6500, initial = 0, class: className } = Astro.props;
+const scenes = items ?? liveBentoPresets[preset];
+const index = carouselIndex(initial, scenes.length);
+---
+<section data-slot="live-bento-card" data-preset={preset} data-glass-enabled={glass} data-autoplay={autoplay} data-interval={interval} data-playback="waiting" data-index={index} data-instant="false" aria-roledescription="carousel" aria-label={label} class={cn(className)}>
+  {scenes.length > 0 && <div class="live-carousel-top"><Glass variant="frost" class="rounded-full"><Button variant="ghost" size="icon-sm" data-carousel-toggle class="size-11 rounded-full text-foreground" aria-label="Pause carousel"><Pause data-carousel-icon="pause" class="lucide size-3.5" /><Play data-carousel-icon="play" class="lucide hidden size-3.5" /></Button></Glass></div>}
+  <div class="live-carousel-stage">{scenes.map((scene, i) => (
+    <div class="live-carousel-scene" data-type={scene.type} data-surface={glass && scene.type !== "text" ? "glass" : "plain"} data-current={i === index} role="group" aria-roledescription="slide" aria-label={`${i + 1} of ${scenes.length}`} aria-hidden={i !== index}>
+      {scene.type === "image" && scene.src ? <div class="live-carousel-image"><img class="live-carousel-backdrop" src={scene.src} alt="" aria-hidden="true" width="1100" height="720" decoding="async" /><img src={scene.src} alt={scene.alt ?? ""} width="1100" height="720" decoding="async" /></div> : scene.type === "material" && <div class="live-carousel-material-stage" aria-hidden="true"><div class="live-carousel-material" data-shape={scene.shape ?? "ring"}><img src={(shaderPosters[scene.material ?? "copper-sweep"] ?? shaderPosters["copper-sweep"]).src} alt="" width="960" height="960" decoding="async" /></div></div>}
+      {glass && scene.type !== "text" ? <Glass variant="frost" class="live-carousel-copy live-carousel-glass"><h3>{scene.title}</h3><p>{scene.body}</p>{scene.detail && <div class="live-carousel-detail">{scene.detail}</div>}</Glass> : <div class="live-carousel-copy">{scene.material && scene.type === "text" ? <h3 class="live-carousel-lettering" style={`--live-lettering-image: url(${JSON.stringify((shaderPosters[scene.material] ?? shaderPosters["copper-sweep"]).src)})`}><span class="live-carousel-lettering-label">{scene.title}</span><span class="live-carousel-lettering-shine" aria-hidden="true">{scene.title}</span></h3> : <h3>{scene.title}</h3>}<p>{scene.body}</p>{scene.detail && <div class="live-carousel-detail">{scene.detail}</div>}</div>}
+    </div>
+  ))}</div>
+  <div class="live-carousel-footer"><span class="live-carousel-label">{label}</span><div class="live-carousel-pages" role="group" aria-label="Choose a scene">{scenes.map((scene, i) => (<button type="button" data-carousel-page={i} class="live-carousel-page focus-visible:outline-2 focus-visible:outline-ring" aria-label={`Show ${scene.title.replaceAll("\n", " ")}`} aria-current={i === index ? "true" : undefined} data-visited={i < index}><span class="live-carousel-track" aria-hidden="true"><span class="live-carousel-fill"></span></span></button>))}</div></div>
+</section>
+<script>
+  import { startLiveCarousel } from "@hmziq/brand-core/live-carousel";
+  const mounted = new Map<HTMLElement, () => void>();
+  function init() {
+    for (const [root, destroy] of mounted) if (!root.isConnected) { destroy(); mounted.delete(root); }
+    document.querySelectorAll<HTMLElement>('[data-slot="live-bento-card"]').forEach(root => {
+      if (mounted.has(root)) return;
+      const scenes = root.querySelectorAll<HTMLElement>(".live-carousel-scene");
+      const pages = root.querySelectorAll<HTMLButtonElement>("[data-carousel-page]");
+      const toggle = root.querySelector<HTMLButtonElement>("[data-carousel-toggle]");
+      const controller = startLiveCarousel(root, index => {
+        root.dataset.index = String(index);
+        scenes.forEach((scene, i) => { scene.dataset.current = String(i === index); scene.setAttribute("aria-hidden", String(i !== index)); });
+        pages.forEach((page, i) => { if (i === index) page.setAttribute("aria-current", "true"); else page.removeAttribute("aria-current"); page.dataset.visited = String(i < index); });
+      }, state => {
+        root.dataset.playback = state;
+        const running = state === "running" || state === "waiting";
+        toggle?.setAttribute("aria-label", running ? "Pause carousel" : "Play carousel");
+        root.querySelectorAll<SVGElement>("[data-carousel-icon]").forEach(icon => icon.classList.toggle("hidden", icon.dataset.carouselIcon !== (running ? "pause" : "play")));
+      }, { count: scenes.length, interval: Number(root.dataset.interval), autoplay: root.dataset.autoplay === "true", initial: Number(root.dataset.index) });
+      const play = () => { root.dataset.instant = "false"; controller.toggle(); };
+      const listeners = Array.from(pages, (page, i) => {
+        const select = (event: MouseEvent) => { root.dataset.instant = String(event.detail === 0); controller.select(i); };
+        page.addEventListener("click", select);
+        return () => page.removeEventListener("click", select);
+      });
+      toggle?.addEventListener("click", play);
+      mounted.set(root, () => { controller.destroy(); toggle?.removeEventListener("click", play); listeners.forEach(remove => remove()); });
+    });
+  }
+  init();
+  document.addEventListener("astro:page-load", init);
+  document.addEventListener("astro:before-swap", () => { for (const destroy of mounted.values()) destroy(); mounted.clear(); });
+</script>

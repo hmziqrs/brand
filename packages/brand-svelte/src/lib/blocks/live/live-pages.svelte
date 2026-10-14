@@ -1,0 +1,43 @@
+<script lang="ts">
+  import { livePageLinks, type LivePageVariant, type LivePageLink } from "@hmziq/brand-core/live-pages";
+  import { liveTileSnapshot, type LiveTileSnapshot, type LiveTileKind } from "@hmziq/brand-core/live";
+  import Container from "$brand/blocks/site/container.svelte";
+  import Wordmark from "$brand/components/wordmark.svelte";
+  import Bento from "$brand/components/bento.svelte";
+  import BentoTile from "$brand/components/bento-tile.svelte";
+  import LiveBentoCard from "$brand/components/live-bento-card.svelte";
+  import LiveWidget from "$brand/components/live-widget.svelte";
+  import LiveActivity from "$brand/components/live-activity.svelte";
+  import LiveNotification from "$brand/components/live-notification.svelte";
+  import CodeBlock from "$brand/components/code-block.svelte";
+  let { variant = "overview", autoplay = true, links = livePageLinks }: { variant?: LivePageVariant; autoplay?: boolean; links?: readonly LivePageLink[] } = $props();
+  type Tile = { kind: LiveTileKind; cols: 2 | 3 | 4; wide?: boolean };
+  const compositions: Record<LivePageVariant, Tile[]> = {
+    overview: [{ kind: "downloads", cols: 4 }, { kind: "build", cols: 2 }, { kind: "links", cols: 2 }, { kind: "presence", cols: 2 }, { kind: "sync", cols: 2 }],
+    product: [{ kind: "downloads", cols: 4 }, { kind: "build", cols: 2 }, { kind: "links", cols: 3 }, { kind: "sync", cols: 3 }],
+    workspace: [{ kind: "presence", cols: 3 }, { kind: "links", cols: 3 }, { kind: "sync", cols: 4 }, { kind: "build", cols: 2 }],
+    studio: [{ kind: "build", cols: 4, wide: true }, { kind: "downloads", cols: 2 }, { kind: "sync", cols: 3 }, { kind: "presence", cols: 3 }],
+  };
+  const titles = { overview: "Live Bento cards", product: "Your product, in motion.", workspace: "A workspace that stays current.", studio: "Follow the next release." };
+  let build = $state.raw(liveTileSnapshot("build"));
+  const updateBuild = (snapshot: LiveTileSnapshot) => build = snapshot;
+  const widgetSample = `<BentoTile cols={2} rows={2}>\n  {#snippet media()}\n    <LiveWidget kind="sync" class="h-full" />\n  {/snippet}\n</BentoTile>`;
+  const carouselSample = `<BentoTile cols={4} rows={2}>\n  {#snippet media()}\n    <LiveBentoCard preset="showcase" class="h-full" />\n  {/snippet}\n</BentoTile>`;
+  const sample = $derived(variant === "overview" ? carouselSample : widgetSample);
+  const carouselTiles = [{ preset: "showcase", label: "Product preview", cols: 4, interval: 7500 }, { preset: "words", label: "Typography", cols: 2, interval: 8500 }, { preset: "materials", label: "Material study", cols: 3, interval: 9000 }, { preset: "gallery", label: "Screen gallery", cols: 3, interval: 6500 }] as const;
+</script>
+
+<div class="min-h-screen bg-background text-foreground antialiased">
+  <header data-slot="nav-bar" data-variant="bar" class="border-b bg-background"><div class="mx-auto flex min-h-16 max-w-6xl items-center justify-between gap-4 px-6 py-3"><a href={links[0].href} target={links[0].target} class="shrink-0 rounded-sm text-lg outline-none focus-visible:ring-2 focus-visible:ring-ring"><Wordmark name="hmziq" /></a><span class="min-w-0 text-right text-sm text-muted-foreground [overflow-wrap:anywhere]">The component kit</span></div></header>
+  <main class="flex flex-col gap-7 pt-9 pb-12 md:pt-12">
+    <Container class="max-w-6xl">
+      <div class="flex flex-wrap items-end justify-between gap-5"><div class="flex flex-col gap-3"><h1 class="text-3xl font-medium tracking-tight sm:text-4xl">{titles[variant]}</h1><p class="max-w-xl text-sm leading-relaxed text-muted-foreground">{variant === "overview" ? "Images fade, words appear, materials begin to move. Each tile plays on its own." : "These tiles update by themselves. Drop them into the Bento you already have."}</p></div><span class="flex items-center gap-2 text-xs text-muted-foreground"><span class="size-1.5 rounded-full bg-success"></span>Live previews</span></div>
+      <nav class="mt-7 flex flex-wrap gap-1" aria-label="Live component examples">{#each links as link (link.value)}<a href={link.href} target={link.target} aria-current={variant === link.value ? "page" : undefined} class="rounded-md px-3 py-2 text-sm text-muted-foreground outline-none hover:bg-muted hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring aria-[current=page]:bg-muted aria-[current=page]:text-foreground">{link.label}</a>{/each}</nav>
+    </Container>
+    <Container class="max-w-6xl">
+      <section aria-labelledby="live-example-title"><h2 id="live-example-title" class="sr-only">Live Bento examples</h2>{#if variant === "overview"}<Bento>{#each carouselTiles as tile (tile.preset)}<BentoTile cols={tile.cols} rows={2} class={tile.preset === "materials" ? "md:col-span-2 lg:col-span-3" : undefined}>{#snippet media()}<LiveBentoCard preset={tile.preset} label={tile.label} interval={tile.interval} {autoplay} class="h-full" />{/snippet}</BentoTile>{/each}</Bento>{:else}<Bento>{#each compositions[variant] as tile (tile.kind)}<BentoTile cols={tile.cols} rows={2} class="ring-0">{#snippet media()}{#if tile.wide}<LiveActivity kind={tile.kind} {autoplay} onupdate={tile.kind === "build" ? updateBuild : undefined} group={tile.kind === "build" ? "page-build" : undefined} class="h-full" />{:else}<LiveWidget kind={tile.kind} {autoplay} onupdate={tile.kind === "build" ? updateBuild : undefined} group={tile.kind === "build" ? "page-build" : undefined} class="h-full" />{/if}{/snippet}</BentoTile>{/each}</Bento>{/if}</section>
+      {#if variant === "overview"}<p class="mt-5 text-xs text-muted-foreground">Pause any card from its corner. Select a scene from the progress bars.</p>{:else}<div class="mt-5 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center"><p class="text-xs text-muted-foreground">Simulated data. Pause any tile from its corner.</p><LiveNotification kind="build" snapshot={build} group="page-build" class="w-full sm:w-80" /></div>{/if}
+    </Container>
+    <Container class="max-w-6xl"><details class="border-t pt-5"><summary class="cursor-pointer text-sm text-muted-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring">{variant === "overview" ? "Use a live carousel in your Bento" : "Use a live widget in your Bento"}</summary><div class="mt-5 grid gap-5 md:grid-cols-[15rem_minmax(0,1fr)]"><p class="text-sm leading-relaxed text-muted-foreground">{variant === "overview" ? "The card fills the media slot. Pass your own scenes to cycle through images, text, and materials." : "The widget fills the media slot. Pass your own snapshot to show data from your product."}</p><CodeBlock code={sample} lang="text" label="Svelte" copy={false} /></div></details></Container>
+  </main>
+</div>
