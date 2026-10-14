@@ -2639,6 +2639,42 @@
       "astroItem": "not yet"
     },
     {
+      "name": "OrbitSection",
+      "group": "site",
+      "svelte": "sections-orbit--how-it-fits-together",
+      "astro": "not yet",
+      "svelteFile": "blocks/sections/orbit-section.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "FlowSection",
+      "group": "site",
+      "svelte": "sections-flow--visitors",
+      "astro": "not yet",
+      "svelteFile": "blocks/sections/flow-section.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "Eyebrow",
+      "group": "brand",
+      "svelte": "custom-eyebrow--ring",
+      "astro": "not yet",
+      "svelteFile": "components/eyebrow.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "StackSection",
+      "group": "site",
+      "svelte": "sections-stack--layers",
+      "astro": "not yet",
+      "svelteFile": "blocks/sections/stack-section.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
       "name": "LiveActivity",
       "group": "app",
       "svelte": "custom-live-activity--build",
