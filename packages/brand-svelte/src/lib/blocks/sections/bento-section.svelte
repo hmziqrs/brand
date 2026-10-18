@@ -1,6 +1,7 @@
 <!-- A titled section of feature tiles in a six-column bento. Each tile is an outline card, an orange
-     tile, a material cover or glass on a material, with its picture at the bottom. The whole grid
-     can sit on the page, on the orange band, or on a material. -->
+     tile, a material cover or glass on a material, with its picture at the bottom (or directly under
+     the copy with picture="under"). The whole grid can sit on the page, on the orange band, or on a
+     material. -->
 <script lang="ts" module>
 	import type { Snippet } from "svelte";
 
@@ -31,6 +32,7 @@
 		align = "center",
 		ground = "page",
 		preset = "etched-silk",
+		picture = "bottom",
 		class: className,
 	}: {
 		title: string;
@@ -41,6 +43,7 @@
 		ground?: "page" | "band" | "material";
 		/** The material for ground="material". */
 		preset?: string;
+		picture?: "bottom" | "under";
 		class?: string;
 	} = $props();
 
@@ -57,12 +60,13 @@
 
 {#snippet tile(t: BentoTile)}
 	{@const span = cn(lg[t.cols ?? 2], md[t.cols ?? 2], t.rows === 2 && "lg:row-span-2")}
+	{@const pushDown = picture === "bottom" ? "mt-auto" : undefined}
 	{#if t.tone === "orange"}
-		<div class={cn("band-orange flex flex-col gap-5 rounded-xl p-6", span)}>{@render words(t)}{#if t.visual}<div class="mt-auto">{@render t.visual()}</div>{/if}</div>
+		<div class={cn("band-orange flex flex-col gap-5 rounded-xl p-6", span)}>{@render words(t)}{#if t.visual}<div class={pushDown}>{@render t.visual()}</div>{/if}</div>
 	{:else if t.tone === "material"}
 		<div class={cn("flex flex-col overflow-hidden rounded-xl ring-1 ring-foreground/10", ground === "band" && pageMode(), ground === "material" && "bg-background", span)}>
 			<div class="relative h-36 border-b"><ShaderMaterial preset={t.preset ?? materialFor(t.title)} rendering="image" controls={false} sizes="(min-width: 1024px) 33vw, 100vw" class="absolute inset-0" /></div>
-			<div class="flex flex-1 flex-col gap-5 p-6">{@render words(t)}{#if t.visual}<div class="mt-auto">{@render t.visual()}</div>{/if}</div>
+			<div class="flex flex-1 flex-col gap-5 p-6">{@render words(t)}{#if t.visual}<div class={pushDown}>{@render t.visual()}</div>{/if}</div>
 		</div>
 	{:else if t.tone === "glass"}
 		<div class={cn("relative isolate flex flex-col justify-end overflow-hidden rounded-xl p-3 ring-1 ring-foreground/10", span)}>
@@ -70,9 +74,9 @@
 			<Glass variant="smoke" class="flex flex-col gap-4 rounded-lg p-5">{@render words(t)}{#if t.visual}{@render t.visual()}{/if}</Glass>
 		</div>
 	{:else if ground === "material"}
-		<Glass variant="smoke" class={cn("flex flex-col gap-5 rounded-xl p-6", span)}>{@render words(t)}{#if t.visual}<div class="mt-auto">{@render t.visual()}</div>{/if}</Glass>
+		<Glass variant="smoke" class={cn("flex flex-col gap-5 rounded-xl p-6", span)}>{@render words(t)}{#if t.visual}<div class={pushDown}>{@render t.visual()}</div>{/if}</Glass>
 	{:else}
-		<div class={cn("flex flex-col gap-5 rounded-xl p-6 ring-1 ring-foreground/10", ground === "band" && pageMode(), span)}>{@render words(t)}{#if t.visual}<div class="mt-auto">{@render t.visual()}</div>{/if}</div>
+		<div class={cn("flex flex-col gap-5 rounded-xl p-6 ring-1 ring-foreground/10", ground === "band" && pageMode(), span)}>{@render words(t)}{#if t.visual}<div class={pushDown}>{@render t.visual()}</div>{/if}</div>
 	{/if}
 {/snippet}
 

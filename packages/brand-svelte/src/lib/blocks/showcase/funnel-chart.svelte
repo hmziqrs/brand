@@ -1,5 +1,5 @@
 <!-- How many people make it through each step, and where the rest leave. columns stands the steps
-     up side by side; rows lays them out with the share kept from the step before. -->
+     up side by side; rows lays them out with the share kept from the step before, spaced by stepGap. -->
 <script lang="ts">
 	import { cn } from "$brand/utils.js";
 	import Marker from "$brand/components/marker.svelte";
@@ -9,6 +9,7 @@
 	let {
 		steps,
 		variant = "rows",
+		stepGap = "gap-4",
 		/** Name the step most people leave at. */
 		callout = true,
 		format = (n: number) => n.toLocaleString("en-US"),
@@ -16,6 +17,7 @@
 	}: {
 		steps: Step[];
 		variant?: "rows" | "columns";
+		stepGap?: "gap-2" | "gap-3" | "gap-4";
 		callout?: boolean;
 		format?: (n: number) => string;
 		class?: string;
@@ -46,7 +48,7 @@
 			{/each}
 		</ul>
 	{:else}
-		<ol class="flex flex-col gap-4">
+		<ol class={cn("flex flex-col", stepGap)}>
 			{#each steps as s, i (s.label)}
 				<li class="flex flex-col gap-1.5">
 					<span class="flex items-baseline justify-between gap-3 text-xs">
