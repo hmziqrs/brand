@@ -106,7 +106,6 @@
 				{ name: "Section", use: "A titled part of a page", id: "site-sections-section--default" },
 				{ name: "Feature grid & cards", use: "What it does, three to six at a time", id: "site-cards-feature-cards--default" },
 				{ name: "Steps", use: "How it works, in order", id: "site-sections-steps--default" },
-				{ name: "Stack cards", use: "Steps that stick and stack as you scroll", id: "custom-stack-cards--steps", fresh: true },
 				{ name: "Bento", use: "A grid of different-sized tiles", id: "custom-bento--freeoxide", fresh: true },
 				{ name: "Material tabs", use: "Pick a feature, see it on its metal", id: "custom-material-tabs--default", fresh: true },
 				{ name: "Feature carousel", use: "A tour, one slide at a time", id: "custom-carousel--feature-tour", fresh: true },

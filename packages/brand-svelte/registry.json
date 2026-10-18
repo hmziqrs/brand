@@ -578,6 +578,247 @@
 			]
 		},
 		{
+			"name": "components",
+			"type": "registry:lib",
+			"title": "components",
+			"description": "Files from \"components\" the pieces roster does not list yet; they become their own items when their plan finishes and this script is re-run.",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0",
+				"@lucide/svelte@^1.52.0",
+				"bits-ui@^2.18.0",
+				"simple-icons@16.32.0"
+			],
+			"registryDependencies": [
+				"local:brand-icon",
+				"local:button-link",
+				"local:content-blocks-shared",
+				"local:copy-button",
+				"local:glass",
+				"local:kind-tag",
+				"local:mark",
+				"local:marker",
+				"local:segmented",
+				"local:shader-material",
+				"local:status-ring",
+				"local:tag",
+				"local:ui-avatar",
+				"local:ui-button",
+				"local:ui-carousel",
+				"local:ui-input",
+				"local:ui-kbd",
+				"local:ui-navigation-menu",
+				"local:ui-progress",
+				"local:ui-sheet",
+				"local:ui-slider",
+				"local:ui-switch",
+				"local:ui-textarea",
+				"local:utils",
+				"local:wordmark"
+			],
+			"files": [
+				{
+					"path": "src/lib/components/announce-bar.svelte",
+					"type": "registry:file",
+					"target": "components/announce-bar.svelte"
+				},
+				{
+					"path": "src/lib/components/announce-pill.svelte",
+					"type": "registry:file",
+					"target": "components/announce-pill.svelte"
+				},
+				{
+					"path": "src/lib/components/card-carousel.svelte",
+					"type": "registry:file",
+					"target": "components/card-carousel.svelte"
+				},
+				{
+					"path": "src/lib/components/carousel-controls.svelte",
+					"type": "registry:file",
+					"target": "components/carousel-controls.svelte"
+				},
+				{
+					"path": "src/lib/components/command-palette.svelte",
+					"type": "registry:file",
+					"target": "components/command-palette.svelte"
+				},
+				{
+					"path": "src/lib/components/comment-thread.svelte",
+					"type": "registry:file",
+					"target": "components/comment-thread.svelte"
+				},
+				{
+					"path": "src/lib/components/consent-banner.svelte",
+					"type": "registry:file",
+					"target": "components/consent-banner.svelte"
+				},
+				{
+					"path": "src/lib/components/endpoint-card.svelte",
+					"type": "registry:file",
+					"target": "components/endpoint-card.svelte"
+				},
+				{
+					"path": "src/lib/components/eyebrow.svelte",
+					"type": "registry:file",
+					"target": "components/eyebrow.svelte"
+				},
+				{
+					"path": "src/lib/components/feature-carousel.svelte",
+					"type": "registry:file",
+					"target": "components/feature-carousel.svelte"
+				},
+				{
+					"path": "src/lib/components/file-drop.svelte",
+					"type": "registry:file",
+					"target": "components/file-drop.svelte"
+				},
+				{
+					"path": "src/lib/components/gallery.svelte",
+					"type": "registry:file",
+					"target": "components/gallery.svelte"
+				},
+				{
+					"path": "src/lib/components/glass-dock.svelte",
+					"type": "registry:file",
+					"target": "components/glass-dock.svelte"
+				},
+				{
+					"path": "src/lib/components/line-tabs.svelte",
+					"type": "registry:file",
+					"target": "components/line-tabs.svelte"
+				},
+				{
+					"path": "src/lib/components/liquid-glass.svelte",
+					"type": "registry:file",
+					"target": "components/liquid-glass.svelte"
+				},
+				{
+					"path": "src/lib/components/material-bar.svelte",
+					"type": "registry:file",
+					"target": "components/material-bar.svelte"
+				},
+				{
+					"path": "src/lib/components/material-card.svelte",
+					"type": "registry:file",
+					"target": "components/material-card.svelte"
+				},
+				{
+					"path": "src/lib/components/material-frame.svelte",
+					"type": "registry:file",
+					"target": "components/material-frame.svelte"
+				},
+				{
+					"path": "src/lib/components/material-gauge.svelte",
+					"type": "registry:file",
+					"target": "components/material-gauge.svelte"
+				},
+				{
+					"path": "src/lib/components/material-rings.svelte",
+					"type": "registry:file",
+					"target": "components/material-rings.svelte"
+				},
+				{
+					"path": "src/lib/components/material-rule.svelte",
+					"type": "registry:file",
+					"target": "components/material-rule.svelte"
+				},
+				{
+					"path": "src/lib/components/material-slider.svelte",
+					"type": "registry:file",
+					"target": "components/material-slider.svelte"
+				},
+				{
+					"path": "src/lib/components/material-sparkline.svelte",
+					"type": "registry:file",
+					"target": "components/material-sparkline.svelte"
+				},
+				{
+					"path": "src/lib/components/material-stage.svelte",
+					"type": "registry:file",
+					"target": "components/material-stage.svelte"
+				},
+				{
+					"path": "src/lib/components/material-tabs.svelte",
+					"type": "registry:file",
+					"target": "components/material-tabs.svelte"
+				},
+				{
+					"path": "src/lib/components/material-tag.svelte",
+					"type": "registry:file",
+					"target": "components/material-tag.svelte"
+				},
+				{
+					"path": "src/lib/components/material-tile.svelte",
+					"type": "registry:file",
+					"target": "components/material-tile.svelte"
+				},
+				{
+					"path": "src/lib/components/nav-bar.svelte",
+					"type": "registry:file",
+					"target": "components/nav-bar.svelte"
+				},
+				{
+					"path": "src/lib/components/notification-list.svelte",
+					"type": "registry:file",
+					"target": "components/notification-list.svelte"
+				},
+				{
+					"path": "src/lib/components/person-card.svelte",
+					"type": "registry:file",
+					"target": "components/person-card.svelte"
+				},
+				{
+					"path": "src/lib/components/plan-card.svelte",
+					"type": "registry:file",
+					"target": "components/plan-card.svelte"
+				},
+				{
+					"path": "src/lib/components/project-card.svelte",
+					"type": "registry:file",
+					"target": "components/project-card.svelte"
+				},
+				{
+					"path": "src/lib/components/release-card.svelte",
+					"type": "registry:file",
+					"target": "components/release-card.svelte"
+				},
+				{
+					"path": "src/lib/components/ring-divider.svelte",
+					"type": "registry:file",
+					"target": "components/ring-divider.svelte"
+				},
+				{
+					"path": "src/lib/components/ring-loader.svelte",
+					"type": "registry:file",
+					"target": "components/ring-loader.svelte"
+				},
+				{
+					"path": "src/lib/components/ring-meter.svelte",
+					"type": "registry:file",
+					"target": "components/ring-meter.svelte"
+				},
+				{
+					"path": "src/lib/components/roadmap.svelte",
+					"type": "registry:file",
+					"target": "components/roadmap.svelte"
+				},
+				{
+					"path": "src/lib/components/scroll-rings.svelte",
+					"type": "registry:file",
+					"target": "components/scroll-rings.svelte"
+				},
+				{
+					"path": "src/lib/components/site-footer.svelte",
+					"type": "registry:file",
+					"target": "components/site-footer.svelte"
+				},
+				{
+					"path": "src/lib/components/theme-toggle.svelte",
+					"type": "registry:file",
+					"target": "components/theme-toggle.svelte"
+				}
+			]
+		},
+		{
 			"name": "confirm-action",
 			"type": "registry:lib",
 			"title": "confirm-action",
@@ -1366,6 +1607,21 @@
 			]
 		},
 		{
+			"name": "hooks",
+			"type": "registry:lib",
+			"title": "hooks",
+			"description": "Files from \"hooks\" the pieces roster does not list yet; they become their own items when their plan finishes and this script is re-run.",
+			"dependencies": [],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/lib/hooks/page-mode.svelte.ts",
+					"type": "registry:file",
+					"target": "hooks/page-mode.svelte.ts"
+				}
+			]
+		},
+		{
 			"name": "horizon-rings",
 			"type": "registry:lib",
 			"title": "horizon-rings",
@@ -1514,6 +1770,7 @@
 				"local:command",
 				"local:command-bar",
 				"local:command-box",
+				"local:components",
 				"local:confirm-action",
 				"local:contact-channels",
 				"local:container",
@@ -1550,6 +1807,7 @@
 				"local:hero-note",
 				"local:hero-notes",
 				"local:hero-title",
+				"local:hooks",
 				"local:horizon-rings",
 				"local:icon-tile",
 				"local:inline-code",
@@ -1606,6 +1864,7 @@
 				"local:scene",
 				"local:search-box",
 				"local:section",
+				"local:sections-blocks",
 				"local:segmented",
 				"local:select-all-checkbox",
 				"local:setting-row",
@@ -1615,6 +1874,8 @@
 				"local:share-bar",
 				"local:shell-app-blocks",
 				"local:shell-app-blocks-shared",
+				"local:showcase-blocks",
+				"local:showcase-blocks-shared",
 				"local:sign-in-form",
 				"local:sign-up-form",
 				"local:site-blocks",
@@ -2804,6 +3065,53 @@
 			]
 		},
 		{
+			"name": "sections-blocks",
+			"type": "registry:lib",
+			"title": "sections-blocks",
+			"description": "Files from \"sections-blocks\" the pieces roster does not list yet; they become their own items when their plan finishes and this script is re-run.",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"local:band-arcs",
+				"local:container",
+				"local:glass",
+				"local:hooks",
+				"local:marker",
+				"local:rings",
+				"local:saas-blocks",
+				"local:shader-material",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/sections/band-section.svelte",
+					"type": "registry:file",
+					"target": "blocks/sections/band-section.svelte"
+				},
+				{
+					"path": "src/lib/blocks/sections/bento-section.svelte",
+					"type": "registry:file",
+					"target": "blocks/sections/bento-section.svelte"
+				},
+				{
+					"path": "src/lib/blocks/sections/flow-section.svelte",
+					"type": "registry:file",
+					"target": "blocks/sections/flow-section.svelte"
+				},
+				{
+					"path": "src/lib/blocks/sections/orbit-section.svelte",
+					"type": "registry:file",
+					"target": "blocks/sections/orbit-section.svelte"
+				},
+				{
+					"path": "src/lib/blocks/sections/showcase-section.svelte",
+					"type": "registry:file",
+					"target": "blocks/sections/showcase-section.svelte"
+				}
+			]
+		},
+		{
 			"name": "segmented",
 			"type": "registry:lib",
 			"title": "segmented",
@@ -2968,6 +3276,86 @@
 					"path": "src/lib/blocks/app/shell/types.ts",
 					"type": "registry:file",
 					"target": "blocks/app/shell/types.ts"
+				}
+			]
+		},
+		{
+			"name": "showcase-blocks",
+			"type": "registry:lib",
+			"title": "showcase-blocks",
+			"description": "Files from \"showcase-blocks\" the pieces roster does not list yet; they become their own items when their plan finishes and this script is re-run.",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0",
+				"@lucide/svelte@^1.52.0"
+			],
+			"registryDependencies": [
+				"local:marker",
+				"local:ring-gauge",
+				"local:status-ring",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/showcase/activity-heatmap.svelte",
+					"type": "registry:file",
+					"target": "blocks/showcase/activity-heatmap.svelte"
+				},
+				{
+					"path": "src/lib/blocks/showcase/alert-card.svelte",
+					"type": "registry:file",
+					"target": "blocks/showcase/alert-card.svelte"
+				},
+				{
+					"path": "src/lib/blocks/showcase/bar-list.svelte",
+					"type": "registry:file",
+					"target": "blocks/showcase/bar-list.svelte"
+				},
+				{
+					"path": "src/lib/blocks/showcase/funnel-chart.svelte",
+					"type": "registry:file",
+					"target": "blocks/showcase/funnel-chart.svelte"
+				},
+				{
+					"path": "src/lib/blocks/showcase/goal-meter.svelte",
+					"type": "registry:file",
+					"target": "blocks/showcase/goal-meter.svelte"
+				},
+				{
+					"path": "src/lib/blocks/showcase/kpi-stat.svelte",
+					"type": "registry:file",
+					"target": "blocks/showcase/kpi-stat.svelte"
+				},
+				{
+					"path": "src/lib/blocks/showcase/live-feed.svelte",
+					"type": "registry:file",
+					"target": "blocks/showcase/live-feed.svelte"
+				},
+				{
+					"path": "src/lib/blocks/showcase/retention-grid.svelte",
+					"type": "registry:file",
+					"target": "blocks/showcase/retention-grid.svelte"
+				},
+				{
+					"path": "src/lib/blocks/showcase/trend-chart.svelte",
+					"type": "registry:file",
+					"target": "blocks/showcase/trend-chart.svelte"
+				}
+			]
+		},
+		{
+			"name": "showcase-blocks-shared",
+			"type": "registry:lib",
+			"title": "showcase-blocks-shared",
+			"description": "Files from \"showcase-blocks-shared\" the pieces roster does not list yet; they become their own items when their plan finishes and this script is re-run.",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/lib/blocks/showcase/demo.ts",
+					"type": "registry:file",
+					"target": "blocks/showcase/demo.ts"
 				}
 			]
 		},
@@ -3569,6 +3957,7 @@
 				"local:code-block",
 				"local:code-lines",
 				"local:command-bar",
+				"local:components",
 				"local:container",
 				"local:content-blocks",
 				"local:copy-button",
@@ -3604,6 +3993,8 @@
 				"local:section",
 				"local:segmented",
 				"local:shader-material",
+				"local:showcase-blocks",
+				"local:showcase-blocks-shared",
 				"local:site-blocks-shared",
 				"local:site-shell",
 				"local:status-ring",
@@ -3621,6 +4012,7 @@
 				"local:ui-field",
 				"local:ui-input",
 				"local:ui-input-group",
+				"local:ui-kbd",
 				"local:ui-progress",
 				"local:ui-slider",
 				"local:ui-tabs",
@@ -3747,6 +4139,11 @@
 					"path": "src/lib/templates/sightline.svelte",
 					"type": "registry:file",
 					"target": "templates/sightline.svelte"
+				},
+				{
+					"path": "src/lib/templates/system-overview.svelte",
+					"type": "registry:file",
+					"target": "templates/system-overview.svelte"
 				},
 				{
 					"path": "src/lib/templates/tunnel-share.svelte",

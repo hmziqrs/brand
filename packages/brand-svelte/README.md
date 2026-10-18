@@ -203,7 +203,7 @@ Rings: `RingLoader` (`tone="current"` inside buttons), `RingDivider`,
 `RingMeter`, `ScrollRings` (draw themselves on scroll), `HorizonRings`,
 `StatusRing`. Glass: `GlassDock`, `LiquidGlass` (edge refraction, Chromium
 only, frosted elsewhere), `CommandPalette` (⌘K, glass, actions panel).
-Layout: `Bento` + `BentoTile`, `StackCards`. Cards: `ReleaseCard`,
+Layout: `Bento` + `BentoTile`. Cards: `ReleaseCard`,
 `ProjectCard`, `EndpointCard`, `PlanCard`. Motion that answers data or a mode,
 never hover: `RollingNumber`, `ThemeToggle` (view-transition reveal).
 

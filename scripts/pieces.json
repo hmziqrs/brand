@@ -2486,15 +2486,6 @@
       "astroItem": "not yet"
     },
     {
-      "name": "StackCards",
-      "group": "brand",
-      "svelte": "custom-stack-cards--steps",
-      "astro": "not yet",
-      "svelteFile": "components/stack-cards.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
       "name": "NavBar",
       "group": "brand",
       "svelte": "custom-nav-bar--bar",
@@ -2662,15 +2653,6 @@
       "svelte": "custom-eyebrow--ring",
       "astro": "not yet",
       "svelteFile": "components/eyebrow.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "StackSection",
-      "group": "site",
-      "svelte": "sections-stack--layers",
-      "astro": "not yet",
-      "svelteFile": "blocks/sections/stack-section.stories.svelte",
       "svelteItem": "not yet",
       "astroItem": "not yet"
     },
