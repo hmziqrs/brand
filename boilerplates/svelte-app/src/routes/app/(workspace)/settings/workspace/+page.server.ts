@@ -4,7 +4,7 @@
  * address "taken" is the scripted failure.
  */
 import { fail } from '@sveltejs/kit';
-import { workspaceSchema } from '$lib/settings-schemas.js';
+import { workspaceSchema } from '#lib/settings-schemas.js';
 
 export const actions = {
 	save: async ({ request }) => {

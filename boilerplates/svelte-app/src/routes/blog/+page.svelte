@@ -9,9 +9,9 @@
 	import PostList from '$brand/blocks/content/post-list.svelte';
 	import NewsletterBand from '$brand/blocks/content/newsletter-band.svelte';
 	import BlogLayout from '$brand/blocks/content/blog-layout.svelte';
-	import ThemeToggle from '$lib/theme-toggle.svelte';
+	import ThemeToggle from '#lib/theme-toggle.svelte';
 	import { page } from '$app/state';
-	import { topicTone, topics } from '$lib/example';
+	import { topicTone, topics } from '#lib/example.js';
 
 	let { data } = $props();
 

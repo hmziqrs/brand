@@ -9,8 +9,8 @@
 	import LegalSection from '$brand/blocks/content/legal-section.svelte';
 	import LegalBlock from '$brand/blocks/content/legal-block.svelte';
 	import SiteShell from '$brand/blocks/site/site-shell.svelte';
-	import ThemeToggle from '$lib/theme-toggle.svelte';
-	import { legal } from '$lib/example';
+	import ThemeToggle from '#lib/theme-toggle.svelte';
+	import { legal } from '#lib/example.js';
 	import type { LegalDoc } from '$brand/blocks/content/types.js';
 
 	let { doc, toc = 'side' }: { doc: 'privacy' | 'terms'; toc?: 'side' | 'top' } = $props();

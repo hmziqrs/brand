@@ -8,8 +8,8 @@
 	import DocsLayout from '$brand/blocks/content/docs-layout.svelte';
 	import DocsTitle from '$brand/blocks/content/docs-title.svelte';
 	import DocsPager from '$brand/blocks/content/docs-pager.svelte';
-	import ThemeToggle from '$lib/theme-toggle.svelte';
-	import { headingsOf } from '$lib/content';
+	import ThemeToggle from '#lib/theme-toggle.svelte';
+	import { headingsOf } from '#lib/content.js';
 
 	let { data } = $props();
 

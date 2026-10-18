@@ -20,7 +20,7 @@
 	import { Skeleton } from '$brand/ui/skeleton/index.js';
 	import { Segmented } from '$brand/index.js';
 	import { overview, usage, type Range } from '@hmziq/brand-core/app/demo-data';
-	import { DemoLoad } from '$lib/demo-load.svelte.js';
+	import { DemoLoad } from '#lib/demo-load.svelte.js';
 
 	const load = new DemoLoad(page.url.searchParams.get('state'));
 
@@ -36,7 +36,7 @@
 	// change, keeping the two demos at parity — which keeps this route
 	// inside the two modules the plan allows it ($app/state, $app/forms).
 	function setRange(next: string) {
-		const url = new URL(page.url);
+		const url = new URL(page.url.href);
 		if (next === '30') url.searchParams.delete('range');
 		else url.searchParams.set('range', next);
 		window.location.assign(url.pathname + url.search + url.hash);

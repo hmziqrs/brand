@@ -3,13 +3,13 @@
 // 1. Copies the boilerplate (boilerplates/svelte-app or boilerplates/astro-app).
 // 2. Replaces `workspace:*` with the published @hmziq/brand-core version
 //    (--core overrides, e.g. a local `bun pm pack` tarball before a release).
-// 3. Installs the kit from its registry into the kit folder — $lib/brand for
+// 3. Installs the kit from its registry into the kit folder — src/lib/brand for
 //    SvelteKit, src/components/brand for Astro — and points $brand there.
 // 4. Runs bun install.
 //
 // No import in the boilerplate changes: only the $brand alias wiring, the
 // core version, and each stylesheet's in-repo @source line for the kit. The
-// svelte one is rewritten to the folder the kit installs into ($lib/brand);
+// svelte one is rewritten to the folder the kit installs into (src/lib/brand);
 // the Astro one is dropped (the kit sits inside src/ in a copy, which
 // Tailwind scans anyway).
 //
@@ -83,7 +83,7 @@ if (kind === "svelte") {
     ],
   ]);
   // The stylesheet's kit @source points at the repo's kit folder, which
-  // doesn't exist in a copy; the kit installs into $lib/brand, so the line
+  // doesn't exist in a copy; the kit installs into src/lib/brand, so the line
   // follows it there (the boilerplate stylesheet's comment says so).
   rewrite(join(dest, "src/app.css"), [
     [/^@source "\.\.\/\.\.\/\.\.\/packages\/brand-svelte\/src";$/m, '@source "./lib/brand";'],
@@ -117,11 +117,11 @@ if (kind === "svelte") {
     $schema: "https://shadcn-svelte.com/schema.json",
     tailwind: { css: "src/app.css", baseColor: "neutral" },
     aliases: {
-      components: "$lib/brand/components",
-      utils: "$lib/brand/utils",
-      ui: "$lib/brand/ui",
-      hooks: "$lib/brand/hooks",
-      lib: "$lib/brand",
+      components: "$brand/components",
+      utils: "$brand/utils",
+      ui: "$brand/ui",
+      hooks: "$brand/hooks",
+      lib: "$brand",
     },
     typescript: true,
     registry: `${registry}/r/svelte`,

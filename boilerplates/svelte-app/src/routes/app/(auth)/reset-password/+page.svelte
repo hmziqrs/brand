@@ -7,9 +7,9 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { page } from '$app/state';
-	import AuthFrame from '$lib/auth-frame.svelte';
+	import AuthFrame from '#lib/auth-frame.svelte';
 	import ResetPasswordForm from '$brand/blocks/app/auth/reset-password-form.svelte';
-	import { seededAction, type FormResult } from '$lib/auth-form.svelte.js';
+	import { seededAction, type FormResult } from '#lib/auth-form.svelte.js';
 	import type { PageProps } from './$types';
 
 	let { form: action }: PageProps = $props();

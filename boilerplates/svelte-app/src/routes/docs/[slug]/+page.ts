@@ -1,7 +1,7 @@
 // A docs page's data: the page itself (its frontmatter, its Markdown body's
 // headings, its compiled component), the menu built from the whole
 // collection, and the pages on either side. A slug that matches nothing 404s.
-import { doc, docs, docsMenu } from '$lib/content';
+import { doc, docs, docsMenu } from '#lib/content.js';
 import { error } from '@sveltejs/kit';
 
 export async function load({ params }) {

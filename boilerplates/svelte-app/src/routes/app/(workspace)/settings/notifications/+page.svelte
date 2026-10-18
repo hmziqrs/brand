@@ -15,8 +15,8 @@
 	import ErrorState from '$brand/blocks/app/states/error-state.svelte';
 	import SkeletonSettings from '$brand/blocks/app/states/skeleton-settings.svelte';
 	import { Switch } from '$brand/ui/switch/index.js';
-	import { settingsTabs } from '$lib/settings-tabs.js';
-	import { DemoLoad } from '$lib/demo-load.svelte.js';
+	import { settingsTabs } from '#lib/settings-tabs.js';
+	import { DemoLoad } from '#lib/demo-load.svelte.js';
 	import { fakeRequest, notificationPrefs } from '@hmziq/brand-core/app/demo-data';
 
 	type RowStatus = 'idle' | 'saving' | 'saved' | 'error';

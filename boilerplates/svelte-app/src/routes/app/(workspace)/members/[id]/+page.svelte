@@ -31,10 +31,10 @@
 	// it, so the list the navigation lands on no longer shows the member —
 	// the way the Astro twin's removeMembers action drops them from its
 	// server's roster.
-	import { memberById, removeMembers as removeFromRoster, restore as restoreRoster } from '$lib/app/roster.svelte.js';
+	import { memberById, removeMembers as removeFromRoster, restore as restoreRoster } from '#lib/app/roster.svelte.js';
 	import { toast } from 'svelte-sonner';
-	import type { FormResult } from '$lib/settings-form.svelte.js';
-	import { DemoLoad } from '$lib/demo-load.svelte.js';
+	import type { FormResult } from '#lib/settings-form.svelte.js';
+	import { DemoLoad } from '#lib/demo-load.svelte.js';
 
 	const load = new DemoLoad(page.url.searchParams.get('state'), { denied: true });
 	const found = $derived(page.params.id ? memberById(page.params.id) : undefined);

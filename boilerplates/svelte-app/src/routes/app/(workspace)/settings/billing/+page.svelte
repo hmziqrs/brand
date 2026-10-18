@@ -21,8 +21,8 @@
 	import { Skeleton } from '$brand/ui/skeleton/index.js';
 	import * as Table from '$brand/ui/table/index.js';
 	import { billing, usage } from '@hmziq/brand-core/app/demo-data';
-	import { settingsTabs } from '$lib/settings-tabs.js';
-	import { DemoLoad } from '$lib/demo-load.svelte.js';
+	import { settingsTabs } from '#lib/settings-tabs.js';
+	import { DemoLoad } from '#lib/demo-load.svelte.js';
 
 	const load = new DemoLoad(page.url.searchParams.get('state'), { denied: true });
 

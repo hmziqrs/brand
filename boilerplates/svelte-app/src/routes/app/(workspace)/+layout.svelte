@@ -18,9 +18,9 @@
 	import Settings from '@lucide/svelte/icons/settings';
 	import Users from '@lucide/svelte/icons/users';
 	import { Button } from '$brand/ui/button/index.js';
-	import DemoStateSwitch from '$lib/demo-state-switch.svelte';
-	import { readDemoState } from '$lib/demo-state.svelte.js';
-	import { applyTheme } from '$lib/theme.svelte.js';
+	import DemoStateSwitch from '#lib/demo-state-switch.svelte';
+	import { readDemoState } from '#lib/demo-state.svelte.js';
+	import { applyTheme } from '#lib/theme.svelte.js';
 	import type { LayoutProps } from './$types';
 
 	let { data, children }: LayoutProps = $props();

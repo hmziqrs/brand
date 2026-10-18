@@ -4,8 +4,8 @@
  * nothing about who has one leaks.
  */
 import { fail } from '@sveltejs/kit';
-import { forgotPasswordSchema } from '$lib/auth-schemas.js';
-import { invalid } from '$lib/auth-form.svelte.js';
+import { forgotPasswordSchema } from '#lib/auth-schemas.js';
+import { invalid } from '#lib/auth-form.svelte.js';
 
 export const actions = {
 	send: async ({ request }) => {

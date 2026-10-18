@@ -5,8 +5,8 @@
  */
 import { fail, redirect } from '@sveltejs/kit';
 import { fakeRequest } from '@hmziq/brand-core/app/demo-data';
-import { signInSchema } from '$lib/auth-schemas.js';
-import { invalid } from '$lib/auth-form.svelte.js';
+import { signInSchema } from '#lib/auth-schemas.js';
+import { invalid } from '#lib/auth-form.svelte.js';
 
 export const actions = {
 	signIn: async ({ request }) => {

@@ -13,10 +13,10 @@
 	let value = $derived(readDemoState(page.url.searchParams.get('state')));
 
 	function change(next: string) {
-		const url = new URL(page.url);
+		const url = new URL(page.url.href);
 		if (next === 'normal') url.searchParams.delete('state');
 		else url.searchParams.set('state', next);
-		goto(url.pathname + url.search + url.hash, { keepFocus: true, noScroll: true });
+		goto(url.pathname + url.search + url.hash, { reset: false });
 	}
 </script>
 

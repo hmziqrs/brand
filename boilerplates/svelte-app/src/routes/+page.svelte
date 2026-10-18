@@ -19,7 +19,7 @@
 	import Section from '$brand/blocks/site/section.svelte';
 	import SiteShell from '$brand/blocks/site/site-shell.svelte';
 	import SiteHead from '$brand/blocks/site/site-head.svelte';
-	import ThemeToggle from '$lib/theme-toggle.svelte';
+	import ThemeToggle from '#lib/theme-toggle.svelte';
 	import type { Tone } from '@hmziq/brand-core/tones';
 
 	// Example content, in the shape the lab's site pages use.

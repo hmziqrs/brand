@@ -14,10 +14,10 @@
 	import ShareBar from '$brand/blocks/content/share-bar.svelte';
 	import NewsletterBand from '$brand/blocks/content/newsletter-band.svelte';
 	import BlogLayout from '$brand/blocks/content/blog-layout.svelte';
-	import ThemeToggle from '$lib/theme-toggle.svelte';
+	import ThemeToggle from '#lib/theme-toggle.svelte';
 	import { page } from '$app/state';
-	import { headingsOf } from '$lib/content';
-	import { topicTone } from '$lib/example';
+	import { headingsOf } from '#lib/content.js';
+	import { topicTone } from '#lib/example.js';
 
 	let { data } = $props();
 

@@ -21,10 +21,10 @@
 	import { Button } from '$brand/ui/button/index.js';
 	import { Input } from '$brand/ui/input/index.js';
 	import * as InputGroup from '$brand/ui/input-group/index.js';
-	import { settingsTabs } from '$lib/settings-tabs.js';
-	import { settingsForm, type FormResult } from '$lib/settings-form.svelte.js';
-	import { workspaceSchema, type WorkspaceValues } from '$lib/settings-schemas.js';
-	import { DemoLoad } from '$lib/demo-load.svelte.js';
+	import { settingsTabs } from '#lib/settings-tabs.js';
+	import { settingsForm, type FormResult } from '#lib/settings-form.svelte.js';
+	import { workspaceSchema, type WorkspaceValues } from '#lib/settings-schemas.js';
+	import { DemoLoad } from '#lib/demo-load.svelte.js';
 	import {
 		currentWorkspaceId,
 		fakeRequest,

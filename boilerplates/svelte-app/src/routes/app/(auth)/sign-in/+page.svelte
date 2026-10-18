@@ -7,11 +7,11 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { page } from '$app/state';
-	import AuthFrame from '$lib/auth-frame.svelte';
+	import AuthFrame from '#lib/auth-frame.svelte';
 	import SignInForm from '$brand/blocks/app/auth/sign-in-form.svelte';
 	import BrandIcon from '$brand/components/brand-icon.svelte';
 	import { siGithub, siGoogle } from 'simple-icons';
-	import { seededAction, type FormResult } from '$lib/auth-form.svelte.js';
+	import { seededAction, type FormResult } from '#lib/auth-form.svelte.js';
 	import type { PageProps } from './$types';
 
 	let { form: action }: PageProps = $props();

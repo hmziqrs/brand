@@ -6,10 +6,10 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { page } from '$app/state';
-	import AuthFrame from '$lib/auth-frame.svelte';
+	import AuthFrame from '#lib/auth-frame.svelte';
 	import VerifyEmail from '$brand/blocks/app/auth/verify-email.svelte';
 	import { currentUser } from '@hmziq/brand-core/app/demo-data';
-	import { seededAction, type FormResult } from '$lib/auth-form.svelte.js';
+	import { seededAction, type FormResult } from '#lib/auth-form.svelte.js';
 	import type { PageProps } from './$types';
 
 	let { form: action }: PageProps = $props();

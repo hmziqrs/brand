@@ -4,8 +4,8 @@
  * action only checks the new password.
  */
 import { fail } from '@sveltejs/kit';
-import { resetPasswordSchema } from '$lib/auth-schemas.js';
-import { invalid } from '$lib/auth-form.svelte.js';
+import { resetPasswordSchema } from '#lib/auth-schemas.js';
+import { invalid } from '#lib/auth-form.svelte.js';
 
 export const actions = {
 	reset: async ({ request }) => {

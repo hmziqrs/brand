@@ -18,7 +18,7 @@
 	import BrandIcon from '$brand/components/brand-icon.svelte';
 	import SiteShell from '$brand/blocks/site/site-shell.svelte';
 	import { Card } from '$brand/ui/card/index.js';
-	import ThemeToggle from '$lib/theme-toggle.svelte';
+	import ThemeToggle from '#lib/theme-toggle.svelte';
 
 	// Example content, in the shape the lab's about page uses.
 	const principles = [

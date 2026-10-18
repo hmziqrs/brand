@@ -10,8 +10,8 @@
 	import Marker from '$brand/components/marker.svelte';
 	import ContactChannels from '$brand/blocks/content/contact-channels.svelte';
 	import SiteShell from '$brand/blocks/site/site-shell.svelte';
-	import ThemeToggle from '$lib/theme-toggle.svelte';
-	import { channels } from '$lib/example';
+	import ThemeToggle from '#lib/theme-toggle.svelte';
+	import { channels } from '#lib/example.js';
 </script>
 
 <SiteShell site="example" maker="studio" nav={['Projects', 'How it works', 'About', 'Contact']} current="Contact" cta={{ label: 'Start a project' }} layout="page">

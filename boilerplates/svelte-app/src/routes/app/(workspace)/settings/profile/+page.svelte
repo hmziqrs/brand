@@ -23,10 +23,10 @@
 	import { Button } from '$brand/ui/button/index.js';
 	import Combobox from '$brand/ui/combobox/combobox.svelte';
 	import { Input } from '$brand/ui/input/index.js';
-	import { settingsTabs } from '$lib/settings-tabs.js';
-	import { settingsForm, type FormResult } from '$lib/settings-form.svelte.js';
-	import { profileSchema, type ProfileValues } from '$lib/settings-schemas.js';
-	import { DemoLoad } from '$lib/demo-load.svelte.js';
+	import { settingsTabs } from '#lib/settings-tabs.js';
+	import { settingsForm, type FormResult } from '#lib/settings-form.svelte.js';
+	import { profileSchema, type ProfileValues } from '#lib/settings-schemas.js';
+	import { DemoLoad } from '#lib/demo-load.svelte.js';
 	import { currentUser, timeZones } from '@hmziq/brand-core/app/demo-data';
 	import type { PageProps } from './$types';
 

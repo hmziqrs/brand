@@ -4,7 +4,7 @@
  * demo's failures are scripted, and the name "fail" is the one that fails.
  */
 import { fail } from '@sveltejs/kit';
-import { profileSchema } from '$lib/settings-schemas.js';
+import { profileSchema } from '#lib/settings-schemas.js';
 
 export const actions = {
 	save: async ({ request }) => {

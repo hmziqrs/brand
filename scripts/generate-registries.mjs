@@ -16,9 +16,8 @@
 // Item shapes follow the CLIs' own conventions: every file carries an
 // explicit relative target, so nothing depends on the builder's folder
 // guessing. In a copied project the kit lands whole under one folder —
-// `$lib/brand/…` for SvelteKit (the registry's aliases rewrite `$brand/…`
-// imports to it), `src/components/brand/…` for Astro — and `$brand` points
-// there (kits.md, porting rule 3).
+// `src/lib/brand/…` for SvelteKit, `src/components/brand/…` for Astro — and
+// `$brand` points there (kits.md, porting rule 3).
 
 import { existsSync } from "node:fs";
 import { basename } from "node:path";

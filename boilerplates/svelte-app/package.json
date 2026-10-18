@@ -6,7 +6,7 @@
 	"description": "The SvelteKit starter for hmziq sites: the theme, the brand kit through $brand, a landing page built from the site blocks and a 404 page. Start new projects with `bun run new-project svelte <folder>`.",
 	"scripts": {
 		"dev": "vite dev",
-		"build": "vite build",
+		"build": "bun run --bun vite build",
 		"preview": "vite preview",
 		"prepare": "svelte-kit sync || echo ''",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
@@ -17,8 +17,8 @@
 		"@fontsource-variable/onest": "^5.3.1",
 		"@hmziq/brand-core": "workspace:*",
 		"@lucide/svelte": "^1.49.0",
-		"@sveltejs/adapter-auto": "^7.0.1",
-		"@sveltejs/kit": "^2.63.0",
+		"@sveltejs/adapter-bun": "^1.0.0",
+		"@sveltejs/kit": "^3.1.0",
 		"@sveltejs/vite-plugin-svelte": "^7.1.2",
 		"@tailwindcss/vite": "^4.3.0",
 		"@types/node": "^24.13.6",
@@ -29,8 +29,8 @@
 		"remark-gfm": "^4.0.1",
 		"shadcn-svelte": "^1.7.0",
 		"simple-icons": "16.32.0",
-		"svelte": "^5.56.1",
-		"svelte-check": "^4.6.0",
+		"svelte": "^5.57.1",
+		"svelte-check": "^4.7.5",
 		"svelte-sonner": "^1.2.1",
 		"tailwind-variants": "^3.3.1",
 		"tailwindcss": "^4.3.0",
@@ -41,5 +41,9 @@
 	"dependencies": {
 		"@tanstack/table-core": "^8.21.3",
 		"zod": "^4.6.5"
+	},
+	"imports": {
+		"#lib": "./src/lib/index.js",
+		"#lib/*": "./src/lib/*"
 	}
 }

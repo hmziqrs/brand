@@ -13,7 +13,7 @@
 	import InstallSteps from '$brand/blocks/content/install-steps.svelte';
 	import TypingTerminal from '$brand/blocks/content/typing-terminal.svelte';
 	import CodeEditor from '$brand/blocks/content/code-editor.svelte';
-	import ThemeToggle from '$lib/theme-toggle.svelte';
+	import ThemeToggle from '#lib/theme-toggle.svelte';
 	import type { TerminalLineData } from '$brand/components/terminal-line.js';
 
 	// Example content, in the shape the lab's components page uses.

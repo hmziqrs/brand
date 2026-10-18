@@ -29,7 +29,7 @@
 		inviteMembers as inviteIntoRoster,
 		removeMembers as removeFromRoster,
 		restore as restoreRoster,
-	} from '$lib/app/roster.svelte.js';
+	} from '#lib/app/roster.svelte.js';
 	import { toast } from 'svelte-sonner';
 	import ConfirmAction from '$brand/blocks/app/actions/confirm-action.svelte';
 	import RecordSheet from '$brand/blocks/app/actions/record-sheet.svelte';
@@ -58,8 +58,8 @@
 	import { Body, Cell, Head, Header, Row, Root } from '$brand/ui/table/index.js';
 	import Tag from '$brand/components/tag.svelte';
 	import Users from '@lucide/svelte/icons/users';
-	import type { FormResult } from '$lib/settings-form.svelte.js';
-	import { DemoLoad } from '$lib/demo-load.svelte.js';
+	import type { FormResult } from '#lib/settings-form.svelte.js';
+	import { DemoLoad } from '#lib/demo-load.svelte.js';
 	import type { Snippet } from 'svelte';
 	import type { PageProps } from './$types';
 

@@ -14,8 +14,8 @@
 	import ReleaseNotes from '$brand/blocks/content/release-notes.svelte';
 	import ReleaseTimeline from '$brand/blocks/content/release-timeline.svelte';
 	import SiteShell from '$brand/blocks/site/site-shell.svelte';
-	import ThemeToggle from '$lib/theme-toggle.svelte';
-	import { releases } from '$lib/example';
+	import ThemeToggle from '#lib/theme-toggle.svelte';
+	import { releases } from '#lib/example.js';
 
 	const [latest, ...past] = $derived(releases);
 	const changes = $derived(releases.reduce((n, r) => n + r.groups.reduce((m, [, items]) => m + items.length, 0), 0));

@@ -5,8 +5,8 @@
  * never returned to the page, in any branch.
  */
 import { fail, redirect } from '@sveltejs/kit';
-import { signUpSchema } from '$lib/auth-schemas.js';
-import { invalid } from '$lib/auth-form.svelte.js';
+import { signUpSchema } from '#lib/auth-schemas.js';
+import { invalid } from '#lib/auth-form.svelte.js';
 
 export const actions = {
 	signUp: async ({ request }) => {

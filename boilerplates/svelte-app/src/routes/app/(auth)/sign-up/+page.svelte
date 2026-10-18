@@ -6,12 +6,12 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { page } from '$app/state';
-	import AuthFrame from '$lib/auth-frame.svelte';
+	import AuthFrame from '#lib/auth-frame.svelte';
 	import SignUpForm from '$brand/blocks/app/auth/sign-up-form.svelte';
 	import BrandIcon from '$brand/components/brand-icon.svelte';
 	import { siGithub, siGoogle } from 'simple-icons';
-	import { passwordRules } from '$lib/auth-schemas.js';
-	import { seededAction, type FormResult } from '$lib/auth-form.svelte.js';
+	import { passwordRules } from '#lib/auth-schemas.js';
+	import { seededAction, type FormResult } from '#lib/auth-form.svelte.js';
 	import type { PageProps } from './$types';
 
 	let { form: action }: PageProps = $props();

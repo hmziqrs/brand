@@ -11,8 +11,8 @@
 	import FaqList from '$brand/blocks/content/faq-list.svelte';
 	import SiteShell from '$brand/blocks/site/site-shell.svelte';
 	import { Card } from '$brand/ui/card/index.js';
-	import ThemeToggle from '$lib/theme-toggle.svelte';
-	import { faq } from '$lib/example';
+	import ThemeToggle from '#lib/theme-toggle.svelte';
+	import { faq } from '#lib/example.js';
 
 	// The FAQ's search: narrow the questions live, the way the lab's FAQ page
 	// does in React.

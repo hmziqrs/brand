@@ -4,7 +4,7 @@
  * `resend`) sends a new code without checking anything.
  */
 import { fail } from '@sveltejs/kit';
-import { verifyEmailSchema } from '$lib/auth-schemas.js';
+import { verifyEmailSchema } from '#lib/auth-schemas.js';
 
 export const actions = {
 	verify: async ({ request }) => {

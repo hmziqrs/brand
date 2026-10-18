@@ -58,7 +58,7 @@ packages/brand-svelte/
 │   ├── styles/kit.css           the stylesheet the shadcn-svelte CLI edits; never theme.css
 │   └── utils.ts
 ├── components.json · registry.json · README.md
-└── svelte.config.js · package.json
+└── vite.config.ts · package.json
 ```
 
 - Svelte 5 only: runes, snippets, callback props. React's `className` becomes `class`, `children` becomes a snippet, and `render` props become snippets or an `href`.
@@ -197,8 +197,9 @@ Everything is served from the existing GitHub Pages site:
   (Vega preset, base neutral), with the CSS file at `src/lib/styles/kit.css` and every
   alias on `$brand/…` (a SvelteKit `kit.alias`, handed to Vite and TypeScript both).
   The SvelteKit options — adapter, `$brand`, runes mode — live in the
-  `svelte.config.js` the tree above lists; `vite.config.ts` keeps only the Vite
-  half (Tailwind plugin, SSR externals). The color variables init wrote are deleted;
+  `sveltekit()` call in `vite.config.ts` (SvelteKit 3 no longer reads
+  `svelte.config.js`); the rest of that file is the Vite half (Tailwind plugin,
+  SSR externals). The color variables init wrote are deleted;
   `kit.css` loads the framework CSS and
   nothing else. The stock set the pieces build on is in `ui/` (button, card, alert,
   table, tooltip, input-group) with the lab's two changes applied — the list is in the
@@ -469,8 +470,8 @@ by-hand release steps below. Done:
   - Svelte: `packages/brand-svelte/registry.json`, built by the
     shadcn-svelte CLI's `registry build`. The CLI's alias rewriting does the
     porting-rule-3 work: kit files import `$brand/…`, and installing into a
-    project whose `components.json` aliases are `$lib/brand/…` rewrites them
-    to `$lib/brand/…`. The CLI's injected `devDependencies` for stock
+    project whose `components.json` aliases are `$brand/…` rewrites them
+    to the project's own `$brand/…` alias. The CLI's injected `devDependencies` for stock
     components (storybook and friends) are stripped in the build; the kit's
     own `dependencies` already carry what the files import.
   - Astro: `packages/brand-astro/registry.json`, the shadcn CLI's plain
@@ -492,7 +493,7 @@ by-hand release steps below. Done:
   CLIs need, points `$brand` at the installed kit folder, rewrites the
   in-repo-only lines (each stylesheet's `@source` for the kit — the Svelte
   one to the folder the kit installs into, the Astro one away, since the kit
-  sits inside `src/` in a copy — and the svelte config's relative imports of
+  sits inside `src/` in a copy — and the vite config's relative imports of
   core's Markdown plugins, which the config's own comment asks for),
   installs, and adds the whole kit from the registry. No import in the
   boilerplate changes.
