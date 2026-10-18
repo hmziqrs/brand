@@ -9,7 +9,7 @@ import { Button } from "$brand/starwind/button";
 
 /*
  * The overview's content (app-blocks.md, phase 7), as the page and its
- * `server:defer` island share it: four stat cards in a ruled grid, then the
+ * `server:defer` island share it: four stat cards in a grid, then the
  * three usage meters. The date range is the header's action and lives in the
  * `range` URL param, so a shared link shows the same numbers; the trend
  * colors follow each stat's `good` direction, not its sign. state=limit
@@ -44,8 +44,8 @@ const events = limit ? usage.events.limit : usage.events.used;
       }
     </StatGrid>
 
-    <div class="grid gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-3">
-      <div class="bg-background px-4 py-4">
+    <div class="grid gap-3 sm:grid-cols-3">
+      <div class="rounded-xl border border-border px-4 py-4">
         <UsageMeter
           label="Events this month"
           used={events}
@@ -59,10 +59,10 @@ const events = limit ? usage.events.limit : usage.events.used;
           </Button>
         </UsageMeter>
       </div>
-      <div class="bg-background px-4 py-4">
+      <div class="rounded-xl border border-border px-4 py-4">
         <UsageMeter variant="ring" label="Seats" used={usage.seats.used} limit={usage.seats.limit} unit={usage.seats.unit} />
       </div>
-      <div class="bg-background px-4 py-4">
+      <div class="rounded-xl border border-border px-4 py-4">
         <UsageMeter label="Data kept" used={usage.retention.used} limit={usage.retention.limit} unit={usage.retention.unit} />
       </div>
     </div>

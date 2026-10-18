@@ -1296,7 +1296,7 @@ type StatCardProps = {
   status?: "pending" | "error" | "success"
   onRetry?: () => void
 }
-StatGrid { columns?: 2 | 3 | 4; children: Slot }   // a gap-px grid on bg-border inside a rounded-xl border, like Sightline's overview in the lab
+StatGrid { columns?: 2 | 3 | 4; children: Slot }   // a gap-3 grid; each StatCard is its own outline card
 ```
 
 - Pending shows a skeleton of the same size. Error shows a compact `ErrorState` inside the card, while the other cards stay.

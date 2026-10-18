@@ -212,16 +212,16 @@
 	</div>
 </Story>
 
-<!-- The three meters as the overview holds them, in one ruled panel. -->
+<!-- The three meters as the overview holds them, in three outline cards. -->
 <Story name="Meter, the demo row" asChild>
-	<div class="grid max-w-4xl gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-3">
-		<div class="bg-background px-4 py-4">
+	<div class="grid max-w-4xl gap-3 sm:grid-cols-3">
+		<div class="rounded-xl border border-border px-4 py-4">
 			<UsageMeter label="Events this month" used={usage.events.used} limit={usage.events.limit} unit={usage.events.unit} resetsOn="Resets on {usage.events.resetsOn}" />
 		</div>
-		<div class="bg-background px-4 py-4">
+		<div class="rounded-xl border border-border px-4 py-4">
 			<UsageMeter variant="ring" label="Seats" used={usage.seats.used} limit={usage.seats.limit} unit={usage.seats.unit} />
 		</div>
-		<div class="bg-background px-4 py-4">
+		<div class="rounded-xl border border-border px-4 py-4">
 			<UsageMeter label="Data kept" used={usage.retention.used} limit={usage.retention.limit} unit={usage.retention.unit} />
 		</div>
 	</div>

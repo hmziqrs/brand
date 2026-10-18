@@ -1,5 +1,5 @@
 <!--
-  The overview (app-blocks.md, phase 7): four stat cards in a ruled grid,
+  The overview (app-blocks.md, phase 7): four stat cards in a grid,
   then the three usage meters. The date range is the header's action and
   lives in the `range` URL param, so a shared link shows the same numbers;
   the trend colors follow each stat's `good` direction, not its sign. The
@@ -82,8 +82,8 @@
 		     exactly where the real ones wrap, and the Skeleton rides on
 		     top of it. The seats and data-kept words never wrap, so their
 		     blocks stay plain rectangles. -->
-		<div class="grid gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-3">
-			<div class="flex flex-col gap-2 bg-background px-4 py-4">
+		<div class="grid gap-3 sm:grid-cols-3">
+			<div class="flex flex-col gap-2 rounded-xl border border-border px-4 py-4">
 				<div class="relative text-sm">
 					<span class="invisible text-muted-foreground">Events this month</span>
 					<Skeleton class="absolute inset-0" />
@@ -97,14 +97,14 @@
 					<Skeleton class="absolute inset-0" />
 				</div>
 			</div>
-			<div class="flex items-center gap-4 bg-background px-4 py-4">
+			<div class="flex items-center gap-4 rounded-xl border border-border px-4 py-4">
 				<Skeleton class="size-18 rounded-full" />
 				<div class="flex flex-col gap-1.5">
 					<Skeleton class="h-5 w-24" />
 					<Skeleton class="h-5 w-32" />
 				</div>
 			</div>
-			<div class="flex flex-col gap-2 bg-background px-4 py-4">
+			<div class="flex flex-col gap-2 rounded-xl border border-border px-4 py-4">
 				<Skeleton class="h-5 w-24" />
 				<Skeleton class="h-1.5 w-full" />
 				<Skeleton class="h-5 w-32" />
@@ -138,8 +138,8 @@
 				{/each}
 			</StatGrid>
 
-			<div class="grid gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-3">
-				<div class="bg-background px-4 py-4">
+			<div class="grid gap-3 sm:grid-cols-3">
+				<div class="rounded-xl border border-border px-4 py-4">
 					<UsageMeter
 						label="Events this month"
 						used={events}
@@ -153,10 +153,10 @@
 						{/snippet}
 					</UsageMeter>
 				</div>
-				<div class="bg-background px-4 py-4">
+				<div class="rounded-xl border border-border px-4 py-4">
 					<UsageMeter variant="ring" label="Seats" used={usage.seats.used} limit={usage.seats.limit} unit={usage.seats.unit} />
 				</div>
-				<div class="bg-background px-4 py-4">
+				<div class="rounded-xl border border-border px-4 py-4">
 					<UsageMeter label="Data kept" used={usage.retention.used} limit={usage.retention.limit} unit={usage.retention.unit} />
 				</div>
 			</div>

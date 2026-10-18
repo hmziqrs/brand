@@ -984,7 +984,7 @@ Kit sources in the brand repo: `packages/brand-svelte/src/lib` and `packages/bra
 | | Rule |
 | --- | --- |
 | Color | Tokens only. Surfaces: `bg-background` page, `bg-card` for things that float over it, `bg-muted` for hover and selected. Cards and tiles in the page have no fill. Supporting colors per section 4. |
-| Lines | 1px `border`. Between items `divide-y` or a `gap-px` grid on `bg-border`. Never two borders side by side. |
+| Lines | 1px `border`. Between items `divide-y`. Never two borders side by side. |
 | Corners | `rounded-md` controls and icon tiles, `rounded-xl` cards and panels, `rounded-full` rings and tags. Bands are full width with square edges. |
 | Shadows | None on things in the page. Floating things (menus, popovers, dialogs) get shadcn's. |
 | Spacing | Tailwind's 4px steps. Inside a component `gap-1.5`–`gap-3`, `p-4`–`p-6`. Between components `gap-4`–`gap-10`. Between sections `gap-24` / `md:gap-32`. |

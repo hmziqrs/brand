@@ -593,7 +593,7 @@ type SkeletonTableProps = {
 ### SkeletonStats
 `data-slot="skeleton-stats"` · Svelte: `packages/brand-svelte/src/lib/blocks/app/states/skeleton-stats.svelte` · Story: `App/States/Skeleton stats`
 
-A skeleton for a run of stat cards, in the gap-px grid on `bg-border` that `StatGrid` draws.
+A skeleton for a run of stat cards, in the same grid as `StatGrid`, each cell an outline card like the one it stands for.
 
 ```ts
 type SkeletonStatsProps = { count?: number; class?: string }   // default 4
@@ -601,7 +601,7 @@ type SkeletonStatsProps = { count?: number; class?: string }   // default 4
 
 **States.** None of its own — it is a state: the pending face of a `StatGrid`, its cells standing for the cards that haven't landed.
 
-**Look.** `grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-border bg-border`, `sm:grid-cols-2/3/4` by count (counts beyond 4 use 4). Each cell: `bg-background px-4 py-4`, standing for the card's three landed lines — the label's `h-5 w-24`, the number's `h-8 w-20` and the trend line's `h-4 w-14`, the same two number-and-trend skeletons `StatCard`'s own pending draws — so a landing card is exactly as tall as the cell that waits for it.
+**Look.** `grid grid-cols-2 gap-3`, `sm:grid-cols-2/3/4` by count (counts beyond 4 use 4). Each cell is an outline card, `flex flex-col gap-2.5 rounded-xl border border-border px-4 py-4` with no fill, standing for the card's three landed lines — the label's `h-5 w-24`, the number's `h-8 w-20` and the trend's bars `h-4 w-14` and `h-4 w-20` in a `flex-wrap` row, the same number-and-trend bars `StatCard`'s own pending draws — so a landing card is exactly as tall as the cell that waits for it, on wide cards and narrow ones alike.
 **Keyboard**: decorative (`aria-hidden`). **Mobile**: two columns, as the real grid.
 **Astro**: static, no JS.
 
@@ -1197,7 +1197,7 @@ type MetricTrendProps = {
 ### StatCard
 `data-slot="stat-card"` · Svelte: `packages/brand-svelte/src/lib/blocks/app/metrics/stat-card.svelte` · Story: `App/Metrics/Card`
 
-One number that matters, with its label and its trend, and room for a hint line or a small chart under it. Usually a cell in `StatGrid`; it brings its own background so it stands alone too.
+One number that matters, with its label and its trend, and room for a hint line or a small chart under it. Usually a card in `StatGrid`; it is an outline card, so it stands alone too.
 
 ```ts
 type StatCardProps = {
@@ -1215,17 +1215,17 @@ type StatCardProps = {
 
 Beyond the sketch: `retryHref` (the compact ErrorState's no-JavaScript retry, as on ErrorState itself), and `value` takes a plain string — a snippet only when the number is richer than words.
 
-**States.** Pending holds the card's exact size: the label stays, and skeletons stand where the number and the trend land — the same two lines `SkeletonStats` draws. Error keeps the card (and its label) and shows a compact `ErrorState` under it, while the other cards in the grid go on. The number is `text-2xl font-medium tracking-[-0.02em]` with proportional digits; `tabular-nums` only where numbers line up in columns, which a lone card never does.
+**States.** Pending holds the card's exact size: the label stays, and skeletons stand where the number and the trend land — the same number and trend bars `SkeletonStats` draws. Error keeps the card (and its label) and shows a compact `ErrorState` under it, while the other cards in the grid go on. The number is `text-2xl font-medium tracking-[-0.02em]` with proportional digits; `tabular-nums` only where numbers line up in columns, which a lone card never does.
 
-**Look.** `flex min-w-0 flex-col gap-2.5 bg-background px-4 py-4`. The label `text-sm text-muted-foreground`, truncating rather than wrapping. A linked card is an `<a>` outlined on hover by `ring-1 ring-inset ring-primary/50` — the plan's `border-primary/50` look without the pixel a real border would add — and `focus-visible:ring-3 focus-visible:ring-ring/50`. Only colors change; nothing moves.
+**Look.** `flex min-w-0 flex-col gap-2.5 rounded-xl border border-border px-4 py-4`, no fill: an outline card with the same border on all four sides. The label `text-sm text-muted-foreground`, truncating rather than wrapping. A linked card is an `<a>` whose border turns `border-primary/50` on hover, and `focus-visible:ring-3 focus-visible:ring-ring/50`. Only colors change; nothing moves.
 **Keyboard.** A linked card is one Tab stop; Enter follows it. The error's "Try again" is reachable and announces its result (ErrorState's).
-**Mobile.** The card is fluid; the label truncates.
+**Mobile.** The card is fluid; the label truncates, and on narrow cards the trend's comparison ("vs last 30 days") wraps to a second line rather than running past the border.
 **Astro**: static, no JS.
 
 ### StatGrid
 `data-slot="stat-grid"` · Svelte: `packages/brand-svelte/src/lib/blocks/app/metrics/stat-grid.svelte` · Story: `App/Metrics/Grid, demo cards`
 
-StatCards in one ruled grid, the way Sightline's overview draws it in the lab; the cards bring their own background.
+StatCards in a grid with a gap. Each card is its own outline card, the same border on all four sides, with no divider between them.
 
 ```ts
 type StatGridProps = { columns?: 2 | 3 | 4; children: Slot }   // columns defaults to 4
@@ -1233,7 +1233,7 @@ type StatGridProps = { columns?: 2 | 3 | 4; children: Slot }   // columns defaul
 
 **States.** Nothing of its own — each card keeps its own faces. `SkeletonStats` draws the same grid for the same count, its cells standing for the card's three lines — label, number, trend — so a loading page stands exactly where the cards land and nothing shifts when they arrive.
 
-**Look.** The grid draws the rules with `gap-px` on `bg-border` inside a `rounded-xl border border-border` with `overflow-hidden`; two columns below `sm`, the chosen count from `sm`.
+**Look.** `grid grid-cols-2 gap-3`, with no line or fill of its own; the cards are the outlines. Two columns below `sm`, the chosen count from `sm`.
 
 **Keyboard.** Nothing of its own; the cards keep theirs.
 **Mobile.** Two columns hold at 360px (four cards, two rows); nothing scrolls sideways.

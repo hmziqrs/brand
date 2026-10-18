@@ -65,7 +65,7 @@
 {/snippet}
 
 {#snippet stat(label: string, value: string, hint: string)}
-	<div class="flex flex-col gap-1 bg-background px-4 py-4">
+	<div class="flex flex-col gap-1 rounded-xl border border-border px-4 py-4">
 		<dt class="text-sm text-muted-foreground">{label}</dt>
 		<dd class="text-2xl font-medium tracking-[-0.02em]">{value}</dd>
 		<dd class="text-sm text-muted-foreground">{hint}</dd>
@@ -171,7 +171,7 @@
 	<div class="grid gap-8 bg-background md:grid-cols-2">
 		<div class="flex flex-col gap-2.5">
 			<p class="text-sm font-medium">Content</p>
-			<dl class="grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-4">
+			<dl class="grid grid-cols-2 gap-3 sm:grid-cols-4">
 				{@render stat('Visitors', '48,210', '+12%')}
 				{@render stat('Sign-ups', '1,024', '+8%')}
 				{@render stat('Bounce rate', '23.4%', '−1.2%')}
