@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "The pieces roster",
-  "description": "Every piece the kits ship, once. scripts/pieces.json carries one entry per piece; `pnpm check:parity` and `pnpm registry:generate` read it, so a field's shape here is the contract those tools rely on.",
+  "description": "Every piece the kits ship, once. scripts/pieces.json carries one entry per piece; `bun run check:parity` and `bun run registry:generate` read it, so a field's shape here is the contract those tools rely on.",
   "type": "object",
   "required": ["pieces"],
   "properties": {

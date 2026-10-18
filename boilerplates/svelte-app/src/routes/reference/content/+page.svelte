@@ -30,7 +30,7 @@
 			<CodeBlock
 				label="Terminal"
 				lang="bash"
-				code="pnpm dlx shadcn-svelte@latest add https://hmziqrs.github.io/brand/r/svelte/hero.json"
+				code="bunx shadcn-svelte@latest add https://hmziqrs.github.io/brand/r/svelte/hero.json"
 			/>
 			<p>The registry names each piece in lowercase, with dashes. A piece pulls in the other pieces it uses.</p>
 

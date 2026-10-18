@@ -33,7 +33,7 @@ A link to [the lab](https://blog.hmziq.rs) and an image for the cover:
 > The whole site is a folder of Markdown. If the laptop works, the site works.
 
 > [!TIP]
-> Wrap the command in `pnpm dlx` and nothing is ever installed.
+> Wrap the command in `bunx` and nothing is ever installed.
 
 > [!IMPORTANT] One worker on the free plan
 > The free tier runs one worker. Two sites means two accounts, or one bill.
@@ -47,7 +47,7 @@ A link to [the lab](https://blog.hmziq.rs) and an image for the cover:
 Install it and deploy:
 
 ```bash title="Deploy the blog"
-pnpm run deploy
+bun run deploy
 ```
 
 The worker is one file:

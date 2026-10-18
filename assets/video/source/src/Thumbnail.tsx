@@ -7,7 +7,7 @@ import { paint } from "./theme"
 
 /** A 16:9 YouTube thumbnail (3840×2160): a kicker, the title, the signature —
  * rings on the right, never behind the words. Fill the title per video and
- * render it with `pnpm render:video --still thumbnail --out <file>`. */
+ * render it with `bun run render:video --still thumbnail --out <file>`. */
 export function Thumbnail({ kicker, title, name }: { kicker: string; title: string; name: string }) {
   useFonts()
   return (

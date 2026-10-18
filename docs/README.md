@@ -28,7 +28,7 @@ Every consumer lives in its own repo. So the brand has to install from outside t
 | `@hmziq/brand-core` | Everything not tied to a framework: theme, colors, logo recipe, rings, code theme, Markdown plugins, shared app logic | npm package |
 | Svelte kit (`brand-svelte`) | Svelte 5 components on shadcn-svelte: brand pieces, site blocks, content-page blocks, app blocks | Copied in from its registry |
 | Astro kit (`brand-astro`) | Astro components on Starwind UI: the same pieces and blocks | Copied in from its registry |
-| `svelte-app`, `astro-app` | Starters with the theme, the kit, a landing page, content pages and the app demo | `pnpm new-project` |
+| `svelte-app`, `astro-app` | Starters with the theme, the kit, a landing page, content pages and the app demo | `bun run new-project` |
 | Generated assets | Logos, icons, social images, later video | Files per site |
 
 Each kit is built on the library its sites already use: shadcn-svelte for SvelteKit, Starwind UI for Astro. Both share `brand-core`; neither depends on the other.
@@ -67,7 +67,7 @@ Content blocks come before app blocks because most of the sites are content site
 
 - The brand rules are in `BRAND.md`. Plans don't repeat them unless a step depends on one.
 - A step is finished when its "Done when" list passes. The next step starts after that.
-- "Matches" means side by side in the `pnpm compare` report, in light and dark, at 360px and 1280px.
+- "Matches" means side by side in the `bun run compare` report, in light and dark, at 360px and 1280px.
 - Every new piece goes into `scripts/pieces.json`; `check:parity` keeps the two kits and their registries in step.
 - Work on a branch per plan (`structure`, `kits`, `content-blocks`, `app-blocks`, `assets`), with one commit per step.
 - Before starting, commit or set aside any unrelated work, and merge any open branch. That's the user's call: ask, don't do it yourself.
@@ -79,11 +79,11 @@ Content blocks come before app blocks because most of the sites are content site
 An agent works on these plans with skills loaded, and five of them are required: they hold the rules for the libraries the kits are built on, and the plans assume them. Install each one globally, once:
 
 ```sh
-npx skills add astrolicious/agent-skills@astro -g
-npx skills add starwind-ui/skills@starwind-ui -g
-npx skills add huntabyte/shadcn-svelte@shadcn-svelte -g
-npx skills add alinaqi/maggy@playwright-testing -g
-npx skills add dalestudy/skills@storybook -g
+bunx skills add astrolicious/agent-skills@astro -g
+bunx skills add starwind-ui/skills@starwind-ui -g
+bunx skills add huntabyte/shadcn-svelte@shadcn-svelte -g
+bunx skills add alinaqi/maggy@playwright-testing -g
+bunx skills add dalestudy/skills@storybook -g
 ```
 
 | Skill | Needed for |
@@ -91,7 +91,7 @@ npx skills add dalestudy/skills@storybook -g
 | `astro` | The Astro kit, `astro-app`, content collections, Astro Actions and `server:defer` (kits.md step 2, content-blocks.md step 3, app-blocks.md phase 10) |
 | `starwind-ui` | Starwind UI: the base library of the Astro kit, its CLI, its components and its registry |
 | `shadcn-svelte` | shadcn-svelte: the base library of the Svelte kit, its CLI, `components.json` and the registry (kits.md step 1, app-blocks.md phases 0–9) |
-| `playwright-testing` | Playwright, used by `pnpm compare` and the fresh-copy checks (kits.md) |
+| `playwright-testing` | Playwright, used by `bun run compare` and the fresh-copy checks (kits.md) |
 | `storybook` | Both Storybooks: the stories, the manager theme, the a11y and themes addons (every plan gates on them) |
 
 The rest is already covered by installed skills: `svelte-code-writer` and `svelte-core-bestpractices` for the Svelte 5 kit code, `tailwind` for Tailwind 4 and the theme CSS, `three` for the scenes, `remotion-best-practices` for the video plan in assets.md, and `TanStack Table` for the app table recipe in app-blocks.md. Shiki, the remark and rehype plugins, mdsvex and Satori have no skills; their plans spell out the rules to follow instead.

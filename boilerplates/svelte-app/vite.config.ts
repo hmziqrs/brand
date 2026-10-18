@@ -12,7 +12,7 @@ import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vite';
 
 // Inside this repo the boilerplate uses the kit from its source, so kit
-// changes show up right away. `pnpm new-project` points `$brand` at the
+// changes show up right away. `bun run new-project` points `$brand` at the
 // folder the kit is installed into instead; no import in here changes.
 const brand = fileURLToPath(new URL('../../packages/brand-svelte/src/lib', import.meta.url));
 
@@ -26,7 +26,7 @@ const brand = fileURLToPath(new URL('../../packages/brand-svelte/src/lib', impor
 // the package specifier: this file runs in Node (before Vite compiles
 // anything), and in this repo core is TypeScript source Node can't follow.
 // The relative path gets compiled into this config instead. In a project
-// started by `pnpm new-project`, core is real JavaScript from npm and the
+// started by `bun run new-project`, core is real JavaScript from npm and the
 // imports become the specifiers:
 //   import { callout } from '@hmziq/brand-core/markdown/callout'; …
 const markdown = mdsvex({

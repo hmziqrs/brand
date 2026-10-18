@@ -7,7 +7,7 @@ import { shareIcons } from "./share-icons.js";
 
 /*
  * Example content for the content blocks' stories, word for word across
- * both kits so a story lines up with its twin in `pnpm compare`. Stories
+ * both kits so a story lines up with its twin in `bun run compare`. Stories
  * only; nothing in the kit reads this at runtime.
  */
 
@@ -62,7 +62,7 @@ export const releases: Release[] = [
 /** claude-multi's FAQ questions. */
 export const faq: FaqItem[] = [
 	["Getting started", "What is claude-multi and why should I use it?", "claude-multi is a CLI that lets you run multiple Claude Code instances at the same time, each pointed at a different AI provider. Every instance gets its own config directory under ~/.claude-<name>/, so settings, history, and MCP servers don't bleed into each other."],
-	["Getting started", "How do I install claude-multi?", "Pick whichever package manager you already use: bun add -g claude-multi, npm install -g claude-multi, pnpm add -g claude-multi, or deno install -g npm:claude-multi. Then launch the interactive TUI with claude-multi. You need Claude Code installed, a supported runtime (Bun 1+, Node 18+, or Deno 1+), and an API key for at least one provider."],
+	["Getting started", "How do I install claude-multi?", "Pick whichever package manager you already use: bun add -g claude-multi, npm install -g claude-multi, yarn global add claude-multi, or deno install -g npm:claude-multi. Then launch the interactive TUI with claude-multi. You need Claude Code installed, a supported runtime (Bun 1+, Node 18+, or Deno 1+), and an API key for at least one provider."],
 	["Providers", "Which AI providers are supported?", "A provider template is a bundle of environment variables (base URL, model mappings, default settings) that claude-multi merges into a new instance. You bring the API key, the template does the rest. The providers page lists endpoints and model mappings for all eight templates."],
 	["Providers", "Can I use it with local models like Ollama?", "Yes, as long as your local model server exposes an Anthropic-compatible REST endpoint. Claude Code speaks the Anthropic API protocol, so the server on the other end needs to understand that format."],
 	["Usage", "Can I run multiple instances at the same time?", "Yes. Open two (or more) terminals and run different aliases. Each instance has its own config directory, so settings, conversation history, and MCP servers stay separate. You can even point two instances at the same provider if you want isolated contexts for different projects."],
@@ -119,7 +119,7 @@ export const installSteps = [
 		commands: [
 			["bun", "bun add -g claude-multi"],
 			["npm", "npm install -g claude-multi"],
-			["pnpm", "pnpm add -g claude-multi"],
+			["yarn", "yarn global add claude-multi"],
 			["deno", "deno install -g npm:claude-multi"],
 		] as const,
 	},
@@ -195,7 +195,7 @@ export const inside = [
 export const installs = [
 	["bun", "bun add -g claude-multi"],
 	["npm", "npm install -g claude-multi"],
-	["pnpm", "pnpm add -g claude-multi"],
+	["yarn", "yarn global add claude-multi"],
 	["deno", "deno install -g npm:claude-multi"],
 ] as const;
 

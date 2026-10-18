@@ -1,7 +1,7 @@
 {
   "target": "logos",
-  "command": "pnpm render-assets --only logos",
-  "digest": "3fb5d2c5e4474df0ccec4a75c35d66f2f4e7616696593dedbade7a7da5d03162",
+  "command": "bun run render-assets --only logos",
+  "digest": "55a43db22fb20175074242a69e92902efa74a321f4d6c22b3bb48cd8125ef08d",
   "renderers": {
     "@resvg/resvg-js": "2.6.2",
     "opentype.js": "2.0.0",
@@ -82,7 +82,11 @@
     },
     {
       "path": "assets/logos/source/settings.ts",
-      "sha256": "ebb48bf312f8cbcfa8bdd2155fa21065257f962a77e8b715ac0d1526d6f28eee"
+      "sha256": "402dfce36bf9431506baa99e2be2d630ba596c175d198df2a5da2197d09e0e80"
+    },
+    {
+      "path": "bun.lock",
+      "sha256": "09292c9e1aa17f97204ecf23fbfeb8816beb7e77fe31fc1d73d57e75ccc2b1d8"
     },
     {
       "path": "packages/brand-core/rings.css",
@@ -150,19 +154,15 @@
     },
     {
       "path": "packages/brand-core/theme.css",
-      "sha256": "b9d163d586bff5532f462a22e57abb46fc3fb821af6017270a16a01ba5f3720a"
-    },
-    {
-      "path": "pnpm-lock.yaml",
-      "sha256": "7f2c2c0fbfa6600dd63cdeb87c0d0645048d1992659a54aeb2fc3b7c9b48a2cf"
+      "sha256": "70568a10f0ddf35d4164d763081ddb3f548691ece3a46d0c148af66b6d52ed48"
     },
     {
       "path": "scripts/assets-lib.mjs",
-      "sha256": "735bfd1fa57b2b1b5a28917d315c0b1e25f1c3cb425ae36e9f0c23d3afadee65"
+      "sha256": "cc21a84cf888f3b4ad3514dffad6c3e5ef3a4b63b52f3532e5afa50d474ae3bc"
     },
     {
       "path": "scripts/render-assets.mjs",
-      "sha256": "77ee6dee609bc380f2be19a9a826c8110e6906aedf258653e0a0e9a4eff1411c"
+      "sha256": "cf22c6bc98b88a36cba1b490605df6094102af74769ad2eb8daa09e400d71de9"
     }
   ],
   "files": [

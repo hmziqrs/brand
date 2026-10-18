@@ -1,7 +1,7 @@
 // The social target's settings (assets.md phases 4–6): the canvas sizes the
 // platforms ask for, the fonts Node renders with, and the content the
 // templates draw. The engine records this object in the manifest, so every
-// number here is part of what `pnpm check:assets` proves is current. Sizes
+// number here is part of what `bun run check:assets` proves is current. Sizes
 // were checked against each platform's own page; the links and dates live in
 // docs/assets.md's appendix.
 

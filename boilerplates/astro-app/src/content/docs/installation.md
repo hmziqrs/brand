@@ -10,7 +10,7 @@ order: 2
 Example copy: run one command in your project.
 
 ```bash title="Terminal"
-pnpm add example-tool
+bun add example-tool
 ```
 
 > [!NOTE] One dependency

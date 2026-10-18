@@ -4,7 +4,7 @@ The Astro starter for hmziq sites. The theme from `@hmziq/brand-core`, the
 brand kit through `$brand`, a landing page built from the site blocks, the
 content pages from [docs/content-blocks.md](../../docs/content-blocks.md),
 and the `/kit` gallery that stands in for Storybook (which doesn't support
-Astro components). Start new projects with `pnpm new-project astro <folder>`.
+Astro components). Start new projects with `bun run new-project astro <folder>`.
 
 ## What's in it
 
@@ -24,7 +24,7 @@ Astro components). Start new projects with `pnpm new-project astro <folder>`.
   (astro.config.mjs, with the built-in highlighter off). All example content.
 - `src/pages/kit/` — the gallery: one page per group, every piece in every
   state. Each section's id is the piece's anchor in `scripts/pieces.json`,
-  which `pnpm check:parity` reads.
+  which `bun run check:parity` reads.
 - `src/pages/app/` — the app demo from [docs/app-blocks.md](../../docs/app-blocks.md):
   the signed-in side of Sightline, the same routes, data, `state` values and
   scripted failures the SvelteKit demo has. Forms post to Astro Actions
@@ -43,7 +43,7 @@ Astro components). Start new projects with `pnpm new-project astro <folder>`.
 
 The boilerplate uses the kit from its source, so kit changes show up right
 away: `$brand` points at `packages/brand-astro/src` (astro.config.mjs and
-tsconfig.json). `pnpm new-project` points `$brand` at the folder the kit is
+tsconfig.json). `bun run new-project` points `$brand` at the folder the kit is
 installed into instead; no import in here changes.
 
 The app renders on demand with the `@astrojs/node` adapter (docs/kits.md),
@@ -61,14 +61,14 @@ defaults `og:image` to `/og.png`; replace it with the real site's card from
 pack for the project's real name and replace it (docs/assets.md):
 
 ```sh
-pnpm render-assets --name "Paperplane" --symbol Pp --out <folder>
+bun run render-assets --name "Paperplane" --symbol Pp --out <folder>
 ```
 
 ## Commands
 
 | Command | Action |
 | --- | --- |
-| `pnpm dev` | Starts the dev server at `localhost:4321` |
-| `pnpm build` | Build the production server to `./dist/` |
-| `pnpm preview` | Preview the build locally |
-| `pnpm typecheck` | `astro check` for the app and its pages |
+| `bun run dev` | Starts the dev server at `localhost:4321` |
+| `bun run build` | Build the production server to `./dist/` |
+| `bun run preview` | Preview the build locally |
+| `bun run typecheck` | `astro check` for the app and its pages |

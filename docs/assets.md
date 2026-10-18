@@ -50,7 +50,7 @@ assets/
 ## Getting assets into sites and apps
 
 - A site copies its folder from `assets/logos/exports/<site-id>/` into its `public/`. Sites on a kit get the head tags from `SiteHead` (kits.md), which renders the same tags as `head.html` from the site's id. Other sites paste `head.html` into the page head.
-- New apps and boilerplates: `pnpm render-assets --name "Paperplane" --symbol Pp --out <folder>` renders a full icon pack for a name that isn't in the roster.
+- New apps and boilerplates: `bun run render-assets --name "Paperplane" --symbol Pp --out <folder>` renders a full icon pack for a name that isn't in the roster.
 - `svelte-app` and `astro-app` ship with a pack for a placeholder name, and that command in their README.
 - Link previews need each site to serve its own HTML head. The other cards stay as files until their sites use them.
 
@@ -104,17 +104,17 @@ Each `exports/` folder has a `manifest.json` recording:
 
 A target's inputs are: the theme and color code; the roster and content; templates and fonts; ring, scene and video code; the generator scripts and settings; the lockfile. Paths are sorted and bytes hashed. Outputs never count as inputs.
 
-`pnpm check:assets` is read-only and part of `pnpm check` from phase 1. It:
+`bun run check:assets` is read-only and part of `bun run check` from phase 1. It:
 
 - fails on missing files, changed files, stale inputs, missing manifests and public copies that don't match;
 - names the target and the command that fixes it;
 - reads the working tree, not git HEAD.
 
-The video and motion exports keep manifests of the same shape, written by `pnpm render:video` and `pnpm render:motion`. `check:assets` doesn't read them yet: it only knows targets that `render-assets` fixes.
+The video and motion exports keep manifests of the same shape, written by `bun run render:video` and `bun run render:motion`. `check:assets` doesn't read them yet: it only knows targets that `render-assets` fixes.
 
 Test it with a changed theme, an edited template, a broken export and a stale public copy, and confirm it never writes a file.
 
-macOS and Ubuntu CI can render slightly different bytes. CI checks manifests and inputs. `pnpm check:assets --bytes` re-renders into a temp folder and compares, without touching committed files.
+macOS and Ubuntu CI can render slightly different bytes. CI checks manifests and inputs. `bun run check:assets --bytes` re-renders into a temp folder and compares, without touching committed files.
 
 ## Video and motion: frame test first
 
@@ -133,12 +133,12 @@ The browser versions of the rings and scenes stay as they are.
 
 | Command | Does |
 | --- | --- |
-| `pnpm render-assets` | Static logos, icons and social images, and their manifests |
-| `pnpm render-assets --name --symbol --out` | An icon pack for a name outside the roster |
-| `pnpm render:video` | Video exports |
-| `pnpm render:motion` | Motion loops |
-| `pnpm check:assets` | The read-only check |
-| `pnpm check:assets --bytes` | Re-render and compare |
+| `bun run render-assets` | Static logos, icons and social images, and their manifests |
+| `bun run render-assets --name --symbol --out` | An icon pack for a name outside the roster |
+| `bun run render:video` | Video exports |
+| `bun run render:motion` | Motion loops |
+| `bun run check:assets` | The read-only check |
+| `bun run check:assets --bytes` | Re-render and compare |
 
 Static renderers (Satori, `@resvg/resvg-js`, `png-to-ico`, an outline tool) go in the root tooling, pinned after the phase-1 test render. Remotion lives in `assets/video/source/package.json`; add that folder to the workspace globs when it's created.
 

@@ -2,7 +2,7 @@
 
 **Part of the [master plan](./README.md). Work items 2, 3 and 4.** Starts after [structure.md](./structure.md).
 
-**Updated 2026-10-09:** the React lab (`apps/lab`) is deleted, the port having finished. Lab mentions below are historical. The Svelte kit's Storybook is the piece reference; `pnpm compare` shoots it against the Astro gallery and the two boilerplates.
+**Updated 2026-10-09:** the React lab (`apps/lab`) is deleted, the port having finished. Lab mentions below are historical. The Svelte kit's Storybook is the piece reference; `bun run compare` shoots it against the Astro gallery and the two boilerplates.
 
 This plan builds the Svelte kit and the Astro kit, and their two boilerplates, then puts them where other repos can install them. Each kit is built on the component library its sites already use:
 
@@ -100,8 +100,8 @@ packages/brand-astro/
 
 Every plan adds its own pieces to the roster. Two tools read it:
 
-- **`pnpm check:parity`** fails when a piece in the roster is missing from either kit, from either kit's stories or gallery, or from either registry. A piece can be marked "not yet" while its plan is in progress. It runs in `pnpm check`.
-- **`pnpm compare <piece|group>`** (`scripts/compare.mjs`, with Playwright) screenshots the Svelte story and the Astro gallery entry, in light and dark, at 360px and 1280px. It lays them side by side in `compare/` (git-ignored). `pnpm compare --pages <path>` does the same for a demo page in both boilerplates. The report relays every shot in the folder, not just the latest run's — so a page-pair run no longer drops the per-piece rows a full run laid down — and `pnpm compare --report` rebuilds it from what is there without shooting anything. Every "matches" check in these plans is done from this report.
+- **`bun run check:parity`** fails when a piece in the roster is missing from either kit, from either kit's stories or gallery, or from either registry. A piece can be marked "not yet" while its plan is in progress. It runs in `bun run check`.
+- **`bun run compare <piece|group>`** (`scripts/compare.mjs`, with Playwright) screenshots the Svelte story and the Astro gallery entry, in light and dark, at 360px and 1280px. It lays them side by side in `compare/` (git-ignored). `bun run compare --pages <path>` does the same for a demo page in both boilerplates. The report relays every shot in the folder, not just the latest run's — so a page-pair run no longer drops the per-piece rows a full run laid down — and `bun run compare --report` rebuilds it from what is there without shooting anything. Every "matches" check in these plans is done from this report.
 
 ## Boilerplates
 
@@ -118,16 +118,16 @@ Every plan adds its own pieces to the roster. Two tools read it:
 
 `astro-app` also has a `/kit` gallery: one page per group, showing every piece in every state. It stands in for Storybook, which doesn't support Astro components. `astro-app` renders on demand with the `@astrojs/node` adapter, so Astro Actions, URL params and server islands work.
 
-**Starting a new project:** `pnpm new-project <svelte|astro> <folder>` (`scripts/new-project.mjs`):
+**Starting a new project:** `bun run new-project <svelte|astro> <folder>` (`scripts/new-project.mjs`):
 
 1. Copies the boilerplate.
 2. Replaces `workspace:*` versions with the published `@hmziq/brand-core` version.
 3. Installs the kit from its registry into the kit folder and points `$brand` there.
-4. Runs `pnpm install`.
+4. Runs `bun install`.
 
 No import in the boilerplate changes.
 
-**Fresh-copy check:** `pnpm check:fresh-copy <svelte|astro>` runs `new-project` into a temp folder outside the repo, then builds it. A boilerplate, kit or core release happens only when this passes.
+**Fresh-copy check:** `bun run check:fresh-copy <svelte|astro>` runs `new-project` into a temp folder outside the repo, then builds it. A boilerplate, kit or core release happens only when this passes.
 
 ## Distribution
 
@@ -146,7 +146,7 @@ Rules:
 - To update a copied component, run the add command again and review the diff. The project keeps its own edits.
 - The kits are never published to npm; only their registries are. Changesets still versions them as private packages, so each kit has a changelog that says which components changed.
 - A LICENSE is needed at the repo root before anything is published (master plan, "Decisions").
-- Releases run by hand: `pnpm changeset version`, check the fresh copies, `pnpm changeset publish`, then deploy the registries.
+- Releases run by hand: `bunx changeset version`, check the fresh copies, `bunx changeset publish`, then deploy the registries.
 
 Everything is served from the existing GitHub Pages site:
 
@@ -161,9 +161,9 @@ Everything is served from the existing GitHub Pages site:
 ## Repo setup for the kits
 
 - `.gitignore`: add `.svelte-kit`, `.astro` and `compare/`. `dist` and `storybook-static` already match in any folder.
-- `pnpm-workspace.yaml`: approve the build scripts the new dependencies need (for example `sharp` for Astro images) next to the existing esbuild approval.
+- `trustedDependencies` in the root `package.json`: approve the build scripts the new dependencies need (for example `sharp` for Astro images) next to the existing esbuild approval.
 - Lint: run oxlint on the kits' `.ts` files and, where it supports them, on `.svelte` and `.astro` script blocks. `svelte-check` and `astro check` cover types.
-- CI runs `pnpm check` (including `check:parity`) and every build. `check:fresh-copy` runs before each release.
+- CI runs `bun run check` (including `check:parity`) and every build. `check:fresh-copy` runs before each release.
 
 ## Steps
 
@@ -179,12 +179,12 @@ Everything is served from the existing GitHub Pages site:
 8. Port every brand piece from `apps/lab/src/components/brand`, each with stories for the same states as its React stories.
 9. Port the site blocks and content pieces from `apps/lab/src/sites/shared`, and build `SiteHead`.
 10. Create `boilerplates/svelte-app` with its landing page and 404 page.
-11. Root scripts: `pnpm check` also runs `svelte-check` for the kit and the boilerplate; `pnpm build` also builds `svelte-app`; `pnpm build-storybook` builds both Storybooks.
+11. Root scripts: `bun run check` also runs `svelte-check` for the kit and the boilerplate; `bun run build` also builds `svelte-app`; `bun run build-storybook` builds both Storybooks.
 12. Deploy both Storybooks at the paths above.
 
 **Done when:**
 
-- `pnpm compare` shows every piece in the table above matching its lab story, in light and dark, at 360px and 1280px.
+- `bun run compare` shows every piece in the table above matching its lab story, in light and dark, at 360px and 1280px.
 - Buttons carry `data-slot`/`data-variant`, and icons render at the brand stroke.
 - axe shows zero violations.
 - The checks pass (including `check:parity` for this step's pieces), and each failing example file fails.
@@ -212,7 +212,7 @@ Everything is served from the existing GitHub Pages site:
   `head.html` will hold, for a site's id in `family.ts`, with the theme-color hexes
   derived from core's `theme.css` at build time (`readTheme` + `toHex`) rather than
   typed in.
-- `pnpm compare` (new, `scripts/compare.mjs`, Playwright) lays each piece next to its
+- `bun run compare` (new, `scripts/compare.mjs`, Playwright) lays each piece next to its
   lab story in light and dark at 360px and 1280px. All 13 brand pieces with lab stories
   are byte-identical screenshots; `Scene` can't be (it animates — the lab differs from
   itself too) and matches in its `still` story, same canvas size, same pause button.
@@ -222,7 +222,7 @@ Everything is served from the existing GitHub Pages site:
 - `scripts/pieces.json` (61 pieces), `check:parity` and the failing/passing example
   files for `check:colors` and `check:motion` on `.svelte` are in. Astro fields are
   "not yet" until step 2's gallery exists.
-- axe: 96 stories, 0 violations (`pnpm check:a11y` in the kit, with Storybook running).
+- axe: 96 stories, 0 violations (`bun run check:a11y` in the kit, with Storybook running).
   The two page-scope rules are off in the preview config — a story is a component in an
   iframe, and the lab's stories report exactly those two and nothing else. Re-run
   2026-10-02 after the round-2 fixes and the config split below: 313 stories (the
@@ -237,8 +237,8 @@ the lab's copied under `lab/`) and deploys it. Both builds emit relative asset U
 so neither needs a base path. The layout was checked locally by serving that same
 assembled folder: `/` and `/lab/` each load on their own, the `refs.lab` entry shows
 in the root sidebar, and a composed story (`?path=/story/lab_<id>`) renders in a
-`/lab/iframe.html` ref iframe. The workflow also now runs `pnpm check` and
-`pnpm build` instead of the five single checks, which is what "Repo setup for the
+`/lab/iframe.html` ref iframe. The workflow also now runs `bun run check` and
+`bun run build` instead of the five single checks, which is what "Repo setup for the
 kits" asks CI to run.
 
 ### Step 2: brand-astro and astro-app (work item 3)
@@ -256,12 +256,12 @@ Needs only structure.md, so it can run alongside step 1.
 4. Apply the lab's stock changes (porting rule 6) and restyle Starwind's solid status variants to soft fills.
 5. Port every brand piece, then the site blocks and content pieces, and build `SiteLayout` and `SiteHead`.
 6. Create `boilerplates/astro-app` with its landing page, 404 page and the `/kit` gallery.
-7. Root scripts: `pnpm check` also runs `astro check`; `pnpm build` also builds `astro-app`.
+7. Root scripts: `bun run check` also runs `astro check`; `bun run build` also builds `astro-app`.
 8. Update BRAND.md section 2's Astro line to say Starwind UI, with no React islands, and section 3.1 with whatever the adapter test fixed.
 
 **Done when:**
 
-- `pnpm compare` shows every piece in the table above matching its lab story, in light and dark, at 360px and 1280px.
+- `bun run compare` shows every piece in the table above matching its lab story, in light and dark, at 360px and 1280px.
 - axe (the browser extension or `@axe-core/cli`) shows zero violations on each `/kit` page.
 - The checks pass (including `check:parity`), and each failing example file fails.
 - `astro-app`'s landing page ships no JS apart from interactive pieces, with no theme flash on load.
@@ -285,7 +285,7 @@ app-blocks.md phase 10). Done:
   (alert, avatar, badge, button, card, field, input, input-group, kbd, label,
   progress, separator, slider, switch, table, tabs, textarea, tooltip) with
   the brand's changes, `starwind.config.json` recording versions, and
-  `astro check` wired into root `pnpm typecheck`.
+  `astro check` wired into root `bun run typecheck`.
 - The 3.1 adapter was tested in a real build. It is correct as written. Two
   of Starwind's own lines must be deleted from `kit.css` alongside its
   colors, or they override core: the `@custom-variant dark` line (core's
@@ -298,7 +298,7 @@ app-blocks.md phase 10). Done:
   `scripts/examples/`. A scan folder that doesn't exist yet is warned about,
   not fatal, so the checks pass before the boilerplate exists.
 
-The `/kit` axe pass has run and is clear: `pnpm --filter @hmziq/brand-astro
+The `/kit` axe pass has run and is clear: `bun run --filter @hmziq/brand-astro
 check:a11y` (`packages/brand-astro/scripts/axe.mjs`, with the gallery server
 running) reports 0 violations across the five gallery pages (2026-10-02;
 it reported 7 before the fixes; re-run in round 3 from a gallery server
@@ -328,8 +328,8 @@ that took:
 Everything else this step listed as open has landed: `astro-app` with its `/kit` gallery
 (2.6), the root build script (2.7), the BRAND.md edits (2.8), `check:parity`
 (it also verifies every roster piece's Astro kit file, and that every
-gallery anchor belongs to the roster), `pnpm compare` and `.astro` in
-`.gitignore`. `pnpm compare` ran over the whole roster on 2026-10-02: the
+gallery anchor belongs to the roster), `bun run compare` and `.astro` in
+`.gitignore`. `bun run compare` ran over the whole roster on 2026-10-02: the
 report in `compare/` (git-ignored) carries every piece's lab, Svelte and
 Astro shots in both themes at 360px and 1280px — the Astro half for the
 first time — and the Astro views match their references (checked across the
@@ -409,7 +409,7 @@ deleted. Findings, kept in the kit's README:
   Projects using Scene install `three` themselves (core's optional peer).
 - Pieces that must match the lab exactly carry the lab's classes on the
   piece (Notice over Starwind's Alert, cards over Starwind's Card). The
-  side-by-side `pnpm compare` report is still to come (above), so the
+  side-by-side `bun run compare` report is still to come (above), so the
   pixel match is unverified.
 
 ### Step 3: Publish core and the registries (work item 4)
@@ -423,7 +423,7 @@ Needs steps 1 and 2.
 5. Write `scripts/new-project.mjs` and `check:fresh-copy` for both.
 6. Serve `/theme.css` from the Pages deploy.
 7. Update BRAND.md:
-   - section 2: installing from npm and the registries, and `pnpm new-project`;
+   - section 2: installing from npm and the registries, and `bun run new-project`;
    - section 9, "Where things live": the Svelte and Astro kit folders instead of the React ones;
    - section 14, the migration checklist: which kit and registry to use.
 
@@ -432,7 +432,7 @@ Content blocks and app blocks are added to the registries as their plans finish 
 **Done when:**
 
 - A fresh SvelteKit app and a fresh Astro app each get the theme from the published core and every component from their registry, and look like the references.
-- `pnpm check:fresh-copy svelte` and `pnpm check:fresh-copy astro` both pass.
+- `bun run check:fresh-copy svelte` and `bun run check:fresh-copy astro` both pass.
 - BRAND.md tells a new site how to install the brand without reading these plans.
 
 **Step 3 status (updated 2026-10-02).** The machinery is built and both
@@ -448,17 +448,17 @@ by-hand release steps below. Done:
   the moment a real project imported it: a site's `vite.config.ts` loads
   core's Markdown plugins in plain Node, and Node refuses to strip types
   under `node_modules` (`ERR_UNSUPPORTED_NODE_MODULES_TYPE_STRIPPING`).
-  `pnpm check` and `pnpm build` both build core first, so the workspace
+  `bun run check` and `bun run build` both build core first, so the workspace
   package stays in step; rebuild after editing `src/`.
 - Changesets (`@changesets/cli` at the root, `.changeset/config.json`):
   core is versioned and published, the two kits are versioned as private
   packages (`privatePackages.version: true`, no tag) so each keeps a
   changelog, and `.changeset/README.md` is the release runbook:
-  `pnpm changeset version` → `pnpm registry:generate` → both fresh copies →
-  `pnpm changeset publish` → push (the Pages workflow then deploys the
+  `bunx changeset version` → `bun run registry:generate` → both fresh copies →
+  `bunx changeset publish` → push (the Pages workflow then deploys the
   registries).
 - Both registries, generated from the roster and the kits' source trees by
-  `pnpm registry:generate` (scripts/registry-lib.mjs +
+  `bun run registry:generate` (scripts/registry-lib.mjs +
   scripts/generate-registries.mjs): one item per roster piece, one per
   vendored stock folder (`ui-*`, `starwind-*`), `utils`, a `kit` item that
   depends on everything, and a catch-all per blocks folder the roster
@@ -479,16 +479,16 @@ by-hand release steps below. Done:
     resolved through the project's `registries` map.
   - The Scene items carry `three` (core's optional peer): the kit barrel
     exports Scene, so every whole-kit install has to build it.
-- `pnpm registry:build` (scripts/build-registries.mjs) writes the Pages
+- `bun run registry:build` (scripts/build-registries.mjs) writes the Pages
   layout — `r/svelte/`, `r/astro/`, `theme.css` — into `dist/registries/`
   (git-ignored), including the `styles/vega/index.json` the shadcn-svelte
   CLI fetches before every add. The Storybook workflow copies it into the
   Pages artifact, but only once core's version is not 0.0.0: an unreleased
   version would send installs to npm for a package that isn't there.
-- `pnpm new-project <svelte|astro> <folder>`
+- `bun run new-project <svelte|astro> <folder>`
   (scripts/new-project.mjs): copies the boilerplate, points
   `@hmziq/brand-core` at the published version (`--core` overrides, e.g. a
-  `pnpm pack` tarball before a release), writes the `components.json` the
+  `bun pm pack` tarball before a release), writes the `components.json` the
   CLIs need, points `$brand` at the installed kit folder, rewrites the
   in-repo-only lines (each stylesheet's `@source` for the kit — the Svelte
   one to the folder the kit installs into, the Astro one away, since the kit
@@ -496,28 +496,28 @@ by-hand release steps below. Done:
   core's Markdown plugins, which the config's own comment asks for),
   installs, and adds the whole kit from the registry. No import in the
   boilerplate changes.
-- `pnpm check:fresh-copy <svelte|astro>` (scripts/check-fresh-copy.mjs):
+- `bun run check:fresh-copy <svelte|astro>` (scripts/check-fresh-copy.mjs):
   builds the registries, serves them from `scripts/serve-registries.mjs`
   (a separate process — the installs run under `spawnSync`), runs
   `new-project` into a temp folder outside the repo, and builds the copy.
-  While core is unreleased it installs the local `pnpm pack` tarball — the
+  While core is unreleased it installs the local `bun pm pack` tarball — the
   same bytes publish would upload — and says so. Both pass.
-- BRAND.md: section 2 leads with `pnpm new-project` and "The registries"
+- BRAND.md: section 2 leads with `bun run new-project` and "The registries"
   table, section 9's "Where things live" points at the kits, section 14
   names the registry per framework.
 
 Deferred, not open — the release steps, which run by hand (the master
 plan's "Decisions"):
 
-- The release itself: `pnpm changeset version` (0.1.0 with the changeset in
-  `.changeset/`), `pnpm changeset publish` (needs npm login; the @hmziq
+- The release itself: `bunx changeset version` (0.1.0 with the changeset in
+  `.changeset/`), `bunx changeset publish` (needs npm login; the @hmziq
   scope has to exist), then push so the Pages workflow ships `/r/svelte/`,
   `/r/astro/` and `/theme.css`. Until it runs, `@hmziq/brand-core` is 0.0.0
   and not on npm and the live Pages site serves none of the distribution
   table's kit-era URLs, so the public paths in BRAND.md section 2 are
   pending it and `check:fresh-copy`'s registry stays local. Everything the
   release would upload is verified against those local bytes: the copies
-  install core from the `pnpm pack` tarball and the kits from a served
+  install core from the `bun pm pack` tarball and the kits from a served
   `dist/registries` build. Re-run both fresh-copy checks against the public
   npm package and registry URLs once the release is out.
 - The "look like the references" half of the done-when is verified on that

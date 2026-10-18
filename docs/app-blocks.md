@@ -215,7 +215,7 @@ Example data:
      **Astro**: the Starwind component it's built on, and whether it's static or needs a script
      ```
 
-**Done when:** `pnpm check`, `pnpm build` and `pnpm build-storybook` pass. The demo imports `isActive`, `readListParams`, `listHref` and the demo data from `@hmziq/brand-core`. `/app` in `svelte-app` opens the demo skeleton with the state switch. The Combobox has a story that passes axe. `APP-BLOCKS.md` exists with its shared sections.
+**Done when:** `bun run check`, `bun run build` and `bun run build-storybook` pass. The demo imports `isActive`, `readListParams`, `listHref` and the demo data from `@hmziq/brand-core`. `/app` in `svelte-app` opens the demo skeleton with the state switch. The Combobox has a story that passes axe. `APP-BLOCKS.md` exists with its shared sections.
 
 **Phase 0 status (updated 2026-10-01).** Done:
 
@@ -252,7 +252,7 @@ Example data:
   by `check:parity` (a piece with `svelteFile: "not yet"`), the Combobox is
   real. `APP-BLOCKS.md` exists with its shared sections.
 
-Still open: `pnpm check` doesn't pass for reasons outside this plan — the
+Still open: `bun run check` doesn't pass for reasons outside this plan — the
 content-blocks Markdown setup in `boilerplates/svelte-app/vite.config.ts`
 leaves four plugin-typing errors (mdsvex's unified 9 types against core's
 unified 11 plugins), and its stories aren't in the roster yet. Both are
@@ -399,7 +399,7 @@ The `(workspace)` layout uses `AppShell` with two groups: "Workspace" (Overview,
   placeholder page now sits in AppPage with an AppPageHeader; the settings
   pages already carry their four tabs (phase 2's shape).
 - Checked here: svelte-check clean in both projects; the demo builds; 166
-  stories, 0 axe violations (`pnpm check:a11y`); `check:parity` passes with
+  stories, 0 axe violations (`bun run check:a11y`); `check:parity` passes with
   the five pieces filled in; keyboard flows driven in the running demo
   (skip link first, Ctrl/Cmd+B, Enter/arrows/Escape with focus back on the
   trigger, the mobile sheet closing on a chosen link); screenshots at 360px
@@ -525,7 +525,7 @@ The routes are `/app/settings/*`, using `AppPage width="narrow"` and `AppPageHea
 - Core's demo data grew what the pages read: an `address` on each workspace,
   `timeZones` (46 zones, the current user's among them) and
   `notificationPrefs`; 73 Vitest tests pass, including the two new invariants.
-- Checked here: `pnpm check`, `pnpm build` and `pnpm build-storybook` pass;
+- Checked here: `bun run check`, `bun run build` and `bun run build-storybook` pass;
   svelte-check is clean in both projects; the scripted failures, the dirty and
   saved states, blur validation, focus after a failed submit, Enter
   submitting, the failing switch and its retry, and Space toggling were all
@@ -1050,7 +1050,7 @@ The auth pages are in the `(auth)` group, with no shell. Scripted results:
   rules the sign-up checklist shows).
 - `scripts/pieces.json`: the eight auth pieces are filled in; `check:parity`
   passes with them.
-- Checked here: `pnpm check` passes end to end (lint, typecheck, core's
+- Checked here: `bun run check` passes end to end (lint, typecheck, core's
   tests, svelte-check in both projects, motion, colors, contrast,
   brand-kit, parity) and the demo and the Storybook build; axe shows 0
   violations across the 269 stories, and the 35 auth stories also pass in
@@ -1570,7 +1570,7 @@ type RecordSheetProps = {
   staying inside the open dialog and the focus returns; and the plan's source
   searches (no `fetch(` or `$app/` in the blocks, no `font-bold`, no
   `uppercase`, no "Submit", "OK" or "An error occurred") come back clean.
-  Not run here: the full `pnpm check`, `pnpm build` and `pnpm build-storybook`
+  Not run here: the full `bun run check`, `bun run build` and `bun run build-storybook`
   gates, and the axe pass over the whole book, which the coordinator runs
   after this.
 
@@ -1640,9 +1640,9 @@ three more here, one already gone, and the evidence re-captured:
 4. BRAND.md section 9, "Where things live": add the app blocks.
 5. BRAND.md section 4, under "Status": add one line saying trend color follows good or bad, not up or down.
 6. Add every app block to the Svelte registry (kits.md step 3).
-7. Run `pnpm check` (it includes `check:brand-kit`).
+7. Run `bun run check` (it includes `check:brand-kit`).
 
-**Done when:** BRAND.md and `APP-BLOCKS.md` agree with each other, and `pnpm check`, `pnpm build` and `pnpm build-storybook` pass.
+**Done when:** BRAND.md and `APP-BLOCKS.md` agree with each other, and `bun run check`, `bun run build` and `bun run build-storybook` pass.
 
 **Phase 9 status (updated 2026-10-01).** Done:
 
@@ -1663,7 +1663,7 @@ three more here, one already gone, and the evidence re-captured:
   section 4's "Status" says a trend's color follows good or bad, not up or
   down (`MetricTrend`). `check:brand-kit` passes — the edits touched no
   generated block.
-- The Svelte registry: `pnpm registry:generate` re-run for the first time
+- The Svelte registry: `bun run registry:generate` re-run for the first time
   since phase 1, so every app block is now an installable item — 45 piece
   items, the folder barrels, and a `<folder>-app-blocks-shared` item per
   folder for its `types.ts` (124 → 180 items). The roster's `svelteItem`
@@ -1702,7 +1702,7 @@ three more here, one already gone, and the evidence re-captured:
   server serves. Don't rebuild the registries while `check:fresh-copy` is
   running.
 
-Not run here: the full `pnpm check`, `pnpm build` and `pnpm build-storybook`
+Not run here: the full `bun run check`, `bun run build` and `bun run build-storybook`
 gates, which the coordinator runs after this. The checks this phase's own
 edits could break — `check:brand-kit`, `check:parity`, `check:colors`,
 `check:motion` and both fresh copies — all pass.
@@ -1726,7 +1726,7 @@ Needs phases 0–9 and kits.md step 2.
 
 **Done when:**
 
-- `pnpm compare` (blocks) and `pnpm compare --pages` (demo pages) show every block, page and `state` in `astro-app` matching `svelte-app`, in light and dark, at 360px and 1280px. The lab has no app blocks, so Svelte is the reference.
+- `bun run compare` (blocks) and `bun run compare --pages` (demo pages) show every block, page and `state` in `astro-app` matching `svelte-app`, in light and dark, at 360px and 1280px. The lab has no app blocks, so Svelte is the reference.
 - `check:parity` passes with no app block marked "not yet" — the one standing exception is the table recipe: a pattern to copy, not a shipped component, so `TableRecipe` stays "not yet" in both kits on purpose (phase 9's status explains why its story ships no item).
 - Every scripted failure shows the same message in the same place.
 - Forms and lists work with JS turned off; the keyboard behaves as each block's entry says.
@@ -1779,7 +1779,7 @@ Needs phases 0–9 and kits.md step 2.
 - `scripts/pieces.json`: every app piece's `astro` anchor and `astroItem`
   filled in (the Combobox's item is `starwind-combobox`, the stock item
   that owns its file; the recipe keeps "not yet", a pattern not a
-  component). `pnpm registry:generate` re-run: the Astro registry grew to
+  component). `bun run registry:generate` re-run: the Astro registry grew to
   169 items, cycle-free, with the app pieces and their folder-shared
   helpers (`shell-app-blocks-shared`, `account-app-blocks-shared`, …) as
   items of their own.
@@ -1798,9 +1798,9 @@ Needs phases 0–9 and kits.md step 2.
   email, cleared password), the third switch's failing first change with
   its "Try again", and no horizontal page scroll at 360px on five pages.
 
-Not run here: `pnpm compare` and `pnpm compare --pages` (the side-by-side
+Not run here: `bun run compare` and `bun run compare --pages` (the side-by-side
 report against the Svelte demo, which the coordinator runs), the axe pass
-over the demo and `/kit` pages, and the full `pnpm check` / `pnpm build`
+over the demo and `/kit` pages, and the full `bun run check` / `bun run build`
 gates.
 
 **Phase 10 status (updated 2026-10-02, round 2).** Four round-1 findings
@@ -1824,12 +1824,12 @@ are fixed:
   in the source so it stays within the first 1024 bytes of the document,
   and every route reads clean: the same titles and meters verified
   code-point by code-point in the running browser.
-- `pnpm compare` had never produced app artifacts (its report held one
+- `bun run compare` had never produced app artifacts (its report held one
   landing-page pair; no app block or demo page pair existed). The report
-  now covers the app group end to end — `pnpm compare app`: 47 pieces,
+  now covers the app group end to end — `bun run compare app`: 47 pieces,
   each with its Svelte story beside its `/kit/app` gallery entry, in light
   and dark at 360px and 1280px (376 shots, zero page errors after the
-  story fixes above) — and `pnpm compare --pages` grew to take many routes
+  story fixes above) — and `bun run compare --pages` grew to take many routes
   at once, so one report holds the whole demo side by side: every `/app`
   route in both boilerplates (the overview, the members list and one
   record, the four settings pages, the five auth pages, plus the landing
@@ -1844,7 +1844,7 @@ are fixed:
   auth pages were re-verified in the same drives.
 
 Not run here: the axe pass over the demo and `/kit` pages and the full
-`pnpm check` / `pnpm build` gates, which the coordinator runs after this.
+`bun run check` / `bun run build` gates, which the coordinator runs after this.
 
 **Phase 10 status (updated 2026-10-02, round 2, second sweep).** The
 follow-up verification's findings are fixed:
@@ -1888,7 +1888,7 @@ follow-up verification's findings are fixed:
   a keyboard reader reaches the confirm through the row's own visible
   "Remove" instead.
 - The built registries on disk were re-verified after the app `astroItem`
-  entries landed: `pnpm registry:generate && pnpm registry:build` ran clean
+  entries landed: `bun run registry:generate && bun run registry:build` ran clean
   and changed nothing — the served Astro registry holds all 46 app items
   (every roster entry but `TableRecipe`, which stays "not yet" by design),
   so a fresh copy installing the kit gets the app blocks.
@@ -1905,14 +1905,14 @@ follow-up verification's findings are fixed:
   standing exception to "no app block marked not yet", so the claim and the
   roster (`check:parity` passes: 136 pieces, 47 app, 313 stories) agree.
 
-Not run here: the axe pass over the demo and `/kit` pages, `pnpm compare`,
-and the full `pnpm check` / `pnpm build` gates, which the coordinator runs
+Not run here: the axe pass over the demo and `/kit` pages, `bun run compare`,
+and the full `bun run check` / `bun run build` gates, which the coordinator runs
 after this (`astro check` is clean in the boilerplate, and `check:parity`
 passes).
 
 **Phase 10 status (updated 2026-10-02, round 3).** The axe pass over the
 demo and `/kit` pages has run and is clear — on a fresh
-`pnpm --filter astro-app build` served and driven with the kit's own
+`bun run --filter astro-app build` served and driven with the kit's own
 runner: the five `/kit` gallery pages report 0 violations, and seventeen
 demo routes (the landing page, the gallery, every `/app` route incl. the
 member record and all five auth pages) report 0 axe violations, 0 page
@@ -1952,7 +1952,7 @@ island; the Svelte twin keeps its header outside `DataState`), so an axe
 run sampled mid-skeleton reported `page-has-heading-one`. Every state
 face keeps its header now — see the final-fix note.
 
-Not run here: `pnpm compare` and the full `pnpm check` / `pnpm build`
+Not run here: `bun run compare` and the full `bun run check` / `bun run build`
 gates, which the coordinator runs after this.
 
 **Phase 10 status (updated 2026-10-03, round 3, final fixes).** The six
@@ -1997,8 +1997,8 @@ round-2 findings that rode to this round are fixed:
   the page's GET form, while a real checkbox or radio pick still applies
   at once.
 
-Checked here: `pnpm --filter astro-app typecheck` (astro check, 62 files,
-0 errors) and `pnpm --filter astro-app build` pass, and the served build
+Checked here: `bun run --filter astro-app typecheck` (astro check, 62 files,
+0 errors) and `bun run --filter astro-app build` pass, and the served build
 verified every state face's h1 in the HTML (the overview and members list
 pending, the member record's pending/error/denied/offline, the four
 settings pages' pending and error) plus the filters-win copy above; a
@@ -2009,8 +2009,8 @@ static dirty instance unchanged) and the chip's search field (its blur
 commits nothing, a checkbox pick still submits) —
 `.zflow/drive-p10-r3.mjs`, all 12 checks passing.
 
-Not run here: the mid-skeleton axe re-pass, `pnpm compare`, and the full
-`pnpm check` / `pnpm build` gates, which the coordinator runs after this.
+Not run here: the mid-skeleton axe re-pass, `bun run compare`, and the full
+`bun run check` / `bun run build` gates, which the coordinator runs after this.
 
 ---
 
@@ -2031,7 +2031,7 @@ Don't build these now:
 
 After each phase:
 
-1. `pnpm check`, `pnpm build` and `pnpm build-storybook` pass.
+1. `bun run check`, `bun run build` and `bun run build-storybook` pass.
 2. Every new story is opened in light and dark, and the axe panel shows zero violations.
 3. The phase's demo pages look right at 360px, 768px and 1280px wide: no horizontal page scroll and nothing overlapping.
 4. Each `state` value is checked on each demo page.

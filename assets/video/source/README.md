@@ -21,9 +21,9 @@ Each loop's timers live in [`src/loops.ts`](./src/loops.ts), fitted so the movem
 From the repo root:
 
 ```sh
-pnpm render:video                 # intro.mp4 and outro.mp4 into assets/video/exports/
-pnpm render:motion                # one WebM per preset + ripple-turn-640.gif into assets/motion/exports/
-pnpm --filter @hmziq/brand-video studio   # Remotion Studio to preview
+bun run render:video                 # intro.mp4 and outro.mp4 into assets/video/exports/
+bun run render:motion                # one WebM per preset + ripple-turn-640.gif into assets/motion/exports/
+bun run --filter @hmziq/brand-video studio   # Remotion Studio to preview
 ```
 
 Both render commands write a `manifest.json` next to their files: every file hashed, plus a digest of every input (theme, roster, logo and ring code, fonts, this project's source, the lockfile) and the render settings.
@@ -31,12 +31,12 @@ Both render commands write a `manifest.json` next to their files: every file has
 The thumbnail is a template, rendered per video:
 
 ```sh
-pnpm render:video --still thumbnail --out ~/Desktop/thumb.png --title "One kit, every site"
+bun run render:video --still thumbnail --out ~/Desktop/thumb.png --title "One kit, every site"
 ```
 
 ## Setup notes
 
 - Remotion is pinned (`4.0.531`, every `@remotion/*` at the same version). Its [license](https://github.com/remotion-dev/remotion/blob/main/LICENSE.md) is free for individuals and companies up to 3 people — this repo is one person's, so the free tier applies; a company using this repo would need a license from remotion.pro.
-- The browser is Remotion's own pinned Headless Shell (`pnpm --filter @hmziq/brand-video exec remotion browser ensure`); the encoder is the ffmpeg Remotion ships. `render-video.mjs` checks the MP4s are faststart (moov before mdat) before accepting them.
+- The browser is Remotion's own pinned Headless Shell (`bunx remotion browser ensure`, run in `assets/video/source`); the encoder is the ffmpeg Remotion ships. `render-video.mjs` checks the MP4s are faststart (moov before mdat) before accepting them.
 - Fonts load in the browser before any frame is let through (`src/fonts.ts`): the Onest variable WOFF2 and JetBrains Mono 400, both from `assets/fonts/`.
 - The webpack override in [`scripts/webpack.mjs`](./scripts/webpack.mjs) keeps Remotion's style-loader away from `theme.css` so the resolver can read it as text in the browser.

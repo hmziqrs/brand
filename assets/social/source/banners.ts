@@ -95,7 +95,7 @@ function uploadList(): string {
     .join(", ")
   return `# Social images: the upload list
 
-Every file here is generated (\`pnpm render-assets --only social\`). Uploads are done by hand, from this list.
+Every file here is generated (\`bun run render-assets --only social\`). Uploads are done by hand, from this list.
 
 ## The accounts
 

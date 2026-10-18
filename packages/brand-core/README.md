@@ -17,11 +17,11 @@ line is for. Sites that don't use npm can fetch the same file from
 `/theme.css` on the brand's Pages site. [BRAND.md](../../BRAND.md) is the
 rulebook; `three` is an optional peer for the 3D scenes.
 
-The export map points at `dist/`, built by `pnpm --filter @hmziq/brand-core
+The export map points at `dist/`, built by `bun run --filter @hmziq/brand-core
 build` (tsup): the published package has to load in plain Node — a site's
 `vite.config.ts` or `astro.config.mjs` imports the Markdown plugins there,
 and Node refuses to strip types from anything under `node_modules`. The
 workspace package resolves the same way, so rebuild after editing `src/`
-(root `pnpm check` and `pnpm build` both do it first).
+(root `bun run check` and `bun run build` both do it first).
 
 MIT licensed — see [LICENSE](./LICENSE).

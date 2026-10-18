@@ -131,7 +131,7 @@ export { Stat }`;
 	<table>
 		<thead><tr><th></th><th>Rule</th></tr></thead>
 		<tbody>
-			<tr><td>Color</td><td>Theme tokens only. Surfaces: <code>bg-background</code> for the page, <code>bg-card</code> for things that float over it (menus, popovers), <code>bg-muted</code> for hover and selected. Cards and tiles in the page are a line with no fill. Supporting colors follow the rules on the Colors page. <code>pnpm check:colors</code> fails on anything else.</td></tr>
+			<tr><td>Color</td><td>Theme tokens only. Surfaces: <code>bg-background</code> for the page, <code>bg-card</code> for things that float over it (menus, popovers), <code>bg-muted</code> for hover and selected. Cards and tiles in the page are a line with no fill. Supporting colors follow the rules on the Colors page. <code>bun run check:colors</code> fails on anything else.</td></tr>
 			<tr><td>Lines</td><td>1px <code>border</code>. Between items, use <code>divide-y</code>, or a <code>gap-px</code> grid on <code>bg-border</code>. Never two borders side by side.</td></tr>
 			<tr><td>Corners</td><td><code>rounded-md</code> for controls and icon tiles, <code>rounded-xl</code> for cards and panels, <code>rounded-full</code> for rings and tags. Bands run full width with square edges.</td></tr>
 			<tr><td>Shadows</td><td>None on things that sit in the page. shadcn already adds them to things that float: menus, popovers and dialogs.</td></tr>
@@ -143,7 +143,7 @@ export { Stat }`;
 			<tr><td>Focus</td><td>shadcn's ring: <code>outline-none focus-visible:ring-3 focus-visible:ring-ring/50</code>.</td></tr>
 			<tr><td>Selected</td><td><code>bg-muted</code>, or <code>border-primary/60 bg-primary/10</code> when it must stand out.</td></tr>
 			<tr><td>Disabled</td><td><code>disabled:pointer-events-none disabled:opacity-50</code>.</td></tr>
-			<tr><td>Motion</td><td>Nothing moves on hover, press or focus. Things that open (menus, dialogs) may fade and zoom in. <code>pnpm check:motion</code> enforces it.</td></tr>
+			<tr><td>Motion</td><td>Nothing moves on hover, press or focus. Things that open (menus, dialogs) may fade and zoom in. <code>bun run check:motion</code> enforces it.</td></tr>
 			<tr><td>Access</td><td>Real elements (<code>button</code>, <code>a</code>, <code>ul</code>). A label on every icon-only control. Keyboard reachable. Readable in both modes: no failures in the accessibility panel.</td></tr>
 		</tbody>
 	</table>
@@ -167,7 +167,7 @@ export { Stat }`;
 		<li>It has a story under <strong>Custom</strong>, showing every tone and variant.</li>
 		<li>You've looked at it in dark and in light.</li>
 		<li>The accessibility panel shows no violations.</li>
-		<li><code>pnpm check</code> passes: lint, types, motion, colors, contrast and the brand kit.</li>
+		<li><code>bun run check</code> passes: lint, types, motion, colors, contrast and the brand kit.</li>
 		<li>If other sites will need it, its recipe is in <code>BRAND.md</code>.</li>
 	</ol>
 

@@ -1,7 +1,7 @@
 {
   "target": "social",
-  "command": "pnpm render-assets --only social",
-  "digest": "9baaf8d5c59dbde39c842c7fc72c09d199e1fb8c935c7e68020b16ebfbf4bd10",
+  "command": "bun run render-assets --only social",
+  "digest": "12a756a013b4c6cac2a27babc62bec0c6e9b2a0c991557f506c35165c6cfc58f",
   "renderers": {
     "@resvg/resvg-js": "2.6.2",
     "opentype.js": "2.0.0",
@@ -108,7 +108,7 @@
     },
     {
       "path": "assets/social/source/banners.ts",
-      "sha256": "6ced7a1ccb3245ea441c8d05232494ab9c8c25db355e5a4e8fec59ce6d8703b0"
+      "sha256": "a548a92bd6608c88ccd02e86dbdec69a9a94f8258355385dbd6e8de2160a7884"
     },
     {
       "path": "assets/social/source/og.ts",
@@ -124,11 +124,15 @@
     },
     {
       "path": "assets/social/source/settings.ts",
-      "sha256": "aab16cecf5ddad02d3f9f4f2505437f13728bfed99fc0ba32d6b594b84eeb6ec"
+      "sha256": "41ea350580d5b4183c124e5b0e34932f628e0ce21bca61c21b04321c7438a132"
     },
     {
       "path": "assets/social/source/thumbnail.ts",
       "sha256": "fc516a117f7876f371bb3bb97cefce68a627d6efb54d39b9fee8573d7a8cfb7b"
+    },
+    {
+      "path": "bun.lock",
+      "sha256": "09292c9e1aa17f97204ecf23fbfeb8816beb7e77fe31fc1d73d57e75ccc2b1d8"
     },
     {
       "path": "packages/brand-core/rings.css",
@@ -196,19 +200,15 @@
     },
     {
       "path": "packages/brand-core/theme.css",
-      "sha256": "b9d163d586bff5532f462a22e57abb46fc3fb821af6017270a16a01ba5f3720a"
-    },
-    {
-      "path": "pnpm-lock.yaml",
-      "sha256": "7f2c2c0fbfa6600dd63cdeb87c0d0645048d1992659a54aeb2fc3b7c9b48a2cf"
+      "sha256": "70568a10f0ddf35d4164d763081ddb3f548691ece3a46d0c148af66b6d52ed48"
     },
     {
       "path": "scripts/assets-lib.mjs",
-      "sha256": "735bfd1fa57b2b1b5a28917d315c0b1e25f1c3cb425ae36e9f0c23d3afadee65"
+      "sha256": "cc21a84cf888f3b4ad3514dffad6c3e5ef3a4b63b52f3532e5afa50d474ae3bc"
     },
     {
       "path": "scripts/render-assets.mjs",
-      "sha256": "77ee6dee609bc380f2be19a9a826c8110e6906aedf258653e0a0e9a4eff1411c"
+      "sha256": "cf22c6bc98b88a36cba1b490605df6094102af74769ad2eb8daa09e400d71de9"
     }
   ],
   "files": [
@@ -417,8 +417,8 @@
     },
     {
       "path": "upload-list.md",
-      "sha256": "dc472ba5a4bfb7e1b820c358b48711ec04b9ce697703b3ef662b435300bfaae6",
-      "bytes": 2369
+      "sha256": "1037d4aa960abe753451a164eb11a1b8eef814022c31838d8be14b1a45a113d9",
+      "bytes": 2372
     },
     {
       "path": "youtube/thumbnail-sample-3840x2160.png",

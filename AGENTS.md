@@ -21,7 +21,7 @@ When driving a browser, also read and follow `/Users/hmziq/.zcode/skills/agent-b
 ## The React lab is gone
 
 - The React design lab (`apps/lab/`) was deleted after the 100% Svelte port finished; its git history is the only record left. There is no React code to port from or compare against anymore.
-- The kits are the reference now. The Svelte kit's Storybook is the piece reference; `pnpm compare` diffs Svelte against the Astro kit and the two boilerplates.
+- The kits are the reference now. The Svelte kit's Storybook is the piece reference; `bun run compare` diffs Svelte against the Astro kit and the two boilerplates.
 
 ## Kit conventions
 
@@ -32,8 +32,8 @@ When driving a browser, also read and follow `/Users/hmziq/.zcode/skills/agent-b
 
 ## Verification
 
-- Gates live in the root `package.json`; `pnpm check` chains them. Never invent a gate; never pass `--fix`/`--write` to a gate.
-- `pnpm compare` needs all four servers up: kit Storybook 6007, astro gallery 4321, svelte-app 5173, astro-app 4322.
+- Gates live in the root `package.json`; `bun run check` chains them. Never invent a gate; never pass `--fix`/`--write` to a gate.
+- `bun run compare` needs all four servers up: kit Storybook 6007, astro gallery 4321, svelte-app 5173, astro-app 4322.
 
 ## Presentation parity rules (learned from the brand-docs drift)
 

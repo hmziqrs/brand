@@ -4,11 +4,11 @@
 
 Goal: the React lab (apps/lab) hands everything worth keeping to the Svelte kit (packages/brand-svelte + boilerplates). After this plan, React retires from use — no hmziq work happens in React.
 
-**Freeze policy: NOTHING in apps/lab gets deleted or modified — source, config and assets alike. Generated build output is exempt: apps/lab/storybook-static (327 git-ignored files, served at /lab) and apps/lab/dist (27 git-ignored files, rewritten by the root build's lab half — package.json:11 runs pnpm --filter lab build). Both exist only to be built and served; rebuilding them changes no source. The lab stays as the owner's manual-verification reference, served by the kit Storybook's /lab/ ref (apps/lab/storybook-static is served at /lab in dev by packages/brand-svelte/.storybook/main.ts:34-36; the Pages deploy copies the same build there).**
+**Freeze policy: NOTHING in apps/lab gets deleted or modified — source, config and assets alike. Generated build output is exempt: apps/lab/storybook-static (327 git-ignored files, served at /lab) and apps/lab/dist (27 git-ignored files, rewritten by the root build's lab half — package.json:11 runs bun run --filter lab build). Both exist only to be built and served; rebuilding them changes no source. The lab stays as the owner's manual-verification reference, served by the kit Storybook's /lab/ ref (apps/lab/storybook-static is served at /lab in dev by packages/brand-svelte/.storybook/main.ts:34-36; the Pages deploy copies the same build there).**
 
 Every step below only adds Svelte files. React code is touched once, in a final retirement step this plan defines but does not run. That step needs its own approval.
 
-Evidence base: the six mappings in `.zflow/migration/` (brand-docs, tweakers, sites, support, templates, ui-base) and the inventories beside them, plus the check-parity roster for the pieces area (which has no mapping file). Mapping counts were recomputed from those files; the pieces directory was listed this session (26 files, 25 in scope). `node scripts/check-parity.mjs` run this session: "Every piece is in step: 136 pieces (30 brand, 22 site, 37 content, 47 app), 313 Svelte stories."
+Evidence base: the six mappings in `.zflow/migration/` (brand-docs, tweakers, sites, support, templates, ui-base) and the inventories beside them, plus the check-parity roster for the pieces area (which has no mapping file). Mapping counts were recomputed from those files; the pieces directory was listed this session (26 files, 25 in scope). `bun scripts/check-parity.mjs` run this session: "Every piece is in step: 136 pieces (30 brand, 22 site, 37 content, 47 app), 313 Svelte stories."
 
 ## Disposition summary
 
@@ -34,11 +34,11 @@ The shape in one line: the kit is already the reference for pieces, blocks and p
 
 ### brand pieces — 25 rows, all already-done (roster-covered, no mapping file)
 
-The 25 piece files under apps/lab/src/components/brand/ (directory listed this session: 26 files, minus wordmark.stories.tsx which the tweakers table covers). Every one is ported and enforced by the check-parity roster, not by a mapping file: `node scripts/check-parity.mjs` run this session passes — "Every piece is in step: 136 pieces (30 brand, 22 site, 37 content, 47 app), 313 Svelte stories" — and each counterpart exists in packages/brand-svelte/src/lib/components/.
+The 25 piece files under apps/lab/src/components/brand/ (directory listed this session: 26 files, minus wordmark.stories.tsx which the tweakers table covers). Every one is ported and enforced by the check-parity roster, not by a mapping file: `bun scripts/check-parity.mjs` run this session passes — "Every piece is in step: 136 pieces (30 brand, 22 site, 37 content, 47 app), 313 Svelte stories" — and each counterpart exists in packages/brand-svelte/src/lib/components/.
 
 | item | what | svelte | gaps | verdict | work |
 |---|---|---|---|---|---|
-| brand-icon.tsx + .stories.tsx, code-block.tsx + .stories.tsx, command.tsx, data-table.tsx, icon-tile.tsx + .stories.tsx, marker.tsx + .stories.tsx, notice.tsx + .stories.tsx, question.tsx, rings.tsx + .stories.tsx, scene.tsx + .stories.tsx, segmented.tsx, stepper.tsx, tag.tsx + .stories.tsx, terminal.tsx, toc.tsx, wordmark.tsx (16 rostered components + 8 story files = 24 rows) | the brand pieces | ported (components/ in the kit: one .svelte twin each, terminal as terminal-window/-body/-line) | each is a roster entry in scripts/pieces.json — file and story enforced by pnpm check:parity (16 names matched in the roster this session) | already-done | - |
+| brand-icon.tsx + .stories.tsx, code-block.tsx + .stories.tsx, command.tsx, data-table.tsx, icon-tile.tsx + .stories.tsx, marker.tsx + .stories.tsx, notice.tsx + .stories.tsx, question.tsx, rings.tsx + .stories.tsx, scene.tsx + .stories.tsx, segmented.tsx, stepper.tsx, tag.tsx + .stories.tsx, terminal.tsx, toc.tsx, wordmark.tsx (16 rostered components + 8 story files = 24 rows) | the brand pieces | ported (components/ in the kit: one .svelte twin each, terminal as terminal-window/-body/-line) | each is a roster entry in scripts/pieces.json — file and story enforced by bun run check:parity (16 names matched in the roster this session) | already-done | - |
 | logo-style.ts | shared logo look helper | ported (components/logo-style.ts) | not a roster entry — a helper shown inside Wordmark/Mark, checked by existence, not by a story (parity's reverse rule covers stories only) | already-done | - |
 
 ## Per-area items
@@ -47,7 +47,7 @@ Verdict first, then the rows. "Work" cells point at the step that does them.
 
 ### brand-docs — 11 rows, all reference-only
 
-Verdict: nothing moves. The kit's Storybook has no MDX and no docs pages by design (stories glob is `*.stories.svelte` only, packages/brand-svelte/.storybook/main.ts:7). Every page's content is durable in BRAND.md, which the kit itself serves at /BRAND.md (staticDirs, main.ts:29) and pnpm check:brand-kit / check:contrast keep in step with theme.css.
+Verdict: nothing moves. The kit's Storybook has no MDX and no docs pages by design (stories glob is `*.stories.svelte` only, packages/brand-svelte/.storybook/main.ts:7). Every page's content is durable in BRAND.md, which the kit itself serves at /BRAND.md (staticDirs, main.ts:29) and bun run check:brand-kit / check:contrast keep in step with theme.css.
 
 | item | what | svelte | gaps | verdict | work |
 |---|---|---|---|---|---|
@@ -91,7 +91,7 @@ Verdict: the reusable layer is ported 1:1 and parity-checked. Real site content 
 | sites/blog/share-icons.ts | 6 Simple Icons paths | ported | - | already-done | - |
 | sites/blog/shared.tsx | BlogShell + NewsletterBand | ported | form is SvelteKit action + ?subscribed state, same states | already-done | - |
 | sites/blog/vibe-coding-cover.jpg | post cover JPEG | not ported | blog's own asset; kit covers come from frontmatter | reference-only | - |
-| sites/Pages.stories.tsx | 12 site pages fullscreen | not ported | 11 pages exist as boilerplate routes (shot by pnpm compare --pages); providers page has no route by plan | reference-only | - |
+| sites/Pages.stories.tsx | 12 site pages fullscreen | not ported | 11 pages exist as boilerplate routes (shot by bun run compare --pages); providers page has no route by plan | reference-only | - |
 | sites/Sites.stories.tsx | 8 landing pages fullscreen | not ported | landings are per-site assemblies; boilerplate carries one example landing | reference-only | - |
 | sites/claude-multi.tsx | claude-multi landing | ported with gaps | MenuDemo, ProvidersTable, InstanceGraph have no Svelte counterpart | reference-only | - |
 | sites/claude-multi/about.tsx | /about page | ported | - | already-done | - |
@@ -132,7 +132,7 @@ Verdict: done. The kit's Storybook chrome is the lab's (brand-theme, manager, ma
 | package.json | lab manifest: storybook/dev/build scripts and every React dependency (react 19, @base-ui/react, recharts, react-day-picker, lucide-react, …) | ported | the kit and boilerplates carry their own manifests; the lab's exists to run the frozen lab only — its workspace entry and React deps go in step R | already-done | - (step R) |
 | index.html | app shell + head tags | ported | app.html + SiteHead render the same tag set | already-done | - |
 | public/favicon.svg | the hmziq mark | ported with gaps | kit file is sv-create's Svelte-logo default, so the Pages-root tab shows the wrong icon | keep-port | step 1 |
-| public/favicon.ico, favicon-16/32/48.png, icon-192/512.png, maskable-512.png, og-1200x630.png, x-1200x675.png, site.webmanifest, apple-touch-icon.png (11 rows) | rendered asset pack | not ported by design | per-project packs via pnpm render-assets; svelte-app carries placeholders + SiteHead emits the tags | already-done | - |
+| public/favicon.ico, favicon-16/32/48.png, icon-192/512.png, maskable-512.png, og-1200x630.png, x-1200x675.png, site.webmanifest, apple-touch-icon.png (11 rows) | rendered asset pack | not ported by design | per-project packs via bun run render-assets; svelte-app carries placeholders + SiteHead emits the tags | already-done | - |
 | App.tsx | dev hash router | ported | pages are real SvelteKit routes; the 5 saas-* mounts stay lab-only | already-done | - |
 | index.css | stylesheet root | ported | split into app.css + kit.css per kit rules | already-done | - |
 | lib/highlight-shell.tsx | shell highlighter | ported | framework-free twin highlight-shell.svelte.ts | already-done | - |
@@ -301,9 +301,9 @@ From the mappings, each with its trade-off. Answers D5 and D12 gate steps; the r
 
 ### (a) Where do brand docs, custom components, sites, templates each land?
 
-- **Brand docs** — already landed, in two places: the words live in BRAND.md (sections 1-13), which the kit's Storybook serves at /BRAND.md (staticDirs, main.ts:29) and which pnpm check:brand-kit and check:contrast keep true to theme.css on every check. The rendered-inside-Storybook form (8 MDX pages + 3 React demo libs, 11 items) stays in the frozen lab at /lab/ as reference. Nothing more moves unless D1 wants a live tokens view.
+- **Brand docs** — already landed, in two places: the words live in BRAND.md (sections 1-13), which the kit's Storybook serves at /BRAND.md (staticDirs, main.ts:29) and which bun run check:brand-kit and check:contrast keep true to theme.css on every check. The rendered-inside-Storybook form (8 MDX pages + 3 React demo libs, 11 items) stays in the frozen lab at /lab/ as reference. Nothing more moves unless D1 wants a live tokens view.
 - **Custom components** — every brand piece is already ported and parity-checked (136 pieces, 313 Svelte stories, verified this session). The only missing custom work is the interactive layer: the four tweaker pages, their shared parts, saved.ts and their stories — steps 2-5 of this plan, 8 rows. After step 5, custom is fully Svelte.
-- **Sites** — the reusable layer (shared/site.tsx, shared/content.tsx, blog shared + share-icons, gpui-query blocks) is ported 1:1 into blocks/site and blocks/content; the nine page patterns exist as boilerplate routes shot by pnpm compare --pages. The real words, data and covers of the eight landings are per-site repo work by design. One hole: claude-multi's MenuDemo/InstanceGraph/ProvidersTable (D5).
+- **Sites** — the reusable layer (shared/site.tsx, shared/content.tsx, blog shared + share-icons, gpui-query blocks) is ported 1:1 into blocks/site and blocks/content; the nine page patterns exist as boilerplate routes shot by bun run compare --pages. The real words, data and covers of the eight landings are per-site repo work by design. One hole: claude-multi's MenuDemo/InstanceGraph/ProvidersTable (D5).
 - **Templates** — the five SaaS pages and their shared blocks stay in the frozen lab (16/16 reference-only, kits.md:27 + :537). They move only if D10 says port.
 
 ### (b) The "Base and the UI" verdict
@@ -318,13 +318,13 @@ So: Base and UI need no migration beyond two stock CLI adds. The lab's ui/ retir
 
 ## Steps
 
-Additive only: each step adds Svelte files under packages/brand-svelte (plus, in step 2, two stock vendored folders). No step edits or deletes anything under apps/lab. Hand verification always runs against the frozen lab — the Lab (React) group in the kit's sidebar at localhost:6007 (the /lab/ ref), pnpm compare, and side-by-side light/dark at 360px and 1280px.
+Additive only: each step adds Svelte files under packages/brand-svelte (plus, in step 2, two stock vendored folders). No step edits or deletes anything under apps/lab. Hand verification always runs against the frozen lab — the Lab (React) group in the kit's sidebar at localhost:6007 (the /lab/ ref), bun run compare, and side-by-side light/dark at 360px and 1280px.
 
 ### Step 0 — Baseline and freeze check (no code changes)
 
 - **Scope**: nothing ported; the lab untouched.
-- **Work**: the /lab staticDir needs apps/lab/storybook-static to exist — it already does (verified this session), so normally skip any build; run pnpm --filter lab build-storybook only if it is absent, a freeze-exempt write (see the freeze policy). Start the servers — pnpm storybook (kit, 6007), pnpm storybook:lab (lab, 6006), the astro gallery (4321) and both boilerplates if running compare; run pnpm check and a full pnpm compare to lay the baseline report.
-- **Done-when**: the Lab (React) group opens in the kit's sidebar and its stories load; pnpm check passes; compare/index.html carries every roster piece's row.
+- **Work**: the /lab staticDir needs apps/lab/storybook-static to exist — it already does (verified this session), so normally skip any build; run bun run --filter lab build-storybook only if it is absent, a freeze-exempt write (see the freeze policy). Start the servers — bun run storybook (kit, 6007), bun run storybook:lab (lab, 6006), the astro gallery (4321) and both boilerplates if running compare; run bun run check and a full bun run compare to lay the baseline report.
+- **Done-when**: the Lab (React) group opens in the kit's sidebar and its stories load; bun run check passes; compare/index.html carries every roster piece's row.
 - **Hand verification**: at localhost:6007 open the Lab (React) group and click a story from each of Brand, Custom, Sites, Templates, design, ui — this is the reference everything below is compared against.
 
 ### Step 1 — Favicon (gated on D9)
@@ -337,8 +337,8 @@ Additive only: each step adds Svelte files under packages/brand-svelte (plus, in
 ### Step 2 — Tweaker foundations
 
 - **Scope**: tweakers rows brand/saved.ts and brand/tweaker-parts.tsx (its stock needs only); stock ui/label and ui/slider.
-- **Work**: copy saved.ts verbatim to packages/brand-svelte/src/lib/tweakers/saved.ts — same three localStorage keys, so settings saved in the lab's tweakers carry over; add ui/label and ui/slider via the shadcn-svelte CLI (stock — the lab copies are unmodified); re-verify ui/button still carries both brand changes (the kit README warns the CLI can revert them); run pnpm check:kit and pnpm check:motion.
-- **Done-when**: svelte-check clean; ui/button unchanged (data-variant present, no translate-y-px); pnpm check passes with no new stories added.
+- **Work**: copy saved.ts verbatim to packages/brand-svelte/src/lib/tweakers/saved.ts — same three localStorage keys, so settings saved in the lab's tweakers carry over; add ui/label and ui/slider via the shadcn-svelte CLI (stock — the lab copies are unmodified); re-verify ui/button still carries both brand changes (the kit README warns the CLI can revert them); run bun run check:kit and bun run check:motion.
+- **Done-when**: svelte-check clean; ui/button unchanged (data-variant present, no translate-y-px); bun run check passes with no new stories added.
 - **Hand verification**: at 6007 confirm existing stories still render, especially the ui-dependent ones (table, settings, auth).
 
 ### Step 3 — Tweaker parts + lattice tweaker
@@ -359,14 +359,14 @@ Additive only: each step adds Svelte files under packages/brand-svelte (plus, in
 
 - **Scope**: tweakers rows brand/logo-tweaker.tsx and components/brand/wordmark.stories.tsx (Tweaker story).
 - **Work**: port logo-tweaker.svelte — 21 numeric ranges, choices and noneable color validation including CSS.supports('color', value), five preview views, three backdrops, the 'hmziq-logo-tweaks' key, the {logo: look} export; 'Play again' becomes a {#key round} remount; pause uses the ported paused props. Make the kit wordmark Tweaker story render it fullscreen; per D3 either replace the static preset wall or keep it as its own story.
-- **Done-when**: the kit's Tweaker story is the live tuning page, control-for-control with the lab's, including paste-load rejection messages; the roster entry custom-logo--default still resolves (pnpm check:parity).
+- **Done-when**: the kit's Tweaker story is the live tuning page, control-for-control with the lab's, including paste-load rejection messages; the roster entry custom-logo--default still resolves (bun run check:parity).
 - **Hand verification**: kit's Custom/Logo--Tweaker beside the lab's via /lab — tune a letter color, paste an invalid color and see the same rejection, play again restarts, dark and light at 360px and 1280px.
 
 ### Step 6 — Sweep
 
 - **Scope**: everything added in steps 1-5.
-- **Work**: apply the D2 answer (roster the tweakers, add a check exception, or a catch-all entry — check:parity will otherwise fail on the new stories); run pnpm check; run pnpm compare all with the servers up.
-- **Done-when**: pnpm check green; the compare report shows no regression on existing pieces (rows unchanged from step 0's baseline).
+- **Work**: apply the D2 answer (roster the tweakers, add a check exception, or a catch-all entry — check:parity will otherwise fail on the new stories); run bun run check; run bun run compare all with the servers up.
+- **Done-when**: bun run check green; the compare report shows no regression on existing pieces (rows unchanged from step 0's baseline).
 - **Hand verification**: one full side-by-side pass, light and dark at 360px and 1280px, of each new tweaker story against its /lab twin.
 
 ### Step C1 — claude-multi demos (only if D5 = port)
@@ -394,14 +394,14 @@ Additive only: each step adds Svelte files under packages/brand-svelte (plus, in
   5. scripts/compare.mjs: drop or retarget the lab view (LAB at line 28, the view at 64, viewLabels at 38, the filename regex at 157) — see the appendix.
   6. Kit main.ts: refs.lab (15-20) and the conditional staticDir (34-36) survive only under option (a), pointed at the archive.
   7. Docs and workflows: the kits.md /lab passages, the kit README's refs line, and the Pages workflow that copies the lab build.
-- **Done-when**: pnpm check green with the lab gone; the /lab ref still opens (option a) or is fully removed (option b).
-- **Hand verification**: full pnpm compare after the cut; every roster piece's row reads as matching from the Svelte side.
+- **Done-when**: bun run check green with the lab gone; the /lab ref still opens (option a) or is fully removed (option b).
+- **Hand verification**: full bun run compare after the cut; every roster piece's row reads as matching from the Svelte side.
 
-## Appendix — what pnpm compare and check:parity change once Svelte is the reference
+## Appendix — what bun run compare and check:parity change once Svelte is the reference
 
 Today the lab is the reference and the scripts say so: scripts/check-parity.mjs:6-8 — "The lab is the reference: when a piece has a lab story, the Svelte kit has to show it too" — enforced by labStoryIds() (lines 54-67, reading apps/lab/src/**/*.stories.tsx) and the piece.lab check (119-121). After retirement:
 
 - **check:parity**: delete labStoryIds() and the piece.lab check; drop the lab field from scripts/pieces.json entries. The mandatory direction becomes what already exists for the app blocks: the Svelte file and the Svelte story must exist, and the reverse guard — every Svelte story belongs to a roster piece (lines 136-137) — stays as the only story-level rule. The header comment flips: the Svelte story is the reference; Astro stays checked as a consumer.
-- **compare**: it already handles Svelte-as-reference — "When a piece has no lab story (the app blocks), the Svelte story is the reference" (scripts/compare.mjs:7-8). Changes at retirement: the lab column goes, or — under retirement option (a) — LAB_URL retargets to the archived build (http://localhost:6007/lab, so the lab view's iframe URL becomes .../lab/iframe.html?id=...). Whether the archived build resolves iframe URLs under the /lab subpath was not verified this session; verify before committing to the retarget, and drop the column if it does not. The on-disk report keeps relaying old lab shots (compare.mjs builds rows from every file in compare/), so historical lab columns stay readable as the frozen record either way. pnpm compare --pages is unaffected — it shoots only the two boilerplates.
-- **Root scripts**: dev, build, build-storybook, preview and storybook:lab lose their lab halves (package.json lines 9, 11, 12, 25, 27). pnpm check's parity link stays, now checking Svelte-first.
+- **compare**: it already handles Svelte-as-reference — "When a piece has no lab story (the app blocks), the Svelte story is the reference" (scripts/compare.mjs:7-8). Changes at retirement: the lab column goes, or — under retirement option (a) — LAB_URL retargets to the archived build (http://localhost:6007/lab, so the lab view's iframe URL becomes .../lab/iframe.html?id=...). Whether the archived build resolves iframe URLs under the /lab subpath was not verified this session; verify before committing to the retarget, and drop the column if it does not. The on-disk report keeps relaying old lab shots (compare.mjs builds rows from every file in compare/), so historical lab columns stay readable as the frozen record either way. bun run compare --pages is unaffected — it shoots only the two boilerplates.
+- **Root scripts**: dev, build, build-storybook, preview and storybook:lab lose their lab halves (package.json lines 9, 11, 12, 25, 27). bun run check's parity link stays, now checking Svelte-first.
 - **New pieces after retirement** never have a lab twin: they enter pieces.json with svelte/astro fields only, and compare shoots them as svelte + astro + boilerplate — the app-blocks precedent, now the rule.

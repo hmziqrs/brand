@@ -237,7 +237,7 @@ pub fn users(cx: &mut App) -> Query<Vec<User>> {
 	<p>
 		Every pair people actually read, measured from <code>theme.css</code> right now. 4.5:1 is
 		the minimum for comfortable reading (WCAG AA); focus rings need 3:1.
-		<code>pnpm check:contrast</code> runs the same measurements on every deploy and fails if
+		<code>bun run check:contrast</code> runs the same measurements on every deploy and fails if
 		one drops below.
 	</p>
 	<div data-panel class="p-0!">
@@ -263,7 +263,7 @@ pub fn users(cx: &mut App) -> Query<Vec<User>> {
 	<h2>Changing colors</h2>
 	<ul>
 		<li><strong>The brand color:</strong> <code>--primary: var(--orange)</code> appears once in <code>:root</code> and once in <code>.dark</code>. Point both at another color, like <code>var(--blue)</code>, and every button, link, focus ring and code keyword follows.</li>
-		<li><strong>A supporting color:</strong> change its two lines in part 2 of <code>theme.css</code> (light and dark), then run <code>pnpm check:contrast</code>.</li>
+		<li><strong>A supporting color:</strong> change its two lines in part 2 of <code>theme.css</code> (light and dark), then run <code>bun run check:contrast</code>.</li>
 		<li><strong>A theme tool</strong> (like tweakcn): its output can replace the two shadcn blocks in part 1. The colors in part 2 and the roles in part 3 stay.</li>
 	</ul>
 </DocsPage>

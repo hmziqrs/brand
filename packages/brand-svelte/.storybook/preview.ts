@@ -25,7 +25,7 @@ const preview: Preview = {
 		// Page color comes from the theme itself (body uses bg-background).
 		backgrounds: { disable: true },
 		// A phone-sized viewport for the app blocks' mobile stories: the same
-		// 360px `pnpm compare` shoots, choosable from the toolbar (viewport
+		// 360px `bun run compare` shoots, choosable from the toolbar (viewport
 		// ships with Storybook itself, no addon to register).
 		viewport: {
 			viewports: {

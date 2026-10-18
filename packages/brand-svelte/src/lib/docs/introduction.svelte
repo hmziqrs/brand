@@ -63,9 +63,9 @@
 		because that shows where they came from. Once they're on screen, they stay put.
 	</p>
 	<p>
-		<code>pnpm check:motion</code> fails if a component adds movement on hover, press or focus.
-		It runs on every deploy, next to <code>pnpm check:colors</code> (every color comes from the
-		theme) and <code>pnpm check:contrast</code> (every pair stays readable).
+		<code>bun run check:motion</code> fails if a component adds movement on hover, press or focus.
+		It runs on every deploy, next to <code>bun run check:colors</code> (every color comes from the
+		theme) and <code>bun run check:contrast</code> (every pair stays readable).
 	</p>
 
 	<h2>What's in here</h2>

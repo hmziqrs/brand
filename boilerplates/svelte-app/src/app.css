@@ -17,6 +17,6 @@
    the app folder, so Tailwind has to be pointed at them: relative to this
    file, three levels up is the repo root. Without this line the kit's
    responsive utilities silently vanish from the build — the same hole the
-   astro-app's stylesheet closes for its kit. `pnpm new-project` rewrites it
+   astro-app's stylesheet closes for its kit. `bun run new-project` rewrites it
    to the folder the kit is installed into. */
 @source "../../../packages/brand-svelte/src";

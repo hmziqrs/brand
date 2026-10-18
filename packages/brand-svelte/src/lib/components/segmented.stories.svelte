@@ -6,7 +6,7 @@
 </script>
 
 <script lang="ts">
-	let manager = $state('pnpm')
+	let manager = $state('yarn')
 	let billing = $state<'monthly' | 'yearly'>('monthly')
 </script>
 
@@ -17,7 +17,7 @@
 		value={manager}
 		onValueChange={(v) => (manager = v)}
 		options={[
-			{ value: 'pnpm', label: 'pnpm' },
+			{ value: 'yarn', label: 'yarn' },
 			{ value: 'npm', label: 'npm' },
 			{ value: 'bun', label: 'bun' },
 		]}

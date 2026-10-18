@@ -38,7 +38,7 @@ src/lib/
 
 ## Storybook
 
-`pnpm storybook` (port 6007). Stories are `*.stories.svelte` files next to each
+`bun run storybook` (port 6007). Stories are `*.stories.svelte` files next to each
 component, written with [addon-svelte-csf](https://github.com/storybookjs/addon-svelte-csf)
 (`defineMeta` + `<Story>`), one file per piece, with the same states as the
 piece's React story. The manager theme, fonts and heads are the lab's, so the
@@ -73,7 +73,7 @@ including the soft `destructive` fill and the `xs` / `icon-xs` / `icon-sm` /
 **The CLI overwrites.** `shadcn-svelte add` reinstalls a component's
 dependencies too, so adding anything that needs `button` (sidebar, sheet,
 command, …) reverts the two button changes above. Re-apply them, and run
-`pnpm check:motion`, after every `add`.
+`bun run check:motion`, after every `add`.
 
 Two more kit-side rules for stock components:
 
@@ -83,8 +83,8 @@ Two more kit-side rules for stock components:
   the icons inside the stock components themselves (`checkbox`'s check,
   `select`'s chevrons, …): porting rule 5 says to add the class where the
   library doesn't.
-- `ui/` is exempt from `pnpm check:colors` (it ships as shadcn-svelte wrote
-  it) but not from `pnpm check:motion`: nothing moves, whoever wrote it.
+- `ui/` is exempt from `bun run check:colors` (it ships as shadcn-svelte wrote
+  it) but not from `bun run check:motion`: nothing moves, whoever wrote it.
 
 ### The app-blocks stock set (app-blocks.md, phase 0)
 
@@ -105,14 +105,14 @@ dependencies, and both Vite configs keep them in `ssr.noExternal` next to
 
 ## Checks
 
-- `pnpm check` (in the kit) runs svelte-check over the kit and its stories.
-- `pnpm check:a11y` (in the kit, with `pnpm storybook` already running) runs
+- `bun run check` (in the kit) runs svelte-check over the kit and its stories.
+- `bun run check:a11y` (in the kit, with `bun run storybook` already running) runs
   axe over every story. The two page-scope rules (`landmark-one-main`,
   `page-has-heading-one`) are off in the preview config: a story is a
   component in an iframe, not a page, and the lab's stories report exactly
   those two and nothing else.
-- `pnpm check:parity` (repo root) keeps the roster, the stories and the
-  registries in step; `pnpm compare <piece>` screenshots a piece next to its
+- `bun run check:parity` (repo root) keeps the roster, the stories and the
+  registries in step; `bun run compare <piece>` screenshots a piece next to its
   lab story in light and dark, at 360px and 1280px.
 
 ## Shaders
@@ -173,8 +173,8 @@ kit components and the studio use cacheable poster assets instead.
 
 Source recipes and WGSL came from `hmziq-shader-pack/`. Core tests compare
 all recipes, uniforms, shader tokens, source image hashes, and generated poster
-hashes. After changing source textures, run `node scripts/generate-shader-posters.mjs`
-from the repository root, then run `pnpm check` and inspect rendered twins.
+hashes. After changing source textures, run `bun scripts/generate-shader-posters.mjs`
+from the repository root, then run `bun run check` and inspect rendered twins.
 
 ## Glass
 
@@ -219,13 +219,13 @@ Announce, plus `Templates/Glass sections` and `Sites/freeoxide tools`.
 
 ## Registry
 
-`registry.json` is generated, never hand-edited: `pnpm registry:generate`
+`registry.json` is generated, never hand-edited: `bun run registry:generate`
 (scripts/generate-registries.mjs + scripts/registry-lib.mjs) builds it from
 the pieces roster and the kit's source tree — one item per roster piece
 (named by its `svelteItem` in `scripts/pieces.json`), one per vendored stock
 folder (`ui-*`), plus `utils`, a `kit` item that depends on everything, and a
-catch-all per blocks folder the roster doesn't list yet. `pnpm check:parity`
-fails when a roster piece has no registry item; `pnpm registry:build` writes
+catch-all per blocks folder the roster doesn't list yet. `bun run check:parity`
+fails when a roster piece has no registry item; `bun run registry:build` writes
 the Pages layout (`r/svelte/`, `r/astro/`, `theme.css`) the workflow deploys.
 
 ## Live components

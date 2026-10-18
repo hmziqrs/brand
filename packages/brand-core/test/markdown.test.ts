@@ -75,7 +75,7 @@ describe("callout", () => {
     expect(sample).toContain(">One worker on the free plan</div>")
     expect((sample.match(/border-info\/40/g) ?? []).length).toBe(3)
     expect(sample).toContain(
-      '<div data-slot="alert-description" class="text-sm text-balance text-muted-foreground md:text-pretty [&#x26;_a]:underline [&#x26;_a]:underline-offset-3 [&#x26;_a]:hover:text-foreground [&#x26;_p:not(:last-child)]:mb-4"><p>Wrap the command in <code>pnpm dlx</code> and nothing is ever installed.</p></div>',
+      '<div data-slot="alert-description" class="text-sm text-balance text-muted-foreground md:text-pretty [&#x26;_a]:underline [&#x26;_a]:underline-offset-3 [&#x26;_a]:hover:text-foreground [&#x26;_p:not(:last-child)]:mb-4"><p>Wrap the command in <code>bunx</code> and nothing is ever installed.</p></div>',
     )
   })
 
@@ -112,7 +112,7 @@ describe("callout", () => {
 describe("codeMeta", () => {
   it("renders a titled fence as the CodeBlock: the label bar, then highlighted tokens", () => {
     expect(sample).toContain(
-      '<div data-slot="code-block" class="relative overflow-hidden rounded-xl border"><div class="flex h-10 items-center justify-between gap-4 border-b pr-1.5 pl-3.5"><span class="text-xs text-muted-foreground">Deploy the blog</span></div><pre tabindex="0" class="overflow-x-auto px-4.5 py-4 font-mono outline-none focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:ring-inset text-[0.8125rem] leading-[1.7] text-(--code-foreground)"><code><span style="color:var(--code-token-function)">pnpm</span><span style="color:var(--code-foreground)"> </span><span style="color:var(--code-token-string)">run</span><span style="color:var(--code-foreground)"> </span><span style="color:var(--code-token-string)">deploy</span></code></pre></div>',
+      '<div data-slot="code-block" class="relative overflow-hidden rounded-xl border"><div class="flex h-10 items-center justify-between gap-4 border-b pr-1.5 pl-3.5"><span class="text-xs text-muted-foreground">Deploy the blog</span></div><pre tabindex="0" class="overflow-x-auto px-4.5 py-4 font-mono outline-none focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:ring-inset text-[0.8125rem] leading-[1.7] text-(--code-foreground)"><code><span style="color:var(--code-token-function)">bun</span><span style="color:var(--code-foreground)"> </span><span style="color:var(--code-token-string)">run</span><span style="color:var(--code-foreground)"> </span><span style="color:var(--code-token-string)">deploy</span></code></pre></div>',
     )
   })
 

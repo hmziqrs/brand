@@ -84,14 +84,14 @@ Content pages are written in Markdown or MDX: content collections in Astro, mdsv
 ### Step 2: The Svelte blocks
 
 1. Build every block above in `packages/brand-svelte/src/lib/blocks/content/`.
-2. Stories for each block and variant. They use the lab page's own text, so `pnpm compare` lines them up 1:1.
+2. Stories for each block and variant. They use the lab page's own text, so `bun run compare` lines them up 1:1.
 3. mdsvex in `svelte-app` with the core plugins.
 4. Example pages in `svelte-app`, with example content marked as example: blog index, a blog post written in Markdown that uses every mapped element, a docs page, changelog, FAQ, privacy, about, contact and 404.
 5. Add each block to `scripts/pieces.json`.
 
 **Done when:**
 
-- `pnpm compare` shows every block matching its lab page, in light and dark, at 360px and 1280px.
+- `bun run compare` shows every block matching its lab page, in light and dark, at 360px and 1280px.
 - The Markdown sample post renders every mapped element correctly.
 - Scroll spy, the floating contents pill, the share bar's copy link, docs search and the typing terminal work with the keyboard and with reduced motion.
 - axe shows zero violations.
@@ -112,7 +112,7 @@ list at the end of this status. Done:
   `blocks/content/share-icons.ts` — the same files the Astro kit reads,
   kept in step with them.
 - A story per block and variant, next to the block, using the lab pages'
-  own words (`blocks/content/stories-data.ts` holds them), so `pnpm
+  own words (`blocks/content/stories-data.ts` holds them), so `bun run
   compare` lines the stories up with the lab's Sites/Pages stories. The
   placeholder cover the PostHeader story uses is in the kit's `static/`
   and served by Storybook.
@@ -132,7 +132,7 @@ list at the end of this status. Done:
   - vite.config runs in Node, and in this repo core is TypeScript source
     Node can't follow (`../code-theme` has no extension), so the plugins
     are imported from core's source through a relative path the config
-    bundler compiles. In a project started by `pnpm new-project`, core is
+    bundler compiles. In a project started by `bun run new-project`, core is
     real JavaScript from npm and the imports become the package
     specifiers — noted in the config for whoever writes that script.
 - The example pages: blog index, the every-element post (from
@@ -169,12 +169,12 @@ list at the end of this status. Done:
 
 The step's own checks ran on 2026-10-02, with every server up:
 
-- `pnpm compare content`: 396 screenshots, no unreachable view, no page
+- `bun run compare content`: 396 screenshots, no unreachable view, no page
   errors, and a read of the report rows finds every block matching its
   lab page in light and dark at 360px and 1280px. (Kicker, a site piece
   rostered in the content group, has no lab or Svelte story, so its row
   is Astro-only — the kits area's roster state, unchanged here.)
-- `pnpm compare --pages` over the thirteen routes both boilerplates
+- `bun run compare --pages` over the thirteen routes both boilerplates
   share (blog index, the every-element post, the three docs pages,
   changelog, FAQ, privacy, terms, about, contact, components and a 404):
   every twin matches, most pixel-tight on a normalized-height compare
@@ -193,7 +193,7 @@ The step's own checks ran on 2026-10-02, with every server up:
   are stripped). Left to the Astro kit's plan; the Svelte twin is the
   one that matches the lab. (Fixed in step 3 on 2026-10-02 — the forwards
   are gone and the blog twins match.)
-- `pnpm --filter @hmziq/brand-svelte check:a11y`: 313 stories checked,
+- `bun run --filter @hmziq/brand-svelte check:a11y`: 313 stories checked,
   0 violations — the content stories included.
 
 The content blocks stayed out of the kit's `src/lib/index.ts` barrel at
@@ -215,7 +215,7 @@ barrel, with the folder's small sub-parts (`AuthField`, `ShellNav`,
 
 **Done when:**
 
-- Every example page matches its `svelte-app` twin, and every block matches the lab, in `pnpm compare`.
+- Every example page matches its `svelte-app` twin, and every block matches the lab, in `bun run compare`.
 - Content pages ship no JS except for interactive pieces (the contents scroll spy — the floating pill and the docs and legal TOCs — copy link, docs search, the blog index and FAQ filter scripts, the typing terminal, collapsible releases) plus the boilerplate's own theme scripts and whatever Starwind's Button and Input carry where they render.
 - axe shows zero violations.
 
@@ -280,10 +280,10 @@ fixes they forced are in:
 
 - The content blocks are exported from the kit's `src/index.ts` barrel
   (the "Content-page blocks" section there), so a project importing
-  `@hmziq/brand-astro` gets them; `pnpm --filter @hmziq/brand-astro
+  `@hmziq/brand-astro` gets them; `bun run --filter @hmziq/brand-astro
   typecheck` passes over the barrel. Since round 3 the Svelte barrel
   exports the same 27 from `src/lib/index.ts`, so neither kit ships its
-  content blocks one way only; `pnpm --filter @hmziq/brand-svelte check`
+  content blocks one way only; `bun run --filter @hmziq/brand-svelte check`
   passes over it.
 - The round-1 defect in `BlogLayout`'s conditional slot forwards (the
   step 2 status above describes it) is fixed: slots pass through as
@@ -310,9 +310,9 @@ fixes they forced are in:
   were the only example pages without one — round 2 caught empty titles,
   descriptions and canonicals there), with the Astro twin's title,
   description and URL shapes.
-- `pnpm compare content`: 396 screenshots, every content piece in its
+- `bun run compare content`: 396 screenshots, every content piece in its
   lab, Svelte and Astro views, no unreachable view, no page error.
-- `pnpm compare --pages` over the thirteen shared routes: every twin
+- `bun run compare --pages` over the thirteen shared routes: every twin
   matches — most pixel-tight on a normalized-height diff (blog,
   changelog, privacy, terms, contact, 404 and docs quick-start at
   ≤0.013 both widths and both themes; the docs introduction and
@@ -321,7 +321,7 @@ fixes they forced are in:
   post twin (0.03–0.08), whose delta was the margin-note copy fix above
   — closed in round 3, when the Svelte twin took the same first
   sentence as the Astro twin.
-- The Astro axe runner exists: `pnpm --filter @hmziq/brand-astro
+- The Astro axe runner exists: `bun run --filter @hmziq/brand-astro
   check:a11y` (`scripts/axe.mjs`) reads the `/kit` gallery's own index
   for its pages and runs axe over each. `/kit/content` passes with zero
   violations (the gallery's two PostContents variants carry distinct
@@ -335,26 +335,26 @@ fixes they forced are in:
 2. BRAND.md section 8, "Page patterns": list the content blocks and the Markdown mapping.
 3. `check:parity` passes with no content block marked "not yet".
 
-**Done when:** a fresh project from `pnpm new-project` can add any content block from its registry, and its Markdown renders like the example post.
+**Done when:** a fresh project from `bun run new-project` can add any content block from its registry, and its Markdown renders like the example post.
 
 **Step 4 status (updated 2026-10-02).** Done, and `check:parity` passes
 with no content block "not yet". The fresh-copy half of the done-when ran
-for both sides on 2026-10-02: `pnpm check:fresh-copy svelte` PASS and
-`pnpm check:fresh-copy astro` PASS. Either run builds the registries
+for both sides on 2026-10-02: `bun run check:fresh-copy svelte` PASS and
+`bun run check:fresh-copy astro` PASS. Either run builds the registries
 locally, serves them from a temporary port, copies the boilerplate (the
 every-element Markdown post with it), points `@hmziq/brand-core` at the
 exact tarball publish would upload (0.0.0 is unreleased, so it is
-`pnpm pack`ed locally), and installs the whole kit from the served
+`bun pm pack`ed locally), and installs the whole kit from the served
 registry — the `kit` item depends on every item, the 27 content blocks
 and `content-blocks-shared` among them — so every content block lands in
-a fresh copy by its own item. The copy's `pnpm build` then compiles the
+a fresh copy by its own item. The copy's `bun run build` then compiles the
 example post through the framework's Markdown pipeline with core's
 plugins: mdsvex in `svelte-app`, content collections in `astro-app`
 (content syncs and the build completes). Both fresh copies
 still run before any release (`.changeset/README.md`). Done:
 
 - All 27 content blocks are their own items in both registries. The
-  roster's `svelteItem`/`astroItem` are set and `pnpm registry:generate`
+  roster's `svelteItem`/`astroItem` are set and `bun run registry:generate`
   was re-run: 124 items in the Svelte registry, 108 in the Astro one.
 - The shared `blocks/content/types.ts` and `share-icons.ts` are their own
   `content-blocks-shared` item in both registries, by the generator's
@@ -375,7 +375,7 @@ still run before any release (`.changeset/README.md`). Done:
   fields stay "not yet" until app-blocks.md's own registry step. The
   Astro run warns about the six pieces with no `.astro` twin yet —
   Combobox and those five — for the same reason.
-- `pnpm registry:build` lays both registries out for the Pages deploy
+- `bun run registry:build` lays both registries out for the Pages deploy
   with the new items serving on their own: `r/svelte/faq-list.json`
   points at its neighbors (`./post-header.json`, …) and the Astro items
   inline their file contents at `src/components/brand/…` targets.

@@ -1,7 +1,7 @@
 {
   "target": "video",
-  "command": "pnpm render:video",
-  "digest": "84fb629768e12b2705fd803ee08880e42c565f03f588e3ac068d5b7aab2b2d44",
+  "command": "bun run render:video",
+  "digest": "8598e021bdaf11b04449b82e65db46903b5c088fb721cd74350df0ee956cf040",
   "renderers": {
     "remotion": "4.0.531",
     "@remotion/renderer": "4.0.531"
@@ -64,7 +64,7 @@
     },
     {
       "path": "assets/video/source/package.json",
-      "sha256": "3b7d2c5fdd7596a35f2b1e602ae3fc38ec0599264d66557fbfa9dd8da3c0a294"
+      "sha256": "d2d07b5bf1b781d73e70c069e352a9c2c3205bd151b7dc446605b4ae37f85534"
     },
     {
       "path": "assets/video/source/remotion.config.ts",
@@ -72,15 +72,15 @@
     },
     {
       "path": "assets/video/source/scripts/manifest.mjs",
-      "sha256": "6edb64a4e54efd7a211c88d2b12df1e8c40de7aa136098cdd1b95fe7c2e3acb2"
+      "sha256": "715c39bbc8b06ad065e30df0725d7da683f8887b335dcb7c2624d2307667fe3c"
     },
     {
       "path": "assets/video/source/scripts/render-motion.mjs",
-      "sha256": "d016bb9972afb63fcec1e4b0ee1e08fa9ddb7ceddd79101940e1dbf44cbcd6bb"
+      "sha256": "5e4961f27da473af3f5a70215288b21854f8a82a8fd17b14fa490d96be82550c"
     },
     {
       "path": "assets/video/source/scripts/render-video.mjs",
-      "sha256": "b77de7f34941781c02f9c2b692fbf2a737866005d05279c81b6e11eb1e8978c8"
+      "sha256": "1f7e451afc49ae9dbf0fde82152fc126e28a100ec76600f0df8ebfbbecd20e49"
     },
     {
       "path": "assets/video/source/scripts/webpack.mjs",
@@ -108,7 +108,7 @@
     },
     {
       "path": "assets/video/source/src/Thumbnail.tsx",
-      "sha256": "a9b713958c23639ba5abd33ac95c34f67bed8d442eb6bcace68d7314dc92a63f"
+      "sha256": "e3403aa7788623f6cccacd46a61699928c441fc7ea4de40365055a4a0afcb377"
     },
     {
       "path": "assets/video/source/src/Wordmark.tsx",
@@ -139,6 +139,10 @@
       "sha256": "e529f7ffd12ecfab898d51ba791970e50439ccfdd2f5af1636164c2000a7f9ee"
     },
     {
+      "path": "bun.lock",
+      "sha256": "09292c9e1aa17f97204ecf23fbfeb8816beb7e77fe31fc1d73d57e75ccc2b1d8"
+    },
+    {
       "path": "packages/brand-core/rings.css",
       "sha256": "cf372353f94b0770ad94ea51a832d2743976773fd46aae6d16f3eb5109b4c6a0"
     },
@@ -152,11 +156,15 @@
     },
     {
       "path": "packages/brand-core/src/logo.ts",
-      "sha256": "38420c7f854a4391c2f6e387f72561082b8c3acabb266ce8c2a470e4661a107b"
+      "sha256": "0296e083a118b24f656c842bd10ba5e85ac01fb7152876b28d4aec9e57df346f"
     },
     {
       "path": "packages/brand-core/src/motion/frame.ts",
       "sha256": "feb3426b5bd0bf90ae617fd7cd0b6161c64cda73998c7fdf074a2d5e5b04ddf2"
+    },
+    {
+      "path": "packages/brand-core/src/motion/ring-shapes.ts",
+      "sha256": "a5ceca52f9733ef32a7758694a3eb2a699f355cc0a0fc37946da7571bfe2d286"
     },
     {
       "path": "packages/brand-core/src/motion/rings.ts",
@@ -200,11 +208,7 @@
     },
     {
       "path": "packages/brand-core/theme.css",
-      "sha256": "b9d163d586bff5532f462a22e57abb46fc3fb821af6017270a16a01ba5f3720a"
-    },
-    {
-      "path": "pnpm-lock.yaml",
-      "sha256": "9e84ad90a9cca818b0618626f8377650cbe128b5b2ec86edf748d45fbb0aeb59"
+      "sha256": "70568a10f0ddf35d4164d763081ddb3f548691ece3a46d0c148af66b6d52ed48"
     }
   ],
   "files": [

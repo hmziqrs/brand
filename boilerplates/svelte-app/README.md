@@ -2,7 +2,7 @@
 
 The SvelteKit starter for hmziq sites: the theme, the brand kit through
 `$brand`, a landing page built from the site blocks, and a 404 page. Start a
-new project from it with `pnpm new-project svelte <folder>` (repo root).
+new project from it with `bun run new-project svelte <folder>` (repo root).
 
 ## What's in it
 
@@ -13,7 +13,7 @@ new project from it with `pnpm new-project svelte <folder>` (repo root).
   utilities don't pick the tokens up.
 - `vite.config.ts` — the `$brand` alias. Inside this repo it points at
   `packages/brand-svelte/src/lib`, so kit changes show up right away.
-  `pnpm new-project` repoints it at the folder the kit is installed into;
+  `bun run new-project` repoints it at the folder the kit is installed into;
   no import in the app changes.
 - `src/app.html` — dark by default, with the remembered light choice applied
   before first paint so the wrong theme never flashes.
@@ -38,7 +38,7 @@ defaults `og:image` to `/og.png`; replace it with the real site's card from
 Render a pack for the project's real name and replace it (docs/assets.md):
 
 ```sh
-pnpm render-assets --name "Paperplane" --symbol Pp --out <folder>
+bun run render-assets --name "Paperplane" --symbol Pp --out <folder>
 ```
 
 The content pages (content-blocks.md) are added by their own plan.
@@ -69,8 +69,8 @@ unless they want the same admin screens.
 ## Commands
 
 ```sh
-pnpm install
-pnpm dev       # http://localhost:5173
-pnpm build
-pnpm check     # svelte-check
+bun install
+bun run dev       # http://localhost:5173
+bun run build
+bun run check     # svelte-check
 ```

@@ -6,8 +6,8 @@ import { defineConfig } from "tsup";
 // package has to load in plain Node (a site's vite.config or astro.config
 // imports the Markdown plugins there), and Node refuses to strip types from
 // anything under node_modules. In this repo the workspace package is the
-// same files, so `pnpm --filter @hmziq/brand-core build` (run by prepare, by
-// `pnpm check` and by `pnpm build`) keeps in-repo consumers in step too.
+// same files, so `bun run --filter @hmziq/brand-core build` (run by prepare, by
+// `bun run check` and by `bun run build`) keeps in-repo consumers in step too.
 const pkg = JSON.parse(readFileSync(new URL("./package.json", import.meta.url), "utf8"));
 const entries = Object.values(pkg.exports as Record<string, string | { default: string }>)
   .map((target) => (typeof target === "string" ? target : target.default))

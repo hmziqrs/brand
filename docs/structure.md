@@ -23,7 +23,7 @@ brand/
 ├── explorations/                frozen design record
 ├── .github/workflows/
 ├── BRAND.md · APP-BLOCKS.md · README.md
-└── package.json · pnpm-workspace.yaml · pnpm-lock.yaml · tsconfig.json · tsconfig.base.json · .oxlintrc.json
+└── package.json · bun.lock · tsconfig.json · tsconfig.base.json · .oxlintrc.json
 ```
 
 Create a folder only when there's something to put in it.
@@ -54,7 +54,7 @@ packages/brand-core/
 - `logo.ts` keeps the recipe and its defaults. Its two React style helpers (`letterStyle`, `squareStyle`) move to the lab.
 - `code-theme.ts` is the `createCssVariablesTheme({ name: "hmziq", variablePrefix: "--code-" })` call that now sits inside the lab's `code-block.tsx`. Both kits and the Markdown setup use it. `shiki` is a dependency of core for this file only.
 - `theme.css` has two rules that depend on markup: outline buttons (`[data-slot="button"][data-variant="outline"]`) and the icon stroke (`.lucide`). kits.md makes every kit's components carry them.
-- Tests run with Vitest (`pnpm test`, part of `pnpm check`). Step 1 adds tests for `color.ts`. assets.md adds the alpha case, content-blocks.md the Markdown plugins, and app-blocks.md the list params.
+- Tests run with Vitest (`bun run test`, part of `bun run check`). Step 1 adds tests for `color.ts`. assets.md adds the alpha case, content-blocks.md the Markdown plugins, and app-blocks.md the list params.
 
 ## apps/lab
 
@@ -91,7 +91,7 @@ These change together with the files they point at:
 | CSS | `apps/lab/src/index.css` imports `@hmziq/brand-core/theme.css`, in the same order as now: Tailwind → tw-animate + shadcn base → fonts → theme. Add `@source` for core's `src/`. `rings.css` and `logo.css` are imported by the components that use them. |
 | `components.json` | Moves with the lab. `tailwind.css` still points at `src/index.css`, never at `theme.css`. |
 | Lint | `.oxlintrc.json` overrides point at `apps/lab/src/components/ui/` and `apps/lab/src/hooks/`. |
-| Root scripts | `pnpm check`, `pnpm build` and `pnpm build-storybook` run the lab's targets with `pnpm --filter`, plus the root checks. |
+| Root scripts | `bun run check`, `bun run build` and `bun run build-storybook` run the lab's targets with `bun run --filter`, plus the root checks. |
 | CI | The workflow runs the same root commands and deploys `apps/lab/storybook-static`. |
 
 ## Checks
@@ -123,7 +123,7 @@ Scripts find files relative to the repo (`import.meta.url`), not the folder they
 
 ## Steps
 
-**Gate after every step:** `pnpm check && pnpm build && pnpm build-storybook` pass. Then open a site page, a SaaS template, the ring and scene demos, the tweakers, the MDX docs and `BRAND.md` in Storybook, in light and dark. Favicon and fonts load, the console has no errors, and every `#hash` route in the lab opens its page. The tweakers still load their saved settings: their `localStorage` keys don't change, and neither does the Pages origin.
+**Gate after every step:** `bun run check && bun run build && bun run build-storybook` pass. Then open a site page, a SaaS template, the ring and scene demos, the tweakers, the MDX docs and `BRAND.md` in Storybook, in light and dark. Favicon and fonts load, the console has no errors, and every `#hash` route in the lab opens its page. The tweakers still load their saved settings: their `localStorage` keys don't change, and neither does the Pages origin.
 
 ### Step 0: Start clean
 
@@ -145,7 +145,7 @@ Include CSS imports, dynamic imports, `?raw` imports and links in prose.
 
 ### Step 1: brand-core
 
-1. Add workspace globs `apps/*`, `packages/*`, `boilerplates/*` to `pnpm-workspace.yaml`. Keep the existing esbuild permission.
+1. Add workspace globs `apps/*`, `packages/*`, `boilerplates/*` to `workspaces` in the root `package.json`. Keep the existing esbuild permission.
 2. Move the core files (table above). Split `logo.ts`.
 3. Give core its `package.json` with exports, a type check, and Vitest with tests for `color.ts`.
 4. Move the Shiki theme out of `code-block.tsx` into `code-theme.ts`.
@@ -159,7 +159,7 @@ Include CSS imports, dynamic imports, `?raw` imports and links in prose.
 
 1. Move the files (table above), including `.storybook/`.
 2. Give the lab its `package.json` (private, `"name": "lab"`) and move the React dependencies into it. Root `package.json` keeps only tooling.
-3. Apply the build wiring table. Root `pnpm dev` runs the lab.
+3. Apply the build wiring table. Root `bun run dev` runs the lab.
 4. Update CI to run the root commands and deploy the lab's Storybook.
 5. Delete the old root build folders (`dist/`, `storybook-static/`); they're ignored build output.
 6. Rewrite the root `README.md`: what the repo is, the layout, the root commands, and a link to `docs/README.md`.

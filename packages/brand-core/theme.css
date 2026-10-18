@@ -28,7 +28,7 @@
  * --primary points at --orange. To try another brand color, point it at
  * another color (e.g. var(--blue)) in both blocks; everything that follows
  * the brand (ring, chart-1, sidebar, code keywords) follows it.
- * `pnpm check:contrast` measures every pair after a change.
+ * `bun run check:contrast` measures every pair after a change.
  */
 
 /* `dark:` applies inside .dark, but not inside a .light band placed in a dark page. */

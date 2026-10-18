@@ -125,13 +125,13 @@ brand rule or by "the lab is right":
 ## Updating stock components
 
 `starwind.config.json` records the Starwind version each component came
-from. To see upstream changes: `pnpm dlx starwind@latest update <component>
+from. To see upstream changes: `bunx starwind@latest update <component>
 --diff` from this folder. Merge by hand: re-apply the table and the six
 changes above after accepting anything.
 
-Adding a component: `pnpm dlx starwind@latest add <name> -y --package-manager
-pnpm` from this folder, then check it against the rules above
-(`pnpm check:colors`, `pnpm check:motion` cover `src/`). `add` writes only
+Adding a component: `bunx starwind@latest add <name> -y --package-manager
+bun` from this folder, then check it against the rules above
+(`bun run check:colors`, `bun run check:motion` cover `src/`). `add` writes only
 component files and `starwind.config.json` — it leaves `kit.css` alone (only
 `init` writes the palette), but read the diff before keeping anything.
 

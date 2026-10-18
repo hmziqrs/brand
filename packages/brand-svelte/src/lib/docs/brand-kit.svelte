@@ -61,12 +61,12 @@
 		],
 	];
 
-	const newSite = `pnpm new-project svelte ../my-site    # SvelteKit + shadcn-svelte
-pnpm new-project astro ../my-site     # Astro + Starwind UI`;
+	const newSite = `bun run new-project svelte ../my-site    # SvelteKit + shadcn-svelte
+bun run new-project astro ../my-site     # Astro + Starwind UI`;
 
-	const svelteAdd = `pnpm dlx shadcn-svelte@latest add https://hmziqrs.github.io/brand/r/svelte/<piece>.json`;
+	const svelteAdd = `bunx shadcn-svelte@latest add https://hmziqrs.github.io/brand/r/svelte/<piece>.json`;
 
-	const astroAdd = `pnpm dlx shadcn@latest add https://hmziqrs.github.io/brand/r/astro/<piece>.json`;
+	const astroAdd = `bunx shadcn@latest add https://hmziqrs.github.io/brand/r/astro/<piece>.json`;
 
 	const stylesheet = `@import "tailwindcss";
 @import "tw-animate-css";
@@ -168,6 +168,6 @@ pnpm new-project astro ../my-site     # Astro + Starwind UI`;
 	<p>
 		Kit sources live in <code>packages/brand-svelte/src/lib</code> and
 		<code>packages/brand-astro/src</code> in the brand repo; new pieces go into both, into
-		<code>scripts/pieces.json</code>, and out through <code>pnpm registry:generate</code>.
+		<code>scripts/pieces.json</code>, and out through <code>bun run registry:generate</code>.
 	</p>
 </DocsPage>

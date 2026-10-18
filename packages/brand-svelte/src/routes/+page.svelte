@@ -1,6 +1,6 @@
 <script lang="ts">
 	// The package's own demo route: one screen that says what this is. The
-	// pieces live in Storybook (`pnpm storybook`); svelte-app is the starter
+	// pieces live in Storybook (`bun run storybook`); svelte-app is the starter
 	// that uses this kit.
 	import "../app.css";
 	import Marker from "$brand/components/marker.svelte";
@@ -21,11 +21,11 @@
 	<ul class="flex flex-col gap-2.5 text-[0.9375rem]">
 		<li class="grid grid-cols-[0.5rem_minmax(0,1fr)] items-baseline gap-3">
 			<Marker class="-translate-y-[0.1em] text-primary" />
-			<span><code class="font-mono">pnpm storybook</code> — every piece, with its states.</span>
+			<span><code class="font-mono">bun run storybook</code> — every piece, with its states.</span>
 		</li>
 		<li class="grid grid-cols-[0.5rem_minmax(0,1fr)] items-baseline gap-3">
 			<Marker class="-translate-y-[0.1em] text-primary" />
-			<span><code class="font-mono">pnpm compare &lt;piece&gt;</code> — the piece next to its Astro twin, in light and dark.</span>
+			<span><code class="font-mono">bun run compare &lt;piece&gt;</code> — the piece next to its Astro twin, in light and dark.</span>
 		</li>
 		<li class="grid grid-cols-[0.5rem_minmax(0,1fr)] items-baseline gap-3">
 			<Marker class="-translate-y-[0.1em] text-primary" />

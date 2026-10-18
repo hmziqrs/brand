@@ -9,7 +9,7 @@ import { headingAnchor } from "@hmziq/brand-core/markdown/heading-anchor";
 import { table } from "@hmziq/brand-core/markdown/table";
 
 // Inside this repo the boilerplate uses the kit from its source, so kit
-// changes show up right away. `pnpm new-project` points `$brand` at the
+// changes show up right away. `bun run new-project` points `$brand` at the
 // folder the kit is installed into instead; no import in here changes.
 const brand = fileURLToPath(new URL("../../packages/brand-astro/src", import.meta.url));
 

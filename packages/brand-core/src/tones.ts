@@ -9,7 +9,7 @@ export type Tone = Hue | "success" | "warning" | "info" | "destructive"
 /*
  * Class names are written out in full so Tailwind can find them.
  * Soft fill: 10% of the color behind text in the same color (20% in dark mode).
- * Every pair here is measured by `pnpm check:contrast`.
+ * Every pair here is measured by `bun run check:contrast`.
  */
 export const softTone: Record<Tone, string> = {
   red: "bg-red/10 text-red dark:bg-red/20",

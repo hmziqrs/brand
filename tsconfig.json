@@ -6,8 +6,8 @@
   // through their own language services (stock shadcn-svelte files re-export
   // named members from `*.svelte`; `.astro` imports need the Astro plugin).
   // Those packages are still type-checked, by their own tools:
-  //   packages/brand-svelte, boilerplates/svelte-app   pnpm check:kit (svelte-check)
-  //   packages/brand-astro                             pnpm typecheck (astro check)
+  //   packages/brand-svelte, boilerplates/svelte-app   bun run check:kit (svelte-check)
+  //   packages/brand-astro                             bun run typecheck (astro check)
   //   boilerplates/astro-app                           its own `typecheck` script (astro check)
   "references": [
     {

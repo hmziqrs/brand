@@ -2,7 +2,7 @@
 // comes in, the font Node outlines with, and the little geometry the icon
 // pack needs that the logo recipe doesn't already hold. The engine records
 // this object in the manifest, so every number here is part of what
-// `pnpm check:assets` proves is current. Sizes follow the plan's own table;
+// `bun run check:assets` proves is current. Sizes follow the plan's own table;
 // the platform links live in docs/assets.md's appendix.
 
 export const settings = {

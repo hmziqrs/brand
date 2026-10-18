@@ -2,7 +2,7 @@
 
 This document is the single source of truth for how every hmziq site looks, reads and behaves. It is written for AI agents and people doing migrations or redesigns. Follow it exactly. When something here conflicts with a site's existing code, this document wins.
 
-Live reference: the Storybook in the `hmziq/brand` repo (`pnpm storybook`), which shows every component and a finished landing page for each site. The kit sources under `packages/` and the starters under `boilerplates/` are the code to copy from.
+Live reference: the Storybook in the `hmziq/brand` repo (`bun run storybook`), which shows every component and a finished landing page for each site. The kit sources under `packages/` and the starters under `boilerplates/` are the code to copy from.
 
 ---
 
@@ -22,7 +22,7 @@ Live reference: the Storybook in the `hmziq/brand` repo (`pnpm storybook`), whic
 | Code | Highlighted with **Shiki**, using the `--code-*` colors from `theme.css`. |
 | Motion | Nothing moves on hover, press or focus. Feedback is color only. |
 | Words | Plain language for people, not jargon for developers. |
-| Readability | Every text/background pair passes WCAG AA (4.5:1) in both modes, measured by `pnpm check:contrast`. |
+| Readability | Every text/background pair passes WCAG AA (4.5:1) in both modes, measured by `bun run check:contrast`. |
 
 ---
 
@@ -33,18 +33,18 @@ Two ways in.
 > **The first release has not shipped yet.** `@hmziq/brand-core` is not on
 > npm and the registry URLs below are not live. Publishing them is a
 > deferred, by-hand release step (docs/kits.md, step 3). Until it runs,
-> work from the brand repo: `pnpm check:fresh-copy <svelte|astro>` installs
+> work from the brand repo: `bun run check:fresh-copy <svelte|astro>` installs
 > a fresh app from the packed core and a locally served registry — the same
 > bytes the release will ship.
 
 **A new site** starts from a starter, in the brand repo:
 
 ```bash
-pnpm new-project svelte ../my-site    # SvelteKit + shadcn-svelte
-pnpm new-project astro ../my-site     # Astro + Starwind UI
+bun run new-project svelte ../my-site    # SvelteKit + shadcn-svelte
+bun run new-project astro ../my-site     # Astro + Starwind UI
 ```
 
-It copies the boilerplate, points `@hmziq/brand-core` at npm, installs the whole kit from its registry into the kit folder (`$lib/brand` for SvelteKit, `src/components/brand` for Astro), points `$brand` there, and runs `pnpm install`. No import in the boilerplate changes.
+It copies the boilerplate, points `@hmziq/brand-core` at npm, installs the whole kit from its registry into the kit folder (`$lib/brand` for SvelteKit, `src/components/brand` for Astro), points `$brand` there, and runs `bun install`. No import in the boilerplate changes.
 
 **An existing site** gets the theme from npm and the components from its framework's registry (next subsection), then follows the steps below.
 
@@ -52,20 +52,20 @@ It copies the boilerplate, points `@hmziq/brand-core` at npm, installs the whole
 
 | Framework | Kit | Registry | Install |
 | --- | --- | --- | --- |
-| SvelteKit | `brand-svelte` (shadcn-svelte) | `https://hmziqrs.github.io/brand/r/svelte/` | `pnpm dlx shadcn-svelte@latest add https://hmziqrs.github.io/brand/r/svelte/<piece>.json` |
-| Astro | `brand-astro` (Starwind UI) | `https://hmziqrs.github.io/brand/r/astro/` | `pnpm dlx shadcn@latest add https://hmziqrs.github.io/brand/r/astro/<piece>.json` |
+| SvelteKit | `brand-svelte` (shadcn-svelte) | `https://hmziqrs.github.io/brand/r/svelte/` | `bunx shadcn-svelte@latest add https://hmziqrs.github.io/brand/r/svelte/<piece>.json` |
+| Astro | `brand-astro` (Starwind UI) | `https://hmziqrs.github.io/brand/r/astro/` | `bunx shadcn@latest add https://hmziqrs.github.io/brand/r/astro/<piece>.json` |
 
 - Pieces are lowercase kebab names: `wordmark`, `hero`, `pricing-plans`, `notice`. The `kit` item installs everything at once; each piece pulls the pieces it imports.
 - The registries ship the kit's own copies of the stock components (`ui-*` in the Svelte registry, `starwind-*` in the Astro one), with the brand's changes already applied. Use them instead of upstream's.
 - The kit lands under one folder; point an alias `$brand` at it (`src/lib/brand`, `src/components/brand`) and import from `$brand/…`. Kit files already import each other that way.
-- In a SvelteKit project, `components.json` reads `"registry": "https://hmziqrs.github.io/brand/r/svelte"`, aliases `$lib/brand/…`, style `vega`. In an Astro project, `components.json` carries `"registries": { "@hmziq": "https://hmziqrs.github.io/brand/r/astro/{name}.json" }` and pieces install as `pnpm dlx shadcn@latest add @hmziq/<piece>`.
+- In a SvelteKit project, `components.json` reads `"registry": "https://hmziqrs.github.io/brand/r/svelte"`, aliases `$lib/brand/…`, style `vega`. In an Astro project, `components.json` carries `"registries": { "@hmziq": "https://hmziqrs.github.io/brand/r/astro/{name}.json" }` and pieces install as `bunx shadcn@latest add @hmziq/<piece>`.
 - To update a copied piece, run the add command again and review the diff; the site keeps its own edits.
 - Sites that use neither: fetch `/theme.css` from the Pages site, copy classes by hand from the kit sources.
 
 ### Packages
 
 ```bash
-pnpm add tailwindcss @tailwindcss/vite tw-animate-css shadcn @hmziq/brand-core \
+bun add tailwindcss @tailwindcss/vite tw-animate-css shadcn @hmziq/brand-core \
   @fontsource-variable/onest @fontsource-variable/jetbrains-mono \
   lucide-react simple-icons shiki
 ```
@@ -105,7 +105,7 @@ Dark is the default. A theme toggle removes or adds the `dark` class and remembe
 ```
 
 - Point `tailwind.css` at the **main stylesheet, never at `theme.css`**. `shadcn init` rewrites the file it's pointed at and will replace the oxide colors with its defaults.
-- Initialise with `pnpm dlx shadcn@latest init --base base --preset vega`, then restore `theme.css` if it was touched.
+- Initialise with `bunx shadcn@latest init --base base --preset vega`, then restore `theme.css` if it was touched.
 - After adding any shadcn component, **remove `active:translate-y-px`** (and any other hover/press transform) from it. See section 10.
 
 ### Per framework
@@ -170,7 +170,7 @@ The real file lives at `packages/brand-core/theme.css` in the brand repo. This b
  * --primary points at --orange. To try another brand color, point it at
  * another color (e.g. var(--blue)) in both blocks; everything that follows
  * the brand (ring, chart-1, sidebar, code keywords) follows it.
- * `pnpm check:contrast` measures every pair after a change.
+ * `bun run check:contrast` measures every pair after a change.
  */
 
 /* `dark:` applies inside .dark, but not inside a .light band placed in a dark page. */
@@ -563,7 +563,7 @@ shadcn neutral with zero chroma. The only change: light `--muted-foreground` is 
 
 ### Measured contrast
 
-Generated from `theme.css`. `pnpm check:contrast` fails the build if any pair drops below.
+Generated from `theme.css`. `bun run check:contrast` fails the build if any pair drops below.
 
 <!-- contrast:start -->
 | Pair | Dark | Light | Needs |
@@ -608,7 +608,7 @@ Generated from `theme.css`. `pnpm check:contrast` fails the build if any pair dr
 ### Changing colors
 
 - **Brand color:** point `--primary: var(--orange)` at another color (e.g. `var(--blue)`) in both `:root` and `.dark`. The ring, `chart-1`, the sidebar and code keywords follow.
-- **A supporting color:** change its two lines in part 2, then run `pnpm check:contrast`.
+- **A supporting color:** change its two lines in part 2, then run `bun run check:contrast`.
 - **A theme tool (tweakcn):** its output may replace the two blocks in part 1. Parts 2 and 3 stay.
 
 Do not add: background tints, gradients, glows, per-site color schemes, colored section backgrounds, or Tailwind's numbered palette (`bg-green-500`). Every color comes from a token.
@@ -977,7 +977,7 @@ The kits are the source. In a site with a kit installed, `$brand` points at the 
 | `blocks/app` | app blocks: the shell (AppShell, AppPage, AppPageHeader, WorkspaceSwitcher, UserMenu), settings (SettingsSection, SettingRow, FormActions), states (EmptyState, NoResults, ErrorState, DataState, the skeletons), lists and tables (CollectionToolbar, FilterChip, SortMenu, BulkActionBar, the table parts), sign-in (AuthLayout, the forms, ProviderButtons, PasswordInput), records (DetailList, DetailSection), metrics (MetricTrend, StatCard, StatGrid, UsageMeter) and actions (ConfirmAction, RecordSheet) | For app screens, on both kits. Their contract is `APP-BLOCKS.md`; follow it. |
 | pages / routes | one per route | Put blocks together; no new styles. |
 
-Kit sources in the brand repo: `packages/brand-svelte/src/lib` and `packages/brand-astro/src` — port new pieces to both, add them to `scripts/pieces.json`, and re-run `pnpm registry:generate` (docs/kits.md).
+Kit sources in the brand repo: `packages/brand-svelte/src/lib` and `packages/brand-astro/src` — port new pieces to both, add them to `scripts/pieces.json`, and re-run `bun run registry:generate` (docs/kits.md).
 
 ### The rules
 
@@ -1033,7 +1033,7 @@ React conventions (follow shadcn's shape): a function component that spreads oth
 - Respect `prefers-reduced-motion`.
 - The optional 3D scenes (section 7) drift slowly on their own. They never follow the pointer, stop when off screen, show one still picture for reduced motion, and have a pause button.
 
-Check (from the brand repo): `pnpm check:motion`, or search the code for `(hover|active|focus|pressed)[^ ]*:-?(translate|scale|rotate)-`.
+Check (from the brand repo): `bun run check:motion`, or search the code for `(hover|active|focus|pressed)[^ ]*:-?(translate|scale|rotate)-`.
 
 ---
 

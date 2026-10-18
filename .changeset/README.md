@@ -4,12 +4,12 @@ How releases run here (docs/kits.md, "Distribution"; the master plan's
 "Decisions"): by hand.
 
 ```sh
-pnpm changeset                # describe changes as you work
-pnpm changeset version        # bump versions, write changelogs
-pnpm registry:generate        # registries pick up the new core version
-pnpm check:fresh-copy svelte  # both fresh copies must pass before a release
-pnpm check:fresh-copy astro
-pnpm changeset publish        # publishes @hmziq/brand-core (the only public package)
+bunx changeset                # describe changes as you work
+bunx changeset version        # bump versions, write changelogs
+bun run registry:generate        # registries pick up the new core version
+bun run check:fresh-copy svelte  # both fresh copies must pass before a release
+bun run check:fresh-copy astro
+bunx changeset publish        # publishes @hmziq/brand-core (the only public package)
 git push --follow-tags        # then the Pages workflow deploys the registries
 ```
 
