@@ -1,5 +1,5 @@
 <!--
-  Example for `pnpm check:motion`: a passing .svelte file. Hover, press and
+  Example for `bun run check:motion`: a passing .svelte file. Hover, press and
   focus change colors only (docs/kits.md step 1.4).
 -->
 <script lang="ts">

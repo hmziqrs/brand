@@ -26,7 +26,7 @@ const inputFiles = [
   // override sit here, next to the lockfile that resolves them.
   "assets/video/source/package.json",
   "assets/video/source/remotion.config.ts",
-  "pnpm-lock.yaml",
+  "bun.lock",
 ]
 const inputDirs = ["packages/brand-core/src/motion", "assets/fonts", "assets/video/source/src", "assets/video/source/scripts"]
 

@@ -3,7 +3,7 @@
 	"private": true,
 	"version": "0.0.1",
 	"type": "module",
-	"description": "The SvelteKit starter for hmziq sites: the theme, the brand kit through $brand, a landing page built from the site blocks and a 404 page. Start new projects with `pnpm new-project svelte <folder>`.",
+	"description": "The SvelteKit starter for hmziq sites: the theme, the brand kit through $brand, a landing page built from the site blocks and a 404 page. Start new projects with `bun run new-project svelte <folder>`.",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",

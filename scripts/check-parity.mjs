@@ -1,4 +1,4 @@
-// kits.md, the pieces roster: `pnpm check:parity` fails when a piece in
+// kits.md, the pieces roster: `bun run check:parity` fails when a piece in
 // scripts/pieces.json is missing from either kit, from either kit's stories
 // or gallery, or from either registry. A piece can be marked "not yet" while
 // its plan is in progress.

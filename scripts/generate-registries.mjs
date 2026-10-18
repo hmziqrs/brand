@@ -1,17 +1,17 @@
 // kits.md step 3.2/3.3: writes the two authoring registries from the kits'
 // source trees and the pieces roster (scripts/pieces.json).
 //
-//   pnpm registry:generate
+//   bun run registry:generate
 //
 // - packages/brand-svelte/registry.json — shadcn-svelte's format, built into
-//   the Pages deploy at /r/svelte/ by `pnpm registry:build` (which runs the
+//   the Pages deploy at /r/svelte/ by `bun run registry:build` (which runs the
 //   shadcn-svelte CLI's `registry build`).
 // - packages/brand-astro/registry.json — the shadcn CLI's plain file-item
 //   format, the install method step 2's scratch test picked (see the kit's
-//   README). `pnpm registry:build` inlines it into /r/astro/.
+//   README). `bun run registry:build` inlines it into /r/astro/.
 //
 // Re-run this whenever pieces.json or a kit's files change, then commit both
-// files: `pnpm check:parity` checks the roster against them.
+// files: `bun run check:parity` checks the roster against them.
 //
 // Item shapes follow the CLIs' own conventions: every file carries an
 // explicit relative target, so nothing depends on the builder's folder

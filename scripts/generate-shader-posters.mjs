@@ -16,12 +16,12 @@ const outputSpecs = [
 	{ suffix: '960', width: 960, quality: 85 },
 	{ suffix: '480', width: 480, quality: 82 },
 ];
-const storeEntries = (await fs.readdir(path.join(root, 'node_modules/.pnpm')))
+const storeEntries = (await fs.readdir(path.join(root, 'node_modules/.bun')))
 	.filter((entry) => entry.startsWith('sharp@'))
 	.sort();
 let sharpPath;
 for (const entry of storeEntries) {
-	const candidate = path.join(root, 'node_modules/.pnpm', entry, 'node_modules/sharp');
+	const candidate = path.join(root, 'node_modules/.bun', entry, 'node_modules/sharp');
 	try {
 		require.resolve(candidate);
 		sharpPath = candidate;
@@ -29,7 +29,7 @@ for (const entry of storeEntries) {
 	} catch {}
 }
 
-if (!sharpPath) throw new Error('Sharp is not present in the existing pnpm store.');
+if (!sharpPath) throw new Error('Sharp is not present in the existing bun install store (node_modules/.bun).');
 const sharp = require(sharpPath);
 await fs.mkdir(outputDir, { recursive: true });
 

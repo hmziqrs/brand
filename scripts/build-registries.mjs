@@ -1,7 +1,7 @@
 // kits.md step 3.2/3.3/3.6: builds everything the Pages deploy serves from
 // the two authoring registries.
 //
-//   pnpm registry:build [--out dist/registries]
+//   bun run registry:build [--out dist/registries]
 //
 //   dist/registries/r/svelte/…     the Svelte registry (the shadcn-svelte
 //                                  CLI's `registry build` output, plus its
@@ -38,9 +38,9 @@ mkdirSync(out, { recursive: true });
 // --- /r/svelte -------------------------------------------------------------
 const svelteOut = join(out, "r/svelte");
 const cli = spawnSync(
-  "pnpm",
-  ["--filter", "@hmziq/brand-svelte", "exec", "shadcn-svelte", "registry", "build", "-o", svelteOut],
-  { cwd: root, stdio: "inherit" },
+  "bunx",
+  ["shadcn-svelte", "registry", "build", "-o", svelteOut],
+  { cwd: join(root, "packages/brand-svelte"), stdio: "inherit" },
 );
 if (cli.status !== 0) {
   console.error("shadcn-svelte registry build failed");
@@ -95,6 +95,6 @@ const coreVersion = readJson(join(root, "packages/brand-core/package.json")).ver
 console.log(`Registries built into ${out} (${astroRegistry.items.length} Astro items).`);
 if (coreVersion === "0.0.0") {
   console.log(
-    "Note: @hmziq/brand-core is still 0.0.0 (unreleased), so the registries' core dependency points nowhere yet. Bump and publish core, re-run `pnpm registry:generate && pnpm registry:build`, then deploy.",
+    "Note: @hmziq/brand-core is still 0.0.0 (unreleased), so the registries' core dependency points nowhere yet. Bump and publish core, re-run `bun run registry:generate && bun run registry:build`, then deploy.",
   );
 }

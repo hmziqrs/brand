@@ -3,9 +3,9 @@
 // generated comes from @hmziq/brand-core and the fonts in assets/fonts — the
 // renderers are passed in, so templates stay plain code.
 //
-//   pnpm render-assets                  every target
-//   pnpm render-assets --only test-card one target
-//   pnpm render-assets --name "Paperplane" --symbol Pp --out <folder>
+//   bun run render-assets                  every target
+//   bun run render-assets --only test-card one target
+//   bun run render-assets --name "Paperplane" --symbol Pp --out <folder>
 //                                       an icon pack for a name outside the roster
 //
 // Video and motion targets come later (render:video, render:motion).
@@ -45,7 +45,7 @@ const packSymbol = arg("symbol")
 const packOut = arg("out")
 if (packName !== undefined || packSymbol !== undefined || packOut !== undefined) {
   if (!packName || !packSymbol || !packOut) {
-    console.error('render-assets: --name, --symbol and --out go together — pnpm render-assets --name "Paperplane" --symbol Pp --out <folder>')
+    console.error('render-assets: --name, --symbol and --out go together — bun run render-assets --name "Paperplane" --symbol Pp --out <folder>')
     process.exit(1)
   }
   const inRoster = family.find((f) => f.name.toLowerCase() === packName.toLowerCase() || f.id === packName.toLowerCase())
@@ -82,7 +82,7 @@ function pruneEmptyFolders(dir) {
   }
 }
 
-// --emit <folder> (used by `pnpm check:assets --bytes`, assets.md): render
+// --emit <folder> (used by `bun run check:assets --bytes`, assets.md): render
 // the selected targets into a folder of the caller's choosing instead of the
 // repo's exports/ folders. Nothing under assets/ or apps/ is read for
 // writing, no manifest is written and no public copy is synced — the caller
@@ -137,7 +137,7 @@ for (const target of selected) {
     `${JSON.stringify(
       {
         target: target.id,
-        command: `pnpm render-assets --only ${target.id}`,
+        command: `bun run render-assets --only ${target.id}`,
         digest: sha256,
         renderers: rendererVersions,
         settings: target.settings,
@@ -157,7 +157,7 @@ if (!emitDir) for (const copy of publicCopies) {
   for (const file of copy.files) {
     const from = join(root, copy.from, file)
     if (!existsSync(from)) {
-      console.error(`${copy.from} is missing ${file}; render it first — pnpm render-assets --only logos`)
+      console.error(`${copy.from} is missing ${file}; render it first — bun run render-assets --only logos`)
       process.exit(1)
     }
     mkdirSync(dirname(join(root, copy.to, file)), { recursive: true })

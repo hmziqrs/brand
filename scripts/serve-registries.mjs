@@ -1,12 +1,12 @@
-// Serves a built registry (dist/registries from `pnpm registry:build`) over
+// Serves a built registry (dist/registries from `bun run registry:build`) over
 // localhost, so the CLIs can install from a local build — which is what
-// `pnpm check:fresh-copy` does, and handy when testing registry changes by
+// `bun run check:fresh-copy` does, and handy when testing registry changes by
 // hand:
 //
-//   node scripts/serve-registries.mjs [--without-core]
+//   bun scripts/serve-registries.mjs [--without-core]
 //
 // --without-core drops the `@hmziq/brand-core@…` dependency from every served
-// item. check:fresh-copy sets it while core is only a local pnpm-pack
+// item. check:fresh-copy sets it while core is only a local `bun pm pack`
 // tarball: new-project has already written the tarball into the copy's
 // package.json, and the CLIs would otherwise try to install the (unreleased)
 // version from npm.

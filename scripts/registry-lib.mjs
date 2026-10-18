@@ -11,7 +11,7 @@
 // vendors, plus `utils`, the `kit` barrel/stylesheet item, and one catch-all
 // item per folder the roster doesn't cover yet (content-blocks.md and
 // app-blocks.md add their pieces to the roster as they finish; re-run
-// `pnpm registry:generate` after they do).
+// `bun run registry:generate` after they do).
 //
 // Every source file ends up in exactly one item, so installing two items
 // never writes the same file twice. An item's `registryDependencies` are the

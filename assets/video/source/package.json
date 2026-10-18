@@ -6,8 +6,8 @@
   "type": "module",
   "scripts": {
     "studio": "remotion studio",
-    "render:video": "node scripts/render-video.mjs",
-    "render:motion": "node scripts/render-motion.mjs",
+    "render:video": "bun scripts/render-video.mjs",
+    "render:motion": "bun scripts/render-motion.mjs",
     "typecheck": "tsc -p tsconfig.json"
   },
   "dependencies": {

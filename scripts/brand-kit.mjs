@@ -2,8 +2,8 @@
 //   theme.css  an exact copy of the file
 //   palette    the colors table (hex values in both modes)
 //   contrast   the measured contrast table
-//   node scripts/brand-kit.mjs          rewrite those blocks in BRAND.md
-//   node scripts/brand-kit.mjs --check  fail if any block is out of date
+//   bun scripts/brand-kit.mjs          rewrite those blocks in BRAND.md
+//   bun scripts/brand-kit.mjs --check  fail if any block is out of date
 import { readFileSync, writeFileSync } from "node:fs"
 import { join } from "node:path"
 import { fileURLToPath } from "node:url"
@@ -47,7 +47,7 @@ for (const [name, body] of Object.entries(blocks)) {
 
 if (process.argv.includes("--check")) {
   if (updated !== doc) {
-    console.error("BRAND.md is out of date with theme.css. Run: pnpm brand-kit:sync")
+    console.error("BRAND.md is out of date with theme.css. Run: bun run brand-kit:sync")
     process.exit(1)
   }
   console.log("BRAND.md matches theme.css.")

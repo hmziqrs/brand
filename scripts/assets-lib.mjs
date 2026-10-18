@@ -34,7 +34,7 @@ const baseInputs = [
   "packages/brand-core/src/logo.ts",
   "scripts/assets-lib.mjs",
   "scripts/render-assets.mjs",
-  "pnpm-lock.yaml",
+  "bun.lock",
 ]
 const baseInputDirs = [
   "packages/brand-core/src/motion", // ring, scene and video code
@@ -45,7 +45,7 @@ const baseInputDirs = [
 const staticFontExts = /\.(ttf|otf)$/
 
 /** The targets, in render order. The command that fixes a target is
- *  `pnpm render-assets --only <id>`. */
+ *  `bun run render-assets --only <id>`. */
 export const targets = [
   {
     id: "test-card",

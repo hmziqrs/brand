@@ -2,10 +2,10 @@
 // 1920×1080 H.264 MP4s, YouTube-shaped (faststart checked below). The
 // thumbnail template is a still:
 //
-//   pnpm render:video                          intro.mp4 and outro.mp4
-//   pnpm render:video --only intro             one of them; the manifest still
+//   bun run render:video                       intro.mp4 and outro.mp4
+//   bun run render:video --only intro          one of them; the manifest still
 //                                              records both
-//   pnpm render:video --still thumbnail --out ~/Desktop/thumb.png --title "One kit"
+//   bun run render:video --still thumbnail --out ~/Desktop/thumb.png --title "One kit"
 //
 // A thumbnail is filled in per video, so --still always takes an --out of its
 // own: a per-video PNG never lands in exports/, which the manifest records.
@@ -66,7 +66,7 @@ if (flag("still")) {
       const entry = last?.files?.find((file) => file.path === `${id}.mp4`)
       const recorded = last?.settings?.compositions?.[id]
       if (!entry || !recorded || !existsSync(out) || sha256(readFileSync(out)) !== entry.sha256) {
-        throw new Error(`${id}.mp4 was neither rendered this run nor unchanged since the last manifest — run a full pnpm render:video`)
+        throw new Error(`${id}.mp4 was neither rendered this run nor unchanged since the last manifest — run a full bun run render:video`)
       }
       settings.compositions[id] = recorded
       files.push(entry)
@@ -86,7 +86,7 @@ if (flag("still")) {
   const inputList = inputs()
   writeManifest(exportsDir, {
     target: "video",
-    command: "pnpm render:video",
+    command: "bun run render:video",
     digest: digest(inputList, settings),
     renderers: rendererVersions,
     settings,

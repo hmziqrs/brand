@@ -1,6 +1,6 @@
 // The asset up-to-date check (assets.md). Read-only towards the repo: it
 // opens files and hashes them, and never writes, moves or deletes anything
-// the repo owns. Part of `pnpm check`.
+// the repo owns. Part of `bun run check`.
 //
 // It fails on a missing manifest, on inputs that changed since the last render
 // (a theme edit, a new template, a renderer or lockfile bump), on exports that
@@ -9,8 +9,8 @@
 // target and the command that fixes it. It reads the working tree, not git
 // HEAD.
 //
-//   pnpm check:assets           the read-only check
-//   pnpm check:assets --bytes   also re-render into a temp folder and compare
+//   bun run check:assets           the read-only check
+//   bun run check:assets --bytes   also re-render into a temp folder and compare
 //
 // --bytes (assets.md): macOS and Ubuntu renderers can produce slightly
 // different bytes, so CI only checks manifests and inputs. This mode
@@ -58,7 +58,7 @@ function bytesProblems(target, dir, fix) {
 }
 
 for (const target of targets) {
-  const fix = `run pnpm render-assets --only ${target.id}`
+  const fix = `run bun run render-assets --only ${target.id}`
   const dir = exportsDir(target)
 
   if (!existsSync(manifestPath(target))) {
@@ -124,12 +124,12 @@ for (const target of targets) {
 // The public copies (assets.md, "Getting assets into sites and apps"): each
 // copied file must exist and match, byte for byte, the export it came from.
 for (const copy of publicCopies) {
-  const fix = `run pnpm render-assets`
+  const fix = `run bun run render-assets`
   for (const file of copy.files) {
     const from = join(root, copy.from, file)
     const to = join(root, copy.to, file)
     if (!existsSync(from)) {
-      problems.push(`${copy.id}: ${join(copy.from, file)} doesn't exist — run pnpm render-assets --only logos`)
+      problems.push(`${copy.id}: ${join(copy.from, file)} doesn't exist — run bun run render-assets --only logos`)
       continue
     }
     if (!existsSync(to)) {

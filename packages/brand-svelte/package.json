@@ -13,7 +13,7 @@
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"storybook": "storybook dev -p 6007",
 		"build-storybook": "storybook build",
-		"check:a11y": "node scripts/axe.mjs"
+		"check:a11y": "bun scripts/axe.mjs"
 	},
 	"files": [
 		"dist",

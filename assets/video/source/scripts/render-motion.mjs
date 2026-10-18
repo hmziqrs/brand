@@ -4,8 +4,8 @@
 // seamless cut — the period ends exactly where it began, and the frame before
 // it is not a copy of the first.
 //
-//   pnpm render:motion                       every loop and the GIF
-//   pnpm render:motion --only ripple-turn    one loop
+//   bun run render:motion                    every loop and the GIF
+//   bun run render:motion --only ripple-turn one loop
 import { mkdirSync, readFileSync } from "node:fs"
 import { join } from "node:path"
 
@@ -77,7 +77,7 @@ if (!flag("only")) {
   const inputList = inputs()
   writeManifest(exportsDir, {
     target: "motion",
-    command: "pnpm render:motion",
+    command: "bun run render:motion",
     digest: digest(inputList, settings),
     renderers: rendererVersions,
     settings,

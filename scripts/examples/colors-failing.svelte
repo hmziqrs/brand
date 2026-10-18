@@ -1,5 +1,5 @@
 <!--
-  Example for `pnpm check:colors`: a failing .svelte file. Every rule it
+  Example for `bun run check:colors`: a failing .svelte file. Every rule it
   breaks is one the check has to catch (docs/kits.md step 1.4).
 -->
 <script lang="ts">

@@ -1,5 +1,5 @@
 <!--
-  Example for `pnpm check:motion`: a failing .svelte file. Everything that
+  Example for `bun run check:motion`: a failing .svelte file. Everything that
   moves on hover, press or focus here is one the check has to catch
   (docs/kits.md step 1.4).
 -->

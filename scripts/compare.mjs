@@ -1,14 +1,14 @@
-// kits.md: `pnpm compare <piece|group|all>` screenshots the Svelte story and
+// kits.md: `bun run compare <piece|group|all>` screenshots the Svelte story and
 // the Astro gallery entry for a piece, in light and dark, at 360px and
 // 1280px, and lays them side by side in compare/ (git-ignored). That report
 // is what every "matches" check in the plans is read from.
 //
-// `pnpm compare --pages <path>` does the same for a page in both
+// `bun run compare --pages <path>` does the same for a page in both
 // boilerplates.
 //
 // The report is relayed from every shot in compare/, not just the current
 // run's, so a later run (a page pair, one piece) never drops the rows an
-// earlier run laid down. `pnpm compare --report` rebuilds it from the folder
+// earlier run laid down. `bun run compare --report` rebuilds it from the folder
 // as it stands, without shooting anything.
 //
 // Servers have to be running. The script starts from these URLs, overridable
@@ -73,7 +73,7 @@ if (reportOnly) {
   subjects = [];
 } else if (argument === "--pages") {
   // One or more routes (space- or comma-separated), each shot in both
-  // boilerplates: `pnpm compare --pages /app/overview /app/members` lays
+  // boilerplates: `bun run compare --pages /app/overview /app/members` lays
   // every route's pair side by side in ONE report, the way app-blocks.md's
   // phase 10 gate reads it — one run per route would leave the report
   // holding only the last route's pair.

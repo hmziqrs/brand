@@ -1,11 +1,11 @@
-// kits.md, "Boilerplates": `pnpm check:fresh-copy <svelte|astro>`
+// kits.md, "Boilerplates": `bun run check:fresh-copy <svelte|astro>`
 //
 // Runs `new-project` into a temp folder outside the repo with the registries
-// served from a local `pnpm registry:build`, then builds the copy. A
+// served from a local `bun run registry:build`, then builds the copy. A
 // boilerplate, kit or core release happens only when this passes.
 //
 // @hmziq/brand-core comes from npm once it is published. Before that (or with
-// --core), the check packs core locally (`pnpm pack`) and installs the exact
+// --core), the check packs core locally (`bun pm pack`) and installs the exact
 // tarball publish would upload — the code path is the same, only the source
 // of the bytes differs, and it says so below.
 
@@ -26,14 +26,14 @@ const flag = (name) => {
 };
 const kind = args.find((a) => !a.startsWith("--"));
 if (!["svelte", "astro"].includes(kind)) {
-  console.error("Usage: pnpm check:fresh-copy <svelte|astro> [--keep] [--core <spec>]");
+  console.error("Usage: bun run check:fresh-copy <svelte|astro> [--keep] [--core <spec>]");
   process.exit(1);
 }
 const keep = args.includes("--keep");
 
 // 1. Build the registries the copy installs from.
 console.log("== Building the registries");
-run("node", [join(root, "scripts/build-registries.mjs")], root);
+run("bun", [join(root, "scripts/build-registries.mjs")], root);
 
 // 2. Work out where core comes from.
 const coreVersion = readJson(join(root, "packages/brand-core/package.json")).version;
@@ -49,8 +49,8 @@ if (coreSpec) {
   coreSpec = packCore();
   coreNote =
     coreVersion === "0.0.0"
-      ? "0.0.0 is not on npm (never released); installing the local pnpm-pack tarball — the same bytes publish would upload"
-      : `${coreVersion} is not on npm yet; installing the local pnpm-pack tarball — the same bytes publish would upload`;
+      ? "0.0.0 is not on npm (never released); installing the local bun pm pack tarball — the same bytes publish would upload"
+      : `${coreVersion} is not on npm yet; installing the local bun pm pack tarball — the same bytes publish would upload`;
   // The tarball is already in the copy's package.json by the time items
   // install; the items' npm spec would send the CLIs to npm for a version
   // that isn't there.
@@ -69,9 +69,9 @@ const workDir = mkdtempSync(join(tmpdir(), `brand-fresh-${kind}-`));
 const dest = join(workDir, "app");
 console.log(`== Fresh ${kind} copy at ${dest}`);
 try {
-  run("node", [join(root, "scripts/new-project.mjs"), kind, dest, "--registry", registry, "--core", coreSpec], root);
-  console.log("== Building the copy (pnpm build)");
-  run("pnpm", ["build"], dest);
+  run("bun", [join(root, "scripts/new-project.mjs"), kind, dest, "--registry", registry, "--core", coreSpec], root);
+  console.log("== Building the copy (bun run build)");
+  run("bun", ["run", "build"], dest);
   console.log(`\ncheck:fresh-copy ${kind}: PASS`);
   console.log(`(registry served from the local dist/registries build; core: ${coreNote}; the live registry is ${DEFAULT_PAGES}/r/${kind}/)`);
   if (keep) console.log(`Kept ${dest} (--keep).`);
@@ -91,7 +91,7 @@ function run(command, argv, cwd) {
 
 function isOnNpm(version) {
   try {
-    execSync(`npm view @hmziq/brand-core@${version} version --json`, { stdio: "pipe" });
+    execSync(`bun pm view @hmziq/brand-core@${version} version`, { cwd: root, stdio: "pipe" });
     return true;
   } catch {
     return false;
@@ -101,7 +101,10 @@ function isOnNpm(version) {
 function packCore() {
   const outDir = mkdtempSync(join(tmpdir(), "brand-core-pack-"));
   const pkgDir = join(root, "packages/brand-core");
-  execSync("pnpm pack", { cwd: pkgDir, stdio: "pipe" });
+  // bun pm pack runs `prepare` without the package's bin folder on PATH, so tsup
+  // is missing there; the build runs first and the pack skips lifecycle scripts.
+  execSync("bun run build", { cwd: pkgDir, stdio: "pipe" });
+  execSync("bun pm pack --ignore-scripts", { cwd: pkgDir, stdio: "pipe" });
   const tgz = execSync("ls *.tgz", { cwd: pkgDir, shell: "/bin/sh" }).toString().trim().split("\n").pop();
   cpSync(join(pkgDir, tgz), join(outDir, tgz));
   rmSync(join(pkgDir, tgz), { force: true });
@@ -109,7 +112,7 @@ function packCore() {
 }
 
 async function spawnServer(extraArgs) {
-  const child = spawn("node", [join(root, "scripts/serve-registries.mjs"), ...extraArgs], {
+  const child = spawn("bun", [join(root, "scripts/serve-registries.mjs"), ...extraArgs], {
     cwd: root,
     stdio: ["ignore", "pipe", "inherit"],
   });

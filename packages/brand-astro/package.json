@@ -5,8 +5,8 @@
   "description": "The hmziq brand kit for Astro: Starwind UI stock components with the brand's changes, plus the brand pieces and blocks ported from the React design lab. Copied into projects from the Astro registry; never published to npm.",
   "type": "module",
   "scripts": {
-    "typecheck": "astro check && node -e \"fs.rmSync('.astro', { recursive: true, force: true })\"",
-    "check:a11y": "node scripts/axe.mjs"
+    "typecheck": "astro check && bun -e \"fs.rmSync('.astro', { recursive: true, force: true })\"",
+    "check:a11y": "bun scripts/axe.mjs"
   },
   "dependencies": {
     "@hmziq/brand-core": "workspace:*",

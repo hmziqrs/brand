@@ -1,11 +1,11 @@
-// kits.md, "Boilerplates": `pnpm new-project <svelte|astro> <folder>`
+// kits.md, "Boilerplates": `bun run new-project <svelte|astro> <folder>`
 //
 // 1. Copies the boilerplate (boilerplates/svelte-app or boilerplates/astro-app).
 // 2. Replaces `workspace:*` with the published @hmziq/brand-core version
-//    (--core overrides, e.g. a local `pnpm pack` tarball before a release).
+//    (--core overrides, e.g. a local `bun pm pack` tarball before a release).
 // 3. Installs the kit from its registry into the kit folder — $lib/brand for
 //    SvelteKit, src/components/brand for Astro — and points $brand there.
-// 4. Runs pnpm install.
+// 4. Runs bun install.
 //
 // No import in the boilerplate changes: only the $brand alias wiring, the
 // core version, and each stylesheet's in-repo @source line for the kit. The
@@ -14,7 +14,7 @@
 // Tailwind scans anyway).
 //
 // The registry defaults to the Pages site; --registry overrides it, which is
-// how `pnpm check:fresh-copy` installs from a locally served build.
+// how `bun run check:fresh-copy` installs from a locally served build.
 
 import { cpSync, existsSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSync } from "node:fs";
 import { spawnSync } from "node:child_process";
@@ -34,7 +34,7 @@ const kind = args.find((a) => !a.startsWith("--"));
 const folder = args.filter((a) => !a.startsWith("--"))[1];
 
 if (!["svelte", "astro"].includes(kind) || !folder) {
-  console.error("Usage: pnpm new-project <svelte|astro> <folder> [--registry <base-url>] [--core <version-or-tarball>] [--no-install]");
+  console.error("Usage: bun run new-project <svelte|astro> <folder> [--registry <base-url>] [--core <version-or-tarball>] [--no-install]");
   process.exit(1);
 }
 
@@ -66,16 +66,11 @@ const pkg = readJson(pkgPath);
 for (const section of ["dependencies", "devDependencies"]) {
   if (pkg[section]?.["@hmziq/brand-core"]) pkg[section]["@hmziq/brand-core"] = coreSpec;
 }
+// The repo's own build-script approvals: esbuild for Vite's dev server, sharp
+// for Astro's image service.
+pkg.trustedDependencies = ["esbuild", "sharp"];
 writeFileSync(pkgPath, JSON.stringify(pkg, null, "\t") + "\n");
 console.log(`   @hmziq/brand-core: ${coreSpec}`);
-
-// The repo's own build-script approvals, so a plain `pnpm install` in the
-// copy doesn't fail on pnpm's ignored-builds check (esbuild for Vite's dev
-// server, sharp for Astro's image service).
-writeFileSync(
-  join(dest, "pnpm-workspace.yaml"),
-  ["# Build scripts this starter's toolchain needs (same approvals as the brand repo).", "allowBuilds:", "  esbuild: true", "  sharp: true", ""].join("\n"),
-);
 
 // --- 3a. $brand points at the installed kit --------------------------------
 log("Wiring $brand at the kit folder");
@@ -151,22 +146,22 @@ if (kind === "svelte") {
   });
 }
 
-// --- 3c. install + 4. pnpm install ------------------------------------------
+// --- 3c. install + 4. bun install ------------------------------------------
 if (install) {
-  log("pnpm install");
-  run("pnpm", ["install"], dest);
+  log("bun install");
+  run("bun", ["install"], dest);
 
   log(`Installing the kit from ${registry}/r/${kind}`);
   if (kind === "svelte") {
-    run("pnpm", ["exec", "shadcn-svelte", "add", `${registry}/r/svelte/kit.json`, "--yes", "--overwrite"], dest);
+    run("bunx", ["shadcn-svelte", "add", `${registry}/r/svelte/kit.json`, "--yes", "--overwrite"], dest);
   } else {
-    run("pnpm", ["dlx", "shadcn@latest", "add", `${registry}/r/astro/kit.json`, "--yes", "--overwrite"], dest);
+    run("bunx", ["shadcn@latest", "add", `${registry}/r/astro/kit.json`, "--yes", "--overwrite"], dest);
   }
 }
 
 log("Done");
 console.log(`  ${dest}`);
-console.log("  cd into it, then `pnpm dev`.");
+console.log("  cd into it, then `bun run dev`.");
 
 // ---------------------------------------------------------------------------
 

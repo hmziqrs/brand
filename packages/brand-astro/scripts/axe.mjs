@@ -3,7 +3,7 @@
 // gallery is served by the astro-app boilerplate, so the server has to be
 // running; the runner reads the gallery's own index for its pages the same
 // way the Svelte runner reads the Storybook index. ASTRO_URL is the same
-// variable `pnpm compare` uses for the gallery.
+// variable `bun run compare` uses for the gallery.
 import { chromium } from "playwright";
 import AxeBuilder from "@axe-core/playwright";
 

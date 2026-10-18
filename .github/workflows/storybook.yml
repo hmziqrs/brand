@@ -26,18 +26,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - uses: pnpm/action-setup@v6
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.3
       - uses: actions/setup-node@v7
         with:
           node-version: 24
-          cache: pnpm
-      - run: pnpm install --frozen-lockfile
-      # kits.md, "Repo setup for the kits": CI runs `pnpm check` (which ends
+      - run: bun install --frozen-lockfile
+      # kits.md, "Repo setup for the kits": CI runs `bun run check` (which ends
       # with `check:parity`) and every build.
-      - run: pnpm check
-      - run: pnpm build
-      - run: pnpm build-storybook
-      - run: pnpm registry:build
+      - run: bun run check
+      - run: bun run build
+      - run: bun run build-storybook
+      - run: bun run registry:build
       # Assemble the Pages site: the kit's Storybook at the root. It builds
       # with relative asset URLs, so it needs no base path. The registries
       # and /theme.css join only once @hmziq/brand-core has a released
@@ -48,7 +49,7 @@ jobs:
           rm -rf pages
           mkdir -p pages
           cp -R packages/brand-svelte/storybook-static/. pages/
-          if [ "$(node -p "require('./packages/brand-core/package.json').version")" != "0.0.0" ]; then
+          if [ "$(bun -p "require('./packages/brand-core/package.json').version")" != "0.0.0" ]; then
             cp -R dist/registries/r/. pages/r/
             cp dist/registries/theme.css pages/theme.css
           else
