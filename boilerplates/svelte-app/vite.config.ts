@@ -51,6 +51,10 @@ const markdown = mdsvex({
 });
 
 export default defineConfig({
+	// The shader textures and the kit's source live in packages/brand-core and
+	// packages/brand-svelte, one folder up. Vite's workspace detection no longer
+	// finds the repo root under bun, so allow it explicitly.
+	server: { fs: { allow: [fileURLToPath(new URL('../..', import.meta.url))] } },
 	// bits-ui (under the stock shadcn-svelte components), svelte-sonner and
 	// mode-watcher (under the Toaster) ship .svelte files, which Node's SSR
 	// loader can't read if Vite externalizes them in dev.
