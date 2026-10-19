@@ -12,5 +12,5 @@
 		<Marker />
 		{label}
 	</p>
-	<p class="leading-[1.7]">{@render children()}</p>
+	<div class="leading-[1.7]">{@render children()}</div>
 </div>
