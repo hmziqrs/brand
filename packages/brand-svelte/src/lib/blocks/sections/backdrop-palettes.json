@@ -1,0 +1,6 @@
+{
+  "oxide": { "bg": "#0c0907", "low": "#3a1a0c", "mid": "#a64419", "high": "#f5b177" },
+  "ember": { "bg": "#070403", "low": "#5a200a", "mid": "#d0602a", "high": "#ffd9a8" },
+  "harbor": { "bg": "#04070a", "low": "#15283a", "mid": "#2c85c9", "high": "#bfe3ff" },
+  "bone": { "bg": "#0b0b0a", "low": "#2a2724", "mid": "#8a827a", "high": "#efe8df" }
+}

@@ -1,0 +1,5 @@
+{
+  "oxide": { "bright": "#a64419", "muted": "#6b5549", "dark": "#1d1714", "top": "#221813", "bottom": "#080504" },
+  "ember": { "bright": "#f5b177", "muted": "#a64419", "dark": "#1a1210", "top": "#2a1a12", "bottom": "#050302" },
+  "harbor": { "bright": "#2c85c9", "muted": "#4d6475", "dark": "#161b1d", "top": "#161c22", "bottom": "#030608" }
+}

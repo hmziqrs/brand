@@ -2648,6 +2648,42 @@
       "astroItem": "not yet"
     },
     {
+      "name": "WaveHero",
+      "group": "site",
+      "svelte": "sections-wave-hero--centered",
+      "astro": "not yet",
+      "svelteFile": "blocks/sections/wave-hero.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "BackdropHero",
+      "group": "site",
+      "svelte": "sections-backdrop-hero--aurora",
+      "astro": "not yet",
+      "svelteFile": "blocks/sections/backdrop-hero.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "FeatureBento",
+      "group": "site",
+      "svelte": "sections-feature-bento--a-speed",
+      "astro": "not yet",
+      "svelteFile": "blocks/sections/feature-bento.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "TestimonialWall",
+      "group": "site",
+      "svelte": "sections-testimonial-wall--a-marquee",
+      "astro": "not yet",
+      "svelteFile": "blocks/sections/testimonial-wall.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
       "name": "Eyebrow",
       "group": "brand",
       "svelte": "custom-eyebrow--ring",
@@ -2731,6 +2767,24 @@
       "svelte": "tweakers-material-text--page",
       "astro": "not yet",
       "svelteFile": "tweakers/material-text.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "WaveTweaker",
+      "group": "brand",
+      "svelte": "tweakers-wave--page",
+      "astro": "not yet",
+      "svelteFile": "tweakers/wave.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "BackdropTweaker",
+      "group": "brand",
+      "svelte": "tweakers-backdrops--page",
+      "astro": "not yet",
+      "svelteFile": "tweakers/backdrops.stories.svelte",
       "svelteItem": "not yet",
       "astroItem": "not yet"
     }
