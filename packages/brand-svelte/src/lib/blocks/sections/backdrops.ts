@@ -11,7 +11,7 @@ export type BackdropKind = (typeof backdropKinds)[number];
 export type Backdrop = { kind: BackdropKind; name: string; dials: BackdropDial[]; shade: string };
 
 export const backdropPalettes: Record<"oxide" | "ember" | "harbor" | "bone", BackdropColors> = palettes;
-export const backdropKinds = ["aurora", "metal", "ink", "topo", "glass", "particles", "silk", "halftone", "mesh", "rings"] as const;
+export const backdropKinds = ["aurora", "metal", "ink", "topo", "glass", "particles", "silk", "halftone", "mesh", "rings", "orb", "refract", "swirl"] as const;
 
 const dial = (key: string, label: string, min: number, max: number, start: number, step = 0.01): BackdropDial => ({ key, label, min, max, step, start });
 
@@ -428,6 +428,85 @@ vec3 shade(vec2 uv) {
     col = ramp(0.3 + diff * 0.6) + u_high * spec + u_mid * rim * 0.6;
   }
   return col;
+}`,
+	},
+	orb: {
+		kind: "orb",
+		name: "Voice orb",
+		dials: [
+			dial("size", "Size", 0.1, 0.8, 0.32),
+			dial("wobble", "Wobble", 0, 3, 1),
+			dial("lobes", "Lobes", 1, 8, 3, 1),
+			dial("swirl", "Inner swirl", 0, 4, 1.5),
+			dial("rim", "Rim light", 0, 3, 1),
+			dial("halo", "Halo", 0, 3, 1),
+		],
+		shade: `
+vec3 shade(vec2 uv) {
+  float r = length(uv);
+  float a = atan(uv.y, uv.x);
+  float edge = u_size * (1.0 + 0.08 * u_wobble * sin(a * u_lobes + u_time * 1.4) + 0.05 * u_wobble * sin(a * (u_lobes + 2.0) - u_time * 2.1));
+  float inside = smoothstep(edge + 0.004, edge - 0.004, r);
+  vec2 q = uv / max(u_size, 0.01);
+  q = rot(u_swirl * (1.0 - r / max(edge, 0.01)) + u_time * 0.3) * q;
+  float body = fbm(q * 1.6 + u_time * 0.2);
+  vec3 inner = ramp(0.35 + body * 0.65 - r / max(edge, 0.01) * 0.25);
+  float rim = smoothstep(edge - 0.06, edge, r) * inside;
+  vec3 col = u_bg + u_mid * 0.25 * u_halo * exp(-max(r - edge, 0.0) * 9.0);
+  col = mix(col, inner + u_high * rim * u_rim, inside);
+  return col;
+}`,
+	},
+	refract: {
+		kind: "refract",
+		name: "Refraction band",
+		dials: [
+			dial("stripes", "Stripes", 4, 80, 26, 1),
+			dial("band", "Band width", 0.05, 0.8, 0.22),
+			dial("bend", "Bend", 0, 3, 1),
+			dial("split", "Color split", 0, 3, 1),
+			dial("travel", "Travel", 0, 3, 1),
+			dial("angle", "Angle", -1.6, 1.6, 0.2),
+		],
+		shade: `
+float stripes(vec2 p) {
+  return 0.5 + 0.5 * sin(p.x * u_stripes + fbm(p * 1.5) * 2.0);
+}
+
+vec3 shade(vec2 uv) {
+  vec2 p = rot(u_angle) * uv;
+  float center = sin(u_time * 0.4 * u_travel) * 0.6;
+  float d = (p.y - center) / max(u_band, 0.01);
+  float lens = exp(-d * d);
+  float push = d * lens * 0.12 * u_bend;
+  float off = 0.015 * u_split * lens;
+  vec3 col;
+  col.r = ramp(stripes(p + vec2(push + off, 0.0))).r;
+  col.g = ramp(stripes(p + vec2(push, 0.0))).g;
+  col.b = ramp(stripes(p + vec2(push - off, 0.0))).b;
+  return mix(u_bg + u_low * 0.3 * stripes(p), col, 0.4 + 0.6 * lens);
+}`,
+	},
+	swirl: {
+		kind: "swirl",
+		name: "Swirl",
+		dials: [
+			dial("twist", "Twist", 0, 12, 4),
+			dial("arms", "Arms", 1, 8, 3, 1),
+			dial("tightness", "Tightness", 0.2, 4, 1),
+			dial("softness", "Softness", 0.05, 1, 0.35),
+			dial("drift", "Drift", 0, 3, 1),
+			dial("size", "Size", 0.2, 2, 0.8),
+		],
+		shade: `
+vec3 shade(vec2 uv) {
+  float r = length(uv);
+  float a = atan(uv.y, uv.x);
+  float spin = a * u_arms + log(r + 0.05) * u_twist * u_tightness - u_time * 0.6 * u_drift;
+  float bands = 0.5 + 0.5 * sin(spin + fbm(uv * 3.0 + u_time * 0.1) * 2.0);
+  bands = smoothstep(0.5 - u_softness * 0.5, 0.5 + u_softness * 0.5, bands);
+  float fade = smoothstep(u_size, 0.0, r);
+  return mix(u_bg, ramp(0.2 + bands * 0.8), fade);
 }`,
 	},
 };
