@@ -2787,6 +2787,87 @@
       "svelteFile": "tweakers/backdrops.stories.svelte",
       "svelteItem": "not yet",
       "astroItem": "not yet"
+    },
+    {
+      "name": "MicroInputs",
+      "group": "app",
+      "svelte": "micro-inputs--copy-field",
+      "astro": "not yet",
+      "svelteFile": "blocks/micro/inputs.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "MicroControls",
+      "group": "app",
+      "svelte": "micro-controls--budget-slider",
+      "astro": "not yet",
+      "svelteFile": "blocks/micro/controls.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "MicroFeedback",
+      "group": "app",
+      "svelte": "micro-feedback--toast-stack",
+      "astro": "not yet",
+      "svelteFile": "blocks/micro/feedback.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "MicroData",
+      "group": "app",
+      "svelte": "micro-data--stacked-bars",
+      "astro": "not yet",
+      "svelteFile": "blocks/micro/data.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "MicroMedia",
+      "group": "app",
+      "svelte": "micro-media--now-playing",
+      "astro": "not yet",
+      "svelteFile": "blocks/micro/media.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "MicroSurfaces",
+      "group": "app",
+      "svelte": "micro-surfaces--dynamic-island",
+      "astro": "not yet",
+      "svelteFile": "blocks/micro/surfaces.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "MicroMotionCanvas",
+      "group": "app",
+      "svelte": "micro-motion-canvas--dot-swarm",
+      "astro": "not yet",
+      "svelteFile": "blocks/micro/motion-canvas.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "MicroMotionDrag",
+      "group": "app",
+      "svelte": "micro-motion-drag--option-wheel",
+      "astro": "not yet",
+      "svelteFile": "blocks/micro/motion-drag.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "MicroMotionUi",
+      "group": "app",
+      "svelte": "micro-motion-ui--line-sidebar",
+      "astro": "not yet",
+      "svelteFile": "blocks/micro/motion-ui.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
     }
   ]
 }
