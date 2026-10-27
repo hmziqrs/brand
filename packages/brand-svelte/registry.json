@@ -1830,12 +1830,14 @@
 				"local:metric-trend",
 				"local:metrics-app-blocks",
 				"local:metrics-app-blocks-shared",
+				"local:micro-blocks-shared",
 				"local:newsletter-band",
 				"local:no-results",
 				"local:not-found",
 				"local:notice",
 				"local:outline-card",
 				"local:page-intro",
+				"local:parts-micro-blocks",
 				"local:password-input",
 				"local:past-releases",
 				"local:post-card",
@@ -1865,6 +1867,7 @@
 				"local:search-box",
 				"local:section",
 				"local:sections-blocks",
+				"local:sections-blocks-shared",
 				"local:segmented",
 				"local:select-all-checkbox",
 				"local:setting-row",
@@ -2332,6 +2335,21 @@
 			]
 		},
 		{
+			"name": "micro-blocks-shared",
+			"type": "registry:lib",
+			"title": "micro-blocks-shared",
+			"description": "Files from \"micro-blocks-shared\" the pieces roster does not list yet; they become their own items when their plan finishes and this script is re-run.",
+			"dependencies": [],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/lib/blocks/micro/motion.ts",
+					"type": "registry:file",
+					"target": "blocks/micro/motion.ts"
+				}
+			]
+		},
+		{
 			"name": "newsletter-band",
 			"type": "registry:lib",
 			"title": "newsletter-band",
@@ -2440,6 +2458,21 @@
 					"path": "src/lib/blocks/site/page-intro.svelte",
 					"type": "registry:file",
 					"target": "blocks/site/page-intro.svelte"
+				}
+			]
+		},
+		{
+			"name": "parts-micro-blocks",
+			"type": "registry:lib",
+			"title": "parts-micro-blocks",
+			"description": "Files from \"parts-micro-blocks\" the pieces roster does not list yet; they become their own items when their plan finishes and this script is re-run.",
+			"dependencies": [],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/lib/blocks/micro/parts/wheel.svelte",
+					"type": "registry:file",
+					"target": "blocks/micro/parts/wheel.svelte"
 				}
 			]
 		},
@@ -3070,20 +3103,40 @@
 			"title": "sections-blocks",
 			"description": "Files from \"sections-blocks\" the pieces roster does not list yet; they become their own items when their plan finishes and this script is re-run.",
 			"dependencies": [
-				"@hmziq/brand-core@0.0.0"
+				"@hmziq/brand-core@0.0.0",
+				"@lucide/svelte@^1.52.0"
 			],
 			"registryDependencies": [
 				"local:band-arcs",
 				"local:container",
 				"local:glass",
+				"local:hero-actions",
+				"local:hero-lede",
+				"local:hero-notes",
+				"local:hero-title",
 				"local:hooks",
+				"local:icon-tile",
 				"local:marker",
+				"local:outline-card",
 				"local:rings",
 				"local:saas-blocks",
+				"local:sections-blocks-shared",
+				"local:segmented",
 				"local:shader-material",
+				"local:ui-button",
 				"local:utils"
 			],
 			"files": [
+				{
+					"path": "src/lib/blocks/sections/backdrop-hero.svelte",
+					"type": "registry:file",
+					"target": "blocks/sections/backdrop-hero.svelte"
+				},
+				{
+					"path": "src/lib/blocks/sections/backdrop-shader.svelte",
+					"type": "registry:file",
+					"target": "blocks/sections/backdrop-shader.svelte"
+				},
 				{
 					"path": "src/lib/blocks/sections/band-section.svelte",
 					"type": "registry:file",
@@ -3093,6 +3146,11 @@
 					"path": "src/lib/blocks/sections/bento-section.svelte",
 					"type": "registry:file",
 					"target": "blocks/sections/bento-section.svelte"
+				},
+				{
+					"path": "src/lib/blocks/sections/feature-bento.svelte",
+					"type": "registry:file",
+					"target": "blocks/sections/feature-bento.svelte"
 				},
 				{
 					"path": "src/lib/blocks/sections/flow-section.svelte",
@@ -3108,6 +3166,41 @@
 					"path": "src/lib/blocks/sections/showcase-section.svelte",
 					"type": "registry:file",
 					"target": "blocks/sections/showcase-section.svelte"
+				},
+				{
+					"path": "src/lib/blocks/sections/testimonial-wall.svelte",
+					"type": "registry:file",
+					"target": "blocks/sections/testimonial-wall.svelte"
+				},
+				{
+					"path": "src/lib/blocks/sections/wave-hero.svelte",
+					"type": "registry:file",
+					"target": "blocks/sections/wave-hero.svelte"
+				},
+				{
+					"path": "src/lib/blocks/sections/wave-shader.svelte",
+					"type": "registry:file",
+					"target": "blocks/sections/wave-shader.svelte"
+				}
+			]
+		},
+		{
+			"name": "sections-blocks-shared",
+			"type": "registry:lib",
+			"title": "sections-blocks-shared",
+			"description": "Files from \"sections-blocks-shared\" the pieces roster does not list yet; they become their own items when their plan finishes and this script is re-run.",
+			"dependencies": [],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/lib/blocks/sections/backdrop-palettes.json",
+					"type": "registry:file",
+					"target": "blocks/sections/backdrop-palettes.json"
+				},
+				{
+					"path": "src/lib/blocks/sections/backdrops.ts",
+					"type": "registry:file",
+					"target": "blocks/sections/backdrops.ts"
 				}
 			]
 		},
@@ -4274,6 +4367,8 @@
 				"local:material-text",
 				"local:rings",
 				"local:scene",
+				"local:sections-blocks",
+				"local:sections-blocks-shared",
 				"local:segmented",
 				"local:shader-material",
 				"local:ui-button",
@@ -4287,6 +4382,11 @@
 				"local:wordmark"
 			],
 			"files": [
+				{
+					"path": "src/lib/tweakers/backdrop-tweaker.svelte",
+					"type": "registry:file",
+					"target": "tweakers/backdrop-tweaker.svelte"
+				},
 				{
 					"path": "src/lib/tweakers/lattice-tweaker.svelte",
 					"type": "registry:file",
@@ -4321,6 +4421,11 @@
 					"path": "src/lib/tweakers/tweaker-parts.svelte",
 					"type": "registry:file",
 					"target": "tweakers/tweaker-parts.svelte"
+				},
+				{
+					"path": "src/lib/tweakers/wave-tweaker.svelte",
+					"type": "registry:file",
+					"target": "tweakers/wave-tweaker.svelte"
 				}
 			]
 		},
