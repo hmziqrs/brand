@@ -14,28 +14,32 @@ import { dirname, join } from "node:path"
 
 import { color, inBand, readTheme, svgPaint, toHex } from "../packages/brand-core/src/color.ts"
 import { family } from "../packages/brand-core/src/family.ts"
-import { publicCopies, exportFiles, exportsDir, fileEntry, manifestPath, rendererVersions, root, targetDigest, targets } from "./assets-lib.mjs"
+import { publicCopies, exportFiles, exportsDir, fileEntry, manifestPath, rendererVersions, root, targetDigest, targets } from "./assets-lib.ts"
 import { packFiles } from "../assets/logos/source/pack.ts"
 import { settings as logosSettings } from "../assets/logos/source/settings.ts"
 
-const arg = (name) => {
+type OutlinePath = { toPathData(decimalPlaces: number): string; getBoundingBox(): { x1: number; y1: number; x2: number; y2: number } }
+type OutlineFont = { getPath(text: string, x: number, y: number, size: number, options: { kerning: boolean; letterSpacing: number }): OutlinePath }
+type PngToIco = (pngs: Buffer[]) => Promise<Buffer>
+
+const arg = (name: string): string | undefined => {
   const i = process.argv.indexOf(`--${name}`)
   return i === -1 ? undefined : process.argv[i + 1]
 }
 
 // The outline tool and the ICO writer are renderers like resvg: loaded here,
 // recorded in the manifest's renderers section, handed to the templates.
-const opentype = (await import("opentype.js")).default
-const pngToIco = (await import("png-to-ico")).default
-const outlineFont = (file) => {
+const opentype = (await import("opentype.js")).default as { parse(buffer: ArrayBuffer): OutlineFont }
+const pngToIco = (await import("png-to-ico")).default as PngToIco
+const outlineFont = (file: string): OutlineFont => {
   const bytes = readFileSync(file)
   return opentype.parse(bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength))
 }
-const outlineFonts = (names) => Object.fromEntries(names.map((name) => [name, outlineFont(join(fontsDir, name))]))
+const outlineFonts = (names: string[]): Record<string, OutlineFont> => Object.fromEntries(names.map((name) => [name, outlineFont(join(fontsDir, name))]))
 
 const theme = readTheme(readFileSync(join(root, "packages/brand-core/theme.css"), "utf8"))
 const fontsDir = join(root, "assets/fonts")
-const logosFontFiles = logosSettings.fonts.map((name) => join(fontsDir, name))
+const logosFontFiles: string[] = logosSettings.fonts.map((name) => join(fontsDir, name))
 
 // The --name --symbol --out command (assets.md phase 3): a full icon pack for
 // a name outside the roster, written wherever the caller points. Targets
@@ -73,7 +77,7 @@ if (!selected.length) {
 }
 
 /** Removes a folder's empty subfolders, deepest first. Never the folder itself. */
-function pruneEmptyFolders(dir) {
+function pruneEmptyFolders(dir: string): void {
   for (const entry of readdirSync(dir, { withFileTypes: true })) {
     if (!entry.isDirectory()) continue
     const path = join(dir, entry.name)
@@ -123,7 +127,7 @@ for (const target of selected) {
   }
   pruneEmptyFolders(dir)
 
-  const entries = []
+  const entries: ReturnType<typeof fileEntry>[] = []
   for (const [name, content] of Object.entries(files)) {
     const bytes = Buffer.isBuffer(content) ? content : Buffer.from(content, "utf8")
     mkdirSync(dirname(join(dir, name)), { recursive: true })

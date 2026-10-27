@@ -3,10 +3,12 @@
 // already ships fonts and images as URLs; its own .css rule would push the
 // theme through style-loader instead, so that rule steps aside for this one
 // file. Shared by remotion studio (remotion.config.ts) and the render scripts.
+import type { WebpackConfiguration } from "@remotion/bundler"
+
 const theme = /brand-core[/\\]theme\.css$/
 
-export const webpackOverride = (config) => {
-  for (const rule of config.module.rules) {
+export const webpackOverride = (config: WebpackConfiguration) => {
+  for (const rule of config.module.rules as Array<{ test?: unknown; use?: unknown; exclude?: unknown }>) {
     if (rule?.test && String(rule.test).includes("css") && rule.use) rule.exclude = theme
   }
   config.module.rules.push({ test: theme, type: "asset/source" })

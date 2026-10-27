@@ -6,10 +6,11 @@ import { readFileSync } from "node:fs"
 import { join } from "node:path"
 import { fileURLToPath } from "node:url"
 import { measure } from "../packages/brand-core/src/color.ts"
+import type { Result } from "../packages/brand-core/src/color.ts"
 
 const root = fileURLToPath(new URL("..", import.meta.url))
-const results = measure(readFileSync(join(root, "packages/brand-core/theme.css"), "utf8"))
-const failed = results.filter((r) => !r.pass)
+const results: Result[] = measure(readFileSync(join(root, "packages/brand-core/theme.css"), "utf8"))
+const failed: Result[] = results.filter((r) => !r.pass)
 
 for (const r of results) {
   const mark = r.pass ? "ok  " : "FAIL"

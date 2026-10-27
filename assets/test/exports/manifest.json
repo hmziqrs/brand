@@ -1,7 +1,7 @@
 {
   "target": "test-card",
   "command": "bun run render-assets --only test-card",
-  "digest": "bec0dba032fde54af02213dc04011a26c90df858ca1284648de2112ee9e6a237",
+  "digest": "70092ddfd34090aff3d12a9bf8bc03515395eafeb8beb540787b82bc8880e9e8",
   "renderers": {
     "@resvg/resvg-js": "2.6.2",
     "opentype.js": "2.0.0",
@@ -35,8 +35,8 @@
       "sha256": "b8fbaa56e4804151b2deadc3b09980c1302855c7e58a0979c761f5cf81038f33"
     },
     {
-      "path": "assets/test/source/test-card.mjs",
-      "sha256": "e7e8cb7e085d328c81ae807165aa37100cc37e0061227d4b1f7d6d58902dcf76"
+      "path": "assets/test/source/test-card.ts",
+      "sha256": "34eb9a54b189313972b49ddff3e806f6552a0135c56849fcde323f3567f9afd6"
     },
     {
       "path": "bun.lock",
@@ -48,7 +48,7 @@
     },
     {
       "path": "packages/brand-core/src/color.ts",
-      "sha256": "10daad0a78e06212244343dcd7ddc520616b8d0dc19b1696a9196bb71fa0c845"
+      "sha256": "5be3d55566df5747a4743765198780ff833f1015fffa8b8af76bdd43a3004936"
     },
     {
       "path": "packages/brand-core/src/family.ts",
@@ -111,12 +111,12 @@
       "sha256": "70568a10f0ddf35d4164d763081ddb3f548691ece3a46d0c148af66b6d52ed48"
     },
     {
-      "path": "scripts/assets-lib.mjs",
-      "sha256": "cc21a84cf888f3b4ad3514dffad6c3e5ef3a4b63b52f3532e5afa50d474ae3bc"
+      "path": "scripts/assets-lib.ts",
+      "sha256": "ca8b548545e07438f349b141cf3de144729088a520a2dc13c86a9dc2c34deac5"
     },
     {
-      "path": "scripts/render-assets.mjs",
-      "sha256": "cf22c6bc98b88a36cba1b490605df6094102af74769ad2eb8daa09e400d71de9"
+      "path": "scripts/render-assets.ts",
+      "sha256": "f199d274c6caaed090f795446c11f18a918d8ae24a13a4f0b7b912c743d53f77"
     }
   ],
   "files": [

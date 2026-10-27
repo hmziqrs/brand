@@ -3,11 +3,14 @@
 // this drives that instance rather than loading a second one.
 import { chromium } from "playwright";
 
+type AxeResults = { violations: { id: string; nodes: { target: string[] }[] }[] };
+type AxeWindow = { axe?: { run: () => Promise<AxeResults> } };
+
 const base = process.env.SB ?? "http://localhost:6007";
-const index = await (await fetch(`${base}/index.json`)).json();
+const index: { entries: Record<string, { type: string; id: string }> } = await (await fetch(`${base}/index.json`)).json();
 const stories = Object.values(index.entries).filter((e) => e.type === "story").map((e) => e.id);
 const browser = await chromium.launch();
-const violations = [];
+const violations: string[] = [];
 for (const id of stories) {
   const page = await (await browser.newContext({ viewport: { width: 1280, height: 900 } })).newPage();
   await page.goto(`${base}/iframe.html?id=${id}&viewMode=story`, { waitUntil: "load" });
@@ -16,12 +19,13 @@ for (const id of stories) {
   // moment longer, so wait for the injection too.
   await page.waitForFunction(() => Boolean(window.axe), null, { timeout: 30000 }).catch(() => {});
   const found = await page.evaluate(async () => {
-    if (!window.axe) return ["axe not loaded"];
+    const axe = (window as unknown as AxeWindow).axe;
+    if (!axe) return ["axe not loaded"];
     // The a11y addon runs axe itself when a story renders; wait for that to
     // finish rather than starting a second concurrent run.
     for (let i = 0; i < 40; i++) {
       try {
-        const results = await window.axe.run();
+        const results = await axe.run();
         return results.violations.flatMap((v) => v.nodes.map((n) => `${v.id}: ${n.target.join(" ")}`));
       } catch (error) {
         if (!String(error).includes("already running")) throw error;

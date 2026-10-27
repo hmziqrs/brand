@@ -220,7 +220,7 @@ Announce, plus `Templates/Glass sections` and `Sites/freeoxide tools`.
 ## Registry
 
 `registry.json` is generated, never hand-edited: `bun run registry:generate`
-(scripts/generate-registries.mjs + scripts/registry-lib.mjs) builds it from
+(scripts/generate-registries.ts + scripts/registry-lib.ts) builds it from
 the pieces roster and the kit's source tree — one item per roster piece
 (named by its `svelteItem` in `scripts/pieces.json`), one per vendored stock
 folder (`ui-*`), plus `utils`, a `kit` item that depends on everything, and a

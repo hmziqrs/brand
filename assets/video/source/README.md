@@ -14,7 +14,7 @@ The frame adapter is the point of the design: the browser rings animate on the c
 | `<preset>-loop` | 1920×1080 WebM for each moving ring preset (`ringPresets` minus `still`), one exact period long. |
 | `ripple-turn-640` | The 640×360, 15 fps GIF twin of the ripple-turn loop. |
 
-Each loop's timers live in [`src/loops.ts`](./src/loops.ts), fitted so the movement runs right up to the period and lands back on its first frame: a pure ripple's wave ends exactly on the cut (`cross + glow = every`), and the dial's last return settles on the wrap. `scripts/render-motion.mjs` re-proves both halves of the seam through the adapter — the period ends where it began, and the last frame is not a copy of the first — before rendering a single frame.
+Each loop's timers live in [`src/loops.ts`](./src/loops.ts), fitted so the movement runs right up to the period and lands back on its first frame: a pure ripple's wave ends exactly on the cut (`cross + glow = every`), and the dial's last return settles on the wrap. `scripts/render-motion.ts` re-proves both halves of the seam through the adapter — the period ends where it began, and the last frame is not a copy of the first — before rendering a single frame.
 
 ## Commands
 
@@ -37,6 +37,6 @@ bun run render:video --still thumbnail --out ~/Desktop/thumb.png --title "One ki
 ## Setup notes
 
 - Remotion is pinned (`4.0.531`, every `@remotion/*` at the same version). Its [license](https://github.com/remotion-dev/remotion/blob/main/LICENSE.md) is free for individuals and companies up to 3 people — this repo is one person's, so the free tier applies; a company using this repo would need a license from remotion.pro.
-- The browser is Remotion's own pinned Headless Shell (`bunx remotion browser ensure`, run in `assets/video/source`); the encoder is the ffmpeg Remotion ships. `render-video.mjs` checks the MP4s are faststart (moov before mdat) before accepting them.
+- The browser is Remotion's own pinned Headless Shell (`bunx remotion browser ensure`, run in `assets/video/source`); the encoder is the ffmpeg Remotion ships. `render-video.ts` checks the MP4s are faststart (moov before mdat) before accepting them.
 - Fonts load in the browser before any frame is let through (`src/fonts.ts`): the Onest variable WOFF2 and JetBrains Mono 400, both from `assets/fonts/`.
-- The webpack override in [`scripts/webpack.mjs`](./scripts/webpack.mjs) keeps Remotion's style-loader away from `theme.css` so the resolver can read it as text in the browser.
+- The webpack override in [`scripts/webpack.ts`](./scripts/webpack.ts) keeps Remotion's style-loader away from `theme.css` so the resolver can read it as text in the browser.

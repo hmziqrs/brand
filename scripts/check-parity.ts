@@ -9,13 +9,24 @@ import { readdirSync, readFileSync, statSync, existsSync } from "node:fs";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 
+type Piece = {
+  name: string;
+  group: string;
+  svelte: string | null;
+  astro: string;
+  svelteFile: string;
+  svelteItem: string;
+  astroItem: string;
+  astroFile?: string;
+};
+
 const root = fileURLToPath(new URL("..", import.meta.url));
-const roster = JSON.parse(readFileSync(join(root, "scripts/pieces.json"), "utf8")).pieces;
+const roster: Piece[] = JSON.parse(readFileSync(join(root, "scripts/pieces.json"), "utf8")).pieces;
 const NOT_YET = "not yet";
 
 // Storybook's own id rules, so the ids we read from source match the ones the
 // built Storybooks serve: sanitize(title) + "--" + sanitize(story name).
-const sanitize = (text) =>
+const sanitize = (text: string): string =>
   text
     .toLowerCase()
     .replace(/['‘’]/g, "")
@@ -23,7 +34,7 @@ const sanitize = (text) =>
     .replace(/-+/g, "-")
     .replace(/^-|-$/, "");
 
-function* files(dir) {
+function* files(dir: string): Generator<string> {
   if (!existsSync(dir)) return;
   for (const name of readdirSync(dir)) {
     const path = join(dir, name);
@@ -33,8 +44,8 @@ function* files(dir) {
 }
 
 /** The Astro kit's /kit gallery anchors, read from its gallery pages. */
-function astroAnchors() {
-  const anchors = new Set();
+function astroAnchors(): Set<string> {
+  const anchors = new Set<string>();
   for (const file of files(join(root, "boilerplates/astro-app/src/pages/kit"))) {
     if (!file.endsWith(".astro")) continue;
     for (const match of readFileSync(file, "utf8").matchAll(/\bid=\{?['"]piece-([\w-]+)['"]/g)) anchors.add(match[1]);
@@ -43,19 +54,19 @@ function astroAnchors() {
 }
 
 /** A kit's registry item names, from its registry.json. */
-function registryItems(path) {
+function registryItems(path: string): Set<string> {
   const file = join(root, path);
   if (!existsSync(file)) return new Set();
-  const json = JSON.parse(readFileSync(file, "utf8"));
+  const json: { items?: { name: string }[] } = JSON.parse(readFileSync(file, "utf8"));
   return new Set((json.items ?? []).map((item) => item.name));
 }
 
-const problems = [];
+const problems: string[] = [];
 
 /** The meta title of a stories file: an inline literal, or a module const
  * passed into defineMeta by shorthand (title indirection the file itself
  * reuses, e.g. to build story links). */
-function metaTitle(source) {
+function metaTitle(source: string): string | undefined {
   const inline = source.match(/\btitle:\s*['"](.+?)['"]/)?.[1];
   if (inline) return inline;
   const start = source.indexOf("defineMeta(");
@@ -75,8 +86,8 @@ function metaTitle(source) {
 }
 
 /** The Svelte kit's story ids, read from the *.stories.svelte files. */
-function svelteStoryIds() {
-  const ids = new Set();
+function svelteStoryIds(): Set<string> {
+  const ids = new Set<string>();
   for (const file of files(join(root, "packages/brand-svelte/src/lib"))) {
     if (!file.endsWith(".stories.svelte")) continue;
     const source = readFileSync(file, "utf8");
@@ -97,7 +108,7 @@ const astroGallery = astroAnchors();
 const svelteRegistry = registryItems("packages/brand-svelte/registry.json");
 const astroRegistry = registryItems("packages/brand-astro/registry.json");
 
-const seen = new Set();
+const seen = new Set<string>();
 for (const piece of roster) {
   if (seen.has(piece.name)) problems.push(`${piece.name}: listed twice in the roster`);
   seen.add(piece.name);
@@ -111,7 +122,7 @@ for (const piece of roster) {
     problems.push(`${piece.name}: missing from the Svelte kit (${piece.svelteFile ?? "no file recorded"})`);
   }
   // The Astro kit's file for the piece, derived the way the registry
-  // generator derives it (generate-registries.mjs): `astroFile` when the
+  // generator derives it (generate-registries.ts): `astroFile` when the
   // piece records one, else the Svelte path with its extension swapped. A
   // story file has no Astro twin to check — stories never ship (the table
   // recipe is a pattern, not an installable piece).
@@ -147,7 +158,7 @@ for (const anchor of astroGallery) {
   if (!rosterAnchors.has(anchor)) problems.push(`Astro gallery anchor ${anchor} is not in the roster`);
 }
 
-const byGroup = {};
+const byGroup: Record<string, number> = {};
 for (const piece of roster) byGroup[piece.group] = (byGroup[piece.group] ?? 0) + 1;
 
 if (problems.length) {

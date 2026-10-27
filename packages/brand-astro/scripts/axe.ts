@@ -13,10 +13,10 @@ const html = await (await fetch(`${base}/kit/`)).text();
 const pages = ["/kit/", ...new Set([...html.matchAll(/href="(\/kit\/[^"#?]*)"/g)].map((m) => m[1]))].sort();
 
 const browser = await chromium.launch();
-const violations = [];
+const violations: string[] = [];
 for (const path of pages) {
   const page = await (await browser.newContext({ viewport: { width: 1280, height: 900 } })).newPage();
-  const errors = [];
+  const errors: string[] = [];
   page.on("pageerror", (error) => errors.push(error.message));
   await page.goto(`${base}${path}`, { waitUntil: "load" });
   // The gallery's pieces settle (the terminal replays, the spy moves), so

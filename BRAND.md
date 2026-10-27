@@ -127,7 +127,7 @@ import { hmziqCode } from "@hmziq/brand-core/code-theme"
 
 - **React:** use Shiki directly with `hmziqCode` — a synchronous highlighter with only the languages the site needs — and add a copy button.
 - **Svelte / SvelteKit:** `codeToHtml(code, { lang, theme: hmziqCode })` on the server or at build time.
-- **Astro:** leave the built-in highlighter off (`markdown.syntaxHighlight: false`) and run core's Markdown plugins through `markdown.processor`, as `boilerplates/astro-app/astro.config.mjs` does — fenced code is highlighted by core's `code-meta` rehype plugin with `hmziqCode`, so Astro pages and SvelteKit pages get the same markup (section 8, "Markdown"). Code outside Markdown uses the kit's `CodeBlock`, tokenized at build time.
+- **Astro:** leave the built-in highlighter off (`markdown.syntaxHighlight: false`) and run core's Markdown plugins through `markdown.processor`, as `boilerplates/astro-app/astro.config.ts` does — fenced code is highlighted by core's `code-meta` rehype plugin with `hmziqCode`, so Astro pages and SvelteKit pages get the same markup (section 8, "Markdown"). Code outside Markdown uses the kit's `CodeBlock`, tokenized at build time.
 - **Dioxus or anything else:** highlight at build time with Shiki, or point another highlighter's token classes at the `--code-token-*` variables.
 
 Code blocks sit on `--code-background` (the card color) with `--code-foreground` text.

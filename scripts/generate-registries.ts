@@ -22,25 +22,32 @@
 import { existsSync } from "node:fs";
 import { basename } from "node:path";
 import { fileURLToPath } from "node:url";
-import { buildItems, kebab, readJson, walkFiles, writeJson, abs, rel } from "./registry-lib.mjs";
+import { buildItems, kebab, readJson, walkFiles, writeJson, abs, rel, type Seed } from "./registry-lib.ts";
 
 const root = fileURLToPath(new URL("..", import.meta.url));
-const roster = readJson(`${root}/scripts/pieces.json`).pieces;
-const coreVersion = readJson(`${root}/packages/brand-core/package.json`).version;
+
+type Piece = { name: string; group: string; svelteFile?: string; astroFile?: string | null };
+type PieceSeed = Seed & { piece: Piece };
+type StockSeed = Seed & { dir: string; kind: "stock-svelte" | "stock-astro" };
+type Label = { kind: string; group?: string; dir?: string; folder?: string };
+type PkgJson = { version?: string; dependencies?: Record<string, string>; devDependencies?: Record<string, string>; peerDependencies?: Record<string, string> };
+
+const roster: Piece[] = readJson<{ pieces: Piece[] }>(`${root}/scripts/pieces.json`).pieces;
+const coreVersion: string = readJson<PkgJson>(`${root}/packages/brand-core/package.json`).version ?? "";
 const HOMEPAGE = "https://hmziqrs.github.io/brand/";
 
-const GROUP_LABEL = { brand: "Brand piece", site: "Site block", content: "Content piece", app: "App block" };
+const GROUP_LABEL: Record<string, string> = { brand: "Brand piece", site: "Site block", content: "Content piece", app: "App block" };
 
-function versionsFor(pkgPath) {
-  const pkg = readJson(pkgPath);
-  const core = readJson(`${root}/packages/brand-core/package.json`);
+function versionsFor(pkgPath: string): Record<string, string | undefined> {
+  const pkg = readJson<PkgJson>(pkgPath);
+  const core = readJson<PkgJson>(`${root}/packages/brand-core/package.json`);
   return { ...pkg.devDependencies, ...pkg.dependencies, core: coreVersion, three: core.peerDependencies?.three };
 }
 
-function pieceSeedsFor(kitSrc, fileOf, stockDir) {
+function pieceSeedsFor(kitSrc: string, fileOf: (piece: Piece) => string | undefined, stockDir: string): PieceSeed[] {
   return roster
     .filter((piece) => piece.svelteFile && piece.svelteFile !== "not yet")
-    .flatMap((piece) => {
+    .flatMap((piece): PieceSeed[] => {
       const file = fileOf(piece);
       if (file.startsWith(`${stockDir}/`)) {
         // A roster piece pointing into the stock folder: the stock item owns
@@ -61,10 +68,10 @@ function pieceSeedsFor(kitSrc, fileOf, stockDir) {
     });
 }
 
-function stockSeedsFor(kitSrc, stockDir, prefix) {
+function stockSeedsFor(kitSrc: string, stockDir: string, prefix: string): (Seed & { dir: string })[] {
   const stockRoot = `${kitSrc}/${stockDir}`;
   // Stories are kit-internal previews; they never ship in a registry item.
-  const shipped = (files) => files.filter((file) => !file.endsWith(".stories.svelte"));
+  const shipped = (files: string[]): string[] => files.filter((file) => !file.endsWith(".stories.svelte"));
   return walkFiles(stockRoot)
     .map((file) => rel(stockRoot, file).split("/")[0])
     .filter((dir, index, all) => all.indexOf(dir) === index)
@@ -74,7 +81,7 @@ function stockSeedsFor(kitSrc, stockDir, prefix) {
 
 // blocks/content/x -> "content-blocks", blocks/app/x -> "app-blocks",
 // anything else -> its folder path, kebab'd.
-const catchAllName = (kitSrc) => (file) => {
+const catchAllName = (kitSrc: string) => (file: string): string => {
   const segments = rel(kitSrc, file).split("/").slice(0, -1);
   return segments.reverse().map(kebab).join("-");
 };
@@ -93,8 +100,8 @@ const catchAllName = (kitSrc) => (file) => {
 // re-exports the pieces, so an item holding both the barrel and the shared
 // files would depend on the pieces while they depend on it — the same cycle
 // one step wider. The barrel stays with the folder's catch-all item.
-function folderHelperSeedsFor(kitSrc, pieceFiles, exclude) {
-  const byName = new Map();
+function folderHelperSeedsFor(kitSrc: string, pieceFiles: Set<string>, exclude: (file: string) => unknown): Seed[] {
+  const byName = new Map<string, string[]>();
   const folderOf = catchAllName(kitSrc);
   const blocksRoot = `${kitSrc}/blocks`;
   for (const file of walkFiles(blocksRoot)) {
@@ -109,7 +116,7 @@ function folderHelperSeedsFor(kitSrc, pieceFiles, exclude) {
   return [...byName].map(([name, files]) => ({ name, files }));
 }
 
-function describe(kind, info) {
+function describe(kind: string | undefined, info: Label): string {
   switch (kind) {
     case "stock-svelte":
       return `shadcn-svelte's ${info.dir}, vendored with the brand's changes (packages/brand-svelte/README.md).`;
@@ -127,8 +134,8 @@ function describe(kind, info) {
   }
 }
 
-function labelItems(items, pieceSeeds, stockSeeds) {
-  const labels = new Map();
+function labelItems(items: { name: string }[], pieceSeeds: PieceSeed[], stockSeeds: StockSeed[]): Map<string, Label> {
+  const labels = new Map<string, Label>();
   for (const seed of pieceSeeds) labels.set(seed.name, { kind: "piece", group: seed.piece.group });
   for (const seed of stockSeeds) labels.set(seed.name, { kind: seed.kind, dir: seed.dir });
   labels.set("utils", { kind: "utils" });
@@ -139,15 +146,15 @@ function labelItems(items, pieceSeeds, stockSeeds) {
 // ---------------------------------------------------------------------------
 // brand-svelte (shadcn-svelte registry format)
 // ---------------------------------------------------------------------------
-function generateSvelte() {
+function generateSvelte(): number {
   const kitRoot = `${root}/packages/brand-svelte`;
   const src = `${kitRoot}/src/lib`;
-  const stockSeeds = stockSeedsFor(src, "ui", "ui-").map((s) => ({ ...s, kind: "stock-svelte" }));
-  const pieceSeeds = pieceSeedsFor(src, (piece) => piece.svelteFile, "ui");
+  const stockSeeds: StockSeed[] = stockSeedsFor(src, "ui", "ui-").map((s) => ({ ...s, kind: "stock-svelte" }));
+  const pieceSeeds: PieceSeed[] = pieceSeedsFor(src, (piece) => piece.svelteFile, "ui");
   // Stories are kit-internal previews, and so is the copy they render
   // (blocks/**/stories-data.ts): only *.stories.svelte files import it,
   // so it ships in no registry item either.
-  const exclude = (file) => file.endsWith(".stories.svelte") || basename(file).startsWith("stories-data");
+  const exclude = (file: string): boolean => file.endsWith(".stories.svelte") || basename(file).startsWith("stories-data");
   const helperSeeds = folderHelperSeedsFor(
     src,
     new Set(pieceSeeds.map((seed) => rel(src, seed.files[0]))),
@@ -195,11 +202,11 @@ function generateSvelte() {
 // ---------------------------------------------------------------------------
 // brand-astro (shadcn CLI file-item format)
 // ---------------------------------------------------------------------------
-function generateAstro() {
+function generateAstro(): number {
   const kitRoot = `${root}/packages/brand-astro`;
   const src = `${kitRoot}/src`;
-  const stockSeeds = stockSeedsFor(src, "starwind", "starwind-").map((s) => ({ ...s, kind: "stock-astro" }));
-  const pieceSeeds = pieceSeedsFor(src, (piece) => piece.astroFile ?? piece.svelteFile.replace(/\.svelte$/, ".astro"), "starwind");
+  const stockSeeds: StockSeed[] = stockSeedsFor(src, "starwind", "starwind-").map((s) => ({ ...s, kind: "stock-astro" }));
+  const pieceSeeds: PieceSeed[] = pieceSeedsFor(src, (piece) => piece.astroFile ?? piece.svelteFile.replace(/\.svelte$/, ".astro"), "starwind");
   const helperSeeds = folderHelperSeedsFor(
     src,
     new Set(pieceSeeds.map((seed) => rel(src, seed.files[0]))),

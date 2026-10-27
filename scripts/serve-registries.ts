@@ -3,7 +3,7 @@
 // `bun run check:fresh-copy` does, and handy when testing registry changes by
 // hand:
 //
-//   bun scripts/serve-registries.mjs [--without-core]
+//   bun scripts/serve-registries.ts [--without-core]
 //
 // --without-core drops the `@hmziq/brand-core@…` dependency from every served
 // item. check:fresh-copy sets it while core is only a local `bun pm pack`
@@ -23,16 +23,20 @@ const root = fileURLToPath(new URL("..", import.meta.url));
 const dir = join(root, "dist/registries");
 const withoutCore = process.argv.includes("--without-core");
 
-const types = { ".json": "application/json", ".css": "text/css" };
+const types: Record<string, string> = { ".json": "application/json", ".css": "text/css" };
 
-function stripCore(json) {
-  const strip = (deps) => deps?.filter((d) => !d.startsWith("@hmziq/brand-core@"));
+type ServedItem = { dependencies?: string[] };
+type Request = { method?: string; url?: string };
+type Response = { writeHead(status: number, headers?: Record<string, string>): unknown; end(data?: Uint8Array | string): unknown };
+
+function stripCore(json: ServedItem | ServedItem[]): ServedItem | ServedItem[] {
+  const strip = (deps: string[] | undefined): string[] | undefined => deps?.filter((d) => !d.startsWith("@hmziq/brand-core@"));
   if (Array.isArray(json)) for (const item of json) item.dependencies = strip(item.dependencies);
   else json.dependencies = strip(json.dependencies);
   return json;
 }
 
-async function handle(req, res) {
+async function handle(req: Request, res: Response): Promise<void> {
   const path = join(dir, decodeURIComponent(new URL(req.url, "http://x").pathname).replace(/^\/+/, ""));
   try {
     const info = await stat(path).catch(() => null);

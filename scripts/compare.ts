@@ -20,9 +20,13 @@ import { mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 
+type Piece = { name: string; group: string; page?: string; svelte?: string | null; astro?: string | null };
+type View = { label: string; url: string };
+type Shot = { subject: string; theme: string; width: number; label: string; file: string };
+
 const root = fileURLToPath(new URL("..", import.meta.url));
 const OUT = join(root, "compare");
-const roster = JSON.parse(readFileSync(join(root, "scripts/pieces.json"), "utf8")).pieces;
+const roster: Piece[] = JSON.parse(readFileSync(join(root, "scripts/pieces.json"), "utf8")).pieces;
 
 const SVELTE = process.env.SVELTE_URL ?? "http://localhost:6007";
 const ASTRO = process.env.ASTRO_URL ?? "http://localhost:4321";
@@ -37,11 +41,11 @@ const viewLabels = ["svelte", "astro", "svelte-app", "astro-app"];
 
 // Which gallery page each piece's anchor lives on, read from the gallery
 // pages themselves the same way check-parity reads them
-// (scripts/check-parity.mjs). A piece's group names the plan that owns it,
+// (scripts/check-parity.ts). A piece's group names the plan that owns it,
 // not the page that shows it — the content pieces that live in the site
 // gallery (Prose, Bullets, … Kicker) would otherwise be shot on /kit/content,
 // which never carries their anchors.
-const galleryPage = new Map();
+const galleryPage = new Map<string, string>();
 for (const name of readdirSync(join(root, "boilerplates/astro-app/src/pages/kit"))) {
   if (!name.endsWith(".astro")) continue;
   for (const match of readFileSync(join(root, "boilerplates/astro-app/src/pages/kit", name), "utf8").matchAll(
@@ -51,7 +55,7 @@ for (const name of readdirSync(join(root, "boilerplates/astro-app/src/pages/kit"
 }
 
 /** Every view of one subject: where it lives and what label it gets. */
-function views(subject) {
+function views(subject: Piece): View[] {
   if (subject.page) {
     return [
       { label: "svelte-app", url: `${SVELTE_APP}${subject.page}` },
@@ -65,10 +69,10 @@ function views(subject) {
         label: "astro",
         url: `${ASTRO}/kit/${galleryPage.get(subject.astro) ?? subject.group}#piece-${subject.astro}`,
       },
-  ].filter(Boolean);
+  ].filter((view): view is View => Boolean(view));
 }
 
-let subjects;
+let subjects: Piece[];
 if (reportOnly) {
   subjects = [];
 } else if (argument === "--pages") {
@@ -94,7 +98,7 @@ if (reportOnly) {
 }
 
 mkdirSync(OUT, { recursive: true });
-const shots = [];
+const shots: Shot[] = [];
 
 const browser = reportOnly ? null : await chromium.launch();
 
@@ -110,7 +114,7 @@ for (const subject of subjects) {
         const file = `${subject.name.toLowerCase().replace(/[^\w]+/g, "-")}-${target.label}-${theme}-${width}.png`;
         const context = await browser.newContext({ viewport: { width, height: 900 }, colorScheme: theme });
         const page = await context.newPage();
-        page.on("pageerror", (error) => console.error(`  ! ${subject.name} (${target.label}) threw: ${error.message}`));
+        page.on("pageerror", (error: Error) => console.error(`  ! ${subject.name} (${target.label}) threw: ${error.message}`));
         // A view whose server isn't up is reported and skipped, not fatal:
         // compare is run piece by piece while only some servers are started.
         try {
@@ -122,7 +126,7 @@ for (const subject of subjects) {
         }
         // The Storybook preview and both boilerplates follow the theme class.
         await page.evaluate(
-          (dark) => {
+          (dark: boolean) => {
             document.documentElement.classList.toggle("dark", dark);
             document.documentElement.classList.toggle("light", !dark);
           },
@@ -144,12 +148,12 @@ await browser?.close();
 // side, so "matches" is a read across the row. The rows come from every shot
 // in compare/ — this run's and earlier runs' alike — so running one piece or
 // a page pair doesn't drop the pieces the last full run laid down.
-const slug = (name) => name.toLowerCase().replace(/[^\w]+/g, "-");
-const display = new Map();
+const slug = (name: string): string => name.toLowerCase().replace(/[^\w]+/g, "-");
+const display = new Map<string, string>();
 for (const piece of roster) display.set(slug(piece.name), piece.name);
 for (const subject of subjects) display.set(slug(subject.name), subject.name);
 
-const onDisk = new Map();
+const onDisk = new Map<string, Map<string, string>>();
 for (const file of readdirSync(OUT).sort()) {
   const match = /^(.*)-(svelte|astro|svelte-app|astro-app)-(dark|light)-(\d+)\.png$/.exec(file);
   if (!match) continue;
@@ -159,17 +163,17 @@ for (const file of readdirSync(OUT).sort()) {
 }
 
 // Roster pieces in roster order first, then anything else (page pairs) by name.
-const rosterOrder = new Map(roster.map((piece) => [slug(piece.name), roster.indexOf(piece)]));
+const rosterOrder = new Map<string, number>(roster.map((piece) => [slug(piece.name), roster.indexOf(piece)]));
 const subjectsInOrder = [...onDisk.keys()].sort((a, b) => {
   const ai = rosterOrder.get(a) ?? Infinity;
   const bi = rosterOrder.get(b) ?? Infinity;
   return ai === bi ? a.localeCompare(b) : ai - bi;
 });
 
-const rows = [];
+const rows: string[] = [];
 for (const subject of subjectsInOrder) {
   for (const theme of themes) {
-    const cells = [];
+    const cells: string[] = [];
     for (const label of viewLabels) {
       for (const width of widths) {
         const file = onDisk.get(subject).get(`${label}|${theme}|${width}`);

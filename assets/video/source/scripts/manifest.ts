@@ -10,7 +10,7 @@ import { fileURLToPath } from "node:url"
 
 /** The repo root (assets/video/source/scripts → up four). */
 export const root = fileURLToPath(new URL("../../../../", import.meta.url))
-export const sha256 = (bytes) => createHash("sha256").update(bytes).digest("hex")
+export const sha256 = (bytes: Uint8Array) => createHash("sha256").update(bytes).digest("hex")
 
 // A video render reads what a static one does — the theme, the roster, the
 // logo recipe, the ring code, the fonts, its own templates and scripts, the
@@ -30,7 +30,7 @@ const inputFiles = [
 ]
 const inputDirs = ["packages/brand-core/src/motion", "assets/fonts", "assets/video/source/src", "assets/video/source/scripts"]
 
-function* walk(dir) {
+function* walk(dir: string) {
   for (const name of readdirSync(dir).sort()) {
     if (name === "node_modules" || name.startsWith(".")) continue
     const path = join(dir, name)
@@ -41,8 +41,8 @@ function* walk(dir) {
 
 /** Everything a render depends on, as repo-relative paths with hashes, sorted. */
 export function inputs() {
-  const files = new Map()
-  const add = (abs) => files.set(relative(root, abs).split("\\").join("/"), sha256(readFileSync(abs)))
+  const files = new Map<string, string>()
+  const add = (abs: string) => files.set(relative(root, abs).split("\\").join("/"), sha256(readFileSync(abs)))
   for (const path of inputFiles) add(join(root, path))
   for (const dir of inputDirs) for (const abs of walk(join(root, dir))) add(abs)
   return [...files].map(([path, hash]) => ({ path, sha256: hash })).sort((a, b) => (a.path < b.path ? -1 : 1))
@@ -51,17 +51,21 @@ export function inputs() {
 /** The Remotion versions a render ran on, read without loading the renderer. */
 export const rendererVersions = (() => {
   const require = createRequire(join(root, "assets/video/source/package.json"))
-  const at = (name) => JSON.parse(readFileSync(require.resolve(`${name}/package.json`), "utf8")).version
+  const at = (name: string) => JSON.parse(readFileSync(require.resolve(`${name}/package.json`), "utf8")).version
   return { remotion: at("remotion"), "@remotion/renderer": at("@remotion/renderer") }
 })()
 
 /** The digest of the inputs, the renderer versions and the render settings. */
-export function digest(inputList, settings) {
+export function digest(inputList: ReturnType<typeof inputs>, settings: unknown) {
   return sha256(Buffer.from(JSON.stringify({ inputs: inputList, renderers: rendererVersions, settings })))
 }
 
 /** One exported file: what an image's entry has, plus duration, fps and codec. */
-export function fileEntry(name, bytes, { width, height, duration, fps, codec }) {
+export function fileEntry(
+  name: string,
+  bytes: Buffer,
+  { width, height, duration, fps, codec }: { width: number; height: number; duration: number; fps: number; codec: string },
+) {
   return { path: name, sha256: sha256(bytes), bytes: bytes.length, width, height, duration, fps, codec }
 }
 
@@ -69,7 +73,7 @@ export function fileEntry(name, bytes, { width, height, duration, fps, codec }) 
  * YouTube asks for faststart MP4s: the moov index must come before the picture
  * data, or playback waits for the whole file to download. True when it does.
  */
-export function faststarted(bytes) {
+export function faststarted(bytes: Buffer) {
   let at = 0
   const head = bytes.subarray(0, 1 << 20)
   while (at + 8 <= head.length) {
@@ -84,12 +88,12 @@ export function faststarted(bytes) {
 }
 
 /** Writes one exports folder's manifest. */
-export function writeManifest(dir, manifest) {
+export function writeManifest(dir: string, manifest: unknown) {
   writeFileSync(join(dir, "manifest.json"), `${JSON.stringify(manifest, null, 2)}\n`)
 }
 
 /** Reads a `--flag value` (or `--flag` alone, as true) from the command line. */
-export function flag(name) {
+export function flag(name: string): string | boolean | undefined {
   const at = process.argv.indexOf(`--${name}`)
   if (at === -1) return undefined
   const next = process.argv[at + 1]

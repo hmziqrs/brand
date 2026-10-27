@@ -20,13 +20,19 @@ import { cpSync, existsSync, mkdirSync, readFileSync, readdirSync, statSync, wri
 import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { join, resolve } from "node:path";
-import { readJson } from "./registry-lib.mjs";
+import { readJson } from "./registry-lib.ts";
 
 const root = fileURLToPath(new URL("..", import.meta.url));
 const DEFAULT_REGISTRY = "https://hmziqrs.github.io/brand";
 
-const args = process.argv.slice(2);
-const flag = (name) => {
+type PkgJson = {
+  dependencies?: Record<string, string>;
+  devDependencies?: Record<string, string>;
+  trustedDependencies?: string[];
+};
+
+const args: string[] = process.argv.slice(2);
+const flag = (name: string): string | undefined => {
   const i = args.indexOf(`--${name}`);
   return i > -1 ? args[i + 1] : undefined;
 };
@@ -39,7 +45,7 @@ if (!["svelte", "astro"].includes(kind) || !folder) {
 }
 
 const registry = (flag("registry") ?? DEFAULT_REGISTRY).replace(/\/+$/, "");
-const coreSpec = flag("core") ?? `^${readJson(`${root}/packages/brand-core/package.json`).version}`;
+const coreSpec = flag("core") ?? `^${readJson<PkgJson>(`${root}/packages/brand-core/package.json`).version}`;
 const install = !args.includes("--no-install");
 const dest = resolve(process.cwd(), folder);
 
@@ -49,21 +55,21 @@ if (existsSync(dest) && readdirSync(dest).length > 0) {
 }
 
 const boilerplate = `${root}/boilerplates/${kind}-app`;
-const log = (step) => console.log(`\n== ${step}`);
+const log = (step: string): void => console.log(`\n== ${step}`);
 
 // --- 1. copy the boilerplate ------------------------------------------------
 log(`Copying boilerplates/${kind}-app -> ${dest}`);
 mkdirSync(dest, { recursive: true });
 cpSync(boilerplate, dest, {
   recursive: true,
-  filter: (src) => !/[\\/](node_modules|dist|\.svelte-kit|\.astro|storybook-static)([\\/]|$)/.test(src),
+  filter: (src: string): boolean => !/[\\/](node_modules|dist|\.svelte-kit|\.astro|storybook-static)([\\/]|$)/.test(src),
 });
 
 // --- 2. the published core --------------------------------------------------
 log("Pointing @hmziq/brand-core at the published package");
 const pkgPath = join(dest, "package.json");
-const pkg = readJson(pkgPath);
-for (const section of ["dependencies", "devDependencies"]) {
+const pkg = readJson<PkgJson>(pkgPath);
+for (const section of ["dependencies", "devDependencies"] as const) {
   if (pkg[section]?.["@hmziq/brand-core"]) pkg[section]["@hmziq/brand-core"] = coreSpec;
 }
 // The repo's own build-script approvals: esbuild for Vite's dev server, sharp
@@ -96,7 +102,7 @@ if (kind === "svelte") {
     [/['"](?:\.\.\/)+packages\/brand-core\/src\/([^'"]+)\.js['"]/g, "'@hmziq/brand-core/$1'"],
   ]);
 } else {
-  rewrite(join(dest, "astro.config.mjs"), [
+  rewrite(join(dest, "astro.config.ts"), [
     [
       /const brand = fileURLToPath\(new URL\("[^"]+", import\.meta\.url\)\);/,
       'const brand = fileURLToPath(new URL("./src/components/brand", import.meta.url));',
@@ -165,7 +171,7 @@ console.log("  cd into it, then `bun run dev`.");
 
 // ---------------------------------------------------------------------------
 
-function rewrite(path, replacements) {
+function rewrite(path: string, replacements: [RegExp, string][]): void {
   let source = readFileSync(path, "utf8");
   for (const [pattern, replacement] of replacements) {
     if (!pattern.test(source)) {
@@ -178,8 +184,8 @@ function rewrite(path, replacements) {
 }
 
 /** rewrite() over every text file of the copy (configs and src/, never deps). */
-function rewriteAll(dir, replacements) {
-  const textExtensions = /\.(ts|mjs|js|json|svelte|css|astro|html)$/;
+function rewriteAll(dir: string, replacements: [RegExp, string][]): void {
+  const textExtensions: RegExp = /\.(ts|mjs|js|json|svelte|css|astro|html)$/;
   for (const name of readdirSync(dir)) {
     if (name === "node_modules" || name.startsWith(".")) continue;
     const path = join(dir, name);
@@ -188,11 +194,11 @@ function rewriteAll(dir, replacements) {
   }
 }
 
-function writeJsonFile(path, value) {
+function writeJsonFile(path: string, value: unknown): void {
   writeFileSync(path, JSON.stringify(value, null, "\t") + "\n");
 }
 
-function run(command, argv, cwd) {
+function run(command: string, argv: string[], cwd: string): void {
   const result = spawnSync(command, argv, { cwd, stdio: "inherit" });
   if (result.status !== 0) {
     console.error(`\`${command} ${argv.join(" ")}\` failed in ${cwd}`);

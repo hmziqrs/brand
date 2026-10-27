@@ -15,13 +15,13 @@ import { dirname, join } from "node:path"
 import { bundle } from "@remotion/bundler"
 import { renderMedia, renderStill, selectComposition } from "@remotion/renderer"
 
-import { digest, faststarted, fileEntry, flag, inputs, rendererVersions, root, sha256, writeManifest } from "./manifest.mjs"
-import { webpackOverride } from "./webpack.mjs"
+import { digest, faststarted, fileEntry, flag, inputs, rendererVersions, root, sha256, writeManifest } from "./manifest.ts"
+import { webpackOverride } from "./webpack.ts"
 
 const entryPoint = join(root, "assets/video/source/src/index.ts")
 const exportsDir = join(root, "assets/video/exports")
 const fps = 30
-const settings = { fps, width: 1920, height: 1080, codec: "h264", crf: 16, x264Preset: "slow", colorSpace: "bt709", compositions: {} }
+const settings = { fps, width: 1920, height: 1080, codec: "h264", crf: 16, x264Preset: "slow", colorSpace: "bt709", compositions: {} as Record<string, { durationInFrames: number; fps: number; width: number; height: number }> }
 
 const serveUrl = await bundle({ entryPoint, webpackOverride, onProgress: () => {} })
 const files = []
@@ -45,7 +45,7 @@ if (flag("still")) {
   console.log(`rendered ${out} (${buffer.length} bytes, ${contentType})`)
 } else {
   const compositions = ["intro", "outro"]
-  const wanted = flag("only") ? [flag("only")] : compositions
+  const wanted = (flag("only") ? [flag("only")] : compositions) as string[]
   for (const id of wanted) {
     if (!compositions.includes(id)) throw new Error(`No composition ${id}. Known: ${compositions.join(", ")}`)
   }

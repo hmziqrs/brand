@@ -1,7 +1,7 @@
 {
   "target": "logos",
   "command": "bun run render-assets --only logos",
-  "digest": "ce5c8abec6043c5f0b6565abc70efc87d3137b8bebf7ecc522a3420b2e5433a8",
+  "digest": "cd725f6c6246b9a3c377c6e0edd31f1c4dd7f1e46e59cb8a001d490931f219a8",
   "renderers": {
     "@resvg/resvg-js": "2.6.2",
     "opentype.js": "2.0.0",
@@ -94,7 +94,7 @@
     },
     {
       "path": "packages/brand-core/src/color.ts",
-      "sha256": "10daad0a78e06212244343dcd7ddc520616b8d0dc19b1696a9196bb71fa0c845"
+      "sha256": "5be3d55566df5747a4743765198780ff833f1015fffa8b8af76bdd43a3004936"
     },
     {
       "path": "packages/brand-core/src/family.ts",
@@ -157,12 +157,12 @@
       "sha256": "70568a10f0ddf35d4164d763081ddb3f548691ece3a46d0c148af66b6d52ed48"
     },
     {
-      "path": "scripts/assets-lib.mjs",
-      "sha256": "cc21a84cf888f3b4ad3514dffad6c3e5ef3a4b63b52f3532e5afa50d474ae3bc"
+      "path": "scripts/assets-lib.ts",
+      "sha256": "ca8b548545e07438f349b141cf3de144729088a520a2dc13c86a9dc2c34deac5"
     },
     {
-      "path": "scripts/render-assets.mjs",
-      "sha256": "cf22c6bc98b88a36cba1b490605df6094102af74769ad2eb8daa09e400d71de9"
+      "path": "scripts/render-assets.ts",
+      "sha256": "f199d274c6caaed090f795446c11f18a918d8ae24a13a4f0b7b912c743d53f77"
     }
   ],
   "files": [

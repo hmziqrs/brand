@@ -19,7 +19,7 @@ rulebook; `three` is an optional peer for the 3D scenes.
 
 The export map points at `dist/`, built by `bun run --filter @hmziq/brand-core
 build` (tsup): the published package has to load in plain Node — a site's
-`vite.config.ts` or `astro.config.mjs` imports the Markdown plugins there,
+`vite.config.ts` or `astro.config.ts` imports the Markdown plugins there,
 and Node refuses to strip types from anything under `node_modules`. The
 workspace package resolves the same way, so rebuild after editing `src/`
 (root `bun run check` and `bun run build` both do it first).

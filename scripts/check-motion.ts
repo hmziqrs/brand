@@ -31,7 +31,9 @@ const movement = /^-?(translate|scale|rotate)-/
 const interactionPseudo = /:(hover|active|focus|focus-visible|focus-within)\b/i
 const cssMovement = /transform\s*:\s*[^;}]*\b(?:translate|scale|rotate)/i
 
-function* files(dir) {
+type Token = { utility: string; variants: string[] }
+
+function* files(dir: string): Generator<string> {
   for (const name of readdirSync(dir)) {
     const path = join(dir, name)
     if (statSync(path).isDirectory()) yield* files(path)
@@ -49,16 +51,16 @@ if (missing.length) {
   process.exit(1)
 }
 
-const problems = []
-const tokens = (line) =>
+const problems: string[] = []
+const tokens = (line: string): Token[] =>
   line
     .split(/[\s"'`{}(),]+/)
     .map((token) => token.split(":"))
     .filter((parts) => parts.length >= 2)
-    .map((parts) => ({ utility: parts.at(-1), variants: parts.slice(0, -1) }))
+    .map((parts): Token => ({ utility: parts.at(-1)!, variants: parts.slice(0, -1) }))
 
-const scan = (file) => {
-  const found = []
+const scan = (file: string): string[] => {
+  const found: string[] = []
   readFileSync(file, "utf8").split("\n").forEach((line, i) => {
     for (const { utility, variants } of tokens(line)) {
       if (movement.test(utility) && variants.some((v) => interaction.test(v))) {
@@ -72,16 +74,16 @@ const scan = (file) => {
 // CSS in `<style>` blocks (the whole file when it is .css): a rule whose
 // selector sits under a hover/active/focus pseudo-class must not move things
 // with transform — the stylesheet spelling of the same brand rule.
-const scanCss = (file) => {
+const scanCss = (file: string): string[] => {
   const source = readFileSync(file, "utf8")
   if (/\.(tsx?|ts)$/.test(file)) return []
-  const regions = file.endsWith(".css")
+  const regions: [number, number][] = file.endsWith(".css")
     ? [[0, source.length]]
     : [...source.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/gi)].map((m) => [
         m.index + m[0].indexOf(m[1]),
         m.index + m[0].length,
       ])
-  const found = []
+  const found: string[] = []
   for (const [start, end] of regions) {
     const css = source.slice(start, end)
     for (const rule of css.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
@@ -95,7 +97,7 @@ const scanCss = (file) => {
   return found
 }
 
-const check = (file) => [...scan(file), ...scanCss(file)]
+const check = (file: string): string[] => [...scan(file), ...scanCss(file)]
 
 for (const root of roots.filter((path) => !missing.includes(path))) {
   for (const file of files(root)) {

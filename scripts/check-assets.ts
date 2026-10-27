@@ -23,19 +23,29 @@ import { existsSync, mkdtempSync, readFileSync, rmSync } from "node:fs"
 import { tmpdir } from "node:os"
 import { join } from "node:path"
 
-import { dimensions, exportFiles, exportsDir, manifestPath, publicCopies, rendererVersions, root, targetDigest, targets } from "./assets-lib.mjs"
+import { dimensions, exportFiles, exportsDir, manifestPath, publicCopies, rendererVersions, root, targetDigest, targets } from "./assets-lib.ts"
 
-const sha256 = (bytes) => createHash("sha256").update(bytes).digest("hex")
-const problems = []
+type AssetTarget = { id: string; dir: string; settings: unknown }
+type Manifest = {
+  digest: string
+  renderers: Record<string, string>
+  inputs: { path: string; sha256: string }[]
+  files: { path: string; sha256: string; bytes: number; width?: number; height?: number }[]
+}
+type InputDigest = { inputs: { path: string; sha256: string }[]; sha256: string }
+type PublicCopy = { id: string; from: string; to: string; files: string[] }
+
+const sha256 = (bytes: Uint8Array | string): string => createHash("sha256").update(bytes).digest("hex")
+const problems: string[] = []
 const bytesMode = process.argv.includes("--bytes")
 
 /** The --bytes pass: render the target into a temp folder and compare the
  *  fresh bytes with the committed exports. Never writes in the repo. */
-function bytesProblems(target, dir, fix) {
-  const found = []
+function bytesProblems(target: AssetTarget, dir: string, fix: string): string[] {
+  const found: string[] = []
   const tmp = mkdtempSync(join(tmpdir(), "check-assets-"))
   try {
-    const run = spawnSync(process.execPath, [join(root, "scripts/render-assets.mjs"), "--only", target.id, "--emit", tmp], { encoding: "utf8" })
+    const run = spawnSync(process.execPath, [join(root, "scripts/render-assets.ts"), "--only", target.id, "--emit", tmp], { encoding: "utf8" })
     if (run.status !== 0) {
       found.push(`${target.id}: the byte-compare re-render failed — ${run.stderr.trim() || run.stdout.trim() || "no output"}`)
       return found
@@ -57,7 +67,7 @@ function bytesProblems(target, dir, fix) {
   }
 }
 
-for (const target of targets) {
+for (const target of targets as AssetTarget[]) {
   const fix = `run bun run render-assets --only ${target.id}`
   const dir = exportsDir(target)
 
@@ -65,9 +75,9 @@ for (const target of targets) {
     problems.push(`${target.id}: no manifest.json in ${join(root, target.dir, "exports")} — ${fix}`)
     continue
   }
-  const manifest = JSON.parse(readFileSync(manifestPath(target), "utf8"))
+  const manifest: Manifest = JSON.parse(readFileSync(manifestPath(target), "utf8"))
 
-  let digest = null
+  let digest: InputDigest | null = null
   try {
     digest = targetDigest(target)
   } catch (error) {
@@ -123,7 +133,7 @@ for (const target of targets) {
 
 // The public copies (assets.md, "Getting assets into sites and apps"): each
 // copied file must exist and match, byte for byte, the export it came from.
-for (const copy of publicCopies) {
+for (const copy of publicCopies as PublicCopy[]) {
   const fix = `run bun run render-assets`
   for (const file of copy.files) {
     const from = join(root, copy.from, file)

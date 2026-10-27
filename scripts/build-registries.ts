@@ -21,13 +21,22 @@ import { cpSync, mkdirSync, readdirSync, readFileSync, rmSync } from "node:fs";
 import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { join } from "node:path";
-import { readJson, writeJson } from "./registry-lib.mjs";
+import { readJson, writeJson } from "./registry-lib.ts";
 
 const root = fileURLToPath(new URL("..", import.meta.url));
 const outArg = process.argv.indexOf("--out");
 const out = outArg > -1 ? resolveArg(outArg) : join(root, "dist/registries");
 
-function resolveArg(index) {
+type AstroItem = {
+  name: string;
+  title: string;
+  type: string;
+  dependencies: string[];
+  registryDependencies: string[];
+  files: { path: string }[];
+};
+
+function resolveArg(index: number): string {
   const value = process.argv[index + 1];
   return value?.startsWith("/") ? value : join(root, value);
 }
@@ -58,7 +67,7 @@ cpSync(join(svelteOut, "index.json"), join(svelteOut, "styles/vega/index.json"))
 // import — `dependencies`, which already carry those — and never the
 // authoring tools, so the injected block is dropped.
 for (const name of readdirSync(svelteOut).filter((f) => f.endsWith(".json") && f !== "index.json")) {
-  const item = readJson(join(svelteOut, name));
+  const item = readJson<{ devDependencies?: Record<string, string> }>(join(svelteOut, name));
   if (item.devDependencies) {
     delete item.devDependencies;
     writeJson(join(svelteOut, name), item);
@@ -69,7 +78,7 @@ for (const name of readdirSync(svelteOut).filter((f) => f.endsWith(".json") && f
 const astroOut = join(out, "r/astro");
 mkdirSync(astroOut, { recursive: true });
 const astroKit = join(root, "packages/brand-astro");
-const astroRegistry = readJson(join(astroKit, "registry.json"));
+const astroRegistry = readJson<{ items: AstroItem[] }>(join(astroKit, "registry.json"));
 for (const item of astroRegistry.items) {
   // `path` stays on every file: the shadcn CLI's served-item schema requires
   // it, even though only `target` and `content` matter over HTTP.
@@ -91,7 +100,7 @@ writeJson(
 // --- /theme.css ------------------------------------------------------------
 cpSync(join(root, "packages/brand-core/theme.css"), join(out, "theme.css"));
 
-const coreVersion = readJson(join(root, "packages/brand-core/package.json")).version;
+const coreVersion: string = readJson<{ version: string }>(join(root, "packages/brand-core/package.json")).version;
 console.log(`Registries built into ${out} (${astroRegistry.items.length} Astro items).`);
 if (coreVersion === "0.0.0") {
   console.log(

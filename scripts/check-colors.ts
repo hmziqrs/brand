@@ -28,20 +28,20 @@ const roots = [
 // them their own way). The brand files around them do not. The one exception
 // is the Svelte kit's Combobox: shadcn-svelte ships none, so ui/combobox is
 // this repo's own code and is scanned like any other brand file.
-const exempt = (file) =>
+const exempt = (file: string): boolean =>
   file.startsWith(join(root, "packages/brand-astro/src/starwind")) ||
   (file.startsWith(join(root, "packages/brand-svelte/src/lib/ui")) &&
     !file.startsWith(join(root, "packages/brand-svelte/src/lib/ui/combobox")))
 const property = "(?:bg|text|border(?:-[xytrbls])?|ring|ring-offset|outline|fill|stroke|from|via|to|decoration|divide|shadow|accent|caret|placeholder)"
 const tailwindHues = "slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose"
-const rules = [
+const rules: [RegExp, string][] = [
   [new RegExp(`\\b${property}-(?:${tailwindHues})-\\d{2,3}\\b`), "Tailwind's numbered palette; use a theme color (text-green, bg-muted …)"],
   [new RegExp(`\\b${property}-\\[(?:#|rgb|hsl|oklch|oklab|lab|lch|color-mix)`), "a color typed in by hand; use a theme color"],
   [new RegExp(`\\b${property}-(?:black|white)\\b`), "black or white; use foreground / background"],
   [/(?<!href=)["'`\s(:]#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})\b(?![\w-])/, "a hex color; use a theme color"],
 ]
 
-function* files(dir) {
+function* files(dir: string): Generator<string> {
   for (const name of readdirSync(dir)) {
     const path = join(dir, name)
     if (statSync(path).isDirectory()) yield* files(path)
@@ -59,7 +59,7 @@ if (missing.length) {
   process.exit(1)
 }
 
-const problems = []
+const problems: string[] = []
 for (const root of roots.filter((path) => !missing.includes(path))) {
   for (const file of files(root)) {
     if (exempt(file)) continue
@@ -75,8 +75,8 @@ for (const root of roots.filter((path) => !missing.includes(path))) {
 // Self-test: the example files prove the rules still bite on .astro and
 // .svelte files. The passing ones must stay clean and the failing ones must
 // be caught; the scan roots never include scripts/examples.
-const scan = (file) => {
-  const found = []
+const scan = (file: string): string[] => {
+  const found: string[] = []
   readFileSync(file, "utf8").split("\n").forEach((line, i) => {
     for (const [pattern, why] of rules) {
       const m = line.match(pattern)

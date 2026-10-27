@@ -10,9 +10,11 @@
 // have resolved colors and outlined text). The PNG is rasterized from that
 // same drawing, so the two files can't disagree.
 //
-// Pure template code: the engine (scripts/assets-lib.mjs) hands over the
+// Pure template code: the engine (scripts/assets-lib.ts) hands over the
 // resolver, the theme, the renderer and the outlined fonts, and gets the
 // files back.
+
+import type { Color, Rgb, Theme, Tokens } from "../../../packages/brand-core/src/color.ts"
 
 export const settings = {
   width: 1200,
@@ -28,11 +30,24 @@ const file = {
   sans600: "onest-latin-600-normal.ttf",
   mono400: "jetbrains-mono-latin-400-normal.ttf",
 }
+type FontKey = keyof typeof file
+
+interface OutlinedFont {
+  getPath(text: string, x: number, y: number, size: number, options: { kerning: boolean }): {
+    getBoundingBox(): { x1: number; y1: number; x2: number; y2: number }
+    toPathData(decimals: number): string
+  }
+}
+
+type Resolver = (tokens: Tokens, name: string) => Color
+type Paint = (c: Color, as?: "fill" | "stroke") => string
+type PanelBox = { x: number; y: number; w: number; h: number; label: string }
+type PanelDeps = { color: Resolver; svgPaint: Paint; toHex: (rgb: Rgb) => string; outlineFonts: Record<string, OutlinedFont> }
 
 /** One context panel: a page mode, or `.band-orange` inside one. */
-function panel(ctx, { x, y, w, h, label }, { color, svgPaint, toHex, outlineFonts }) {
-  const paint = (name, as = "fill") => svgPaint(color(ctx, name), as)
-  const text = (font, str, size, tx, y2, anchor = "start") => {
+function panel(ctx: Tokens, { x, y, w, h, label }: PanelBox, { color, svgPaint, toHex, outlineFonts }: PanelDeps) {
+  const paint = (name: string, as: "fill" | "stroke" = "fill") => svgPaint(color(ctx, name), as)
+  const text = (font: FontKey, str: string, size: number, tx: number, y2: number, anchor: "start" | "end" = "start") => {
     const path = outlineFonts[file[font]].getPath(str, 0, 0, size, { kerning: true })
     const bb = path.getBoundingBox()
     // The ink's edge lands on the anchor: flush left for "start", flush
@@ -40,7 +55,7 @@ function panel(ctx, { x, y, w, h, label }, { color, svgPaint, toHex, outlineFont
     const left = tx - (anchor === "end" ? bb.x2 : bb.x1)
     return `<path transform="translate(${left.toFixed(2)} ${y2.toFixed(2)})" d="${path.toPathData(2)}"`
   }
-  const out = []
+  const out: string[] = []
 
   out.push(`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="14" ${paint("background")} ${paint("border", "stroke")} stroke-width="1"/>`)
   out.push(text("sans500", label, 16, x + 20, y + 32) + ` ${paint("foreground")}/>`)
@@ -49,7 +64,7 @@ function panel(ctx, { x, y, w, h, label }, { color, svgPaint, toHex, outlineFont
 
   // Swatches, each painted straight from its token.
   const swatches = ["primary", "mark-square", "foreground", "muted-foreground", "card", "orange"]
-  swatches.forEach((name, i) => {
+  swatches.forEach((name: string, i: number) => {
     const sx = x + 20 + i * 42
     out.push(`<rect x="${sx}" y="${y + 48}" width="30" height="30" rx="6" ${paint(name)} ${paint("border", "stroke")} stroke-width="1"/>`)
   })
@@ -73,14 +88,25 @@ function panel(ctx, { x, y, w, h, label }, { color, svgPaint, toHex, outlineFont
   return out.join("\n")
 }
 
-export function render({ theme, color, inBand, svgPaint, toHex, Resvg, fontFiles, outlineFonts }) {
+type RenderDeps = {
+  theme: Theme
+  color: Resolver
+  inBand: (theme: Theme, mode: "dark" | "light", band: string) => Tokens
+  svgPaint: Paint
+  toHex: (rgb: Rgb) => string
+  Resvg: new (svg: string, options: unknown) => { render(): { asPng(): Buffer } }
+  fontFiles: string[]
+  outlineFonts: Record<string, OutlinedFont>
+}
+
+export function render({ theme, color, inBand, svgPaint, toHex, Resvg, fontFiles, outlineFonts }: RenderDeps): Record<string, string | Buffer> {
   const { width: W, height: H } = settings
   const dark = theme.dark
   const light = theme.light
   const panelW = 568
   const panelH = 268
-  const deps = { color, svgPaint, toHex, outlineFonts }
-  const head = (font, str, size, x, y) => {
+  const deps: PanelDeps = { color, svgPaint, toHex, outlineFonts }
+  const head = (font: FontKey, str: string, size: number, x: number, y: number) => {
     const path = outlineFonts[file[font]].getPath(str, 0, 0, size, { kerning: true })
     return `<path transform="translate(${(x - path.getBoundingBox().x1).toFixed(2)} ${y.toFixed(2)})" d="${path.toPathData(2)}"`
   }

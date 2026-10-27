@@ -1,6 +1,6 @@
 /*
  * Reads theme.css and measures contrast, so the numbers in the docs and the
- * CI check (scripts/check-contrast.mjs) always come from the real tokens.
+ * CI check (scripts/check-contrast.ts) always come from the real tokens.
  * Plain TypeScript with no imports: Node runs it directly, Vite bundles it.
  */
 

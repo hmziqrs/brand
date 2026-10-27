@@ -13,8 +13,8 @@ When driving a browser, also read and follow `/Users/hmziq/.zcode/skills/agent-b
 
 ## Bun only (hard rule)
 
-- Use `bun` for everything in this repo: install (`bun install`), add a dependency (`bun add`), run a script (`bun run <script>`), run a file (`bun scripts/x.mjs`), run a binary (`bunx`), and filter workspaces (`bun run --filter <pkg> <script>`).
-- Never use any package manager besides `bun`, and never run `node` here. Map them: `npx` → `bunx`, `node file.mjs` → `bun file.mjs`.
+- Use `bun` for everything in this repo: install (`bun install`), add a dependency (`bun add`), run a script (`bun run <script>`), run a file (`bun scripts/x.ts`), run a binary (`bunx`), and filter workspaces (`bun run --filter <pkg> <script>`).
+- Never use any package manager besides `bun`, and never run `node` here. Map them: `npx` → `bunx`, `node file.ts` → `bun file.ts`.
 - The only lockfile is `bun.lock`. Do not create or update any other lockfile.
 - Gates run through bun too: `bun run check`, `bun run check:parity`, and so on.
 
@@ -27,7 +27,7 @@ When driving a browser, also read and follow `/Users/hmziq/.zcode/skills/agent-b
 
 - Svelte 5 runes; stock ui comes from the shadcn-svelte CLI (Bits UI); lucide class on icons; `motion-reduce` on animations; the kit is never published (registry only).
 - `packages/brand-svelte/src/lib/ui/button/button.svelte` must keep both brand changes: `data-variant` present, no `translate-y-px`. The CLI can revert them — re-verify after any CLI add.
-- Every Svelte story file must belong to a roster entry in `scripts/pieces.json` (`scripts/check-parity.mjs` fails on any story outside the roster). Read `scripts/pieces.schema.json` before editing the roster.
+- Every Svelte story file must belong to a roster entry in `scripts/pieces.json` (`scripts/check-parity.ts` fails on any story outside the roster). Read `scripts/pieces.schema.json` before editing the roster.
 - Kit rules: `docs/kits.md` and `packages/brand-svelte/README.md`. The port behavior contract (shared localStorage keys `hmziq-lattice-tweaks` / `hmziq-ring-tweaks` / `hmziq-logo-tweaks`, paste clamping, merge-only paste semantics, `CSS.supports('color', …)` validation, browser-guarded canvas probes, `URL.createObjectURL` downloads, pause/seed controls) is 1:1 with what the old lab shipped — keep it that way.
 
 ## Verification

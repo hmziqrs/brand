@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "typecheck": "astro check && bun -e \"fs.rmSync('.astro', { recursive: true, force: true })\"",
-    "check:a11y": "bun scripts/axe.mjs"
+    "check:a11y": "bun scripts/axe.ts"
   },
   "dependencies": {
     "@hmziq/brand-core": "workspace:*",

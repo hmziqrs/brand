@@ -2,19 +2,19 @@
 //   theme.css  an exact copy of the file
 //   palette    the colors table (hex values in both modes)
 //   contrast   the measured contrast table
-//   bun scripts/brand-kit.mjs          rewrite those blocks in BRAND.md
-//   bun scripts/brand-kit.mjs --check  fail if any block is out of date
+//   bun scripts/brand-kit.ts          rewrite those blocks in BRAND.md
+//   bun scripts/brand-kit.ts --check  fail if any block is out of date
 import { readFileSync, writeFileSync } from "node:fs"
 import { join } from "node:path"
 import { fileURLToPath } from "node:url"
-import { color, hues, hueUses, measure, readTheme, toHex } from "../packages/brand-core/src/color.ts"
+import { color, hues, hueUses, measure, readTheme, toHex, type Mode, type Theme } from "../packages/brand-core/src/color.ts"
 
 const root = fileURLToPath(new URL("..", import.meta.url))
 const css = readFileSync(join(root, "packages/brand-core/theme.css"), "utf8")
-const theme = readTheme(css)
-const hex = (mode, name) => toHex(color(theme[mode], name).rgb)
+const theme: Theme = readTheme(css)
+const hex = (mode: Mode, name: string): string => toHex(color(theme[mode], name).rgb)
 
-const blocks = {
+const blocks: Record<string, string> = {
   "theme.css": "```css\n" + css.trimEnd() + "\n```",
   palette: [
     "| Color | Dark mode | Light mode | Role | For |",

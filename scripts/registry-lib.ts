@@ -1,9 +1,9 @@
 // kits.md step 3: the shared engine behind both kit registries.
 //
-// `generate-registries.mjs` uses it to write the two authoring files
+// `generate-registries.ts` uses it to write the two authoring files
 // (`packages/brand-svelte/registry.json`, shadcn-svelte's format, and
 // `packages/brand-astro/registry.json`, the shadcn CLI's file-item format —
-// the install method step 2's test picked). `build-registries.mjs` uses the
+// the install method step 2's test picked). `build-registries.ts` uses the
 // same model to lay out the Pages deploy.
 //
 // The roster (scripts/pieces.json) is the source of truth for pieces: one
@@ -22,26 +22,43 @@ import { join, dirname, relative, resolve } from "node:path";
 
 export const NOT_YET = "not yet";
 
+export type Seed = { name: string; files: string[] };
+export type Versions = Record<string, string | undefined>;
+export type GraphEntry = { kitImports: Set<string>; externals: Set<string> };
+export type Graph = Map<string, GraphEntry>;
+export type Item = { name: string; files: string[]; registryDependencies: string[]; dependencies: string[] };
+export type BuildConfig = {
+  srcRoot: string;
+  codeExtensions: string[];
+  exclude: (file: string) => unknown;
+  versions: Versions;
+  catchAllName: (file: string) => string;
+  baseSeeds: Seed[];
+  pieceSeeds: Seed[];
+  stockSeeds: Seed[];
+  finalSeeds?: Seed[];
+};
+
 /** kebab-case, the registry item name for a piece. */
-export const kebab = (name) =>
+export const kebab = (name: string): string =>
   name
     .replace(/([a-z0-9])([A-Z])/g, "$1-$2")
     .replace(/[\s_]+/g, "-")
     .toLowerCase();
 
-export function readJson(path) {
+export function readJson<T>(path: string): T {
   return JSON.parse(readFileSync(path, "utf8"));
 }
 
-export function writeJson(path, value) {
+export function writeJson(path: string, value: unknown): void {
   writeFileSync(path, JSON.stringify(value, null, "\t") + "\n");
 }
 
-export const rel = (root, file) => relative(root, file).split("\\").join("/");
-export const abs = (root, relPath) => join(root, ...relPath.split("/"));
+export const rel = (root: string, file: string): string => relative(root, file).split("\\").join("/");
+export const abs = (root: string, relPath: string): string => join(root, ...relPath.split("/"));
 
 /** Every file under `dir`, recursively, sorted for deterministic output. */
-export function walkFiles(dir, out = []) {
+export function walkFiles(dir: string, out: string[] = []): string[] {
   if (!existsSync(dir)) return out;
   for (const name of readdirSync(dir).sort()) {
     const path = join(dir, name);
@@ -52,7 +69,7 @@ export function walkFiles(dir, out = []) {
 }
 
 /** Strips block comments so doc-comment `@import` lines are not read as imports. */
-export function stripBlockComments(source) {
+export function stripBlockComments(source: string): string {
   return source.replace(/\/\*[\s\S]*?\*\//g, "");
 }
 
@@ -60,23 +77,23 @@ export function stripBlockComments(source) {
  * Blanks template-literal text (comments and quoted strings are kept verbatim)
  * so import-looking code samples held in literals are not read as imports.
  */
-export function blankTemplateLiterals(source) {
+export function blankTemplateLiterals(source: string): string {
   let out = "";
   let i = 0;
-  const keepVerbatim = (close) => {
+  const keepVerbatim = (close: string): void => {
     const at = source.indexOf(close, i);
     const stop = at === -1 ? source.length : at + close.length;
     out += source.slice(i, stop);
     i = stop;
   };
-  const keepString = (quote) => {
+  const keepString = (quote: string): void => {
     let j = i + 1;
     while (j < source.length && source[j] !== quote) j += source[j] === "\\" ? 2 : 1;
     const stop = Math.min(j + 1, source.length);
     out += source.slice(i, stop);
     i = stop;
   };
-  const interpolationEnd = () => {
+  const interpolationEnd = (): number => {
     let depth = 0;
     let j = i;
     while (j < source.length) {
@@ -121,8 +138,8 @@ export function blankTemplateLiterals(source) {
 }
 
 /** Resolves an import specifier to a kit source file, or null when external. */
-export function resolveImport(spec, fromFile, srcRoot) {
-  let base;
+export function resolveImport(spec: string, fromFile: string, srcRoot: string): string | null {
+  let base: string;
   if (spec.startsWith("$brand/")) base = join(srcRoot, spec.slice("$brand/".length));
   else if (spec.startsWith(".")) base = resolve(dirname(fromFile), spec);
   else return null;
@@ -149,8 +166,8 @@ export function resolveImport(spec, fromFile, srcRoot) {
  * The import graph of a kit's source tree.
  * graph: Map<absPath, { kitImports: Set<absPath>, externals: Set<string> }>
  */
-export function buildGraph(srcRoot, { codeExtensions, exclude = () => false }) {
-  const graph = new Map();
+export function buildGraph(srcRoot: string, { codeExtensions, exclude = () => false }: { codeExtensions: string[]; exclude?: (file: string) => unknown }): Graph {
+  const graph: Graph = new Map();
   for (const file of walkFiles(srcRoot)) {
     if (!codeExtensions.some((e) => file.endsWith(e))) continue;
     if (exclude(file)) continue;
@@ -173,7 +190,7 @@ export function buildGraph(srcRoot, { codeExtensions, exclude = () => false }) {
 }
 
 // Framework builtins an app already has; never listed as item dependencies.
-const SKIP_EXTERNALS = new Set([
+const SKIP_EXTERNALS: Set<string> = new Set([
   "svelte",
   "svelte/elements",
   "svelte/reactivity",
@@ -191,12 +208,12 @@ const SKIP_EXTERNALS = new Set([
  * `versions` comes from the kit's package.json (deps + devDeps) plus
  * `core` for @hmziq/brand-core. An unknown version is an error, not a guess.
  */
-export function npmDependencies(externals, versions) {
-  const scoped = (spec, name) => ({ spec, name, version: versions[name] });
-  const deps = new Set();
+export function npmDependencies(externals: Set<string>, versions: Versions): string[] {
+  const scoped = (spec: string, name: string): { spec: string; name: string; version: string | undefined } => ({ spec, name, version: versions[name] });
+  const deps = new Set<string>();
   for (const spec of externals) {
     if (SKIP_EXTERNALS.has(spec) || spec.startsWith("svelte/")) continue;
-    let name;
+    let name: string;
     if (spec.startsWith("@hmziq/brand-core")) {
       deps.add(`@hmziq/brand-core@${versions.core}`);
       // The scenes module is core's only three.js user, and it is core's
@@ -244,11 +261,11 @@ export function npmDependencies(externals, versions) {
  * Files no seed reaches are claimed by a catch-all item per folder
  * (`catchAllName(file)` names those).
  */
-export function claimFiles(graph, seeds, catchAllName) {
-  const owner = new Map(); // absPath -> item name
-  const items = new Map(); // item name -> Set<absPath>
+export function claimFiles(graph: Graph, seeds: Seed[], catchAllName: (file: string) => string): { owner: Map<string, string>; items: Map<string, Set<string>> } {
+  const owner = new Map<string, string>(); // absPath -> item name
+  const items = new Map<string, Set<string>>(); // item name -> Set<absPath>
 
-  const claim = (name, file) => {
+  const claim = (name: string, file: string): boolean => {
     if (owner.has(file)) return false;
     owner.set(file, name);
     if (!items.has(name)) items.set(name, new Set());
@@ -267,7 +284,7 @@ export function claimFiles(graph, seeds, catchAllName) {
     }
   }
 
-  const catchAlls = new Map();
+  const catchAlls = new Map<string, string[]>();
   for (const file of graph.keys()) {
     if (owner.has(file)) continue;
     const name = catchAllName(file);
@@ -285,22 +302,22 @@ export function claimFiles(graph, seeds, catchAllName) {
  *   baseSeeds, pieceSeeds, stockSeeds, finalSeeds — claiming order; the
  *   roster's pieces come before stock so a piece always wins its own file.
  */
-export function buildItems(config) {
+export function buildItems(config: BuildConfig): Item[] {
   const graph = buildGraph(config.srcRoot, config);
   const seeds = [...config.baseSeeds, ...config.pieceSeeds, ...config.stockSeeds, ...(config.finalSeeds ?? [])];
   const { owner, items } = claimFiles(graph, seeds, config.catchAllName);
 
-  const built = [];
+  const built: Item[] = [];
   for (const [name, files] of items) {
     const sorted = [...files].sort();
-    const registryDependencies = new Set();
+    const registryDependencies = new Set<string>();
     for (const file of sorted) {
       for (const imported of graph.get(file)?.kitImports ?? []) {
         const target = owner.get(imported);
         if (target && target !== name) registryDependencies.add(target);
       }
     }
-    const externals = new Set();
+    const externals = new Set<string>();
     for (const file of sorted) for (const e of graph.get(file)?.externals ?? []) externals.add(e);
     built.push({
       name,

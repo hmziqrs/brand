@@ -14,9 +14,9 @@ import { heroPicture, ringFrames } from "@hmziq/brand-core/motion/frame"
 import { bundle } from "@remotion/bundler"
 import { renderMedia, selectComposition } from "@remotion/renderer"
 
-import { loopSeed, loops } from "../src/loops.ts"
-import { digest, fileEntry, flag, inputs, rendererVersions, root, writeManifest } from "./manifest.mjs"
-import { webpackOverride } from "./webpack.mjs"
+import { loopSeed, loops, type Loop } from "../src/loops.ts"
+import { digest, fileEntry, flag, inputs, rendererVersions, root, writeManifest } from "./manifest.ts"
+import { webpackOverride } from "./webpack.ts"
 
 const entryPoint = join(root, "assets/video/source/src/index.ts")
 const exportsDir = join(root, "assets/motion/exports")
@@ -29,16 +29,16 @@ const fps = 30
  *  loop whose movement finished early rests on its opening frame until the
  *  cut, which shows as a freeze. A fixed frame count alone doesn't prove
  *  that, so it is checked here, before any frame is rendered. */
-function seam(loop) {
+function seam(loop: Loop) {
   const picture = heroPicture(loopSeed)
   const tokens = readTheme(readFileSync(join(root, "packages/brand-core/theme.css"), "utf8")).dark
   const palette = { primary: color(tokens, "primary"), line: color(tokens, "line"), foreground: color(tokens, "foreground") }
-  const at = (t) => JSON.stringify(ringFrames(picture.list, loop.motion, loopSeed, palette, t))
+  const at = (t: number) => JSON.stringify(ringFrames(picture.list, loop.motion, loopSeed, palette, t))
   const frames = Math.round(loop.period * fps)
   return { wraps: at(0) === at(loop.period), live: at(0) !== at((frames - 1) / fps) }
 }
 
-const settings = { fps, width: 1920, height: 1080, codec: "vp9", gif: { id: "ripple-turn-640", width: 640, height: 360, fps: 15 }, loops: {} }
+const settings = { fps, width: 1920, height: 1080, codec: "vp9", gif: { id: "ripple-turn-640", width: 640, height: 360, fps: 15 }, loops: {} as Record<string, { period: number; frames: number }> }
 for (const loop of loops) {
   const { wraps, live } = seam(loop)
   if (!wraps) throw new Error(`The ${loop.preset} loop does not land on its first frame at ${loop.period}s — fix its timers in src/loops.ts`)

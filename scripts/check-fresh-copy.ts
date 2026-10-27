@@ -14,13 +14,15 @@ import { mkdtempSync, rmSync, cpSync } from "node:fs";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
 import { fileURLToPath } from "node:url";
-import { readJson } from "./registry-lib.mjs";
+import { readJson } from "./registry-lib.ts";
 
 const root = fileURLToPath(new URL("..", import.meta.url));
 const DEFAULT_PAGES = "https://hmziqrs.github.io/brand";
 
+type Server = { child: { kill(): void }; port: number };
+
 const args = process.argv.slice(2);
-const flag = (name) => {
+const flag = (name: string): string | undefined => {
   const i = args.indexOf(`--${name}`);
   return i > -1 ? args[i + 1] : undefined;
 };
@@ -33,13 +35,13 @@ const keep = args.includes("--keep");
 
 // 1. Build the registries the copy installs from.
 console.log("== Building the registries");
-run("bun", [join(root, "scripts/build-registries.mjs")], root);
+run("bun", [join(root, "scripts/build-registries.ts")], root);
 
 // 2. Work out where core comes from.
-const coreVersion = readJson(join(root, "packages/brand-core/package.json")).version;
-let coreSpec = flag("core");
-let coreNote;
-let serverArgs = [];
+const coreVersion: string = readJson(join(root, "packages/brand-core/package.json")).version;
+let coreSpec: string | undefined = flag("core");
+let coreNote: string;
+let serverArgs: string[] = [];
 if (coreSpec) {
   coreNote = `forced to ${coreSpec}`;
 } else if (coreVersion !== "0.0.0" && isOnNpm(coreVersion)) {
@@ -60,7 +62,7 @@ console.log(`== @hmziq/brand-core: ${coreNote}`);
 
 // 3. Serve the registries from a separate process — new-project's installs
 //    run with spawnSync, which would freeze a server in this process.
-const { child: serverChild, port } = await spawnServer(serverArgs);
+const { child: serverChild, port }: Server = await spawnServer(serverArgs);
 const registry = `http://127.0.0.1:${port}`;
 console.log(`== Serving dist/registries at ${registry}`);
 
@@ -69,7 +71,7 @@ const workDir = mkdtempSync(join(tmpdir(), `brand-fresh-${kind}-`));
 const dest = join(workDir, "app");
 console.log(`== Fresh ${kind} copy at ${dest}`);
 try {
-  run("bun", [join(root, "scripts/new-project.mjs"), kind, dest, "--registry", registry, "--core", coreSpec], root);
+  run("bun", [join(root, "scripts/new-project.ts"), kind, dest, "--registry", registry, "--core", coreSpec], root);
   console.log("== Building the copy (bun run build)");
   run("bun", ["run", "build"], dest);
   console.log(`\ncheck:fresh-copy ${kind}: PASS`);
@@ -84,12 +86,12 @@ try {
   serverChild.kill();
 }
 
-function run(command, argv, cwd) {
+function run(command: string, argv: string[], cwd: string): void {
   const result = spawnSync(command, argv, { cwd, stdio: "inherit" });
   if (result.status !== 0) throw new Error(`\`${command} ${argv.join(" ")}\` failed in ${cwd}`);
 }
 
-function isOnNpm(version) {
+function isOnNpm(version: string): boolean {
   try {
     execSync(`bun pm view @hmziq/brand-core@${version} version`, { cwd: root, stdio: "pipe" });
     return true;
@@ -98,7 +100,7 @@ function isOnNpm(version) {
   }
 }
 
-function packCore() {
+function packCore(): string {
   const outDir = mkdtempSync(join(tmpdir(), "brand-core-pack-"));
   const pkgDir = join(root, "packages/brand-core");
   // bun pm pack runs `prepare` without the package's bin folder on PATH, so tsup
@@ -111,12 +113,12 @@ function packCore() {
   return `file:${join(outDir, tgz)}`;
 }
 
-async function spawnServer(extraArgs) {
-  const child = spawn("bun", [join(root, "scripts/serve-registries.mjs"), ...extraArgs], {
+async function spawnServer(extraArgs: string[]): Promise<Server> {
+  const child = spawn("bun", [join(root, "scripts/serve-registries.ts"), ...extraArgs], {
     cwd: root,
     stdio: ["ignore", "pipe", "inherit"],
   });
-  const port = await new Promise((resolvePort, reject) => {
+  const port = await new Promise<number>((resolvePort, reject) => {
     let buffer = "";
     const timer = setTimeout(() => reject(new Error("the registry server did not start")), 15000);
     child.stdout.on("data", (chunk) => {
