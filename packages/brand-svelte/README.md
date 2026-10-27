@@ -171,10 +171,10 @@ separate 480/960px WebPs. `/shaders/renderer` loads only for a live preview;
 The legacy `/shaders` export retains embedded previews for compatibility;
 kit components and the studio use cacheable poster assets instead.
 
-Source recipes and WGSL came from `hmziq-shader-pack/`. Core tests compare
-all recipes, uniforms, shader tokens, source image hashes, and generated poster
-hashes. After changing source textures, run `bun scripts/generate-shader-posters.mjs`
-from the repository root, then run `bun run check` and inspect rendered twins.
+`@hmziq/brand-core/shaders` is the shader source of truth: recipes, WGSL,
+uniforms, and poster assets all live there. Core tests compare all recipes,
+uniforms, and generated poster hashes. The `hmziq-shader-pack/` folder the port
+started from was removed after the port; its git history is the record.
 
 ## Glass
 
