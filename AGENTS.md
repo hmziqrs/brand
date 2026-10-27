@@ -14,8 +14,8 @@ When driving a browser, also read and follow `/Users/hmziq/.zcode/skills/agent-b
 ## Bun only (hard rule)
 
 - Use `bun` for everything in this repo: install (`bun install`), add a dependency (`bun add`), run a script (`bun run <script>`), run a file (`bun scripts/x.mjs`), run a binary (`bunx`), and filter workspaces (`bun run --filter <pkg> <script>`).
-- Never run `pnpm`, `npm`, `npx`, `yarn` or `node` here. Map them: `pnpm X` → `bun run X`, `npx` → `bunx`, `node file.mjs` → `bun file.mjs`.
-- The only lockfile is `bun.lock`. Do not create or update `pnpm-lock.yaml`, `package-lock.json` or `yarn.lock`.
+- Never use any package manager besides `bun`, and never run `node` here. Map them: `npx` → `bunx`, `node file.mjs` → `bun file.mjs`.
+- The only lockfile is `bun.lock`. Do not create or update any other lockfile.
 - Gates run through bun too: `bun run check`, `bun run check:parity`, and so on.
 
 ## The React lab is gone
