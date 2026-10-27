@@ -52,9 +52,10 @@ const preview: Preview = {
 		},
 		options: {
 			// Roots in work order — brand pieces, tokens, site, content, app,
-			// templates, whole pages — with the vendored stock ui last.
+			// micro blocks, tweakers, templates, whole pages — with the vendored
+			// stock ui last.
 			storySort: {
-				order: ['System', 'Sections', 'Showcase', 'Custom', 'design', 'Brand', 'Site', 'Content', 'App', 'Templates', 'Sites', 'ui'],
+				order: ['System', 'Sections', 'Showcase', 'Custom', 'design', 'Brand', 'Site', 'Content', 'App', 'Micro', 'Tweakers', 'Templates', 'Sites', 'ui'],
 			},
 		},
 	},
