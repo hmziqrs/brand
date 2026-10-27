@@ -32,21 +32,6 @@ function* files(dir) {
   }
 }
 
-/** The Svelte kit's story ids, read from the *.stories.svelte files. */
-function svelteStoryIds() {
-  const ids = new Set();
-  for (const file of files(join(root, "packages/brand-svelte/src/lib"))) {
-    if (!file.endsWith(".stories.svelte")) continue;
-    const source = readFileSync(file, "utf8");
-    const title = source.match(/\btitle:\s*['"](.+?)['"]/)?.[1];
-    if (!title) continue;
-    for (const match of source.matchAll(/<Story\s[^>]*\bname=\{?['"](.+?)['"]/g)) {
-      ids.add(`${sanitize(title)}--${sanitize(match[1])}`);
-    }
-  }
-  return ids;
-}
-
 /** The Astro kit's /kit gallery anchors, read from its gallery pages. */
 function astroAnchors() {
   const anchors = new Set();
@@ -65,12 +50,53 @@ function registryItems(path) {
   return new Set((json.items ?? []).map((item) => item.name));
 }
 
+const problems = [];
+
+/** The meta title of a stories file: an inline literal, or a module const
+ * passed into defineMeta by shorthand (title indirection the file itself
+ * reuses, e.g. to build story links). */
+function metaTitle(source) {
+  const inline = source.match(/\btitle:\s*['"](.+?)['"]/)?.[1];
+  if (inline) return inline;
+  const start = source.indexOf("defineMeta(");
+  if (start === -1) return undefined;
+  let depth = 0;
+  for (let i = start + 10; i < source.length; i++) {
+    if (source[i] === "(") depth++;
+    else if (source[i] === ")") {
+      depth--;
+      if (!depth) {
+        if (!/\btitle\s*[,}:]/.test(source.slice(start, i))) return undefined;
+        return source.match(/\bconst\s+title\s*=\s*(['"])(.+?)\1/)?.[2];
+      }
+    }
+  }
+  return undefined;
+}
+
+/** The Svelte kit's story ids, read from the *.stories.svelte files. */
+function svelteStoryIds() {
+  const ids = new Set();
+  for (const file of files(join(root, "packages/brand-svelte/src/lib"))) {
+    if (!file.endsWith(".stories.svelte")) continue;
+    const source = readFileSync(file, "utf8");
+    const title = metaTitle(source);
+    if (!title) {
+      problems.push(`Svelte story file ${file.slice(root.length)} has no title, so it cannot belong to a roster piece`);
+      continue;
+    }
+    for (const match of source.matchAll(/<Story\s[^>]*\bname=\{?['"](.+?)['"]/g)) {
+      ids.add(`${sanitize(title)}--${sanitize(match[1])}`);
+    }
+  }
+  return ids;
+}
+
 const svelteStories = svelteStoryIds();
 const astroGallery = astroAnchors();
 const svelteRegistry = registryItems("packages/brand-svelte/registry.json");
 const astroRegistry = registryItems("packages/brand-astro/registry.json");
 
-const problems = [];
 const seen = new Set();
 for (const piece of roster) {
   if (seen.has(piece.name)) problems.push(`${piece.name}: listed twice in the roster`);

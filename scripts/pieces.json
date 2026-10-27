@@ -5,7 +5,8 @@
     "astro: the piece's anchor in the astro-app /kit gallery.",
     "svelteItem / astroItem: the piece's registry item name in that kit's registry.",
     "'not yet' marks a field whose plan is still in progress; check:parity skips it until then.",
-    "A piece with svelteFile 'not yet' doesn't exist at all yet (the app blocks before their phase); the whole piece is skipped."
+    "A piece with svelteFile 'not yet' doesn't exist at all yet (the app blocks before their phase); the whole piece is skipped.",
+    "Sonner's astroItem stays 'not yet' by decision: the astro kit's toast (starwind-toast) is Starwind's own @starwind-ui/astro component, not sonner, so it is no provable twin of the svelte-sonner wrapper and stays claimed by no piece."
   ],
   "pieces": [
     {
@@ -1528,7 +1529,7 @@
       "svelte": "ui-base-aspectratio--default",
       "astro": "not yet",
       "svelteFile": "ui/aspect-ratio/aspect-ratio.stories.svelte",
-      "svelteItem": "not yet",
+      "svelteItem": "ui-aspect-ratio",
       "astroItem": "not yet"
     },
     {
@@ -1537,8 +1538,9 @@
       "svelte": "ui-base-badge--default",
       "astro": "not yet",
       "svelteFile": "ui/badge/badge.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "svelteItem": "ui-badge",
+      "astroItem": "starwind-badge",
+      "astroFile": "starwind/badge/Badge.astro"
     },
     {
       "name": "Collapsible",
@@ -1546,7 +1548,7 @@
       "svelte": "ui-base-collapsible--default",
       "astro": "not yet",
       "svelteFile": "ui/collapsible/collapsible.stories.svelte",
-      "svelteItem": "not yet",
+      "svelteItem": "ui-collapsible",
       "astroItem": "not yet"
     },
     {
@@ -1555,7 +1557,7 @@
       "svelte": "ui-base-empty--default",
       "astro": "not yet",
       "svelteFile": "ui/empty/empty.stories.svelte",
-      "svelteItem": "not yet",
+      "svelteItem": "ui-empty",
       "astroItem": "not yet"
     },
     {
@@ -1564,8 +1566,9 @@
       "svelte": "ui-base-kbd--group",
       "astro": "not yet",
       "svelteFile": "ui/kbd/kbd.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "svelteItem": "ui-kbd",
+      "astroItem": "starwind-kbd",
+      "astroFile": "starwind/kbd/Kbd.astro"
     },
     {
       "name": "Progress",
@@ -1573,8 +1576,9 @@
       "svelte": "ui-base-progress--default",
       "astro": "not yet",
       "svelteFile": "ui/progress/progress.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "svelteItem": "ui-progress",
+      "astroItem": "starwind-progress",
+      "astroFile": "starwind/progress/Progress.astro"
     },
     {
       "name": "Spinner",
@@ -1582,7 +1586,7 @@
       "svelte": "ui-base-spinner--with-button",
       "astro": "not yet",
       "svelteFile": "ui/spinner/spinner.stories.svelte",
-      "svelteItem": "not yet",
+      "svelteItem": "ui-spinner",
       "astroItem": "not yet"
     },
     {
@@ -1591,7 +1595,7 @@
       "svelte": "ui-base-toggle--default",
       "astro": "not yet",
       "svelteFile": "ui/toggle/toggle.stories.svelte",
-      "svelteItem": "not yet",
+      "svelteItem": "ui-toggle",
       "astroItem": "not yet"
     },
     {
@@ -1600,7 +1604,7 @@
       "svelte": "ui-base-togglegroup--default",
       "astro": "not yet",
       "svelteFile": "ui/toggle-group/toggle-group.stories.svelte",
-      "svelteItem": "not yet",
+      "svelteItem": "ui-toggle-group",
       "astroItem": "not yet"
     },
     {
@@ -1609,7 +1613,7 @@
       "svelte": "ui-base-accordion--default",
       "astro": "not yet",
       "svelteFile": "ui/accordion/accordion.stories.svelte",
-      "svelteItem": "not yet",
+      "svelteItem": "ui-accordion",
       "astroItem": "not yet"
     },
     {
@@ -1618,7 +1622,7 @@
       "svelte": "ui-base-carousel--default",
       "astro": "not yet",
       "svelteFile": "ui/carousel/carousel.stories.svelte",
-      "svelteItem": "not yet",
+      "svelteItem": "ui-carousel",
       "astroItem": "not yet"
     },
     {
@@ -1627,7 +1631,7 @@
       "svelte": "ui-base-hovercard--default",
       "astro": "not yet",
       "svelteFile": "ui/hover-card/hover-card.stories.svelte",
-      "svelteItem": "not yet",
+      "svelteItem": "ui-hover-card",
       "astroItem": "not yet"
     },
     {
@@ -1636,7 +1640,7 @@
       "svelte": "ui-base-navigationmenu--default",
       "astro": "not yet",
       "svelteFile": "ui/navigation-menu/navigation-menu.stories.svelte",
-      "svelteItem": "not yet",
+      "svelteItem": "ui-navigation-menu",
       "astroItem": "not yet"
     },
     {
@@ -1645,7 +1649,7 @@
       "svelte": "ui-base-pagination--default",
       "astro": "not yet",
       "svelteFile": "ui/pagination/pagination.stories.svelte",
-      "svelteItem": "not yet",
+      "svelteItem": "ui-pagination",
       "astroItem": "not yet"
     },
     {
@@ -1654,7 +1658,7 @@
       "svelte": "ui-base-resizablepanelgroup--default",
       "astro": "not yet",
       "svelteFile": "ui/resizable/resizable.stories.svelte",
-      "svelteItem": "not yet",
+      "svelteItem": "ui-resizable",
       "astroItem": "not yet"
     },
     {
@@ -1663,7 +1667,7 @@
       "svelte": "ui-base-scrollarea--default",
       "astro": "not yet",
       "svelteFile": "ui/scroll-area/scroll-area.stories.svelte",
-      "svelteItem": "not yet",
+      "svelteItem": "ui-scroll-area",
       "astroItem": "not yet"
     },
     {
@@ -1672,8 +1676,9 @@
       "svelte": "ui-base-tabs--default",
       "astro": "not yet",
       "svelteFile": "ui/tabs/tabs.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "svelteItem": "ui-tabs",
+      "astroItem": "starwind-tabs",
+      "astroFile": "starwind/tabs/Tabs.astro"
     },
     {
       "name": "Calendar",
@@ -1681,7 +1686,7 @@
       "svelte": "ui-base-calendar--default",
       "astro": "not yet",
       "svelteFile": "ui/calendar/calendar.stories.svelte",
-      "svelteItem": "not yet",
+      "svelteItem": "ui-calendar",
       "astroItem": "not yet"
     },
     {
@@ -1690,7 +1695,7 @@
       "svelte": "ui-base-contextmenu--default",
       "astro": "not yet",
       "svelteFile": "ui/context-menu/context-menu.stories.svelte",
-      "svelteItem": "not yet",
+      "svelteItem": "ui-context-menu",
       "astroItem": "not yet"
     },
     {
@@ -1699,7 +1704,7 @@
       "svelte": "ui-base-drawer--default",
       "astro": "not yet",
       "svelteFile": "ui/drawer/drawer.stories.svelte",
-      "svelteItem": "not yet",
+      "svelteItem": "ui-drawer",
       "astroItem": "not yet"
     },
     {
@@ -1708,7 +1713,7 @@
       "svelte": "ui-base-menubar--default",
       "astro": "not yet",
       "svelteFile": "ui/menubar/menubar.stories.svelte",
-      "svelteItem": "not yet",
+      "svelteItem": "ui-menubar",
       "astroItem": "not yet"
     },
     {
@@ -1717,8 +1722,9 @@
       "svelte": "ui-base-field--with-input",
       "astro": "not yet",
       "svelteFile": "ui/field/field.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "svelteItem": "ui-field",
+      "astroItem": "starwind-field",
+      "astroFile": "starwind/field/Field.astro"
     },
     {
       "name": "Form",
@@ -1735,7 +1741,7 @@
       "svelte": "ui-base-buttongroup--default",
       "astro": "not yet",
       "svelteFile": "ui/button-group/button-group.stories.svelte",
-      "svelteItem": "not yet",
+      "svelteItem": "ui-button-group",
       "astroItem": "not yet"
     },
     {
@@ -1744,7 +1750,7 @@
       "svelte": "ui-base-bubble--default",
       "astro": "not yet",
       "svelteFile": "ui/bubble/bubble.stories.svelte",
-      "svelteItem": "not yet",
+      "svelteItem": "ui-bubble",
       "astroItem": "not yet"
     },
     {
@@ -1753,7 +1759,7 @@
       "svelte": "ui-base-item--default",
       "astro": "not yet",
       "svelteFile": "ui/item/item.stories.svelte",
-      "svelteItem": "not yet",
+      "svelteItem": "ui-item",
       "astroItem": "not yet"
     },
     {
@@ -1888,8 +1894,9 @@
       "svelte": "ui-base-alert--default",
       "astro": "not yet",
       "svelteFile": "ui/alert/alert.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "svelteItem": "ui-alert",
+      "astroItem": "starwind-alert",
+      "astroFile": "starwind/alert/Alert.astro"
     },
     {
       "name": "AlertDialog",
@@ -1897,8 +1904,9 @@
       "svelte": "ui-base-alertdialog--default",
       "astro": "not yet",
       "svelteFile": "ui/alert-dialog/alert-dialog.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "svelteItem": "ui-alert-dialog",
+      "astroItem": "starwind-alert-dialog",
+      "astroFile": "starwind/alert-dialog/AlertDialog.astro"
     },
     {
       "name": "Attachment",
@@ -1906,7 +1914,7 @@
       "svelte": "ui-base-attachment--default",
       "astro": "not yet",
       "svelteFile": "ui/attachment/attachment.stories.svelte",
-      "svelteItem": "not yet",
+      "svelteItem": "ui-attachment",
       "astroItem": "not yet"
     },
     {
@@ -1915,7 +1923,7 @@
       "svelte": "ui-base-marker--default",
       "astro": "not yet",
       "svelteFile": "ui/marker/marker.stories.svelte",
-      "svelteItem": "not yet",
+      "svelteItem": "ui-marker",
       "astroItem": "not yet"
     },
     {
@@ -1924,7 +1932,7 @@
       "svelte": "ui-base-message--default",
       "astro": "not yet",
       "svelteFile": "ui/message/message.stories.svelte",
-      "svelteItem": "not yet",
+      "svelteItem": "ui-message",
       "astroItem": "not yet"
     },
     {
@@ -1933,7 +1941,7 @@
       "svelte": "ui-base-messagescroller--default",
       "astro": "not yet",
       "svelteFile": "ui/message-scroller/message-scroller.stories.svelte",
-      "svelteItem": "not yet",
+      "svelteItem": "ui-message-scroller",
       "astroItem": "not yet"
     },
     {
@@ -1942,7 +1950,7 @@
       "svelte": "ui-base-questionnaire--default",
       "astro": "not yet",
       "svelteFile": "ui/questionnaire/questionnaire.stories.svelte",
-      "svelteItem": "not yet",
+      "svelteItem": "ui-questionnaire",
       "astroItem": "not yet"
     },
     {
@@ -1951,8 +1959,9 @@
       "svelte": "ui-base-avatar--default",
       "astro": "not yet",
       "svelteFile": "ui/avatar/avatar.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "svelteItem": "ui-avatar",
+      "astroItem": "starwind-avatar",
+      "astroFile": "starwind/avatar/Avatar.astro"
     },
     {
       "name": "Breadcrumb",
@@ -1960,7 +1969,7 @@
       "svelte": "ui-base-breadcrumb--default",
       "astro": "not yet",
       "svelteFile": "ui/breadcrumb/breadcrumb.stories.svelte",
-      "svelteItem": "not yet",
+      "svelteItem": "ui-breadcrumb",
       "astroItem": "not yet"
     },
     {
@@ -1969,8 +1978,9 @@
       "svelte": "ui-base-button--default",
       "astro": "not yet",
       "svelteFile": "ui/button/button.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "svelteItem": "ui-button",
+      "astroItem": "starwind-button",
+      "astroFile": "starwind/button/Button.astro"
     },
     {
       "name": "Card",
@@ -1978,8 +1988,9 @@
       "svelte": "ui-base-card--default",
       "astro": "not yet",
       "svelteFile": "ui/card/card.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "svelteItem": "ui-card",
+      "astroItem": "starwind-card",
+      "astroFile": "starwind/card/Card.astro"
     },
     {
       "name": "Chart",
@@ -1996,8 +2007,9 @@
       "svelte": "ui-base-checkbox--default",
       "astro": "not yet",
       "svelteFile": "ui/checkbox/checkbox.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "svelteItem": "ui-checkbox",
+      "astroItem": "starwind-checkbox",
+      "astroFile": "starwind/checkbox/Checkbox.astro"
     },
     {
       "name": "Input",
@@ -2005,8 +2017,9 @@
       "svelte": "ui-base-input--default",
       "astro": "not yet",
       "svelteFile": "ui/input/input.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "svelteItem": "ui-input",
+      "astroItem": "starwind-input",
+      "astroFile": "starwind/input/Input.astro"
     },
     {
       "name": "Label",
@@ -2014,8 +2027,9 @@
       "svelte": "ui-base-label--default",
       "astro": "not yet",
       "svelteFile": "ui/label/label.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "svelteItem": "ui-label",
+      "astroItem": "starwind-label",
+      "astroFile": "starwind/label/Label.astro"
     },
     {
       "name": "Popover",
@@ -2023,7 +2037,7 @@
       "svelte": "ui-base-popover--default",
       "astro": "not yet",
       "svelteFile": "ui/popover/popover.stories.svelte",
-      "svelteItem": "not yet",
+      "svelteItem": "ui-popover",
       "astroItem": "not yet"
     },
     {
@@ -2032,7 +2046,7 @@
       "svelte": "ui-base-radiogroup--default",
       "astro": "not yet",
       "svelteFile": "ui/radio-group/radio-group.stories.svelte",
-      "svelteItem": "not yet",
+      "svelteItem": "ui-radio-group",
       "astroItem": "not yet"
     },
     {
@@ -2041,7 +2055,7 @@
       "svelte": "ui-base-select--default",
       "astro": "not yet",
       "svelteFile": "ui/select/select.stories.svelte",
-      "svelteItem": "not yet",
+      "svelteItem": "ui-select",
       "astroItem": "not yet"
     },
     {
@@ -2050,8 +2064,9 @@
       "svelte": "ui-base-separator--default",
       "astro": "not yet",
       "svelteFile": "ui/separator/separator.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "svelteItem": "ui-separator",
+      "astroItem": "starwind-separator",
+      "astroFile": "starwind/separator/Separator.astro"
     },
     {
       "name": "Sheet",
@@ -2059,8 +2074,9 @@
       "svelte": "ui-base-sheet--default",
       "astro": "not yet",
       "svelteFile": "ui/sheet/sheet.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "svelteItem": "ui-sheet",
+      "astroItem": "starwind-sheet",
+      "astroFile": "starwind/sheet/Sheet.astro"
     },
     {
       "name": "Skeleton",
@@ -2068,8 +2084,9 @@
       "svelte": "ui-base-skeleton--default",
       "astro": "not yet",
       "svelteFile": "ui/skeleton/skeleton.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "svelteItem": "ui-skeleton",
+      "astroItem": "starwind-skeleton",
+      "astroFile": "starwind/skeleton/Skeleton.astro"
     },
     {
       "name": "Slider",
@@ -2077,8 +2094,9 @@
       "svelte": "ui-base-slider--default",
       "astro": "not yet",
       "svelteFile": "ui/slider/slider.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "svelteItem": "ui-slider",
+      "astroItem": "starwind-slider",
+      "astroFile": "starwind/slider/Slider.astro"
     },
     {
       "name": "Sonner",
@@ -2086,7 +2104,7 @@
       "svelte": "ui-base-sonner--default",
       "astro": "not yet",
       "svelteFile": "ui/sonner/sonner.stories.svelte",
-      "svelteItem": "not yet",
+      "svelteItem": "ui-sonner",
       "astroItem": "not yet"
     },
     {
@@ -2095,8 +2113,9 @@
       "svelte": "ui-base-switch--default",
       "astro": "not yet",
       "svelteFile": "ui/switch/switch.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "svelteItem": "ui-switch",
+      "astroItem": "starwind-switch",
+      "astroFile": "starwind/switch/Switch.astro"
     },
     {
       "name": "Table",
@@ -2104,8 +2123,9 @@
       "svelte": "ui-base-table--default",
       "astro": "not yet",
       "svelteFile": "ui/table/table.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "svelteItem": "ui-table",
+      "astroItem": "starwind-table",
+      "astroFile": "starwind/table/Table.astro"
     },
     {
       "name": "Textarea",
@@ -2113,8 +2133,9 @@
       "svelte": "ui-base-textarea--default",
       "astro": "not yet",
       "svelteFile": "ui/textarea/textarea.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "svelteItem": "ui-textarea",
+      "astroItem": "starwind-textarea",
+      "astroFile": "starwind/textarea/Textarea.astro"
     },
     {
       "name": "Dialog",
@@ -2122,7 +2143,7 @@
       "svelte": "ui-base-dialog--default",
       "astro": "not yet",
       "svelteFile": "ui/dialog/dialog.stories.svelte",
-      "svelteItem": "not yet",
+      "svelteItem": "ui-dialog",
       "astroItem": "not yet"
     },
     {
@@ -2131,8 +2152,9 @@
       "svelte": "ui-base-dropdownmenu--default",
       "astro": "not yet",
       "svelteFile": "ui/dropdown-menu/dropdown-menu.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "svelteItem": "ui-dropdown-menu",
+      "astroItem": "starwind-dropdown",
+      "astroFile": "starwind/dropdown/Dropdown.astro"
     },
     {
       "name": "Sidebar",
@@ -2140,8 +2162,9 @@
       "svelte": "ui-base-sidebar--simple",
       "astro": "not yet",
       "svelteFile": "ui/sidebar/sidebar.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "svelteItem": "ui-sidebar",
+      "astroItem": "starwind-sidebar",
+      "astroFile": "starwind/sidebar/Sidebar.astro"
     },
     {
       "name": "Tooltip",
@@ -2149,8 +2172,9 @@
       "svelte": "ui-base-tooltip--default",
       "astro": "not yet",
       "svelteFile": "ui/tooltip/tooltip.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "svelteItem": "ui-tooltip",
+      "astroItem": "starwind-tooltip",
+      "astroFile": "starwind/tooltip/Tooltip.astro"
     },
     {
       "name": "InputOtp",
@@ -2158,8 +2182,9 @@
       "svelte": "ui-base-inputotp--default",
       "astro": "not yet",
       "svelteFile": "ui/input-otp/input-otp.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "svelteItem": "ui-input-otp",
+      "astroItem": "starwind-input-otp",
+      "astroFile": "starwind/input-otp/InputOtp.astro"
     },
     {
       "name": "InputGroup",
@@ -2167,8 +2192,9 @@
       "svelte": "ui-base-inputgroup--with-icons",
       "astro": "not yet",
       "svelteFile": "ui/input-group/input-group.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "svelteItem": "ui-input-group",
+      "astroItem": "starwind-input-group",
+      "astroFile": "starwind/input-group/InputGroup.astro"
     },
     {
       "name": "UiCommand",
@@ -2176,7 +2202,7 @@
       "svelte": "ui-base-command--default",
       "astro": "not yet",
       "svelteFile": "ui/command/command.stories.svelte",
-      "svelteItem": "not yet",
+      "svelteItem": "ui-command",
       "astroItem": "not yet"
     },
     {
