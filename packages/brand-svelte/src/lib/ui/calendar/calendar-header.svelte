@@ -16,4 +16,8 @@
 		className
 	)}
 	{...restProps}
-/>
+>
+	{#snippet child({ props })}
+		<div {...props}></div>
+	{/snippet}
+</CalendarPrimitive.Header>

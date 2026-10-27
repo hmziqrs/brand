@@ -39,37 +39,30 @@
 	</AppWindow>
 {/snippet}
 
-<!-- The orange call to action, with the arcs. -->
 <Story name="Call to action" asChild>
 	<BandSection title="Know what your users do by Friday." body="Add the script today. By the end of the week you'll have a funnel, a retention chart and a clear next step." actions={go} />
 </Story>
 
-<!-- The same, in the other mode: white on a dark page, dark on a light one. -->
 <Story name="Call to action, inverse" asChild>
 	<BandSection tone="inverse" title="Know what your users do by Friday." body="Add the script today. By the end of the week you'll have a funnel, a retention chart and a clear next step." actions={go} />
 </Story>
 
-<!-- Big numbers across the band. freeoxide's own. -->
 <Story name="Numbers" asChild>
 	<BandSection variant="stats" title="Finished means finished." stats={[{ value: '100%', label: 'free and open source' }, { value: '90%+', label: 'of the code covered by tests' }, { value: '5', label: 'review rounds before release' }]} />
 </Story>
 
-<!-- The same numbers on the quiet grey band. -->
 <Story name="Numbers, grey" asChild>
 	<BandSection tone="gray" variant="stats" title="Finished means finished." stats={[{ value: '100%', label: 'free and open source' }, { value: '90%+', label: 'of the code covered by tests' }, { value: '5', label: 'review rounds before release' }]} />
 </Story>
 
-<!-- One thing someone said, large. The SaaS templates' example quote. -->
 <Story name="Quote" asChild>
 	<BandSection variant="quote" quote={{ text: 'We ran twelve schools out of email threads and a spreadsheet nobody trusted. Now every school has a board, and the Friday check-in replaced a two-hour meeting.', name: 'Priya Nair', role: 'Operations lead, Fernhill Schools' }} />
 </Story>
 
-<!-- Words beside the product, the window in the page's own colors. -->
 <Story name="Product" asChild>
 	<BandSection variant="split" title="Plain answers, not another dashboard." body="Sightline turns clicks into sentences you can act on, and the chart is there when you want it." actions={go} aside={product} />
 </Story>
 
-<!-- The customers, on the band. Example names. -->
 <Story name="Customers" asChild>
 	<BandSection variant="logos" title="Product teams that open Sightline every morning" {logos} />
 </Story>

@@ -11,7 +11,6 @@
 	let topic = $state('Rust')
 </script>
 
-<!-- Topic buttons: the topic's color on its ring. The picked one gets a line in the text color. -->
 <Story name="Default" asChild>
 	<TopicChips items={['Rust', 'GPUI', 'Tooling', 'Writing']} bind:value={topic} onChange={(t) => (topic = t)} tone={(t) => tones[t]} />
 </Story>

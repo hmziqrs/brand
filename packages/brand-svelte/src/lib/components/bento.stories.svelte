@@ -33,7 +33,6 @@
 	let open = $state(false)
 </script>
 
-<!-- A page's highlights as a bento: each tile a different kind of thing, live where it can be. Downloads are example numbers. -->
 <Story name="freeoxide" asChild>
 	<Bento class="mx-auto max-w-6xl">
 		<BentoTile cols={4} rows={2} layout="side" eyebrow="freeoxide" title="Free Rust tools, finished before they ship." body="Open-source software made by one person. I build the tools I wish existed, test them properly, and give them away." href="#">

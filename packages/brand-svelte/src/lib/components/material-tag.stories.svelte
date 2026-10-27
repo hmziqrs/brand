@@ -5,10 +5,10 @@
 	const { Story } = defineMeta({
 		title: 'Custom/Material tag',
 		component: MaterialTag,
+		parameters: { layout: 'centered' },
 	})
 </script>
 
-<!-- One word with a thin metal edge, next to the thing it marks. -->
 <Story name="Default" asChild>
 	<div class="flex flex-col gap-4">
 		<p class="flex items-center gap-2 font-medium">Team <MaterialTag>Most teams pick this</MaterialTag></p>

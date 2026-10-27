@@ -5,7 +5,12 @@
 	const { Story } = defineMeta({
 		title: 'Custom/Material slider',
 		component: MaterialSlider,
+		parameters: { layout: 'centered' },
 		args: { label: 'Amount', value: 40 },
+		argTypes: {
+			label: { description: 'Name shown with the slider.' },
+			value: { description: 'Starting value.' },
+		},
 	})
 </script>
 
@@ -13,7 +18,6 @@
 	let seats = $state(12)
 </script>
 
-<!-- A price that follows an amount: the filled part is copper. Example prices. -->
 <Story name="Pricing" asChild>
 	<div class="flex max-w-md flex-col gap-4 rounded-xl p-6 ring-1 ring-foreground/10">
 		<div class="flex items-baseline justify-between"><span class="text-sm text-muted-foreground">People on your team</span><span class="text-sm font-medium tabular-nums">{seats}</span></div>

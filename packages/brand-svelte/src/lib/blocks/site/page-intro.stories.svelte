@@ -5,7 +5,6 @@
 	const { Story } = defineMeta({ title: 'Site/Sections/Page intro', component: PageIntro })
 </script>
 
-<!-- The top of an inner page: a small grey word, the title and one paragraph. -->
 <Story name="Default" asChild>
 	<PageIntro>
 		{#snippet kicker()}FAQ{/snippet}

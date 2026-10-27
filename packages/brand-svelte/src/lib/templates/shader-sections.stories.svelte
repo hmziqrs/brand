@@ -18,8 +18,13 @@
 		args: { variant: "accent", animated: false, rendering: "image" },
 		parameters: { layout: "fullscreen" },
 		argTypes: {
-			variant: { control: "select", options: examples.map((example) => example.variant) },
-			rendering: { control: "select", options: ["image", "live"] },
+			variant: {
+				control: "select",
+				options: examples.map((example) => example.variant),
+				description: "Which shader-material section to render: brand accent, brown oxide, open surface, transparent wash, split band or glass panel.",
+			},
+			animated: { control: "boolean", description: "Plays the material's motion; meaningful only in live rendering." },
+			rendering: { control: "select", options: ["image", "live"], description: "Image renders a static texture; live renders the running shader, for recipe edits or motion." },
 		},
 	});
 </script>

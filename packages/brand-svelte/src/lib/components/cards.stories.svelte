@@ -18,7 +18,6 @@
 	})
 </script>
 
-<!-- A release: claude-multi's real notes, grouped by kind, with the update command per package manager. -->
 <Story name="Release" asChild>
 	<div class="grid max-w-5xl items-start gap-4 md:grid-cols-2">
 		<ReleaseCard product="claude-multi" symbol="Cm" release={releases[0]} latest {installs} href="#" />
@@ -26,7 +25,6 @@
 	</div>
 </Story>
 
-<!-- A project at a glance. The downloads trend and the build state are example data. -->
 <Story name="Project" asChild>
 	<ProjectCard
 		class="max-w-md"
@@ -44,7 +42,6 @@
 	/>
 </Story>
 
-<!-- A webhook endpoint's last month, from the Hookline example. -->
 <Story name="Endpoint" asChild>
 	<EndpointCard
 		class="max-w-md"
@@ -59,7 +56,6 @@
 	/>
 </Story>
 
-<!-- The plan you're on, from the Groundwork example. -->
 <Story name="Plan" asChild>
 	<PlanCard
 		class="max-w-md"
@@ -76,7 +72,6 @@
 	/>
 </Story>
 
-<!-- All four, side by side. -->
 <Story name="Together" asChild>
 	<div class="grid max-w-6xl items-start gap-4 md:grid-cols-2 xl:grid-cols-3">
 		<ReleaseCard product="claude-multi" symbol="Cm" release={releases[0]} latest {installs} href="#" />

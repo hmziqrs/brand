@@ -220,7 +220,6 @@
 	</TableBody>
 {/snippet}
 
-<!-- Border radius tokens used for UI elements like buttons, cards, and modals. -->
 <Story name="Radius" asChild>
 	<Table>
 		{@render twoColumnHead('Preview', 'sr-only')}
@@ -228,7 +227,6 @@
 	</Table>
 </Story>
 
-<!-- Box shadow tokens used for UI elements like cards, modals, and overlays. -->
 <Story name="Shadow" asChild>
 	<Table>
 		{@render twoColumnHead('Preview', 'sr-only shadow-2xl')}
@@ -236,7 +234,6 @@
 	</Table>
 </Story>
 
-<!-- Spacing values used for padding, margins, and layout. -->
 <Story name="Spacing" asChild>
 	<Table>
 		<TableHeader>
@@ -266,7 +263,6 @@
 	</Table>
 </Story>
 
-<!-- Functional color tokens are used to define the core colors of the design system. -->
 <Story name="Color-Functional" asChild>
 	<Table>
 		{@render twoColumnHead('Swatch', 'sr-only')}
@@ -274,7 +270,6 @@
 	</Table>
 </Story>
 
-<!-- Component color tokens are used to define the colors of specific components. -->
 <Story name="Color-Component" asChild>
 	<Table>
 		{@render twoColumnHead('Swatch', 'sr-only')}
@@ -282,7 +277,6 @@
 	</Table>
 </Story>
 
-<!-- Every text pair the theme ships, measured from theme.css itself. -->
 <Story name="Color-Contrast" asChild>
 	<Table>
 		<TableHeader>
@@ -308,7 +302,6 @@
 	</Table>
 </Story>
 
-<!-- Font family tokens for the design system. -->
 <Story name="Typography-Font-Family" asChild>
 	<Table>
 		{@render propertyHead()}
@@ -320,7 +313,6 @@
 	</Table>
 </Story>
 
-<!-- Font size tokens for the design system. -->
 <Story name="Typography-Font-Size" asChild>
 	<Table>
 		{@render propertyHead()}
@@ -332,7 +324,6 @@
 	</Table>
 </Story>
 
-<!-- Font weight tokens for the design system. -->
 <Story name="Typography-Font-Weight" asChild>
 	<Table>
 		{@render propertyHead()}
@@ -344,7 +335,6 @@
 	</Table>
 </Story>
 
-<!-- Letter spacing tokens for the design system. -->
 <Story name="Typography-Letter-Spacing" asChild>
 	<Table>
 		{@render propertyHead()}

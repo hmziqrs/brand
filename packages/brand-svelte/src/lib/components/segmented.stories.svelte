@@ -2,7 +2,11 @@
 	import { defineMeta } from '@storybook/addon-svelte-csf'
 	import Segmented from './segmented.svelte'
 
-	const { Story } = defineMeta({ title: 'Custom/Segmented', component: Segmented })
+	const { Story } = defineMeta({
+		title: 'Custom/Segmented',
+		component: Segmented,
+		parameters: { layout: 'centered' },
+	})
 </script>
 
 <script lang="ts">
@@ -10,7 +14,6 @@
 	let billing = $state<'monthly' | 'yearly'>('monthly')
 </script>
 
-<!-- A small switch between a few views of the same thing. Nothing moves. -->
 <Story name="Default" asChild>
 	<Segmented
 		label="Package manager"
@@ -24,7 +27,6 @@
 	/>
 </Story>
 
-<!-- Monthly / yearly, with the long label wrapping on small screens. -->
 <Story name="Billing" asChild>
 	<div class="flex flex-col gap-4">
 		<Segmented

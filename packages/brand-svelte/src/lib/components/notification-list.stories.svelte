@@ -22,7 +22,6 @@
 	])
 </script>
 
-<!-- What happened while you were away, grouped by day. The Groundwork example. -->
 <Story name="Default" asChild>
 	<NotificationList class="max-w-md" {items} onread={(ids) => (items = items.map((i) => (ids.includes(i.id) ? { ...i, unread: false } : i)))} />
 </Story>

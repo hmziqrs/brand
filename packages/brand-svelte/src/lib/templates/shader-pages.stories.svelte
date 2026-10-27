@@ -8,7 +8,8 @@
 		args: { variant: 'guide', animated: false },
 		parameters: { layout: 'fullscreen' },
 		argTypes: {
-			variant: { control: 'select', options: ['guide', 'product', 'editorial', 'showcase'] },
+			variant: { control: 'select', options: ['guide', 'product', 'editorial', 'showcase'], description: 'Which shader page to render: usage guide, product, editorial or showcase.' },
+			animated: { control: 'boolean', description: "Plays the page's shader motion." },
 		},
 	})
 </script>

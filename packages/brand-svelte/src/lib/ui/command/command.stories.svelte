@@ -54,6 +54,11 @@
 		if (!canvasElement.querySelector('[data-slot="command-empty"]')) {
 			throw new Error('the no-results empty state did not show')
 		}
+
+		await type('')
+		if (options().length < 2) {
+			throw new Error(`expected options to return after clearing, found ${options().length}`)
+		}
 	}
 </script>
 

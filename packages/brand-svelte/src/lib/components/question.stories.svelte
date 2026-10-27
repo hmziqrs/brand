@@ -3,10 +3,13 @@
 	import Question from './question.svelte'
 	import Questions from './questions.svelte'
 
-	const { Story } = defineMeta({ title: 'Custom/Question', component: Question })
+	const { Story } = defineMeta({
+		title: 'Custom/Question',
+		component: Question,
+		parameters: { layout: 'centered' },
+	})
 </script>
 
-<!-- One question that opens to show its answer. The ring fills in when it's open. -->
 <Story name="Default" asChild>
 	<Questions>
 		<Question>
@@ -16,7 +19,6 @@
 	</Questions>
 </Story>
 
-<!-- Numbered lists show 01, 02… in orange instead of the ring. -->
 <Story name="Numbered" asChild>
 	<Questions>
 		{#each [
@@ -31,7 +33,6 @@
 	</Questions>
 </Story>
 
-<!-- The question's topic, shown as a grey tag on the right. -->
 <Story name="With topic" asChild>
 	<Questions>
 		<Question topic="Setup">

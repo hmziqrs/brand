@@ -60,10 +60,8 @@
 	/>
 {/snippet}
 
-<!-- A: Sightline's analytics, every tile a different report. Example data. -->
 <Story name="A Analytics" asChild>{@render analytics()}</Story>
 
-<!-- B: For a developer product: what gets sent, how it went, the log. Hookline's example data. -->
 <Story name="B Developer" asChild>
 	<BentoSection
 		align="start"
@@ -79,7 +77,6 @@
 	/>
 </Story>
 
-<!-- C: Tiles in four tones: outline, orange, a material cover, glass on a material. -->
 <Story name="C Mixed tones" asChild>
 	<BentoSection
 		title="One place for the whole product"
@@ -93,7 +90,6 @@
 	/>
 </Story>
 
-<!-- D: The whole grid on the orange band; the tiles keep the page's colors. -->
 <Story name="D On the band" asChild>
 	<BentoSection
 		ground="band"
@@ -108,7 +104,6 @@
 	/>
 </Story>
 
-<!-- E: The grid on a material, every tile in smoked glass. -->
 <Story name="E On a material" asChild>
 	<BentoSection
 		ground="material"

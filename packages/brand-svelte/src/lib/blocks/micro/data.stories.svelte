@@ -113,7 +113,7 @@
 </Story>
 
 <Story name="Hub diagram" asChild>
-	<svg viewBox="0 0 300 220" class="w-96" role="img" aria-label="Integrations hub">
+	<svg viewBox="0 0 300 220" class="w-96">
 		{#each [[60, 40], [240, 40], [30, 130], [270, 130], [150, 200]] as [x, y], i (i)}
 			<line x1="150" y1="110" x2={x} y2={y} class={hub === i ? "stroke-primary" : "stroke-border"} stroke-width="1.5" stroke-dasharray={hub === i ? "" : "4 4"} />
 		{/each}
@@ -184,7 +184,7 @@
 <Story name="Activity stack" asChild>
 	<div class="flex w-80 flex-col gap-2">
 		{#each [["Deploy finished", "hmziq.dev · 2m", MapPin], ["New sign-up", "linus@… · 9m", Mail], ["Build failed", "lab · 1h", FileCode]] as const as [title, meta, Icon], i (title)}
-			<div class="flex items-center gap-3 rounded-xl border bg-card p-3" style:opacity={1 - i * 0.2}>
+			<div class="flex items-center gap-3 rounded-xl border bg-card p-3" style:opacity={1 - i * 0.1}>
 				<span class="grid size-8 place-items-center rounded-lg bg-muted"><Icon class="lucide size-4" /></span>
 				<div class="text-sm"><p class="font-medium">{title}</p><p class="text-xs text-muted-foreground">{meta}</p></div>
 			</div>

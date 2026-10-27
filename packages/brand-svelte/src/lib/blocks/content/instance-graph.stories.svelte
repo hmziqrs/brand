@@ -18,14 +18,12 @@
 	}
 </script>
 
-<!-- The ~/.claude-multi folder tree. Click or tab through the instances; the picked one's line lights up. -->
 <Story name="Default" asChild>
 	<div class="max-w-5xl px-6">
 		<InstanceGraph {instances} {inside} />
 	</div>
 </Story>
 
-<!-- The third card picked by keys alone: focus it, Enter, and the panel follows. -->
 <Story name="Keyboard" play={pickByKeyboard} asChild>
 	<div class="max-w-5xl px-6">
 		<InstanceGraph {instances} {inside} />

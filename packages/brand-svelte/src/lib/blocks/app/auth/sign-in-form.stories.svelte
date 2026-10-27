@@ -21,7 +21,6 @@
 	<BrandIcon icon={siGoogle} />
 {/snippet}
 
-<!-- The form as the page serves it: the providers, the divider, the fields. -->
 <Story name="Sign in form" asChild>
 	<form class="flex max-w-sm flex-col p-6" onsubmit={(event) => event.preventDefault()}>
 		<SignInForm
@@ -34,21 +33,18 @@
 	</form>
 </Story>
 
-<!-- Without providers the email form starts the page. -->
 <Story name="Sign in form, no providers" asChild>
 	<form class="flex max-w-sm flex-col p-6" onsubmit={(event) => event.preventDefault()}>
 		<SignInForm {links} values={{ email: 'maya@paperplane.app' }} />
 	</form>
 </Story>
 
-<!-- While the post is on its way: a spinner in the button, fields held. -->
 <Story name="Sign in form, signing in" asChild>
 	<form class="flex max-w-sm flex-col p-6" onsubmit={(event) => event.preventDefault()}>
 		<SignInForm {links} pending={true} values={{ email: 'maya@paperplane.app' }} />
 	</form>
 </Story>
 
-<!-- The pair doesn't match: the email stays, the password waits empty. -->
 <Story name="Sign in form, wrong password" asChild>
 	<form class="flex max-w-sm flex-col p-6" onsubmit={(event) => event.preventDefault()}>
 		<SignInForm
@@ -59,14 +55,12 @@
 	</form>
 </Story>
 
-<!-- A field error from the server, under its field. -->
 <Story name="Sign in form, field error" asChild>
 	<form class="flex max-w-sm flex-col p-6" onsubmit={(event) => event.preventDefault()}>
 		<SignInForm {links} result={{ field: 'email', message: 'Enter your email to sign in.' }} />
 	</form>
 </Story>
 
-<!-- The whole form at 360px. -->
 <Story name="Sign in form, mobile" parameters={{ viewport: { defaultViewport: 'phone360' } }} asChild>
 	<form class="flex flex-col p-6" onsubmit={(event) => event.preventDefault()}>
 		<SignInForm

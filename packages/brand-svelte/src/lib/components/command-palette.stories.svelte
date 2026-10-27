@@ -68,7 +68,6 @@
 
 {#snippet context()}<Mark symbol="Fx" size={18} /><span>freeoxide</span>{/snippet}
 
-<!-- In the page, over a material: type to filter, arrows to move, Enter to run, ⌘K for the highlighted result's actions. -->
 <Story name="Inline" asChild>
 	<div class="relative isolate grid min-h-[40rem] place-items-start justify-center overflow-hidden px-4 pt-16">
 		<ShaderMaterial rendering="image" preset="etched-silk" controls={false} class="absolute inset-0 -z-10" />
@@ -76,7 +75,6 @@
 	</div>
 </Story>
 
-<!-- As a dialog: press ⌘K (Ctrl+K) anywhere, or the button. -->
 <Story name="Dialog" asChild>
 	<div class="grid min-h-[36rem] place-items-center">
 		<Button variant="outline" onclick={() => (open = true)} class="gap-3 text-muted-foreground">Search<span class="flex gap-1"><Kbd>⌘</Kbd><Kbd>K</Kbd></span></Button>

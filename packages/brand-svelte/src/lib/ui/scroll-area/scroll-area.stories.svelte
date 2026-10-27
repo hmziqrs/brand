@@ -42,12 +42,8 @@
 	</ScrollArea>
 </Story>
 
-<!--
-	The lab passes overflowEdgeThreshold (12) to Base UI, which flips the scrollbar's
-	data-overflow-y-start/end attributes once that many pixels are scrolled. bits-ui has no
-	such prop, so this story reads the bound viewport itself and shows the edge lines by
-	the same 12px threshold.
--->
+<!-- bits-ui lacks Base UI's overflowEdgeThreshold, so the story reads the bound viewport
+	itself and shows the edge lines by the same 12px threshold the lab passes to Base UI. -->
 <Story name="With Edge Threshold" asChild>
 	<div data-testid="edge-scroll" class="relative h-32 w-80 rounded-md border">
 		<ScrollArea bind:viewportRef={viewport} class="size-full p-4">

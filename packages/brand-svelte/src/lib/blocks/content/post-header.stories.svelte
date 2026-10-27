@@ -9,7 +9,6 @@
 	import { post, postTone } from './stories-data.js'
 </script>
 
-<!-- The top of a post, with its cover (the lab's blog post). Line art flips to dark lines in light mode. -->
 <Story name="With cover" asChild>
 	<div class="py-8">
 		<PostHeader
@@ -26,7 +25,6 @@
 	</div>
 </Story>
 
-<!-- Without one, the title takes the larger size. -->
 <Story name="Without cover" asChild>
 	<div class="py-8">
 		<PostHeader title={post.title} summary={post.summary} date={post.date} readingTime={post.readingTime} updated={post.updated} topic={post.topic} tone={postTone} />

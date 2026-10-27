@@ -21,7 +21,6 @@
 	]
 </script>
 
-<!-- A: The marquee. The cards walk past once around and back; the pause button stops them. -->
 <Story name="A Marquee" parameters={{ layout: 'fullscreen' }} asChild>
 	<div class="py-16">
 		<TestimonialWall
@@ -33,14 +32,12 @@
 	</div>
 </Story>
 
-<!-- B: The same quotes as a plain grid, for pages where nothing should walk. -->
 <Story name="B Grid" parameters={{ layout: 'fullscreen' }} asChild>
 	<div class="py-16">
 		<TestimonialWall variant="grid" title="People keep their words here" intro="Notes from the people who moved their writing to Marginal." quotes={quotes.slice(0, 6)} />
 	</div>
 </Story>
 
-<!-- C: A short wall for a small product. -->
 <Story name="C Short" parameters={{ layout: 'fullscreen' }} asChild>
 	<div class="py-16">
 		<TestimonialWall

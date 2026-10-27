@@ -9,11 +9,6 @@
 	})
 </script>
 
-<!--
-	The blog's shell (the lab's BlogShell): the wordmark with "by hmziq", the
-	posts nav, a Subscribe button and the reading rhythm. The lab's finished
-	post page is the full picture; this is the shell it wears.
--->
 <Story name="Default" asChild>
 	<BlogLayout current="Posts">
 		{#snippet children()}

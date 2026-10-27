@@ -144,7 +144,7 @@ bun run registry:build</code></pre>
 				Wrap a wide table in <code>typeset-scroll</code> when preserving every column is more
 				useful than allowing the cells to compress.
 			</p>
-			<div class="typeset-scroll max-w-lg" data-testid="table-scroller">
+			<div class="typeset-scroll max-w-lg" data-testid="table-scroller" tabindex={0}>
 				<table>
 					<thead>
 						<tr>
@@ -184,7 +184,6 @@ bun run registry:build</code></pre>
 	</div>
 </Story>
 
-<!-- Verify appending a response does not restyle completed content. -->
 <Story
 	name="should preserve existing content when appending response"
 	tags={['!dev', '!autodocs']}
@@ -196,7 +195,6 @@ bun run registry:build</code></pre>
 	</div>
 </Story>
 
-<!-- Verify timed content completes and restarts when replayed. -->
 <Story
 	name="should restart streaming when replayed"
 	tags={['!dev', '!autodocs']}

@@ -29,25 +29,22 @@
 		component: Scene,
 		args: { kind: 'lattice', seed: 'freeoxide' },
 		argTypes: {
-			kind: { control: 'select', options: ['lattice', 'network', 'layers', 'helix', 'tiles', 'thread'] },
+			kind: {
+				description: 'Which picture: lattice, network, layers, helix, tiles or thread.',
+				control: 'select',
+				options: ['lattice', 'network', 'layers', 'helix', 'tiles', 'thread'],
+			},
+			seed: { description: 'Name the picture is drawn from.' },
 		},
 	})
 </script>
 
-<!--
-	Optional 3D pictures, for the odd page that wants something moving. Thin
-	lines in the text color with one thing in orange, like the rings. For the
-	rings themselves, use the flat rings with a little motion (Custom/Rings).
-	Drawn from a name, so every site gets its own. They only run on screen,
-	stop for reduced motion, and have a pause button.
--->
 {#snippet template(args)}
 	<Scene {...args} class="aspect-[520/440] w-full max-w-lg" />
 {/snippet}
 
 <Story name="Default" {template} />
 
-<!-- For the space beside the words in a hero. Roughly square. -->
 <Story name="Beside the words" asChild>
 	<div class="grid max-w-4xl gap-x-8 gap-y-10 sm:grid-cols-2">
 		{#each hero as s (s.kind)}
@@ -61,7 +58,6 @@
 	</div>
 </Story>
 
-<!-- For a thin band between two sections, edge to edge, with a line above and below. -->
 <Story name="In a band" parameters={{ layout: 'fullscreen' }} asChild>
 	<div class="flex flex-col gap-10 py-10">
 		{#each bands as s (s.kind)}
@@ -75,7 +71,6 @@
 	</div>
 </Story>
 
-<!-- In place of the hero rings. Where 3D can't run, the flat rings show instead. -->
 <Story name="In a hero" parameters={{ layout: 'fullscreen' }} asChild>
 	<div class="py-16">
 		<Hero>
@@ -98,7 +93,6 @@
 	</div>
 </Story>
 
-<!-- Each name draws its own. -->
 <Story name="Seeds" asChild>
 	<div class="grid max-w-4xl grid-cols-2 gap-8 sm:grid-cols-3">
 		{#each ['hmziq', 'gpui-query', 'claude-multi'] as seed (seed)}
@@ -110,7 +104,6 @@
 	</div>
 </Story>
 
-<!-- On a grey band the scene reads the band's colors, and fills that hide what's behind them use the band's grey. -->
 <Story name="On a grey band" parameters={{ layout: 'fullscreen' }} asChild>
 	<section class="band-gray grid items-center gap-8 px-6 py-14 md:grid-cols-2 md:px-16">
 		<div class="flex max-w-md flex-col gap-3">
@@ -121,7 +114,6 @@
 	</section>
 </Story>
 
-<!-- What visitors who ask for reduced motion see: one still picture, and no pause button. -->
 <Story name="Still" asChild>
 	<Scene kind="lattice" seed="freeoxide" still class="aspect-[520/440] w-full max-w-lg" />
 </Story>

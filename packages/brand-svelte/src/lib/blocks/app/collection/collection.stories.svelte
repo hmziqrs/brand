@@ -9,11 +9,6 @@
 	})
 </script>
 
-<!--
-  The collection group: the toolbar, the filter chips, the sort menu and the
-  bulk bar, shown the way the members page holds them. Links point at the
-  demo's real URLs so the stories read like the page.
--->
 <script lang="ts">
 	import BulkActionBar from './bulk-action-bar.svelte'
 	import FilterChip from './filter-chip.svelte'
@@ -40,16 +35,12 @@
 		{ value: 'last_active', label: 'Last active (oldest)' },
 	]
 
-	// The list's state, held the way the page holds it: the URL's, changed
-	// through listHref. In the story the links stand still; the chips, the
-	// sort and the search still show their states.
 	let list = $state<ListState>({ q: '', filters: { role: [], status: [] }, sort: '-last_active', page: 1, perPage: 25 })
 	const href = (change: Partial<ListState>) => listHref('/app/members', list, change)
 
 	let selectedCount = $state(3)
 </script>
 
-<!-- The whole bar: search, two chips, the sort, the count. -->
 <Story name="Toolbar" asChild>
 	<div class="flex flex-col gap-4">
 		<CollectionToolbar
@@ -90,7 +81,6 @@
 	</div>
 </Story>
 
-<!-- While a refetch runs, the results stay and the count says it's busy. -->
 <Story name="Toolbar, busy" asChild>
 	<CollectionToolbar busy>
 		{#snippet sort()}
@@ -102,7 +92,6 @@
 	</CollectionToolbar>
 </Story>
 
-<!-- Rows are picked: the same box, filled muted, with the bulk actions. -->
 <Story name="Bulk action bar" asChild>
 	<CollectionToolbar>
 			{#snippet selection()}
@@ -121,7 +110,6 @@
 	</CollectionToolbar>
 </Story>
 
-<!-- One chip of each kind: empty, one value on, several on. -->
 <Story name="Filter chip" asChild>
 	<div class="flex flex-wrap items-center gap-3">
 		<FilterChip
@@ -151,7 +139,6 @@
 	</div>
 </Story>
 
-<!-- One choice at a time, and a list long enough to want searching. -->
 <Story name="Filter chip, single choice and searchable" asChild>
 	<div class="flex flex-wrap items-center gap-3">
 		<FilterChip
@@ -174,7 +161,6 @@
 	</div>
 </Story>
 
-<!-- The sort: the current order named on the trigger, checked in the menu. -->
 <Story name="Sort menu" asChild>
 	<div class="flex flex-wrap items-center gap-3">
 		<SortMenu options={sortOptions} value="-last_active" hrefFor={(sort) => href({ sort })} />
@@ -182,7 +168,6 @@
 	</div>
 </Story>
 
-<!-- At 360px: the search on its own line, the rest scrolling in one row. -->
 <Story name="Collection, mobile" parameters={{ viewport: { defaultViewport: 'phone360' } }} asChild>
 	<div class="flex flex-col gap-4">
 		<CollectionToolbar

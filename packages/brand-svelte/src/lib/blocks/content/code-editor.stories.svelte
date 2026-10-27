@@ -9,7 +9,6 @@
 	import { editorFiles } from './stories-data.js'
 </script>
 
-<!-- The editor mock from gpui-query, with file tabs. -->
 <Story name="Default" asChild>
 	<div class="max-w-[52rem] px-6">
 		<CodeEditor files={editorFiles} />

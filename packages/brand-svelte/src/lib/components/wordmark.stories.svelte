@@ -10,12 +10,11 @@
 		title: 'Custom/Logo',
 		component: Wordmark,
 		args: { name: 'freeoxide' },
+		argTypes: {
+			name: { description: 'The name the wordmark spells.' },
+		},
 	})
 
-	// The lab tweaker's presets, verbatim: the tuned states a look can take,
-	// from the "Start from" row of its LogoTweaker. Each is a Partial<LogoLook>
-	// (core's logo recipe), which the Wordmark and Mark merge over the brand's
-	// own defaults.
 	const wave: Partial<LogoLook> = { textMove: 'wave', squareMove: 'bounce', squareRest: 3 }
 	const presets: { name: string; note: string; look: Partial<LogoLook> }[] = [
 		{ name: 'Pulse', note: 'The square grows a little and back.', look: { squareMove: 'pulse' } },
@@ -31,12 +30,10 @@
 	]
 </script>
 
-<!-- The wordmark: the name in Onest 600, ending in the orange square. Size it with a text size. -->
 <Story name="Default" asChild>
 	<Wordmark name="freeoxide" class="text-5xl" />
 </Story>
 
-<!-- In a header, the maker follows in small grey text. -->
 <Story name="With maker" asChild>
 	<a href="#" class="flex items-baseline gap-[0.35em] text-lg">
 		<Wordmark name="freeoxide" />
@@ -44,11 +41,6 @@
 	</a>
 </Story>
 
-<!--
-	The mark, for favicons, app icons and the family row in the footer: two
-	letters and the square on a tile in the opposite of the page color. The
-	square stays bright orange in both modes. No rings in logos.
--->
 <Story name="Marks" asChild>
 	<div class="flex flex-col gap-8">
 		<div class="flex items-end gap-4">
@@ -67,28 +59,16 @@
 	</div>
 </Story>
 
-<!-- Every site signs off with the same giant wordmark at the bottom of the footer. It fills the width it's given. -->
 <Story name="Signature" asChild>
 	<div class="@container max-w-3xl overflow-hidden border-t pt-10">
 		<Wordmark name="hmziq" class="block pb-[0.2em] text-[33cqw] leading-[0.74] tracking-[-0.05em]" />
 	</div>
 </Story>
 
-<!--
-	Tune the logo: the letters, the square (or a dot, diamond or bar), the
-	mark's tile, a plate behind the wordmark, and how each part moves: pulse,
-	ripple, blink, spin, bounce, shimmer, wave, type. It starts from the
-	brand's logo. Your settings are at the bottom, ready to send; pass them to
-	`<Wordmark look>` and `<Mark look>`.
--->
 <Story name="Tweaker" parameters={{ layout: 'fullscreen' }} asChild>
 	<LogoTweaker />
 </Story>
 
-<!--
-	The tweaker's presets, every one live on the wordmark and the mark — the
-	static wall beside the tuning page, for seeing the whole range at a glance.
--->
 <Story name="Preset wall" parameters={{ layout: 'fullscreen' }} asChild>
 	<div class="flex flex-col gap-10 p-6 sm:p-10">
 		{#each presets as p (p.name)}

@@ -12,7 +12,6 @@
 	import { Input } from '$brand/ui/input/index.js'
 	import PasswordInput from '../auth/password-input.svelte'
 
-	// The demo's sign-in shape, so the stories read as the real page.
 	const field = 'flex flex-col gap-2'
 	const label = 'text-sm font-medium'
 </script>
@@ -44,14 +43,12 @@
 	</form>
 {/snippet}
 
-<!-- The whole page: one small column, the brand at the top. -->
 <Story name="Centered" asChild>
 	<AuthLayout {brand} title="Sign in" description="Sign in to your Sightline workspace." {footer}>
 		{@render form()}
 	</AuthLayout>
 </Story>
 
-<!-- The split: the form on the left, the product's rings on the right. -->
 <Story name="Split" asChild>
 	<AuthLayout variant="split" {brand} title="Sign in" description="Sign in to your Sightline workspace." {footer}>
 		{#snippet aside()}
@@ -63,7 +60,6 @@
 	</AuthLayout>
 </Story>
 
-<!-- Below md the split is the centered page; this is the same at 360px. -->
 <Story name="Split, mobile" parameters={{ viewport: { defaultViewport: 'phone360' } }} asChild>
 	<AuthLayout variant="split" {brand} title="Sign in" description="Sign in to your Sightline workspace." {footer}>
 		{#snippet aside()}

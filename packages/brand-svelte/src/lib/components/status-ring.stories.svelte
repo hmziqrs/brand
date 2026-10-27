@@ -5,10 +5,10 @@
 	const { Story } = defineMeta({
 		title: 'Custom/Status ring',
 		component: StatusRing,
+		parameters: { layout: 'centered' },
 	})
 </script>
 
-<!-- On, off and stale, always next to the word that says so. -->
 <Story name="States" asChild>
 	<ul class="flex flex-col gap-3 text-sm">
 		<li class="flex items-center gap-2"><StatusRing state="on" />Live</li>

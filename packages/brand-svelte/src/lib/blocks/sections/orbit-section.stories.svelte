@@ -20,7 +20,6 @@
 
 {#snippet architecture()}<ButtonLink href="#" variant="outline" size="lg">Read the architecture</ButtonLink>{/snippet}
 
-<!-- The parts drawn on the brand's rings: the nearest ring holds what every visitor touches, the outer rings what runs behind. -->
 <Story name="How it fits together" asChild>
 	<OrbitSection
 		caption="How it fits together"
@@ -32,7 +31,6 @@
 	/>
 </Story>
 
-<!-- Fewer parts, all on the nearest ring. -->
 <Story name="Two rings only" asChild>
 	<OrbitSection
 		caption="Small system"

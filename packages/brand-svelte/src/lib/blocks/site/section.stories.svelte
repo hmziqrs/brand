@@ -5,7 +5,6 @@
 	const { Story } = defineMeta({ title: 'Site/Sections/Section', component: Section })
 </script>
 
-<!-- A section heading: a small orange label, the title and one paragraph. -->
 <Story name="Default" parameters={{ layout: 'fullscreen' }} asChild>
 	<div class="py-16">
 		<Section>
@@ -17,7 +16,6 @@
 	</div>
 </Story>
 
-<!-- "center" puts the caption, title and intro in the middle. -->
 <Story name="Centered" parameters={{ layout: 'fullscreen' }} asChild>
 	<div class="py-16">
 		<Section align="center">

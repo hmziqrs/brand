@@ -5,7 +5,6 @@
 	const { Story } = defineMeta({ title: 'Site/Cards/Before after', component: BeforeAfter })
 </script>
 
-<!-- Before and after: the old way struck through, then what the product does instead. -->
 <Story name="Default" asChild>
 	<BeforeAfter
 		before="By hand"

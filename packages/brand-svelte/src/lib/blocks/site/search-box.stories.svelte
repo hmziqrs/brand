@@ -9,7 +9,6 @@
 	let value = $state('')
 </script>
 
-<!-- A search box that filters as you type. A line, no fill. -->
 <Story name="Default" asChild>
 	<SearchBox label="Search the docs" bind:value onChange={(v) => (value = v)} />
 </Story>

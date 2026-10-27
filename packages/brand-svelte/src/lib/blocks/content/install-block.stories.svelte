@@ -9,7 +9,6 @@
 	import { installChecks, installs } from './stories-data.js'
 </script>
 
-<!-- Install with the package manager you have: the switch, the command, the requirements. -->
 <Story name="Default" asChild>
 	<div class="px-6">
 		<InstallBlock commands={installs} items={installChecks} />

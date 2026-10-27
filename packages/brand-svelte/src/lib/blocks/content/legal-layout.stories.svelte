@@ -15,7 +15,6 @@
 	import { privacy } from './stories-data.js'
 </script>
 
-<!-- A side TOC that follows you down (the default), with claude-multi's own privacy policy. -->
 <Story name="Side" asChild>
 	<LegalLayout doc={privacy}>
 		{#snippet children()}
@@ -32,7 +31,6 @@
 	</LegalLayout>
 </Story>
 
-<!-- A wrapped row on top. -->
 <Story name="Top" asChild>
 	<LegalLayout doc={privacy} toc="top">
 		{#snippet children()}

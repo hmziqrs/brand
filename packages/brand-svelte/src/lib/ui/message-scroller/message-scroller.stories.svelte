@@ -231,8 +231,15 @@
 	<Button size="sm" onclick={loadHistory}>Load History</Button>
 {/snippet}
 
-<!-- The default transcript scrolls within a height-constrained container. -->
-<Story name="Default" asChild>
+<Story
+	name="Default"
+	asChild
+	parameters={{
+		docs: {
+			description: { story: 'The default transcript scrolls within a height-constrained container.' },
+		},
+	}}
+>
 	<div class="h-96 w-full min-w-sm max-w-lg rounded-md border">
 		<MessageScrollerProvider>
 			{@render transcriptBody(transcript)}
@@ -240,22 +247,47 @@
 	</div>
 </Story>
 
-<!-- Anchor new turns to user messages so the prompt starts near the top edge. -->
-<Story name="Anchoring Turns" asChild>
+<Story
+	name="Anchoring Turns"
+	asChild
+	parameters={{
+		docs: {
+			description: {
+				story: 'Anchor new turns to user messages so the prompt starts near the top edge.',
+			},
+		},
+	}}
+>
 	<div class="h-96 w-full min-w-sm max-w-lg rounded-md border">
 		{@render storyShell(sendControls, anchoringBody)}
 	</div>
 </Story>
 
-<!-- Auto-scroll follows the live edge while a scripted response streams in. -->
-<Story name="Streaming" asChild>
+<Story
+	name="Streaming"
+	asChild
+	parameters={{
+		docs: {
+			description: {
+				story: 'Auto-scroll follows the live edge while a scripted response streams in.',
+			},
+		},
+	}}
+>
 	<div class="h-96 w-full min-w-sm max-w-lg rounded-md border">
 		{@render storyShell(streamingControls, streamingBody)}
 	</div>
 </Story>
 
-<!-- Open a saved transcript at the last anchored turn. -->
-<Story name="Opening Position" asChild>
+<Story
+	name="Opening Position"
+	asChild
+	parameters={{
+		docs: {
+			description: { story: 'Open a saved transcript at the last anchored turn.' },
+		},
+	}}
+>
 	<div class="h-96 w-full min-w-sm max-w-lg rounded-md border">
 		<MessageScrollerProvider defaultScrollPosition="last-anchor">
 			{@render transcriptBody(transcript)}
@@ -263,8 +295,17 @@
 	</div>
 </Story>
 
-<!-- Prepend earlier messages without moving the reader away from the visible row. -->
-<Story name="Load History" asChild>
+<Story
+	name="Load History"
+	asChild
+	parameters={{
+		docs: {
+			description: {
+				story: 'Prepend earlier messages without moving the reader away from the visible row.',
+			},
+		},
+	}}
+>
 	<div class="h-96 w-full min-w-sm max-w-lg rounded-md border">
 		<MessageScrollerProvider defaultScrollPosition="start">
 			{@render storyShell(historyControls, historyBody)}
@@ -272,8 +313,15 @@
 	</div>
 </Story>
 
-<!-- Use external controls to jump to stable message ids. -->
-<Story name="Jump To Message" asChild>
+<Story
+	name="Jump To Message"
+	asChild
+	parameters={{
+		docs: {
+			description: { story: 'Use external controls to jump to stable message ids.' },
+		},
+	}}
+>
 	<div class="h-96 w-full min-w-sm max-w-lg rounded-md border">
 		<MessageScrollerProvider>
 			{@render jumpBody()}
@@ -281,8 +329,15 @@
 	</div>
 </Story>
 
-<!-- Read scroll state for custom status text or controls. -->
-<Story name="Scroll State" asChild>
+<Story
+	name="Scroll State"
+	asChild
+	parameters={{
+		docs: {
+			description: { story: 'Read scroll state for custom status text or controls.' },
+		},
+	}}
+>
 	<div class="h-96 w-full min-w-sm max-w-lg rounded-md border">
 		<MessageScrollerProvider>
 			<div class="flex size-full min-h-0 flex-col overflow-hidden">
@@ -297,12 +352,16 @@
 	</div>
 </Story>
 
-<!-- Verify external controls can scroll to the latest transcript turn. -->
 <Story
 	name="Scroll To Latest"
 	tags={['!dev', '!autodocs']}
 	play={endButtonInteraction}
 	asChild
+	parameters={{
+		docs: {
+			description: { story: 'Verify external controls can scroll to the latest transcript turn.' },
+		},
+	}}
 >
 	<div class="h-96 w-full min-w-sm max-w-lg rounded-md border">
 		<MessageScrollerProvider>
@@ -311,12 +370,18 @@
 	</div>
 </Story>
 
-<!-- Verify loading history preserves the visible transcript position. -->
 <Story
 	name="Prepend History Preserves Position"
 	tags={['!dev', '!autodocs']}
 	play={loadHistoryInteraction}
 	asChild
+	parameters={{
+		docs: {
+			description: {
+				story: 'Verify loading history preserves the visible transcript position.',
+			},
+		},
+	}}
 >
 	<div class="h-96 w-full min-w-sm max-w-lg rounded-md border">
 		<MessageScrollerProvider defaultScrollPosition="start">

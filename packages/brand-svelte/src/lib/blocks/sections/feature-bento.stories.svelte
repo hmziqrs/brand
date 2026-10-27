@@ -40,7 +40,6 @@
 	<div class="grid grid-cols-2 gap-4"><KpiStat label="Backups this month" value="31" delta={0} /><KpiStat label="Restores needed" value="0" delta={0} /></div>
 {/snippet}
 
-<!-- A: Marginal's speed story. A number in every corner, like the card family it comes from. Example data. -->
 <Story name="A Speed" asChild>
 	<FeatureBento
 		title="Everything a keystroke away"
@@ -56,7 +55,6 @@
 	/>
 </Story>
 
-<!-- B: Start-aligned, a streak and its company. -->
 <Story name="B Streaks" asChild>
 	<FeatureBento
 		align="start"
@@ -71,7 +69,6 @@
 	/>
 </Story>
 
-<!-- C: A quieter run, backup numbers instead of speed. -->
 <Story name="C Backups" asChild>
 	<FeatureBento
 		title="Your words, kept"

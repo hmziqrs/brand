@@ -5,10 +5,10 @@
 	const { Story } = defineMeta({
 		title: 'Custom/Marker',
 		component: Marker,
+		parameters: { layout: 'centered' },
 	})
 </script>
 
-<!-- The ring is the brand's bullet. It takes the text color. -->
 <Story name="Default" asChild>
 	<p class="flex items-center gap-2.5 text-sm text-muted-foreground">
 		<Marker class="text-primary" />
@@ -16,7 +16,6 @@
 	</p>
 </Story>
 
-<!-- Filled for on, open, done or selected; hollow for the rest. -->
 <Story name="Filled" asChild>
 	<ul class="flex flex-col gap-2">
 		<li class="flex items-center gap-2.5">
@@ -34,7 +33,6 @@
 	</ul>
 </Story>
 
-<!-- In a kind's color, next to the kind's name. -->
 <Story name="Colors" asChild>
 	<div class="flex flex-wrap gap-6 text-muted-foreground">
 		<span class="flex items-center gap-2">

@@ -9,7 +9,6 @@
 	import { releases } from './stories-data.js'
 </script>
 
-<!-- One past release, folded: its head, its first change, and the button that shows the rest. -->
 <Story name="Default" asChild>
 	<div class="max-w-[52rem] px-6">
 		<PastReleases release={releases[1]} />

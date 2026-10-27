@@ -18,7 +18,6 @@
 	})
 </script>
 
-<!-- Cohort retention: darker orange, more came back. With numbers, and compact. Sightline's example data. -->
 <Story name="Retention grid" asChild>
 	<div class="grid max-w-5xl gap-10 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
 		<RetentionGrid {cohorts} />
@@ -26,7 +25,6 @@
 	</div>
 </Story>
 
-<!-- Where people leave: rows with the share kept, or columns. -->
 <Story name="Funnel" asChild>
 	<div class="grid max-w-5xl gap-10 md:grid-cols-2">
 		<FunnelChart steps={funnel} />
@@ -34,12 +32,10 @@
 	</div>
 </Story>
 
-<!-- This period against the last; hover or the arrow keys for a day. -->
 <Story name="Trend chart" asChild>
 	<div class="max-w-3xl"><TrendChart label="Visitors a day" points={visitors} /></div>
 </Story>
 
-<!-- Numbers and how they moved. -->
 <Story name="KPI stats" asChild>
 	<div class="grid max-w-4xl gap-4 sm:grid-cols-3">
 		<KpiStat variant="card" label="Visitors" value="58,074" delta={16} against="vs the 30 days before" />
@@ -48,17 +44,14 @@
 	</div>
 </Story>
 
-<!-- A ranked list with bars behind the labels. -->
 <Story name="Bar list" asChild>
 	<div class="max-w-md"><BarList label="Top pages" rows={pages} mono /></div>
 </Story>
 
-<!-- Who's here right now. -->
 <Story name="Live feed" asChild>
 	<div class="max-w-md"><LiveFeed {events} online={38} /></div>
 </Story>
 
-<!-- A goal, and whether the pace gets there. -->
 <Story name="Goal" asChild>
 	<div class="flex flex-wrap gap-12">
 		<GoalMeter label="paid sign-ups this month" current={288} target={400} elapsed={0.6} />
@@ -66,14 +59,12 @@
 	</div>
 </Story>
 
-<!-- An alert that fired, with the drop marked on the line. -->
 <Story name="Alert" asChild>
 	<AlertCard class="max-w-sm" title="Sign-ups fell 30%" when="Tuesday, after the 2.4 release" values={signups} at={9} cause="The drop starts with release 2.4. Most people now leave at the card step.">
 		{#snippet actions()}<Button size="sm" variant="outline">Look into it</Button><Button size="sm" variant="ghost">Mute</Button>{/snippet}
 	</AlertCard>
 </Story>
 
-<!-- A year of activity, a square a day, filling the width it's given. -->
 <Story name="Activity heatmap" asChild>
 	<ActivityHeatmap label="Releases and commits" unit="changes" days={activity} start="2025-10-13" />
 </Story>

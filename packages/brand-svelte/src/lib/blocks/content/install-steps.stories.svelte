@@ -9,7 +9,6 @@
 	import { installSteps } from './stories-data.js'
 </script>
 
-<!-- Numbered steps with commands; a step's ring fills when its command is copied (the lab's components page). -->
 <Story name="Default" asChild>
 	<div class="max-w-[52rem] px-6">
 		<InstallSteps steps={installSteps} />

@@ -9,11 +9,14 @@
 	const { Story } = defineMeta({
 		title: 'Custom/Material tile',
 		component: MaterialTile,
+		parameters: { layout: 'centered' },
 		args: { preset: 'copper-sweep' },
+		argTypes: {
+			preset: { description: 'Metal in the frame.' },
+		},
 	})
 </script>
 
-<!-- A feature's icon in a material frame: the material shows, the icon stays on the page color. -->
 <Story name="With icons" asChild>
 	<ul class="flex max-w-md flex-col gap-5">
 		{#each [
@@ -29,7 +32,6 @@
 	</ul>
 </Story>
 
-<!-- Two letters in a material frame, round or square. -->
 <Story name="Letters" asChild>
 	<div class="flex flex-wrap items-center gap-4">
 		<MaterialTile preset="copper-sweep" size={56}>Ft</MaterialTile>
@@ -39,7 +41,6 @@
 	</div>
 </Story>
 
-<!-- The brand's materials as swatches. -->
 <Story name="Swatches" asChild>
 	<ul class="grid max-w-3xl grid-cols-4 gap-x-4 gap-y-5 sm:grid-cols-8">
 		{#each brandMaterials as preset (preset)}

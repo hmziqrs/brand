@@ -5,7 +5,6 @@
 	const { Story } = defineMeta({ title: 'Site/Cards/Outline card', component: OutlineCard })
 </script>
 
-<!-- The brand's card: a thin line, no fill. -->
 <Story name="Default" asChild>
 	<div class="max-w-sm">
 		<OutlineCard>
@@ -15,7 +14,6 @@
 	</div>
 </Story>
 
-<!-- With href the whole card is a link, and hovering tints the line orange. -->
 <Story name="As link" asChild>
 	<div class="max-w-sm">
 		<OutlineCard href="#">

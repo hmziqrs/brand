@@ -24,14 +24,12 @@
 	<Button variant="outline" size="sm">Export</Button>
 {/snippet}
 
-<!-- The least a page says: what it is, and a line about it. -->
 <Story name="Header" asChild>
 	<div class="max-w-3xl px-4 py-6 md:px-8 md:py-8">
 		<AppPageHeader title="Overview" description="What happened in the workspace lately." />
 	</div>
 </Story>
 
-<!-- Where the page sits, and what you can do on it. -->
 <Story name="With breadcrumbs and actions" asChild>
 	<div class="max-w-3xl px-4 py-6 md:px-8 md:py-8">
 		<AppPageHeader
@@ -46,7 +44,6 @@
 	</div>
 </Story>
 
-<!-- The page's own tabs, as links; the count shows as a grey Tag. -->
 <Story name="With tabs" asChild>
 	<div class="max-w-3xl px-4 py-6 md:px-8 md:py-8">
 		<AppPageHeader
@@ -58,7 +55,6 @@
 	</div>
 </Story>
 
-<!-- The back link stands in for the breadcrumbs on small screens. -->
 <Story name="Header on mobile" parameters={{ viewport: { defaultViewport: 'phone360' } }} asChild>
 	<div class="max-w-3xl px-4 py-6">
 		<AppPageHeader

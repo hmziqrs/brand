@@ -5,7 +5,6 @@
 	const { Story } = defineMeta({ title: 'Site/Sections/Ring stats', component: RingStats })
 </script>
 
-<!-- Key numbers, each beside a ring gauge that draws it. -->
 <Story name="Default" parameters={{ layout: 'fullscreen' }} asChild>
 	<div class="py-16">
 		<RingStats

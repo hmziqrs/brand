@@ -6,10 +6,13 @@
 	import TerminalWindow from './terminal-window.svelte'
 	import { Button } from '$brand/ui/button/index.js'
 
-	const { Story } = defineMeta({ title: 'Custom/Terminal', component: TerminalWindow })
+	const { Story } = defineMeta({
+		title: 'Custom/Terminal',
+		component: TerminalWindow,
+		parameters: { layout: 'centered' },
+	})
 </script>
 
-<!-- A terminal window. Always dark, like a real terminal, on light pages too. -->
 <Story name="Window" asChild>
 	<div class="max-w-2xl">
 		<TerminalWindow>
@@ -25,7 +28,6 @@
 	</div>
 </Story>
 
-<!-- Buttons on the right of the title bar: replay, copy. -->
 <Story name="With actions" asChild>
 	<div class="max-w-2xl">
 		<TerminalWindow>
@@ -44,7 +46,6 @@
 	</div>
 </Story>
 
-<!-- One line of each kind, with the words allowed to wrap. -->
 <Story name="Lines" asChild>
 	<div class="max-w-xl font-mono text-[0.8125rem]">
 		<TerminalLine line={['cmd', 'cargo publish --dry-run']} />

@@ -1,7 +1,7 @@
 <script module lang="ts">
   import { defineMeta } from "@storybook/addon-svelte-csf";
   import LiveDemo from "$brand/blocks/live/live-demo.svelte";
-  const { Story } = defineMeta({ title: "Custom/Live Notification", component: LiveDemo, args: { placement: "notification", autoplay: true } });
+  const { Story } = defineMeta({ title: "Custom/Live Notification", component: LiveDemo, parameters: { layout: "centered" }, args: { placement: "notification", autoplay: true }, argTypes: { placement: { description: "Which live surface renders: activity, notification or widget." }, autoplay: { description: "Starts the live demo as soon as it mounts." } } });
 </script>
 
 <Story name="Downloads" args={{ kind: "downloads" }} />

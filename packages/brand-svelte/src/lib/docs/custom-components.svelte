@@ -129,7 +129,7 @@ export { Stat }`;
 
 	<h2>The rules</h2>
 	<table>
-		<thead><tr><th></th><th>Rule</th></tr></thead>
+		<thead><tr><th><span class="sr-only">Area</span></th><th>Rule</th></tr></thead>
 		<tbody>
 			<tr><td>Color</td><td>Theme tokens only. Surfaces: <code>bg-background</code> for the page, <code>bg-card</code> for things that float over it (menus, popovers), <code>bg-muted</code> for hover and selected. Cards and tiles in the page are a line with no fill. Supporting colors follow the rules on the Colors page. <code>bun run check:colors</code> fails on anything else.</td></tr>
 			<tr><td>Lines</td><td>1px <code>border</code>. Between items, use <code>divide-y</code>, or a <code>gap-px</code> grid on <code>bg-border</code>. Never two borders side by side.</td></tr>

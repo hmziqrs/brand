@@ -7,12 +7,6 @@
 	})
 </script>
 
-<!--
-	Every other kind of page behind the hmziq sites (the lab's Pages.stories):
-	the claude-multi inner pages, gpui-query's docs page, the blog's post,
-	oxlabs' contact page and hmziq.rs' component catalog, composed from the
-	kit's blocks with the sites' real words.
--->
 <script lang="ts">
 	import { siGithub } from "simple-icons";
 	import { slug } from "@hmziq/brand-core/scroll-spy";

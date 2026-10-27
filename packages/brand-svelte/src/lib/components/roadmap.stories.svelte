@@ -9,7 +9,6 @@
 	})
 </script>
 
-<!-- Three columns: shipped, being built, next. The Groundwork example. -->
 <Story name="Board" asChild>
 	<Roadmap
 		class="max-w-5xl"

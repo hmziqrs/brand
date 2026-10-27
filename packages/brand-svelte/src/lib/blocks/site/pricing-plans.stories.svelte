@@ -11,12 +11,10 @@
 	const { Story } = defineMeta({ title: 'Site/Pricing/Pricing plans', component: PricingPlans })
 </script>
 
-<!-- Plans in outline cards, with a monthly / yearly switch. -->
 <Story name="Default" asChild>
 	<PricingPlans {plans} />
 </Story>
 
-<!-- Without the switch, for a page that only has one price. -->
 <Story name="Without billing" asChild>
 	<PricingPlans {plans} billing={false} />
 </Story>

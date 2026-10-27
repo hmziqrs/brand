@@ -25,7 +25,7 @@
 
 	<h2>The short version</h2>
 	<table>
-		<thead><tr><th></th><th></th></tr></thead>
+		<thead><tr><th><span class="sr-only">Topic</span></th><th><span class="sr-only">Summary</span></th></tr></thead>
 		<tbody>
 			<tr><td>Typeface</td><td>Onest for everything people read. JetBrains Mono only for code.</td></tr>
 			<tr><td>Weights</td><td>400 for text, 500 for headings, 600 for the wordmark. Nothing heavier.</td></tr>

@@ -1,8 +1,3 @@
-<!--
-  The shell every brand-docs page renders in: a header block, a prose column
-  that styles the h2s, lists, tables, inline code and demo panels the pages
-  are written in, and a sticky table of contents on wide screens.
--->
 <script lang="ts">
 	import { cn } from "$brand/utils.js";
 	import type { Snippet } from "svelte";

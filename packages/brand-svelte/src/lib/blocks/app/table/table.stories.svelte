@@ -9,11 +9,6 @@
 	})
 </script>
 
-<!--
-  The table parts on the stock Table: the frame, the sortable head, the two
-  checkboxes, the row actions, the pagination, the state row and the loading
-  rows, all with the demo's members as the data.
--->
 <script lang="ts">
 	import RowActions from './row-actions.svelte'
 	import RowCheckbox from './row-checkbox.svelte'
@@ -33,7 +28,6 @@
 	let sort = $state<false | 'asc' | 'desc'>('asc')
 	let checked = $state<string[]>([page[1].id])
 
-	// The sort link points at the page sorted the other way.
 	function sortHref(next: string) {
 		return `/app/members?sort=${next}`
 	}
@@ -108,7 +102,6 @@
 	</Root>
 {/snippet}
 
-<!-- The frame around the stock table, with a sortable, selectable column. -->
 <Story name="Frame" asChild>
 	<div class="max-w-3xl">
 		<AppTableFrame>
@@ -117,7 +110,6 @@
 	</div>
 </Story>
 
-<!-- The first column stays put while the table scrolls sideways. -->
 <Story name="Frame, sticky first column" parameters={{ viewport: { defaultViewport: 'phone360' } }} asChild>
 	<div class="max-w-md">
 		<AppTableFrame stickyFirstColumn>
@@ -126,7 +118,6 @@
 	</div>
 </Story>
 
-<!-- The header stays visible while the rows wait for their data. -->
 <Story name="Skeleton rows" asChild>
 	<div class="max-w-3xl">
 		<AppTableFrame>
@@ -147,7 +138,6 @@
 	</div>
 </Story>
 
-<!-- No results inside the table: the header keeps it company. -->
 <Story name="State row" asChild>
 	<div class="max-w-3xl">
 		<AppTableFrame>
@@ -171,7 +161,6 @@
 	</div>
 </Story>
 
-<!-- The head's three states: unsorted, ascending, descending. -->
 <Story name="Sortable head" asChild>
 	<AppTableFrame>
 		<Root>
@@ -193,7 +182,6 @@
 	</AppTableFrame>
 </Story>
 
-<!-- The header checkbox: off, mixed, all on. -->
 <Story name="Select all checkbox" asChild>
 	<div class="flex items-center gap-6 rounded-xl border border-border p-4">
 		<SelectAllCheckbox checked={false} onCheckedChange={() => {}} />
@@ -202,7 +190,6 @@
 	</div>
 </Story>
 
-<!-- One row's checkbox. -->
 <Story name="Row checkbox" asChild>
 	<div class="flex items-center gap-6 rounded-xl border border-border p-4">
 		<RowCheckbox checked={false} onCheckedChange={() => {}} label="Select Ada Lovelace" />
@@ -210,7 +197,6 @@
 	</div>
 </Story>
 
-<!-- The row's own menu, with a link, an action, a disabled one and a destructive one. -->
 <Story name="Row actions" asChild>
 	<div class="flex justify-center rounded-xl border border-border p-4">
 		<RowActions
@@ -225,14 +211,12 @@
 	</div>
 </Story>
 
-<!-- The foot: which rows, how many a page, and the page turns. -->
 <Story name="Pagination" asChild>
 	<div class="max-w-3xl rounded-xl border border-border">
 		<TablePagination page={2} pageSize={25} total={60} pageHref={(next) => `/app/members?page=${next}`} pageSizes={[25, 50, 100]} />
 	</div>
 </Story>
 
-<!-- The first page: nothing before it, and no page-size choice offered. -->
 <Story name="Pagination, first page" asChild>
 	<div class="max-w-3xl rounded-xl border border-border">
 		<TablePagination page={1} pageSize={25} total={60} pageHref={(next) => `/app/members?page=${next}`} />

@@ -24,7 +24,6 @@
 
 {#snippet trial()}<ButtonLink href="#" size="lg">Start a trial</ButtonLink>{/snippet}
 
-<!-- Where visitors come from, what they become. Each line is as thick as its share. -->
 <Story name="Visitors" asChild>
 	<FlowSection
 		caption="Where they come from"
@@ -37,7 +36,6 @@
 	/>
 </Story>
 
-<!-- A single source feeding a single result. -->
 <Story name="One path" asChild>
 	<FlowSection
 		caption="One path"
@@ -49,7 +47,6 @@
 	/>
 </Story>
 
-<!-- Ten sources and six outcomes: each line is one channel, so the thin ones stay visible. -->
 <Story name="Fine-grained" asChild>
 	<FlowSection
 		caption="Every channel"

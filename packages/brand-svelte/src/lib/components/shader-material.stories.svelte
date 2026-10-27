@@ -7,8 +7,12 @@
 	const { Story } = defineMeta({
 		title: "Custom/Shaders",
 		component: ShaderMaterial,
+		parameters: { layout: "centered" },
 		args: { preset: "oxide-bloom", animated: false, class: "aspect-[8/5] w-full max-w-3xl" },
-		argTypes: { preset: { control: "select", options: shaderLooks.map(look => look.id) } },
+		argTypes: {
+			preset: { description: "Brand material the shader draws.", control: "select", options: shaderLooks.map(look => look.id) },
+			animated: { description: "Runs the shader live instead of a still image." },
+		},
 	});
 </script>
 

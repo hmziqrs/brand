@@ -28,7 +28,6 @@
 	}
 </script>
 
-<!-- Drop files or choose them; each one shows its progress, a failure in words, and a way to take it out. The uploads are pretend. -->
 <Story name="Default" asChild>
 	<FileDrop class="max-w-lg" hint="Up to 64 MB a file" {items} onfiles={add} onremove={(item) => (items = items.filter((i) => i.id !== item.id))} />
 </Story>

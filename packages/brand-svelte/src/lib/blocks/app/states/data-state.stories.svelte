@@ -21,7 +21,6 @@
 	import SettingRow from '../settings/setting-row.svelte'
 	import * as Table from '$brand/ui/table/index.js'
 
-	// The rows every skeleton story stands against, from the demo's data.
 	const tableRows = [
 		['Ada Lovelace', 'Admin', 'Active', '2 days ago'],
 		['Grace Hopper', 'Member', 'Active', '5 hours ago'],
@@ -30,10 +29,6 @@
 		['Barbara Liskov', 'Owner', 'Active', 'just now'],
 	]
 
-	// A story can't flip the OS's reduced-motion setting from inside the
-	// browser, so this asserts the mechanism instead: every pulse carries
-	// motion-reduce:animate-none. (The real media query is checked outside
-	// Storybook, with Playwright's emulation.)
 	function checkReducedMotion({ canvasElement }: { canvasElement: HTMLElement }) {
 		const pulses = canvasElement.querySelectorAll('[data-slot="skeleton"]')
 		for (const el of pulses) {
@@ -78,7 +73,6 @@
 	</SettingRow>
 {/snippet}
 
-<!-- Pending: the skeleton, once the delay has passed (nothing for fast loads). -->
 <Story name="Data, pending" asChild>
 	<div class="flex min-h-72 flex-col bg-background">
 		<DataState status="pending" loadingLabel="Loading members" loading={loadingSkeleton} error={errorBlock}>
@@ -87,7 +81,6 @@
 	</div>
 </Story>
 
-<!-- The load failed. -->
 <Story name="Data, error" asChild>
 	<div class="flex min-h-72 flex-col bg-background">
 		<DataState status="error" loadingLabel="Loading members" loading={loadingSkeleton} error={errorBlock}>
@@ -96,7 +89,6 @@
 	</div>
 </Story>
 
-<!-- It arrived, and there was nothing in it. -->
 <Story name="Data, empty" asChild>
 	<div class="flex min-h-72 flex-col bg-background">
 		<DataState
@@ -112,7 +104,6 @@
 	</div>
 </Story>
 
-<!-- It arrived. -->
 <Story name="Data, success" asChild>
 	<div class="bg-background">
 		<DataState status="success" loadingLabel="Loading members" loading={loadingSkeleton} error={errorBlock}>
@@ -121,7 +112,6 @@
 	</div>
 </Story>
 
-<!-- Each skeleton beside the real content it stands for: text. -->
 <Story name="Skeleton text" asChild>
 	<div class="grid gap-8 bg-background md:grid-cols-2">
 		<div class="flex flex-col gap-2.5">
@@ -135,7 +125,6 @@
 	</div>
 </Story>
 
-<!-- Each skeleton beside the real content it stands for: the table. -->
 <Story name="Skeleton table" asChild>
 	<div class="grid gap-8 bg-background md:grid-cols-2">
 		<div class="flex flex-col gap-2.5">
@@ -166,7 +155,6 @@
 	</div>
 </Story>
 
-<!-- Each skeleton beside the real content it stands for: stat cards. -->
 <Story name="Skeleton stats" asChild>
 	<div class="grid gap-8 bg-background md:grid-cols-2">
 		<div class="flex flex-col gap-2.5">
@@ -185,15 +173,12 @@
 	</div>
 </Story>
 
-<!-- Each skeleton beside the real content it stands for: a detail list. -->
 <Story name="Skeleton details" asChild>
 	<div class="grid gap-8 bg-background md:grid-cols-2">
 		<div class="flex flex-col gap-2.5">
 			<p class="text-sm font-medium">Content</p>
 			<dl class="flex flex-col divide-y divide-border">
 				{#each [['Name', 'Ada Lovelace'], ['Email', 'ada@paperplane.app'], ['Role', 'Admin'], ['Joined', '12 March 2024']] as [label, value] (label)}
-					<!-- DetailList's own row classes, so the mock beside the
-					     skeleton stacks below sm the way both really do. -->
 					<div class="flex flex-col gap-1 py-3.5 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
 						<dt class="w-40 shrink-0 text-sm text-muted-foreground">{label}</dt>
 						<dd class="text-sm">{value}</dd>
@@ -208,7 +193,6 @@
 	</div>
 </Story>
 
-<!-- Each skeleton beside the real content it stands for: a settings section. -->
 <Story name="Skeleton settings" asChild>
 	<div class="grid gap-8 bg-background lg:grid-cols-2">
 		<div class="flex flex-col gap-2.5">
@@ -221,15 +205,11 @@
 		</div>
 		<div class="flex flex-col gap-2.5">
 			<p class="text-sm font-medium">Skeleton</p>
-			<!-- This section's copy fits one line at every width, so its
-			     description pair says so. -->
 			<SkeletonSettings rows={3} description={[1, 1]} />
 		</div>
 	</div>
 </Story>
 
-<!-- Reduced motion: every pulse carries motion-reduce:animate-none, so
-     visitors who ask for still get still. -->
 <Story name="Reduced motion" play={checkReducedMotion} asChild>
 	<div class="flex flex-col gap-8 bg-background">
 		<SkeletonText lines={2} />

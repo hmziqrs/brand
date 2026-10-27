@@ -5,6 +5,7 @@
 	const { Story } = defineMeta({
 		title: 'ui/base/AspectRatio',
 		component: AspectRatio,
+		parameters: { layout: 'centered' },
 	})
 </script>
 

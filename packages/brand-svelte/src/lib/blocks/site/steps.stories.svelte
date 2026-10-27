@@ -5,7 +5,6 @@
 	const { Story } = defineMeta({ title: 'Site/Sections/Steps', component: Steps })
 </script>
 
-<!-- Numbered steps joined by a line. Only for things that really happen in order. -->
 <Story name="Default" asChild>
 	<Steps
 		items={[

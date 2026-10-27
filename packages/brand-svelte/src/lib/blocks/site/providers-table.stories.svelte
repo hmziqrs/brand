@@ -9,7 +9,6 @@
 	import { providers } from '../content/stories-data.js'
 </script>
 
-<!-- Every provider claude-multi supports, from the /providers page. -->
 <Story name="Default" asChild>
 	<div class="max-w-5xl px-6">
 		<ProvidersTable {providers} />

@@ -13,6 +13,7 @@
 	const { Story } = defineMeta({
 		title: 'Custom/Material frame',
 		component: MaterialFrame,
+		parameters: { layout: 'centered' },
 	})
 </script>
 
@@ -25,7 +26,6 @@
 	</div>
 {/snippet}
 
-<!-- The plan most people pick, framed in copper next to plain outline plans. Example prices. -->
 <Story name="Pricing" asChild>
 	<div class="grid max-w-5xl items-stretch gap-4 md:grid-cols-3">
 		{#each plans as p (p.name)}
@@ -38,7 +38,6 @@
 	</div>
 </Story>
 
-<!-- Thicknesses and metals. -->
 <Story name="Frames" asChild>
 	<div class="grid max-w-4xl gap-4 sm:grid-cols-3">
 		{#each [{ preset: 'liquid-chrome', width: 3 }, { preset: 'hammered-copper', width: 6 }, { preset: 'brushed-alloy', width: 10 }] as f (f.preset)}

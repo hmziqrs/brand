@@ -8,6 +8,7 @@
 	const { Story } = defineMeta({
 		title: 'ui/base/Accordion',
 		component: Accordion,
+		parameters: { layout: 'centered' },
 	})
 </script>
 

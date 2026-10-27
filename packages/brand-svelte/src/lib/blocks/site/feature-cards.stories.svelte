@@ -15,7 +15,6 @@
 {#snippet gaugeIcon()}<Gauge class="lucide" />{/snippet}
 {#snippet refreshIcon()}<RefreshCw class="lucide" />{/snippet}
 
-<!-- Features in outline cards: a thin line, no fill, an icon tile on top. -->
 <Story name="Default" asChild>
 	<FeatureCards
 		items={[

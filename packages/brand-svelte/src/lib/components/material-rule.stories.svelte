@@ -5,11 +5,14 @@
 	const { Story } = defineMeta({
 		title: 'Custom/Material rule',
 		component: MaterialRule,
+		parameters: { layout: 'centered' },
 		args: { preset: 'copper-sweep' },
+		argTypes: {
+			preset: { description: 'Metal the rule is cut from.' },
+		},
 	})
 </script>
 
-<!-- A thin strip of metal between two parts of a page. -->
 <Story name="Between sections" asChild>
 	<div class="flex max-w-2xl flex-col gap-10">
 		<p class="leading-relaxed text-muted-foreground">Free Rust tools, finished before they ship. Open-source software made by one person.</p>
@@ -18,7 +21,6 @@
 	</div>
 </Story>
 
-<!-- Thicknesses and metals, with and without the fade. -->
 <Story name="Variants" asChild>
 	<div class="flex max-w-2xl flex-col gap-8">
 		<MaterialRule preset="liquid-chrome" thickness={2} />

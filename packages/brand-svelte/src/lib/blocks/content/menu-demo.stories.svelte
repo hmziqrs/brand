@@ -8,8 +8,6 @@
 <script lang="ts">
 	import { addInstance, listed, menu, settingsJson } from './stories-data.js'
 
-	// A story can't flip the OS's reduced-motion setting, so the plays stub
-	// matchMedia to pick the branch and restore it right after.
 	const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 	const listbox = (root: ParentNode) => root.querySelector('[role="listbox"]')
 	const press = (el: Element, key: string) => el.dispatchEvent(new KeyboardEvent('keydown', { key, bubbles: true }))
@@ -51,28 +49,24 @@
 	}
 </script>
 
-<!-- The claude-multi TUI in a three-pane terminal. Arrow keys move, enter opens, esc backs out; Add new instance types its setup in. -->
 <Story name="Default" asChild>
 	<div class="max-w-5xl px-6">
 		<MenuDemo {menu} addLines={addInstance} {listed} {settingsJson} />
 	</div>
 </Story>
 
-<!-- Reached by keys alone: focus the listbox, ArrowDown, Enter. -->
 <Story name="Keyboard" play={openListedByKeyboard} asChild>
 	<div class="max-w-5xl px-6">
 		<MenuDemo {menu} addLines={addInstance} {listed} {settingsJson} />
 	</div>
 </Story>
 
-<!-- prefers-reduced-motion: Add new instance shows the finished session at once, no line-by-line reveal. -->
 <Story name="Reduced motion" play={reducedMotionShowsSetup} asChild>
 	<div class="max-w-5xl px-6">
 		<MenuDemo {menu} addLines={addInstance} {listed} {settingsJson} />
 	</div>
 </Story>
 
-<!-- Add new instance types its setup in, one line every 260 ms, until the whole session sits there. -->
 <Story name="Timed reveal" play={timedReveal} asChild>
 	<div class="max-w-5xl px-6">
 		<MenuDemo {menu} addLines={addInstance} {listed} {settingsJson} />

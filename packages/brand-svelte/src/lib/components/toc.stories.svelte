@@ -9,15 +9,17 @@
 		{ id: 'persistence', label: 'Persistence' },
 	]
 
-	const { Story } = defineMeta({ title: 'Custom/Toc', component: Toc })
+	const { Story } = defineMeta({
+		title: 'Custom/Toc',
+		component: Toc,
+		parameters: { layout: 'centered' },
+	})
 </script>
 
-<!-- A list of the page's headings. The one you're reading gets an orange ring. -->
 <Story name="Default" asChild>
 	<Toc {items} current="quick-start" />
 </Story>
 
-<!-- 01, 02… in orange instead of the rings, for numbered documents. -->
 <Story name="Numbered" asChild>
 	<Toc {items} current="queries" numbered />
 </Story>

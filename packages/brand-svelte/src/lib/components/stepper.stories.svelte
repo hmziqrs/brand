@@ -3,10 +3,13 @@
 	import Step from './step.svelte'
 	import Stepper from './stepper.svelte'
 
-	const { Story } = defineMeta({ title: 'Custom/Stepper', component: Stepper })
+	const { Story } = defineMeta({
+		title: 'Custom/Stepper',
+		component: Stepper,
+		parameters: { layout: 'centered' },
+	})
 </script>
 
-<!-- Steps joined by a line. The line turns orange below a step that's done. -->
 <Story name="Done" asChild>
 	<Stepper>
 		<Step n={1} done>
@@ -24,7 +27,6 @@
 	</Stepper>
 </Story>
 
-<!-- The current step is open, the ones after it are grey. -->
 <Story name="In progress" asChild>
 	<Stepper>
 		<Step n={1} done>

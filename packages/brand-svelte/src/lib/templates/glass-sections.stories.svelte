@@ -15,7 +15,13 @@
 		component: GlassSections,
 		args: { variant: "rings" },
 		parameters: { layout: "fullscreen" },
-		argTypes: { variant: { control: "select", options: examples.map((e) => e.variant) } },
+		argTypes: {
+			variant: {
+				control: "select",
+				options: examples.map((e) => e.variant),
+				description: "Where the glass sits: over the hero rings, under copy on a full shader, as a floating header, or as a closing band.",
+			},
+		},
 	});
 </script>
 
@@ -24,7 +30,6 @@
 <Story name="Floating header" args={{ variant: "header" }} />
 <Story name="Glass band" args={{ variant: "band" }} />
 
-<!-- All four, with a note on when to use each. -->
 <Story name="Complete catalog" asChild>
 	<div class="flex flex-col gap-16 py-16">
 		{#each examples as e (e.variant)}

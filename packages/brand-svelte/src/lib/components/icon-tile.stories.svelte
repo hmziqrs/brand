@@ -10,17 +10,16 @@
 	const { Story } = defineMeta({
 		title: 'Custom/Icon tile',
 		component: IconTile,
+		parameters: { layout: 'centered' },
 	})
 </script>
 
-<!-- Orange icon in a thin outline, no fill: the default for features. -->
 <Story name="Default" asChild>
 	<IconTile>
 		<Database class="lucide" />
 	</IconTile>
 </Story>
 
-<!-- A soft color, only when the color means something. -->
 <Story name="Tones" asChild>
 	<div class="flex gap-3">
 		<IconTile>

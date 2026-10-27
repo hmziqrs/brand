@@ -106,7 +106,7 @@
 			</div>
 		</div>
 		<div class="grid min-h-0 grid-rows-[11rem_11rem] border-t md:grid-rows-[minmax(0,1.1fr)_minmax(0,1fr)] md:border-t-0 md:border-l">
-			<div class="min-h-0 overflow-auto border-b px-4.5 pt-3.5 pb-4 font-mono text-[0.8125rem] leading-[1.8]" aria-live="polite">
+			<div class="min-h-0 overflow-auto border-b px-4.5 pt-3.5 pb-4 font-mono text-[0.8125rem] leading-[1.8]" aria-live="polite" tabindex={0}>
 				{@render paneTitle(runTitle)}
 				{#if ran === null}
 					<TerminalLine wrap line={["note", "Pick something in the menu. Add new instance runs the real setup."]} />
@@ -128,7 +128,7 @@
 					<TerminalLine wrap line={["note", "This screen isn't in the demo. Try Add new instance."]} />
 				{/if}
 			</div>
-			<div class="min-h-0 overflow-auto pt-3.5">
+			<div class="min-h-0 overflow-auto pt-3.5" tabindex={0}>
 				{@render paneTitle("~/.claude-glm/settings.json", "px-4.5")}
 				{#if ran === 0}
 					<CodeLines code={settingsJson} lang="json" class="pt-0" />

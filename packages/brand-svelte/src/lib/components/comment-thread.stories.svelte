@@ -20,7 +20,6 @@
 	]
 </script>
 
-<!-- Comments under a post, replies under a thin line, the author marked. Example comments. -->
 <Story name="Default" asChild>
 	<CommentThread {comments} class="max-w-2xl" />
 </Story>

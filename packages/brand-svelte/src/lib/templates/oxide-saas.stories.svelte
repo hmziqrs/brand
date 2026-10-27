@@ -8,8 +8,8 @@
 		args: { variant: "analytics", animated: false },
 		parameters: { layout: "fullscreen" },
 		argTypes: {
-			variant: { control: "select", options: ["analytics", "team-planning", "developer-api"] },
-			animated: { control: "boolean" },
+			variant: { control: "select", options: ["analytics", "team-planning", "developer-api"], description: "Which SaaS page to render: analytics, team planning or developer API." },
+			animated: { control: "boolean", description: "Plays the page's shader and chart motion." },
 		},
 	});
 </script>

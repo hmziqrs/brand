@@ -7,11 +7,15 @@
 	const { Story } = defineMeta({
 		title: 'Custom/Material sparkline',
 		component: MaterialSparkline,
+		parameters: { layout: 'centered' },
 		args: { values: visitors, label: 'Visitors a day, rising' },
+		argTypes: {
+			values: { description: 'Numbers plotted left to right.' },
+			label: { description: 'Accessible name for the trend.' },
+		},
 	})
 </script>
 
-<!-- A trend in a stat card: the area is copper, the line the text color, today in orange. Example numbers. -->
 <Story name="In a card" asChild>
 	<div class="flex max-w-sm flex-col gap-4 rounded-xl p-6 ring-1 ring-foreground/10">
 		<div><p class="text-sm text-muted-foreground">Visitors a day</p><p class="text-3xl font-medium tracking-tight tabular-nums">3,620</p></div>
@@ -19,7 +23,6 @@
 	</div>
 </Story>
 
-<!-- Wide, in other metals. -->
 <Story name="Metals" asChild>
 	<div class="grid max-w-5xl gap-8 md:grid-cols-2">
 		<MaterialSparkline values={visitors} label="Rising" preset="liquid-chrome" />

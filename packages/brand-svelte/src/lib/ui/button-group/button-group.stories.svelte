@@ -58,10 +58,10 @@
 
 <Story name="Orientation" asChild>
 	<ButtonGroup orientation="vertical">
-		<Button variant="outline" size="icon">
+		<Button variant="outline" size="icon" aria-label="Add">
 			<Plus class="lucide" aria-hidden="true" />
 		</Button>
-		<Button variant="outline" size="icon">
+		<Button variant="outline" size="icon" aria-label="More options">
 			<Ellipsis class="lucide" aria-hidden="true" />
 		</Button>
 	</ButtonGroup>
@@ -99,7 +99,7 @@
 	<ButtonGroup>
 		<Button variant="secondary">Button</Button>
 		<ButtonGroupSeparator />
-		<Button size="icon" variant="secondary">
+		<Button size="icon" variant="secondary" aria-label="Add">
 			<Plus class="lucide" aria-hidden="true" />
 		</Button>
 	</ButtonGroup>
@@ -118,7 +118,7 @@
 	<TooltipProvider>
 		<ButtonGroup class="[--radius:9999rem]">
 			<ButtonGroup>
-				<Button variant="outline" size="icon">
+				<Button variant="outline" size="icon" aria-label="Add attachment">
 					<Plus class="lucide" aria-hidden="true" />
 				</Button>
 			</ButtonGroup>
@@ -139,6 +139,7 @@
 										data-active={voiceEnabled}
 										class="data-[active=true]:bg-orange-100 data-[active=true]:text-orange-700 dark:data-[active=true]:bg-orange-800 dark:data-[active=true]:text-orange-100"
 										aria-pressed={voiceEnabled}
+										aria-label="Voice Mode"
 									>
 										<AudioLines class="lucide" aria-hidden="true" />
 									</InputGroupButton>
@@ -159,7 +160,7 @@
 		<DropdownMenu>
 			<DropdownMenuTrigger>
 				{#snippet child({ props })}
-					<Button {...props} variant="outline" class="pl-2!">
+					<Button {...props} variant="outline" class="pl-2!" aria-label="Conversation options">
 						<ChevronDown class="lucide" aria-hidden="true" />
 					</Button>
 				{/snippet}

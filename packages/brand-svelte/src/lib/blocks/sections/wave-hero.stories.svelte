@@ -30,10 +30,8 @@
 	</WaveHero>
 {/snippet}
 
-<!-- The launch hero: centered words over the waves, texture controls bottom right. -->
 <Story name="Centered" asChild>{@render centered()}</Story>
 
-<!-- Words on the left, the rings beside them, from md up. -->
 <Story name="Split" asChild>
 	<WaveHero variant="split">
 		{#snippet title()}Tools finished before they ship.{/snippet}
@@ -47,7 +45,6 @@
 	</WaveHero>
 </Story>
 
-<!-- The grid texture instead of the scanlines. -->
 <Story name="Grid texture" asChild>
 	<WaveHero texture="grid">
 		{#snippet title()}Your words, your machine.{/snippet}
@@ -56,7 +53,6 @@
 	</WaveHero>
 </Story>
 
-<!-- The film-grain texture. -->
 <Story name="Grain texture" asChild>
 	<WaveHero texture="grain">
 		{#snippet title()}Your words, your machine.{/snippet}
@@ -65,7 +61,6 @@
 	</WaveHero>
 </Story>
 
-<!-- Clean waves, no texture and no controls: the section is just the hero. -->
 <Story name="Quiet" asChild>
 	<WaveHero texture="off" controls={false}>
 		{#snippet title()}Your words, your machine.{/snippet}

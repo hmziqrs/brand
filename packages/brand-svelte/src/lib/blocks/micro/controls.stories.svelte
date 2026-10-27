@@ -50,7 +50,7 @@
 			<span class="text-sm text-muted-foreground">Monthly budget</span>
 			<span class="font-mono text-2xl font-semibold tabular-nums">${budget.toLocaleString()}</span>
 		</div>
-		<Slider type="single" bind:value={budget} min={500} max={10000} step={100} />
+		<Slider type="single" bind:value={budget} min={500} max={10000} step={100} aria-label="Monthly budget" />
 		<div class="flex justify-between text-xs text-muted-foreground"><span>$500</span><span>$10k</span></div>
 	</div>
 </Story>
@@ -81,7 +81,7 @@
 <Story name="Tab bar" asChild>
 	<nav class="flex gap-1 rounded-2xl border bg-card p-1.5">
 		{#each [["home", House], ["explore", Compass], ["alerts", Bell], ["me", User]] as const as [id, Icon] (id)}
-			<button onclick={() => (tab = id)} class="flex items-center gap-2 rounded-xl px-3.5 py-2 text-sm capitalize {tab === id ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:bg-muted'}">
+			<button onclick={() => (tab = id)} aria-label={id} class="flex items-center gap-2 rounded-xl px-3.5 py-2 text-sm capitalize {tab === id ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:bg-muted'}">
 				<Icon class="lucide size-4" />{#if tab === id}{id}{/if}
 			</button>
 		{/each}

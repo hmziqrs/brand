@@ -5,6 +5,7 @@
 	const { Story } = defineMeta({
 		title: 'ui/base/Progress',
 		component: Progress,
+		parameters: { layout: 'centered' },
 	})
 </script>
 

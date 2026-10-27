@@ -282,7 +282,7 @@
 	<div class="flex w-full max-w-md flex-col gap-6">
 		<ItemGroup class="gap-4">
 			{#each music as song (song.title)}
-				<Item variant="outline" role="listitem">
+				<Item variant="outline">
 					{#snippet child({ props })}
 						<a href="#" {...props}>
 							<ItemMedia variant="image">
@@ -328,7 +328,12 @@
 						<ItemDescription>{person.email}</ItemDescription>
 					</ItemContent>
 					<ItemActions>
-						<Button variant="ghost" size="icon" class="rounded-full">
+						<Button
+							variant="ghost"
+							size="icon"
+							class="rounded-full"
+							aria-label="Invite {person.username}"
+						>
 							<Plus class="lucide" />
 						</Button>
 					</ItemActions>

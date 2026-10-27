@@ -7,7 +7,11 @@
 	const { Story } = defineMeta({
 		title: 'Custom/Rolling number',
 		component: RollingNumber,
+		parameters: { layout: 'centered' },
 		args: { value: 1240 },
+		argTypes: {
+			value: { description: 'Number to show; it rolls when the value changes.' },
+		},
 	})
 </script>
 
@@ -16,7 +20,6 @@
 	let count = $state(1240)
 </script>
 
-<!-- A price that rolls to its new value as the slider moves. Example prices. -->
 <Story name="Price" asChild>
 	<div class="flex max-w-md flex-col gap-4 rounded-xl p-6 ring-1 ring-foreground/10">
 		<div class="flex items-baseline justify-between text-sm"><span class="text-muted-foreground">People on your team</span><RollingNumber value={seats} class="font-medium" /></div>
@@ -25,7 +28,6 @@
 	</div>
 </Story>
 
-<!-- A count that rolls when it changes. -->
 <Story name="Counter" asChild>
 	<div class="flex items-center gap-6">
 		<RollingNumber value={count} class="text-6xl font-medium tracking-[-0.04em]" />

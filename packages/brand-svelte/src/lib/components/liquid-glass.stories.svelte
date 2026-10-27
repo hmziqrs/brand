@@ -15,7 +15,6 @@
 	})
 </script>
 
-<!-- Glass that bends the material at its edges, like a lens. Chromium only; elsewhere it is frosted glass. -->
 <Story name="Over a material" asChild>
 	<div class="relative isolate grid min-h-[34rem] place-items-center gap-10 overflow-hidden p-8">
 		<ShaderMaterial rendering="image" preset="etched-silk" controls={false} class="absolute inset-0 -z-10" />
@@ -28,7 +27,6 @@
 	</div>
 </Story>
 
-<!-- The same toolbar in liquid glass and in frosted glass. -->
 <Story name="Next to frosted" asChild>
 	<div class="relative isolate grid min-h-80 place-items-center overflow-hidden p-8">
 		<ShaderMaterial rendering="image" preset="copper-sweep" controls={false} class="absolute inset-0 -z-10" />

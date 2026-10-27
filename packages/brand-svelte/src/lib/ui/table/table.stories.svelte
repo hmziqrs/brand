@@ -13,6 +13,7 @@
 	const { Story } = defineMeta({
 		title: 'ui/base/Table',
 		component: Table,
+		parameters: { layout: 'centered' },
 	})
 
 	const invoices = [

@@ -9,12 +9,10 @@
 	});
 </script>
 
-<!-- freeoxide's tunnel (ft): its own rings beside the words, and a glass picker for what to share. -->
 <Story name="tunnel" asChild>
 	<Tunnel />
 </Story>
 
-<!-- freeoxide's Oxiwake (ow): a switch that turns its card from night to day. -->
 <Story name="oxiwake" asChild>
 	<Oxiwake />
 </Story>

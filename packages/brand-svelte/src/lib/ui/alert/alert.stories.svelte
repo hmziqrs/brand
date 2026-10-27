@@ -8,6 +8,7 @@
 	const { Story } = defineMeta({
 		title: 'ui/base/Alert',
 		component: AlertRoot,
+		parameters: { layout: 'centered' },
 	})
 </script>
 

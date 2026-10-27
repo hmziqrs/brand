@@ -1,8 +1,3 @@
-<!--
-  A docs canvas: the live piece in a boxed preview panel, with the story's
-  name as a tab label above it, and the storybook-docs show/hide code toggle
-  and copy button under it.
--->
 <script lang="ts">
 	import { cn } from "$brand/utils.js";
 	import { tokenize } from "$brand/components/code-tokenize.js";

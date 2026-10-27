@@ -5,7 +5,11 @@
 	const { Story } = defineMeta({
 		title: 'Custom/Notice',
 		component: Notice,
+		parameters: { layout: 'centered' },
 		args: { tone: 'info' },
+		argTypes: {
+			tone: { description: 'Status role: info, success, warning or destructive.' },
+		},
 	})
 </script>
 

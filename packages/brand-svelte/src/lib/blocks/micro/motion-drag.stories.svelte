@@ -346,7 +346,7 @@
 
 <Story name="Range" asChild>
 	<div class="flex w-80 flex-col gap-3">
-		<Slider type="multiple" bind:value={range} min={0} max={100} step={1} />
+		<Slider type="multiple" bind:value={range} min={0} max={100} step={1} aria-label="Price range" />
 		<div class="flex justify-between font-mono text-sm tabular-nums"><span>${range[0] * 10}</span><span>${range[1] * 10}</span></div>
 	</div>
 </Story>
@@ -419,6 +419,7 @@
 	<div class="flex flex-col items-center gap-2">
 		<span
 			role="spinbutton"
+			aria-label="Step value"
 			aria-valuenow={stepValue}
 			tabindex="0"
 			class="cursor-ew-resize touch-none rounded-lg border bg-card px-6 py-3 font-mono text-4xl font-semibold tabular-nums select-none"

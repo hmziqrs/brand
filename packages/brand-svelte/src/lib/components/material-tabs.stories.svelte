@@ -15,7 +15,6 @@
 {#snippet mutation()}<CodeBlock lang="rust" label="Save changes" class="bg-background shadow-xl" code={querySamples[1].code} />{/snippet}
 {#snippet pages()}<CodeBlock lang="rust" label="Load pages" class="bg-background shadow-xl" code={querySamples[2].code} />{/snippet}
 
-<!-- gpui-query's three functions: pick one, see it on its own metal. Arrow keys move between them. -->
 <Story name="Default" asChild>
 	<MaterialTabs
 		class="max-w-5xl"

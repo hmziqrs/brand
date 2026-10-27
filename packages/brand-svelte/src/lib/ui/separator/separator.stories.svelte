@@ -5,6 +5,7 @@
 	const { Story } = defineMeta({
 		title: 'ui/base/Separator',
 		component: Separator,
+		parameters: { layout: 'centered' },
 	})
 </script>
 

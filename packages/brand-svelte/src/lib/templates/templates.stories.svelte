@@ -12,11 +12,6 @@
 	})
 </script>
 
-<!--
-	Landing page templates for SaaS products that aren't hmziq sites: the kit's
-	components and signature on five kinds of product. Every name, number,
-	quote and price on them is example content.
--->
 <Story name="Sightline - analytics" asChild>
 	<SightlinePage />
 </Story>

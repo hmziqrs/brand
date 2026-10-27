@@ -9,11 +9,6 @@
 	})
 </script>
 
-<!--
-	The header, the page's column rhythm and the footer that links the whole
-	family together. The lab's finished sites are the full pictures; this is
-	the shell they all share.
--->
 <Story name="Landing" asChild>
 	<SiteShell site="freeoxide" nav={['Projects', 'Writing', 'About']} current="Projects" cta={{ label: 'View on GitHub' }}>
 		{#snippet children()}
@@ -27,7 +22,6 @@
 	</SiteShell>
 </Story>
 
-<!-- "page" for inner pages: less space between sections than a landing page. -->
 <Story name="Inner page" asChild>
 	<SiteShell site="blog" nav={['Posts', 'Topics', 'About']} current="About" layout="page">
 		{#snippet children()}
@@ -39,7 +33,6 @@
 	</SiteShell>
 </Story>
 
-<!-- With the link columns, a wider header for docs, and a different signature. -->
 <Story name="With footer links" asChild>
 	<SiteShell
 		site="gpui-query"

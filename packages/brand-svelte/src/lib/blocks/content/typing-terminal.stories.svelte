@@ -9,7 +9,6 @@
 	import { session } from './stories-data.js'
 </script>
 
-<!-- TerminalWindow replaying typed lines, at a fixed height (the lab's components page). Reduced motion shows the finished text. -->
 <Story name="Default" asChild>
 	<div class="px-6">
 		<TypingTerminal lines={session} />

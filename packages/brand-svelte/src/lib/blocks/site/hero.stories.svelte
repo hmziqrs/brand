@@ -8,7 +8,6 @@
 	const { Story } = defineMeta({ title: 'Site/Hero', component: Hero })
 </script>
 
-<!-- The words, the buttons and their notes, with the rings beside them. -->
 <Story name="With rings" parameters={{ layout: 'fullscreen' }} asChild>
 	<div class="py-16">
 		<Hero>
@@ -20,8 +19,6 @@
 			{/snippet}
 			{#snippet note()}<HeroNote>Free and open source. MIT or Apache-2.0.</HeroNote>{/snippet}
 			{#snippet aside()}
-				<!-- Rings are the words' neighbour, never a stacked block: below md
-					there is no room beside the words, so they sit out entirely. -->
 				<div class="hidden md:block">
 					<Rings seed="freeoxide" />
 				</div>
@@ -30,7 +27,6 @@
 	</div>
 </Story>
 
-<!-- "wide" gives a product beside the words more room than the words. -->
 <Story name="Wide aside" parameters={{ layout: 'fullscreen' }} asChild>
 	<div class="py-16">
 		<Hero asideSize="wide">
@@ -44,7 +40,6 @@
 	</div>
 </Story>
 
-<!-- A small grey word above the title, and something under the hero at full width. -->
 <Story name="Kicker and below" parameters={{ layout: 'fullscreen' }} asChild>
 	<div class="py-16">
 		<Hero>

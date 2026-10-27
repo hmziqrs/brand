@@ -9,11 +9,6 @@
 	})
 </script>
 
-<!--
-  The metrics family (app-blocks.md, phase 7): the trend, the stat cards and
-  their grid, and the usage meters. The numbers are the demo's, from
-  brand-core, so the stories and the svelte-app overview tell the same story.
--->
 <script lang="ts">
 	import MetricTrend from './metric-trend.svelte'
 	import StatGrid from './stat-grid.svelte'
@@ -21,14 +16,10 @@
 	import { Button } from '$brand/ui/button/index.js'
 	import { overview, usage } from '@hmziq/brand-core/app/demo-data'
 
-	// The demo's four cards, so the "good down" and "bad up" cases show here
-	// exactly as they do on /app/overview: bounce falling is green, load time
-	// rising is red.
 	const cards = overview['30']
 </script>
 
 {#snippet barChart()}
-	<!-- A stand-in chart: the shape a small chart under the number would take. -->
 	<div class="flex h-8 items-end gap-1" aria-hidden="true">
 		{#each [40, 55, 45, 62, 58, 72, 68, 84] as h, i (i)}
 			<div class="w-full rounded-xs {i === 7 ? 'bg-primary' : 'bg-muted'}" style="height: {h}%"></div>
@@ -40,7 +31,6 @@
 	<Button type="button" variant="link" size="sm" class="h-auto p-0">Upgrade</Button>
 {/snippet}
 
-<!-- Rising, against each meaning of good: green up, red up, grey up. -->
 <Story name="Trend, rising" asChild>
 	<div class="flex flex-wrap items-center gap-6 bg-background px-4 py-4">
 		<MetricTrend change={0.126} good="up" comparison="vs last 30 days" />
@@ -49,7 +39,6 @@
 	</div>
 </Story>
 
-<!-- Falling: red down when up is good, green down when down is, grey either way. -->
 <Story name="Trend, falling" asChild>
 	<div class="flex flex-wrap items-center gap-6 bg-background px-4 py-4">
 		<MetricTrend change={-0.06} good="up" comparison="vs last 30 days" />
@@ -58,7 +47,6 @@
 	</div>
 </Story>
 
-<!-- No movement at all: a flat dash, grey, "No change" whatever good says. -->
 <Story name="Trend, no change" asChild>
 	<div class="flex flex-wrap items-center gap-6 bg-background px-4 py-4">
 		<MetricTrend change={0} good="up" comparison="vs last 30 days" />
@@ -67,7 +55,6 @@
 	</div>
 </Story>
 
-<!-- The three formats, and the comparison line left off. -->
 <Story name="Trend, formats" asChild>
 	<div class="flex flex-wrap items-center gap-6 bg-background px-4 py-4">
 		<MetricTrend change={0.124} format="percent" />
@@ -76,21 +63,18 @@
 	</div>
 </Story>
 
-<!-- A card: label, number, trend. -->
 <Story name="Card" asChild>
 	<div class="max-w-xs">
 		<StatCard label="Visitors" value={cards[0].value} trend={{ change: cards[0].change, good: cards[0].good, format: cards[0].format, comparison: cards[0].comparison }} />
 	</div>
 </Story>
 
-<!-- A card with the extras: one hint line and a small chart under the number. -->
 <Story name="Card, hint and chart" asChild>
 	<div class="max-w-xs">
 		<StatCard label="Visitors" value={cards[0].value} trend={{ change: cards[0].change, good: cards[0].good, format: cards[0].format, comparison: cards[0].comparison }} hint="Unique visitors across all pages" chart={barChart} />
 	</div>
 </Story>
 
-<!-- Pending: a skeleton of the same size, so the number lands without a shift. -->
 <Story name="Card, pending" asChild>
 	<div class="max-w-2xl">
 		<StatGrid columns={2}>
@@ -100,7 +84,6 @@
 	</div>
 </Story>
 
-<!-- Error: the card stays, the compact error offers a way out, the rest go on. -->
 <Story name="Card, error" asChild>
 	<div class="max-w-2xl">
 		<StatGrid columns={2}>
@@ -110,7 +93,6 @@
 	</div>
 </Story>
 
-<!-- Whole cards as links: outlined in primary on hover, nothing moves. -->
 <Story name="Card, link" asChild>
 	<div class="max-w-2xl">
 		<StatGrid columns={2}>
@@ -120,7 +102,6 @@
 	</div>
 </Story>
 
-<!-- The demo's four cards in the ruled grid, four columns from sm. -->
 <Story name="Grid, demo cards" asChild>
 	<div class="max-w-4xl">
 		<StatGrid>
@@ -151,7 +132,6 @@
 	</div>
 </Story>
 
-<!-- One card still loading and one failed, inside the grid that stays whole. -->
 <Story name="Grid, pending and error cards" asChild>
 	<div class="max-w-4xl">
 		<StatGrid>
@@ -163,56 +143,48 @@
 	</div>
 </Story>
 
-<!-- Well under the warning level: the fill is the brand's orange. -->
 <Story name="Meter, below the warning level" asChild>
 	<div class="max-w-md px-4 py-4">
 		<UsageMeter label="Events this month" used={usage.events.used} limit={usage.events.limit} unit={usage.events.unit} resetsOn="Resets on {usage.events.resetsOn}" />
 	</div>
 </Story>
 
-<!-- At warnAt (80%): the fill turns yellow. -->
 <Story name="Meter, at the warning level" asChild>
 	<div class="max-w-md px-4 py-4">
 		<UsageMeter label="Seats" used={usage.seats.used} limit={usage.seats.limit} unit={usage.seats.unit} />
 	</div>
 </Story>
 
-<!-- At 100%: the destructive fill, the message and the way out. -->
 <Story name="Meter, at the limit" asChild>
 	<div class="max-w-md px-4 py-4">
 		<UsageMeter label="Events this month" used={usage.events.limit} limit={usage.events.limit} unit={usage.events.unit} resetsOn="Resets on {usage.events.resetsOn}" limitMessage="You've used every event this month. New events are dropped until it resets." action={upgradeAction} />
 	</div>
 </Story>
 
-<!-- Over the limit: the bar is full and destructive, the numbers say the truth. -->
 <Story name="Meter, over the limit" asChild>
 	<div class="max-w-md px-4 py-4">
 		<UsageMeter label="Events this month" used={12420} limit={usage.events.limit} unit={usage.events.unit} resetsOn="Resets on {usage.events.resetsOn}" limitMessage="You've used every event this month. New events are dropped until it resets." action={upgradeAction} />
 	</div>
 </Story>
 
-<!-- No limit: just the count, no meter role. -->
 <Story name="Meter, no limit" asChild>
 	<div class="max-w-md px-4 py-4">
 		<UsageMeter label="Projects" used={12} limit={null} unit="projects" />
 	</div>
 </Story>
 
-<!-- The ring variant, under the warning level. -->
 <Story name="Meter, ring" asChild>
 	<div class="max-w-md px-4 py-4">
 		<UsageMeter variant="ring" label="Seats" used={5} limit={usage.seats.limit} unit={usage.seats.unit} />
 	</div>
 </Story>
 
-<!-- The ring at the warning level, the way the demo shows seats: 8 of 10. -->
 <Story name="Meter, ring, at the warning level" asChild>
 	<div class="max-w-md px-4 py-4">
 		<UsageMeter variant="ring" label="Seats" used={usage.seats.used} limit={usage.seats.limit} unit={usage.seats.unit} />
 	</div>
 </Story>
 
-<!-- The three meters as the overview holds them, in three outline cards. -->
 <Story name="Meter, the demo row" asChild>
 	<div class="grid max-w-4xl gap-3 sm:grid-cols-3">
 		<div class="rounded-xl border border-border px-4 py-4">
@@ -227,7 +199,6 @@
 	</div>
 </Story>
 
-<!-- At 360px: the grid stays two columns, the meters stack, nothing scrolls. -->
 <Story name="Mobile" parameters={{ viewport: { defaultViewport: 'phone360' } }} asChild>
 	<div class="flex flex-col gap-6">
 		<StatGrid>

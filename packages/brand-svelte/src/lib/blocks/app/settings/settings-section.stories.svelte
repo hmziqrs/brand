@@ -16,8 +16,6 @@
 	import { Switch } from '$brand/ui/switch/index.js'
 	import { Button } from '$brand/ui/button/index.js'
 
-	// The story's own little form state, so the actions can be shown in each
-	// of their states without posting anywhere.
 	let name = $state('Maya Fernandes')
 	let savedName = $state('Maya Fernandes')
 	let weekly = $state(true)
@@ -28,41 +26,39 @@
 	}
 </script>
 
-{#snippet nameField()}
-	<Input id="name" name="name" bind:value={name} aria-describedby="name-description" />
+{#snippet nameField(id: string)}
+	<Input {id} name="name" bind:value={name} aria-describedby={`${id}-description`} />
 {/snippet}
 
-{#snippet weeklySwitch()}
-	<Switch id="weekly" name="weekly" bind:checked={weekly} aria-describedby="weekly-description" />
+{#snippet weeklySwitch(id: string)}
+	<Switch {id} name="weekly" bind:checked={weekly} aria-describedby={`${id}-description`} />
 {/snippet}
 
 {#snippet cancelButton(disabled: boolean)}
 	<Button type="reset" variant="outline" {disabled} onclick={restore}>Cancel</Button>
 {/snippet}
 
-<!-- A settings section: title and description beside the rows, from lg. -->
 <Story name="Section" asChild>
 	<div class="bg-background">
 		<SettingsSection
 			title="Profile"
 			description="How you appear in the workspace, and when Sightline counts your day from."
 		>
-			<SettingRow label="Name" description="Shown next to anything you change." for="name">
-				{@render nameField()}
+			<SettingRow label="Name" description="Shown next to anything you change." for="section-name">
+				{@render nameField('section-name')}
 			</SettingRow>
 			<SettingRow
 				label="Weekly summary email"
 				description="Every Monday, with the week’s numbers."
-				for="weekly"
+				for="section-weekly"
 				orientation="horizontal"
 			>
-				{@render weeklySwitch()}
+				{@render weeklySwitch('section-weekly')}
 			</SettingRow>
 		</SettingsSection>
 	</div>
 </Story>
 
-<!-- The destructive outline, for the section that removes things. -->
 <Story name="Destructive section" asChild>
 	<div class="bg-background">
 		<SettingsSection
@@ -81,13 +77,12 @@
 	</div>
 </Story>
 
-<!-- A whole form with nothing changed: Save waits, Cancel stays out of sight. -->
 <Story name="Form, clean" asChild>
 	<div class="bg-background">
 		<form onsubmit={(event) => event.preventDefault()} class="flex flex-col gap-8">
 			<SettingsSection title="Profile" description="How you appear in the workspace.">
-				<SettingRow label="Name" description="Shown next to anything you change." for="name">
-					{@render nameField()}
+				<SettingRow label="Name" description="Shown next to anything you change." for="form-clean-name">
+					{@render nameField('form-clean-name')}
 				</SettingRow>
 			</SettingsSection>
 			<FormActions {dirty} pending={false} cancel={cancelButton} />
@@ -95,13 +90,12 @@
 	</div>
 </Story>
 
-<!-- The same form after a change: the warning line, and both buttons live. -->
 <Story name="Form, dirty" asChild>
 	<div class="bg-background">
 		<form onsubmit={(event) => event.preventDefault()} class="flex flex-col gap-8">
 			<SettingsSection title="Profile" description="How you appear in the workspace.">
-				<SettingRow label="Name" description="Shown next to anything you change." for="name">
-					<Input id="name" name="name" value="Maya F." aria-describedby="name-description" />
+				<SettingRow label="Name" description="Shown next to anything you change." for="form-dirty-name">
+					<Input id="form-dirty-name" name="name" value="Maya F." aria-describedby="form-dirty-name-description" />
 				</SettingRow>
 			</SettingsSection>
 			<FormActions {dirty} pending={false} cancel={cancelButton} submitLabel="Save changes" />
@@ -109,13 +103,12 @@
 	</div>
 </Story>
 
-<!-- While the save runs: a spinner in Save, everything held still. -->
 <Story name="Form, saving" asChild>
 	<div class="bg-background">
 		<form onsubmit={(event) => event.preventDefault()} class="flex flex-col gap-8">
 			<SettingsSection title="Profile" description="How you appear in the workspace.">
-				<SettingRow label="Name" description="Shown next to anything you change." for="name">
-					<Input id="name" name="name" value="Maya F." aria-describedby="name-description" />
+				<SettingRow label="Name" description="Shown next to anything you change." for="form-saving-name">
+					<Input id="form-saving-name" name="name" value="Maya F." aria-describedby="form-saving-name-description" />
 				</SettingRow>
 			</SettingsSection>
 			<FormActions dirty={true} pending={true} cancel={cancelButton} />
@@ -123,13 +116,12 @@
 	</div>
 </Story>
 
-<!-- The save landed: "Saved" for four seconds, then the row goes quiet. -->
 <Story name="Form, saved" asChild>
 	<div class="bg-background">
 		<form onsubmit={(event) => event.preventDefault()} class="flex flex-col gap-8">
 			<SettingsSection title="Profile" description="How you appear in the workspace.">
-				<SettingRow label="Name" description="Shown next to anything you change." for="name">
-					<Input id="name" name="name" value="Maya F." aria-describedby="name-description" />
+				<SettingRow label="Name" description="Shown next to anything you change." for="form-saved-name">
+					<Input id="form-saved-name" name="name" value="Maya F." aria-describedby="form-saved-name-description" />
 				</SettingRow>
 			</SettingsSection>
 			<FormActions dirty={false} pending={false} saved={true} />
@@ -137,13 +129,12 @@
 	</div>
 </Story>
 
-<!-- The server refused the save: the reason sits above the buttons. -->
 <Story name="Form, error" asChild>
 	<div class="bg-background">
 		<form onsubmit={(event) => event.preventDefault()} class="flex flex-col gap-8">
 			<SettingsSection title="Profile" description="How you appear in the workspace.">
-				<SettingRow label="Name" description="Shown next to anything you change." for="name">
-					<Input id="name" name="name" value="Maya F." aria-describedby="name-description" />
+				<SettingRow label="Name" description="Shown next to anything you change." for="form-error-name">
+					<Input id="form-error-name" name="name" value="Maya F." aria-describedby="form-error-name-description" />
 				</SettingRow>
 			</SettingsSection>
 			<FormActions
@@ -156,23 +147,22 @@
 	</div>
 </Story>
 
-<!-- At 360px the panel takes the whole width under its title. -->
 <Story name="Section, mobile" parameters={{ viewport: { defaultViewport: 'phone360' } }} asChild>
 	<div class="bg-background">
 		<SettingsSection
 			title="Profile"
 			description="How you appear in the workspace, and when Sightline counts your day from."
 		>
-			<SettingRow label="Name" description="Shown next to anything you change." for="name">
-				{@render nameField()}
+			<SettingRow label="Name" description="Shown next to anything you change." for="section-mobile-name">
+				{@render nameField('section-mobile-name')}
 			</SettingRow>
 			<SettingRow
 				label="Weekly summary email"
 				description="Every Monday, with the week’s numbers."
-				for="weekly"
+				for="section-mobile-weekly"
 				orientation="horizontal"
 			>
-				{@render weeklySwitch()}
+				{@render weeklySwitch('section-mobile-weekly')}
 			</SettingRow>
 		</SettingsSection>
 	</div>

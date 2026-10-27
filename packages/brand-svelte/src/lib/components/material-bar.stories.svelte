@@ -5,11 +5,16 @@
 	const { Story } = defineMeta({
 		title: 'Custom/Material bar',
 		component: MaterialBar,
+		parameters: { layout: 'centered' },
 		args: { label: 'Storage', value: 0.72, preset: 'copper-sweep' },
+		argTypes: {
+			label: { description: 'Name shown above the bar.' },
+			value: { description: 'Fill of the bar, from 0 to 1.' },
+			preset: { description: 'Metal the bar is cut from.' },
+		},
 	})
 </script>
 
-<!-- Shares as bars of metal on a thin track. -->
 <Story name="Usage" asChild>
 	<div class="flex max-w-md flex-col gap-5">
 		<MaterialBar label="Storage" detail="7.2 of 10 GB" value={0.72} preset="copper-sweep" />

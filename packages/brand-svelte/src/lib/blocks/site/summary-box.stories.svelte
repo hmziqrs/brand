@@ -5,7 +5,6 @@
 	const { Story } = defineMeta({ title: 'Content/Summary box', component: SummaryBox })
 </script>
 
-<!-- The TL;DR box: an orange outline, a ring and a label. -->
 <Story name="Default" asChild>
 	<div class="max-w-[46rem]">
 		<SummaryBox label="TL;DR">

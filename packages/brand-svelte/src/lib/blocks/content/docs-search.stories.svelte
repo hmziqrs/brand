@@ -5,7 +5,6 @@
 	const { Story } = defineMeta({ title: 'Content/Docs/Search', component: DocsSearch })
 </script>
 
-<!-- The docs search, in the header where the lab puts it. On its own here; DocsLayout owns the menu it filters. -->
 <Story name="Default" asChild>
 	<div class="flex items-center gap-4 px-6 py-4">
 		<DocsSearch />

@@ -18,14 +18,12 @@
 	})
 </script>
 
-<!-- Code on a material, the code block itself as the window: give it the page color, since it has no fill of its own. -->
 <Story name="Code" asChild>
 	<MaterialStage preset="brushed-alloy" window="none" class="max-w-3xl">
 		<CodeBlock lang="rust" label="src/users.rs" code={querySamples[0].code} class="bg-background shadow-xl" />
 	</MaterialStage>
 </Story>
 
-<!-- A product screen in a solid window with a title bar, on copper. -->
 <Story name="Product screen" asChild>
 	<MaterialStage preset="copper-sweep" title="tunnel · services" class="max-w-3xl" padding="lg">
 		<ul class="divide-y text-sm">

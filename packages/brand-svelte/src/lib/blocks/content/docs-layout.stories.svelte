@@ -18,11 +18,6 @@
 	const toc = docsHeadings.map((h) => ({ id: slug(h), label: h }))
 </script>
 
-<!--
-	The docs' shell (the lab's gpui-query docs page): the line menu on the
-	left, the page in the middle, "On this page" sticky on the right, the
-	search in the header and a menu button below md.
--->
 <Story name="Default" asChild>
 	<DocsLayout site="gpui-query" menu={docsMenu} page="Installation" toc={toc}>
 		{#snippet children()}

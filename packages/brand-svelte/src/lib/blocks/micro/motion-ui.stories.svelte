@@ -179,7 +179,7 @@
 </Story>
 
 <Story name="Progressive blur" asChild>
-	<div class="relative h-80 w-72 overflow-y-auto rounded-xl border bg-card">
+	<div class="relative h-80 w-72 overflow-y-auto rounded-xl border bg-card" tabindex={0}>
 		{#each Array(14) as _, i (i)}<p class="border-b px-4 py-3 text-sm">Changelog entry {14 - i}</p>{/each}
 		<div class="pointer-events-none sticky bottom-0 h-24">
 			{#each [1, 2, 4, 8] as b, i (b)}
@@ -385,7 +385,7 @@
 			<div class="text-sm"><p class="font-medium">When a form is sent</p><p class="text-xs text-muted-foreground">Trigger · Webhook</p></div>
 		</div>
 		<span class="h-px w-12 transition-colors {node ? 'bg-primary' : 'bg-border'}"></span>
-		<div class="flex items-center gap-3 rounded-xl border border-dashed p-3 pr-4 transition-opacity duration-300 {node ? 'opacity-100' : 'opacity-40'}">
+		<div class="flex items-center gap-3 rounded-xl border border-dashed p-3 pr-4 transition-opacity duration-300 motion-reduce:transition-none {node ? 'opacity-100' : 'opacity-75'}">
 			<span class="grid size-9 place-items-center rounded-lg bg-muted"><Check class="lucide size-4" /></span>
 			<div class="text-sm"><p class="font-medium">Send a reply</p><p class="text-xs text-muted-foreground">Action · Email</p></div>
 		</div>

@@ -19,8 +19,6 @@
 	<BrandIcon icon={siGoogle} />
 {/snippet}
 
-<!-- The outside ways in: outline buttons with the provider's logo. Choosing
-	one turns its spinner on and stands the others down. -->
 <Story name="Provider buttons" asChild>
 	<form class="flex max-w-sm flex-col p-6" onsubmit={(event) => event.preventDefault()}>
 		<ProviderButtons

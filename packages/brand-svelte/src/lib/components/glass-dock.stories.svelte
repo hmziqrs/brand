@@ -26,7 +26,6 @@
 {#snippet move()}<FolderInput class="lucide" />{/snippet}
 {#snippet trash()}<Trash2 class="lucide" />{/snippet}
 
-<!-- A reading page's few actions, floating over the page. -->
 <Story name="Reading" asChild>
 	<div class="relative isolate grid min-h-80 place-items-end justify-center overflow-hidden p-8">
 		<ShaderMaterial rendering="image" preset="etched-silk" controls={false} class="absolute inset-0 -z-10" />
@@ -43,7 +42,6 @@
 	</div>
 </Story>
 
-<!-- Actions for a selection in an app, with the main one set apart. -->
 <Story name="Selection" asChild>
 	<div class="relative isolate grid min-h-80 place-items-end justify-center overflow-hidden p-8">
 		<ShaderMaterial rendering="image" preset="brushed-alloy" controls={false} class="absolute inset-0 -z-10" />

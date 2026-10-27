@@ -15,14 +15,18 @@ pub fn routes(cx: &mut App) -> Vec<Route> {
 	const { Story } = defineMeta({
 		title: 'Custom/Code block',
 		component: CodeBlock,
+		parameters: { layout: 'centered' },
 		args: { lang: 'rust', label: 'src/shell/route.rs', code: rust },
+		argTypes: {
+			lang: { description: 'Language the code is tokenized with.' },
+			label: { description: 'File name shown in the label bar.' },
+			code: { description: 'The code text to render.' },
+		},
 	})
 </script>
 
-<!-- With a file name. The copy button sits in the label bar. -->
 <Story name="Rust" />
 
-<!-- A command to run: no label, the copy button floats top right. -->
 <Story name="Command" args={{ lang: 'bash', label: undefined, code: 'cargo add gpui-query' }} />
 
 <Story
@@ -36,7 +40,6 @@ gpui-query = { version = "0.4", features = ["persist"] }`,
 	}}
 />
 
-<!-- Code people read but won't paste, like a before/after comparison. -->
 <Story name="No copy" args={{ copy: false, label: undefined }} />
 
 <Story name="Inline" asChild>
@@ -45,7 +48,6 @@ gpui-query = { version = "0.4", features = ["persist"] }`,
 	</p>
 </Story>
 
-<!-- Several versions of the same thing, as tabs. -->
 <Story
 	name="Tabs"
 	args={{

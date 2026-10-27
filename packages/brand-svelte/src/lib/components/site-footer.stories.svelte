@@ -15,17 +15,14 @@
 	]
 </script>
 
-<!-- Link columns, a newsletter, the family and the giant signature. -->
 <Story name="Columns" asChild>
 	<SiteFooter site="freeoxide" tagline="Free Rust tools, finished before they ship." {columns} newsletter github="#" x="#" />
 </Story>
 
-<!-- One row: the wordmark, the main links and the socials. -->
 <Story name="Simple" asChild>
 	<SiteFooter variant="simple" site="freeoxide" {columns} github="#" x="#" />
 </Story>
 
-<!-- One line, for app screens and small pages. -->
 <Story name="Minimal" asChild>
 	<SiteFooter variant="minimal" site="freeoxide" github="#" />
 </Story>

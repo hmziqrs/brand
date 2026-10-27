@@ -19,12 +19,10 @@
 	}))
 </script>
 
-<!-- A grid of pictures; pick one to see it large, then the arrows or arrow keys to move through them. -->
 <Story name="Materials" asChild>
 	<Gallery label="The brand's materials" {pictures} class="max-w-5xl" />
 </Story>
 
-<!-- Three wide, square. -->
 <Story name="Square" asChild>
 	<Gallery label="Metals" pictures={pictures.slice(8, 14)} columns={3} aspect="aspect-square" class="max-w-3xl" />
 </Story>

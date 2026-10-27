@@ -36,10 +36,6 @@
 	]
 </script>
 
-<!--
-	A project drawn like a periodic-table element, in an outline card with
-	its own rings in the corner: its fingerprint.
--->
 <Story name="Default" asChild>
 	<div class="grid max-w-3xl gap-4 sm:grid-cols-3">
 		{#each projects as p (p.name)}

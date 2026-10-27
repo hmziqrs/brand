@@ -217,7 +217,7 @@
 								<FieldTitle>Kubernetes</FieldTitle>
 								<FieldDescription>Run GPU workloads on a K8s configured cluster.</FieldDescription>
 							</FieldContent>
-							<RadioGroupItem value="kubernetes" id="kubernetes-r2h" />
+							<RadioGroupItem value="kubernetes" id="kubernetes-r2h" aria-label="Kubernetes" />
 						</FieldRoot>
 					</FieldLabel>
 					<FieldLabel for="vm-z4k">
@@ -226,7 +226,7 @@
 								<FieldTitle>Virtual Machine</FieldTitle>
 								<FieldDescription>Access a VM configured cluster to run GPU workloads.</FieldDescription>
 							</FieldContent>
-							<RadioGroupItem value="vm" id="vm-z4k" />
+							<RadioGroupItem value="vm" id="vm-z4k" aria-label="Virtual Machine" />
 						</FieldRoot>
 					</FieldLabel>
 				</RadioGroup>

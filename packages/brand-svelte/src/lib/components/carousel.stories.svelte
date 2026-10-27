@@ -41,21 +41,18 @@
 	<MaterialStage preset="liquid-chrome" title="ft ls" class="aspect-[16/9]" padding="lg"><ul class="divide-y text-sm">{#each services as sv (sv.name)}<li class="flex items-center gap-3 px-5 py-3 font-mono"><StatusRing state={sv.state} />{sv.name}</li>{/each}</ul></MaterialStage>
 {/snippet}
 
-<!-- Posts with material covers: a few in view, the next one peeking. Drag, the arrows, or the dots. -->
 <Story name="Posts" asChild>
 	<CardCarousel label="From the blog" items={posts} class="max-w-6xl">
 		{#snippet card(p)}<MaterialCard title={p.title} eyebrow={p.topic} body={p.summary} href={p.href} class="w-full">{#snippet footer()}{p.date}{/snippet}</MaterialCard>{/snippet}
 	</CardCarousel>
 </Story>
 
-<!-- What people said, two at a time on wide screens. The SaaS templates' example quotes. -->
 <Story name="Quotes" asChild>
 	<CardCarousel label="What teams say" items={quotes} per={{ sm: 1.05, md: 1.6, lg: 2 }} class="max-w-5xl">
 		{#snippet card(q)}<QuoteCard class="w-full" name={q.name} role={q.role}>{#snippet quote()}{q.text}{/snippet}</QuoteCard>{/snippet}
 	</CardCarousel>
 </Story>
 
-<!-- A tour of tunnel, one slide at a time with its chapters below. -->
 <Story name="Feature tour" asChild>
 	<FeatureCarousel
 		class="max-w-5xl"

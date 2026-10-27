@@ -15,7 +15,6 @@
 {#snippet notes()}<div class="grid gap-4 md:grid-cols-2">{#each releases.slice(0, 2) as r (r.v)}<ReleaseCard product="claude-multi" symbol="Cm" release={r} />{/each}</div>{/snippet}
 {#snippet docs()}<p class="text-muted-foreground">Installation, providers and the menu, step by step.</p>{/snippet}
 
-<!-- Words with an orange line under the open one, and a count where it helps. claude-multi's real releases. -->
 <Story name="Default" asChild>
 	<LineTabs
 		class="max-w-4xl"

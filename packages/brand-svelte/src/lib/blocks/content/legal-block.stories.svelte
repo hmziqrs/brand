@@ -5,7 +5,6 @@
 	const { Story } = defineMeta({ title: 'Content/Legal/Block', component: LegalBlock })
 </script>
 
-<!-- The lab's four kinds: a paragraph, a list, definitions in a lined column, and small caps for the warranty text. -->
 <Story name="Default" asChild>
 	<div class="flex max-w-[46rem] flex-col gap-3.5 px-6">
 		<LegalBlock block={["p", "This privacy policy covers the claude-multi marketing website hosted at claude-multi.hmziq.xyz."]} />

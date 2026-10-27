@@ -23,32 +23,30 @@
 					Overview
 				</NavigationMenuLink>
 			</NavigationMenuItem>
-			<NavigationMenuList>
-				<NavigationMenuItem>
-					<NavigationMenuTrigger class={navigationMenuTriggerStyle()}>
-						Documentation
-					</NavigationMenuTrigger>
-					<NavigationMenuContent>
-						<ul class="grid w-96 p-2">
-							<li>
-								<NavigationMenuLink class={navigationMenuTriggerStyle()}>
-									API Reference
-								</NavigationMenuLink>
-							</li>
-							<li>
-								<NavigationMenuLink class={navigationMenuTriggerStyle()}>
-									Getting Started
-								</NavigationMenuLink>
-							</li>
-							<li>
-								<NavigationMenuLink class={navigationMenuTriggerStyle()}>
-									Guides
-								</NavigationMenuLink>
-							</li>
-						</ul>
-					</NavigationMenuContent>
-				</NavigationMenuItem>
-			</NavigationMenuList>
+			<NavigationMenuItem>
+				<NavigationMenuTrigger class={navigationMenuTriggerStyle()}>
+					Documentation
+				</NavigationMenuTrigger>
+				<NavigationMenuContent>
+					<ul class="grid w-96 p-2">
+						<li>
+							<NavigationMenuLink class={navigationMenuTriggerStyle()}>
+								API Reference
+							</NavigationMenuLink>
+						</li>
+						<li>
+							<NavigationMenuLink class={navigationMenuTriggerStyle()}>
+								Getting Started
+							</NavigationMenuLink>
+						</li>
+						<li>
+							<NavigationMenuLink class={navigationMenuTriggerStyle()}>
+								Guides
+							</NavigationMenuLink>
+						</li>
+					</ul>
+				</NavigationMenuContent>
+			</NavigationMenuItem>
 			<NavigationMenuItem>
 				<NavigationMenuLink
 					class={navigationMenuTriggerStyle()}

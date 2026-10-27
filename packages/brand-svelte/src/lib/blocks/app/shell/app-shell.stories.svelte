@@ -23,10 +23,8 @@
 	import Tag from '$brand/components/tag.svelte'
 	import { Button } from '$brand/ui/button/index.js'
 
-	// The theme choice is live in the stories, as it is in the demo.
 	let theme = $state<Theme>('dark')
 
-	// The nav the demo uses, with a count on Members so the badge shows too.
 	const nav = $derived<NavGroup[]>([
 		{
 			label: 'Workspace',
@@ -41,7 +39,6 @@
 		},
 	])
 
-	// A section with sub items: the page you're on decides which one is open.
 	const nestedNav = $derived<NavGroup[]>([
 		{
 			label: 'Workspace',
@@ -65,8 +62,6 @@
 		},
 	])
 
-	// The mobile story opens the sheet itself: where the viewport really is
-	// small the toggle click opens it; a wide canvas just shows the shell.
 	async function openMobileSheet({ canvasElement }: { canvasElement: HTMLElement }) {
 		const view = canvasElement.ownerDocument.defaultView
 		if (!view?.matchMedia('(max-width: 767px)').matches) return
@@ -98,7 +93,6 @@
 	</AppPage>
 {/snippet}
 
-<!-- The signed-in side's usual shape: a sidebar, a top bar, and the page. -->
 <Story name="Sidebar" asChild>
 	<AppShell {nav} currentPath="/app/members" {brand} {account} {topbar}>
 		{@render page('Members', 'People who can see this workspace.', [
@@ -108,14 +102,12 @@
 	</AppShell>
 </Story>
 
-<!-- Collapsed to icons on the desktop, with a tooltip on each item. -->
 <Story name="Collapsed" asChild>
 	<AppShell {nav} currentPath="/app/members" open={false} {brand} {account} {topbar}>
 		{@render page('Members', 'People who can see this workspace.')}
 	</AppShell>
 </Story>
 
-<!-- A section with sub items, one of which is the page you're on. -->
 <Story name="Nested active item" asChild>
 	<AppShell nav={nestedNav} currentPath="/app/members/invites" {brand} {account} {topbar}>
 		{@render page('Invites', 'People asked to join the workspace.', [
@@ -125,14 +117,12 @@
 	</AppShell>
 </Story>
 
-<!-- The top layout: the nav in the header instead of a sidebar. -->
 <Story name="Top layout" asChild>
 	<AppShell {nav} currentPath="/app/overview" layout="top" {brand} {account} {topbar}>
 		{@render page('Overview', 'What happened in the workspace lately.')}
 	</AppShell>
 </Story>
 
-<!-- Below md the sidebar is a sheet, opened from the top bar's menu button. -->
 <Story
 	name="Mobile, sheet open"
 	parameters={{ viewport: { defaultViewport: 'phone360' } }}

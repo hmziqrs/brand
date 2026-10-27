@@ -311,38 +311,75 @@
 	</p>
 {/snippet}
 
-<!-- Combines required and optional questions in one navigable flow. -->
-<Story name="Default" asChild>
+<Story
+	name="Default"
+	asChild
+	parameters={{
+		docs: {
+			description: { story: 'Combines required and optional questions in one navigable flow.' },
+		},
+	}}
+>
 	{@render questionnaireBody(undefined)}
 </Story>
 
-<!-- Starts on the optional step to demonstrate multiple selection and skipping. -->
-<Story name="Multiple Choice" asChild>
+<Story
+	name="Multiple Choice"
+	asChild
+	parameters={{
+		docs: {
+			description: {
+				story: 'Starts on the optional step to demonstrate multiple selection and skipping.',
+			},
+		},
+	}}
+>
 	{@render questionnaireBody('checks')}
 </Story>
 
-<!-- Demonstrates required validation and submission in a focused one-step flow. -->
-<Story name="Submission" asChild>
+<Story
+	name="Submission"
+	asChild
+	parameters={{
+		docs: {
+			description: {
+				story: 'Demonstrates required validation and submission in a focused one-step flow.',
+			},
+		},
+	}}
+>
 	{@render submissionBody()}
 </Story>
 
-<!-- Verifies validation, navigation, answer preservation, and submission. -->
 <Story
 	name="Validate Navigate And Submit"
 	tags={['!dev', '!autodocs']}
 	play={shouldValidateNavigateAndSubmit}
 	asChild
+	parameters={{
+		docs: {
+			description: {
+				story: 'Verifies validation, navigation, answer preservation, and submission.',
+			},
+		},
+	}}
 >
 	{@render questionnaireBody(undefined)}
 	{@render answersStatus()}
 </Story>
 
-<!-- Verifies keyboard selection and explicitly skipping an optional question. -->
 <Story
 	name="Skip Optional Question"
 	tags={['!dev', '!autodocs']}
 	play={shouldSkipOptionalQuestion}
 	asChild
+	parameters={{
+		docs: {
+			description: {
+				story: 'Verifies keyboard selection and explicitly skipping an optional question.',
+			},
+		},
+	}}
 >
 	{@render questionnaireBody(undefined)}
 	{@render answersStatus()}

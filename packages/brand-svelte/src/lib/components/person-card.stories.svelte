@@ -10,7 +10,6 @@
 	})
 </script>
 
-<!-- A team grid. Example people. -->
 <Story name="Team" asChild>
 	<div class="grid max-w-5xl gap-4 sm:grid-cols-2 lg:grid-cols-3">
 		<PersonCard name="Priya Nair" role="Operations" bio="Runs the Friday check-in and the boards behind it." links={[{ label: 'X', href: '#', icon: siX }]} />
@@ -19,7 +18,6 @@
 	</div>
 </Story>
 
-<!-- As a row: a byline or a list of people. -->
 <Story name="Row" asChild>
 	<div class="flex max-w-sm flex-col gap-4">
 		<PersonCard variant="row" name="hmziq" role="Writes Rust, ships the tools" links={[{ label: 'GitHub', href: '#', icon: siGithub }, { label: 'X', href: '#', icon: siX }]} />

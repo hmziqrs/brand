@@ -5,6 +5,7 @@
 	const { Story } = defineMeta({
 		title: 'ui/base/Label',
 		component: Label,
+		parameters: { layout: 'centered' },
 	})
 </script>
 

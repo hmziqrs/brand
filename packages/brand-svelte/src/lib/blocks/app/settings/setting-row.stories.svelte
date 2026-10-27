@@ -21,7 +21,6 @@
 	<Switch id="story-weekly" name="weekly" bind:checked={weekly} aria-describedby="story-weekly-description" />
 {/snippet}
 
-<!-- A text field: the label above, the description under the control. -->
 <Story name="Row" asChild>
 	<div class="max-w-md bg-background">
 		<SettingRow label="Name" description="Shown next to anything you change." for="story-name">
@@ -30,7 +29,6 @@
 	</div>
 </Story>
 
-<!-- A switch: the label and description on the left, the control on the right. -->
 <Story name="Row, horizontal" asChild>
 	<div class="max-w-2xl bg-background">
 		<SettingRow
@@ -44,7 +42,6 @@
 	</div>
 </Story>
 
-<!-- A field the server refused, with its error under the control. -->
 <Story name="Row, with error" asChild>
 	<div class="max-w-md bg-background">
 		<SettingRow
@@ -64,7 +61,6 @@
 	</div>
 </Story>
 
-<!-- A control saving as soon as it changed: the spinner beside it. -->
 <Story name="Row, saving" asChild>
 	<div class="max-w-2xl bg-background">
 		<SettingRow
@@ -79,7 +75,6 @@
 	</div>
 </Story>
 
-<!-- The save landed: "Saved" for two seconds. -->
 <Story name="Row, saved" asChild>
 	<div class="max-w-2xl bg-background">
 		<SettingRow
@@ -94,7 +89,6 @@
 	</div>
 </Story>
 
-<!-- The save failed: the control back where it was, and a way to try again. -->
 <Story name="Row, save error" asChild>
 	<div class="max-w-2xl bg-background">
 		<SettingRow

@@ -9,7 +9,6 @@
 	})
 </script>
 
-<!-- Scroll down: the rings draw themselves one after another, the orange ring last. -->
 <Story name="On scroll" asChild>
 	<div class="flex flex-col">
 		<div class="grid h-[90vh] place-items-center text-sm text-muted-foreground">Scroll down</div>

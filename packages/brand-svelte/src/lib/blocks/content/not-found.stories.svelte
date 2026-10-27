@@ -10,7 +10,6 @@
 	})
 </script>
 
-<!-- The lab's 404 design: the words, and rings drawn from "not found" beside them. -->
 <Story name="Default" asChild>
 	<div class="py-10">
 		<NotFound title="Page not found" lede="This URL doesn't point to anything. The page probably moved, or the link was wrong.">

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Progress as ProgressPrimitive } from "bits-ui";
+	import { setContext } from "svelte";
 	import { cn } from "$brand/utils.js";
 	import type { Snippet } from "svelte";
 
@@ -11,6 +12,9 @@
 		children,
 		...restProps
 	}: ProgressPrimitive.RootProps & { children?: Snippet } = $props();
+
+	let labelId = $state<string>();
+	setContext("progress-root", { setLabelId: (id: string) => (labelId = id) });
 </script>
 
 <ProgressPrimitive.Root
@@ -19,6 +23,7 @@
 	class={cn("flex flex-wrap gap-3", className)}
 	{value}
 	{max}
+	aria-labelledby={labelId}
 	{...restProps}
 >
 	{@render children?.()}

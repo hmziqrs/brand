@@ -5,7 +5,6 @@
 	const { Story } = defineMeta({ title: 'Content/Prose', component: Prose })
 </script>
 
-<!-- Long-form text: paragraphs, h2s, links in orange. -->
 <Story name="Default" asChild>
 	<div class="max-w-[46rem]">
 		<Prose>

@@ -2,12 +2,14 @@
 	import { defineMeta } from '@storybook/addon-svelte-csf'
 	import Combobox from './combobox.svelte'
 
-	const { Story } = defineMeta({ title: 'App/Combobox', component: Combobox })
+	const { Story } = defineMeta({
+		title: 'App/Combobox',
+		component: Combobox,
+		parameters: { layout: 'centered' },
+	})
 </script>
 
 <script lang="ts">
-	// A slice of the time zones the settings page picks from, so the story
-	// stands for the real use: many options, a searchable list.
 	const timeZones = [
 		{ value: 'utc', label: 'UTC — Coordinated Universal Time' },
 		{ value: 'europe/belgrade', label: 'Belgrade' },
@@ -22,8 +24,17 @@
 	let zone = $state('europe/belgrade')
 </script>
 
-<!-- A searchable picker for one value out of many. -->
-<Story name="Default" asChild>
+<Story
+	name="Default"
+	asChild
+	parameters={{
+		docs: {
+			description: {
+				story: 'A searchable picker for one value out of many: a slice of the time zones the settings page picks from.',
+			},
+		},
+	}}
+>
 	<div class="w-72">
 		<Combobox
 			label="Time zone"
@@ -35,15 +46,29 @@
 	</div>
 </Story>
 
-<!-- Nothing picked yet, so the placeholder shows. -->
-<Story name="Empty" asChild>
+<Story
+	name="Empty"
+	asChild
+	parameters={{
+		docs: {
+			description: { story: 'Nothing picked yet, so the placeholder shows.' },
+		},
+	}}
+>
 	<div class="w-72">
 		<Combobox label="Time zone" options={timeZones} placeholder="Pick a time zone" />
 	</div>
 </Story>
 
-<!-- A field the server refused: the invalid ring, no movement. -->
-<Story name="Invalid" asChild>
+<Story
+	name="Invalid"
+	asChild
+	parameters={{
+		docs: {
+			description: { story: 'A field the server refused: the invalid ring, no movement.' },
+		},
+	}}
+>
 	<div class="w-72">
 		<Combobox label="Time zone" options={timeZones} invalid placeholder="Pick a time zone" />
 	</div>

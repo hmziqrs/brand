@@ -5,7 +5,6 @@
 	const { Story } = defineMeta({ title: 'App/Auth', component: PasswordInput })
 </script>
 
-<!-- The password field with its show/hide button, password on the way in. -->
 <Story name="Password input" asChild>
 	<form class="flex max-w-sm flex-col gap-2 p-6" onsubmit={(event) => event.preventDefault()}>
 		<label class="text-sm font-medium" for="pw">Password</label>
@@ -13,9 +12,6 @@
 	</form>
 </Story>
 
-<!-- Shown: the button says "Hide password" and the field turns plain text.
-	The play function flips the real toggle when the story loads, so this is
-	the face it holds, not the hidden one the default story already shows. -->
 <Story
 	name="Password input, shown"
 	asChild

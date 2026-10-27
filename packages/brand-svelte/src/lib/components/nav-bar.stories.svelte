@@ -41,12 +41,10 @@
 	<div class="mx-auto flex max-w-5xl flex-col gap-4 px-6 py-16"><h1 class="max-w-xl text-5xl leading-[1.02] font-medium tracking-[-0.035em]">Free Rust tools, finished before they ship.</h1><p class="max-w-lg text-lg text-muted-foreground">Open-source software made by one person.</p></div>
 {/snippet}
 
-<!-- Across the top of the page, with a menu of projects, a theme toggle and the main button. On phones, the links move into a sheet. -->
 <Story name="Bar" asChild>
 	<div class="min-h-[28rem]"><NavBar site="freeoxide" maker="by hmziq" {links} cta={{ label: 'Browse projects', href: '#' }} {extra} />{@render page()}</div>
 </Story>
 
-<!-- A glass pill floating over the page, here over a material. -->
 <Story name="Floating" asChild>
 	<div class="relative isolate min-h-[28rem] overflow-hidden">
 		<ShaderMaterial rendering="image" preset="etched-silk" controls={false} class="absolute inset-0 -z-10 opacity-60" transparent />
@@ -55,7 +53,6 @@
 	</div>
 </Story>
 
-<!-- The wordmark in the middle, links on both sides. -->
 <Story name="Centered" asChild>
 	<div class="min-h-[28rem]"><NavBar variant="centered" site="freeoxide" {links} cta={{ label: 'Browse', href: '#' }} />{@render page()}</div>
 </Story>

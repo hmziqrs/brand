@@ -13,7 +13,6 @@
 	const [, ...blocks] = privacy.sections[1]
 </script>
 
-<!-- Numbered 01, 02… in orange, with a thin line above it (the lab's legal pages). -->
 <Story name="Default" asChild>
 	<Prose class="max-w-[46rem] gap-3.5 px-6">
 		<LegalSection n={1} title="Data we collect">

@@ -11,7 +11,6 @@
 	})
 </script>
 
-<!-- Press it: the other mode spreads out from the button in a circle. -->
 <Story name="In a header" asChild>
 	<div class="min-h-[30rem]">
 		<header class="flex h-16 items-center gap-6 border-b px-6"><Wordmark name="freeoxide" class="text-lg" /><nav class="ml-auto flex gap-5 text-sm text-muted-foreground"><span>Projects</span><span>About</span></nav><ThemeToggle /></header>

@@ -11,11 +11,9 @@
 <script lang="ts">
 	import { storyWorkspaces } from '../stories-data.js'
 
-	// The sidebar's own width, so the stories read as the real place.
 	const sidebar = 'w-64 shrink-0 rounded-lg border bg-sidebar p-2'
 </script>
 
-<!-- Which workspace you're in, and links to the others. -->
 <Story name="Workspace switcher" asChild>
 	<div class="flex gap-6 p-6">
 		<div class={sidebar}>
@@ -24,7 +22,6 @@
 	</div>
 </Story>
 
-<!-- With a way to make another one at the bottom. -->
 <Story name="Workspace switcher, create" asChild>
 	<div class="flex gap-6 p-6">
 		<div class={sidebar}>
@@ -33,7 +30,6 @@
 	</div>
 </Story>
 
-<!-- Inside a collapsed sidebar only the Mark stays, and the menu still opens. -->
 <Story name="Workspace switcher, collapsed" asChild>
 	<div class="flex gap-6 p-6">
 		<div class="group w-12 shrink-0 rounded-lg border bg-sidebar p-2" data-collapsible="icon">

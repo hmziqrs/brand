@@ -9,15 +9,6 @@
 	})
 </script>
 
-<!--
-  The recipe: a whole list page — toolbar, filters, sort, selection, bulk
-  actions, row actions, pagination — with @tanstack/table-core underneath,
-  as shadcn-svelte's data table guide uses it. It's a pattern to copy, not
-  an exported component. The list state lives in URL params held by the
-  story (a story can't move its own URL): every link is built with listHref
-  and applied through readListParams, exactly what the members page does
-  with goto.
--->
 <script lang="ts">
 	import {
 		createTable,
@@ -60,7 +51,6 @@
 		{ value: '-last_active', label: 'Last active (newest)' },
 		{ value: 'last_active', label: 'Last active (oldest)' },
 	]
-	// The sort the URL spells and the sort TanStack holds, translated here.
 	const SORT_FIELDS: Record<string, string> = { name: 'name', last_active: 'lastActive' }
 	const toSorting = (sort: string): SortingState => {
 		const desc = sort.startsWith('-')
@@ -84,21 +74,16 @@
 		{ value: 'suspended', label: 'Suspended', count: members.filter((m) => m.status === 'Suspended').length },
 	]
 
-	// The URL's list state, as the page receives it from +page.ts.
 	let list = $state<ListState>(readListParams('?sort=-last_active', FILTERS))
-	// Removals in the story edit a local copy, as a real page would its data.
 	let roster = $state<Member[]>(members)
 	let rowSelection = $state<RowSelectionState>({})
 
 	const hrefOf = (change: Partial<ListState>) => listHref(PATH, list, change)
 
-	/** What the page does in its goto: the href becomes the state. */
 	function navigate(href: string) {
 		list = readListParams(href, FILTERS)
 	}
 
-	// Links inside the story apply their href instead of leaving the iframe.
-	// A detail link can't be routed from a story, so it stands still.
 	function onShellClick(event: MouseEvent) {
 		const anchor = (event.target as HTMLElement).closest('a')
 		if (!anchor) return
@@ -108,8 +93,6 @@
 		if (new URL(href, 'https://story.local').pathname === PATH) navigate(href)
 	}
 
-	// The page's GET form: with JavaScript the submit is read here; without
-	// it the browser would carry the same fields to the server.
 	function onsubmit(event: SubmitEvent) {
 		event.preventDefault()
 		const data = new FormData(event.currentTarget as HTMLFormElement)
@@ -129,7 +112,6 @@
 	})
 	const filtering = $derived(list.q !== '' || list.filters.role.length > 0 || list.filters.status.length > 0)
 	const pageCount = $derived(Math.max(1, Math.ceil(filtered.length / list.perPage)))
-	// A URL can point past the end (rows removed); the page shows the last one.
 	const page = $derived(Math.min(list.page, pageCount))
 
 	const columns: ColumnDef<Member>[] = [
@@ -147,10 +129,7 @@
 			getCoreRowModel: getCoreRowModel(),
 			getSortedRowModel: getSortedRowModel(),
 			getPaginationRowModel: getPaginationRowModel(),
-			// The URL owns the reset rule (a new search or filter starts at page 1).
 			autoResetPageIndex: false,
-			// The state above comes from outside, so the table never announces
-			// its own changes; nothing here renders a fallback.
 			onStateChange: () => {},
 			renderFallbackValue: null,
 			state: {
@@ -167,7 +146,6 @@
 	const selectedCount = $derived(Object.keys(rowSelection).length)
 	const rows = $derived(table.getRowModel().rows)
 
-	// The sort link for a column: none → up → down → none.
 	function toggleSortHref(field: string) {
 		const current = toSorting(list.sort).find((s) => s.id === field)
 		return hrefOf({ sort: current ? fromField(field, !current.desc) : fromField(field, false) })
@@ -251,14 +229,9 @@
 	</Body>
 {/snippet}
 
-<!-- The story's stand-in for goto: list links apply their href instead of
-     leaving the iframe. A detail link can't be routed from a story, so it
-     stands still. -->
 <svelte:window onclick={onShellClick} />
 
 <Story name="Recipe" asChild>
-	<!-- The whole list as one GET form: the search, the chips' hidden inputs
-	     and the per-page select all submit, with or without JavaScript. -->
 	<form method="GET" action={PATH} {onsubmit}>
 		<div class="flex max-w-5xl flex-col gap-4" data-slot="table-recipe">
 			<CollectionToolbar
@@ -362,7 +335,6 @@
 	</BulkActionBar>
 {/snippet}
 
-<!-- The list's other faces, held the way the page shows them. -->
 <Story name="Recipe, pending" asChild>
 	<div class="max-w-5xl" data-slot="table-recipe">
 		<AppTableFrame>
@@ -475,7 +447,6 @@
 	</div>
 </Story>
 
-<!-- A refetch keeps the rows and says so by the count. -->
 <Story name="Recipe, refetching" asChild>
 	<div class="flex max-w-5xl flex-col gap-4" data-slot="table-recipe">
 		<CollectionToolbar busy>

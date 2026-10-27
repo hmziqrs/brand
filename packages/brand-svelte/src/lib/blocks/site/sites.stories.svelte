@@ -7,11 +7,6 @@
 	})
 </script>
 
-<!--
-	Every hmziq site's landing page (the lab's Sites.stories), composed from
-	the kit's blocks with the sites' real words. The words live in
-	content/stories-data.ts, named after the lab file they came from.
--->
 <script lang="ts">
 	import ArrowRight from "@lucide/svelte/icons/arrow-right";
 	import Star from "@lucide/svelte/icons/star";
@@ -163,7 +158,6 @@
 				{#each ["GitHub", "LinkedIn", "X", "Email"] as l (l)}<a href="#" class="hover:text-foreground">{l}</a>{/each}
 			{/snippet}
 			{#snippet aside()}
-				<!-- Rings are the words' neighbour, never a stacked block: below md there is no room beside the words, so they sit out entirely. -->
 				<div class="hidden md:block">
 					<Rings seed="hmziq" />
 				</div>
@@ -324,7 +318,6 @@
 			{#snippet title()}Recent activity{/snippet}
 			{#snippet intro()}What changed lately, straight from GitHub.{/snippet}
 			{#snippet children()}
-				<!-- A timeline: a ring for each change, joined by a line. -->
 				<ol class="flex max-w-2xl flex-col">
 					{#each activity as a, i (a.repo + a.when)}
 						<li
@@ -370,7 +363,6 @@
 			{/snippet}
 			{#snippet note()}<HeroNote>Free and open source. MIT or Apache-2.0.</HeroNote>{/snippet}
 			{#snippet aside()}
-				<!-- Rings are beside-the-words decoration: below md they sit out rather than stack. -->
 				<div class="hidden md:block"><Rings seed="freeoxide" /></div>
 			{/snippet}
 		</Hero>
@@ -538,7 +530,6 @@
 			{/snippet}
 			{#snippet note()}<HeroNote>Free and open source, MIT licensed.</HeroNote>{/snippet}
 			{#snippet aside()}
-				<!-- Rings are beside-the-words decoration: below md they sit out rather than stack. -->
 				<div class="hidden md:block"><Rings seed="gpui-query" /></div>
 			{/snippet}
 		</Hero>
@@ -716,7 +707,6 @@
 				</span>
 			{/snippet}
 			{#snippet aside()}
-				<!-- Rings are beside-the-words decoration: below md they sit out rather than stack. -->
 				<div class="hidden md:block"><Rings seed="oxlabs" /></div>
 			{/snippet}
 		</Hero>

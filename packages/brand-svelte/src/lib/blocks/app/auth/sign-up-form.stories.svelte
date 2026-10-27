@@ -26,7 +26,6 @@
 	<BrandIcon icon={siGoogle} />
 {/snippet}
 
-<!-- The form as the page serves it, with its password rules below the field. -->
 <Story name="Sign up form" asChild>
 	<form class="flex max-w-sm flex-col p-6" onsubmit={(event) => event.preventDefault()}>
 		<SignUpForm
@@ -40,14 +39,12 @@
 	</form>
 </Story>
 
-<!-- While the post is on its way. -->
 <Story name="Sign up form, creating" asChild>
 	<form class="flex max-w-sm flex-col p-6" onsubmit={(event) => event.preventDefault()}>
 		<SignUpForm {links} passwordRules={rules} pending={true} values={{ name: 'Ada Lovelace', email: 'ada@example.com' }} />
 	</form>
 </Story>
 
-<!-- The email is taken: the server's word under the field it refused. -->
 <Story name="Sign up form, email taken" asChild>
 	<form class="flex max-w-sm flex-col p-6" onsubmit={(event) => event.preventDefault()}>
 		<SignUpForm
@@ -59,14 +56,12 @@
 	</form>
 </Story>
 
-<!-- A form-level error, in the Notice at the top. -->
 <Story name="Sign up form, error" asChild>
 	<form class="flex max-w-sm flex-col p-6" onsubmit={(event) => event.preventDefault()}>
 		<SignUpForm {links} passwordRules={rules} result={{ message: "We couldn't create your account. Try again." }} />
 	</form>
 </Story>
 
-<!-- The whole form at 360px. -->
 <Story name="Sign up form, mobile" parameters={{ viewport: { defaultViewport: 'phone360' } }} asChild>
 	<form class="flex flex-col p-6" onsubmit={(event) => event.preventDefault()}>
 		<SignUpForm {links} passwordRules={rules} />

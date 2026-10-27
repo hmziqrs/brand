@@ -134,7 +134,7 @@
 				<InputGroupAddon>
 					<PopoverTrigger>
 						{#snippet child({ props })}
-							<InputGroupButton {...props} variant="secondary" size="icon-xs">
+							<InputGroupButton {...props} variant="secondary" size="icon-xs" aria-label="Connection info">
 								<Info class="lucide" />
 							</InputGroupButton>
 						{/snippet}
@@ -146,12 +146,12 @@
 				</PopoverContent>
 			</Popover>
 			<InputGroupAddon class="pl-1.5 text-muted-foreground">https://</InputGroupAddon>
-			<InputGroupInput id="input-secure-19" />
-			<InputGroupAddon align="inline-end">
-				<InputGroupButton onclick={() => (isFavorite = !isFavorite)} size="icon-xs">
-					<Star data-favorite={isFavorite} class="lucide data-[favorite=true]:fill-blue-600 data-[favorite=true]:stroke-blue-600" />
-				</InputGroupButton>
-			</InputGroupAddon>
+			<InputGroupInput id="input-secure-19" aria-label="Website URL" />
+				<InputGroupAddon align="inline-end">
+					<InputGroupButton onclick={() => (isFavorite = !isFavorite)} size="icon-xs" aria-label="Favorite">
+						<Star data-favorite={isFavorite} class="lucide data-[favorite=true]:fill-blue-600 data-[favorite=true]:stroke-blue-600" />
+					</InputGroupButton>
+				</InputGroupAddon>
 		</InputGroupRoot>
 		<InputGroupRoot>
 			<InputGroupInput placeholder="Type to search..." />
@@ -230,10 +230,10 @@
 				<InputGroupText class="font-medium font-mono">
 					<Code class="lucide" /> script.js
 				</InputGroupText>
-				<InputGroupButton class="ml-auto" size="icon-xs">
+				<InputGroupButton class="ml-auto" size="icon-xs" aria-label="Rerun">
 					<RefreshCcw class="lucide" />
 				</InputGroupButton>
-				<InputGroupButton variant="ghost" size="icon-xs">
+				<InputGroupButton variant="ghost" size="icon-xs" aria-label="Copy code">
 					<Copy class="lucide" />
 				</InputGroupButton>
 			</InputGroupAddon>

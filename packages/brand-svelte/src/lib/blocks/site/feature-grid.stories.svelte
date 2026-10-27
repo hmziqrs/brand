@@ -15,7 +15,6 @@
 {#snippet gaugeIcon()}<Gauge class="lucide" />{/snippet}
 {#snippet refreshIcon()}<RefreshCw class="lucide" />{/snippet}
 
-<!-- The quieter layout: no cards, just the grid, for the middle of a page. -->
 <Story name="Default" asChild>
 	<FeatureGrid
 		items={[
@@ -26,7 +25,6 @@
 	/>
 </Story>
 
-<!-- Two columns instead of three. -->
 <Story name="Two columns" asChild>
 	<FeatureGrid columns={2} items={[{ title: 'Cached by key', body: 'Ask for the same key twice and the second answer is already there.', icon: databaseIcon }]} />
 </Story>

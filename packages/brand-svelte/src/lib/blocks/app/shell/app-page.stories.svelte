@@ -13,7 +13,6 @@
 	import AppPageHeader from './app-page-header.svelte'
 </script>
 
-<!-- The default column: dashboards, lists, tables. -->
 <Story name="Page" asChild>
 	<div class="bg-background">
 		<AppPage>
@@ -23,7 +22,6 @@
 	</div>
 </Story>
 
-<!-- The narrow column: settings and forms. -->
 <Story name="Page, narrow" asChild>
 	<div class="bg-background">
 		<AppPage width="narrow">

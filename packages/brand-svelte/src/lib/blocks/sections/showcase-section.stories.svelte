@@ -32,27 +32,22 @@
 	</AppWindow>
 {/snippet}
 
-<!-- A: The product on copper, words above. Example data. -->
 <Story name="A Over a material" asChild>
 	<ShowcaseSection title="See which features people use, and where they give up." lede="Add one line to your site and the charts fill in by themselves." actions={go} preset="copper-sweep">{@render app()}</ShowcaseSection>
 </Story>
 
-<!-- B: Glass notes pointing at what matters. -->
 <Story name="B With notes" asChild>
 	<ShowcaseSection title="Every number explained where it sits." preset="liquid-chrome" notes={[{ text: 'Up 16% on last month', x: 22, y: 20 }, { text: 'Weekends dip; that’s normal', x: 44, y: 62 }, { text: 'Pricing leads, again', x: 78, y: 26 }]}>{@render app()}</ShowcaseSection>
 </Story>
 
-<!-- C: On the orange band. -->
 <Story name="C On the band" asChild>
 	<ShowcaseSection title="Plain answers, not another dashboard." lede="Funnels, retention and paths build themselves from the moments you name." ground="band">{@render app()}</ShowcaseSection>
 </Story>
 
-<!-- D: Over the hero rings. -->
 <Story name="D Over the rings" asChild>
 	<ShowcaseSection title="Built in public, tested in private." ground="rings" seed="sightline">{@render app()}</ShowcaseSection>
 </Story>
 
-<!-- E: Words beside the product, the material only behind the window. -->
 <Story name="E Split" asChild>
 	<ShowcaseSection layout="split" title="Your whole product on one screen." lede="What brings people in, where they get stuck and what makes them come back." actions={go} preset="hammered-copper">{@render app()}</ShowcaseSection>
 </Story>

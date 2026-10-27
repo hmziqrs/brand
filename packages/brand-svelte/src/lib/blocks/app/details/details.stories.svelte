@@ -18,8 +18,6 @@
 	import { Button } from '$brand/ui/button/index.js'
 	import { memberById, members } from '@hmziq/brand-core/app/demo-data'
 
-	// The demo's members, so the stories and the svelte-app demo tell the
-	// same story. Dates are written out the way the demo pages format them.
 	const ada = memberById('usr_06') ?? members[0]
 	const maya = memberById('usr_01') ?? members[0]
 
@@ -53,14 +51,12 @@
 	</DetailSection>
 {/snippet}
 
-<!-- Rows: the label left of the value, stacked below sm. -->
 <Story name="List, rows" asChild>
 	<div class="max-w-2xl bg-background">
 		<DetailList items={profile} />
 	</div>
 </Story>
 
-<!-- Grid: the label over the value, two columns from sm. -->
 <Story name="List, grid" asChild>
 	<div class="max-w-2xl bg-background">
 		<DetailList
@@ -75,7 +71,6 @@
 	</div>
 </Story>
 
-<!-- The grid with three columns, for short facts. -->
 <Story name="List, grid, three columns" asChild>
 	<div class="max-w-3xl bg-background">
 		<DetailList
@@ -93,7 +88,6 @@
 	</div>
 </Story>
 
-<!-- A record with holes: what isn't set says so, in muted words. -->
 <Story name="Missing values" asChild>
 	<div class="max-w-2xl bg-background">
 		<DetailList
@@ -107,7 +101,6 @@
 	</div>
 </Story>
 
-<!-- Machine values: mono, with the copy button beside them. -->
 <Story name="Copy and mono" asChild>
 	<div class="max-w-2xl bg-background">
 		<DetailList
@@ -120,7 +113,6 @@
 	</div>
 </Story>
 
-<!-- A section: the title and its actions in one row, the list in a panel. -->
 <Story name="Section" asChild>
 	<div class="max-w-2xl bg-background">
 		<DetailSection title="Profile" description="Who they are in the workspace.">
@@ -132,7 +124,6 @@
 	</div>
 </Story>
 
-<!-- The destructive outline, for the section that removes things. -->
 <Story name="Section, destructive" asChild>
 	<div class="max-w-2xl bg-background">
 		<DetailSection tone="destructive" title="Remove from workspace">
@@ -146,7 +137,6 @@
 	</div>
 </Story>
 
-<!-- Loading: the sections stay, the skeleton stands where the rows land. -->
 <Story name="Section, loading" asChild>
 	<div class="flex max-w-2xl flex-col gap-8 bg-background">
 		<DataState status="pending" delay={0} loadingLabel="Loading member" loading={loadingSections} error={errorBlock}>
@@ -157,7 +147,6 @@
 	</div>
 </Story>
 
-<!-- At 360px the rows stack and the grid falls to one column. -->
 <Story name="Mobile" parameters={{ viewport: { defaultViewport: 'phone360' } }} asChild>
 	<div class="flex flex-col gap-8 bg-background">
 		<DetailSection title="Access">

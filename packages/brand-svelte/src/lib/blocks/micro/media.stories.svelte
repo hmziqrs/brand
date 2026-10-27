@@ -118,7 +118,7 @@
 
 <Story name="Code reveal" asChild>
 	<div class="relative w-[28rem] overflow-hidden rounded-xl border bg-card">
-		<pre class="p-4 font-mono text-xs leading-relaxed {revealed ? '' : 'blur-sm select-none'}">{`export const client = createClient({
+		<pre class="p-4 font-mono text-xs leading-relaxed {revealed ? '' : 'blur-sm select-none'}">{`const client = createClient({
   url: "https://api.hmziq.dev",
   key: "sk_live_51H…9fQ",
 });`}</pre>

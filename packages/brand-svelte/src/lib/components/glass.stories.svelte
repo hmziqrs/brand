@@ -18,7 +18,6 @@
 	})
 </script>
 
-<!-- Glass over a shader material: the material blurs into the panel instead of fighting the text. -->
 <Story name="Over a shader" asChild>
 	<div class="relative isolate grid min-h-[34rem] place-items-center overflow-hidden p-6">
 		<ShaderMaterial rendering="image" preset="copper-sweep" controls={false} class="absolute inset-0 -z-10" />
@@ -29,7 +28,6 @@
 	</div>
 </Story>
 
-<!-- Four strengths over the same material: frost for text, smoke for long text, tint in orange, clear for labels. -->
 <Story name="Strengths" asChild>
 	<div class="relative isolate overflow-hidden p-6 md:p-12">
 		<ShaderMaterial rendering="image" preset="etched-silk" controls={false} class="absolute inset-0 -z-10" />
@@ -44,7 +42,6 @@
 	</div>
 </Story>
 
-<!-- Glass over the hero rings: the orange ring blurs into the panel where they cross. -->
 <Story name="Over rings" asChild>
 	<div class="relative isolate grid min-h-[30rem] items-center overflow-hidden p-6 md:p-12">
 		<Rings seed="glass" class="absolute top-1/2 right-0 -z-10 w-[46rem] max-w-none -translate-y-1/2" />

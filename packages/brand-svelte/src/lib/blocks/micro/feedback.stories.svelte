@@ -87,7 +87,7 @@
 <Story name="Progress ticks" asChild>
 	<div class="flex w-80 flex-col gap-2">
 		<div class="flex items-center justify-between text-sm"><span class="text-muted-foreground">Storage</span><span class="font-mono tabular-nums">{ticks * 5}%</span></div>
-		<div class="flex h-8 items-end gap-[3px]" role="slider" aria-valuenow={ticks * 5} aria-label="Storage" tabindex="0">
+		<div class="flex h-8 items-end gap-[3px]">
 			{#each Array(20) as _, i (i)}
 				<button aria-label={`${(i + 1) * 5}%`} onclick={() => (ticks = i + 1)} class="h-full flex-1 rounded-sm {i < ticks ? 'bg-primary' : 'bg-muted hover:bg-muted-foreground/30'}"></button>
 			{/each}

@@ -10,18 +10,20 @@
 	const { Story } = defineMeta({
 		title: 'Custom/Rings',
 		component: Rings,
+		parameters: { layout: 'centered' },
 		args: { seed: 'freeoxide' },
+		argTypes: {
+			seed: { description: 'Name the rings are drawn from; the same name always gives the same picture.' },
+		},
 	})
 </script>
 
-<!-- The hero picture. Drawn from the site's name: change the seed and the rings change, the same name always gives the same picture. -->
 <Story name="Hero" asChild>
 	<div class="max-w-lg">
 		<Rings seed="freeoxide" />
 	</div>
 </Story>
 
-<!-- Every site gets its own. -->
 <Story name="Seeds" asChild>
 	<div class="grid max-w-3xl grid-cols-2 gap-8 sm:grid-cols-4">
 		{#each ['hmziq', 'freeoxide', 'gpui-query', 'claude-multi'] as seed (seed)}
@@ -33,7 +35,6 @@
 	</div>
 </Story>
 
-<!-- A card's fingerprint: its own rings in the corner, one of them in the card's color. -->
 <Story name="Fingerprint" asChild>
 	<div class="grid max-w-3xl gap-4 sm:grid-cols-3">
 		{#each [
@@ -53,7 +54,6 @@
 	</div>
 </Story>
 
-<!-- Numbers as rings: a share fills the ring, a count splits it into segments. -->
 <Story name="Gauges" asChild>
 	<div class="flex flex-wrap gap-10">
 		{#each [
@@ -69,7 +69,6 @@
 	</div>
 </Story>
 
-<!-- The arcs on the right of the orange closing band. The accent ring turns dark there. -->
 <Story name="On the band" asChild>
 	<section class="band-orange relative overflow-hidden rounded-xl">
 		<BandArcs />

@@ -8,7 +8,12 @@
 	const { Story } = defineMeta({
 		title: 'Custom/Brand icon',
 		component: BrandIcon,
+		parameters: { layout: 'centered' },
 		args: { icon: siGithub, label: 'GitHub' },
+		argTypes: {
+			icon: { description: 'Simple-icons glyph drawn as the mark.' },
+			label: { description: 'Accessible name for the icon.' },
+		},
 	})
 </script>
 
@@ -16,7 +21,6 @@
 	<BrandIcon icon={siGithub} label="GitHub" />
 </Story>
 
-<!-- 14px logos next to 16px line icons look the same weight. -->
 <Story name="Next to line icons" asChild>
 	<div class="flex flex-wrap items-center gap-5 text-sm text-muted-foreground">
 		{#each [

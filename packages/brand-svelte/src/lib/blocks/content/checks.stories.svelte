@@ -9,7 +9,6 @@
 	import { installChecks } from './stories-data.js'
 </script>
 
-<!-- Met requirements as filled green rings, wrapping horizontally (claude-multi's own variant). -->
 <Story name="Default" asChild>
 	<div class="px-6">
 		<Checks items={installChecks} />

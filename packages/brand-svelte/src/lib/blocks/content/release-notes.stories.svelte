@@ -9,7 +9,6 @@
 	import { releases } from './stories-data.js'
 </script>
 
-<!-- Grouped, tagged, columns, tabs, or a summary with show/hide — with the lab's own release notes. -->
 <Story name="Grouped" asChild>
 	<div class="max-w-[52rem] px-6">
 		<ReleaseNotes release={releases[2]} />
