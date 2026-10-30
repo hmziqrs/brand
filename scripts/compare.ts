@@ -35,7 +35,7 @@ const ASTRO_APP = process.env.ASTRO_APP_URL ?? "http://localhost:4322";
 
 const [argument, ...pagePaths] = process.argv.slice(2);
 const reportOnly = argument === "--report";
-const themes = ["dark", "light"];
+const themes = ["dark", "light"] as const;
 const widths = [360, 1280];
 const viewLabels = ["svelte", "astro", "svelte-app", "astro-app"];
 

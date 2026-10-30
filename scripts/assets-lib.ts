@@ -28,19 +28,23 @@ type Theme = { dark: Record<string, string>; light: Record<string, string>; band
 type RenderResult = Record<string, Buffer | string>
 type Settings = { fonts: string[] }
 type TargetSettings = Settings & Record<string, unknown>
+type ResvgLike = {
+  getBBox(): { x: number; y: number; width: number; height: number } | undefined
+  render(): { asPng(): Buffer }
+}
 type RenderCtx = {
   theme: Theme
   color: (tokens: Record<string, string>, name: string) => Color
   inBand: (theme: Theme, mode: "dark" | "light", band: string) => Record<string, string>
   svgPaint: (c: Color, as?: "fill" | "stroke") => string
   toHex: (rgb: [number, number, number]) => string
-  Resvg: new (svg: string, options: unknown) => { render(): { asPng(): Buffer } }
-  outlineFont: (file: string) => OutlineFont
-  outlineFonts: (names: string[]) => Record<string, OutlineFont>
+  Resvg: new (svg: string, options: unknown) => ResvgLike
+  outlineFont: OutlineFont
+  outlineFonts: Record<string, OutlineFont>
   pngToIco: (pngs: Buffer[]) => Promise<Buffer>
   fontFiles: string[]
 }
-type Target = {
+export type Target = {
   id: string
   dir: string
   source: string
@@ -176,6 +180,6 @@ export function dimensions(name: string, bytes: Buffer): { width?: number; heigh
 }
 
 /** Builds the manifest entry for one rendered file. */
-export function fileEntry(exportsDirPath: string, name: string, bytes: Buffer): FileEntry {
+export function fileEntry(_dir: string, name: string, bytes: Buffer): FileEntry {
   return { path: name, sha256: sha256(bytes), bytes: bytes.length, ...dimensions(name, bytes) }
 }

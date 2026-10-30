@@ -23,9 +23,8 @@ import { existsSync, mkdtempSync, readFileSync, rmSync } from "node:fs"
 import { tmpdir } from "node:os"
 import { join } from "node:path"
 
-import { dimensions, exportFiles, exportsDir, manifestPath, publicCopies, rendererVersions, root, targetDigest, targets } from "./assets-lib.ts"
+import { dimensions, exportFiles, exportsDir, manifestPath, publicCopies, rendererVersions, root, targetDigest, targets, type Target } from "./assets-lib.ts"
 
-type AssetTarget = { id: string; dir: string; settings: unknown }
 type Manifest = {
   digest: string
   renderers: Record<string, string>
@@ -41,7 +40,7 @@ const bytesMode = process.argv.includes("--bytes")
 
 /** The --bytes pass: render the target into a temp folder and compare the
  *  fresh bytes with the committed exports. Never writes in the repo. */
-function bytesProblems(target: AssetTarget, dir: string, fix: string): string[] {
+function bytesProblems(target: Target, dir: string, fix: string): string[] {
   const found: string[] = []
   const tmp = mkdtempSync(join(tmpdir(), "check-assets-"))
   try {
@@ -67,7 +66,7 @@ function bytesProblems(target: AssetTarget, dir: string, fix: string): string[] 
   }
 }
 
-for (const target of targets as AssetTarget[]) {
+for (const target of targets) {
   const fix = `run bun run render-assets --only ${target.id}`
   const dir = exportsDir(target)
 

@@ -1,7 +1,7 @@
 {
   "target": "logos",
   "command": "bun run render-assets --only logos",
-  "digest": "cd725f6c6246b9a3c377c6e0edd31f1c4dd7f1e46e59cb8a001d490931f219a8",
+  "digest": "88403c3fab38b190e87dc79d34aac09cfa0ec2bfaf74d83aa7a3a316fb2cbe3e",
   "renderers": {
     "@resvg/resvg-js": "2.6.2",
     "opentype.js": "2.0.0",
@@ -74,7 +74,7 @@
     },
     {
       "path": "assets/logos/source/pack.ts",
-      "sha256": "269a10a5f14704ab6342f9caeae81da49f057ddc34866e6ef3b57380aa566eb5"
+      "sha256": "24bea442a6a949131a64cfebe66e85aba0da3a0547d441161b1a54c548298d54"
     },
     {
       "path": "assets/logos/source/parts.ts",
@@ -86,7 +86,7 @@
     },
     {
       "path": "bun.lock",
-      "sha256": "1d12fb138a0769ce8201c4f7b685a2260e868bb60f199bb2dd0b1a26fed81d2b"
+      "sha256": "8b90c90bd8c6b0ef669f625964e38d0299756782b29d2e50fae0041eee71fd3f"
     },
     {
       "path": "packages/brand-core/rings.css",
@@ -158,7 +158,7 @@
     },
     {
       "path": "scripts/assets-lib.ts",
-      "sha256": "ca8b548545e07438f349b141cf3de144729088a520a2dc13c86a9dc2c34deac5"
+      "sha256": "03785e76db43ddcc11f260908cea14efa3a9d7f583994e6600f294f57c920728"
     },
     {
       "path": "scripts/render-assets.ts",

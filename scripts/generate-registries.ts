@@ -29,7 +29,7 @@ const root = fileURLToPath(new URL("..", import.meta.url));
 type Piece = { name: string; group: string; svelteFile?: string; astroFile?: string | null };
 type PieceSeed = Seed & { piece: Piece };
 type StockSeed = Seed & { dir: string; kind: "stock-svelte" | "stock-astro" };
-type Label = { kind: string; group?: string; dir?: string; folder?: string };
+type Label = { kind?: string; group?: string; dir?: string; folder?: string };
 type PkgJson = { version?: string; dependencies?: Record<string, string>; devDependencies?: Record<string, string>; peerDependencies?: Record<string, string> };
 
 const roster: Piece[] = readJson<{ pieces: Piece[] }>(`${root}/scripts/pieces.json`).pieces;
@@ -134,7 +134,7 @@ function describe(kind: string | undefined, info: Label): string {
   }
 }
 
-function labelItems(items: { name: string }[], pieceSeeds: PieceSeed[], stockSeeds: StockSeed[]): Map<string, Label> {
+function labelItems(_items: { name: string }[], pieceSeeds: PieceSeed[], stockSeeds: StockSeed[]): Map<string, Label> {
   const labels = new Map<string, Label>();
   for (const seed of pieceSeeds) labels.set(seed.name, { kind: "piece", group: seed.piece.group });
   for (const seed of stockSeeds) labels.set(seed.name, { kind: seed.kind, dir: seed.dir });

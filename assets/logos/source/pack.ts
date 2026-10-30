@@ -16,7 +16,7 @@ type Theme = { dark: Record<string, string>; light: Record<string, string> }
 
 /** The engine's full render context for the logos target: the drawing Ctx
  *  plus the theme, the hex writer and the ICO renderer. */
-export type FullCtx = Ctx & { theme: Theme; toHex: typeof toHex; pngToIco: (pngs: Buffer[]) => Promise<Buffer> }
+export type FullCtx = Ctx & { theme: Theme; toHex: typeof toHex; pngToIco: (pngs: Buffer[]) => Promise<Buffer>; fontFiles: string[] }
 
 /** The pack's file names, in a stable order. The lab's sync step copies
  *  these (minus head.html, which is for pasting, not serving). */

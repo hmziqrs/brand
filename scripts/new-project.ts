@@ -29,6 +29,7 @@ type PkgJson = {
   dependencies?: Record<string, string>;
   devDependencies?: Record<string, string>;
   trustedDependencies?: string[];
+  version: string;
 };
 
 const args: string[] = process.argv.slice(2);

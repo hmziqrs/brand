@@ -38,7 +38,7 @@ console.log("== Building the registries");
 run("bun", [join(root, "scripts/build-registries.ts")], root);
 
 // 2. Work out where core comes from.
-const coreVersion: string = readJson(join(root, "packages/brand-core/package.json")).version;
+const coreVersion: string = readJson<{ version: string }>(join(root, "packages/brand-core/package.json")).version;
 let coreSpec: string | undefined = flag("core");
 let coreNote: string;
 let serverArgs: string[] = [];

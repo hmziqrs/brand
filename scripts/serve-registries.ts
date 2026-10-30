@@ -66,5 +66,5 @@ const server = createServer((req, res) => {
   });
 });
 server.listen(0, "127.0.0.1", () => {
-  console.log(`LISTENING ${server.address().port}`);
+  console.log(`LISTENING ${(server.address() as { port: number }).port}`);
 });
