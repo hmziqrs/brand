@@ -38,8 +38,8 @@
 		maker="by hmziq"
 		links={[
 			{ label: 'Posts', href: '#/p/content/blog-index-1', current: true },
-			{ label: 'Index', href: '#/p/content/blog-index-2' },
-			{ label: 'About', href: '#/p/content/about-1' }
+			{ label: 'Changelog', href: '#/p/content/changelog-1' },
+			{ label: 'Docs', href: '#/p/content/docs-1' }
 		]}
 	/>
 
@@ -49,7 +49,7 @@
 			<span class="text-muted-foreground">{post.date}</span>
 			<span class="text-muted-foreground">{post.readingTime}</span>
 		</div>
-		<SerifMixHeadline text="Five review rounds _before_ anything ships." size="xl" class="mt-6 max-w-[14ch] md:mt-8" />
+		<SerifMixHeadline text="Five review rounds _before_ anything ships." face="sans" size="xl" class="mt-6 max-w-[14ch] md:mt-8" />
 		<div class="mt-10 grid gap-8 border-t pt-8 md:mt-14 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
 			<p class="max-w-[40ch] text-[1.375rem] leading-[1.45] text-foreground md:text-[1.625rem]">{post.summary}</p>
 			<div class="flex items-center gap-3">
@@ -75,7 +75,7 @@
 								aria-current={current === t.id ? 'true' : undefined}
 								class="-ml-px flex w-full items-baseline gap-3 border-l-2 border-transparent py-2 pl-4 text-left text-[0.875rem] text-muted-foreground transition-colors hover:text-foreground aria-[current=true]:border-primary aria-[current=true]:text-foreground"
 							>
-								<span class="font-serif text-base italic">{t.round ?? '··'}</span>
+								<span class="w-5 shrink-0 font-mono text-xs tabular-nums">{t.round ? String(t.round).padStart(2, '0') : '··'}</span>
 								<span>{t.label}</span>
 							</button>
 						</li>
@@ -87,14 +87,14 @@
 		<article bind:this={article} class="min-w-0 text-[1.1875rem] leading-[1.75] text-foreground">
 			{#each body as b, i (i)}
 				{#if b.kind === 'p'}
-					<p class={i === 0 ? 'mb-6 text-[1.3125rem] leading-[1.65] first-letter:float-left first-letter:mt-1.5 first-letter:mr-3 first-letter:font-serif first-letter:text-[5.2rem] first-letter:leading-[0.8] first-letter:text-primary first-letter:italic' : 'mb-6'}>{b.text}</p>
+					<p class={i === 0 ? 'mb-6 text-[1.3125rem] leading-[1.65] first-letter:float-left first-letter:mt-1.5 first-letter:mr-3 first-letter:text-[4.6rem] first-letter:leading-[0.8] first-letter:font-medium first-letter:tracking-[-0.05em] first-letter:text-primary' : 'mb-6'}>{b.text}</p>
 				{:else if b.kind === 'h2'}
 					<h2 id={b.id} class="mt-16 mb-6 scroll-mt-24">
-						{#if b.round}<span class="mb-2 block font-serif text-[1.375rem] text-primary italic">Round {b.round}</span>{/if}
+						{#if b.round}<span class="mb-3 block font-mono text-xs tracking-wide text-primary uppercase">Round {String(b.round).padStart(2, '0')}</span>{/if}
 						<span class="block text-[clamp(1.75rem,3.2vw,2.5rem)] leading-[1.08] font-medium tracking-[-0.03em] text-balance">{b.text}</span>
 					</h2>
 				{:else if b.kind === 'quote'}
-					<OxidePullQuote seed={b.text} sign="From this post">{b.text}</OxidePullQuote>
+					<OxidePullQuote face="sans" seed={b.text} sign="From this post">{b.text}</OxidePullQuote>
 				{:else if b.kind === 'callout'}
 					<CalloutPlate tone={b.tone} label={b.label}>{b.text}</CalloutPlate>
 				{:else if b.kind === 'code'}
@@ -103,7 +103,7 @@
 					<ul class="mb-8 flex flex-col border-t">
 						{#each b.items as it, j (it)}
 							<li class="flex items-baseline gap-4 border-b py-3.5">
-								<span class="w-6 shrink-0 font-serif text-lg text-primary italic">{j + 1}</span>
+								<span class="w-6 shrink-0 font-mono text-sm text-primary tabular-nums">{String(j + 1).padStart(2, '0')}</span>
 								<span>{it}</span>
 							</li>
 						{/each}
@@ -118,7 +118,7 @@
 
 		<aside aria-label="Next" class="hidden xl:block">
 			<div class="sticky top-24 flex flex-col gap-6">
-				<a href="#/p/content/post-2" class="group block rounded-2xl border p-5 no-underline">
+				<a href="#/p/content/post-1" class="group block rounded-2xl border p-5 no-underline">
 					<p class="text-xs text-muted-foreground">Next post</p>
 					<p class="mt-2 text-[1.125rem] leading-snug font-medium text-foreground group-hover:text-primary">{posts[1].title}</p>
 					<p class="mt-3 text-sm text-muted-foreground">{posts[1].readingTime}</p>

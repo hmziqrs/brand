@@ -66,7 +66,7 @@
 			<div class="col-start-2 mt-6 min-w-0 lg:col-start-3 lg:row-start-1 lg:mt-0">
 				{#if latest}
 					<article class="band-orange relative isolate overflow-hidden rounded-2xl p-6 sm:p-9">
-						<CornerRings seed={e.product + e.v} class="pointer-events-none absolute -top-px -right-px -z-10 w-[min(55%,20rem)]" />
+						<CornerRings seed={e.product + e.v} class="[&_circle]:[stroke-width:0.5] pointer-events-none absolute -top-px -right-px -z-10 w-[min(55%,20rem)]" />
 						<h3 class="max-w-[18ch] text-[clamp(1.9rem,3.6vw,3rem)] leading-[1.02] font-medium tracking-[-0.035em] text-balance">{e.title}</h3>
 						<p class="mt-4 max-w-[46ch] text-[1.125rem] leading-[1.55]">{e.summary}</p>
 						<div class="mt-8 grid gap-6 sm:grid-cols-2">
