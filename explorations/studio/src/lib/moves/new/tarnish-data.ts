@@ -32,19 +32,19 @@ export const errors = [
 ];
 
 export const feed = [
-	{ id: '1', when: 'now', who: 'api.pagewell.app', what: 'back up after 2m 10s', tone: 'success' as const },
-	{ id: '2', when: '2m', who: 'api.pagewell.app', what: 'down from Frankfurt, Tokyo', tone: 'warning' as const },
+	{ id: '1', when: 'now', who: 'api.tarnish.dev', what: 'back up after 2m 10s', tone: 'success' as const },
+	{ id: '2', when: '2m', who: 'api.tarnish.dev', what: 'down from Frankfurt, Tokyo', tone: 'warning' as const },
 	{ id: '3', when: '9m', who: 'cron · nightly-backup', what: 'checked in on time', tone: 'success' as const },
-	{ id: '4', when: '14m', who: 'pagewell.app', what: 'TypeError ×12 in checkout.ts' },
+	{ id: '4', when: '14m', who: 'tarnish.dev', what: 'TypeError ×12 in checkout.ts' },
 	{ id: '5', when: '1h', who: 'status page', what: 'incident closed by Ada', tone: 'success' as const },
-	{ id: '6', when: '3h', who: 'docs.pagewell.app', what: 'TLS renews in 9 days' }
+	{ id: '6', when: '3h', who: 'docs.tarnish.dev', what: 'TLS renews in 9 days' }
 ];
 
 export const monitors = [
-	{ name: 'pagewell.app', kind: 'HTTPS', uptime: '99.99%', p50: '184 ms', state: 'up' },
-	{ name: 'api.pagewell.app', kind: 'HTTPS', uptime: '99.94%', p50: '231 ms', state: 'up' },
+	{ name: 'tarnish.dev', kind: 'HTTPS', uptime: '99.99%', p50: '184 ms', state: 'up' },
+	{ name: 'api.tarnish.dev', kind: 'HTTPS', uptime: '99.94%', p50: '231 ms', state: 'up' },
 	{ name: 'nightly-backup', kind: 'Cron', uptime: '100%', p50: '—', state: 'up' },
-	{ name: 'smtp.pagewell.app', kind: 'TCP', uptime: '99.71%', p50: '48 ms', state: 'degraded' },
-	{ name: 'docs.pagewell.app', kind: 'HTTPS', uptime: '100%', p50: '96 ms', state: 'up' },
-	{ name: 'staging.pagewell.app', kind: 'HTTPS', uptime: '—', p50: '—', state: 'paused' }
+	{ name: 'smtp.tarnish.dev', kind: 'TCP', uptime: '99.71%', p50: '48 ms', state: 'degraded' },
+	{ name: 'docs.tarnish.dev', kind: 'HTTPS', uptime: '100%', p50: '96 ms', state: 'up' },
+	{ name: 'staging.tarnish.dev', kind: 'HTTPS', uptime: '—', p50: '—', state: 'paused' }
 ] as const;

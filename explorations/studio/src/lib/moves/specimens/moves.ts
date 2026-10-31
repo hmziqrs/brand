@@ -53,9 +53,15 @@ export const accentMoves: Move[] = [
 export const footerMoves: Move[] = [
 	{ id: 'specimens/footer-giant-wordmark', axis: 'footer', name: 'Giant hmziq■ (current)', file: f('footer-current.svelte'), notes: 'The kit SiteFooter as shipped: grey links, giant Onest signature.' },
 	{ id: 'specimens/footer-material-wordmark', axis: 'footer', name: 'Wordmark filled with oxide', file: f('footer-material-wordmark.svelte'), notes: 'The giant signature clipped to the oxide-bloom material; links in full ink with oxide hover underlines.' },
-	{ id: 'specimens/footer-material-dither', axis: 'footer', name: 'Material footer, dithered wordmark', file: f('footer-material-dither.svelte'), notes: 'Cast-iron (dark) or fibrous paper (light) under a scrim, links on a glass panel, a Bayer-dithered wordmark fading down.' },
-	{ id: 'specimens/footer-dot-matrix', axis: 'footer', name: 'Dot-matrix field footer', file: f('footer-dot-matrix.svelte'), notes: 'A full dot grid where the wordmark dots light up and the square lights oxide.' },
-	{ id: 'specimens/footer-ring-horizon', axis: 'footer', name: 'Ring horizon footer', file: f('footer-ring-horizon.svelte'), notes: 'Kit horizon rings rise behind the signature, which sits on the horizon line.' },
+	{ id: 'specimens/footer-material-dither', axis: 'footer', name: 'Material footer, dithered wordmark', file: f('footer-material-dither.svelte'), notes: 'Cast-iron (dark) or fibrous paper (light) under a scrim, links on a glass panel, a Bayer-dithered wordmark that thickens and heats under the cursor.' },
+	{ id: 'specimens/footer-dot-matrix', axis: 'footer', name: 'Dot-matrix field footer', file: f('footer-dot-matrix.svelte'), notes: 'A full dot grid where the wordmark dots light up; dots swell and heat to oxide around the cursor.' },
+	{ id: 'specimens/footer-glyph-wordmark', axis: 'footer', name: 'Glyph wordmark that scatters', file: f('footer-glyph-wordmark.svelte'), notes: 'The signature built from ■ □ ○ ◎ glyphs; the cursor pushes them apart and heats them into oxide squares.' },
+	{ id: 'specimens/footer-hatch-punch', axis: 'footer', name: 'Rust hatch, punched wordmark', file: f('footer-hatch-punch.svelte'), notes: 'The hmziq-2 diagonal rust hatch fills the footer and bends to the cursor; the signature is punched out of it with a hairline rust edge.' },
+	{ id: 'specimens/footer-ripple-signoff', axis: 'footer', name: 'Ripple sign-off', file: f('footer-ripple-signoff.svelte'), notes: 'A last big call to install over thin ring ripples that follow the cursor, links on a glass panel below.' },
+	{ id: 'specimens/footer-voxel-ridge', axis: 'footer', name: 'Voxel ridge', file: f('footer-voxel-ridge.svelte'), notes: 'An isometric cube field rises into an oxide ridge under the cursor, with the signature sitting on it.' },
+	{ id: 'specimens/footer-terminal', axis: 'footer', name: 'Terminal footer', file: f('footer-terminal.svelte'), notes: 'Links as CLI subcommands, the family as ls output, a live status dot and a blinking-cursor signature.' },
+	{ id: 'specimens/footer-oxide-split', axis: 'footer', name: 'Oxide split', file: f('footer-oxide-split.svelte'), notes: 'A solid oxide slab with a giant ghost square, the signature and the email; links calm on the other side.' },
+	{ id: 'specimens/footer-product-index', axis: 'footer', name: 'Product index', file: f('footer-product-index.svelte'), notes: 'Every hmziq product as a giant numbered row; hovering floods the row with oxide.' },
 	{ id: 'specimens/footer-oxide-band', axis: 'footer', name: 'Oxide band footer', file: f('footer-oxide-band.svelte'), notes: 'The whole footer is the oxide band: near-black links and a near-black giant signature.' }
 ];
 

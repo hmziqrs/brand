@@ -22,5 +22,7 @@ export const moves: Move[] = [
 	{ id: 'site-framer/feature-chips', axis: 'cards', name: 'Feature chip grid', file: f('feature-chips'), notes: 'Hairline grid of icon + label cells that flood with solid oxide on hover.' },
 	{ id: 'site-framer/pricing-tiers', axis: 'section', name: 'Pricing tiers with oxide Pro', file: f('pricing-tiers'), notes: 'Four hairline tier columns, the popular one a solid oxide band with rings; yearly switch and credit pickers recompute the price.' },
 	{ id: 'site-framer/compare-table', axis: 'layout', name: 'Sticky compare table', file: f('compare-table'), notes: 'Grouped plan comparison with a sticky plan header, oxide checks and a faint oxide wash down the popular column.' },
+	{ id: 'site-framer/template-browser', axis: 'section', name: 'Template browser', file: f('template-browser'), notes: 'Ten-column category mega-grid that filters, sort pills, free/paid toggle and search over material template posters.' },
+	{ id: 'site-framer/expert-form', axis: 'section', name: 'Benefit cells + expert form', file: f('expert-form'), notes: 'Four hairline benefit cells beside a working sales form on a dimmed material panel; validates and thanks you by name.' },
 	{ id: 'site-framer/kiln-wordmark', axis: 'type', name: 'kiln stand-in wordmark', file: f('kiln-wordmark'), notes: 'Neutral stand-in brand: oxide tile + kiln, and a giant kiln■ for footers.' }
 ];
