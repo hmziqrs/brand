@@ -23,3 +23,43 @@
 	--band: oklch(0.935 0 0);
 	--muted-foreground: oklch(0.42 0 0);
 }
+
+:root[data-light="e"][data-oxide]:not(.dark) {
+	--background: oklch(1 0 0);
+	--card: oklch(1 0 0);
+	--popover: oklch(1 0 0);
+	--foreground: oklch(0.08 0 0);
+	--card-foreground: oklch(0.08 0 0);
+	--popover-foreground: oklch(0.08 0 0);
+	--secondary-foreground: oklch(0.12 0 0);
+	--accent-foreground: oklch(0.12 0 0);
+	--muted-foreground: oklch(0.3 0 0);
+	--border: oklch(0.86 0 0);
+	--input: oklch(0.86 0 0);
+	--band: oklch(0.955 0 0);
+	--on-orange: oklch(0.08 0 0);
+	--primary-foreground: oklch(0.08 0 0);
+	--font-weight-light: 360;
+	--font-weight-normal: 450;
+	--font-weight-medium: 600;
+	--font-weight-semibold: 680;
+}
+
+:where(:root[data-light="e"]:not(.dark)) body {
+	font-weight: 450;
+}
+
+:root[data-light="e"]:not(.dark) .dark {
+	--font-weight-light: 300;
+	--font-weight-normal: 400;
+	--font-weight-medium: 500;
+	--font-weight-semibold: 600;
+}
+
+:where(:root[data-light="e"]:not(.dark) .dark) {
+	font-weight: 400;
+}
+
+:root[data-light="e"][data-oxide]:not(.dark) :is(.text-primary, .text-orange):not(.dark *, .dark) {
+	color: var(--oxide-deep);
+}

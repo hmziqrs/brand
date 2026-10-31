@@ -8,6 +8,7 @@
 	import { prefs } from '$studio/prefs.svelte';
 	import { verdicts } from '$studio/verdicts.svelte';
 	import VerdictButtons from '$studio/verdict-buttons.svelte';
+	import SwapControls from '$studio/swap-controls.svelte';
 
 	const groups = [...new Set(pages.map((p) => p.group))];
 	const axes = [...new Set(moves.map((m) => m.axis))];
@@ -43,7 +44,7 @@
 <main class="mx-auto max-w-[1400px] px-4 py-10 sm:px-8">
 	<header class="flex flex-wrap items-end justify-between gap-6 border-b border-border pb-8">
 		<div class="max-w-2xl">
-			<p class="font-mono text-xs uppercase tracking-widest text-primary">Round 1 · wide</p>
+			<p class="font-mono text-xs uppercase tracking-widest text-primary">Round 2 · mix</p>
 			<h1 class="mt-3 text-5xl font-medium tracking-tight">hmziq studio</h1>
 			<p class="mt-4 text-lg text-foreground/80">
 				Whole-page variants mixed from named <em>moves</em>. Star, keep or nuke each page and each move, add notes, they sync to Claude automatically when you're signed in (or copy them into the chat). Nuked moves get deleted everywhere; starred ones get mixed in round 2.
@@ -53,17 +54,16 @@
 			<button type="button" class="inline-flex h-9 items-center gap-2 rounded-md border border-border px-3 text-sm" onclick={() => prefs.toggleTheme()}>
 				{#if prefs.dark}<Sun class="lucide size-4" /> Light{:else}<Moon class="lucide size-4" /> Dark{/if}
 			</button>
-			<div class="flex items-center rounded-md border border-border p-0.5 text-sm" title="Light-mode oxide variant">
-				<span class="px-2 text-muted-foreground">Light oxide</span>
-				{#each ['a', 'b', 'c'] as const as o (o)}
-					<button type="button" class={cn('h-8 w-8 rounded uppercase', prefs.oxide === o ? 'bg-primary text-primary-foreground' : 'text-muted-foreground')} onclick={() => prefs.setOxide(o)}>{o}</button>
-				{/each}
-			</div>
 			<button type="button" class="inline-flex h-9 items-center gap-2 rounded-md bg-primary px-3 text-sm font-medium text-primary-foreground" onclick={copy}>
 				<Copy class="lucide size-4" /> Copy verdicts
 			</button>
 		</div>
 	</header>
+
+	<section class="mt-6 rounded-xl border border-border bg-card p-4" aria-label="Global swaps">
+		<p class="mb-3 text-sm text-foreground/80">Swaps apply to every page and stick between visits: light treatment, accent hue, primary face, and the face behind every secondary class.</p>
+		<SwapControls layout="inline" />
+	</section>
 
 	<section class="mt-8 flex flex-col gap-3 text-sm">
 		<div class="flex flex-wrap items-center gap-1.5">

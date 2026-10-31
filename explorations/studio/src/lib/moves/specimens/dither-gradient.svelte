@@ -7,8 +7,7 @@
 
 	$effect(() => {
 		if (!canvas) return;
-		void prefs.oxide;
-		void prefs.dark;
+		void prefs.colorKey;
 		const host = canvas.parentElement!;
 		const ox = readColor(host, 'var(--orange)');
 		const deep = readColor(host, 'var(--oxide-deep)');

@@ -7,8 +7,7 @@
 
 	$effect(() => {
 		if (!canvas) return;
-		void prefs.oxide;
-		void prefs.dark;
+		void prefs.colorKey;
 		const el = canvas;
 		const host = el.parentElement!;
 		const target = (el.closest('.spec-pane') as HTMLElement) ?? host;

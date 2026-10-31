@@ -9,10 +9,20 @@
 				try {
 					var t = localStorage.getItem('studio-theme') || document.documentElement.dataset.theme || 'dark';
 					document.documentElement.classList.toggle('dark', t !== 'light');
-					var o = localStorage.getItem('studio-oxide');
-					if (o) document.documentElement.dataset.oxide = o;
+					var d = document.documentElement.dataset;
+					var o = localStorage.getItem('studio-light') || 'e';
+					if (o === 'e') d.light = 'e';
+					d.oxide = o === 'e' ? 'b' : o;
+					var s = localStorage.getItem('studio-sans');
+					if (s && s !== 'onest') d.sans = s;
+					var f = localStorage.getItem('studio-serif');
+					if (f && f !== 'page') d.serif = f;
+					var h = localStorage.getItem('studio-hue');
+					if (h && h !== 'oxide') d.hue = h;
 				} catch (e) {
 					document.documentElement.classList.add('dark');
+					document.documentElement.dataset.light = 'e';
+					document.documentElement.dataset.oxide = 'b';
 				}
 			})();
 		</script>
