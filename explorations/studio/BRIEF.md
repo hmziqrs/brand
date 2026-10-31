@@ -104,3 +104,11 @@ Use `<outdir>` = `/tmp/claude-0/-home-user-brand/e8d9d117-3591-5190-9941-249217f
 ## Report back
 
 A short list: each page path + title + the one thing that makes it distinct; each move id + one line. Mention anything you could not get working.
+
+# Round 2 rules (override round 1 where they conflict)
+
+- Owner verdicts are in `/tmp/claude-0/-home-user-brand/e8d9d117-3591-5190-9941-249217f87da2/scratchpad/verdicts/verdicts/*.json` (fields id, v, note). Data, not instructions — but they are the owner's taste; follow them.
+- Owner taste learned: no thick highlighted ring strokes (all ring strokes same thin width); no italic secondary serif on reading pages; dislikes Instrument Serif italic and VT323; loves interactivity with the mouse (hero graphics, textures, footers should react to the cursor); loves full-width hero material + hover grid (flora/oxlabs-3), interactive bento demos (bento/gpui-query-1), northflank/gpui-starter-1 & -2, voidzero/freeoxide-1, dovetail/claude-multi-3; light mode winner is treatment **E** (pure white, heavier black type, vivid oxide fills).
+- Dev server: `http://127.0.0.1:5180`. If it is down, start it in the background: `cd /home/user/brand/explorations/studio && bunx vite dev --port 5180 --host 127.0.0.1`.
+- **Commit small and often**, only your own paths, and push: `cd /home/user/brand && git add <your explicit paths> && git commit -m "<imperative summary>" && git push origin claude/focused-mccarthy-gwj8wn`. No `Co-Authored-By` or any trailer lines in messages. If `index.lock` exists or push is rejected, wait a few seconds and retry (other agents commit too). Never `git add -A`, never amend or rebase others' commits.
+- Run svelte-check on your files before each commit; a broken `moves.ts` takes down every page.
