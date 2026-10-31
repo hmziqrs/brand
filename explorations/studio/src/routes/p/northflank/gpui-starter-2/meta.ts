@@ -17,7 +17,7 @@ export const meta: Meta = {
 		'northflank/dither-field',
 		'northflank/dither-footer'
 	],
-	breaks: ['outline-only-cards', 'single-typeface'],
-	notes: 'Material-forward and calmer: 170px headline with an inline oxide cube, three OS windows floating on hammered copper, solid oxide slabs with a dot-matrix "build".',
+	breaks: ['outline-only-cards'],
+	notes: 'Material-forward and calmer: 170px one-face headline with an inline oxide cube, one app window on hammered copper with a macOS/Windows/Linux switch, then each interface as its own full-width section (oxide scaffold band, theme, config, update) instead of a card grid.',
 	order: 2
 };
