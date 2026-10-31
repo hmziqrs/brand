@@ -13,5 +13,9 @@ export const moves: Move[] = [
 	{ id: 'site-voidzero/backer-grid', axis: 'section', name: 'Backer grid', file: f('backer-grid'), notes: 'Hairline strip or 2x2 grid of example backer names, each set in a different face as a stand-in wordmark, plus a people grid.' },
 	{ id: 'site-voidzero/post-cover', axis: 'illustration', name: 'Post cover', file: f('post-cover'), notes: 'Generated cover: recap style (ink half with title + material half with mark) or release style (material with mark + name + chip); zooms on card hover.' },
 	{ id: 'site-voidzero/post-card', axis: 'cards', name: 'Post card with inset hover border', file: f('post-card'), notes: 'Cover + // kind + title + date, stacked or as a row; the hover border is drawn inside the card so carousels never clip it.' },
-	{ id: 'site-voidzero/featured-updates', axis: 'section', name: 'Featured updates rail', file: f('featured-updates'), notes: 'Heading column with a small query snippet beside a kit carousel of post cards.' }
+	{ id: 'site-voidzero/featured-updates', axis: 'section', name: 'Featured updates rail', file: f('featured-updates'), notes: 'Heading column with a small query snippet beside a kit carousel of post cards.' },
+	{ id: 'site-voidzero/team-grid', axis: 'cards', name: 'Hairline team grid', file: f('team-grid'), notes: 'Four-up hairline cells: material-framed initials, name, role, // note, then a social row and handle chip; tile tips on hover.' },
+	{ id: 'site-voidzero/dot-field', axis: 'texture', name: 'Cursor-lit dot field', file: f('dot-field'), notes: 'Faint dot grid fading in from the top; dots near the cursor light up in the accent.' },
+	{ id: 'site-voidzero/bracket-statement', axis: 'section', name: 'Bracketed mission statement', file: f('bracket-statement'), notes: 'Big heading beside a paragraph held in thin oxide brackets, hand-drawn signature and name, over the dot field.' },
+	{ id: 'site-voidzero/section-toc', axis: 'nav', name: 'Scroll-spy contents', file: f('section-toc'), notes: 'Sticky contents list on a hairline; the current section gets a thin oxide edge. Buttons scroll, so the hash router is never touched.' }
 ];
