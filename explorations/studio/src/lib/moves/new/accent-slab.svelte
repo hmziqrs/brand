@@ -28,7 +28,7 @@
 </script>
 
 <div class={cn('accent-slab relative isolate overflow-hidden rounded-2xl', size === 'lg' ? 'p-7 sm:p-12' : 'p-5 sm:p-6', className)}>
-	<ShaderMaterial {preset} rendering="image" controls={false} transparent blend="multiply" opacity={grain} class="absolute inset-0 -z-10" sizes="60vw" />
+	{#if grain > 0}<ShaderMaterial {preset} rendering="image" controls={false} transparent blend="multiply" opacity={grain} class="absolute inset-0 -z-10" sizes="60vw" />{/if}
 	{#if ring}<InlineRing {seed} rings={10} solid={false} class={cn('ring-art pointer-events-none absolute -z-10', size === 'lg' ? '-top-24 -right-24 size-64 sm:-top-28 sm:-right-28 sm:size-[26rem]' : '-top-20 -right-16 size-56')} />{/if}
 	{#if kicker}<p class="mb-6 flex items-center gap-2 font-mono text-[0.7rem] uppercase tracking-[0.22em] opacity-80"><span class="inline-block size-2 bg-current"></span>{kicker}</p>{/if}
 	<div class="relative">{@render children()}</div>

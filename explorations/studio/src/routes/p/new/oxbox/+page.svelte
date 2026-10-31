@@ -61,7 +61,7 @@ secret = ["NPM_TOKEN"]       # injected per run, never written`;
 
 <svelte:head><title>oxbox — a hmziq sandbox CLI</title></svelte:head>
 
-<ProductScope hue="purple">
+<ProductScope hue="purple" tweak="oxbox">
 	<ProductLockup
 		name="oxbox"
 		kind="CLI"
@@ -74,7 +74,7 @@ secret = ["NPM_TOKEN"]       # injected per run, never written`;
 		cta={{ label: 'Install', href: '#/p/new/oxbox' }}
 	/>
 
-	<TerminalHero hue="purple" preset="optical-field" kicker="oxbox 0.9 · local microVMs" session="~/code/parser — oxbox" {lines}>
+	<TerminalHero preset="optical-field" kicker="oxbox 0.9 · local microVMs" session="~/code/parser — oxbox" {lines}>
 		{#snippet title()}Run what you <span class="whitespace-nowrap">don't trust.<span class="ml-[0.06em] inline-block size-[0.5em] bg-primary align-baseline"></span></span>{/snippet}
 		{#snippet lede()}
 			<p>Agents, install scripts, that repo from a stranger's PR. oxbox boots each one in a throwaway microVM on your own laptop in about a tenth of a second — and nothing leaves the box unless you say so.</p>
@@ -161,7 +161,7 @@ secret = ["NPM_TOKEN"]       # injected per run, never written`;
 	</section>
 
 	<section class="mx-auto max-w-[1320px] px-4 py-24 sm:px-8 sm:py-32">
-		<AccentSlab preset="carbon-twill" seed="oxbox-agents" kicker="Built for coding agents">
+		<AccentSlab grain={0} seed="oxbox-agents" kicker="Built for coding agents">
 			<p class="max-w-[18ch] text-[clamp(2.2rem,5.2vw,4.75rem)] leading-[0.98] font-medium tracking-[-0.04em]">Give the agent a whole computer. Then throw it away.</p>
 			<div class="mt-10 grid max-w-3xl gap-6 text-lg leading-relaxed sm:grid-cols-2">
 				<p>Agents work best with real shells, real package managers and room to make a mess. oxbox gives them all three without your SSH keys, your browser cookies or your home folder.</p>

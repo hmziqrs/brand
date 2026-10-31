@@ -23,7 +23,7 @@
 	<div class="mx-auto flex h-16 max-w-[1320px] items-center gap-6 px-4 sm:px-8">
 		<a href="#/p/new/{name}" class="flex min-w-0 items-center gap-2.5">
 			<InlineRing seed={name} rings={4} weight={4} class="size-7" />
-			<span class="text-[1.15rem] font-semibold tracking-tight">{name}<span class="ml-px inline-block size-[0.42em] bg-orange align-baseline"></span></span>
+			<span class="text-[1.15rem] font-semibold tracking-tight">{name}<span class="ml-px inline-block size-[0.42em] bg-(--pa-fill,var(--primary)) align-baseline"></span></span>
 			<span class="hidden border-l border-border pl-2.5 font-mono text-[0.7rem] uppercase tracking-widest text-muted-foreground sm:inline">
 				{kind ? `${kind} · ` : ''}by hmziq
 			</span>
