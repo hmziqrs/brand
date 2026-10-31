@@ -60,7 +60,7 @@
 						<p class="max-w-[46ch] text-[1.05rem] leading-relaxed text-foreground/80">{p.body}</p>
 						<a href={p.href} class="mt-1 inline-flex w-fit items-center gap-1.5 text-[0.95rem] font-medium underline-offset-4 hover:underline">Explore {p.name}<ArrowUpRight class="lucide size-4" /></a>
 					</div>
-					<MaterialCodePanel preset={p.preset} panel={p.panel} class="mt-auto min-h-[19rem]" />
+					<MaterialCodePanel preset={p.preset} panel={p.panel} align="center" class="mt-auto min-h-[19rem]" />
 				</article>
 			{/each}
 		</div>
