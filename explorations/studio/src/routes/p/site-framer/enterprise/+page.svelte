@@ -87,10 +87,10 @@
 	<section class="{wrap} pb-28">
 		<SectionHead title="The best sites ship on kiln" action="See kiln sites" href={to('templates')} class="mb-12" />
 		<div class="grid gap-4 md:grid-cols-6">
-			<SiteCard site={sites[4]} caption={false} class="md:col-span-4" />
-			<SiteCard site={sites[2]} caption={false} tall class="md:col-span-2" />
-			<SiteCard site={sites[7]} caption={false} tall class="md:col-span-2" />
-			<SiteCard site={sites[3]} caption={false} class="md:col-span-4" />
+			<SiteCard site={sites[4]} caption={false} aspect="aspect-[4/3] md:aspect-auto md:h-[440px]" class="md:col-span-4" />
+			<SiteCard site={sites[2]} caption={false} aspect="aspect-[4/3] md:aspect-auto md:h-[440px]" class="md:col-span-2" />
+			<SiteCard site={sites[7]} caption={false} aspect="aspect-[4/3] md:aspect-auto md:h-[440px]" class="md:col-span-2" />
+			<SiteCard site={sites[3]} caption={false} aspect="aspect-[4/3] md:aspect-auto md:h-[440px]" class="md:col-span-4" />
 		</div>
 	</section>
 
