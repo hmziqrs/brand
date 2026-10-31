@@ -15,7 +15,7 @@
 	import DisciplineStage, { type Discipline } from '$moves/site-flora/discipline-stage.svelte';
 	import PlaybookCard from '$moves/site-flora/playbook-card.svelte';
 	import ModelBento, { type Family } from '$moves/site-flora/model-bento.svelte';
-	import { playbooks, posts, postHref, to } from '$moves/site-flora/site';
+	import { cover, playbooks, posts, postHref, to } from '$moves/site-flora/site';
 
 	const floats: Float[] = [
 		{ preset: 'etched-silk', x: 2, y: 8, w: 170, depth: 0.9, label: 'Halide 3 · still' },
@@ -241,7 +241,7 @@
 		<div class="flex snap-x gap-3 overflow-x-auto px-4 pb-4 [scrollbar-width:none] sm:px-8 lg:px-[max(2rem,calc((100vw-1320px)/2+2rem))]">
 			{#each posts.slice(0, 7) as p, i (p.title)}
 				<a href={postHref(p)} class="group relative isolate flex aspect-[4/5] w-[78vw] max-w-[300px] shrink-0 snap-start flex-col justify-end overflow-hidden rounded-2xl border border-border p-4">
-					<MaterialCover seed={p.title} number={String(i + 1).padStart(2, '0')} notch={false} tilt class="!absolute inset-0 -z-10" />
+					<MaterialCover seed={p.title} preset={cover(p)} number={String(i + 1).padStart(2, '0')} notch={false} tilt class="!absolute inset-0 -z-10" />
 					<div class="rounded-xl bg-black/70 p-3 text-white backdrop-blur-md">
 						<p class="text-[15px] leading-snug font-medium">{p.title}</p>
 						<p class="mt-1 font-mono text-[11px] text-white/80">{p.cat} · {p.date}</p>

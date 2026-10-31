@@ -137,3 +137,6 @@ export const posts: Post[] = [
 ];
 
 export const postHref = (p: Post) => to(p.slug ?? 'post');
+
+const covers = ['creased-paper', 'etched-silk', 'lava-fissures', 'interference-film', 'terrazzo', 'liquid-ink', 'black-ice', 'woven-linen', 'copper-sweep', 'caustic-glass', 'chalk-dunes', 'mica-flakes', 'hammered-silver', 'halftone-print', 'pebbled-leather', 'sediment', 'folded-foil', 'mineral-fault'];
+export const cover = (p: Post) => covers[Math.max(0, posts.indexOf(p)) % covers.length];
