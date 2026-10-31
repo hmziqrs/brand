@@ -18,5 +18,9 @@ export const moves: Move[] = [
 	{ id: 'site-framer/site-card', axis: 'cards', name: 'Material site poster', file: f('site-card'), notes: 'A made-up website rendered on a shader poster in one of our extra faces; tilts to the cursor; optional price chip.' },
 	{ id: 'site-framer/story-rail', axis: 'cards', name: 'Example story rail', file: f('story-rail'), notes: 'Snap-scrolling story cards with an invented wordmark and one big number; one solid oxide, some material.' },
 	{ id: 'site-framer/community-window', axis: 'illustration', name: 'Community window', file: f('community-window'), notes: 'Browser mock of a community feed with likeable posts, trending templates and follow buttons that toggle.' },
+	{ id: 'site-framer/capability-tabs', axis: 'section', name: 'Auto-advancing capability stepper', file: f('capability-tabs'), notes: 'Numbered list with an oxide progress hairline; the material panel beside it swaps its working demo and prompt per step; pauses on hover.' },
+	{ id: 'site-framer/feature-chips', axis: 'cards', name: 'Feature chip grid', file: f('feature-chips'), notes: 'Hairline grid of icon + label cells that flood with solid oxide on hover.' },
+	{ id: 'site-framer/pricing-tiers', axis: 'section', name: 'Pricing tiers with oxide Pro', file: f('pricing-tiers'), notes: 'Four hairline tier columns, the popular one a solid oxide band with rings; yearly switch and credit pickers recompute the price.' },
+	{ id: 'site-framer/compare-table', axis: 'layout', name: 'Sticky compare table', file: f('compare-table'), notes: 'Grouped plan comparison with a sticky plan header, oxide checks and a faint oxide wash down the popular column.' },
 	{ id: 'site-framer/kiln-wordmark', axis: 'type', name: 'kiln stand-in wordmark', file: f('kiln-wordmark'), notes: 'Neutral stand-in brand: oxide tile + kiln, and a giant kiln■ for footers.' }
 ];
