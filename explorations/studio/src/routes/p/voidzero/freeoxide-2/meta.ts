@@ -17,6 +17,6 @@ export const meta: Meta = {
 		'voidzero/material-wordmark-footer'
 	],
 	breaks: ['no-hover-motion', 'outline-only-cards', 'orange-only-fill'],
-	notes: 'Dark only and material everywhere: a live copper hero behind a solid reading panel, words inked with shaders, a tabbed project panel, counters on a vivid oxide band, a shader-filled giant wordmark. Judge whether this much material still feels calm.',
+	notes: 'Dark only and material everywhere, under the freeoxide-1 bar header (announcement strip + plain nav): a live copper hero behind a solid reading panel, words inked with shaders, a tabbed project panel, counters on a vivid oxide band, a shader-filled giant wordmark. Judge whether this much material still feels calm.',
 	order: 2
 };
