@@ -26,6 +26,20 @@
 		{ title: 'Terminal tools', body: 'Command-line tools and TUIs your team reaches for without being asked.', tags: ['Rust', 'clap', 'ratatui'] }
 	];
 
+	let mx = $state(0);
+	let my = $state(0);
+	let still = $state(true);
+	$effect(() => {
+		still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+	});
+	function drift(e: PointerEvent) {
+		if (still || e.pointerType === 'touch') return;
+		const r = (e.currentTarget as HTMLElement).getBoundingClientRect();
+		mx = (e.clientX - r.left) / r.width - 0.5;
+		my = (e.clientY - r.top) / r.height - 0.5;
+	}
+	const at = (depth: number) => `transform: translate3d(${(mx * depth).toFixed(1)}px, ${(my * depth).toFixed(1)}px, 0); transition: transform 600ms cubic-bezier(0.2, 0.7, 0.1, 1);`;
+
 	const columns = [
 		{ title: 'Studio', links: [{ label: 'Work', href: here }, { label: 'Services', href: here }, { label: 'Process', href: here }, { label: 'Contact', href: here }] },
 		{ title: 'Open source', links: [{ label: 'gpui-starter', href: here }, { label: 'gpui-query', href: here }, { label: 'tunnel', href: here }, { label: 'vps-harden', href: here }] },
@@ -57,18 +71,18 @@
 	</section>
 
 	<section class="mx-auto max-w-[1320px] px-4 pt-16 sm:px-8">
-		<div class="relative isolate h-[520px] overflow-hidden rounded-3xl border border-border bg-[var(--band)] sm:h-[600px]">
+		<div role="presentation" onpointermove={drift} onpointerleave={() => ((mx = 0), (my = 0))} class="relative isolate h-[520px] overflow-hidden rounded-3xl border border-border bg-[var(--band)] sm:h-[600px]">
 			<RustGridField cell={30} fade="none" fresh="--oxide-vivid" stain="--teal" class="-z-10" />
 			<div class="pointer-events-none absolute inset-0 hidden sm:block" aria-hidden="true">
-				<div class="absolute top-[12%] left-[6%] w-[44%] max-w-[520px]"><AppWindow kind="desktop" preset="oxide-bloom" title="Ledgerline" /></div>
-				<div class="absolute right-[24%] bottom-[-6%] w-[30%] max-w-[360px]"><AppWindow kind="web" preset="sediment" /></div>
-				<div class="absolute top-[8%] right-[6%] w-[210px]"><AppWindow kind="phone" preset="copper-sweep" title="Site visits" /></div>
-				<div class="absolute bottom-[8%] left-[10%] w-[30%] max-w-[340px]"><AppWindow kind="terminal" /></div>
+				<div class="absolute top-[11%] left-[6%] w-[44%] max-w-[520px]" style={at(-18)}><AppWindow kind="desktop" preset="oxide-bloom" title="Ledgerline" /></div>
+				<div class="absolute right-[25%] bottom-[9%] w-[30%] max-w-[360px]" style={at(26)}><AppWindow kind="web" preset="sediment" /></div>
+				<div class="absolute top-[9%] right-[6%] w-[210px]" style={at(40)}><AppWindow kind="phone" preset="copper-sweep" title="Site visits" /></div>
+				<div class="absolute bottom-[9%] left-[9%] w-[30%] max-w-[340px]" style={at(-30)}><AppWindow kind="terminal" /></div>
 			</div>
 			<div class="pointer-events-none absolute inset-0 flex items-center justify-center p-6 sm:hidden" aria-hidden="true">
 				<AppWindow kind="phone" preset="copper-sweep" title="Site visits" class="w-[200px]" />
 			</div>
-			<p class="absolute bottom-4 left-4 rounded-full bg-background px-3 py-1 font-mono text-[11px] text-foreground sm:right-4 sm:left-auto">Move across the board. It rusts where you’ve been.</p>
+			<p class="absolute top-4 left-4 rounded-full border border-border bg-background px-3 py-1 font-mono text-[11px] text-foreground">Move across the board. It rusts where you’ve been.</p>
 		</div>
 	</section>
 
@@ -92,9 +106,9 @@
 			</p>
 			<dl class="grid grid-cols-2 gap-px overflow-hidden rounded-2xl bg-[color-mix(in_oklab,currentColor_30%,transparent)]">
 				{#each [['Where', 'Remote, written updates'], ['How', 'Fixed scope or retainer'], ['Cadence', 'Demo every Friday'], ['After', 'We stay on call']] as [k, v] (k)}
-					<div class="bg-primary p-5">
+					<div class="bg-primary p-6">
 						<dt class="font-mono text-[11px] tracking-wider uppercase">{k}</dt>
-						<dd class="mt-1.5 text-lg leading-snug">{v}</dd>
+						<dd class="mt-2 text-xl leading-snug font-medium tracking-[-0.01em]">{v}</dd>
 					</div>
 				{/each}
 			</dl>
@@ -128,8 +142,8 @@
 				<SwatchTile frame="mat" preset="creased-paper" title="tunnel" kind="CLI" body="Share a folder at a public web address in a few seconds. No account needed." aspect="aspect-[16/10]" href={here}>
 					{#snippet art()}<AppWindow kind="terminal" class="max-w-[380px]" />{/snippet}
 				</SwatchTile>
-				<SwatchTile frame="mat" preset="terrazzo" title="gpui-query" kind="Library" body="Load data in desktop apps. Fetching, caching and retries handled." aspect="aspect-[16/9]" href={here} />
-				<SwatchTile frame="mat" preset="fibrous-paper" title="wake" kind="CLI" body="Keeps your computer awake for as long as you ask, and tells you when it can’t." aspect="aspect-[16/9]" href={here} />
+				<SwatchTile frame="mat" preset="terrazzo" title="gpui-query" kind="Library" body="Load data in desktop apps. Fetching, caching and retries handled." aspect="aspect-[16/10]" href={here} />
+				<SwatchTile frame="mat" preset="fibrous-paper" title="wake" kind="CLI" body="Keeps your computer awake for as long as you ask, and tells you when it can’t." aspect="aspect-[16/10]" href={here} />
 			</div>
 		</div>
 	</section>
