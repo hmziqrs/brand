@@ -30,9 +30,9 @@
 		[86, 64, 5.6],
 		[15, 74, 6],
 		[28, 3, 3.8],
-		[74, 92, 4.2],
-		[27, 95, 3.4],
-		[96, 90, 3.6]
+		[82, 95, 4.2],
+		[12, 96, 3.4],
+		[95, 82, 3.6]
 	] as const;
 	const tones = ['oxide', 'card', 'material', 'ink', 'card', 'oxide', 'material', 'card', 'ink', 'material'] as const;
 	const pool: Tool[] = [...tools.slice(0, 5), ...sinks.slice(0, 5)];
