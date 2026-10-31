@@ -40,8 +40,8 @@
 			<span class="size-2 bg-[var(--orange)]"></span>{kicker}
 		</p>
 	{/if}
-	<h1 class={cn('mx-auto max-w-[15ch] leading-[1.04] font-semibold tracking-[-0.045em] text-balance text-foreground', sizes[size])}>
-		{lead}
+	<h1 class={cn('mx-auto max-w-[15ch] leading-[1.1] font-semibold tracking-[-0.045em] text-balance text-foreground', sizes[size])}>
+		<span class="relative">{lead}</span>
 		{#if mark}<span class="bg-[var(--orange)] px-[0.12em] text-[var(--on-orange)] [box-decoration-break:clone] [-webkit-box-decoration-break:clone]">{mark}</span>{/if}
 		{#if tail}{tail}{/if}
 	</h1>

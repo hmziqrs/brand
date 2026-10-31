@@ -22,6 +22,10 @@ export const moves: Move[] = [
 	{ id: 'site-hex/feature-block', axis: 'layout', name: 'Sticky title + demo block', file: f('feature-block'), notes: 'Ruled section: big title, arrow link and oxide-ruled example quote left, a working demo right.' },
 	{ id: 'site-hex/name-strip', axis: 'section', name: 'Invented name strip', file: f('name-strip'), notes: 'Labelled strip of invented team names set in mixed faces in place of a customer logo wall.' },
 	{ id: 'site-hex/integration-tiles', axis: 'cards', name: 'Spot integration tiles', file: f('integration-tiles'), notes: 'Six gap-ruled tiles: mini spot, tool icons, title, one line.' },
+	{ id: 'site-hex/plan-cards', axis: 'cards', name: 'Spot-cover plan cards', file: f('plan-cards'), notes: 'Four gap-ruled plans with mini spot headers; the popular plan header is printed solid oxide; monthly/yearly toggle.' },
+	{ id: 'site-hex/compute-picker', axis: 'section', name: 'Compute picker with block stack', file: f('compute-picker'), notes: 'Segmented profile picker; the isometric block stack grows with the vCPU count.' },
+	{ id: 'site-hex/compare-table', axis: 'section', name: 'Diff-only compare table', file: f('compare-table'), notes: 'Grouped plan table with oxide-marked group heads, the popular column in oxide, and an only-differences filter.' },
+	{ id: 'site-hex/faq-split', axis: 'section', name: 'FAQ split with spot', file: f('faq-split'), notes: 'Big title and a mic spot left, kit accordion right under a heavy top rule.' },
 	{ id: 'site-hex/oxide-cta', axis: 'accent', name: 'Solid oxide CTA slab', file: f('oxide-cta'), notes: 'Full-width vivid oxide panel, near-black type, a baked material window ruled with a grid.' },
 	{ id: 'site-hex/terrain-footer', axis: 'footer', name: 'Counter + terrain footer', file: f('terrain-footer'), notes: 'Boxed footer: ticking answers counter, four link columns, giant wordmark beside a cursor-reactive block terrain.' }
 ];
