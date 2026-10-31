@@ -12,12 +12,14 @@
 	let {
 		scenes,
 		preset = 'copper-sweep',
+		cli = 'kiln',
 		live = false,
 		rows = 8,
 		class: className
 	}: {
 		scenes: Scene[];
 		preset?: string;
+		cli?: string;
 		live?: boolean;
 		rows?: number;
 		class?: string;
@@ -84,7 +86,7 @@
 	</div>
 	<div aria-hidden="true" class="absolute inset-0 -z-10 bg-[radial-gradient(70%_70%_at_50%_50%,color-mix(in_oklab,black_35%,transparent),transparent)]"></div>
 	<div class="win dark w-full max-w-[46rem] min-w-0">
-		<TerminalWindow title={`kiln ${scene.id}`} class="bg-[color-mix(in_oklab,var(--background)_92%,transparent)] shadow-[0_50px_120px_-40px_color-mix(in_oklab,black_90%,transparent)] backdrop-blur-xl">
+		<TerminalWindow title={`${cli} ${scene.id}`} class="bg-[color-mix(in_oklab,var(--background)_92%,transparent)] shadow-[0_50px_120px_-40px_color-mix(in_oklab,black_90%,transparent)] backdrop-blur-xl">
 			<TerminalBody class="min-h-0" style={{ height: `calc(${rows} * 1.9em + 2.25rem)` }}>
 				{#each lines as line, i (i)}<TerminalLine {line} />{/each}
 			</TerminalBody>

@@ -23,5 +23,6 @@ export const moves: Move[] = [
 	{ id: 'site-voidzero/framework-hub', axis: 'illustration', name: 'Framework hub', file: f('framework-hub'), notes: 'Material tool tile in the middle, framework icons around it on hairline wires; pointing at one lights its wire with a moving dash.' },
 	{ id: 'site-voidzero/speed-bars', axis: 'illustration', name: 'Material speed bars', file: f('speed-bars'), notes: 'Paired bars per task: ours filled with a material, theirs in grey, growing in on view, with an N× faster label.' },
 	{ id: 'site-voidzero/asset-tile', axis: 'cards', name: 'Downloadable asset tile', file: f('asset-tile'), notes: 'Preview on page, ink, paper or oxide surface with a caption bar: copy SVG and download SVG via an object URL.' },
-	{ id: 'site-voidzero/swatch-row', axis: 'color', name: 'Live token swatches', file: f('swatch-row'), notes: 'Hairline row of token swatches that read their current computed value (theme and oxide aware); click copies, hover grows the chip.' }
+	{ id: 'site-voidzero/swatch-row', axis: 'color', name: 'Live token swatches', file: f('swatch-row'), notes: 'Hairline row of token swatches that read their current computed value (theme and oxide aware); click copies, hover grows the chip.' },
+	{ id: 'site-voidzero/infer-map', axis: 'illustration', name: 'Import-to-resource map', file: f('infer-map'), notes: 'Two columns of chips around a material tile: pointing at an import lights the resource it becomes as a solid oxide chip.' }
 ];
