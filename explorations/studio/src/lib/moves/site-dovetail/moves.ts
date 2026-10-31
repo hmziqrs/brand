@@ -39,4 +39,8 @@ export const moves: Move[] = [
 	{ id: 'site-dovetail/quote-slider', axis: 'section', name: 'Grid-field quote slider', file: f('quote-slider'), notes: 'Big quote over a cursor-painted grid field with mono 01 — ■ 02 03 tabs.' },
 	{ id: 'site-dovetail/demo-form', axis: 'cards', name: 'Demo request form', file: f('demo-form'), notes: 'Kit inputs, styled native selects and a textarea in a raised card; submit swaps to a local thank-you state with an oxide check tile.' },
 	{ id: 'site-dovetail/report-cover', axis: 'illustration', name: 'Tilting oxide report cover', file: f('report-cover'), notes: 'A solid oxide report book on thin concentric rings that tilts in 3D toward the cursor.' },
+	{ id: 'site-dovetail/post-cover', axis: 'illustration', name: 'Generated post covers', file: f('post-cover'), notes: 'Blog art without illustrators: oxide word tiles with scattered ■ pixels, material posters, thin rings on ink, turning globes, UI snippets.' },
+	{ id: 'site-dovetail/post-tile', axis: 'cards', name: 'Post tile', file: f('post-tile'), notes: 'Generated cover with a hairline that turns oxide on hover, title, date and mono [TAG] row.' },
+	{ id: 'site-dovetail/post-head', axis: 'section', name: 'Post header with meta table', file: f('post-head'), notes: 'Back link, big title, ruled mono meta table (tags, date, authors), share and summarize-with-AI button rows beside the cover.' },
+	{ id: 'site-dovetail/metric-figure', axis: 'cards', name: 'Hoverable metric figure', file: f('metric-figure'), notes: 'In-article bar figure with a dashed target line and a Doto readout that follows the hovered bar.' },
 ];
