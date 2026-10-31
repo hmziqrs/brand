@@ -27,7 +27,7 @@
 <div class="dark min-h-screen bg-background text-foreground">
 	<TopNav announce="gpui-query 0.3 tries again on its own when the network drops" />
 	<section class="relative isolate flex min-h-[max(calc(100svh-7.25rem),40rem)] flex-col justify-end overflow-hidden">
-		<ShaderMaterial preset="copper-sweep" rendering="live" animated loading="eager" fetchpriority="high" class="absolute inset-0 -z-10" />
+		<ShaderMaterial preset="copper-sweep" rendering="live" animated controls={false} loading="eager" fetchpriority="high" class="absolute inset-0 -z-10" />
 		<div aria-hidden="true" class="absolute inset-0 -z-10 bg-gradient-to-t from-background/70 via-transparent to-background/30"></div>
 		<div class="mx-auto grid w-full max-w-[1280px] gap-4 px-4 pt-16 pb-16 sm:px-6 lg:grid-cols-[minmax(0,8fr)_minmax(0,4fr)] lg:items-end lg:pb-20">
 			<div class="rounded-2xl bg-background/92 p-7 shadow-2xl backdrop-blur-xl sm:p-12">
