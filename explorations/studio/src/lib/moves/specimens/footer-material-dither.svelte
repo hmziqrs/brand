@@ -6,7 +6,7 @@
 	let { mode }: { mode: 'dark' | 'light' } = $props();
 </script>
 
-<footer class="relative isolate overflow-hidden">
+<footer data-pointer-host class="relative isolate overflow-hidden">
 	<ShaderMaterial preset={mode === 'dark' ? 'cast-iron' : 'fibrous-paper'} rendering="image" loading="eager" controls={false} class="absolute inset-0 -z-20" />
 	<div class="scrim absolute inset-0 -z-10"></div>
 	<div class="flex flex-col gap-6 p-4 @3xl:p-8">

@@ -3,7 +3,7 @@
 	import RasterWordmark from './raster-wordmark.svelte';
 </script>
 
-<footer class="flex flex-col gap-8 px-6 pt-12 pb-8 @3xl:px-10">
+<footer data-pointer-host class="flex flex-col gap-8 px-6 pt-12 pb-8 @3xl:px-10">
 	<FooterLinks />
 	<div class="field border-t pt-6">
 		<RasterWordmark look="dots" pitch={9} class="aspect-[3.4/1]" />

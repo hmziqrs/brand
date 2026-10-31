@@ -19,5 +19,7 @@ export const moves: Move[] = [
 	{ id: 'site-flora/browser-frame', axis: 'illustration', name: 'Browser frame', file: f('browser-frame'), notes: 'Thin app-browser chrome (sidebar, back/forward, reload, URL crumb) around any mock, usually a canvas board.' },
 	{ id: 'site-flora/member-roles', axis: 'illustration', name: 'Member roles list', file: f('member-roles'), notes: 'Workspace member list with colour avatars; click a role to cycle Admin → Editor → Viewer (admin turns solid oxide), with two floating usage cards.' },
 	{ id: 'site-flora/usecase-tabs', axis: 'section', name: 'Use-case tabs with live board', file: f('usecase-tabs'), notes: 'Arrow-key tab pills (active = solid oxide) swapping a draggable canvas board and five ruled feature lines per use case.' },
-	{ id: 'site-flora/support-trio', axis: 'cards', name: 'Support trio with animated mocks', file: f('support-trio'), notes: 'Three cards on dotted mini-boards: a pinging lead chip with drifting cursors, icon tiles, and a rollout timeline that fills in oxide.' }
+	{ id: 'site-flora/support-trio', axis: 'cards', name: 'Support trio with animated mocks', file: f('support-trio'), notes: 'Three cards on dotted mini-boards: a pinging lead chip with drifting cursors, icon tiles, and a rollout timeline that fills in oxide.' },
+	{ id: 'site-flora/read-more', axis: 'layout', name: 'Read-more row', file: f('read-more'), notes: 'Ruled header with “See all”, then four seeded material covers that tilt toward the cursor, with title and date.' },
+	{ id: 'site-flora/contact-form', axis: 'section', name: 'Contact form with oxide success', file: f('contact-form'), notes: 'Kit inputs on card fills, native topic select, inline validation on send, and a solid oxide thank-you panel that replaces the form.' }
 ];
