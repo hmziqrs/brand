@@ -14,7 +14,7 @@ export const moves: Move[] = [
 	{ id: 'new/accent-slab', axis: 'accent', name: 'Solid hue slab', file: f('accent-slab'), notes: 'Big solid product-hue card, optional multiplied material grain (grain=0 for a flat fill) and a thin ring fingerprint bleeding off the corner.' },
 	{ id: 'new/pricing-slab', axis: 'cards', name: 'Pricing slab', file: f('pricing-slab'), notes: 'Outline plans with the recommended one as a solid hue slab; 72px prices.' },
 	{ id: 'new/family-footer', axis: 'footer', name: 'Family footer', file: f('family-footer'), notes: 'Footer over the product material with a glass panel, sibling products with their hue rings, giant name■ in the product hue (never oxide on another hue).' },
-	{ id: 'new/editorial-margin', axis: 'layout', name: 'Editorial chapter with margin note', file: f('editorial-margin'), notes: 'Serif chapter: italic numeral, drop-cap body, hairline margin note in the right gutter.' }
+	{ id: 'new/editorial-margin', axis: 'layout', name: 'Editorial chapter with margin note', file: f('editorial-margin'), notes: 'Serif chapter: italic numeral, drop-cap body, hairline margin note in the right gutter.' },
 	{ id: 'new/region-pulse', axis: 'section', name: 'Region pulse demo', file: f('region-pulse'), notes: 'Fourteen live region tiles with pinging latency; click to fail regions and see the three-region confirmation rule decide when to page.' },
 	{ id: 'new/alert-fold', axis: 'motion', name: 'Alert folding demo', file: f('alert-fold'), notes: 'Failed checks stream in and fold into one solid product-hue alert with a counter; replay button, final state for reduced motion.' }
 ];
