@@ -1,5 +1,6 @@
 <script lang="ts">
 	import FaqList from '$brand/blocks/content/faq-list.svelte';
+	import type { FaqItem } from '$brand/blocks/content/types.js';
 	import ArrowRight from '@lucide/svelte/icons/arrow-right';
 	import Languages from '@lucide/svelte/icons/languages';
 	import FlaskConical from '@lucide/svelte/icons/flask-conical';
@@ -58,7 +59,7 @@
 		}
 	];
 
-	const faq = [
+	const faq: FaqItem[] = [
 		['Credits', 'What are credits?', 'Paid plans include monthly credits that power the agent, translation and other AI features. Credits are shared across the workspace. If you run low, upgrade a site or add a top-up.'],
 		['Plans', 'What does the Free plan include?', 'Free projects get 10 CMS collections, unlimited design pages, small uploads and one locale to try. You need a paid plan to connect your own domain.'],
 		['Plans', 'Which plan should I pick?', 'Free suits non-commercial work. Basic suits students, freelancers and small studios. Pro is for teams that run their whole marketing site here. Enterprise is for teams that need custom limits, invoicing and named support.'],
@@ -66,7 +67,7 @@
 		['Billing', 'What happens if I go over a limit?', 'For pages and collections we ask you to upgrade. For bandwidth you can go over for one month, and we tell you by email first.'],
 		['Billing', 'Do you offer refunds?', 'Where the law gives you a cooling-off period, yes. Write to support within 14 days of buying and we will cancel and refund the subscription.'],
 		['Plans', 'My open-source project gets a lot of traffic. Can you help?', 'Often, yes. Non-commercial and open-source projects can ask us for higher limits.']
-	] as const;
+	];
 </script>
 
 <svelte:head><title>kiln pricing</title></svelte:head>
