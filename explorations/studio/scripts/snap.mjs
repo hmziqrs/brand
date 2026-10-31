@@ -7,7 +7,7 @@ const errs = [];
 p.on('pageerror', e => errs.push(e.message));
 p.on('console', m => { if (m.type() === 'error') errs.push(m.text()); });
 const [theme, oxide = 'a'] = mode.split(':');
-await p.addInitScript(([m, o]) => { try { localStorage.setItem('studio-theme', m); localStorage.setItem('studio-oxide', o); } catch {} }, [theme, oxide]);
+await p.addInitScript(([m, o]) => { try { localStorage.setItem('studio-theme', m); localStorage.setItem('studio-oxide', o); localStorage.setItem('studio-light', o); } catch {} }, [theme, oxide]);
 await p.goto(url, { waitUntil: 'networkidle', timeout: 90000 }).catch(e => errs.push('nav ' + e.message));
 await p.waitForTimeout(2500);
 await p.addStyleTag({ content: '.studio-bar{display:none!important}' });
