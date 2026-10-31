@@ -32,7 +32,8 @@
 {/snippet}
 
 {#snippet updateCard(u: Update)}
-	<a href="#/p/voidzero/freeoxide-1" class="group/update flex w-full flex-col overflow-hidden rounded-xl bg-card ring-1 ring-foreground/10 transition-[box-shadow] outline-none hover:ring-primary/50 focus-visible:ring-2 focus-visible:ring-ring">
+	<a href="#/p/voidzero/freeoxide-1" class="group/update relative flex w-full flex-col overflow-hidden rounded-xl bg-card outline-none focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring">
+		<span aria-hidden="true" class="pointer-events-none absolute inset-0 z-10 rounded-[inherit] ring-1 ring-foreground/10 transition-[box-shadow] ring-inset group-hover/update:ring-2 group-hover/update:ring-primary/60"></span>
 		<div class="relative isolate aspect-[16/10] overflow-hidden">
 			<ShaderMaterial preset={u.preset} rendering="image" loading="eager" controls={false} sizes="(min-width: 1024px) 30vw, 85vw" class="absolute inset-0 -z-10 transition-transform duration-700 group-hover/update:scale-105 motion-reduce:transition-none motion-reduce:group-hover/update:scale-100" />
 			{#if cover === 'mark'}
