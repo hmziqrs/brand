@@ -1,15 +1,13 @@
 <script lang="ts" module>
 	export type TypeSystem =
 		| 'onest'
-		| 'onest-instrument'
 		| 'onest-fraunces'
 		| 'newsreader'
 		| 'bricolage'
 		| 'inter-tight-mega'
 		| 'space-geist'
 		| 'onest-doto'
-		| 'onest-silkscreen'
-		| 'onest-vt323';
+		| 'onest-silkscreen';
 
 	type Spec = { head: string; lede: string; label: string; title: string; body: string; chip: string; sizes: [string, string, string] };
 
@@ -22,15 +20,6 @@
 			body: 'font-sans',
 			chip: 'font-mono text-[11px] tracking-wide uppercase',
 			sizes: ['text-[15px]', 'text-[13px]', 'text-[11px]']
-		},
-		'onest-instrument': {
-			head: 'font-sans font-medium tracking-[-0.05em] leading-[0.94]',
-			lede: 'font-sans text-[19px] leading-relaxed',
-			label: 'font-sans font-medium uppercase tracking-[0.12em]',
-			title: 'font-sans font-medium tracking-[-0.03em]',
-			body: 'font-sans',
-			chip: 'font-sans text-[11px] font-medium tracking-[0.12em] uppercase',
-			sizes: ['text-[14px]', 'text-[12px]', 'text-[10.5px]']
 		},
 		'onest-fraunces': {
 			head: 'font-fraunces font-[420] tracking-[-0.035em] leading-[0.96]',
@@ -94,15 +83,6 @@
 			body: 'font-sans',
 			chip: 'font-pixel text-[10px] uppercase',
 			sizes: ['text-[16px]', 'text-[12px]', 'text-[10px]']
-		},
-		'onest-vt323': {
-			head: 'font-sans font-medium tracking-[-0.05em] leading-[0.94]',
-			lede: 'font-sans text-[19px] leading-relaxed',
-			label: 'font-crt',
-			title: 'font-sans font-medium tracking-[-0.03em]',
-			body: 'font-sans',
-			chip: 'font-crt text-[17px] leading-none',
-			sizes: ['text-[24px]', 'text-[19px]', 'text-[16px]']
 		}
 	};
 </script>
@@ -127,8 +107,6 @@
 		{:else if system === 'onest-silkscreen'}
 			<span class={cn(s.chip, 'ox-chip px-2 py-1.5')}>New</span>
 			<span class={cn(s.chip, 'border px-2 py-1.5')}>Switch v0.9</span>
-		{:else if system === 'onest-vt323'}
-			<span class={cn(s.chip, 'ox-ink')}>&gt; claude-multi switch --provider bedrock<span class="cursor">_</span></span>
 		{:else if system === 'newsreader'}
 			<span class={cn(s.label, s.sizes[2])}>Field notes · No. 09</span>
 			<span class={cn(s.chip, 'text-foreground/90')}>on switching providers</span>
@@ -141,9 +119,7 @@
 	</div>
 
 	<h2 class={cn(system === 'inter-tight-mega' ? 'text-[clamp(3.25rem,15cqw,8.5rem)]' : 'text-[clamp(2.75rem,11.5cqw,6.5rem)]', s.head, 'text-foreground')}>
-		{#if system === 'onest-instrument'}
-			One agent.<br /><em class="font-serif text-[1.12em] font-normal tracking-[-0.02em] italic">Any</em> provider.
-		{:else if system === 'onest-fraunces'}
+		{#if system === 'onest-fraunces'}
 			One agent.<br /><em class="font-[360] italic">any provider.</em>
 		{:else if system === 'newsreader'}
 			One agent,<br /><em class="italic">any provider.</em>
@@ -155,8 +131,6 @@
 			One agent.<br /><span class="ox-ink font-dot font-bold tracking-[-0.02em]">Any</span> provider.
 		{:else if system === 'onest-silkscreen'}
 			One agent.<br />Any provider.
-		{:else if system === 'onest-vt323'}
-			One agent.<br /><span class="crt-word font-crt font-normal tracking-normal">Any</span> provider.
 		{:else}
 			One agent.<br />Any provider.
 		{/if}
@@ -172,7 +146,7 @@
 	<div class="grid gap-6 border-t pt-6 @lg:grid-cols-[1.4fr_1fr]">
 		<div class="flex flex-col gap-2">
 			<h3 class={cn(s.title, 'text-[30px] leading-[1.05] text-foreground')}>
-				{#if system === 'onest-instrument'}Switch in <em class="font-serif text-[1.1em] font-normal italic">one</em> line{:else}Switch in one line{/if}
+				Switch in one line
 			</h3>
 			<p class={cn(s.body, 'text-[16px] leading-relaxed text-foreground/90')}>Your keys stay in the keychain. Sessions, hooks and MCP servers carry over.</p>
 		</div>
@@ -198,25 +172,5 @@
 		height: 0.32em;
 		margin-left: 0.06em;
 		background: var(--mark-square);
-	}
-	.crt-word {
-		font-size: 1.32em;
-		line-height: 0.6;
-		padding: 0 0.08em;
-		background: var(--orange);
-		color: var(--on-orange);
-	}
-	.cursor {
-		animation: blink 1.1s steps(1) infinite;
-	}
-	@keyframes blink {
-		50% {
-			opacity: 0;
-		}
-	}
-	@media (prefers-reduced-motion: reduce) {
-		.cursor {
-			animation: none;
-		}
 	}
 </style>

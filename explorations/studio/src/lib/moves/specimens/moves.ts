@@ -4,7 +4,6 @@ const f = (name: string) => `src/lib/moves/specimens/${name}`;
 
 export const typeMoves: Move[] = [
 	{ id: 'specimens/type-onest', axis: 'type', name: 'Onest alone', file: f('type-system.svelte'), notes: 'Baseline: Onest 500 for everything, JetBrains Mono chips.' },
-	{ id: 'specimens/type-onest-instrument', axis: 'type', name: 'Onest + Instrument Serif italic', file: f('type-system.svelte'), notes: 'One Instrument Serif italic word set inside the Onest headline and section titles.' },
 	{ id: 'specimens/type-onest-fraunces', axis: 'type', name: 'Fraunces display + Onest text', file: f('type-system.svelte'), notes: 'Fraunces carries headlines with an italic second line; Onest keeps body and labels.' },
 	{ id: 'specimens/type-newsreader', axis: 'type', name: 'Newsreader editorial', file: f('type-system.svelte'), notes: 'Serif headlines and serif body at 21px, Onest tracked caps for datelines.' },
 	{ id: 'specimens/type-bricolage', axis: 'type', name: 'Bricolage display', file: f('type-system.svelte'), notes: 'Lowercase 800-weight Bricolage with the square ending the headline.' },
@@ -12,7 +11,6 @@ export const typeMoves: Move[] = [
 	{ id: 'specimens/type-space-geist', axis: 'type', name: 'Space Grotesk + Geist Mono', file: f('type-system.svelte'), notes: 'Space Grotesk headlines, Geist Mono bracketed chips and labels.' },
 	{ id: 'specimens/type-onest-doto', axis: 'type', name: 'Onest + Doto dot-matrix accents', file: f('type-system.svelte'), notes: 'One dot-matrix word in oxide inside the headline; dot-matrix labels.' },
 	{ id: 'specimens/type-onest-silkscreen', axis: 'type', name: 'Onest + Silkscreen pixel labels', file: f('type-system.svelte'), notes: 'Pure Onest headline; pixel font only for chips, labels and the button.' },
-	{ id: 'specimens/type-onest-vt323', axis: 'type', name: 'Onest + VT323 terminal', file: f('type-system.svelte'), notes: 'A CRT word on an oxide slab in the headline, VT323 prompt line and labels.' },
 	{ id: 'specimens/type-scale-62', axis: 'type', name: 'Hero scale 62px (current)', file: f('type-scale.svelte'), notes: 'Today: 62px in a 464px column with grey lede.' },
 	{ id: 'specimens/type-scale-96', axis: 'type', name: 'Hero scale 96px', file: f('type-scale.svelte'), notes: '96px in an 880px column, 20px white lede.' },
 	{ id: 'specimens/type-scale-128', axis: 'type', name: 'Hero scale 128px', file: f('type-scale.svelte'), notes: '128px in an 1100px column, 22px lede.' },

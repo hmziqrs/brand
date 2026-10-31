@@ -17,7 +17,7 @@
 <main class="min-h-screen bg-background pb-40 text-foreground">
 	<SpecHead
 		kicker="Specimens · type"
-		title="Ten ways to set one headline."
+		title="Eight ways to set one headline."
 		intro="Same claude-multi hero, same words, same oxide. Only the type system changes: headline face, accent face, lede, and labels at three sizes. Star the systems worth mixing, nuke the rest."
 		items={typeMoves.map((m) => ({ id: m.id, name: m.name }))}
 		pages={navFor('type')}
