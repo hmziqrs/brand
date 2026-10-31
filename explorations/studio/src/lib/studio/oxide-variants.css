@@ -11,8 +11,8 @@
 	--primary-foreground: oklch(0.145 0 0);
 }
 
-:root[data-oxide="b"]:not(.dark) :is(.text-primary, .text-orange),
-:root[data-oxide="c"]:not(.dark) :is(.text-primary, .text-orange) {
+:root[data-oxide="b"]:not(.dark) :is(.text-primary, .text-orange):not(.dark *, .dark),
+:root[data-oxide="c"]:not(.dark) :is(.text-primary, .text-orange):not(.dark *, .dark) {
 	color: var(--oxide-ink);
 }
 
