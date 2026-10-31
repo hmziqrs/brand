@@ -40,6 +40,8 @@ export const textureMoves: Move[] = [
 ];
 
 export const accentMoves: Move[] = [
+	{ id: 'specimens/accent-in-landing', axis: 'accent', name: 'Oxide across a landing page', file: f('accent-page.svelte'), notes: 'One real claude-multi page built only from the accent moves: slab headline word, oxide command, stat tiles, solid card, marker system, closing band.' },
+	{ id: 'specimens/accent-in-app', axis: 'accent', name: 'Oxide inside product UI', file: f('accent-app.svelte'), notes: 'A provider dashboard: solid oxide active nav item, active-provider tile, one oxide bar in a grey chart, an oxide-edged selected row and an active chip.' },
 	{ id: 'specimens/accent-solid-card', axis: 'accent', name: 'Solid oxide card + texture', file: f('oxide-solid-card.svelte'), notes: 'A big solid oxide card with a halftone multiply overlay and near-black copy, next to a calm outline tile.' },
 	{ id: 'specimens/accent-full-band', axis: 'accent', name: 'Full oxide band', file: f('oxide-band.svelte'), notes: 'The closing band pushed to a 74px headline with kit band arcs.' },
 	{ id: 'specimens/accent-half-bleed', axis: 'accent', name: 'Half-bleed oxide field', file: f('oxide-half-field.svelte'), notes: 'Copy on the page, the other half a bleeding oxide field with rings and a giant figure.' },

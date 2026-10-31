@@ -8,7 +8,7 @@
 		One <span class="obj" role="img" aria-label="An oxide tile with rings">
 			<svg viewBox="0 0 100 100" aria-hidden="true">
 				{#each radii as r, i (r)}
-					<circle cx="100" cy="100" {r} fill="none" stroke="currentColor" stroke-width={i === 3 ? 5 : 2} stroke-opacity={i === 3 ? 1 : 0.4} stroke-linecap="round" stroke-dasharray={i === 3 ? '90 400' : i % 2 ? '70 18' : 'none'} />
+					<circle cx="100" cy="100" {r} fill="none" stroke="currentColor" stroke-width="2" stroke-opacity={i === 3 ? 1 : 0.4} stroke-linecap="round" stroke-dasharray={i === 3 ? '90 400' : i % 2 ? '70 18' : 'none'} />
 				{/each}
 			</svg>
 		</span> agent,<br />every provider.
