@@ -22,19 +22,19 @@
 </script>
 
 <div
-	class="studio-bar fixed bottom-3 left-1/2 z-[9999] -translate-x-1/2 rounded-xl border border-border bg-popover/95 px-2 py-1.5 text-popover-foreground shadow-2xl backdrop-blur"
+	class="studio-bar fixed bottom-3 left-1/2 z-[9999] max-w-[calc(100vw-16px)] -translate-x-1/2 rounded-xl border border-border bg-popover/95 px-2 py-1.5 text-popover-foreground shadow-2xl backdrop-blur"
 	style="font-family: var(--font-sans); font-size: 12px;"
 >
 	<div class="flex items-center gap-1.5">
 		<a href="#/" class="inline-flex size-7 items-center justify-center rounded-md hover:bg-muted" title="All variants" aria-label="All variants"><LayoutGrid class="lucide size-3.5" /></a>
 		{#if open}
 			<a href={prev?.href} class="inline-flex size-7 items-center justify-center rounded-md hover:bg-muted" title="Previous" aria-label="Previous"><ChevronLeft class="lucide size-3.5" /></a>
-			<div class="max-w-[38ch] truncate px-1" title={cur?.title}>
+			<div class="hidden max-w-[38ch] truncate px-1 md:block" title={cur?.title}>
 				<span class="text-muted-foreground">{i + 1}/{pages.length} · {cur?.group} ·</span>
 				{cur?.title ?? path}
 			</div>
 			<a href={next?.href} class="inline-flex size-7 items-center justify-center rounded-md hover:bg-muted" title="Next" aria-label="Next"><ChevronRight class="lucide size-3.5" /></a>
-			<span class="mx-1 h-5 w-px bg-border"></span>
+			<span class="mx-1 hidden h-5 w-px bg-border sm:block"></span>
 			<button type="button" class="inline-flex size-7 items-center justify-center rounded-md hover:bg-muted" onclick={() => prefs.toggleTheme()} aria-label="Toggle theme">
 				{#if prefs.dark}<Sun class="lucide size-3.5" />{:else}<Moon class="lucide size-3.5" />{/if}
 			</button>
@@ -50,7 +50,7 @@
 			<span class="mx-1 h-5 w-px bg-border"></span>
 			<VerdictButtons id={path} />
 			<input
-				class="h-7 w-40 rounded-md border border-border bg-transparent px-2 text-[12px] outline-none placeholder:text-muted-foreground focus:border-primary"
+				class="hidden h-7 w-40 rounded-md border sm:block border-border bg-transparent px-2 text-[12px] outline-none placeholder:text-muted-foreground focus:border-primary"
 				placeholder="Note…"
 				value={verdicts.notes[path] ?? ''}
 				oninput={(e) => verdicts.note(path, e.currentTarget.value)}
