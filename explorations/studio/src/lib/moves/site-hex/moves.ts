@@ -15,6 +15,13 @@ export const moves: Move[] = [
 	{ id: 'site-hex/spot-mini', axis: 'illustration', name: 'Mini spot covers', file: f('spot-mini'), notes: 'Small isometric cover drawings (cube, curve, lock, stack, branch, mail, mic, globe) for cards.' },
 	{ id: 'site-hex/split-row', axis: 'section', name: 'Spot + copy split row', file: f('split-row'), notes: 'Alternating framed spot and big white copy with an underlined arrow link.' },
 	{ id: 'site-hex/resource-card', axis: 'cards', name: 'Spot-cover resource card', file: f('resource-card'), notes: 'Hairline card with a grid-paper mini spot cover, mono tag, big title, arrow link.' },
+	{ id: 'site-hex/ask-demo', axis: 'section', name: 'Ask demo with typed question', file: f('ask-demo'), notes: 'Clickable example questions type themselves in, a thinking step runs, then a hatched bar answer with a trusted-model badge.' },
+	{ id: 'site-hex/context-tabs', axis: 'section', name: 'Context studio tabs', file: f('context-tabs'), notes: 'Three-tab panel beside the layers spot: usage stats, unresolved terms you can add, a plain-text metric definition.' },
+	{ id: 'site-hex/kpi-bento', axis: 'cards', name: 'Generative KPI tiles', file: f('kpi-bento'), notes: 'Four hairline tiles (dot map, big figure + sparkline, dashed forecast, accounts table) each with a prompt pill.' },
+	{ id: 'site-hex/eval-list', axis: 'section', name: 'Eval checklist', file: f('eval-list'), notes: 'Expandable pass/fail checks for one question; failures are solid oxide squares.' },
+	{ id: 'site-hex/feature-block', axis: 'layout', name: 'Sticky title + demo block', file: f('feature-block'), notes: 'Ruled section: big title, arrow link and oxide-ruled example quote left, a working demo right.' },
+	{ id: 'site-hex/name-strip', axis: 'section', name: 'Invented name strip', file: f('name-strip'), notes: 'Labelled strip of invented team names set in mixed faces in place of a customer logo wall.' },
+	{ id: 'site-hex/integration-tiles', axis: 'cards', name: 'Spot integration tiles', file: f('integration-tiles'), notes: 'Six gap-ruled tiles: mini spot, tool icons, title, one line.' },
 	{ id: 'site-hex/oxide-cta', axis: 'accent', name: 'Solid oxide CTA slab', file: f('oxide-cta'), notes: 'Full-width vivid oxide panel, near-black type, a baked material window ruled with a grid.' },
 	{ id: 'site-hex/terrain-footer', axis: 'footer', name: 'Counter + terrain footer', file: f('terrain-footer'), notes: 'Boxed footer: ticking answers counter, four link columns, giant wordmark beside a cursor-reactive block terrain.' }
 ];

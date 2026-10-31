@@ -12,6 +12,7 @@
 		size = 'xl',
 		grid = true,
 		class: className,
+		sub,
 		children
 	}: {
 		kicker?: string;
@@ -22,6 +23,7 @@
 		size?: 'lg' | 'xl';
 		grid?: boolean;
 		class?: string;
+		sub?: Snippet;
 		children?: Snippet;
 	} = $props();
 
@@ -44,5 +46,6 @@
 		{#if tail}{tail}{/if}
 	</h1>
 	{#if lede}<p class="mx-auto mt-8 max-w-[44ch] bg-background text-xl leading-snug text-foreground sm:text-2xl">{lede}</p>{/if}
+	{#if sub}<div class="mx-auto mt-8 max-w-[52ch] text-xl leading-relaxed text-foreground sm:text-2xl">{@render sub()}</div>{/if}
 	{#if children}<div class="mt-10 flex flex-wrap justify-center gap-3">{@render children()}</div>{/if}
 </section>
