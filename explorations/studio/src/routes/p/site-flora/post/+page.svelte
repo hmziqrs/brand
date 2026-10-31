@@ -20,14 +20,15 @@
 
 	<header class="mx-auto max-w-[1000px] px-4 pt-16 text-center sm:px-8 sm:pt-24">
 		<p class="text-[14px] text-muted-foreground">Jul 1, 2026 · Inspiration</p>
-		<h1 class="mt-5 text-[clamp(2.5rem,6vw,5rem)] leading-[0.98] font-medium tracking-[-0.045em] text-foreground">How Northyard keeps a brand moving after hand-off</h1>
+		<h1 class="mt-5 text-balance text-[clamp(2.5rem,6vw,5rem)] leading-[0.98] font-medium tracking-[-0.045em] text-foreground">How Northyard keeps a brand moving after hand‑off</h1>
 		<p class="mt-6 inline-flex text-lg"><Wordmark name={brand} /></p>
 	</header>
 
 	<div class="mx-auto mt-12 max-w-[1000px] px-4 sm:px-8">
 		<CanvasBoard
 			width={960}
-			height={440}
+			height={480}
+			hint={false}
 			nodes={[
 				{ id: 'b', kind: 'prompt', x: 30, y: 60, w: 200, title: 'Brand extension', text: 'Studio voice, two colour rules, one mark. Draft every touchpoint.' },
 				{ id: 'm', kind: 'image', x: 40, y: 230, w: 160, title: 'Mark', preset: 'black-ice', aspect: 'aspect-square' },

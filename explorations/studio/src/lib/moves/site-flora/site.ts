@@ -124,7 +124,7 @@ export const posts: Post[] = [
 	{ title: 'Treat the video model like an editor, not a director', cat: 'Resources', date: 'Jul 13, 2026' },
 	{ title: 'Timeline: cut, generate and finish on the same canvas', cat: 'Updates', date: 'Jul 7, 2026' },
 	{ title: 'From a canvas to a platform: our first half of 2026', cat: 'Updates', date: 'Jul 6, 2026' },
-	{ title: 'How Northyard keeps a brand moving after hand-off', cat: 'Inspiration', date: 'Jul 1, 2026', slug: 'post' },
+	{ title: 'How Northyard keeps a brand moving after hand‑off', cat: 'Inspiration', date: 'Jul 1, 2026', slug: 'post' },
 	{ title: 'The canvas, everywhere: MCP, API and a CLI', cat: 'Updates', date: 'May 19, 2026' },
 	{ title: 'One pool for the whole team: our new pricing', cat: 'Inspiration', date: 'May 5, 2026' },
 	{ title: 'Sound comes to the canvas', cat: 'Updates', date: 'Apr 13, 2026' },
