@@ -23,7 +23,7 @@
 			<Button href={to('customers')} class="ml-2">See all stories</Button>
 		</div>
 	</div>
-	<div bind:this={rail} class="mt-12 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth px-4 pb-4 [scrollbar-width:none] sm:px-[max(1.5rem,calc((100vw-82rem)/2+1.5rem))]">
+	<div bind:this={rail} class="mt-12 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-4 [scrollbar-width:none]" style:padding-inline="max(1rem, calc((100vw - 82rem) / 2 + 1.5rem))" style:scroll-padding-inline="max(1rem, calc((100vw - 82rem) / 2 + 1.5rem))">
 		{#each stories as s (s.title)}
 			<StoryCard story={s} class="w-[78vw] shrink-0 snap-start sm:w-[22rem]" />
 		{/each}
