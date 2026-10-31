@@ -9,6 +9,8 @@
 	import OxideClipWord from '$moves/content/oxide-clip-word.svelte';
 	import MaterialCover from '$moves/content/material-cover.svelte';
 	import MaterialSignoff from '$moves/content/material-signoff.svelte';
+	import HoverPreviewList from '$moves/content/hover-preview-list.svelte';
+	import TopicShelf from '$moves/content/topic-shelf.svelte';
 	import { posts, topics, topicColor, type Topic } from '$moves/content/copy';
 	import type { Tone } from '@hmziq/brand-core/tones';
 
@@ -20,6 +22,11 @@
 	const big = $derived(rest.slice(0, 2));
 	const mid = $derived(rest.slice(2, 5));
 	const tail = $derived(rest.slice(5));
+
+	function pick(t: Topic) {
+		topic = topic === t ? 'All' : t;
+		document.getElementById('posts')?.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+	}
 </script>
 
 <svelte:head><title>blog · hmziq</title></svelte:head>
@@ -38,10 +45,10 @@
 	<section class="mx-auto max-w-[82rem] px-4 pt-14 sm:px-6 md:pt-20">
 		<div class="flex flex-wrap items-baseline justify-between gap-4 border-b pb-4 text-sm">
 			<span class="font-medium">The blog</span>
-			<span class="text-muted-foreground">{posts.length} posts · written by hmziq</span>
+			<span class="text-muted-foreground">{posts.length} posts · {topics.length} topics · updated {featured.date}</span>
 		</div>
 		<SerifMixHeadline text="Notes from building [*]" size="xxl" class="mt-10 md:mt-14">
-			{#snippet object()}<OxideClipWord text="software." class="font-serif text-[1.12em] leading-[0.8] font-normal tracking-[-0.01em] italic" />{/snippet}
+			{#snippet object()}<OxideClipWord text="software." follow class="font-serif text-[1.12em] leading-[0.8] font-normal tracking-[-0.01em] italic" />{/snippet}
 		</SerifMixHeadline>
 		<div class="mt-10 grid gap-8 md:mt-14 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
 			<p class="max-w-[36ch] text-[1.375rem] leading-[1.45] md:text-[1.625rem]">How the hmziq tools get made: the process, the Rust, the design, and the mistakes worth writing down.</p>
@@ -51,7 +58,7 @@
 
 	<section class="mx-auto mt-14 max-w-[82rem] px-4 sm:px-6 md:mt-20">
 		<a href="#/p/content/post-1" class="group grid overflow-hidden rounded-[1.75rem] border bg-card no-underline lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)]">
-			<MaterialCover seed={featured.slug} preset="copper-sweep" number={featured.n} sizes="(min-width: 1024px) 60vw, 100vw" class="aspect-[4/3] w-full lg:aspect-auto lg:min-h-[34rem]" />
+			<MaterialCover seed={featured.slug} preset="copper-sweep" number={featured.n} tilt sizes="(min-width: 1024px) 60vw, 100vw" class="aspect-[4/3] w-full lg:aspect-auto lg:min-h-[34rem]" />
 			<div class="flex flex-col p-6 sm:p-10">
 				<p class="flex items-center gap-3 text-sm">
 					<span class="inline-flex items-center gap-2 font-medium" style:color={topicColor[featured.topic]}><Marker class="size-2.25" />{featured.topic}</span>
@@ -67,14 +74,14 @@
 		</a>
 	</section>
 
-	<section class="mx-auto mt-16 max-w-[82rem] px-4 sm:px-6 md:mt-24">
+	<section id="posts" class="mx-auto mt-16 max-w-[82rem] scroll-mt-20 px-4 sm:px-6 md:mt-24">
 		{#if rest.length === 0}
 			<p class="border-y py-16 text-center text-lg">No other posts in {topic} yet.</p>
 		{/if}
 		<div class="grid gap-x-8 gap-y-14 md:grid-cols-2">
 			{#each big as p (p.slug)}
 				<a href="#/p/content/post-1" class="group block no-underline">
-					<MaterialCover seed={p.slug} number={p.n} sizes="(min-width: 768px) 50vw, 100vw" class="aspect-[16/10] rounded-2xl" />
+					<MaterialCover seed={p.slug} number={p.n} tilt sizes="(min-width: 768px) 50vw, 100vw" class="aspect-[16/10] rounded-2xl" />
 					<p class="mt-5 flex items-center gap-3 text-sm">
 						<span class="inline-flex items-center gap-2 font-medium" style:color={topicColor[p.topic]}><Marker class="size-2.25" />{p.topic}</span>
 						<span class="text-muted-foreground">{p.date} · {p.readingTime}</span>
@@ -88,7 +95,7 @@
 			<div class="mt-16 grid gap-x-6 gap-y-12 border-t pt-12 sm:grid-cols-2 lg:grid-cols-3">
 				{#each mid as p (p.slug)}
 					<a href="#/p/content/post-1" class="group block no-underline">
-						<MaterialCover seed={p.slug} number={p.n} sizes="(min-width: 1024px) 33vw, 50vw" class="aspect-[4/3] rounded-2xl" />
+						<MaterialCover seed={p.slug} number={p.n} tilt sizes="(min-width: 1024px) 33vw, 50vw" class="aspect-[4/3] rounded-2xl" />
 						<p class="mt-4 flex items-center gap-3 text-sm">
 							<span class="inline-flex items-center gap-2 font-medium" style:color={topicColor[p.topic]}><Marker class="size-2" />{p.topic}</span>
 							<span class="text-muted-foreground">{p.date}</span>
@@ -99,21 +106,22 @@
 			</div>
 		{/if}
 		{#if tail.length}
-			<div class="mt-16">
-				<h2 class="mb-4 text-[clamp(1.8rem,3vw,2.6rem)] font-medium tracking-[-0.03em]">Further <span class="font-serif font-normal italic">back</span></h2>
-				<ul class="border-t">
-					{#each tail as p (p.slug)}
-						<li>
-							<a href="#/p/content/post-1" class="group grid grid-cols-[3rem_minmax(0,1fr)] items-baseline gap-4 border-b py-5 no-underline sm:grid-cols-[4rem_minmax(0,1fr)_9rem]">
-								<span class="font-serif text-[1.75rem] leading-none text-primary italic">{p.n}</span>
-								<span class="text-[1.25rem] leading-snug font-medium tracking-[-0.02em] text-foreground group-hover:text-primary sm:text-[1.5rem]">{p.title}</span>
-								<span class="col-start-2 text-sm text-muted-foreground sm:col-start-3 sm:text-right">{p.date}</span>
-							</a>
-						</li>
-					{/each}
-				</ul>
+			<div class="mt-20">
+				<div class="mb-6 flex items-baseline justify-between gap-4">
+					<h2 class="text-[clamp(1.8rem,3vw,2.6rem)] font-medium tracking-[-0.03em]">Further back</h2>
+					<span class="hidden text-sm text-muted-foreground md:inline">Hover a title for its cover</span>
+				</div>
+				<HoverPreviewList items={tail} />
 			</div>
 		{/if}
+	</section>
+
+	<section class="mx-auto mt-24 max-w-[82rem] px-4 sm:px-6 md:mt-32">
+		<div class="mb-8 grid gap-4 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
+			<h2 class="text-[clamp(2.2rem,4.6vw,4rem)] leading-[0.95] font-medium tracking-[-0.04em]">Read by topic.</h2>
+			<p class="max-w-[34ch] text-lg leading-snug text-foreground">Pick a shelf to filter the posts above. Pick it again to see everything.</p>
+		</div>
+		<TopicShelf value={topic} onPick={pick} />
 	</section>
 
 	<div class="mt-28">
