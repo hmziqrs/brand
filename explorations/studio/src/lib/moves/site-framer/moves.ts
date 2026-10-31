@@ -24,5 +24,11 @@ export const moves: Move[] = [
 	{ id: 'site-framer/compare-table', axis: 'layout', name: 'Sticky compare table', file: f('compare-table'), notes: 'Grouped plan comparison with a sticky plan header, oxide checks and a faint oxide wash down the popular column.' },
 	{ id: 'site-framer/template-browser', axis: 'section', name: 'Template browser', file: f('template-browser'), notes: 'Ten-column category mega-grid that filters, sort pills, free/paid toggle and search over material template posters.' },
 	{ id: 'site-framer/expert-form', axis: 'section', name: 'Benefit cells + expert form', file: f('expert-form'), notes: 'Four hairline benefit cells beside a working sales form on a dimmed material panel; validates and thanks you by name.' },
+	{ id: 'site-framer/post-feature', axis: 'cards', name: 'Material lead story', file: f('post-feature'), notes: 'Lead post as a full material cover with the words on a smoke-glass panel, four bordered side cards with swatches.' },
+	{ id: 'site-framer/post-list', axis: 'section', name: 'Filterable post list', file: f('post-list'), notes: 'Category pills, search and load-more over hairline rows; a material swatch slides into the hovered row.' },
+	{ id: 'site-framer/year-stack', axis: 'section', name: 'Giant year timeline', file: f('year-stack'), notes: 'Staggered 240px years that turn oxide as they cross the middle of the viewport, story beside each.' },
+	{ id: 'site-framer/mark-tile', axis: 'illustration', name: '3D mark tile', file: f('mark-tile'), notes: 'The stand-in app icon as a hammered-copper tile with floating oxide layers that tilts toward the cursor.' },
+	{ id: 'site-framer/open-roles', axis: 'section', name: 'Open roles list', file: f('open-roles'), notes: 'Team filter pills with counts over a hairline list of roles that light oxide on hover.' },
+	{ id: 'site-framer/contact-board', axis: 'section', name: 'Contact board', file: f('contact-board'), notes: 'Big support panel on material with a working chat, four channel cells, Emergency as solid oxide.' },
 	{ id: 'site-framer/kiln-wordmark', axis: 'type', name: 'kiln stand-in wordmark', file: f('kiln-wordmark'), notes: 'Neutral stand-in brand: oxide tile + kiln, and a giant kiln■ for footers.' }
 ];
