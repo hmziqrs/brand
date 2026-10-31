@@ -7,7 +7,7 @@
 	let { layer, align = 'start', class: className }: { layer: Snippet; align?: 'start' | 'end'; class?: string } = $props();
 </script>
 
-<div class={cn('relative flex min-h-[460px] items-end p-4 @lg:p-8', align === 'end' && 'justify-end', className)}>
+<div data-pointer-host class={cn('relative flex min-h-[460px] items-end p-4 @lg:p-8', align === 'end' && 'justify-end', className)}>
 	<div class="absolute inset-0 -z-10">{@render layer()}</div>
 	<div class="reading relative flex w-full max-w-[400px] flex-col gap-4 rounded-xl border p-6">
 		<span class="flex items-center gap-2 font-mono text-[11px] tracking-[0.12em] text-foreground uppercase"><i class="sq"></i>claude-multi 0.9</span>

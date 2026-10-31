@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { mountCanvas, readColor, rgba, mix, rng, type RGB } from './canvas-kit';
+	import { mountCanvas, readColor, rgba, mix, rng, trackPointer, type RGB } from './canvas-kit';
 	import { prefs } from '$studio/prefs.svelte';
 
 	let { cell = 8, seed = 7, animate = true }: { cell?: number; seed?: number; animate?: boolean } = $props();
@@ -60,7 +60,29 @@
 			}
 		};
 
-		const m = mountCanvas(canvas, {
+		let m: ReturnType<typeof mountCanvas> | undefined;
+		const ptr = trackPointer(canvas, () => {
+			if (!m?.still) return;
+			ptr.snap();
+			scorch(ptr.p.x, ptr.p.y, 5);
+			step(600);
+			m.redraw();
+		});
+		let trail = 0;
+		const scorch = (px: number, py: number, r: number) => {
+			const ci = Math.floor(px / cell);
+			const cj = Math.floor(py / cell);
+			for (let j = cj - r; j <= cj + r; j++)
+				for (let i = ci - r; i <= ci + r; i++) {
+					if (i < 0 || j < 0 || i >= cols || j >= rows || (i - ci) ** 2 + (j - cj) ** 2 > r * r || rand() > 0.55) continue;
+					const q = i + j * cols;
+					if (age[q] < 0) count++;
+					age[q] = 0;
+					front.push(q);
+				}
+		};
+
+		m = mountCanvas(canvas, {
 			animate,
 			setup: ({ w, h }) => {
 				cols = Math.ceil(w / cell);
@@ -78,8 +100,15 @@
 				while (count < cols * rows * (still ? 0.46 : 0.28) && front.length) step(400);
 				for (let i = 0; i < age.length; i++) if (age[i] >= 0) age[i] = 0.6 + rand() * 4;
 			},
-			draw: ({ ctx, w, h, dt }) => {
+			draw: ({ ctx, w, h, t, dt }) => {
 				if (dt) {
+					ptr.step(dt, w, h, t, false, 14);
+					trail += dt;
+					if (ptr.p.inside && trail > 0.04) {
+						trail = 0;
+						scorch(ptr.p.x, ptr.p.y, ptr.p.speed > 300 ? 1 : 2);
+					}
+					step(24);
 					const total = cols * rows;
 					timer += dt;
 					if (phase === 'grow') {
@@ -105,7 +134,10 @@
 				}
 			}
 		});
-		return () => m.destroy();
+		return () => {
+			m?.destroy();
+			ptr.destroy();
+		};
 	});
 </script>
 

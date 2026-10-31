@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { Component } from 'svelte';
 	import SpecHead from '$moves/specimens/spec-head.svelte';
 	import SpecFrame from '$moves/specimens/spec-frame.svelte';
 	import TextureStage from '$moves/specimens/texture-stage.svelte';
@@ -10,9 +11,37 @@
 	import RingField from '$moves/specimens/ring-field.svelte';
 	import LatticeField from '$moves/specimens/lattice-field.svelte';
 	import DitherGradient from '$moves/specimens/dither-gradient.svelte';
+	import DiagonalHatch from '$moves/specimens/diagonal-hatch.svelte';
+	import MagneticDots from '$moves/specimens/magnetic-dots.svelte';
+	import RustLinger from '$moves/specimens/rust-linger.svelte';
+	import RippleRings from '$moves/specimens/ripple-rings.svelte';
+	import GridWarp from '$moves/specimens/grid-warp.svelte';
+	import GlyphScatter from '$moves/specimens/glyph-scatter.svelte';
+	import IronFilings from '$moves/specimens/iron-filings.svelte';
+	import ContourMap from '$moves/specimens/contour-map.svelte';
+	import VoxelRelief from '$moves/specimens/voxel-relief.svelte';
 	import { textureMoves } from '$moves/specimens/moves';
 	import { navFor } from '$moves/specimens/pages';
 
+	const canvases: Record<string, Component> = {
+		'diagonal-hatch': DiagonalHatch,
+		'magnetic-dots': MagneticDots,
+		'rust-linger': RustLinger,
+		'ripple-rings': RippleRings,
+		'grid-warp': GridWarp,
+		'glyph-scatter': GlyphScatter,
+		'iron-filings': IronFilings,
+		'contour-map': ContourMap,
+		'voxel-relief': VoxelRelief,
+		'oxidize-grid': OxidizeGrid,
+		'rust-spread': RustSpread,
+		'glyph-rain': GlyphRain,
+		'dither-gradient': DitherGradient,
+		'dot-field': DotField,
+		'ring-field': RingField,
+		'lattice-scene': LatticeField
+	};
+	const fresh = new Set(['diagonal-hatch', 'magnetic-dots', 'rust-linger', 'ripple-rings', 'grid-warp', 'glyph-scatter', 'iron-filings', 'contour-map', 'voxel-relief']);
 	const key = (id: string) => id.replace('specimens/texture-', '');
 </script>
 
@@ -22,36 +51,26 @@
 	<SpecHead
 		kicker="Specimens · texture"
 		title="Rust is our ASCII."
-		intro="Ten layers that could sit behind a hero or inside a card. Every one carries the same reading panel, so you judge the texture and not the copy. Moving ones stop for reduced motion."
+		intro="Nineteen layers that could sit behind a hero or inside a card, and every one of them answers the cursor. Move over a pane to play with it; when you leave, most fall back to a slow ghost cursor. Each carries the same reading panel, so you judge the texture and not the copy. Motion stops for reduced motion, but the cursor still redraws the still frame."
 		items={textureMoves.map((m) => ({ id: m.id, name: m.name }))}
 		pages={navFor('texture')}
 	/>
 	<div class="mx-auto flex max-w-[1320px] flex-col gap-16 px-4 sm:px-8">
 		{#each textureMoves as m, i (m.id)}
-			<SpecFrame id={m.id} name={m.name} note={m.notes} index={i + 1} tag={key(m.id) === 'oxidize-grid' ? 'hover it' : undefined}>
+			{@const k = key(m.id)}
+			{@const Layer = canvases[k]}
+			<SpecFrame id={m.id} name={m.name} note={m.notes} index={i + 1} tag={fresh.has(k) ? 'new · move the cursor' : 'cursor'}>
 				{#snippet children(mode)}
-					<TextureStage align={key(m.id) === 'ring-field' || key(m.id) === 'lattice-scene' ? 'start' : 'start'}>
+					<TextureStage>
 						{#snippet layer()}
-							{#if key(m.id) === 'oxide-bloom'}
+							{#if Layer}
+								<Layer />
+							{:else if k === 'oxide-bloom'}
 								<TintedMaterial preset="oxide-bloom" {mode} native />
-							{:else if key(m.id) === 'oxide-chalk'}
+							{:else if k === 'oxide-chalk'}
 								<TintedMaterial preset="oxide-chalk" {mode} />
-							{:else if key(m.id) === 'halftone-print'}
-								<TintedMaterial preset="halftone-print" {mode} source="dark-on-light" />
-							{:else if key(m.id) === 'rust-spread'}
-								<RustSpread />
-							{:else if key(m.id) === 'glyph-rain'}
-								<GlyphRain />
-							{:else if key(m.id) === 'oxidize-grid'}
-								<OxidizeGrid />
-							{:else if key(m.id) === 'dot-field'}
-								<DotField />
-							{:else if key(m.id) === 'ring-field'}
-								<RingField />
-							{:else if key(m.id) === 'lattice-scene'}
-								<LatticeField />
 							{:else}
-								<DitherGradient />
+								<TintedMaterial preset="halftone-print" {mode} source="dark-on-light" />
 							{/if}
 						{/snippet}
 					</TextureStage>
