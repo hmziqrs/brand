@@ -28,6 +28,9 @@ export const moves: Move[] = [
 	{ id: 'site-hex/faq-split', axis: 'section', name: 'FAQ split with spot', file: f('faq-split'), notes: 'Big title and a mic spot left, kit accordion right under a heavy top rule.' },
 	{ id: 'site-hex/stat-row', axis: 'section', name: 'Gap-ruled stat row', file: f('stat-row'), notes: 'Four huge figures in a hairline grid, the first closed by the oxide square.' },
 	{ id: 'site-hex/team-mosaic', axis: 'layout', name: 'Material + spot team mosaic', file: f('team-mosaic'), notes: 'Mixed-span tile wall of baked materials and grid-paper spots with mono role chips, standing in for team photos.' },
+	{ id: 'site-hex/story-rail', axis: 'cards', name: 'Material story rail', file: f('story-rail'), notes: 'Snap-scrolling featured stories: baked material covers with a solid reading panel holding a huge stat; square arrow buttons.' },
+	{ id: 'site-hex/quote-marquee', axis: 'motion', name: 'Two-row quote drift', file: f('quote-marquee'), notes: 'Opposing marquee rows of labelled example quotes and stat cards; pauses on hover, still under reduced motion.' },
+	{ id: 'site-hex/story-filter', axis: 'layout', name: 'Filterable spot story index', file: f('story-filter'), notes: 'Stage tabs and a sort select over a grid of mini-spot story cards.' },
 	{ id: 'site-hex/oxide-cta', axis: 'accent', name: 'Solid oxide CTA slab', file: f('oxide-cta'), notes: 'Full-width vivid oxide panel, near-black type, a baked material window ruled with a grid.' },
 	{ id: 'site-hex/terrain-footer', axis: 'footer', name: 'Counter + terrain footer', file: f('terrain-footer'), notes: 'Boxed footer: ticking answers counter, four link columns, giant wordmark beside a cursor-reactive block terrain.' }
 ];
