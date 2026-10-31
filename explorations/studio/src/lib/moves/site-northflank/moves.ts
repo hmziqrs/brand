@@ -22,5 +22,8 @@ export const moves: Move[] = [
 	{ id: 'site-northflank/feature-quad', axis: 'layout', name: 'Labelled feature quad', file: f('feature-quad'), notes: 'Sticky mono label + headline beside four icon cards (or stacked in a row); icon tile fills oxide on hover.' },
 	{ id: 'site-northflank/product-rail', axis: 'nav', name: 'Product side rail', file: f('product-rail'), notes: 'Sticky right-hand product list on a hairline; the current product gets an oxide rule and icon.' },
 	{ id: 'site-northflank/contour-field', axis: 'texture', name: 'Cursor contour field', file: f('contour-field'), notes: 'Thin topographic contours drift slowly, bend away from the pointer and turn oxide inside a lens around it.' },
-	{ id: 'site-northflank/contact-form', axis: 'section', name: 'Contact form', file: f('contact-form'), notes: 'Email, query type and message with inline validation, a live character count, an oxide send button and a thank-you state.' }
+	{ id: 'site-northflank/contact-form', axis: 'section', name: 'Contact form', file: f('contact-form'), notes: 'Email, query type and message with inline validation, a live character count, an oxide send button and a thank-you state.' },
+	{ id: 'site-northflank/resource-switch', axis: 'nav', name: 'Resource switch', file: f('resource-switch'), notes: 'Pill tab group (Guides, Changelog, Blog) with an oxide ring on the current section.' },
+	{ id: 'site-northflank/post-card', axis: 'cards', name: 'Post card', file: f('post-card'), notes: 'Cover with the title on a solid plate, monogram byline, excerpt and tag; featured variant sits side by side.' },
+	{ id: 'site-northflank/release-cover', axis: 'illustration', name: 'Release voxel cover', file: f('release-cover'), notes: 'Seeded iso voxel cluster on a dot grid that tilts toward the cursor, with the release name on a reading plate.' }
 ];
