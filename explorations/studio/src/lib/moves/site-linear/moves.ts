@@ -1,0 +1,21 @@
+import type { Move } from '$studio/types';
+
+const f = (n: string) => `src/lib/moves/site-linear/${n}.svelte`;
+
+export const moves: Move[] = [
+	{ id: 'site-linear/site-header', axis: 'nav', name: 'Study site header', file: f('site-header'), notes: 'Sticky wordmark bar with white links, an oxide underline on the current page, a pill oxide Sign up and a phone menu.' },
+	{ id: 'site-linear/site-footer', axis: 'footer', name: 'Closing line + material footer', file: f('site-footer'), notes: 'Giant white closing line with an oxide second half, then an always-dark material footer with a dithered wordmark that rusts under the cursor.' },
+	{ id: 'site-linear/hero-stage', axis: 'hero', name: 'Hover-grid hero over a live material band', file: f('hero-stage'), notes: 'Huge left headline over a rust grid that paints under the cursor; the product window sits on a full-bleed live oxide shader band.' },
+	{ id: 'site-linear/section-head', axis: 'layout', name: 'Split section head', file: f('section-head'), notes: 'Big white title left, 24px white lede right, oxide Learn more link; the Linear two-column rhythm without the grey.' },
+	{ id: 'site-linear/feature-links', axis: 'section', name: 'Feature plus-list', file: f('feature-links'), notes: 'Feature names with plus chips that turn solid oxide; hovering one writes its explanation in white on the left.' },
+	{ id: 'site-linear/app-shell-mock', axis: 'illustration', name: 'Clickable product app window', file: f('app-shell-mock'), notes: 'Full tracker app built from tokens: sidebar switches issue, inbox, my issues and reviews views; an agent panel plays its run and can replay.' },
+	{ id: 'site-linear/status-icon', axis: 'illustration', name: 'Issue status + priority glyphs', file: f('status-icon'), notes: 'Backlog, todo, in progress (oxide half), review, done, cancelled circles plus bar priority and a solid oxide urgent tile.' },
+	{ id: 'site-linear/iso-fig', axis: 'illustration', name: 'Cursor-reactive iso figures', file: f('iso-fig'), notes: 'FIG 0.x isometric line art (plate stack, cube cluster, speed bars) where the cursor spreads plates, lifts cubes and heats bars to oxide.' },
+	{ id: 'site-linear/triage-board', axis: 'illustration', name: 'Chat-to-board intake demo', file: f('triage-board'), notes: 'A chat thread over a kanban board; press send and the agent drops two oxide-ringed issues into Todo.' },
+	{ id: 'site-linear/roadmap-mock', axis: 'illustration', name: 'Roadmap timeline + cycle chart', file: f('roadmap-mock'), notes: 'Week timeline with progress-filled project bars, milestones and an oxide Today line; hover picks a project; floating cycle-time chart.' },
+	{ id: 'site-linear/agent-windows', axis: 'illustration', name: 'Four agent windows', file: f('agent-windows'), notes: 'Agent, coding session, triage and editor windows side by side; the focused one lifts with an oxide ring and oxide result chip.' },
+	{ id: 'site-linear/diff-review', axis: 'illustration', name: 'Review queue + diff', file: f('diff-review'), notes: 'Issue list beside a code diff; pick an issue to swap the file, green/red line tints, oxide guided-review chip.' },
+	{ id: 'site-linear/changelog-rail', axis: 'section', name: 'Changelog rail', file: f('changelog-rail'), notes: 'Four releases on one hairline; hovering one draws an oxide line across and fills its square. All rule widths stay thin.' },
+	{ id: 'site-linear/quote-pair', axis: 'accent', name: 'Oxide quote + material quote', file: f('quote-pair'), notes: 'A big solid oxide quote card beside a material card with a solid reading panel, both labelled examples, then a stat line.' },
+	{ id: 'site-linear/integration-strip', axis: 'section', name: 'Integration tile strip', file: f('integration-strip'), notes: 'Replaces a customer-logo row with tools the product plugs into; each tile floods oxide on hover.' }
+];
