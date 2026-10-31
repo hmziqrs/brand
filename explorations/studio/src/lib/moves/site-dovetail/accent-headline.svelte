@@ -40,4 +40,7 @@
 	.accent-headline[data-tint='primary'] :global(em) {
 		color: var(--primary);
 	}
+	:global(:root:not(.dark)) .accent-headline[data-tint='primary']:not(:global(.dark *)) :global(em) {
+		color: var(--oxide-ink);
+	}
 </style>
