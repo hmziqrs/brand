@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { cn } from '$brand/utils.js';
 	import MaterialCover from '$moves/content/material-cover.svelte';
-	import { posts, postHref, to, type Post } from './site';
+	import { cover, posts, postHref, to, type Post } from './site';
 
 	let {
 		items = posts.slice(0, 4),
@@ -23,7 +23,7 @@
 		{#each items as p (p.title)}
 			<a href={postHref(p)} class="group">
 				<div class="relative aspect-[16/10] overflow-hidden rounded-xl border border-border">
-					<MaterialCover seed={p.title} tilt notch={false} sizes="(min-width: 1024px) 25vw, 50vw" class="!absolute inset-0" />
+					<MaterialCover seed={p.title} preset={cover(p)} tilt notch={false} sizes="(min-width: 1024px) 25vw, 50vw" class="!absolute inset-0" />
 				</div>
 				<p class="mt-3 text-[16px] leading-snug font-medium text-foreground group-hover:text-primary">{p.title}</p>
 				<p class="mt-1 text-[13px] text-muted-foreground">{p.date} · {p.cat}</p>
