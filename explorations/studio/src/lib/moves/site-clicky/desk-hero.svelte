@@ -27,7 +27,7 @@
 	const faces = [
 		{ t: '^ ω ^', pos: 'top-[10%] left-[24%]' },
 		{ t: '¯\\_(ツ)_/¯', pos: 'top-[7%] left-[60%]' },
-		{ t: '{ ^-^ }', pos: 'top-[34%] right-[14%]' },
+		{ t: '{ ^-^ }', pos: 'top-[78%] right-[16%]' },
 		{ t: '(¬_¬)', pos: 'top-[50%] left-[19%]' }
 	];
 	const folders = [
@@ -38,7 +38,7 @@
 
 <section class={cn('relative isolate overflow-hidden', className)}>
 	<DotDesk />
-	<div class="relative mx-auto max-w-[1440px] px-4 pt-10 sm:px-6 lg:min-h-[640px] lg:pt-0">
+	<div class="relative mx-auto max-w-[1440px] px-4 pt-10 sm:px-6 lg:min-h-[620px] lg:pt-0">
 		<div class="pointer-events-none absolute inset-0 hidden lg:block">
 			{#each wins as w (w.file)}
 				<div class={cn('pointer-events-auto absolute', w.pos)}>
@@ -56,7 +56,7 @@
 					<span class="font-mono text-[11px] text-foreground">{f.label}</span>
 				</span>
 			{/each}
-			<span class="absolute top-[27%] right-[5%] rotate-[-8deg] overflow-hidden rounded-md border-2 border-red bg-card text-center shadow-lg">
+			<span class="absolute top-[74%] left-[7%] rotate-[-8deg] overflow-hidden rounded-md border-2 border-red bg-card text-center shadow-lg">
 				<span class="block bg-red px-4 pt-1 font-mono text-[9px] tracking-[0.2em] text-white uppercase">hello my name is</span>
 				<span class="block px-4 py-2 text-2xl font-bold tracking-tight text-foreground">{name}</span>
 			</span>
@@ -77,5 +77,5 @@
 			</div>
 		</div>
 	</div>
-	{#if children}<div class="relative z-10 mx-auto mt-14 max-w-[1000px] px-4 pb-10 sm:px-6">{@render children()}</div>{/if}
+	{#if children}<div class="relative z-10 mx-auto mt-10 max-w-[1000px] px-4 pb-10 sm:px-6">{@render children()}</div>{/if}
 </section>
