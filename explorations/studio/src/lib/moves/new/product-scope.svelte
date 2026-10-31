@@ -34,7 +34,7 @@
 	}
 </script>
 
-<div data-product-scope={live} class={cn('product-scope bg-background text-foreground', className)} style:--pa={`var(--${live})`} {...rest}>
+<div data-product-scope={live} class={cn('product-scope bg-background text-foreground', className)} style:--pa={`var(--${live})`} data-remap={live === 'orange' ? undefined : ''} {...rest}>
 	{@render children()}
 	{#if tweak}
 		<div class="fixed right-3 bottom-16 z-[9998] flex items-center gap-1 rounded-full border border-border bg-popover/95 p-1 text-popover-foreground shadow-xl backdrop-blur">
@@ -81,6 +81,22 @@
 		--pa-soft: color-mix(in oklab, var(--pa) 14%, var(--background));
 		--pa-line: color-mix(in oklab, var(--pa) 38%, transparent);
 		overflow-x: clip;
+	}
+	.product-scope[data-remap],
+	.product-scope[data-remap] :global(.dark),
+	.product-scope[data-remap] :global(.light) {
+		--orange: var(--pa);
+		--oxide-vivid: var(--pa);
+		--mark-square: var(--pa);
+		--oxide-ink: oklch(from var(--pa) 0.52 c h);
+		--oxide-deep: oklch(from var(--pa) 0.43 c h);
+	}
+	.product-scope :global(.dark),
+	.product-scope :global(.light) {
+		--primary: var(--pa);
+		--primary-foreground: var(--background);
+		--ring: var(--pa);
+		--code-token-keyword: var(--pa);
 	}
 	:global(:root[data-oxide='b']:not(.dark)) .product-scope,
 	:global(:root[data-oxide='c']:not(.dark)) .product-scope {
