@@ -21,5 +21,6 @@ export const moves: Move[] = [
 	{ id: 'site-northflank/console-mock', axis: 'illustration', name: 'Cluster console mock', file: f('console-mock'), notes: 'App-window console for a cluster with working tabs: details, observe chart, node pools, history.' },
 	{ id: 'site-northflank/feature-quad', axis: 'layout', name: 'Labelled feature quad', file: f('feature-quad'), notes: 'Sticky mono label + headline beside four icon cards (or stacked in a row); icon tile fills oxide on hover.' },
 	{ id: 'site-northflank/product-rail', axis: 'nav', name: 'Product side rail', file: f('product-rail'), notes: 'Sticky right-hand product list on a hairline; the current product gets an oxide rule and icon.' },
-	{ id: 'site-northflank/contour-field', axis: 'texture', name: 'Cursor contour field', file: f('contour-field'), notes: 'Thin topographic contours drift slowly, bend away from the pointer and turn oxide inside a lens around it.' }
+	{ id: 'site-northflank/contour-field', axis: 'texture', name: 'Cursor contour field', file: f('contour-field'), notes: 'Thin topographic contours drift slowly, bend away from the pointer and turn oxide inside a lens around it.' },
+	{ id: 'site-northflank/contact-form', axis: 'section', name: 'Contact form', file: f('contact-form'), notes: 'Email, query type and message with inline validation, a live character count, an oxide send button and a thank-you state.' }
 ];
