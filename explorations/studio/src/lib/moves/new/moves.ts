@@ -16,5 +16,9 @@ export const moves: Move[] = [
 	{ id: 'new/family-footer', axis: 'footer', name: 'Family footer', file: f('family-footer'), notes: 'Footer over the product material with a glass panel, sibling products with their hue rings, giant name■ in the product hue (never oxide on another hue).' },
 	{ id: 'new/editorial-margin', axis: 'layout', name: 'Editorial chapter with margin note', file: f('editorial-margin'), notes: 'Serif chapter: italic numeral, drop-cap body, hairline margin note in the right gutter.' },
 	{ id: 'new/region-pulse', axis: 'section', name: 'Region pulse demo', file: f('region-pulse'), notes: 'Fourteen live region tiles with pinging latency; click to fail regions and see the three-region confirmation rule decide when to page.' },
+	{ id: 'new/fleet-table', axis: 'section', name: 'Fleet table', file: f('fleet-table'), notes: 'Monitoring table with collapsible groups, sticky header, filter tabs with counts, search, sort, bulk select bar, status pills, a sparkline and a 30-day strip per row, region coverage and row actions.' },
+	{ id: 'new/error-table', axis: 'section', name: 'Error group table', file: f('error-table'), notes: 'Error groups by service with state filter, status pills, per-row event bars, counts, users, seen range, release chip and row actions.' },
+	{ id: 'new/status-pill', axis: 'accent', name: 'Status pill', file: f('status-pill'), notes: 'Tinted rounded pill with a dot (pulsing for slow/down/regressed); solid red only when something is down.' },
+	{ id: 'new/row-spark', axis: 'illustration', name: 'Row sparkline', file: f('row-spark'), notes: 'Tiny inline SVG line-with-area or bar sparkline sized for a table cell.' },
 	{ id: 'new/alert-fold', axis: 'motion', name: 'Alert folding demo', file: f('alert-fold'), notes: 'Failed checks stream in and fold into one solid product-hue alert with a counter; replay button, final state for reduced motion.' }
 ];
