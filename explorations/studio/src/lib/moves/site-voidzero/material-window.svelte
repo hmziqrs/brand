@@ -34,7 +34,7 @@
 		<ShaderMaterial {preset} rendering={live ? 'live' : 'image'} animated={live} controls={false} sizes="(min-width: 1024px) 50vw, 100vw" class="absolute inset-0 bg-transparent" />
 	</div>
 	<div aria-hidden="true" class="light pointer-events-none absolute inset-0 -z-10"></div>
-	<div class="win dark w-full max-w-[34rem] rounded-xl shadow-[0_40px_90px_-30px_color-mix(in_oklab,black_85%,transparent)]">
+	<div class="win dark w-full max-w-[34rem] min-w-0 rounded-xl shadow-[0_40px_90px_-30px_color-mix(in_oklab,black_85%,transparent)]">
 		{#if children}
 			{@render children()}
 		{:else if panel?.kind === 'terminal'}

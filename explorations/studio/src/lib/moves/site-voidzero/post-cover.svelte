@@ -24,7 +24,7 @@
 	<span class={cn('inline-flex items-baseline rounded-[22%] bg-background leading-none font-semibold tracking-[-0.03em] text-foreground shadow-[0_18px_40px_-14px_color-mix(in_oklab,black_80%,transparent)]', cls)}>{text}<i aria-hidden="true" class="ml-[0.07em] inline-block size-[0.3em] bg-mark-square"></i></span>
 {/snippet}
 
-<div class={cn('post-cover dark @container relative isolate overflow-hidden bg-background text-foreground', className)}>
+<div class={cn('post-cover dark @container relative isolate overflow-hidden bg-card text-foreground', className)}>
 	{#if cover.style === 'recap'}
 		<div class="grid h-full grid-cols-2">
 			<div class="flex flex-col justify-center gap-[3cqw] px-[6cqw]">

@@ -59,7 +59,7 @@
 		</aside>
 		<div>
 			{#each tools as t, i (t.id)}
-				<article bind:this={rows[i]} class="grid border-border lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] [&:not(:last-child)]:border-b">
+				<article bind:this={rows[i]} class="grid grid-cols-[minmax(0,1fr)] border-border lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] [&:not(:last-child)]:border-b">
 					<div class="flex flex-col gap-5 p-6 sm:p-10">
 						<p class="flex items-center gap-2.5 font-mono text-xs text-muted-foreground uppercase">
 							<MaterialTile preset={t.preset} size={22} class="lg:hidden"><span class="text-[0.6em] font-semibold">{t.symbol}</span></MaterialTile>{t.name} · {t.role}
