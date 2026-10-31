@@ -34,7 +34,7 @@
 	style="font-family: 'Onest Variable', sans-serif; font-size: 12px;"
 >
 	{#if swaps && open}
-		<div class="absolute right-0 bottom-[calc(100%+8px)] w-[min(560px,calc(100vw-16px))] rounded-xl border border-border bg-popover p-3 shadow-2xl">
+		<div class="absolute bottom-[calc(100%+8px)] left-1/2 w-[min(560px,calc(100vw-16px))] -translate-x-1/2 rounded-xl border border-border bg-popover p-3 shadow-2xl">
 			<SwapControls />
 		</div>
 	{/if}
