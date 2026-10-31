@@ -26,6 +26,8 @@ export const moves: Move[] = [
 	{ id: 'site-hex/compute-picker', axis: 'section', name: 'Compute picker with block stack', file: f('compute-picker'), notes: 'Segmented profile picker; the isometric block stack grows with the vCPU count.' },
 	{ id: 'site-hex/compare-table', axis: 'section', name: 'Diff-only compare table', file: f('compare-table'), notes: 'Grouped plan table with oxide-marked group heads, the popular column in oxide, and an only-differences filter.' },
 	{ id: 'site-hex/faq-split', axis: 'section', name: 'FAQ split with spot', file: f('faq-split'), notes: 'Big title and a mic spot left, kit accordion right under a heavy top rule.' },
+	{ id: 'site-hex/stat-row', axis: 'section', name: 'Gap-ruled stat row', file: f('stat-row'), notes: 'Four huge figures in a hairline grid, the first closed by the oxide square.' },
+	{ id: 'site-hex/team-mosaic', axis: 'layout', name: 'Material + spot team mosaic', file: f('team-mosaic'), notes: 'Mixed-span tile wall of baked materials and grid-paper spots with mono role chips, standing in for team photos.' },
 	{ id: 'site-hex/oxide-cta', axis: 'accent', name: 'Solid oxide CTA slab', file: f('oxide-cta'), notes: 'Full-width vivid oxide panel, near-black type, a baked material window ruled with a grid.' },
 	{ id: 'site-hex/terrain-footer', axis: 'footer', name: 'Counter + terrain footer', file: f('terrain-footer'), notes: 'Boxed footer: ticking answers counter, four link columns, giant wordmark beside a cursor-reactive block terrain.' }
 ];
