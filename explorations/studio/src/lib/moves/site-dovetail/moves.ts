@@ -1,0 +1,22 @@
+import type { Move } from '$studio/types';
+
+const f = (n: string) => `src/lib/moves/site-dovetail/${n}.svelte`;
+
+export const moves: Move[] = [
+	{ id: 'site-dovetail/site-header', axis: 'nav', name: 'Announce bar + sticky site nav', file: f('site-header'), notes: 'Ink announce strip with a ■, then a sticky blurred nav with the contextline■ wordmark, current-page pill, Log in / Book a demo and a mobile sheet.' },
+	{ id: 'site-dovetail/site-footer', axis: 'footer', name: 'Five-column site footer', file: f('site-footer'), notes: 'Wordmark + one-line promise, five mono-titled link columns with New/Beta tags, mono legal row with social squares.' },
+	{ id: 'site-dovetail/proof-crowd', axis: 'footer', name: 'Proof crowd pre-footer', file: f('proof-crowd'), notes: 'Giant stacked closing words with one accent-face word; integration badges (oxide, card, ink, material) crowd around and shove away from the cursor over a rust paint grid.' },
+	{ id: 'site-dovetail/accent-headline', axis: 'type', name: 'Swappable accent headline', file: f('accent-headline'), notes: 'Onest 500 at 36–160px; <em> words switch to the studio accent face (Doto by default), so the font swap in the studio bar drives every headline.' },
+	{ id: 'site-dovetail/reveal-stage', axis: 'hero', name: 'Veiled material reveal stage', file: f('reveal-stage'), notes: 'Full-bleed live shader under a near-opaque grid veil; the cursor wipes cells open to show the material, bottom fades to the page.' },
+	{ id: 'site-dovetail/source-strip', axis: 'section', name: 'Integration marquee', file: f('source-strip'), notes: 'Mono caption over a masked marquee of the tools the product reads from (Simple Icons) — stands in for the customer-logo wall.' },
+	{ id: 'site-dovetail/context-board', axis: 'cards', name: 'Feedback board product mock', file: f('context-board'), notes: 'Clickable product window: volume heatmap, ranked idea cards, evidence bars, revenue facts and a cited quote; a floating replica chat beside it.' },
+	{ id: 'site-dovetail/feature-tabs', axis: 'section', name: 'Hover tabs with sticky visual', file: f('feature-tabs'), notes: 'Big lede + CTAs, a ruled list of four claims that switch on hover, and a sticky card visual with the active claim’s detail underneath.' },
+	{ id: 'site-dovetail/source-grid', axis: 'illustration', name: 'Cursor-lit source grid', file: f('source-grid'), notes: 'Grid of tool tiles around a solid oxide “context layer” block; tiles lift toward the cursor and focused tools light up.' },
+	{ id: 'site-dovetail/replica-chat', axis: 'cards', name: 'Replica chat card', file: f('replica-chat'), notes: 'Chat with a customer replica: material avatar, question bubble, grounded answer with citation chips, swaps with a fade.' },
+	{ id: 'site-dovetail/capability-orbit', axis: 'illustration', name: 'Tilting capability orbit', file: f('capability-orbit'), notes: 'Thin dashed orbits with oxide squares travelling them around a material plate stack; chips open a detail panel; the whole orbit tilts with the cursor.' },
+	{ id: 'site-dovetail/ring-globe', axis: 'illustration', name: 'Turning ring globe', file: f('ring-globe'), notes: 'Thin-stroke wireframe globe of meridian rings with signal squares; turns slowly and spins with the cursor.' },
+	{ id: 'site-dovetail/loop-steps', axis: 'section', name: 'Sticky globe loop steps', file: f('loop-steps'), notes: 'Sticky ring globe beside five numbered steps, each with a tiny product mock (rank bars, pipeline chips, brief, MCP handoff, reply).' },
+	{ id: 'site-dovetail/govern-grid', axis: 'cards', name: 'Governance mini-mock grid', file: f('govern-grid'), notes: 'Six cards with small UI vignettes (share, redaction, skills, usage curve, roles, cert rings) over title and body.' },
+	{ id: 'site-dovetail/story-card', axis: 'cards', name: 'Material story card', file: f('story-card'), notes: 'Customer-story card cut from a shader poster; a solid panel with an anonymised org rises on hover to show the quote.' },
+	{ id: 'site-dovetail/story-rail', axis: 'section', name: 'Story rail', file: f('story-rail'), notes: 'Heading row with arrow buttons and a snap-scrolling rail of material story cards that bleeds to the viewport edge.' }
+];
