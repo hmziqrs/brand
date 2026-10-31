@@ -30,4 +30,8 @@ export const moves: Move[] = [
 	{ id: 'site-linear/compare-table', axis: 'section', name: 'Sticky plan comparison', file: f('compare-table'), notes: 'Long feature grid with a sticky plan header, oxide checks, column tint that follows the cursor, and a one-plan picker on phones.' },
 	{ id: 'site-linear/story-card', axis: 'cards', name: 'Material story card', file: f('story-card'), notes: 'Customer story with a shader cover, the company wordmark on a glass chip, an oxide play button for videos; cover zooms on hover.' },
 	{ id: 'site-linear/stat-band', axis: 'section', name: 'Hairline stat band', file: f('stat-band'), notes: 'Title cell plus three giant numbers on hairlines; the last number sits on solid oxide.' },
+	{ id: 'site-linear/film-panel', axis: 'section', name: 'Material film panel', file: f('film-panel'), notes: 'Stand-in for a company video: a live shader that plays and pauses from an oxide play button and a smoke-glass player bar.' },
+	{ id: 'site-linear/ring-portrait', axis: 'illustration', name: 'Thin-ring portrait', file: f('ring-portrait'), notes: 'Seeded concentric arcs, all the same thin stroke, one oxide arc with a dot; arcs rotate on hover. Replaces people photos.' },
+	{ id: 'site-linear/team-grid', axis: 'cards', name: 'Ring-portrait team grid', file: f('team-grid'), notes: 'Leads as ring-portrait cards that tint oxide on hover, then a white name wall in four columns.' },
+	{ id: 'site-linear/roles-list', axis: 'section', name: 'Filterable roles list', file: f('roles-list'), notes: 'Team chips with counts filter a ruled list of roles; rows tint oxide and the arrow lifts on hover.' },
 ];
