@@ -34,4 +34,5 @@ export const moves: Move[] = [
 	{ id: 'site-linear/ring-portrait', axis: 'illustration', name: 'Thin-ring portrait', file: f('ring-portrait'), notes: 'Seeded concentric arcs, all the same thin stroke, one oxide arc with a dot; arcs rotate on hover. Replaces people photos.' },
 	{ id: 'site-linear/team-grid', axis: 'cards', name: 'Ring-portrait team grid', file: f('team-grid'), notes: 'Leads as ring-portrait cards that tint oxide on hover, then a white name wall in four columns.' },
 	{ id: 'site-linear/roles-list', axis: 'section', name: 'Filterable roles list', file: f('roles-list'), notes: 'Team chips with counts filter a ruled list of roles; rows tint oxide and the arrow lifts on hover.' },
+	{ id: 'site-linear/sales-form', axis: 'cards', name: 'Validated sales form card', file: f('sales-form'), notes: 'Kit inputs, select and textarea on a solid card; inline errors on submit, then an oxide check thank-you state with reset.' },
 ];
