@@ -28,5 +28,7 @@ export const moves: Move[] = [
 	{ id: 'site-dovetail/numbered-perks', axis: 'cards', name: 'Bracket-numbered perk grid', file: f('numbered-perks'), notes: 'Hairline grid of [01]–[08] perks; each cell floods oxide on hover.' },
 	{ id: 'site-dovetail/material-reel', axis: 'cards', name: 'Play-the-material reel', file: f('material-reel'), notes: 'Video-shaped card whose play button turns a baked shader poster into the live animated material.' },
 	{ id: 'site-dovetail/values-rail', axis: 'section', name: 'Values rail with ■ scrubber', file: f('values-rail'), notes: 'Snap-scrolling value cards on material posters with big numbers, tracked by an oxide square on a hairline.' },
-	{ id: 'site-dovetail/hire-steps', axis: 'section', name: 'Dotted hiring steps', file: f('hire-steps'), notes: 'Four numbered circles on a dotted rule; the last one solid oxide.' }
+	{ id: 'site-dovetail/hire-steps', axis: 'section', name: 'Dotted hiring steps', file: f('hire-steps'), notes: 'Four numbered circles on a dotted rule; the last one solid oxide.' },
+	{ id: 'site-dovetail/typed-quote-hero', axis: 'hero', name: 'Typed quote hero', file: f('typed-quote-hero'), notes: 'A customer line types itself out at headline size with an oxide caret, holds, erases and cycles; still for reduced motion.' },
+	{ id: 'site-dovetail/story-grid', axis: 'section', name: 'Filterable story grid', file: f('story-grid'), notes: 'Industry chips filter a three-column grid of material story cards followed by anonymised big-type segment cards on a dot field.' },
 ];
