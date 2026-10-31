@@ -13,7 +13,7 @@
 	}: {
 		as?: 'h1' | 'h2' | 'h3' | 'p';
 		size?: 'mega' | 'xl' | 'lg' | 'md';
-		alt?: 'serif' | 'fraunces' | 'newsreader' | 'crt' | 'dot' | 'sans';
+		alt?: 'serif' | 'fraunces' | 'newsreader' | 'crt' | 'dot' | 'sans' | 'accent';
 		base?: 'sans' | 'serif' | 'newsreader';
 		tint?: 'foreground' | 'primary' | 'muted';
 		class?: string;
@@ -98,6 +98,12 @@
 		font-weight: 700;
 		font-size: 1.02em;
 		letter-spacing: -0.04em;
+	}
+	.mixed-headline[data-alt='accent'] :global(em) {
+		font-family: inherit;
+		font-weight: inherit;
+		letter-spacing: inherit;
+		color: var(--primary);
 	}
 	.mixed-headline[data-tint='primary'] :global(em) {
 		color: var(--primary);

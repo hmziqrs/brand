@@ -19,7 +19,7 @@ export const meta: Meta = {
 		'dovetail/provider-orbit',
 		'dovetail/crowd-prefooter'
 	],
-	breaks: ['single-typeface', 'outline-only-cards'],
-	notes: 'Closest to Dovetail’s rhythm: patina-rain hero with a mini terminal inside a 168px headline, console panel, solid oxide quote card, provider orbit, crowded pre-footer.',
+	breaks: ['outline-only-cards'],
+	notes: 'Closest to Dovetail’s rhythm, now one typeface (oxide words, no serif or CRT): patina-rain hero with a mini terminal inside a 168px headline, console panel, solid oxide quote card, provider orbit, crowded pre-footer.',
 	order: 1
 };

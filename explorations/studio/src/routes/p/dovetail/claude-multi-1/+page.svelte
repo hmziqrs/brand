@@ -59,7 +59,7 @@
 			<div class="grid gap-10 lg:grid-cols-[minmax(0,34rem)_1fr] lg:items-start">
 				<div class="flex flex-col gap-6">
 					<p class="text-[1.15rem] leading-[1.45] text-foreground sm:text-[1.3rem]">
-						<span class="font-serif text-[1.18em] italic">The switchboard for Claude Code.</span>
+						<span class="font-medium">The switchboard for Claude Code.</span>
 						One CLI launches an isolated Claude Code for every provider you pay for, each with its own config, history and bill.
 					</p>
 					<div class="flex flex-wrap gap-2.5">
@@ -70,7 +70,7 @@
 				<SquareRatingRow items={trust} class="w-fit rounded-xl border border-[color-mix(in_oklab,var(--foreground)_12%,transparent)] bg-background/90 px-5 py-4 backdrop-blur-sm lg:justify-self-end" />
 			</div>
 			<div class="flex flex-col gap-10">
-				<MixedHeadline as="h1" size="mega" alt="serif">
+				<MixedHeadline as="h1" size="mega" alt="accent">
 					Run a <InlineGlyph kind="term" /> Claude<br />for <em>every</em> provider
 				</MixedHeadline>
 				<div class="flex flex-wrap items-center gap-x-8 gap-y-4 border-t border-[color-mix(in_oklab,var(--foreground)_12%,transparent)] pt-6">
@@ -93,7 +93,7 @@
 	</section>
 
 	<section id="how" class="mx-auto w-full max-w-[82rem] px-4 py-16 sm:px-6 sm:py-24">
-		<MixedHeadline size="xl" alt="serif">Keep every <em>context</em> <InlineGlyph kind="rings" /> apart</MixedHeadline>
+		<MixedHeadline size="xl" alt="accent">Keep every <em>context</em> <InlineGlyph kind="rings" /> apart</MixedHeadline>
 		<div class="mt-14 grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-16">
 			<div class="flex flex-col gap-10">
 				<p class="max-w-[34rem] text-[1.2rem] leading-[1.5] text-foreground">
@@ -122,8 +122,8 @@
 			role="Staff engineer (invented example)"
 		/>
 		<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
-			<StatSlab value="8" label="Provider templates" detail="Base URL, model slots and defaults merged in for you. You bring the key." face="crt" />
-			<StatSlab value="0" label="Proxies or patches" detail="Each instance is a shell wrapper that sets CLAUDE_CONFIG_DIR and execs claude." face="crt" arrow={false} />
+			<StatSlab value="8" label="Provider templates" detail="Base URL, model slots and defaults merged in for you. You bring the key." face="sans" />
+			<StatSlab value="0" label="Proxies or patches" detail="Each instance is a shell wrapper that sets CLAUDE_CONFIG_DIR and execs claude." face="sans" arrow={false} />
 		</div>
 	</section>
 
@@ -133,7 +133,7 @@
 
 	<section class="mx-auto w-full max-w-[82rem] px-4 pb-20 sm:px-6">
 		<div class="flex flex-col items-center text-center">
-			<MixedHeadline size="xl" alt="serif">Switch <InlineGlyph kind="orbit" /> in <em>one</em> command</MixedHeadline>
+			<MixedHeadline size="xl" alt="accent">Switch <InlineGlyph kind="orbit" /> in <em>one</em> command</MixedHeadline>
 			<p class="mt-8 max-w-[40rem] text-[1.2rem] leading-[1.5] text-foreground">
 				Open the TUI with <code class="font-mono text-[0.85em] text-primary">claude-multi</code>, or skip it and type the instance you want. Two terminals, two providers, side by side.
 			</p>
@@ -154,7 +154,7 @@
 	</section>
 
 	<CrowdPrefooter {providers}>
-		<MixedHeadline size="mega" alt="serif" class="leading-[0.95]">Bring<br /><em>every</em> model<br />home</MixedHeadline>
+		<MixedHeadline size="mega" alt="accent" class="leading-[0.95]">Bring<br /><em>every</em> model<br />home</MixedHeadline>
 		{#snippet after()}
 			<div id="install" class="flex flex-col items-center gap-4">
 				<CommandBar command="bun add -g claude-multi" class="bg-background" />
