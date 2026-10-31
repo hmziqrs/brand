@@ -18,5 +18,8 @@ export const moves: Move[] = [
 	{ id: 'site-dovetail/loop-steps', axis: 'section', name: 'Sticky globe loop steps', file: f('loop-steps'), notes: 'Sticky ring globe beside five numbered steps, each with a tiny product mock (rank bars, pipeline chips, brief, MCP handoff, reply).' },
 	{ id: 'site-dovetail/govern-grid', axis: 'cards', name: 'Governance mini-mock grid', file: f('govern-grid'), notes: 'Six cards with small UI vignettes (share, redaction, skills, usage curve, roles, cert rings) over title and body.' },
 	{ id: 'site-dovetail/story-card', axis: 'cards', name: 'Material story card', file: f('story-card'), notes: 'Customer-story card cut from a shader poster; a solid panel with an anonymised org rises on hover to show the quote.' },
-	{ id: 'site-dovetail/story-rail', axis: 'section', name: 'Story rail', file: f('story-rail'), notes: 'Heading row with arrow buttons and a snap-scrolling rail of material story cards that bleeds to the viewport edge.' }
+	{ id: 'site-dovetail/story-rail', axis: 'section', name: 'Story rail', file: f('story-rail'), notes: 'Heading row with arrow buttons and a snap-scrolling rail of material story cards that bleeds to the viewport edge.' },
+	{ id: 'site-dovetail/plan-pair', axis: 'cards', name: 'Free card + oxide plan slab', file: f('plan-pair'), notes: 'Two-plan pricing: an outline Free card with a ring-square icon beside a solid oxide Enterprise slab with a two-column ■ list.' },
+	{ id: 'site-dovetail/compare-table', axis: 'section', name: 'Grouped comparison table', file: f('compare-table'), notes: 'Sticky plan header, big group headings with ledes, dotted-underline features with hover hints, oxide-tinted paid column, cert rings on the security group.' },
+	{ id: 'site-dovetail/faq-split', axis: 'section', name: 'Split FAQ', file: f('faq-split'), notes: 'Big FAQ title and a talk-to-a-human link on the left, kit accordion with ruled rows on the right.' }
 ];
