@@ -11,6 +11,7 @@
 	import FingerprintCard from '$moves/identity/fingerprint-card.svelte';
 	import HatchField from '$moves/identity/hatch-field.svelte';
 	import SignOff from '$moves/identity/sign-off.svelte';
+	import SpotLive from '$moves/identity/spot-live.svelte';
 	import { projects } from '$moves/identity/projects';
 
 	const surfaces = [
@@ -57,7 +58,7 @@
 			<Headline size="hero" class="max-w-[13ch] lg:max-w-[16ch]">I build apps for phones, computers, the web <em>and the terminal</em></Headline>
 			<div class="grid items-center gap-10 md:grid-cols-[1.25fr_1fr] lg:gap-20">
 				<figure class="m-0 flex flex-col gap-3">
-					<SpotOnePerson />
+					<SpotLive><SpotOnePerson /></SpotLive>
 					<figcaption class="font-mono text-xs tracking-wider text-muted-foreground uppercase">Fig. 1 — One person, all of it</figcaption>
 				</figure>
 				<div class="flex flex-col gap-8">
@@ -82,7 +83,7 @@
 				<Headline as="h2" size="section" class="max-w-[14ch]">One way of working, <em>four</em> surfaces</Headline>
 				<span class="font-mono text-xs tracking-wider text-muted-foreground uppercase">Fig. 2 — Same rings on every screen</span>
 			</div>
-			<SpotFourSurfaces />
+			<SpotLive><SpotFourSurfaces /></SpotLive>
 			<div class="grid gap-x-8 gap-y-10 border-t pt-10 sm:grid-cols-2 lg:grid-cols-4">
 				{#each surfaces as s (s.name)}
 					<div class="flex flex-col gap-3">
@@ -97,7 +98,7 @@
 		<section id="work" class="{wrap} flex flex-col gap-12">
 			<div class="flex flex-col justify-between gap-6 md:flex-row md:items-end">
 				<Headline as="h2" size="section">The <em>work</em></Headline>
-				<p class="m-0 max-w-md text-lg leading-snug text-foreground/90">Each project wears a fingerprint drawn from its own name: the same rings, material and code every time you visit.</p>
+				<p class="m-0 max-w-md text-lg leading-snug text-foreground/90">Each project wears a fingerprint drawn from its own name. Move across a card and its rings turn like a lock.</p>
 			</div>
 			<div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
 				{#each projects as p, i (p.name)}
@@ -105,7 +106,7 @@
 				{/each}
 				<a id="labs" href="#/p/identity/hmziq-1" class="relative flex flex-col justify-between gap-6 overflow-hidden rounded-2xl border p-6">
 					<HatchField from="top-right" tone="patina" strength={0.35} />
-					<div class="relative mx-auto w-3/4 max-w-[16rem] pt-4"><SpotLabBench /></div>
+					<SpotLive class="relative mx-auto w-3/4 max-w-[16rem] pt-4"><SpotLabBench /></SpotLive>
 					<div class="relative flex flex-col gap-3">
 						<span class="font-mono text-xs tracking-wider text-muted-foreground uppercase">06 · Writing &amp; labs</span>
 						<h3 class="m-0 font-bricolage text-[2.5rem] leading-none font-semibold tracking-[-0.04em]">The <em class="font-fraunces font-normal">workbench</em><Sq size={0.3} /></h3>
@@ -118,7 +119,7 @@
 		<section id="rounds" class="{wrap} flex flex-col gap-12">
 			<div class="flex flex-col justify-between gap-6 md:flex-row md:items-end">
 				<Headline as="h2" size="section" class="max-w-[16ch]">Five review rounds before <em>anything</em> ships</Headline>
-				<span class="font-mono text-xs tracking-wider text-muted-foreground uppercase">Fig. 3 — Rough in, finished out</span>
+				<span class="font-mono text-xs tracking-wider text-muted-foreground uppercase">Fig. 3 — Move across it to push the sheet through</span>
 			</div>
 			<div class="-mx-4 overflow-x-auto px-4 sm:mx-0 sm:px-0"><SpotFiveRounds class="min-w-[560px]" /></div>
 			<ol class="m-0 grid list-none gap-8 border-t p-0 pt-10 sm:grid-cols-2 lg:grid-cols-5">

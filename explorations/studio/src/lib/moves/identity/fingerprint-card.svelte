@@ -1,7 +1,7 @@
 <script lang="ts">
 	import ArrowUpRight from '@lucide/svelte/icons/arrow-up-right';
 	import { cn } from '$brand/utils.js';
-	import MaterialRings from '$brand/components/material-rings.svelte';
+	import HatchField from './hatch-field.svelte';
 	import ShaderMaterial from '$brand/components/shader-material.svelte';
 	import { fingerprint } from './fingerprint';
 	import FingerprintGlyph from './fingerprint-glyph.svelte';
@@ -31,13 +31,28 @@
 
 	const fp = $derived(fingerprint(name));
 	const num = $derived(String(index).padStart(2, '0'));
+
+	let turn = $state(0);
+	let still = $state(true);
+	$effect(() => {
+		still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+	});
+	function track(e: PointerEvent) {
+		if (still || e.pointerType === 'touch') return;
+		const r = (e.currentTarget as HTMLElement).getBoundingClientRect();
+		turn = (((e.clientX - r.left) / r.width) * 2 - 1) * 70;
+	}
 </script>
 
 {#if variant === 'tile'}
-	<a {href} class={cn('group flex flex-col overflow-hidden rounded-2xl border bg-transparent transition-colors hover:border-[color-mix(in_oklab,var(--mark-square)_55%,transparent)]', className)}>
+	<a {href} onpointermove={track} onpointerleave={() => (turn = 0)} class={cn('group flex flex-col overflow-hidden rounded-2xl border bg-transparent transition-colors hover:border-[color-mix(in_oklab,var(--mark-square)_55%,transparent)]', className)}>
 		<div class="relative aspect-[16/10] overflow-hidden border-b">
-			<MaterialRings seed={name} preset={fp.preset} label="{name} fingerprint: rings cut from {fp.preset.replace('-', ' ')}" class="absolute top-1/2 right-[-14%] w-[118%] -translate-y-1/2" />
-			<span class="absolute top-4 left-4 rounded-md border bg-background px-2 py-1 font-mono text-[11px] tracking-wider uppercase">#{fp.code} · {fp.preset}</span>
+			<HatchField from="bottom-left" tone="rust" strength={0.22} />
+			<div role="img" aria-label="{name} fingerprint: rings drawn from its name" class="absolute top-1/2 right-[-12%] w-[92%] -translate-y-1/2 text-foreground">
+				<FingerprintGlyph {name} rings={8} core={false} ink="color-mix(in oklab, currentColor 42%, transparent)" weight={0.9} {turn} />
+			</div>
+			<span class="absolute top-1/2 right-[calc(34%-0.75rem)] size-6 -translate-y-1/2 bg-(--mark-square) transition-transform duration-500 group-hover:rotate-45 motion-reduce:transition-none"></span>
+			<span class="absolute top-4 left-4 rounded-md border bg-background px-2 py-1 font-mono text-[11px] tracking-wider uppercase">#{fp.code}</span>
 		</div>
 		<div class="flex flex-1 flex-col gap-3 p-6">
 			<div class="flex items-center gap-3 font-mono text-xs tracking-wider text-muted-foreground uppercase">

@@ -14,9 +14,10 @@ export const meta: Meta = {
 		'identity/spot-lab-bench',
 		'identity/fingerprint-card',
 		'identity/rust-hatch',
-		'identity/sign-off'
+		'identity/sign-off',
+		'identity/spot-live'
 	],
 	breaks: ['single-typeface'],
-	notes: 'Judge the hand-drawn spot illustration language (line + one corroded oxide fill, rings and ■ as characters) as the brand’s identity.',
+	notes: 'Judge the hand-drawn spot illustration language (line + one corroded oxide fill, rings and ■ as characters), now alive under the mouse: parallax layers, devices that lift, a sheet you push through the five rounds, and line-drawn fingerprint rings that turn with the cursor (no material rings).',
 	order: 1
 };

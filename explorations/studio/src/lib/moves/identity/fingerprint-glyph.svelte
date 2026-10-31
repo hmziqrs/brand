@@ -10,8 +10,9 @@
 		ink = 'var(--line)',
 		accent = 'var(--mark-square)',
 		weight = 1,
+		turn = 0,
 		class: className
-	}: { name: string; rings?: number; core?: boolean; ink?: string; accent?: string; weight?: number; class?: string } = $props();
+	}: { name: string; rings?: number; core?: boolean; ink?: string; accent?: string; weight?: number; turn?: number; class?: string } = $props();
 
 	const uid = $props.id();
 	const fp = $derived(fingerprint(name, rings));
@@ -24,8 +25,10 @@
 		<defs><clipPath id="fg-{uid}"><circle cx="50" cy="50" r={coreR} /></clipPath></defs>
 		<image href={poster.src} x={50 - coreR} y={50 - coreR} width={coreR * 2} height={coreR * 2} preserveAspectRatio="xMidYMid slice" clip-path="url(#fg-{uid})" />
 	{/if}
-	{#each fp.list as a (a.r)}
-		<circle cx="50" cy="50" r={a.r} stroke={a.accent ? accent : ink} stroke-width={(a.accent ? 2.4 : 1.2) * weight} stroke-linecap="round" stroke-dasharray={a.dash} transform="rotate({a.rotate} 50 50)" />
+	{#each fp.list as a, i (a.r)}
+		<g style:rotate={`${(turn * (i % 2 ? -1 : 1) * (0.5 + i * 0.22)).toFixed(2)}deg`} style:transform-origin="50px 50px" style:transition="rotate 900ms cubic-bezier(0.2, 0.7, 0.1, 1)">
+		<circle cx="50" cy="50" r={a.r} stroke={a.accent ? accent : ink} stroke-width={1.2 * weight} stroke-linecap="round" stroke-dasharray={a.dash} transform="rotate({a.rotate} 50 50)" />
 		{#if a.end}<circle cx={a.end[0]} cy={a.end[1]} r={3 * weight} fill={accent} />{/if}
+		</g>
 	{/each}
 </svg>
