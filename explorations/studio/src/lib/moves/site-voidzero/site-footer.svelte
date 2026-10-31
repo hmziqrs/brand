@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { Snippet } from 'svelte';
 	import { toast } from 'svelte-sonner';
 	import { siGithub, siX, siDiscord, siYoutube, siBluesky } from 'simple-icons';
 	import { cn } from '$brand/utils.js';
@@ -13,12 +14,14 @@
 		heading = 'Curious where web tooling goes next?',
 		preset = company.preset,
 		newsletter = true,
-		class: className
+		class: className,
+		cta
 	}: {
 		heading?: string;
 		preset?: string;
 		newsletter?: boolean;
 		class?: string;
+		cta?: Snippet;
 	} = $props();
 
 	const uid = $props.id();
@@ -67,12 +70,16 @@
 		</div>
 	{/if}
 
-	<div use:pointer class="strip relative isolate grid h-60 place-items-center overflow-hidden sm:h-80">
+	<div use:pointer class={cn('strip relative isolate grid place-items-center overflow-hidden', cta ? 'min-h-[28rem] px-4 py-16' : 'h-60 sm:h-80')}>
 		<div class="strip-field absolute -inset-[8%] -z-20">
 			<ShaderMaterial {preset} rendering="image" loading="lazy" controls={false} sizes="100vw" class="absolute inset-0" />
 		</div>
 		<div aria-hidden="true" class="strip-light pointer-events-none absolute inset-0 -z-10"></div>
+		{#if cta}
+			<div class="flex max-w-2xl flex-col items-center gap-6 rounded-2xl bg-background/85 p-8 text-center shadow-2xl backdrop-blur-xl sm:p-12">{@render cta()}</div>
+		{:else}
 		<span class="tile inline-flex items-baseline rounded-[22%] bg-background px-6 py-5 text-5xl leading-none font-semibold tracking-[-0.03em] text-foreground shadow-[0_30px_60px_-20px_color-mix(in_oklab,black_80%,transparent)] sm:text-6xl">{company.symbol}<i aria-hidden="true" class="ml-[0.07em] inline-block size-[0.3em] bg-mark-square"></i></span>
+		{/if}
 	</div>
 
 	<div class="mx-auto w-full max-w-[1280px] border-border min-[1300px]:border-x">

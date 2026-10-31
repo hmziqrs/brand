@@ -16,6 +16,18 @@ export type Panel =
 	| { kind: 'terminal'; title: string; lines: TerminalLineData[] }
 	| { kind: 'code'; title: string; lang: CodeLanguage; code: string };
 
+export type Feature = {
+	id: string;
+	tab: string;
+	kicker: string;
+	title: string;
+	body: string;
+	points: string[];
+	poweredBy: { name: string; symbol: string; preset: string }[];
+	preset: string;
+	panel: Panel;
+};
+
 export type Tool = {
 	id: string;
 	name: string;
