@@ -37,4 +37,5 @@ export const moves: Move[] = [
 	{ id: 'site-linear/sales-form', axis: 'cards', name: 'Validated sales form card', file: f('sales-form'), notes: 'Kit inputs, select and textarea on a solid card; inline errors on submit, then an oxide check thank-you state with reset.' },
 	{ id: 'site-linear/now-bar', axis: 'nav', name: 'Now header with tabs + search', file: f('now-bar'), notes: 'Giant Now. title, pill tabs with a solid oxide active pill, bound search field and RSS chip.' },
 	{ id: 'site-linear/release-entry', axis: 'section', name: 'Release entry with typing cover', file: f('release-entry'), notes: 'Sticky date rail, material cover with an agent prompt that types itself on view, white 18px body, kit accordion for fixes and API.' },
+	{ id: 'site-linear/post-card', axis: 'cards', name: 'Cursor-lit post card', file: f('post-card'), notes: 'Post cover is either a material poster or thin line art (rings, bars, grid, fan, lanes) whose strokes turn oxide where the cursor is.' },
 ];
