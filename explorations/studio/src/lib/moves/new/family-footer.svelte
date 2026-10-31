@@ -35,7 +35,7 @@
 						<li>
 							<a href={s.href} class="group flex items-center gap-3 border-t border-border py-2.5 text-sm" style:--pa={`var(--${s.hue})`}>
 								<InlineRing seed={s.name} rings={4} weight={4} class="size-6" />
-								<span class="font-medium">{s.name}<span class="inline-block size-[0.4em] bg-orange"></span></span>
+								<span class="font-medium">{s.name}<span class="inline-block size-[0.4em] bg-(--pa)"></span></span>
 								<span class="ml-auto text-muted-foreground">{s.kind}</span>
 							</a>
 						</li>
@@ -57,11 +57,11 @@
 
 	<div class="mx-auto max-w-[1320px] px-4 sm:px-8">
 		<p aria-hidden="true" class="giant pt-10 pb-[0.1em] leading-[0.78] font-semibold tracking-[-0.06em] select-none">
-			{name}<span class="inline-block size-[0.62em] bg-orange align-baseline"></span>
+			{name}<span class="inline-block size-[0.62em] bg-(--pa-fill,var(--pa)) align-baseline"></span>
 		</p>
 		<div class="flex flex-wrap items-center justify-between gap-3 border-t border-current/20 py-6 font-mono text-xs uppercase tracking-wider text-foreground/80">
 			<span>© 2026 hmziq · {name} is made in the open</span>
-			<span>hmziq<span class="inline-block size-[0.6em] bg-orange"></span></span>
+			<span>hmziq<span class="inline-block size-[0.6em] bg-current"></span></span>
 		</div>
 	</div>
 </footer>

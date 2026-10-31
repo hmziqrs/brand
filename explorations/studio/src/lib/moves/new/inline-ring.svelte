@@ -44,7 +44,7 @@
 			r={arc.r}
 			fill="none"
 			stroke={arc.accent ? (solid ? 'var(--background)' : 'var(--pa, var(--primary))') : solid ? 'color-mix(in oklab, var(--background) 45%, transparent)' : 'color-mix(in oklab, var(--foreground) 34%, transparent)'}
-			stroke-width={(arc.accent ? 5 : 2) * weight}
+			stroke-width={2 * weight}
 			stroke-linecap="round"
 			stroke-dasharray={arc.dash}
 			transform={`rotate(${arc.rotate} 100 100)`}

@@ -8,7 +8,7 @@
 	import type { Hue } from './family';
 
 	let {
-		hue = 'orange',
+		hue,
 		preset = 'optical-field',
 		kicker,
 		title,
@@ -46,6 +46,7 @@
 		}, 420);
 		return () => clearInterval(id);
 	});
+	const tint = $derived(hue ? `var(--${hue})` : 'var(--pa, var(--primary))');
 </script>
 
 <section class={cn('relative mx-auto max-w-[1320px] px-4 pt-16 pb-20 sm:px-8 lg:pt-24', className)}>
@@ -62,12 +63,12 @@
 			<div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent,color-mix(in_oklab,var(--background)_55%,transparent))]"></div>
 		</div>
 		<div class="relative grid gap-4 lg:grid-cols-[minmax(0,1fr)_18rem]">
-			<TerminalWindow title={session} class="shadow-2xl" style={`--primary: var(--${hue}); --code-token-keyword: var(--${hue})`}>
+			<TerminalWindow title={session} class="shadow-2xl" style={`--primary: ${tint}; --code-token-keyword: ${tint}`}>
 				<div class="min-h-[22rem] overflow-x-auto px-5 py-5 font-mono text-[0.84rem] leading-[1.95] lg:text-[0.95rem] sm:px-7">
 					{#each lines.slice(0, shown) as line, i (i)}
 						<TerminalLine {line} />
 					{/each}
-					<span class="mt-1 inline-block h-[1.1em] w-[0.6em] translate-y-[0.2em] bg-(--pa) motion-safe:animate-pulse" style={`--pa: var(--${hue})`}></span>
+					<span class="mt-1 inline-block h-[1.1em] w-[0.6em] translate-y-[0.2em] bg-(--pa) motion-safe:animate-pulse" style={hue ? `--pa: var(--${hue})` : undefined}></span>
 				</div>
 			</TerminalWindow>
 			{#if aside}<div class="min-w-0">{@render aside()}</div>{/if}
