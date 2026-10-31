@@ -50,9 +50,9 @@
 		</div>
 	</div>
 
-	<div class="mx-auto grid max-w-[1320px] gap-12 px-4 pt-16 pb-28 sm:px-6 lg:grid-cols-[220px_minmax(0,720px)] lg:justify-between xl:grid-cols-[240px_minmax(0,720px)_240px]">
+	<div class="mx-auto grid max-w-[1320px] grid-cols-1 gap-12 px-4 pt-16 pb-28 sm:px-6 lg:grid-cols-[220px_minmax(0,720px)] lg:justify-between xl:grid-cols-[240px_minmax(0,720px)_240px]">
 		<aside class="hidden lg:block"><PostToc items={toc} class="sticky top-24" /></aside>
-		<article class="flex flex-col gap-6">
+		<article class="flex min-w-0 flex-col gap-6">
 			<p class={p}>Most software is built to behave the same way every time. Good engineering usually means shrinking the space of outcomes until the same input always gives the same result.</p>
 			<p class={p}>Agents turn that around. Much of the value of Plumb Agent is in work we never planned for, done in ways we never wrote down. So the job is less about scripting behaviour and more about drawing the right boundaries: in the prompt, the tools, the agent’s picture of the product, and the scope of each run.</p>
 
