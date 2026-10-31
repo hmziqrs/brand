@@ -32,7 +32,7 @@
 			<span class="font-medium">Changelog</span>
 			<span class="text-muted-foreground">{releases.length} releases · {changes} changes since July</span>
 		</div>
-		<SerifMixHeadline text="What changed, _in the order_ it [*]" size="xl" class="mt-10 max-w-[15ch] md:mt-14">
+		<SerifMixHeadline text="What changed, in the order it [*]" size="xl" class="mt-10 max-w-[15ch] md:mt-14">
 			{#snippet object()}<OxideClipWord text="shipped." preset="copper-sweep" />{/snippet}
 		</SerifMixHeadline>
 		<div class="mt-10 flex flex-col gap-8 md:mt-14 md:flex-row md:items-end md:justify-between">
@@ -60,7 +60,7 @@
 	<section class="mx-auto mt-24 max-w-[82rem] px-4 sm:px-6">
 		<div class="grid gap-6 rounded-2xl border p-6 sm:p-10 md:grid-cols-[minmax(0,1fr)_auto] md:items-center">
 			<div>
-				<h2 class="text-[clamp(1.8rem,3vw,2.6rem)] leading-tight font-medium tracking-[-0.03em]">Older releases live in <span class="font-serif font-normal italic">each tool’s</span> repository.</h2>
+				<h2 class="text-[clamp(1.8rem,3vw,2.6rem)] leading-tight font-medium tracking-[-0.03em]">Older releases live in each tool’s repository.</h2>
 				<p class="mt-3 max-w-[56ch] text-[1.0625rem] text-foreground">This page starts in July 2026, when freeoxide moved to one shared changelog.</p>
 			</div>
 			<Button size="lg" href="https://github.com/hmziqrs">See the repositories</Button>

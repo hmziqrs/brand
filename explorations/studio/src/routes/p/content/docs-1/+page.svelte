@@ -144,7 +144,7 @@ impl Render for Profile {
 		<article class="min-w-0 text-[1.0625rem] leading-[1.75] text-foreground">
 			<p class="text-sm text-muted-foreground">Docs <span aria-hidden="true">/</span> Getting started</p>
 			<div class="mt-4 flex items-start justify-between gap-6">
-				<SerifMixHeadline text="Your first _query_" size="lg" />
+				<SerifMixHeadline text="Your first _query_" face="sans" size="lg" />
 				<RingFingerprint seed="gpui-query" count={7} weight={1.4} class="hidden size-24 sm:block lg:size-28" />
 			</div>
 			<p class="mt-7 max-w-[40ch] text-[1.3125rem] leading-[1.5]">Show data from the network in a GPUI window, and let the library handle loading, caching and trying again.</p>
