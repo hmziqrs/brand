@@ -43,7 +43,7 @@
 
 <svelte:head><title>patina — a hmziq app for long projects</title></svelte:head>
 
-<ProductScope hue="teal">
+<ProductScope hue="teal" tweak="patina">
 	<ProductLockup
 		name="patina"
 		kind="iOS & Android"
