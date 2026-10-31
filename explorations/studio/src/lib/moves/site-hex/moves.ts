@@ -31,6 +31,7 @@ export const moves: Move[] = [
 	{ id: 'site-hex/story-rail', axis: 'cards', name: 'Material story rail', file: f('story-rail'), notes: 'Snap-scrolling featured stories: baked material covers with a solid reading panel holding a huge stat; square arrow buttons.' },
 	{ id: 'site-hex/quote-marquee', axis: 'motion', name: 'Two-row quote drift', file: f('quote-marquee'), notes: 'Opposing marquee rows of labelled example quotes and stat cards; pauses on hover, still under reduced motion.' },
 	{ id: 'site-hex/story-filter', axis: 'layout', name: 'Filterable spot story index', file: f('story-filter'), notes: 'Stage tabs and a sort select over a grid of mini-spot story cards.' },
+	{ id: 'site-hex/contact-form', axis: 'section', name: 'Ticked contact form panel', file: f('contact-form'), notes: 'Hairline form with oxide corner ticks, chip pickers for team size and topic, oxide submit, inline thank-you state and toast.' },
 	{ id: 'site-hex/oxide-cta', axis: 'accent', name: 'Solid oxide CTA slab', file: f('oxide-cta'), notes: 'Full-width vivid oxide panel, near-black type, a baked material window ruled with a grid.' },
 	{ id: 'site-hex/terrain-footer', axis: 'footer', name: 'Counter + terrain footer', file: f('terrain-footer'), notes: 'Boxed footer: ticking answers counter, four link columns, giant wordmark beside a cursor-reactive block terrain.' }
 ];
