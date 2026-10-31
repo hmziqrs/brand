@@ -35,7 +35,7 @@
 				<circle cx="50" cy="50" {r} fill="none" stroke="currentColor" stroke-opacity="0.32" stroke-width="2.4" />
 			{/each}
 			<g class="g-spin">
-				<path d="M50 4 A46 46 0 1 1 7.2 66.8" fill="none" stroke="var(--primary)" stroke-width="5" stroke-linecap="round" />
+				<path d="M50 4 A46 46 0 1 1 7.2 66.8" fill="none" stroke="var(--primary)" stroke-width="2.4" stroke-linecap="round" />
 				<circle cx="7.2" cy="66.8" r="5.5" fill="var(--primary)" />
 			</g>
 			<rect x="44" y="44" width="12" height="12" fill="var(--mark-square)" />
