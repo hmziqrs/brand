@@ -21,5 +21,12 @@ export const moves: Move[] = [
 	{ id: 'site-dovetail/story-rail', axis: 'section', name: 'Story rail', file: f('story-rail'), notes: 'Heading row with arrow buttons and a snap-scrolling rail of material story cards that bleeds to the viewport edge.' },
 	{ id: 'site-dovetail/plan-pair', axis: 'cards', name: 'Free card + oxide plan slab', file: f('plan-pair'), notes: 'Two-plan pricing: an outline Free card with a ring-square icon beside a solid oxide Enterprise slab with a two-column ■ list.' },
 	{ id: 'site-dovetail/compare-table', axis: 'section', name: 'Grouped comparison table', file: f('compare-table'), notes: 'Sticky plan header, big group headings with ledes, dotted-underline features with hover hints, oxide-tinted paid column, cert rings on the security group.' },
-	{ id: 'site-dovetail/faq-split', axis: 'section', name: 'Split FAQ', file: f('faq-split'), notes: 'Big FAQ title and a talk-to-a-human link on the left, kit accordion with ruled rows on the right.' }
+	{ id: 'site-dovetail/faq-split', axis: 'section', name: 'Split FAQ', file: f('faq-split'), notes: 'Big FAQ title and a talk-to-a-human link on the left, kit accordion with ruled rows on the right.' },
+	{ id: 'site-dovetail/float-objects-hero', axis: 'hero', name: 'Floating objects hero', file: f('float-objects-hero'), notes: 'Centred headline ringed by material tiles, discs, thin rings, squares and a plate stack that drift against the cursor over a paint grid.' },
+	{ id: 'site-dovetail/role-board', axis: 'section', name: 'Filterable role board', file: f('role-board'), notes: 'Sticky [■] mono filters for team and place beside grouped, ruled role rows with mono locations.' },
+	{ id: 'site-dovetail/people-list', axis: 'cards', name: 'Material avatar people list', file: f('people-list'), notes: 'Accordion of teammates with material-cut avatars (no photos), big name over muted role, story opens under; labelled invented.' },
+	{ id: 'site-dovetail/numbered-perks', axis: 'cards', name: 'Bracket-numbered perk grid', file: f('numbered-perks'), notes: 'Hairline grid of [01]–[08] perks; each cell floods oxide on hover.' },
+	{ id: 'site-dovetail/material-reel', axis: 'cards', name: 'Play-the-material reel', file: f('material-reel'), notes: 'Video-shaped card whose play button turns a baked shader poster into the live animated material.' },
+	{ id: 'site-dovetail/values-rail', axis: 'section', name: 'Values rail with ■ scrubber', file: f('values-rail'), notes: 'Snap-scrolling value cards on material posters with big numbers, tracked by an oxide square on a hairline.' },
+	{ id: 'site-dovetail/hire-steps', axis: 'section', name: 'Dotted hiring steps', file: f('hire-steps'), notes: 'Four numbered circles on a dotted rule; the last one solid oxide.' }
 ];
