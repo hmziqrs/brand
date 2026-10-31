@@ -19,5 +19,6 @@ export const moves: Move[] = [
 	{ id: 'site-northflank/plan-matrix', axis: 'layout', name: 'Plan matrix', file: f('plan-matrix'), notes: 'Sticky plan header, grouped feature rows with oxide checks, highlighted middle column, fold to expand.' },
 	{ id: 'site-northflank/ring-node-field', axis: 'illustration', name: 'Ring node field', file: f('ring-node-field'), notes: 'Thin concentric rings and iso cluster nodes on dashed links; rings parallax toward the cursor, the nearest node turns oxide and solidifies its links.' },
 	{ id: 'site-northflank/console-mock', axis: 'illustration', name: 'Cluster console mock', file: f('console-mock'), notes: 'App-window console for a cluster with working tabs: details, observe chart, node pools, history.' },
-	{ id: 'site-northflank/feature-quad', axis: 'layout', name: 'Labelled feature quad', file: f('feature-quad'), notes: 'Sticky mono label + headline beside four icon cards (or stacked in a row); icon tile fills oxide on hover.' }
+	{ id: 'site-northflank/feature-quad', axis: 'layout', name: 'Labelled feature quad', file: f('feature-quad'), notes: 'Sticky mono label + headline beside four icon cards (or stacked in a row); icon tile fills oxide on hover.' },
+	{ id: 'site-northflank/product-rail', axis: 'nav', name: 'Product side rail', file: f('product-rail'), notes: 'Sticky right-hand product list on a hairline; the current product gets an oxide rule and icon.' }
 ];
