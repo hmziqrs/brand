@@ -1,0 +1,2 @@
+export const solid = 'inline-flex h-12 items-center gap-2 border border-foreground bg-foreground px-6 text-base font-medium text-background transition-colors hover:border-[var(--orange)] hover:bg-[var(--orange)] hover:text-[var(--on-orange)]';
+export const outline = 'inline-flex h-12 items-center gap-2 border border-foreground bg-background px-6 text-base font-medium text-foreground transition-colors hover:bg-foreground hover:text-background';
