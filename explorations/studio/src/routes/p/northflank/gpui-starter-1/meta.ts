@@ -19,6 +19,6 @@ export const meta: Meta = {
 		'northflank/dither-footer'
 	],
 	breaks: ['single-typeface'],
-	notes: 'Closest to Northflank: isometric oxide voxels that rust in, key-hint buttons, a live release loop and a dithered footer.',
+	notes: 'Closest to Northflank: isometric oxide voxels that rust in and rise under the cursor, key-hint buttons, a live release loop and a dithered footer.',
 	order: 1
 };
