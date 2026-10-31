@@ -28,7 +28,7 @@
 
 <div data-slot="oxide-tile" class={cn('band-orange relative isolate flex min-w-0 flex-col gap-4 overflow-hidden rounded-2xl p-6 md:p-7', className)}>
 	{#if art === 'rings'}
-		<CornerRings {seed} color="var(--on-orange)" class="pointer-events-none absolute -top-2 -right-2 -z-10 w-2/3 max-w-80 opacity-70" />
+		<CornerRings {seed} color="var(--on-orange)" class="[&_circle]:[stroke-width:0.5] pointer-events-none absolute -top-2 -right-2 -z-10 w-2/3 max-w-80 opacity-70" />
 	{:else if art === 'square'}
 		<span aria-hidden="true" class="absolute top-6 right-6 size-10 rounded-[6px] bg-(--on-orange) md:size-12"></span>
 	{/if}

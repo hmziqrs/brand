@@ -68,7 +68,7 @@
 				<circle cx="100" cy="100" {r} fill="none" stroke="var(--line)" stroke-width="1" />
 			{/each}
 			{#each pulses as p (p.id)}
-				<circle cx="100" cy="100" r="98" fill="none" stroke="var(--primary)" stroke-width="2" class="bento-pulse" />
+				<circle cx="100" cy="100" r="98" fill="none" stroke="var(--primary)" stroke-width="1" class="bento-pulse" />
 			{/each}
 		</svg>
 		<div class="absolute inset-0 grid place-items-center">
