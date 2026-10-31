@@ -13,6 +13,7 @@
 </script>
 
 <script lang="ts">
+	import { SvelteSet } from 'svelte/reactivity';
 	import { cn } from '$brand/utils.js';
 	import { hash, rng } from './dot-font';
 
@@ -29,6 +30,7 @@
 		seed = 'gpui-starter',
 		labels = true,
 		animate = true,
+		interactive = true,
 		class: className
 	}: {
 		clusters?: IsoCluster[];
@@ -37,8 +39,39 @@
 		seed?: string;
 		labels?: boolean;
 		animate?: boolean;
+		interactive?: boolean;
 		class?: string;
 	} = $props();
+
+	let svg: SVGSVGElement | undefined = $state();
+	let aim = $state<{ i: number; j: number } | null>(null);
+	let still = $state(true);
+	const touched = new SvelteSet<string>();
+
+	$effect(() => {
+		still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+	});
+
+	function point(e: PointerEvent) {
+		if (!interactive || !svg || e.pointerType === 'touch') return;
+		const m = svg.getScreenCTM();
+		if (!m) return;
+		const p = new DOMPoint(e.clientX, e.clientY).matrixTransform(m.inverse());
+		const a = (2 * p.x) / w;
+		const b = (4 * (p.y + s * 1.5)) / w;
+		const i = (a + b) / 2;
+		const j = (b - a) / 2;
+		aim = { i, j };
+		const key = `${Math.floor(i)}.${Math.floor(j)}`;
+		if (!touched.has(key)) touched.add(key);
+	}
+
+	const lift = (v: { i: number; j: number }) => {
+		if (!aim || still) return 0;
+		const d = Math.hypot(v.i + 0.5 - aim.i, v.j + 0.5 - aim.j);
+		const r = 2.8;
+		return d >= r ? 0 : Math.pow(1 - d / r, 1.4) * s * 2.2;
+	};
 
 	type Voxel = { i: number; j: number; k: number; tone: IsoTone; rust: number; key: string };
 
@@ -113,7 +146,14 @@
 	};
 </script>
 
-<svg viewBox={build.box} class={cn('iso block h-auto w-full overflow-visible', !animate && 'iso-still', className)} aria-hidden="true">
+<svg
+	bind:this={svg}
+	viewBox={build.box}
+	class={cn('iso block h-auto w-full overflow-visible', !animate && 'iso-still', interactive && 'iso-live', className)}
+	aria-hidden="true"
+	onpointermove={point}
+	onpointerleave={() => (aim = null)}
+>
 	<g class="iso-floor">
 		{#each build.dots as d, n (n)}
 			<rect x={d.x - 1} y={d.y - 1} width="2" height="2" />
@@ -121,7 +161,12 @@
 	</g>
 	{#each build.voxels as v (v.key)}
 		{@const f = faces(v)}
-		<g class={cn('vox', `t-${v.tone}`, v.rust >= 0 && 'rusting')} style:--d="{(v.rust * 2.6).toFixed(2)}s">
+		{@const up = interactive ? lift(v) : 0}
+		<g
+			class={cn('vox', up > s * 0.7 && 'hot', `t-${v.tone}`, v.rust >= 0 && 'rusting', v.tone === 'steel' && v.rust < 0 && touched.has(`${v.i}.${v.j}`) && 'touched')}
+			style:--d="{(v.rust * 2.6).toFixed(2)}s"
+			style:transform={interactive ? `translateY(${-up.toFixed(2)}px)` : undefined}
+		>
 			<polygon class="l" points={f.left} />
 			<polygon class="r" points={f.right} />
 			<polygon class="t" points={f.top} />
@@ -178,6 +223,15 @@
 	@keyframes rust-l { from { fill: var(--steel-l); } }
 	@keyframes rust-r { from { fill: var(--steel-r); } }
 
+	.iso-live .vox {
+		transition: transform 260ms cubic-bezier(0.2, 0.7, 0.1, 1);
+	}
+	.hot .t { fill: color-mix(in oklab, var(--yellow) 55%, var(--ox-t)); }
+	.t-ink.hot .t { fill: var(--foreground); }
+	.t-patina.hot .t { fill: color-mix(in oklab, var(--teal) 60%, white); }
+	.touched .t { fill: var(--ox-t); transition: fill 600ms; }
+	.touched .l { fill: var(--ox-l); transition: fill 600ms; }
+	.touched .r { fill: var(--ox-r); transition: fill 600ms; }
 	.iso-tag rect {
 		fill: var(--background);
 		stroke: var(--line);
@@ -194,5 +248,6 @@
 	.iso-still .rusting polygon { animation: none; }
 	@media (prefers-reduced-motion: reduce) {
 		.rusting polygon { animation: none; }
+		.iso-live .vox { transition: none; }
 	}
 </style>

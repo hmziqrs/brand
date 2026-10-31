@@ -3,7 +3,7 @@ import type { Move } from '$studio/types';
 const f = (name: string) => `src/lib/moves/northflank/${name}.svelte`;
 
 export const moves: Move[] = [
-	{ id: 'northflank/iso-tile-stack', axis: 'illustration', name: 'Isometric oxide voxels', file: f('iso-tile-stack'), notes: 'SVG voxel clusters on a dotted iso floor; steel tiles corrode to oxide from one corner, with mono label chips.' },
+	{ id: 'northflank/iso-tile-stack', axis: 'illustration', name: 'Isometric oxide voxels', file: f('iso-tile-stack'), notes: 'SVG voxel clusters on a dotted iso floor; steel tiles corrode to oxide from one corner, voxels under the cursor lift and glow (steel ones rust where you pass); mono label chips.' },
 	{ id: 'northflank/iso-cube-glyph', axis: 'accent', name: 'Inline iso cube', file: f('iso-cube-glyph'), notes: 'A small stacked isometric oxide cube that sits inside a headline line like a letter.' },
 	{ id: 'northflank/dot-matrix-word', axis: 'type', name: 'Rusting dot-matrix word', file: f('dot-matrix-word'), notes: 'Canvas dot-matrix word in a 5×7 bitmap face; dots flicker then corrode into oxide, with optional twinkling scatter.' },
 	{ id: 'northflank/terminal-chip', axis: 'accent', name: 'Terminal chip', file: f('terminal-chip'), notes: 'Inline mono prompt chip that types its command and blinks an oxide block caret.' },
