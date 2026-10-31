@@ -11,7 +11,7 @@
 		{ t: 'company', l: [['careers', 'careers'], ['press kit', 'careers'], ['x', 'home'], ['youtube', 'home']] }
 	];
 	let mood = $state(0);
-	const faces = ['^ ■ ^', '• ■ •', '> ■ <', '^ ■ ~'];
+	const faces = [['^', '^'], ['•', '•'], ['>', '<'], ['^', '~']];
 </script>
 
 <footer class={cn('relative mt-24 border-t border-border', className)}>
@@ -31,7 +31,7 @@
 	</div>
 	<div class="mx-auto flex max-w-[1180px] flex-wrap items-end justify-between gap-6 px-4 pb-10 sm:px-6">
 		<button type="button" onclick={() => (mood = (mood + 1) % faces.length)} class="group text-left" aria-label="Change the face">
-			<span class="block font-mono text-[64px] leading-none font-bold tracking-tight text-foreground transition-transform group-hover:-rotate-3 motion-reduce:transition-none sm:text-[110px]">{faces[mood]}</span>
+			<span class="block font-mono text-[64px] leading-none font-bold tracking-tight text-foreground transition-transform group-hover:-rotate-3 motion-reduce:transition-none sm:text-[110px]">{faces[mood][0]}<i class="mx-[0.12em] inline-block size-[0.32em] bg-[var(--orange)]"></i>{faces[mood][1]}</span>
 		</button>
 		<div class="flex items-center gap-3 font-mono text-xs text-muted-foreground"><Mark class="text-foreground" />© nudge labs, 2026 · a study built with the hmziq kit</div>
 	</div>

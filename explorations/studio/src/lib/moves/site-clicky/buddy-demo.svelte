@@ -55,12 +55,12 @@
 			</div>
 			<div class="flex items-center gap-2 border-b border-border px-3 py-1 font-mono opacity-80"><span class="opacity-60">fx</span>=C5</div>
 			<div class="relative grid grid-cols-[6%_44%_20%_20%_10%] grid-rows-7 font-mono">
-				{#each ['', 'A', 'B', 'C', 'D'] as h (h)}<span class="border-r border-b border-border bg-muted/50 px-1 py-0.5 text-center opacity-70">{h}</span>{/each}
+				{#each ['', 'A', 'B', 'C', 'D'] as h (h)}<span class="flex items-center justify-center border-r border-b border-border bg-muted/50 px-1 opacity-70">{h}</span>{/each}
 				{#each rows as r, i (r[0])}
-					<span class="border-r border-b border-border px-1 text-center opacity-60">{i + 3}</span>
-					<span class="truncate border-r border-b border-border px-2">{r[0]}</span>
-					<span class="border-r border-b border-border px-2 opacity-70">{r[1]}</span>
-					<button type="button" onclick={() => go(r[2] === '455' ? 3 : 1)} class={cn('border-r border-b border-border px-2 text-right hover:bg-muted', r[2] === '455' && 'font-semibold text-red')}>{r[2]}</button>
+					<span class="flex items-center justify-center border-r border-b border-border px-1 opacity-60">{i + 3}</span>
+					<span class="flex items-center truncate border-r border-b border-border px-2">{r[0]}</span>
+					<span class="flex items-center border-r border-b border-border px-2 opacity-70">{r[1]}</span>
+					<button type="button" onclick={() => go(r[2] === '455' ? 3 : 1)} class={cn('flex items-center justify-end border-r border-b border-border px-2 hover:bg-muted', r[2] === '455' && 'font-semibold text-red')}>{r[2]}</button>
 					<span class="border-b border-border"></span>
 				{/each}
 			</div>
