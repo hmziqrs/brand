@@ -16,5 +16,8 @@ export const moves: Move[] = [
 	{ id: 'site-northflank/rate-sheet', axis: 'section', name: 'Live rate sheet', file: f('rate-sheet'), notes: 'One card holding usage rates (hour/month toggle), compute plans (expandable) and GPUs with clickable pack sizes.' },
 	{ id: 'site-northflank/bill-estimator', axis: 'section', name: 'Bill estimator', file: f('bill-estimator'), notes: 'Preset app shapes, cloud toggle, size selects and counts that recompute a big mono monthly total.' },
 	{ id: 'site-northflank/price-compare', axis: 'section', name: 'Price comparison tabs', file: f('price-compare'), notes: 'Tabs of generic alternatives against our prices with oxide savings bars; illustrative figures, no named rivals.' },
-	{ id: 'site-northflank/plan-matrix', axis: 'layout', name: 'Plan matrix', file: f('plan-matrix'), notes: 'Sticky plan header, grouped feature rows with oxide checks, highlighted middle column, fold to expand.' }
+	{ id: 'site-northflank/plan-matrix', axis: 'layout', name: 'Plan matrix', file: f('plan-matrix'), notes: 'Sticky plan header, grouped feature rows with oxide checks, highlighted middle column, fold to expand.' },
+	{ id: 'site-northflank/ring-node-field', axis: 'illustration', name: 'Ring node field', file: f('ring-node-field'), notes: 'Thin concentric rings and iso cluster nodes on dashed links; rings parallax toward the cursor, the nearest node turns oxide and solidifies its links.' },
+	{ id: 'site-northflank/console-mock', axis: 'illustration', name: 'Cluster console mock', file: f('console-mock'), notes: 'App-window console for a cluster with working tabs: details, observe chart, node pools, history.' },
+	{ id: 'site-northflank/feature-quad', axis: 'layout', name: 'Labelled feature quad', file: f('feature-quad'), notes: 'Sticky mono label + headline beside four icon cards (or stacked in a row); icon tile fills oxide on hover.' }
 ];
