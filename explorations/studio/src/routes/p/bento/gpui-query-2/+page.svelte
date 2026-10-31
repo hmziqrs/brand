@@ -20,7 +20,7 @@
 
 	const links = [
 		{ label: 'Product', href: '#/p/bento/gpui-query-2' },
-		{ label: 'Guide', href: '#/p/bento/gpui-query-3' },
+		{ label: 'Guide', href: '#/p/bento/gpui-query-2' },
 		{ label: 'Bento', href: '#/p/bento/gpui-query-1' }
 	];
 
@@ -52,7 +52,7 @@
 {/snippet}
 
 <div class="min-h-screen bg-background text-foreground">
-	<NavBar site="gpui-query" maker="by hmziq" {links} cta={{ label: 'Quickstart', href: '#/p/bento/gpui-query-3' }} />
+	<NavBar site="gpui-query" maker="by hmziq" {links} cta={{ label: 'Quickstart', href: '#/p/bento/gpui-query-2' }} />
 
 	<ProductHero layout="left" ground="glow">
 		{#snippet eyebrow()}
@@ -61,7 +61,7 @@
 		{#snippet headline()}<OxideMarkHeadline before="Your GPUI app, " mark="never waiting" after=" on the network." />{/snippet}
 		{#snippet lede()}A typed cache that lives beside your views. They render from it instantly, and it refreshes itself in the background.{/snippet}
 		{#snippet actions()}
-			<Button href="#/p/bento/gpui-query-3" size="lg" class="px-4">Start the quickstart <ArrowRight class="lucide" /></Button>
+			<Button href="#/p/bento/gpui-query-2" size="lg" class="px-4">Start the quickstart <ArrowRight class="lucide" /></Button>
 			<CommandBox command={install} class="w-72 max-w-full" />
 		{/snippet}
 		<ForgeAppWindow annotate />
@@ -161,14 +161,14 @@
 				<p class="max-w-[34ch] text-lg leading-snug md:text-right">Add the crate, wrap your app in a QueryClient, read from the cache.</p>
 				<div class="flex flex-wrap gap-3">
 					<code class="flex h-10 items-center rounded-md border border-(--on-orange)/30 px-3.5 font-mono text-sm">$ {install}</code>
-					<Button href="#/p/bento/gpui-query-3" size="lg" class="px-4">Quickstart <ArrowRight class="lucide" /></Button>
+					<Button href="#/p/bento/gpui-query-2" size="lg" class="px-4">Quickstart <ArrowRight class="lucide" /></Button>
 				</div>
 			</div>
 		</div>
 	</section>
 
 	<SiteFooter site="gpui-query" tagline="Data loading for GPUI apps." github="https://github.com/hmziqrs" columns={[
-		{ title: 'Learn', links: [{ label: 'Quickstart', href: '#/p/bento/gpui-query-3' }, { label: 'Mutations', href: '#/p/bento/gpui-query-3' }] },
+		{ title: 'Learn', links: [{ label: 'Quickstart', href: '#/p/bento/gpui-query-2' }, { label: 'Mutations', href: '#/p/bento/gpui-query-2' }] },
 		{ title: 'Tools', links: [{ label: 'Devtools', href: '#/p/bento/gpui-query-2' }, { label: 'Examples', href: '#/p/bento/gpui-query-1' }] }
 	]} />
 </div>

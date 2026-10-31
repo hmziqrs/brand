@@ -25,10 +25,10 @@
 	import { install, keyCode } from '$moves/bento/query-data';
 
 	const links = [
-		{ label: 'Guide', href: '#/p/bento/gpui-query-3' },
+		{ label: 'Guide', href: '#/p/bento/gpui-query-2' },
 		{ label: 'Devtools', href: '#/p/bento/gpui-query-2' },
 		{ label: 'Examples', href: '#/p/bento/gpui-query-1' },
-		{ label: 'Changelog', href: '#/p/bento/gpui-query-3' }
+		{ label: 'Changelog', href: '#/p/bento/gpui-query-2' }
 	];
 
 	const requests = Array.from({ length: 24 }, (_, i) => {
@@ -46,7 +46,7 @@
 {/snippet}
 
 <div class="min-h-screen bg-background text-foreground">
-	<NavBar site="gpui-query" maker="by hmziq" {links} cta={{ label: 'Get started', href: '#/p/bento/gpui-query-3' }} secondary={{ label: 'GitHub', href: 'https://github.com/hmziqrs' }} />
+	<NavBar site="gpui-query" maker="by hmziq" {links} cta={{ label: 'Get started', href: '#/p/bento/gpui-query-2' }} secondary={{ label: 'GitHub', href: 'https://github.com/hmziqrs' }} />
 
 	<ProductHero layout="center" ground="material" preset="oxide-bloom">
 		{#snippet eyebrow()}<MaterialTag>v0.4 · devtools in the box</MaterialTag>{/snippet}
@@ -54,7 +54,7 @@
 		{#snippet lede()}Typed cache keys, background refetch and optimistic mutations for GPUI apps. Your <code class="font-mono text-[0.9em]">render()</code> just reads.{/snippet}
 		{#snippet actions()}
 			<CommandBox command={install} class="w-72 max-w-full" />
-			<Button href="#/p/bento/gpui-query-3" size="lg" class="px-4">Read the guide <ArrowRight class="lucide" /></Button>
+			<Button href="#/p/bento/gpui-query-2" size="lg" class="px-4">Read the guide <ArrowRight class="lucide" /></Button>
 		{/snippet}
 		<ForgeAppWindow />
 	</ProductHero>
@@ -122,7 +122,7 @@
 		title="Defaults you can read in one breath."
 		intro="Borrowed from TanStack Query, because they are right. Override any of them per query or per client."
 		align="start"
-		class="pb-20 md:pb-28 [&_h2]:text-[clamp(2rem,4vw,3.25rem)] [&_h2]:leading-none [&_h2]:tracking-[-0.035em] [&_h2+p]:text-lg [&_h2+p]:text-foreground [&_h3+p]:text-foreground/85"
+		class="pb-20 md:pb-28 [&>div]:max-w-[1320px] [&>div]:px-4 sm:[&>div]:px-6 [&_h2]:text-[clamp(2rem,4vw,3.25rem)] [&_h2]:leading-none [&_h2]:tracking-[-0.035em] [&_h2+p]:text-lg [&_h2+p]:text-foreground [&_h3+p]:text-foreground/85"
 		tiles={[
 			{ title: 'Stale time', body: 'Data is stale the moment it lands, so the next mount refetches in the background.', icon: Timer, stat: { value: '0s', label: 'stale_time' }, cols: 3 },
 			{ title: 'Garbage collection', body: 'Unused keys stay cached for five minutes, then go.', icon: Recycle, stat: { value: '5m', label: 'gc_time' }, cols: 3, tone: 'material', preset: 'mica-flakes' },
@@ -135,13 +135,13 @@
 		<OxideTile size="lg" art="rings" eyebrow="Install" title="Add it before your next fetch." body="One crate, one QueryClient, and your existing views start reading from the cache." class="min-h-96 md:p-12">
 			<div class="mt-4 flex flex-wrap items-center gap-3">
 				<CommandBox command={install} class="w-80 max-w-full bg-(--on-orange)/5" />
-				<Button href="#/p/bento/gpui-query-3" variant="outline" size="lg" class="px-4">Quickstart <ArrowRight class="lucide" /></Button>
+				<Button href="#/p/bento/gpui-query-2" variant="outline" size="lg" class="px-4">Quickstart <ArrowRight class="lucide" /></Button>
 			</div>
 		</OxideTile>
 	</section>
 
 	<SiteFooter site="gpui-query" tagline="Data loading for GPUI apps." github="https://github.com/hmziqrs" columns={[
-		{ title: 'Learn', links: [{ label: 'Quickstart', href: '#/p/bento/gpui-query-3' }, { label: 'Queries', href: '#/p/bento/gpui-query-3' }, { label: 'Mutations', href: '#/p/bento/gpui-query-3' }] },
+		{ title: 'Learn', links: [{ label: 'Quickstart', href: '#/p/bento/gpui-query-2' }, { label: 'Queries', href: '#/p/bento/gpui-query-2' }, { label: 'Mutations', href: '#/p/bento/gpui-query-2' }] },
 		{ title: 'Tools', links: [{ label: 'Devtools', href: '#/p/bento/gpui-query-2' }, { label: 'Examples', href: '#/p/bento/gpui-query-1' }] }
 	]} />
 </div>
