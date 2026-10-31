@@ -9,6 +9,6 @@ export const meta: Meta = {
 	inspiredBy: ['dovetail', 'voidzero', 'northflank'],
 	moves: accentMoves.map((m) => m.id),
 	breaks: ['outline-only-cards'],
-	notes: 'Eight ways to spend oxide as a fill instead of a link colour, each in dark and light. Flip the oxide switch to see A vs B in the light panes.',
+	notes: 'Oxide as a fill, shown as it would ship: a full landing page and a product dashboard in dark and light, then eight pieces at full width. Swap the hue on the page.',
 	order: 3
 };
