@@ -28,4 +28,6 @@ export const moves: Move[] = [
 	{ id: 'site-linear/next-links', axis: 'section', name: 'Next-page tiles', file: f('next-links'), notes: 'Four hairline tiles linking the product pages; each floods oxide on hover, the current one is tinted.' },
 	{ id: 'site-linear/plan-columns', axis: 'cards', name: 'Plan columns with oxide pick', file: f('plan-columns'), notes: 'Four plan cards with a working yearly switch; the recommended plan is a solid oxide slab with thin corner rings.' },
 	{ id: 'site-linear/compare-table', axis: 'section', name: 'Sticky plan comparison', file: f('compare-table'), notes: 'Long feature grid with a sticky plan header, oxide checks, column tint that follows the cursor, and a one-plan picker on phones.' },
+	{ id: 'site-linear/story-card', axis: 'cards', name: 'Material story card', file: f('story-card'), notes: 'Customer story with a shader cover, the company wordmark on a glass chip, an oxide play button for videos; cover zooms on hover.' },
+	{ id: 'site-linear/stat-band', axis: 'section', name: 'Hairline stat band', file: f('stat-band'), notes: 'Title cell plus three giant numbers on hairlines; the last number sits on solid oxide.' },
 ];
