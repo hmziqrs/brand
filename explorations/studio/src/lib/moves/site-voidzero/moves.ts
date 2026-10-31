@@ -21,5 +21,7 @@ export const moves: Move[] = [
 	{ id: 'site-voidzero/command-stage', axis: 'hero', name: 'Command stage', file: f('command-stage'), notes: 'Full-width (optionally live) material with a centered terminal that types each command in turn; tabs switch scenes; field and window follow the cursor.' },
 	{ id: 'site-voidzero/feature-tabs', axis: 'section', name: 'Sticky feature tabs', file: f('feature-tabs'), notes: 'Sticky mono tab row over feature rows (copy, square bullets, runs-on tiles) beside material windows; scroll tracks the tab.' },
 	{ id: 'site-voidzero/framework-hub', axis: 'illustration', name: 'Framework hub', file: f('framework-hub'), notes: 'Material tool tile in the middle, framework icons around it on hairline wires; pointing at one lights its wire with a moving dash.' },
-	{ id: 'site-voidzero/speed-bars', axis: 'illustration', name: 'Material speed bars', file: f('speed-bars'), notes: 'Paired bars per task: ours filled with a material, theirs in grey, growing in on view, with an N× faster label.' }
+	{ id: 'site-voidzero/speed-bars', axis: 'illustration', name: 'Material speed bars', file: f('speed-bars'), notes: 'Paired bars per task: ours filled with a material, theirs in grey, growing in on view, with an N× faster label.' },
+	{ id: 'site-voidzero/asset-tile', axis: 'cards', name: 'Downloadable asset tile', file: f('asset-tile'), notes: 'Preview on page, ink, paper or oxide surface with a caption bar: copy SVG and download SVG via an object URL.' },
+	{ id: 'site-voidzero/swatch-row', axis: 'color', name: 'Live token swatches', file: f('swatch-row'), notes: 'Hairline row of token swatches that read their current computed value (theme and oxide aware); click copies, hover grows the chip.' }
 ];
