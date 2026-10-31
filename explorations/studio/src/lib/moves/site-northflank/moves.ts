@@ -20,5 +20,6 @@ export const moves: Move[] = [
 	{ id: 'site-northflank/ring-node-field', axis: 'illustration', name: 'Ring node field', file: f('ring-node-field'), notes: 'Thin concentric rings and iso cluster nodes on dashed links; rings parallax toward the cursor, the nearest node turns oxide and solidifies its links.' },
 	{ id: 'site-northflank/console-mock', axis: 'illustration', name: 'Cluster console mock', file: f('console-mock'), notes: 'App-window console for a cluster with working tabs: details, observe chart, node pools, history.' },
 	{ id: 'site-northflank/feature-quad', axis: 'layout', name: 'Labelled feature quad', file: f('feature-quad'), notes: 'Sticky mono label + headline beside four icon cards (or stacked in a row); icon tile fills oxide on hover.' },
-	{ id: 'site-northflank/product-rail', axis: 'nav', name: 'Product side rail', file: f('product-rail'), notes: 'Sticky right-hand product list on a hairline; the current product gets an oxide rule and icon.' }
+	{ id: 'site-northflank/product-rail', axis: 'nav', name: 'Product side rail', file: f('product-rail'), notes: 'Sticky right-hand product list on a hairline; the current product gets an oxide rule and icon.' },
+	{ id: 'site-northflank/contour-field', axis: 'texture', name: 'Cursor contour field', file: f('contour-field'), notes: 'Thin topographic contours drift slowly, bend away from the pointer and turn oxide inside a lens around it.' }
 ];
