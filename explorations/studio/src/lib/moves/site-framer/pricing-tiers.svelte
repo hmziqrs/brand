@@ -35,7 +35,7 @@
 		{#each tiers as t, i (t.name)}
 			<div class={cn('relative isolate flex flex-col p-6 md:p-7', t.hot ? 'band-orange' : 'bg-background')}>
 				{#if t.hot}<CornerRings seed="kiln-pro" color="var(--on-orange)" class="[&_circle]:[stroke-width:0.5] pointer-events-none absolute -top-2 -right-2 -z-10 w-1/2 opacity-60" />{/if}
-				<p class="flex items-center gap-2 text-2xl font-medium tracking-[-0.03em]">{t.name}{#if t.hot}<span class="bg-(--on-orange) px-1.5 py-0.5 font-mono text-[0.625rem] tracking-wide text-orange uppercase">Popular</span>{/if}</p>
+				<p class="flex items-center gap-2 text-2xl font-medium tracking-[-0.03em]">{t.name}{#if t.hot}<span class="bg-(--on-orange) px-1.5 py-0.5 font-mono text-[0.625rem] tracking-wide text-(--orange) uppercase">Popular</span>{/if}</p>
 				<p class={t.hot ? '' : 'text-foreground/65'}>{t.for}</p>
 				<p class="mt-8 flex items-baseline gap-1.5"><span class="text-[3.5rem] leading-none font-semibold tracking-[-0.05em] tabular-nums">{price(i)}</span>{#if t.base > 0}<span class={t.hot ? '' : 'text-foreground/65'}>/ month</span>{/if}</p>
 				<label class="relative mt-5 block">
@@ -48,7 +48,7 @@
 				<ul class="mt-6 space-y-2.5 border-t pt-6 text-[0.9375rem]" class:border-border={!t.hot}>
 					{#each t.perks as p (p)}<li class="flex gap-2.5"><Check class={cn('lucide mt-0.5 size-4 shrink-0', t.hot ? '' : 'text-primary')} />{p}</li>{/each}
 				</ul>
-				<a href={t.base < 0 ? to('enterprise') : to('home')} class={cn('mt-auto block rounded-full py-3 text-center font-medium transition-opacity hover:opacity-85', t.hot ? 'bg-(--on-orange) text-orange' : 'bg-foreground text-background')} style:margin-top="2.5rem">{t.cta}</a>
+				<a href={t.base < 0 ? to('enterprise') : to('home')} class={cn('mt-auto block rounded-full py-3 text-center font-medium transition-opacity hover:opacity-85', t.hot ? 'bg-(--on-orange) text-(--orange)' : 'bg-foreground text-background')} style:margin-top="2.5rem">{t.cta}</a>
 			</div>
 		{/each}
 	</div>

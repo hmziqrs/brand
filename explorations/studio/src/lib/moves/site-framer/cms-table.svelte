@@ -15,7 +15,7 @@
 
 	const folders = ['Blog', 'Careers', 'Docs', 'Events', 'Help'];
 	const sets = ['Articles', 'Authors', 'Categories'];
-	const tones = ['bg-orange/20 text-orange', 'bg-teal/20 text-teal', 'bg-purple/20 text-purple', 'bg-blue/20 text-blue', 'bg-green/20 text-green'];
+	const tones = ['bg-orange/20 text-(--orange)', 'bg-teal/20 text-teal', 'bg-purple/20 text-purple', 'bg-blue/20 text-blue', 'bg-green/20 text-green'];
 	let rows = $state([
 		{ title: 'How a bakery doubled pre-orders', cat: 'Retail', tone: 0, on: true, m: 'chalk-dunes' },
 		{ title: 'Moving 400 docs pages in a weekend', cat: 'Engineering', tone: 1, on: false, m: 'black-ice' },

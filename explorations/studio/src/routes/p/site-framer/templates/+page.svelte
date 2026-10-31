@@ -33,7 +33,7 @@
 	<section class="{wrap} pb-8">
 		<div class="grid gap-4 lg:grid-cols-[1.4fr_1fr]">
 			<OxideTile size="lg" eyebrow="For creators" title="Make a template once. Get paid every time someone ships it." body="Publish templates, components and plugins to the marketplace. You set the price; we handle checkout, licences and updates." seed="kiln-creators" class="min-h-[420px] md:p-10">
-				<div class="mt-4"><Button href={to('about')} size="lg" class="h-12 rounded-full bg-(--on-orange) px-6 text-base text-orange hover:bg-(--on-orange)/85">Apply as a creator<ArrowRight class="lucide" /></Button></div>
+				<div class="mt-4"><Button href={to('about')} size="lg" class="h-12 rounded-full bg-(--on-orange) px-6 text-base text-(--orange) hover:bg-(--on-orange)/85">Apply as a creator<ArrowRight class="lucide" /></Button></div>
 			</OxideTile>
 			<div class="grid gap-px overflow-hidden rounded-2xl border border-border bg-border">
 				{#each [['2,480', 'templates live today'], ['85%', 'of each sale goes to the creator'], ['48h', 'median review time for new work']] as [n, l] (l)}
