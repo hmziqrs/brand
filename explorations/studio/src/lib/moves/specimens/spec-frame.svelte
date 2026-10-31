@@ -69,7 +69,8 @@
 		--ox-text: var(--orange);
 	}
 	:global(.spec-pane.light[data-ox='b']),
-	:global(.spec-pane.light[data-ox='c']) {
+	:global(.spec-pane.light[data-ox='c']),
+	:global(.spec-pane.light[data-ox='e']) {
 		--orange: var(--oxide-vivid);
 		--on-orange: var(--foreground);
 		--primary-foreground: var(--foreground);
@@ -80,9 +81,26 @@
 		--band: color-mix(in oklab, var(--card) 93.5%, var(--foreground));
 		--muted-foreground: color-mix(in oklab, var(--foreground) 68%, var(--card));
 	}
+	:global(.spec-pane.light[data-ox='e']) {
+		--background: oklch(1 0 0);
+		--card: oklch(1 0 0);
+		--foreground: oklch(0.08 0 0);
+		--card-foreground: oklch(0.08 0 0);
+		--muted-foreground: oklch(0.3 0 0);
+		--border: oklch(0.86 0 0);
+		--band: oklch(0.955 0 0);
+		--ox-text: var(--oxide-deep);
+		--font-weight-normal: 450;
+		--font-weight-medium: 600;
+		--font-weight-semibold: 680;
+		font-weight: 450;
+	}
 	:global(.spec-pane.light[data-ox='b'] :is(.text-primary, .text-orange)),
 	:global(.spec-pane.light[data-ox='c'] :is(.text-primary, .text-orange)) {
 		color: var(--oxide-ink);
+	}
+	:global(.spec-pane.light[data-ox='e'] :is(.text-primary, .text-orange)) {
+		color: var(--oxide-deep);
 	}
 	:global(html .spec-pane.dark.dark .text-primary) {
 		color: var(--primary);

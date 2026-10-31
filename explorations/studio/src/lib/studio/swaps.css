@@ -1,0 +1,67 @@
+:root {
+	--swatch-oxide: oklch(0.72 0.165 52);
+	--swatch-red: oklch(0.704 0.191 22.216);
+	--swatch-yellow: oklch(0.82 0.15 85);
+	--swatch-green: oklch(0.75 0.15 150);
+	--swatch-teal: oklch(0.75 0.12 185);
+	--swatch-blue: oklch(0.72 0.15 255);
+	--swatch-purple: oklch(0.72 0.16 300);
+	--swatch-pink: oklch(0.73 0.16 350);
+}
+
+:root[data-sans="inter-tight"] { --studio-sans: "Inter Tight Variable", ui-sans-serif, system-ui, sans-serif; }
+:root[data-sans="bricolage"] { --studio-sans: "Bricolage Grotesque Variable", ui-sans-serif, system-ui, sans-serif; }
+:root[data-sans="space"] { --studio-sans: "Space Grotesk Variable", ui-sans-serif, system-ui, sans-serif; }
+:root[data-sans="geist"] { --studio-sans: "Geist Mono Variable", ui-monospace, monospace; }
+
+:root[data-serif="fraunces"] { --studio-accent: "Fraunces Variable", ui-serif, Georgia, serif; }
+:root[data-serif="newsreader"] { --studio-accent: "Newsreader Variable", ui-serif, Georgia, serif; }
+:root[data-serif="bricolage"] { --studio-accent: "Bricolage Grotesque Variable", ui-sans-serif, sans-serif; }
+:root[data-serif="doto"] { --studio-accent: "Doto", ui-monospace, monospace; }
+:root[data-serif="silkscreen"] { --studio-accent: "Silkscreen", ui-monospace, monospace; }
+:root[data-serif="primary"] { --studio-accent: var(--studio-sans, "Onest Variable", ui-sans-serif, system-ui, sans-serif); }
+
+:root[data-hue="red"] { --oxide-vivid: oklch(0.704 0.191 22.216); --oxide-ink: oklch(0.54 0.21 26); --oxide-deep: oklch(0.43 0.17 26); }
+:root[data-hue="yellow"] { --oxide-vivid: oklch(0.82 0.15 85); --oxide-ink: oklch(0.53 0.11 75); --oxide-deep: oklch(0.43 0.09 72); }
+:root[data-hue="green"] { --oxide-vivid: oklch(0.75 0.15 150); --oxide-ink: oklch(0.51 0.14 150); --oxide-deep: oklch(0.41 0.11 150); }
+:root[data-hue="teal"] { --oxide-vivid: oklch(0.75 0.12 185); --oxide-ink: oklch(0.515 0.09 185); --oxide-deep: oklch(0.41 0.075 185); }
+:root[data-hue="blue"] { --oxide-vivid: oklch(0.72 0.15 255); --oxide-ink: oklch(0.53 0.175 255); --oxide-deep: oklch(0.43 0.15 255); }
+:root[data-hue="purple"] { --oxide-vivid: oklch(0.72 0.16 300); --oxide-ink: oklch(0.55 0.2 300); --oxide-deep: oklch(0.43 0.17 300); }
+:root[data-hue="pink"] { --oxide-vivid: oklch(0.73 0.16 350); --oxide-ink: oklch(0.55 0.19 350); --oxide-deep: oklch(0.43 0.16 350); }
+
+:root[data-hue]:not(.dark),
+:root[data-hue] .light {
+	--orange: var(--oxide-ink);
+}
+
+:root[data-hue].dark,
+:root[data-hue] .dark {
+	--orange: var(--oxide-vivid);
+}
+
+:root[data-hue],
+:root[data-hue] :is(.dark, .light) {
+	--mark-square: var(--oxide-vivid);
+}
+
+:root[data-hue] [data-product-scope] {
+	--pa: var(--orange) !important;
+}
+
+:root [data-slot="rings"] circle[fill="none"],
+:root [data-slot="scroll-rings"] circle[fill="none"],
+:root [data-slot="band-arcs"] circle[fill="none"] {
+	stroke-width: 1.25px;
+}
+
+:root [data-slot="horizon-rings"] path[fill="none"] {
+	stroke-width: 1.25px;
+}
+
+:root [data-slot="corner-rings"] circle[fill="none"] {
+	stroke-width: 0.5px;
+}
+
+:root [data-slot="ring-divider"] circle[fill="none"] {
+	stroke-width: 1.2px;
+}

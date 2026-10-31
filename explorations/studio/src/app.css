@@ -15,19 +15,22 @@
 @import "@fontsource/doto";
 @import "@fontsource/vt323";
 @import "@hmziq/brand-core/theme.css";
+@import "./lib/studio/swaps.css";
 @import "./lib/studio/oxide-variants.css";
 @source "../../../packages/brand-core/src";
 @source "../../../packages/brand-svelte/src";
 
 @theme inline {
-	--font-serif: "Instrument Serif", ui-serif, Georgia, serif;
-	--font-fraunces: "Fraunces Variable", ui-serif, Georgia, serif;
-	--font-newsreader: "Newsreader Variable", ui-serif, Georgia, serif;
-	--font-bricolage: "Bricolage Grotesque Variable", ui-sans-serif, sans-serif;
+	--font-sans: var(--studio-sans, "Onest Variable", "Onest", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif);
+	--font-heading: var(--studio-sans, "Onest Variable", "Onest", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif);
+	--font-serif: var(--studio-accent, "Instrument Serif", ui-serif, Georgia, serif);
+	--font-fraunces: var(--studio-accent, "Fraunces Variable", ui-serif, Georgia, serif);
+	--font-newsreader: var(--studio-accent, "Newsreader Variable", ui-serif, Georgia, serif);
+	--font-bricolage: var(--studio-accent, "Bricolage Grotesque Variable", ui-sans-serif, sans-serif);
 	--font-space: "Space Grotesk Variable", ui-sans-serif, sans-serif;
 	--font-inter-tight: "Inter Tight Variable", ui-sans-serif, sans-serif;
 	--font-geist-mono: "Geist Mono Variable", ui-monospace, monospace;
 	--font-pixel: "Silkscreen", ui-monospace, monospace;
 	--font-dot: "Doto", ui-monospace, monospace;
-	--font-crt: "VT323", ui-monospace, monospace;
+	--font-crt: var(--studio-accent, "VT323", ui-monospace, monospace);
 }

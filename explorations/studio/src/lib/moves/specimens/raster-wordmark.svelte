@@ -13,8 +13,7 @@
 
 	$effect(() => {
 		if (!canvas) return;
-		void prefs.oxide;
-		void prefs.dark;
+		void prefs.colorKey;
 		const el = canvas;
 		const host = el.parentElement!;
 		let m: ReturnType<typeof mountCanvas> | undefined;
