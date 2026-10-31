@@ -31,4 +31,10 @@ export const moves: Move[] = [
 	{ id: 'site-dovetail/hire-steps', axis: 'section', name: 'Dotted hiring steps', file: f('hire-steps'), notes: 'Four numbered circles on a dotted rule; the last one solid oxide.' },
 	{ id: 'site-dovetail/typed-quote-hero', axis: 'hero', name: 'Typed quote hero', file: f('typed-quote-hero'), notes: 'A customer line types itself out at headline size with an oxide caret, holds, erases and cycles; still for reduced motion.' },
 	{ id: 'site-dovetail/story-grid', axis: 'section', name: 'Filterable story grid', file: f('story-grid'), notes: 'Industry chips filter a three-column grid of material story cards followed by anonymised big-type segment cards on a dot field.' },
+	{ id: 'site-dovetail/oxide-hero-band', axis: 'hero', name: 'Crumbling oxide hero band', file: f('oxide-hero-band'), notes: 'Solid oxide hero band whose bottom edge breaks into a field of squares that flip under the cursor; a product panel overlaps the edge.' },
+	{ id: 'site-dovetail/agent-builder', axis: 'cards', name: 'Agent builder mock', file: f('agent-builder'), notes: 'Clickable agent-type picker (replica, on demand, schedule, event, external) that swaps instructions, output and run timing.' },
+	{ id: 'site-dovetail/numbered-feature', axis: 'section', name: 'Doto-numbered feature row', file: f('numbered-feature'), notes: 'Big Doto 01–04 numeral, heading, body and CTAs beside a card visual slot.' },
+	{ id: 'site-dovetail/agent-anatomy', axis: 'illustration', name: 'Agent anatomy diagram', file: f('agent-anatomy'), notes: 'Solid oxide agent block wired by dashed lines to triggers, skills, memory and tool cards that light on hover.' },
+	{ id: 'site-dovetail/usecase-cards', axis: 'cards', name: 'Expanding prompt cards', file: f('usecase-cards'), notes: 'Use-case cards with an icon tile; “Try prompts” slides open example prompts and floods the tile oxide.' },
+	{ id: 'site-dovetail/quote-slider', axis: 'section', name: 'Grid-field quote slider', file: f('quote-slider'), notes: 'Big quote over a cursor-painted grid field with mono 01 — ■ 02 03 tabs.' },
 ];
