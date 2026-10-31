@@ -17,5 +17,6 @@ export const moves: Move[] = [
 	{ id: 'site-clicky/faq-window', axis: 'section', name: 'FAQ in a window', file: f('faq-window'), notes: 'Kit accordion inside a faq.txt window under a big lowercase title.' },
 	{ id: 'site-clicky/sticky-notes', axis: 'cards', name: 'Taped sticky notes', file: f('sticky-notes'), notes: 'Square pastel notes in yellow, blue and pink with tape strips and slight tilts that straighten and lift on hover.' },
 	{ id: 'site-clicky/release-feed', axis: 'layout', name: 'Filtered release feed', file: f('release-feed'), notes: 'All/mac/windows pill filter, sticky date + version rail, colour-dotted section heads, reporter initials.' },
+	{ id: 'site-clicky/role-list', axis: 'cards', name: 'Role windows with inline draft', file: f('role-list'), notes: 'Each role is a tinted window; reach out unfolds an email draft inside it and sends with a toast.' },
 	{ id: 'site-clicky/desk-footer', axis: 'footer', name: 'Face footer', file: f('desk-footer'), notes: 'Lowercase link columns and disclaimer over a giant clickable mono face whose nose is the oxide square.' }
 ];
