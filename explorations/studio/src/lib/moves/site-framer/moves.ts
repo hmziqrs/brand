@@ -1,0 +1,22 @@
+import type { Move } from '$studio/types';
+
+const f = (n: string) => `src/lib/moves/site-framer/${n}.svelte`;
+
+export const moves: Move[] = [
+	{ id: 'site-framer/site-header', axis: 'nav', name: 'Site header', file: f('site-header'), notes: 'Sticky blurred bar: kiln wordmark tile, five links with an oxide underline on the active page, oxide Start free pill, phone menu.' },
+	{ id: 'site-framer/site-footer', axis: 'footer', name: 'Columns + patina wordmark footer', file: f('site-footer'), notes: 'Optional CTA slot, five link columns, then a giant kiln■ over a material the cursor uncovers through a rust grid.' },
+	{ id: 'site-framer/hero-stage', axis: 'hero', name: 'Hover-grid material stage', file: f('hero-stage'), notes: 'Framer’s black hero box as a live oxide material under a veil grid the cursor burns away; holds the prompt.' },
+	{ id: 'site-framer/prompt-box', axis: 'illustration', name: 'Agent prompt box', file: f('prompt-box'), notes: 'Working prompt: typewriter ideas, chips fill it, Enter runs a four-step build checklist; optional oxide glow rim.' },
+	{ id: 'site-framer/proof-strip', axis: 'section', name: 'Invented wordmark strip', file: f('proof-strip'), notes: 'Customer-logo row rebuilt as typeset invented wordmarks in our extra faces, labelled as invented; oxide on hover.' },
+	{ id: 'site-framer/section-head', axis: 'type', name: 'Section head with oxide square', file: f('section-head'), notes: 'Big semibold H2 ending in a ■, optional lede, meta and outline pill action on the right.' },
+	{ id: 'site-framer/editor-window', axis: 'illustration', name: 'Canvas editor mock', file: f('editor-window'), notes: 'Pages / canvas / agent panes: click pages, switch desktop-tablet-phone widths, watch the agent tick off steps and add a material ticker.' },
+	{ id: 'site-framer/bento-cell', axis: 'cards', name: 'Hairline bento cell', file: f('bento-cell'), notes: 'Framer-style cell in a gap-px grid: art on top, title-arrow link below, an oxide spotlight follows the cursor; plain, oxide or material tone.' },
+	{ id: 'site-framer/cms-table', axis: 'illustration', name: 'CMS collection table', file: f('cms-table'), notes: 'Collections tree + rows with material thumbs, tinted category chips, working Featured switches; optional agent import pane.' },
+	{ id: 'site-framer/ui-panel', axis: 'illustration', name: 'Mini product panels', file: f('ui-panel'), notes: 'Small interactive panels for bento art: vitals, analytics, SEO, branches, locales, URL bar, A/B (re-run), sort, filters, fields, compliance, publish.' },
+	{ id: 'site-framer/agent-terminal', axis: 'illustration', name: 'MCP terminal', file: f('agent-terminal'), notes: 'Always-dark terminal with tool tabs, a replaying import log and a copyable MCP URL.' },
+	{ id: 'site-framer/material-fan', axis: 'motion', name: 'Material card fan', file: f('material-fan'), notes: 'A hand of shader cards that fans open and leans toward the cursor.' },
+	{ id: 'site-framer/site-card', axis: 'cards', name: 'Material site poster', file: f('site-card'), notes: 'A made-up website rendered on a shader poster in one of our extra faces; tilts to the cursor; optional price chip.' },
+	{ id: 'site-framer/story-rail', axis: 'cards', name: 'Example story rail', file: f('story-rail'), notes: 'Snap-scrolling story cards with an invented wordmark and one big number; one solid oxide, some material.' },
+	{ id: 'site-framer/community-window', axis: 'illustration', name: 'Community window', file: f('community-window'), notes: 'Browser mock of a community feed with likeable posts, trending templates and follow buttons that toggle.' },
+	{ id: 'site-framer/kiln-wordmark', axis: 'type', name: 'kiln stand-in wordmark', file: f('kiln-wordmark'), notes: 'Neutral stand-in brand: oxide tile + kiln, and a giant kiln■ for footers.' }
+];
