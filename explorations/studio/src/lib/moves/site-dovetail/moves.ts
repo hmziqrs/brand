@@ -37,4 +37,6 @@ export const moves: Move[] = [
 	{ id: 'site-dovetail/agent-anatomy', axis: 'illustration', name: 'Agent anatomy diagram', file: f('agent-anatomy'), notes: 'Solid oxide agent block wired by dashed lines to triggers, skills, memory and tool cards that light on hover.' },
 	{ id: 'site-dovetail/usecase-cards', axis: 'cards', name: 'Expanding prompt cards', file: f('usecase-cards'), notes: 'Use-case cards with an icon tile; “Try prompts” slides open example prompts and floods the tile oxide.' },
 	{ id: 'site-dovetail/quote-slider', axis: 'section', name: 'Grid-field quote slider', file: f('quote-slider'), notes: 'Big quote over a cursor-painted grid field with mono 01 — ■ 02 03 tabs.' },
+	{ id: 'site-dovetail/demo-form', axis: 'cards', name: 'Demo request form', file: f('demo-form'), notes: 'Kit inputs, styled native selects and a textarea in a raised card; submit swaps to a local thank-you state with an oxide check tile.' },
+	{ id: 'site-dovetail/report-cover', axis: 'illustration', name: 'Tilting oxide report cover', file: f('report-cover'), notes: 'A solid oxide report book on thin concentric rings that tilts in 3D toward the cursor.' },
 ];
