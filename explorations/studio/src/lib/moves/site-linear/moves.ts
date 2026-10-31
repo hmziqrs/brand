@@ -26,4 +26,6 @@ export const moves: Move[] = [
 	{ id: 'site-linear/planning-tabs', axis: 'section', name: 'Planning view switcher', file: f('planning-tabs'), notes: 'Quarterly board, pipeline, timeline and resource bars behind an oxide-filled tab strip.' },
 	{ id: 'site-linear/pulse-feed', axis: 'illustration', name: 'Pulse feed + weekly digest', file: f('pulse-feed'), notes: 'Update feed with For me / Popular / Recent tabs, health chips, and an agent-written weekly digest with a listen chip.' },
 	{ id: 'site-linear/next-links', axis: 'section', name: 'Next-page tiles', file: f('next-links'), notes: 'Four hairline tiles linking the product pages; each floods oxide on hover, the current one is tinted.' },
+	{ id: 'site-linear/plan-columns', axis: 'cards', name: 'Plan columns with oxide pick', file: f('plan-columns'), notes: 'Four plan cards with a working yearly switch; the recommended plan is a solid oxide slab with thin corner rings.' },
+	{ id: 'site-linear/compare-table', axis: 'section', name: 'Sticky plan comparison', file: f('compare-table'), notes: 'Long feature grid with a sticky plan header, oxide checks, column tint that follows the cursor, and a one-plan picker on phones.' },
 ];
