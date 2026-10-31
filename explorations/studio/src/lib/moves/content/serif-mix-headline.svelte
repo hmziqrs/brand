@@ -15,7 +15,7 @@
 		text: string;
 		as?: 'h1' | 'h2' | 'h3' | 'p';
 		size?: 'xxl' | 'xl' | 'lg' | 'md' | 'sm';
-		face?: 'serif' | 'newsreader' | 'fraunces';
+		face?: 'serif' | 'newsreader' | 'fraunces' | 'sans';
 		accent?: boolean;
 		object?: Snippet;
 		class?: string;
@@ -32,6 +32,7 @@
 	const faces = {
 		serif: 'font-serif italic tracking-[-0.01em] text-[1.1em] leading-[0.8]',
 		newsreader: 'font-newsreader italic font-[360] tracking-[-0.03em] text-[1.04em]',
+		sans: 'text-primary',
 		fraunces: 'font-fraunces italic font-[380] tracking-[-0.035em] [font-variation-settings:"SOFT"_100,"WONK"_1]'
 	} as const;
 

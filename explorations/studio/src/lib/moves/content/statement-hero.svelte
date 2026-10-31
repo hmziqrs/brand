@@ -36,7 +36,7 @@
 			<div class="relative isolate overflow-hidden rounded-3xl border aspect-[4/3] sm:aspect-[16/9] lg:aspect-[3/4]">
 				<ShaderMaterial {preset} rendering={live ? 'live' : 'image'} animated={live} loading="eager" fetchpriority="high" sizes="(min-width: 1024px) 25rem, 100vw" class="absolute inset-0 h-full w-full" />
 				<div aria-hidden="true" class="pointer-events-none absolute -top-[18%] -right-[42%] w-[150%] opacity-70 mix-blend-overlay">
-					<Rings {seed} />
+					<Rings {seed} class="[&_circle]:[stroke-width:1.25]" />
 				</div>
 				{#if card}
 					<div class="absolute inset-x-3 bottom-3 rounded-2xl border bg-background/92 p-4 backdrop-blur-md sm:inset-x-4 sm:bottom-4 sm:p-5">

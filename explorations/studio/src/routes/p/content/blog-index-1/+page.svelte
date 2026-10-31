@@ -30,8 +30,8 @@
 		maker="by hmziq"
 		links={[
 			{ label: 'Posts', href: '#/p/content/blog-index-1', current: true },
-			{ label: 'Index', href: '#/p/content/blog-index-2' },
-			{ label: 'About', href: '#/p/content/about-1' }
+			{ label: 'Changelog', href: '#/p/content/changelog-1' },
+			{ label: 'Docs', href: '#/p/content/docs-1' }
 		]}
 	/>
 

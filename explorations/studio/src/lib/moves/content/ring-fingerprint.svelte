@@ -52,7 +52,7 @@
 				r={a.r}
 				fill="none"
 				stroke={a.accent ? color : 'var(--line)'}
-				stroke-width={(a.accent ? 2.6 : 1.3) * weight}
+				stroke-width={1.3 * weight}
 				stroke-linecap="round"
 				stroke-dasharray={a.dash}
 				transform={`rotate(${a.rotate} 50 50)`}
