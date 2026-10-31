@@ -18,16 +18,25 @@ export const typeMoves: Move[] = [
 ];
 
 export const textureMoves: Move[] = [
-	{ id: 'specimens/texture-oxide-bloom', axis: 'texture', name: 'Oxide-bloom grain', file: f('tinted-material.svelte'), notes: 'The oxide-bloom poster as is in dark; re-inked as oxide patches on white in light.' },
-	{ id: 'specimens/texture-oxide-chalk', axis: 'texture', name: 'Oxide chalk', file: f('tinted-material.svelte'), notes: 'Oxide-chalk poster tinted through the oxide token with a blend mode, so it follows every oxide variant.' },
-	{ id: 'specimens/texture-halftone-print', axis: 'texture', name: 'Halftone print', file: f('tinted-material.svelte'), notes: 'Halftone-print poster printed in oxide ink: dots on black, dots on paper.' },
-	{ id: 'specimens/texture-rust-spread', axis: 'texture', name: 'Rust spreading canvas', file: f('rust-spread.svelte'), notes: 'Canvas: rust cells seed, spread along a grain field, age from hot to deep, flake and regrow. Still frame for reduced motion.' },
-	{ id: 'specimens/texture-glyph-rain', axis: 'texture', name: 'Oxide glyph rain', file: f('glyph-rain.svelte'), notes: 'Our answer to ASCII digit rain: slow columns of ■ □ ○ ◎ glyphs with an oxide square at each head.' },
+	{ id: 'specimens/texture-diagonal-hatch', axis: 'texture', name: 'Diagonal rust hatch', file: f('diagonal-hatch.svelte'), notes: 'The hmziq-2 hero hatch rebuilt on canvas: -38° rust lines corroded by noise from one corner; lines bend toward the cursor and light up under it.' },
+	{ id: 'specimens/texture-magnetic-dots', axis: 'texture', name: 'Magnetic dot field', file: f('magnetic-dots.svelte'), notes: 'A hairline dot grid; dots near the cursor are pulled in, swell and turn oxide, then spring back.' },
+	{ id: 'specimens/texture-rust-linger', axis: 'texture', name: 'Rust where you linger', file: f('rust-linger.svelte'), notes: 'Rest the cursor and rust blooms there, spreads along a grain field, ages hot to deep and flakes away. Moving leaves a faint trail.' },
+	{ id: 'specimens/texture-ripple-rings', axis: 'texture', name: 'Ripple rings', file: f('ripple-rings.svelte'), notes: 'Brand ring arcs ripple out from the cursor as it travels; every sixth ring is oxide with an end dot, all the same thin stroke.' },
+	{ id: 'specimens/texture-grid-warp', axis: 'texture', name: 'Grid warp lens', file: f('grid-warp.svelte'), notes: 'A hairline grid bulges under the cursor like a loupe; warped lines and crossings turn oxide.' },
+	{ id: 'specimens/texture-glyph-scatter', axis: 'texture', name: 'Glyph scatter', file: f('glyph-scatter.svelte'), notes: 'A field of ■ □ ○ ◎ glyphs scatters away from the cursor on springs, heats to oxide squares, and settles back.' },
+	{ id: 'specimens/texture-iron-filings', axis: 'texture', name: 'Iron filings', file: f('iron-filings.svelte'), notes: 'Short filings lie along a noise field; the cursor is a magnet that combs them into dipole lines and heats them oxide.' },
+	{ id: 'specimens/texture-contour-map', axis: 'texture', name: 'Contour map', file: f('contour-map.svelte'), notes: 'Topographic iso-lines over a slow noise terrain; the cursor raises a hill and every fifth line is an oxide index contour.' },
+	{ id: 'specimens/texture-voxel-relief', axis: 'texture', name: 'Voxel relief', file: f('voxel-relief.svelte'), notes: 'An isometric field of quiet cubes; the ones under the cursor rise into an oxide relief and sink back.' },
 	{ id: 'specimens/texture-oxidize-grid', axis: 'texture', name: 'Oxidizing cursor grid', file: f('oxidize-grid.svelte'), notes: 'Hairline grid; cells under the cursor heat to oxide and leave a slow patina stain. A ghost cursor wanders when idle.' },
-	{ id: 'specimens/texture-dot-field', axis: 'texture', name: 'Dot field', file: f('dot-field.svelte'), notes: 'CSS-only hairline dot grid with a bigger oxide dot cluster focused behind the art side.' },
-	{ id: 'specimens/texture-ring-field', axis: 'texture', name: 'Ring field', file: f('ring-field.svelte'), notes: 'Kit rings blown up past the frame, with a rotated echo in the opposite corner.' },
-	{ id: 'specimens/texture-lattice-scene', axis: 'texture', name: 'Lattice scene', file: f('lattice-field.svelte'), notes: 'Kit 3D lattice scene bled off the right edge behind the panel; rings when WebGL is off.' },
-	{ id: 'specimens/texture-dither-gradient', axis: 'texture', name: 'Dithered gradient', file: f('dither-gradient.svelte'), notes: 'Bayer-dithered oxide glow in 4px pixels, two tones, static and cheap.' }
+	{ id: 'specimens/texture-rust-spread', axis: 'texture', name: 'Rust spreading canvas', file: f('rust-spread.svelte'), notes: 'Rust cells seed, spread along a grain field, age hot to deep, flake and regrow. The cursor scorches fresh hot rust that spreads from its path.' },
+	{ id: 'specimens/texture-glyph-rain', axis: 'texture', name: 'Oxide glyph rain', file: f('glyph-rain.svelte'), notes: 'Slow columns of ■ □ ○ ◎ glyphs with an oxide square at each head. The cursor lights a lens of oxide glyphs and speeds up the columns under it.' },
+	{ id: 'specimens/texture-dither-gradient', axis: 'texture', name: 'Dithered glow', file: f('dither-gradient.svelte'), notes: 'Bayer-dithered oxide glow in 4px pixels, two tones; the glow follows the cursor with a soft lag.' },
+	{ id: 'specimens/texture-dot-field', axis: 'texture', name: 'Dot field', file: f('dot-field.svelte'), notes: 'CSS-only hairline dot grid; the bigger oxide dot cluster follows the cursor.' },
+	{ id: 'specimens/texture-oxide-bloom', axis: 'texture', name: 'Oxide-bloom grain', file: f('tinted-material.svelte'), notes: 'The oxide-bloom poster as is in dark; re-inked in light. The cursor carries a hot torch over the material.' },
+	{ id: 'specimens/texture-oxide-chalk', axis: 'texture', name: 'Oxide chalk', file: f('tinted-material.svelte'), notes: 'Oxide-chalk poster tinted through the oxide token, with a cursor torch.' },
+	{ id: 'specimens/texture-halftone-print', axis: 'texture', name: 'Halftone print', file: f('tinted-material.svelte'), notes: 'Halftone-print poster printed in oxide ink, with a cursor torch.' },
+	{ id: 'specimens/texture-ring-field', axis: 'texture', name: 'Ring field', file: f('ring-field.svelte'), notes: 'Kit rings blown up past the frame with a rotated echo; both turn and drift against the cursor.' },
+	{ id: 'specimens/texture-lattice-scene', axis: 'texture', name: 'Lattice scene', file: f('lattice-field.svelte'), notes: 'Kit 3D lattice bled off the right edge; the whole scene tilts toward the cursor.' }
 ];
 
 export const accentMoves: Move[] = [

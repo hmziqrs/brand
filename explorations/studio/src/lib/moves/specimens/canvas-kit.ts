@@ -131,3 +131,124 @@ export function rasterText(text: string, cols: number, rows: number, font: strin
 	for (let i = 0; i < out.length; i++) out[i] = d[i * 4] / 255;
 	return out;
 }
+
+export type Pointer = { x: number; y: number; inside: boolean; live: boolean; speed: number; dwell: number };
+
+export function trackPointer(canvas: HTMLCanvasElement, onMove?: () => void) {
+	const host = (canvas.closest('[data-pointer-host], .spec-pane') as HTMLElement | null) ?? canvas.parentElement!;
+	const p: Pointer = { x: -1e4, y: -1e4, inside: false, live: false, speed: 0, dwell: 0 };
+	let tx = -1e4;
+	let ty = -1e4;
+	let idle = 99;
+	const move = (e: PointerEvent) => {
+		const r = canvas.getBoundingClientRect();
+		tx = e.clientX - r.left;
+		ty = e.clientY - r.top;
+		if (!p.inside) {
+			p.x = tx;
+			p.y = ty;
+		}
+		p.inside = true;
+		idle = 0;
+		onMove?.();
+	};
+	const leave = () => (p.inside = false);
+	host.addEventListener('pointermove', move);
+	host.addEventListener('pointerleave', leave);
+	return {
+		p,
+		step(dt: number, w: number, h: number, t: number, ghost: boolean | 'hop' = true, ease = 10) {
+			idle += dt;
+			const real = p.inside && idle < 4;
+			if (!real && ghost === 'hop') {
+				const r = rng(Math.floor(t / 3.4) * 7919 + 13);
+				tx = w * (0.45 + r() * 0.5);
+				ty = h * (0.12 + r() * 0.76);
+			} else if (!real && ghost) {
+				tx = w * (0.62 + 0.26 * Math.cos(t * 0.37));
+				ty = h * (0.5 + 0.3 * Math.sin(t * 0.61));
+			}
+			const k = dt ? 1 - Math.exp(-dt * ease) : 1;
+			const ox = p.x;
+			const oy = p.y;
+			p.x += (tx - p.x) * k;
+			p.y += (ty - p.y) * k;
+			const sp = dt ? Math.hypot(p.x - ox, p.y - oy) / dt : 0;
+			p.speed += (sp - p.speed) * Math.min(1, dt * 8);
+			p.live = real || !!ghost;
+			p.dwell = p.speed < 60 && p.live ? p.dwell + dt : 0;
+		},
+		snap() {
+			p.x = tx;
+			p.y = ty;
+			p.live = p.inside;
+		},
+		destroy() {
+			host.removeEventListener('pointermove', move);
+			host.removeEventListener('pointerleave', leave);
+		}
+	};
+}
+
+export function valueNoise(seed = 1) {
+	const r = rng(seed);
+	const perm = new Uint8Array(512);
+	const vals = new Float32Array(256);
+	for (let i = 0; i < 256; i++) {
+		perm[i] = i;
+		vals[i] = r();
+	}
+	for (let i = 255; i > 0; i--) {
+		const j = Math.floor(r() * (i + 1));
+		[perm[i], perm[j]] = [perm[j], perm[i]];
+	}
+	for (let i = 0; i < 256; i++) perm[i + 256] = perm[i];
+	const at = (x: number, y: number) => vals[perm[(perm[x & 255] + y) & 511]];
+	const s = (t: number) => t * t * (3 - 2 * t);
+	const n = (x: number, y: number) => {
+		const xi = Math.floor(x);
+		const yi = Math.floor(y);
+		const fx = s(x - xi);
+		const fy = s(y - yi);
+		const a = at(xi, yi);
+		const b = at(xi + 1, yi);
+		const c = at(xi, yi + 1);
+		const d = at(xi + 1, yi + 1);
+		return a + (b - a) * fx + (c - a) * fy + (a - b - c + d) * fx * fy;
+	};
+	return (x: number, y: number, oct = 3) => {
+		let v = 0;
+		let amp = 0.5;
+		let f = 1;
+		let norm = 0;
+		for (let o = 0; o < oct; o++) {
+			v += n(x * f, y * f) * amp;
+			norm += amp;
+			amp *= 0.5;
+			f *= 2.03;
+		}
+		return v / norm;
+	};
+}
+
+export function followPointer(node: HTMLElement, vars: (x: number, y: number) => Record<string, string>) {
+	const host = (node.closest('[data-pointer-host], .spec-pane') as HTMLElement | null) ?? node.parentElement!;
+	let keys: string[] = [];
+	const move = (e: PointerEvent) => {
+		const r = node.getBoundingClientRect();
+		const v = vars((e.clientX - r.left) / r.width, (e.clientY - r.top) / r.height);
+		keys = Object.keys(v);
+		for (const k of keys) node.style.setProperty(k, v[k]);
+		node.dataset.live = '';
+	};
+	const leave = () => {
+		for (const k of keys) node.style.removeProperty(k);
+		delete node.dataset.live;
+	};
+	host.addEventListener('pointermove', move);
+	host.addEventListener('pointerleave', leave);
+	return () => {
+		host.removeEventListener('pointermove', move);
+		host.removeEventListener('pointerleave', leave);
+	};
+}

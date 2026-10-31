@@ -9,6 +9,6 @@ export const meta: Meta = {
 	inspiredBy: ['dovetail', 'northflank', 'flora'],
 	moves: textureMoves.map((m) => m.id),
 	breaks: ['no-hover-motion'],
-	notes: 'Ten texture layers behind the same reading panel, dark and light. Judge which one becomes our ASCII.',
+	notes: 'Nineteen cursor-reactive texture layers behind the same reading panel, dark and light: nine new ones, the rest made interactive. Judge which one becomes our ASCII.',
 	order: 2
 };
