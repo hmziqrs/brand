@@ -16,5 +16,6 @@ export const moves: Move[] = [
 	{ id: 'site-clicky/plan-windows', axis: 'cards', name: 'Plan windows', file: f('plan-windows'), notes: 'Three plans as tinted app windows with a monthly/yearly pill toggle and an inverted mono student strip.' },
 	{ id: 'site-clicky/faq-window', axis: 'section', name: 'FAQ in a window', file: f('faq-window'), notes: 'Kit accordion inside a faq.txt window under a big lowercase title.' },
 	{ id: 'site-clicky/sticky-notes', axis: 'cards', name: 'Taped sticky notes', file: f('sticky-notes'), notes: 'Square pastel notes in yellow, blue and pink with tape strips and slight tilts that straighten and lift on hover.' },
+	{ id: 'site-clicky/release-feed', axis: 'layout', name: 'Filtered release feed', file: f('release-feed'), notes: 'All/mac/windows pill filter, sticky date + version rail, colour-dotted section heads, reporter initials.' },
 	{ id: 'site-clicky/desk-footer', axis: 'footer', name: 'Face footer', file: f('desk-footer'), notes: 'Lowercase link columns and disclaimer over a giant clickable mono face whose nose is the oxide square.' }
 ];
