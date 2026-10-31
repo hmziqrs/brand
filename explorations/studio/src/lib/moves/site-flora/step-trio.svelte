@@ -69,9 +69,9 @@
 							<p class="font-medium">Lena</p>
 							<p class="text-foreground/85">Warmer key light, and lose the second chair?</p>
 						</div>
-						<CursorTag name="Lena" tone="pink" class={cn('absolute top-[18%] left-[12%]', !still && 'sf-drift-a')} />
-						<CursorTag name="Omar" tone="teal" class={cn('absolute top-[46%] right-[8%]', !still && 'sf-drift-b')} />
-						<CursorTag name="You" tone="yellow" class={cn('absolute bottom-[3%] left-[4%]', !still && 'sf-drift-c')} />
+						<CursorTag name="Lena" tone="pink" class="absolute top-[18%] left-[12%]" drift="a" />
+						<CursorTag name="Omar" tone="teal" class="absolute top-[46%] right-[8%]" drift="b" />
+						<CursorTag name="You" tone="yellow" class="absolute bottom-[3%] left-[4%]" drift="c" />
 					</div>
 				{:else}
 					<div class="flex w-full items-center gap-4">
@@ -99,30 +99,3 @@
 		</article>
 	{/each}
 </div>
-
-<style>
-	:global(.sf-drift-a) {
-		animation: sf-drift-a 7s ease-in-out infinite;
-	}
-	:global(.sf-drift-b) {
-		animation: sf-drift-b 9s ease-in-out infinite;
-	}
-	:global(.sf-drift-c) {
-		animation: sf-drift-c 6s ease-in-out infinite;
-	}
-	@keyframes sf-drift-a {
-		50% {
-			translate: 40px 30px;
-		}
-	}
-	@keyframes sf-drift-b {
-		50% {
-			translate: -50px -20px;
-		}
-	}
-	@keyframes sf-drift-c {
-		50% {
-			translate: 30px -40px;
-		}
-	}
-</style>
