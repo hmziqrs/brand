@@ -9,8 +9,9 @@
 		const r = rng(hash(seed));
 		const tones: IsoTone[] = ['oxide', 'ink', 'patina', 'steel'];
 		const out: IsoCluster[] = [{ at: [0, 0], size: [5 + Math.floor(r() * 3), 5 + Math.floor(r() * 3)], height: 1, tone: 'steel', rust: true, bumps: 5 + Math.floor(r() * 8) }];
+		const slots: [number, number][] = [[0, -4], [3, -6], [6, -3]];
 		const n = 2 + Math.floor(r() * 2);
-		for (let k = 0; k < n; k++) out.push({ at: [Math.floor(r() * 9) - 1, Math.floor(r() * 9) - 7], size: [1 + Math.floor(r() * 3), 1 + Math.floor(r() * 2)], height: 1 + Math.floor(r() * 5), tone: tones[Math.floor(r() * 3)] });
+		for (let k = 0; k < n; k++) out.push({ at: slots[k], size: [1 + Math.floor(r() * 2), 1 + Math.floor(r() * 2)], height: 1 + Math.floor(r() * 5), tone: tones[Math.floor(r() * 3)] });
 		return out;
 	});
 
