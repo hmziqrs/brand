@@ -23,7 +23,7 @@
 <div class="min-h-screen overflow-x-clip bg-background text-foreground">
 	<SiteHeader current="home" />
 
-	<HeroStage preset="oxide-bloom">
+	<HeroStage preset="oxide-bloom" lightInvert>
 		{#snippet title()}The product system for teams <span class="text-primary">and their agents</span>{/snippet}
 		{#snippet lede()}Made for planning and shipping software, now that half the work is done by agents.{/snippet}
 		{#snippet aside()}

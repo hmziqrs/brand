@@ -3,9 +3,11 @@
 	import { cn } from '$brand/utils.js';
 	import ShaderMaterial from '$brand/components/shader-material.svelte';
 	import RustGridField from '$moves/flora/rust-grid-field.svelte';
+	import { prefs } from '$studio/prefs.svelte';
 
 	let {
 		preset = 'oxide-bloom',
+		lightInvert = false,
 		live = true,
 		grid = true,
 		eyebrow,
@@ -16,6 +18,7 @@
 		class: className
 	}: {
 		preset?: string;
+		lightInvert?: boolean;
 		live?: boolean;
 		grid?: boolean;
 		eyebrow?: Snippet;
@@ -46,7 +49,7 @@
 	{#if children}
 		<div class="relative mt-14 md:mt-20">
 			<div class="absolute inset-x-0 top-[22%] bottom-0 -z-10 overflow-hidden">
-				<ShaderMaterial {preset} rendering={live ? 'live' : 'image'} animated={live} controls={false} loading="eager" fetchpriority="high" class="absolute inset-0 h-full w-full" />
+				<ShaderMaterial {preset} rendering={live ? 'live' : 'image'} animated={live} controls={false} loading="eager" fetchpriority="high" class={cn('absolute inset-0 h-full w-full', lightInvert && !prefs.dark && '[filter:invert(1)_hue-rotate(180deg)_saturate(1.4)]')} />
 				<div class="absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-background to-transparent"></div>
 				<div class="absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-background to-transparent"></div>
 			</div>
