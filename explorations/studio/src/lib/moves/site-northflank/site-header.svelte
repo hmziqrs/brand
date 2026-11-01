@@ -26,7 +26,7 @@
 </script>
 
 {#if notice}
-	<a href={to('changelog')} class="group block border-b bg-(--band) text-center text-[13px] text-foreground/85 hover:text-foreground">
+	<a href={to('changelog')} class="group block border-b text-center text-[13px] text-foreground/85 hover:text-foreground">
 		<span class="mx-auto flex max-w-[1320px] items-center justify-center gap-2 px-4 py-2">
 			<i class="size-1.5 bg-orange" aria-hidden="true"></i>
 			<span class="truncate">{notice}</span>

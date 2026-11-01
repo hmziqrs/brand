@@ -26,8 +26,8 @@
 	];
 </script>
 
-<div data-slot="enterprise-panel" class={cn('grid overflow-hidden rounded-2xl border lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]', className)}>
-	<OxideSlab class="flex flex-col p-7 sm:p-10">
+<div data-slot="enterprise-panel" class={cn('grid gap-4 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]', className)}>
+	<OxideSlab class="flex flex-col rounded-2xl p-7 sm:p-10">
 		<p class="font-mono text-[11px] tracking-[0.16em] uppercase">Enterprise</p>
 		<p class="mt-5 text-[clamp(22px,2.2vw,28px)] leading-[1.25] font-medium tracking-[-0.01em]">{statement}</p>
 		<ul class="mt-8 flex flex-wrap gap-2">
@@ -40,11 +40,11 @@
 			<KeyButton label="Deploy now" key="D" variant="outline" href={to('pricing')} class="max-sm:hidden" />
 		</div>
 	</OxideSlab>
-	<ul class="grid bg-card sm:grid-cols-2">
-		{#each feats as f, n (f.title)}
-			<li class={cn('border-t p-6 sm:p-7', n < 2 && 'sm:border-t-0', n === 0 && 'max-lg:border-t-0 lg:border-t-0', n % 2 === 1 && 'sm:border-l')}>
-				<f.icon class="lucide size-5 text-orange" />
-				<p class="mt-4 text-[17px] font-medium text-foreground">{f.title}</p>
+	<ul class="grid gap-4 sm:grid-cols-2">
+		{#each feats as f (f.title)}
+			<li class="rounded-2xl border bg-card p-6 sm:p-7">
+				<span class="grid size-10 place-items-center rounded-lg border text-orange"><f.icon class="lucide size-[18px]" /></span>
+				<p class="mt-5 text-[18px] font-medium text-foreground">{f.title}</p>
 				<p class="mt-1.5 text-[14.5px] leading-[1.5] text-foreground/75">{f.line}</p>
 			</li>
 		{/each}
