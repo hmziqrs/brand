@@ -29,7 +29,7 @@
 		<div class="absolute inset-0 bg-foreground text-background">
 			<svg viewBox="0 0 300 200" class="size-full" aria-hidden="true">
 				{#each [20, 40, 60, 80, 100, 120] as r (r)}<circle cx="150" cy="100" {r} fill="none" stroke="currentColor" stroke-opacity="0.35" stroke-width="1" />{/each}
-				<rect x="141" y="91" width="18" height="18" fill="var(--orange)" />
+				<rect x={150 + 60 * Math.cos(-0.7) - 9} y={100 + 60 * Math.sin(-0.7) - 9} width="18" height="18" fill="var(--orange)" />
 			</svg>
 		</div>
 	{:else if cover.kind === 'globe'}
