@@ -112,3 +112,15 @@ A short list: each page path + title + the one thing that makes it distinct; eac
 - Dev server: `http://127.0.0.1:5180`. If it is down, start it in the background: `cd /home/user/brand/explorations/studio && bunx vite dev --port 5180 --host 127.0.0.1`.
 - **Commit small and often**, only your own paths, and push: `cd /home/user/brand && git add <your explicit paths> && git commit -m "<imperative summary>" && git push origin claude/focused-mccarthy-gwj8wn`. No `Co-Authored-By` or any trailer lines in messages. If `index.lock` exists or push is rejected, wait a few seconds and retry (other agents commit too). Never `git add -A`, never amend or rebase others' commits.
 - Run svelte-check on your files before each commit; a broken `moves.ts` takes down every page.
+
+# Round 3 rules (owner notes on the site studies)
+
+Notes: `/tmp/claude-0/-home-user-brand/e8d9d117-3591-5190-9941-249217f87da2/scratchpad/verdicts3/site-notes.txt` (one line per page: id | verdict | note). Apply every note for your pages. Global taste learned:
+- Never use "one big card divided into a grid" (merged bento / hairline cells inside one card). Use separate cards or real bento tiles with gaps.
+- No grey section backgrounds (bands of `--band`/muted fill). Sections sit on the page background.
+- Full-width headers/navs and full-width heroes; no container-boxed headers or container-sized footers.
+- Never put a square in the centre of a ring.
+- Compare/pricing tables: sticky plan-name header row; tiers given real design. Best references: site-hex/pricing and site-linear/pricing.
+- No gradient "aura" glows; the soft grey card with a subtle background effect + restrained gradient on site-dovetail/customers is the one approved gradient use.
+- Owner loves: site-flora/home (best page), site-flora/techniques, site-dovetail/home, site-linear/blog interactive cards, site-clicky/pricing hero background, site-clicky/changelog draggable window + sticky changelog, site-northflank/about hero + backing section, site-dovetail/contact 3D book (extract it as a reusable move).
+- Hover-grid backgrounds must stay subtle (grid lines barely visible).
