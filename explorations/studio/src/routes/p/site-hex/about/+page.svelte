@@ -74,9 +74,9 @@
 			<h2 class="text-4xl leading-[1] font-semibold tracking-[-0.03em] sm:text-6xl">Backed by patient people</h2>
 			<p class="mt-5 text-xl leading-snug">We raised from investors who were happy to wait for the product to be right. <span class="font-mono text-sm text-muted-foreground">(names invented)</span></p>
 		</div>
-		<ul class="grid grid-cols-2 gap-px border border-border bg-border">
+		<ul class="grid grid-cols-1 gap-3 sm:grid-cols-2">
 			{#each backers as b, i (b)}
-				<li class="flex items-center gap-3 bg-background p-5 text-lg font-medium sm:p-6 sm:text-xl">
+				<li class="flex items-center gap-3 border border-border bg-background p-5 text-lg font-medium sm:p-6 sm:text-xl">
 					<span class="size-2 shrink-0 {i % 3 === 0 ? 'bg-[var(--orange)]' : 'border border-foreground'}"></span>{b}
 				</li>
 			{/each}
