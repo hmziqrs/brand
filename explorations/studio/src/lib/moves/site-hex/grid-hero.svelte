@@ -33,8 +33,8 @@
 	};
 </script>
 
-<section class={cn('relative isolate mx-auto w-full max-w-[1320px] px-4 pt-20 pb-16 text-center sm:px-8 lg:pt-28 lg:pb-24', className)}>
-	{#if grid}<PlotGrid class="-z-10 mx-4 sm:mx-8" />{/if}
+<section class={cn('relative isolate w-full px-4 pt-20 pb-16 text-center sm:px-8 lg:pt-28 lg:pb-24', className)}>
+	{#if grid}<PlotGrid class="-z-10" />{/if}
 	{#if kicker}
 		<p class="mx-auto mb-8 inline-flex items-center gap-2 border border-border bg-background px-3 py-1.5 font-mono text-xs tracking-[0.14em] text-foreground uppercase">
 			<span class="size-2 bg-[var(--orange)]"></span>{kicker}

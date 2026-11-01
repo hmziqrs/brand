@@ -12,15 +12,13 @@
 	const link = 'rounded-md px-3 py-2 text-[15px] text-foreground/80 transition-colors hover:text-foreground aria-[current=page]:text-foreground aria-[current=page]:underline aria-[current=page]:decoration-[var(--orange)] aria-[current=page]:decoration-2 aria-[current=page]:underline-offset-8';
 </script>
 
-<header class="relative z-40 mx-auto w-full max-w-[1320px] px-4 pt-3 sm:px-8">
-	<a href={href('home')} class="group flex items-center justify-center gap-3 border border-border px-4 py-2 font-mono text-[11px] tracking-[0.06em] text-foreground sm:text-xs">
+<header class="relative z-40 w-full border-b border-border bg-background">
+	<a href={href('home')} class="group flex items-center justify-center gap-3 border-b border-border px-4 py-2.5 font-mono text-[11px] tracking-[0.06em] text-foreground sm:text-xs">
 		<span class="size-1.5 bg-[var(--orange)]"></span>
 		<span class="truncate">{announce}</span>
 		<ArrowUpRight class="lucide size-3.5 shrink-0 transition-transform group-hover:translate-x-0.5 motion-reduce:transition-none" />
 	</a>
-	<nav aria-label="Main" class="relative mt-3 grid grid-cols-[1fr_auto_1fr] items-center border border-border bg-background px-2 py-2">
-		<span aria-hidden="true" class="absolute -top-px -left-px size-2 border-t border-l border-foreground"></span>
-		<span aria-hidden="true" class="absolute -right-px -bottom-px size-2 border-r border-b border-foreground"></span>
+	<nav aria-label="Main" class="grid grid-cols-[1fr_auto_1fr] items-center px-2 py-2.5 sm:px-6">
 		<ul class="hidden items-center gap-1 md:flex">
 			{#each nav.left as n (n.slug)}
 				<li><a href={href(n.slug)} aria-current={active === n.slug ? 'page' : undefined} class={link}>{n.label}</a></li>
@@ -42,7 +40,7 @@
 		</ul>
 	</nav>
 	{#if open}
-		<ul id="hex-menu" class="mt-2 grid border border-border bg-background p-2 md:hidden">
+		<ul id="hex-menu" class="grid border-t border-border bg-background p-2 md:hidden">
 			{#each all as n (n.slug)}
 				<li><a href={href(n.slug)} aria-current={active === n.slug ? 'page' : undefined} class="block px-3 py-3 text-lg text-foreground" onclick={() => (open = false)}>{n.label}</a></li>
 			{/each}

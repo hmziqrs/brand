@@ -17,9 +17,9 @@
 	] as const;
 </script>
 
-<div class={cn('grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-3', className)}>
+<div class={cn('grid gap-5 sm:grid-cols-2 lg:grid-cols-3', className)}>
 	{#each tiles as t (t.title)}
-		<div class="group flex flex-col bg-background">
+		<div class="group flex flex-col border border-border bg-background transition-colors hover:border-foreground">
 			<SpotFrame ticks={false} class="px-10 pt-8 pb-2">
 				<SpotMini kind={t.kind} class="mx-auto max-w-[200px]" />
 			</SpotFrame>

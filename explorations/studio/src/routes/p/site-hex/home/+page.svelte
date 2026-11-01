@@ -101,10 +101,10 @@
 
 	<section class="mx-auto w-full max-w-[1320px] px-4 py-16 sm:px-8">
 		<h2 class="text-4xl font-semibold tracking-[-0.03em] sm:text-5xl">Where teams start</h2>
-		<div class="mt-10 grid gap-px border border-border bg-border md:grid-cols-3">
+		<div class="mt-10 grid gap-5 md:grid-cols-3">
 			{#each uses as u (u.n)}
-				<div class="bg-background p-6 sm:p-8">
-					<p class="font-mono text-sm text-muted-foreground">{u.n}</p>
+				<div class="border border-border bg-background p-6 transition-colors hover:border-foreground sm:p-8">
+					<p class="flex items-center gap-2 font-mono text-sm text-foreground"><span class="size-2 bg-[var(--orange)]"></span>{u.n}</p>
 					<h3 class="mt-10 text-2xl font-semibold tracking-tight">{u.title}</h3>
 					<p class="mt-3 text-lg leading-snug">{u.body}</p>
 				</div>

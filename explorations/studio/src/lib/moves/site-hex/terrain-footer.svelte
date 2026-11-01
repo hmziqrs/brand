@@ -14,11 +14,9 @@
 	});
 </script>
 
-<footer class="mx-auto mt-24 w-full max-w-[1320px] px-4 pb-10 sm:px-8">
-	<div class="relative border border-border">
-		<span aria-hidden="true" class="absolute -top-px -left-px size-2 border-t border-l border-foreground"></span>
-		<span aria-hidden="true" class="absolute -right-px -bottom-px size-2 border-r border-b border-foreground"></span>
-		<div class="grid gap-10 p-6 sm:p-10 lg:grid-cols-[1.1fr_2fr]">
+<footer class="mt-24 w-full border-t border-border">
+	<div class="relative">
+		<div class="grid gap-10 px-4 py-12 sm:px-8 lg:grid-cols-[1.1fr_2fr] lg:px-12 lg:py-16">
 			<div class="flex flex-col gap-6">
 				<a href={href('home')} class="text-4xl" aria-label="Quarry home"><Wordmark /></a>
 				<p class="max-w-[30ch] text-lg leading-snug text-foreground">The analytics workspace where people and agents check each other's work.</p>
@@ -40,15 +38,15 @@
 				{/each}
 			</div>
 		</div>
-		<div class="relative grid items-end gap-6 border-t border-border px-6 pt-8 sm:px-10 md:grid-cols-[1fr_1.1fr]">
-			<p aria-hidden="true" class="pb-8 text-[22vw] leading-[0.8] font-bold tracking-[-0.06em] text-foreground select-none md:text-[11vw] xl:text-[160px]">quarry<i class="ml-[0.06em] inline-block size-[0.3em] bg-[var(--orange)]"></i></p>
+		<div class="relative grid items-end gap-6 border-t border-border px-4 pt-8 sm:px-8 md:grid-cols-[1fr_1.1fr] lg:px-12">
+			<p aria-hidden="true" class="pb-8 text-[22vw] leading-[0.8] font-bold tracking-[-0.06em] text-foreground select-none md:text-[12vw] 2xl:text-[220px]">quarry<i class="ml-[0.06em] inline-block size-[0.3em] bg-[var(--orange)]"></i></p>
 			<div class="relative">
 				<p class="absolute top-0 right-0 z-10 font-mono text-[11px] text-muted-foreground">move the cursor</p>
 				<SpotTerrain cols={13} rows={9} u={22} lift={3} class="-mb-1 text-foreground" />
 			</div>
 		</div>
 	</div>
-	<div class="mt-6 flex flex-wrap justify-between gap-4 font-mono text-xs text-muted-foreground">
+	<div class="flex flex-wrap justify-between gap-4 border-t border-border px-4 py-6 font-mono text-xs text-muted-foreground sm:px-8 lg:px-12">
 		<span>© 2026 Quarry Labs, a study built with the hmziq kit</span>
 		<span class="flex gap-5"><a href={href('pricing')} class="hover:text-foreground">Privacy</a><a href={href('pricing')} class="hover:text-foreground">Terms</a><a href={href('contact')} class="hover:text-foreground">Security</a></span>
 	</div>
