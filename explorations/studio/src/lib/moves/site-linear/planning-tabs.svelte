@@ -83,9 +83,9 @@
 			</ul>
 		{/if}
 	</div>
-	<div class="order-first grid grid-cols-2 gap-px overflow-hidden rounded-xl bg-border ring-1 ring-border lg:order-none lg:grid-cols-4" role="tablist">
+	<div class="order-first grid grid-cols-2 gap-2 lg:order-none lg:grid-cols-4" role="tablist">
 		{#each tabs as t (t.id)}
-			<button type="button" role="tab" aria-selected={tab === t.id} onclick={() => (tab = t.id)} class={cn('flex flex-col gap-1 p-4 text-left transition-colors motion-reduce:transition-none', tab === t.id ? 'bg-primary text-primary-foreground' : 'bg-background text-foreground hover:bg-foreground/[0.04]')}>
+			<button type="button" role="tab" aria-selected={tab === t.id} onclick={() => (tab = t.id)} class={cn('flex flex-col gap-1 rounded-xl p-4 text-left ring-1 transition-colors motion-reduce:transition-none', tab === t.id ? 'bg-primary text-primary-foreground ring-primary' : 'bg-background text-foreground ring-border hover:ring-foreground/40')}>
 				<span class="font-medium">{t.name}</span>
 				<span class="text-[13.5px] leading-snug">{t.body}</span>
 			</button>

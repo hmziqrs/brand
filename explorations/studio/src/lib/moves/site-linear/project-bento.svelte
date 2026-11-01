@@ -47,10 +47,10 @@
 	const doneLine = done.map((v, i) => `${i ? 'L' : 'M'}${sx(i)},${sy(v)}`).join(' ');
 	const proj = `M${sx(done.length - 1)},${sy(done[done.length - 1])} L${W},${sy(37)}`;
 
-	const tile = 'flex min-h-[340px] flex-col gap-6 bg-background p-6 md:p-8';
+	const tile = 'flex min-h-[340px] flex-col gap-6 rounded-2xl bg-background p-6 ring-1 ring-border md:p-8';
 </script>
 
-<div data-slot="project-bento" class={cn('grid gap-px overflow-hidden rounded-2xl bg-border ring-1 ring-border md:grid-cols-2', className)}>
+<div data-slot="project-bento" class={cn('grid gap-3 md:grid-cols-2', className)}>
 	<div class={tile}>
 		<div class="grid flex-1 place-items-center">
 			<svg viewBox="0 0 370 140" class="w-full max-w-[420px] overflow-visible" role="img" aria-label="Milestone dependency graph">
