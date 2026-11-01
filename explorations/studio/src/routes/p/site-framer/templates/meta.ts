@@ -8,7 +8,7 @@ export const meta: Meta = {
 	inspiredBy: ['framer'],
 	moves: [
 		'site-framer/site-header',
-		'site-framer/section-head',
+		'site-framer/poster-wall',
 		'site-framer/template-browser',
 		'site-framer/site-card',
 		'bento/oxide-tile',
@@ -16,6 +16,6 @@ export const meta: Meta = {
 		'flora/rust-grid-field'
 	],
 	breaks: ['no-hover-motion', 'single-typeface'],
-	notes: 'The marketplace index: category mega-grid that filters, sort / price / search that work, and every template a material poster set in a different face; the creator pitch is a solid oxide band.',
+	notes: 'Full-width split hero: giant live count, marketplace tab buttons and a big search beside a wall of site posters scrolling in opposite columns; filters are buttons with counts plus a sub-type bar, sort and price as segmented pills.',
 	order: 3
 };
