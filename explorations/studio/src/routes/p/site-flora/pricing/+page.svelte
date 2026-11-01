@@ -11,7 +11,7 @@
 	import PlanCards, { type Plan } from '$moves/site-flora/plan-cards.svelte';
 	import FeatureBanner from '$moves/site-flora/feature-banner.svelte';
 	import TeamPool from '$moves/site-flora/team-pool.svelte';
-	import CompareTable, { type Group } from '$moves/site-flora/compare-table.svelte';
+	import CompareTable, { type Column, type Group } from '$moves/site-flora/compare-table.svelte';
 	import { to } from '$moves/site-flora/site';
 
 	const plans: Plan[] = [
@@ -29,11 +29,11 @@
 		{ Icon: Wallet, title: 'A budget at the workspace level', body: 'Light users never strand credit that heavy users could have spent.' }
 	];
 
-	const columns = [
-		{ name: 'Free', price: '$0/mo' },
-		{ name: 'Solo', price: '$16/mo' },
-		{ name: 'Team', price: '$45/mo' },
-		{ name: 'Studio', price: '$180/mo' }
+	const columns: Column[] = [
+		{ name: 'Free', price: '$0', unit: '/mo', line: 'See how the board thinks.', cta: 'Start free', href: to('home'), preset: 'copper-sweep' },
+		{ name: 'Solo', price: '$16', unit: '/seat/mo', line: 'A whole studio of your own.', cta: 'Get Solo', href: to('contact'), preset: 'hammered-copper' },
+		{ name: 'Team', price: '$45', unit: '/seat/mo', line: 'One pool, shared boards, live.', cta: 'Get Team', href: to('contact') },
+		{ name: 'Studio', price: '$180', unit: '/seat/mo', line: 'For the heaviest work.', cta: 'Get Studio', href: to('contact'), preset: 'lava-fissures' }
 	];
 
 	const groups: Group[] = [
@@ -96,8 +96,8 @@
 		<TeamPool />
 	</section>
 
-	<section class="mx-auto max-w-[1100px] px-4 pb-24 sm:px-8 sm:pb-32">
-		<h2 class="mb-6 text-[clamp(2rem,3.6vw,3rem)] leading-[1.04] font-medium tracking-[-0.035em] text-foreground">Everything you need to make the work</h2>
+	<section class="mx-auto max-w-[1320px] px-4 pb-24 sm:px-8 sm:pb-32">
+		<h2 class="mb-8 max-w-[18ch] text-[clamp(2rem,3.6vw,3rem)] leading-[1.04] font-medium tracking-[-0.035em] text-foreground">Everything you need to make the work</h2>
 		<CompareTable {columns} {groups} star={2} />
 	</section>
 
