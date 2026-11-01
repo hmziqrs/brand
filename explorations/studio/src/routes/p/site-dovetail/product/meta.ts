@@ -15,8 +15,8 @@ export const meta: Meta = {
 		'site-dovetail/source-strip',
 		'site-dovetail/material-reel',
 		'site-dovetail/numbered-feature',
-		'site-dovetail/agent-anatomy',
-		'site-dovetail/source-grid',
+		'site-dovetail/agent-setup',
+		'site-dovetail/mcp-handoff',
 		'site-dovetail/replica-chat',
 		'site-dovetail/usecase-cards',
 		'site-dovetail/quote-slider',
@@ -27,6 +27,6 @@ export const meta: Meta = {
 		'site-dovetail/site-footer'
 	],
 	breaks: ['single-typeface', 'orange-only-fill', 'no-hover-motion'],
-	notes: 'dovetail.com/product/ai-agents in our kit: their purple hero becomes a solid oxide band that crumbles into cursor-flipping squares over a clickable agent builder; numbered feature rows, expanding prompt cards, a glass case-study band on copper.',
+	notes: 'dovetail.com/product/ai-agents in our kit: their purple hero becomes a solid oxide band that crumbles into cursor-flipping squares over a clickable agent builder; numbered feature rows with real agent-setup and MCP-handoff mocks on soft dot-field cards, a use-case list beside a prompt console, separate rule cards, a glass case-study band on copper.',
 	order: 5
 };
