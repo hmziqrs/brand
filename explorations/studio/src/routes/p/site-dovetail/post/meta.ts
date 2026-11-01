@@ -17,6 +17,6 @@ export const meta: Meta = {
 		'site-dovetail/site-footer'
 	],
 	breaks: [],
-	notes: 'A dovetail.com engineering post in our kit, all Onest for reading (no secondary serif): mono meta table, share and summarize-with-AI rows, big lede, ■ bullets, live chat and hoverable metric figures, sticky read-next rail.',
+	notes: 'A dovetail.com engineering post in our kit, all Onest for reading (no secondary serif): full-width editorial hero (tag pills, 7rem title, dek, avatar byline bar with share, wide material cover carrying the post’s key stat), ■ bullets, live chat and hoverable metric figures, sticky read-next rail.',
 	order: 8
 };

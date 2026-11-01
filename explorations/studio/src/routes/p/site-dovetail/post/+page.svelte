@@ -35,11 +35,16 @@
 <div class="min-h-screen overflow-x-clip bg-background text-foreground">
 	<SiteHeader current="blog" />
 
-	<PostHead {post} authors="Ada Kerr, Tomas Lind" />
-
-	<section class="mx-auto w-full max-w-[82rem] px-4 pt-20 sm:px-6 sm:pt-28">
-		<p class="max-w-[52rem] text-[clamp(1.5rem,2.6vw,2.25rem)] leading-[1.25] font-medium tracking-[-0.025em] text-foreground">Citations are the whole promise: answers built on evidence, not vibes. A few weeks ago our morning review of Ask and Agent feedback caught them slipping. Here is that ritual, and what we fixed once it raised the flag.</p>
-	</section>
+	<PostHead
+		{post}
+		authors={[
+			{ name: 'Ada Kerr', role: 'AI quality lead', preset: 'copper-sweep' },
+			{ name: 'Tomas Lind', role: 'Staff engineer', preset: 'brushed-alloy' }
+		]}
+		dek="Citations are the whole promise: answers built on evidence, not vibes. A few weeks ago our morning review of Ask and Agent feedback caught them slipping. Here is that ritual, and what we fixed once it raised the flag."
+		preset="hammered-copper"
+		stat={{ value: '96%', label: 'of follow-up answers now cite their sources, up from 64% in July. Example figure.' }}
+	/>
 
 	<div class="mx-auto grid w-full max-w-[82rem] gap-16 px-4 py-20 sm:px-6 lg:grid-cols-[minmax(0,1fr)_17rem] lg:gap-24">
 		<article class="post-body max-w-[42rem] text-[1.1rem] leading-[1.7] text-foreground lg:ml-[8%]">
