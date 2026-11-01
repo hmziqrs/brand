@@ -77,7 +77,7 @@
 	</section>
 
 	<section class="{wrap} pb-28">
-		<SectionHead title="Not just a vibe. A whole platform." lede="Everything a site needs after the first draft: CMS, hosting, analytics, SEO and testing, already built in." />
+		<SectionHead title="Not just a vibe. A whole platform" lede="Everything a site needs after the first draft: CMS, hosting, analytics, SEO and testing, already built in." />
 		<div class="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
 			<BentoCell title="Performance" href={to('enterprise')}>{#snippet art()}<UiPanel kind="vitals" />{/snippet}</BentoCell>
 			<BentoCell class="lg:col-span-2" title="Analytics" href={to('feature')}>{#snippet art()}<UiPanel kind="analytics" class="max-w-[620px]" />{/snippet}</BentoCell>

@@ -22,6 +22,6 @@ export const meta: Meta = {
 		'flora/rust-grid-field'
 	],
 	breaks: ['no-hover-motion', 'outline-only-cards'],
-	notes: 'Framer’s CMS page order: product UI on a copper material stage, an auto-advancing capability stepper whose panel changes per step, hairline bentos where every cell works, one oxide 100k tile.',
+	notes: 'CMS feature page: full-width hero with the agent CMS mock on a full-bleed hover-grid material band, auto-advancing capability stepper, bentos as separate tiles, feature pills.',
 	order: 2
 };
