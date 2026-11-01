@@ -5,7 +5,7 @@
 	import VoiceCard from '$moves/site-clicky/voice-card.svelte';
 	import AgentNotch from '$moves/site-clicky/agent-notch.svelte';
 	import NotesManifesto from '$moves/site-clicky/notes-manifesto.svelte';
-	import FeedbackWall from '$moves/site-clicky/feedback-wall.svelte';
+	import FeedbackBubbles from '$moves/site-clicky/feedback-bubbles.svelte';
 	import PlanWindows from '$moves/site-clicky/plan-windows.svelte';
 	import FaqWindow from '$moves/site-clicky/faq-window.svelte';
 	import DeskFooter from '$moves/site-clicky/desk-footer.svelte';
@@ -40,7 +40,7 @@
 
 	<NotesManifesto lines={manifesto.lines} mark={manifesto.mark} class="py-10" />
 
-	<FeedbackWall {posts} href={href('pricing')} class="py-24" />
+	<FeedbackBubbles {posts} href={href('pricing')} class="py-24" />
 
 	<section id="pricing" class="px-4 py-16 sm:px-6">
 		<p class="mx-auto mb-6 w-fit rounded-full border border-border px-3 py-1 font-mono text-[11px] tracking-[0.14em] text-foreground uppercase">pricing</p>
