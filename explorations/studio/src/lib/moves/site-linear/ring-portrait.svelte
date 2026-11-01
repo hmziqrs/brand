@@ -22,24 +22,20 @@
 			const r = 10 + i * 10;
 			const c = 2 * Math.PI * r;
 			const gap = 0.08 + rnd() * 0.3;
-			return { r, dash: `${c * (1 - gap)} ${c * gap}`, rot: rnd() * 360, accent: i === accent };
+			const end = (1 - gap) * 2 * Math.PI;
+			return { r, dash: `${c * (1 - gap)} ${c * gap}`, rot: rnd() * 360, accent: i === accent, hx: r * Math.cos(end), hy: r * Math.sin(end) };
 		});
 	});
 </script>
 
 <svg viewBox="-90 -90 180 180" aria-hidden="true" class={cn('h-full w-full', className)}>
 	{#each rings as ring (ring.r)}
-		<circle
-			r={ring.r}
-			fill="none"
-			stroke-width="1"
-			stroke-dasharray={ring.dash}
-			stroke-linecap="round"
-			class={cn('[transform-origin:0px_0px] transition-transform duration-700 motion-reduce:transition-none', ring.accent ? 'stroke-primary' : 'stroke-foreground/45')}
-			style:transform="rotate({ring.rot + (active ? (ring.accent ? 140 : -40 + ring.r) : 0)}deg)"
-		/>
-	{/each}
-	{#each rings.filter((r) => r.accent) as ring (ring.r)}
-		<circle cx={ring.r * Math.cos(((ring.rot + (active ? 140 : 0)) * Math.PI) / 180)} cy={ring.r * Math.sin(((ring.rot + (active ? 140 : 0)) * Math.PI) / 180)} r="3" class="fill-primary transition-all duration-700 motion-reduce:transition-none" />
+		<g
+			class="[transform-origin:0px_0px] transition-transform duration-[900ms] ease-[cubic-bezier(.2,.7,.2,1)] motion-reduce:transition-none"
+			style:transform="rotate({ring.rot + (active ? (ring.accent ? 220 : -40 + ring.r) : 0)}deg)"
+		>
+			<circle r={ring.r} fill="none" stroke-width="1" stroke-dasharray={ring.dash} stroke-linecap="round" class={ring.accent ? 'stroke-primary' : 'stroke-foreground/45'} />
+			{#if ring.accent}<circle cx={ring.hx} cy={ring.hy} r="3" class="fill-primary" />{/if}
+		</g>
 	{/each}
 </svg>
