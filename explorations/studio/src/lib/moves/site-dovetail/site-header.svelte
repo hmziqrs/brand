@@ -50,7 +50,7 @@
 		overlay && !scrolled ? 'border-b border-transparent bg-transparent' : 'border-b border-[color-mix(in_oklab,var(--foreground)_9%,transparent)] bg-[color-mix(in_oklab,var(--background)_82%,transparent)] backdrop-blur-xl'
 	)}
 >
-	<div class="mx-auto flex h-16 w-full max-w-[82rem] items-center gap-8 px-4 sm:px-6">
+	<div class="flex h-16 w-full items-center gap-8 px-4 sm:px-6 lg:px-10">
 		<a href={to('home')} class="text-foreground" aria-label="{brand} home">
 			<Wordmark name="contextline" class="text-[1.15rem]" />
 		</a>

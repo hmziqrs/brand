@@ -13,6 +13,7 @@ export const meta: Meta = {
 		'dovetail/mono-chip',
 		'dovetail/inline-glyph',
 		'site-dovetail/accent-headline',
+		'site-dovetail/ring-glyph',
 		'site-dovetail/ring-globe',
 		'site-dovetail/role-board',
 		'site-dovetail/people-list',

@@ -2,6 +2,7 @@
 	import { Button } from '$brand/ui/button/index.js';
 	import Glass from '$brand/components/glass.svelte';
 	import InlineGlyph from '$moves/dovetail/inline-glyph.svelte';
+	import RingGlyph from '$moves/site-dovetail/ring-glyph.svelte';
 	import SquareRatingRow from '$moves/dovetail/square-rating-row.svelte';
 	import OxideQuoteCard from '$moves/dovetail/oxide-quote-card.svelte';
 	import StatSlab from '$moves/dovetail/stat-slab.svelte';
@@ -115,13 +116,13 @@
 
 	<FeatureTabs lede="From support queues to call recordings, Contextline processes every customer interaction once, up front, and keeps it in a live system of record that is rich in context." items={build}>
 		{#snippet heading()}
-			<AccentHeadline size="xl" tint="primary" class="max-w-[14ch]">Build your <em>customer</em> <InlineGlyph kind="rings" /> context layer</AccentHeadline>
+			<AccentHeadline size="xl" tint="primary" class="max-w-[14ch]">Build your <em>customer</em> <RingGlyph /> context layer</AccentHeadline>
 		{/snippet}
 		{#snippet visual(i)}<SourceGrid focus={focus[i]} caption={captions[i]} />{/snippet}
 	</FeatureTabs>
 
 	<section class="mx-auto grid w-full max-w-[82rem] gap-4 px-4 sm:px-6 lg:grid-cols-[2fr_1fr]">
-		<OxideQuoteCard texture="rain" quote="Efficiency is the whole point for us. With the AI layer we get far more out of customer data we already had sitting around. It changed how the team works." name="Imogen Sato" role="Head of research ops, a regional bank — invented example" />
+		<OxideQuoteCard texture="rain" quote="Efficiency is the whole point for us. With the AI layer we get far more out of customer data we already had sitting around. It changed how the team works." name="Imogen Sato" role="Head of research ops, a regional bank — invented example" class="[&_svg[viewBox='0_0_40_40']_rect]:hidden" />
 		<StatSlab value="30h" label="Saved per person, every week" detail="A full working week back. Example figure for this study." face="dot" />
 	</section>
 
@@ -145,7 +146,7 @@
 	</FeatureTabs>
 
 	<section class="mx-auto grid w-full max-w-[82rem] gap-4 px-4 sm:px-6 lg:grid-cols-[2fr_1fr]">
-		<OxideQuoteCard texture="patina" quote="The best moment is watching a stakeholder search the repository and find something that genuinely surprises them. That look is how I measure the return." name="Teo Marsh" role="Staff UX researcher — invented example" />
+		<OxideQuoteCard texture="patina" quote="The best moment is watching a stakeholder search the repository and find something that genuinely surprises them. That look is how I measure the return." name="Teo Marsh" role="Staff UX researcher — invented example" class="[&_svg[viewBox='0_0_40_40']_rect]:hidden" />
 		<StatSlab value="66%" label="Faster to ship" detail="From discovery to delivery, without cutting corners. Example figure." face="dot" tone="ink" />
 	</section>
 

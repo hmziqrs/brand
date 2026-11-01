@@ -10,6 +10,7 @@ export const meta: Meta = {
 		'site-dovetail/site-header',
 		'site-dovetail/reveal-stage',
 		'site-dovetail/accent-headline',
+		'site-dovetail/ring-glyph',
 		'dovetail/inline-glyph',
 		'dovetail/square-rating-row',
 		'site-dovetail/source-strip',

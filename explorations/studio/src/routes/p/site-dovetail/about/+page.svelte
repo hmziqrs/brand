@@ -2,6 +2,7 @@
 	import { Button } from '$brand/ui/button/index.js';
 	import ArrowDown from '@lucide/svelte/icons/arrow-down';
 	import InlineGlyph from '$moves/dovetail/inline-glyph.svelte';
+	import RingGlyph from '$moves/site-dovetail/ring-glyph.svelte';
 	import MonoChip from '$moves/dovetail/mono-chip.svelte';
 	import SiteHeader from '$moves/site-dovetail/site-header.svelte';
 	import SiteFooter from '$moves/site-dovetail/site-footer.svelte';
@@ -95,7 +96,7 @@
 				<p class="mt-6 max-w-[36rem] text-[1.15rem] leading-relaxed text-foreground">We turn messy, unstructured conversations into clear intelligence for ambitious companies. It is a deep problem: large-scale data systems, applied AI and product design that has to feel effortless.</p>
 			</div>
 			<div>
-				<AccentHeadline size="md">AI <InlineGlyph kind="rings" /> was our core <em>long</em> before it was a trend</AccentHeadline>
+				<AccentHeadline size="md">AI <RingGlyph /> was our core <em>long</em> before it was a trend</AccentHeadline>
 				<p class="mt-6 max-w-[36rem] text-[1.15rem] leading-relaxed text-foreground">We were training our own models years before chat assistants went mainstream, and we keep pushing what is possible by building AI into both the product and the way we work.</p>
 			</div>
 			<div>
