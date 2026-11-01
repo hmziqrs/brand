@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { Button } from '$brand/ui/button/index.js';
 	import ArrowDown from '@lucide/svelte/icons/arrow-down';
-	import InlineGlyph from '$moves/dovetail/inline-glyph.svelte';
 	import RingGlyph from '$moves/site-dovetail/ring-glyph.svelte';
 	import MonoChip from '$moves/dovetail/mono-chip.svelte';
 	import SiteHeader from '$moves/site-dovetail/site-header.svelte';
@@ -11,13 +10,21 @@
 	import FloatObjectsHero from '$moves/site-dovetail/float-objects-hero.svelte';
 	import RingGlobe from '$moves/site-dovetail/ring-globe.svelte';
 	import RoleBoard from '$moves/site-dovetail/role-board.svelte';
-	import PeopleList from '$moves/site-dovetail/people-list.svelte';
+	import PeopleCards from '$moves/site-dovetail/people-cards.svelte';
+	import { shaderPosters } from '@hmziq/brand-core/shaders/posters';
 	import NumberedPerks from '$moves/site-dovetail/numbered-perks.svelte';
 	import MaterialReel from '$moves/site-dovetail/material-reel.svelte';
 	import ValuesRail from '$moves/site-dovetail/values-rail.svelte';
 	import HireSteps from '$moves/site-dovetail/hire-steps.svelte';
 	import FaqSplit from '$moves/site-dovetail/faq-split.svelte';
 	import { to } from '$moves/site-dovetail/site';
+
+	const poster = (p: string) => (shaderPosters[p] ?? shaderPosters['hammered-copper']).src;
+	const beliefs = [
+		{ art: 'oxide-bloom', tag: 'The problem', head: 'We build the customer <em>intelligence</em> layer used by teams who refuse to guess', lede: 'We turn messy, unstructured conversations into clear intelligence for ambitious companies. It is a deep problem: large-scale data systems, applied AI and product design that has to feel effortless.' },
+		{ art: 'oxide', tag: 'The bet', head: 'AI was our core <em>long</em> before it was a trend', lede: 'We were training our own models years before chat assistants went mainstream, and we keep pushing what is possible by building AI into both the product and the way we work.' },
+		{ art: 'ring', tag: 'The mission', head: 'One problem, every team: helping companies <em>understand</em> their customers.', lede: '' }
+	];
 
 	const roles = [
 		{ title: 'Account Executive, Enterprise', team: 'Sales & Success', place: 'US remote' },
@@ -90,18 +97,23 @@
 
 	<section class="mx-auto grid w-full max-w-[82rem] gap-12 px-4 py-24 sm:px-6 sm:py-32 lg:grid-cols-2 lg:gap-20">
 		<div class="lg:sticky lg:top-24 lg:self-start"><RingGlobe points={120} seed={4} class="mx-auto max-w-[36rem]" /></div>
-		<div class="space-y-28 sm:space-y-40">
-			<div>
-				<AccentHeadline size="md">We build the customer <em>intelligence</em> layer used by teams who <InlineGlyph kind="square" preset="oxide-bloom" /> refuse to guess</AccentHeadline>
-				<p class="mt-6 max-w-[36rem] text-[1.15rem] leading-relaxed text-foreground">We turn messy, unstructured conversations into clear intelligence for ambitious companies. It is a deep problem: large-scale data systems, applied AI and product design that has to feel effortless.</p>
-			</div>
-			<div>
-				<AccentHeadline size="md">AI <RingGlyph /> was our core <em>long</em> before it was a trend</AccentHeadline>
-				<p class="mt-6 max-w-[36rem] text-[1.15rem] leading-relaxed text-foreground">We were training our own models years before chat assistants went mainstream, and we keep pushing what is possible by building AI into both the product and the way we work.</p>
-			</div>
-			<div>
-				<AccentHeadline size="md">One problem, every team: helping companies <em>understand</em> <InlineGlyph kind="tile" preset="copper-sweep" /> their customers.</AccentHeadline>
-			</div>
+		<div class="space-y-24 sm:space-y-36">
+			{#each beliefs as b, i (b.lede)}
+				<div>
+					<div class="flex items-center gap-4">
+						{#if b.art === 'ring'}
+							<span class="grid size-24 place-items-center rounded-2xl border border-[color-mix(in_oklab,var(--foreground)_12%,transparent)] bg-card text-[4.4rem] text-foreground"><RingGlyph /></span>
+						{:else if b.art === 'oxide'}
+							<span class="band-orange grid size-24 place-items-center rounded-2xl font-dot text-[2.6rem] leading-none font-extrabold">AI</span>
+						{:else}
+							<span class="relative size-24 overflow-hidden rounded-2xl"><img src={poster(b.art)} alt="" class="absolute inset-0 size-full object-cover" /></span>
+						{/if}
+						<span class="font-mono text-[0.72rem] tracking-[0.14em] text-foreground uppercase">0{i + 1} — {b.tag}</span>
+					</div>
+					<AccentHeadline size="md" class="mt-8">{@html b.head}</AccentHeadline>
+					{#if b.lede}<p class="mt-6 max-w-[36rem] text-[1.15rem] leading-relaxed text-foreground">{b.lede}</p>{/if}
+				</div>
+			{/each}
 		</div>
 	</section>
 
@@ -109,16 +121,18 @@
 		<AccentHeadline size="lg">Open <em>roles</em></AccentHeadline>
 		<p class="mt-6 max-w-[44rem] text-[1.15rem] leading-relaxed text-foreground">We are building an ambitious team across Australia and the US, and the expectation is clear: you will be trusted with meaningful problems early and asked to own them end to end. There is no set path. If you thrive on autonomy, this is where you do your best work.</p>
 		<RoleBoard {roles} class="mt-14" />
-		<div class="mt-16 max-w-[34rem] rounded-2xl border border-[color-mix(in_oklab,var(--foreground)_12%,transparent)] p-6">
-			<p class="text-[1.15rem] font-medium text-foreground">Don’t see your role?</p>
-			<p class="mt-2 text-[1rem] leading-relaxed text-foreground/85">If the right fit isn’t listed, it might not exist yet. Show us how you think and what you have built.</p>
-			<a href={to('contact')} class="mt-4 inline-block text-[1rem] font-medium text-foreground underline underline-offset-4 hover:text-primary">Join the talent list</a>
+		<div class="mt-10 flex flex-col gap-5 rounded-2xl border border-[color-mix(in_oklab,var(--foreground)_12%,transparent)] bg-card p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8 lg:ml-[calc(22rem+3rem)]">
+			<div>
+				<p class="text-[1.35rem] font-medium tracking-[-0.02em] text-foreground">Don’t see your role?</p>
+				<p class="mt-1.5 max-w-[34rem] text-[1.05rem] leading-relaxed text-foreground">If the right fit isn’t listed, it might not exist yet. Show us how you think and what you have built.</p>
+			</div>
+			<Button size="lg" href={to('contact')} class="shrink-0">Join the talent list</Button>
 		</div>
 	</section>
 
 	<section class="mx-auto w-full max-w-[82rem] px-4 py-24 sm:px-6 sm:py-32">
 		<AccentHeadline size="xl" class="mx-auto max-w-[14ch] text-center">Meet some of the <em>people</em> behind it</AccentHeadline>
-		<PeopleList {people} class="mt-16" />
+		<PeopleCards {people} class="mt-16" />
 	</section>
 
 	<section class="mx-auto w-full max-w-[82rem] px-4 py-24 sm:px-6 sm:py-32">
