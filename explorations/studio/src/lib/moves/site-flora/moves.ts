@@ -22,5 +22,6 @@ export const moves: Move[] = [
 	{ id: 'site-flora/support-trio', axis: 'cards', name: 'Support trio with animated mocks', file: f('support-trio'), notes: 'Three cards on dotted mini-boards: a pinging lead chip with drifting cursors, icon tiles, and a rollout timeline that fills in oxide.' },
 	{ id: 'site-flora/read-more', axis: 'layout', name: 'Read-more row', file: f('read-more'), notes: 'Ruled header with “See all”, then four seeded material covers that tilt toward the cursor, with title and date.' },
 	{ id: 'site-flora/contact-form', axis: 'section', name: 'Contact form with oxide success', file: f('contact-form'), notes: 'Kit inputs on card fills, native topic select, inline validation on send, and a solid oxide thank-you panel that replaces the form.' },
-	{ id: 'site-flora/story-list', axis: 'layout', name: 'Filterable story list', file: f('story-list'), notes: 'Category pills + search over a ruled list of stories with material thumbnails; an oxide rule draws under the hovered row; “Show older” pages in more.' }
+	{ id: 'site-flora/story-list', axis: 'layout', name: 'Filterable story list', file: f('story-list'), notes: 'Category pills + search over a ruled list of stories with material thumbnails; an oxide rule draws under the hovered row; “Show older” pages in more.' },
+	{ id: 'site-flora/pillar-switch', axis: 'section', name: 'Pillar switch', file: f('pillar-switch'), notes: 'Numbered big-type pillars; hover or click one to open its copy and bullets while a sticky visual beside it swaps in. Replaces three alternating split rows.' },
 ];
