@@ -124,5 +124,5 @@
 		<OpenRoles />
 	</section>
 
-	<SiteFooter preset="hammered-copper" />
+	<SiteFooter />
 </div>

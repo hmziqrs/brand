@@ -140,5 +140,5 @@
 		<ExpertForm title="Talk to an enterprise specialist" preset="hammered-copper" cells={[{ icon: ShieldCheck, title: 'Security built in', body: 'SSO, SCIM, permissions and audit logs for mission-critical sites.' }, { icon: Users, title: 'Scale without queues', body: 'Custom editor plans, limits and workflows.' }, { icon: Sparkles, title: 'Agents for site work', body: 'Every team drafts, fixes and ships on its own.' }, { icon: Timer, title: 'Priority support', body: 'Guaranteed uptime and a partner on launch day.' }]} />
 	</section>
 
-	<SiteFooter preset="cast-iron" />
+	<SiteFooter />
 </div>

@@ -37,8 +37,8 @@
 	}}
 	onpointerleave={() => ((mx = -999), (my = -999))}
 	class={cn(
-		'group relative isolate flex min-w-0 flex-col overflow-hidden',
-		tone === 'oxide' ? 'band-orange' : tone === 'material' ? 'dark bg-background text-foreground' : 'bg-background',
+		'group relative isolate flex min-w-0 flex-col overflow-hidden rounded-[24px] border',
+		tone === 'oxide' ? 'band-orange border-transparent' : tone === 'material' ? 'dark border-border bg-background text-foreground' : 'border-border bg-card',
 		className
 	)}
 >
