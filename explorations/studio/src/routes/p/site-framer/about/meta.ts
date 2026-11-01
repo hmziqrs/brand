@@ -19,6 +19,6 @@ export const meta: Meta = {
 		'flora/rust-grid-field'
 	],
 	breaks: ['no-hover-motion'],
-	notes: 'Framer’s about + careers order: a 3D kiln tile that follows the cursor over the hover-grid stage, giant years that light oxide as you scroll, role cards, perks and a filterable roles list.',
+	notes: 'About page: full-width headline and a full-bleed material band with the 3D mark, story with founders, giant year timeline, then role, perk and open-role cards (all separate, team chips in palette colours).',
 	order: 7
 };
