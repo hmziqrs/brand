@@ -18,6 +18,7 @@
 
 	const teams = $derived(['All', ...new Set(roles.map((r) => r.team))]);
 	let team = $state('All');
+	const tone: Record<string, string> = { Design: 'bg-pink/15 text-pink', Engineering: 'bg-teal/15 text-teal', 'Go to market': 'bg-yellow/15 text-yellow' };
 	const shown = $derived(roles.filter((r) => team === 'All' || r.team === team));
 </script>
 
@@ -29,14 +30,14 @@
 			</button>
 		{/each}
 	</div>
-	<ul class="mt-6 border-t border-border">
+	<ul class="mt-6 grid gap-3">
 		{#each shown as r (r.title)}
-			<li class="border-b border-border">
-				<a href="#/p/site-framer/contact" class="group grid items-center gap-1 py-5 sm:grid-cols-[1.6fr_1fr_1fr_auto] sm:gap-6">
-					<span class="text-xl font-medium tracking-[-0.02em] transition-colors group-hover:text-primary">{r.title}</span>
-					<span class="text-foreground/70">{r.team}</span>
-					<span class="text-foreground/70">{r.where}</span>
-					<ArrowUpRight class="lucide hidden size-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 motion-reduce:transition-none sm:block" />
+			<li>
+				<a href="#/p/site-framer/contact" class="group grid items-center gap-3 rounded-[22px] border border-border bg-card p-5 transition-colors hover:border-transparent hover:bg-primary hover:text-primary-foreground sm:grid-cols-[1.6fr_auto_1fr_auto] sm:gap-6 sm:px-6">
+					<span class="text-xl font-medium tracking-[-0.02em]">{r.title}</span>
+					<span class={cn('w-fit rounded-full px-2.5 py-1 font-mono text-[0.6875rem] tracking-[0.1em] uppercase transition-colors group-hover:bg-primary-foreground/15 group-hover:text-primary-foreground', tone[r.team] ?? 'bg-muted')}>{r.team}</span>
+					<span class="text-foreground/80 group-hover:text-primary-foreground">{r.where}</span>
+					<span class="hidden size-10 place-items-center rounded-full bg-primary text-primary-foreground transition-colors group-hover:bg-primary-foreground group-hover:text-primary sm:grid"><ArrowUpRight class="lucide size-4" /></span>
 				</a>
 			</li>
 		{/each}

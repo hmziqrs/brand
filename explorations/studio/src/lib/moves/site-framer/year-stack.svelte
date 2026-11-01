@@ -22,7 +22,7 @@
 	{#each items as it, i (it.year)}
 		<li bind:this={rows[i]} data-i={i} class="grid items-center gap-4 py-6 md:grid-cols-[1.2fr_1fr] md:gap-10 md:py-10">
 			<p
-				class={cn('text-[clamp(5.5rem,17vw,15rem)] leading-[0.8] font-semibold tracking-[-0.07em] tabular-nums transition-colors duration-500 motion-reduce:transition-none', active === i ? 'text-primary' : 'text-foreground/15')}
+				class={cn('text-[clamp(5.5rem,17vw,15rem)] leading-[0.8] font-semibold tracking-[-0.07em] tabular-nums transition-colors duration-500 motion-reduce:transition-none', active === i ? 'text-(--oxide-vivid)' : 'text-foreground/15')}
 				style:padding-left={`${(i % 3) * 8}%`}
 			>
 				{it.year}
