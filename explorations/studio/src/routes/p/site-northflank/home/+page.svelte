@@ -5,9 +5,9 @@
 	import SiteHeader from '$moves/site-northflank/site-header.svelte';
 	import SiteFooter from '$moves/site-northflank/site-footer.svelte';
 	import VoxelRuntime from '$moves/site-northflank/voxel-runtime.svelte';
-	import WorkloadBento from '$moves/site-northflank/workload-bento.svelte';
+	import WorkloadStage from '$moves/site-northflank/workload-stage.svelte';
 	import ControlPlane from '$moves/site-northflank/control-plane.svelte';
-	import PrimitiveTabs from '$moves/site-northflank/primitive-tabs.svelte';
+	import PrimitiveGrid from '$moves/site-northflank/primitive-grid.svelte';
 	import EnterprisePanel from '$moves/site-northflank/enterprise-panel.svelte';
 	import CtaBand from '$moves/site-northflank/cta-band.svelte';
 	import CursorDither from '$moves/site-northflank/cursor-dither.svelte';
@@ -15,7 +15,8 @@
 	import KeyButton from '$moves/northflank/key-button.svelte';
 	import TerminalChip from '$moves/northflank/terminal-chip.svelte';
 	import MonoLabel from '$moves/northflank/mono-label.svelte';
-	import FeatureStrip, { type StripItem } from '$moves/northflank/feature-strip.svelte';
+	import type { StripItem } from '$moves/northflank/feature-strip.svelte';
+	import GlyphCards from '$moves/site-northflank/glyph-cards.svelte';
 	import LoopDiagram, { type LoopStep } from '$moves/northflank/loop-diagram.svelte';
 
 	const wrap = 'mx-auto w-full max-w-[1320px] px-4 sm:px-8';
@@ -79,7 +80,7 @@
 			</div>
 		</div>
 		<div class="{wrap} relative pb-24">
-			<FeatureStrip items={strip} class="bg-background" />
+			<GlyphCards items={strip} />
 		</div>
 	</section>
 
@@ -92,11 +93,11 @@
 				</div>
 				<p class="max-w-[28rem] text-[19px] leading-[1.5] text-foreground/85 lg:justify-self-end">One platform for the service that takes payments and the throwaway tool an agent wrote this morning. Same isolation, same audit trail.</p>
 			</div>
-			<WorkloadBento class="mt-14" />
+			<WorkloadStage class="mt-14" />
 		</div>
 	</section>
 
-	<section class="border-t bg-(--band)">
+	<section class="border-t">
 		<div class="{wrap} py-24 lg:py-32">
 			<MonoLabel index="02" text="One runtime" />
 			<h2 class="{h2} mt-5 max-w-[17ch]">Everyone ships now. Give all of it one trusted runtime.</h2>
@@ -114,7 +115,7 @@
 				</div>
 				<a href={to('blog')} class="inline-flex items-center gap-1.5 font-mono text-[13px] text-orange hover:underline">API docs<ArrowRight class="lucide size-3.5" /></a>
 			</div>
-			<PrimitiveTabs class="mt-14" />
+			<PrimitiveGrid class="mt-14" />
 		</div>
 	</section>
 

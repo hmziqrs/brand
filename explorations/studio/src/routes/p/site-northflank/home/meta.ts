@@ -8,9 +8,9 @@ export const meta: Meta = {
 	moves: [
 		'site-northflank/site-header',
 		'site-northflank/voxel-runtime',
-		'site-northflank/workload-bento',
+		'site-northflank/workload-stage',
 		'site-northflank/control-plane',
-		'site-northflank/primitive-tabs',
+		'site-northflank/primitive-grid',
 		'site-northflank/enterprise-panel',
 		'site-northflank/cta-band',
 		'site-northflank/cursor-dither',
@@ -18,11 +18,11 @@ export const meta: Meta = {
 		'northflank/key-button',
 		'northflank/terminal-chip',
 		'northflank/mono-label',
-		'northflank/feature-strip',
+		'site-northflank/glyph-cards',
 		'northflank/loop-diagram',
 		'northflank/oxide-slab'
 	],
 	breaks: ['no-hover-motion'],
-	notes: 'Their home page, section for section, in our kit: the hero voxels rise under the cursor and ripple on click; bento cards and the control plane are live.',
+	notes: 'Their home page, section for section, in our kit: the hero voxels rise under the cursor and ripple on click; workloads switch a live stage, primitives are separate cards, the control plane is live.',
 	order: 1
 };
