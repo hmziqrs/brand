@@ -1,11 +1,10 @@
 <script lang="ts">
 	import { cn } from '$brand/utils.js';
-	import Search from '@lucide/svelte/icons/search';
-	import X from '@lucide/svelte/icons/x';
+		import X from '@lucide/svelte/icons/x';
 	import SiteCard from './site-card.svelte';
 	import { sites } from './site';
 
-	let { class: className }: { class?: string } = $props();
+	let { q = $bindable(''), class: className }: { q?: string; class?: string } = $props();
 
 	const cats: [string, string[]][] = [
 		['Portfolio', ['Artists', 'Designers', 'Photography', 'Resume']],
@@ -25,10 +24,12 @@
 	let cat = $state<string | null>(null);
 	let sort = $state('Trending');
 	let price = $state<'All' | 'Free' | 'Paid'>('All');
-	let q = $state('');
+	let sub = $state<string | null>(null);
+	const subOf = (i: number) => i % 4;
 
 	const shown = $derived.by(() => {
-		let list = all.filter((s) => (!cat || s.tags?.includes(cat)) && (price === 'All' || (price === 'Free') === (s.price === 'Free')) && (!q || `${s.name} ${s.by}`.toLowerCase().includes(q.toLowerCase())));
+		const subs = cats.find(([c]) => c === cat)?.[1] ?? [];
+		let list = all.filter((s, i) => (!cat || s.tags?.includes(cat)) && (!sub || subs[subOf(i)] === sub) && (price === 'All' || (price === 'Free') === (s.price === 'Free')) && (!q || `${s.name} ${s.by}`.toLowerCase().includes(q.toLowerCase())));
 		if (sort === 'Recent') list = [...list].reverse();
 		if (sort === 'Best') list = [...list].sort((a, b) => a.name.localeCompare(b.name));
 		return list;
@@ -36,40 +37,44 @@
 </script>
 
 <div class={cn('min-w-0', className)}>
-	<div class="grid grid-cols-2 gap-x-6 gap-y-8 border-y border-border py-10 sm:grid-cols-3 md:grid-cols-5 xl:grid-cols-10">
-		{#each cats as [c, subs] (c)}
-			<div>
-				<button type="button" onclick={() => (cat = cat === c ? null : c)} class={cn('text-[0.9375rem] font-medium transition-colors', cat === c ? 'text-primary' : 'hover:text-primary')}>
-					{#if cat === c}<span class="mr-1.5 inline-block size-2 bg-primary"></span>{/if}{c}
-				</button>
-				<ul class="mt-2 space-y-1.5 text-sm text-foreground/60">
-					{#each subs as s (s)}<li>{s}</li>{/each}
-				</ul>
-			</div>
+	<div class="flex flex-wrap gap-2" role="group" aria-label="Category">
+		{#each [null, ...cats.map(([c]) => c)] as c (c ?? 'all')}
+			<button
+				type="button"
+				onclick={() => ((cat = c), (sub = null))}
+				aria-pressed={cat === c}
+				class={cn('inline-flex items-center gap-2 rounded-full border px-4 py-2.5 text-[0.9375rem] font-medium transition-colors', cat === c ? 'border-transparent bg-primary text-primary-foreground' : 'border-border bg-card text-foreground hover:border-primary')}
+			>
+				{c ?? 'All'}<span class={cn('font-mono text-[0.6875rem] font-normal', cat === c ? '' : 'text-foreground/60')}>{c ? all.filter((s) => s.tags?.includes(c)).length : all.length}</span>
+			</button>
 		{/each}
 	</div>
+	{#if cat}
+		<div class="mt-3 flex flex-wrap items-center gap-2 rounded-2xl bg-card p-2" role="group" aria-label="{cat} type">
+			<span class="px-2 font-mono text-[0.6875rem] tracking-[0.12em] text-foreground/70 uppercase">{cat}</span>
+			{#each cats.find(([c]) => c === cat)?.[1] ?? [] as s (s)}
+				<button type="button" onclick={() => (sub = sub === s ? null : s)} aria-pressed={sub === s} class={cn('rounded-full px-3 py-1.5 text-sm transition-colors', sub === s ? 'bg-foreground text-background' : 'bg-background text-foreground hover:bg-muted')}>{s}</button>
+			{/each}
+			<button type="button" onclick={() => ((cat = null), (sub = null))} class="ml-auto inline-flex items-center gap-1 px-2 text-sm text-foreground/80 hover:text-foreground">Clear<X class="lucide size-3.5" /></button>
+		</div>
+	{/if}
 
-	<div class="mt-8 flex flex-wrap items-center gap-3">
-		<div class="flex rounded-full border border-border p-1">
+	<div class="mt-8 flex flex-wrap items-center gap-3 border-t border-border pt-6">
+		<p class="mr-auto text-lg"><span class="font-semibold tabular-nums">{shown.length}</span> templates{cat ? ` in ${cat}` : ''}{sub ? ` · ${sub}` : ''}{q ? ` matching “${q}”` : ''}</p>
+		<div class="flex rounded-full border border-border bg-card p-1" role="group" aria-label="Sort">
 			{#each ['Trending', 'Best', 'Recent'] as s (s)}
-				<button type="button" onclick={() => (sort = s)} class="rounded-full px-3.5 py-1.5 text-sm transition-colors" class:bg-foreground={sort === s} class:text-background={sort === s}>{s}</button>
+				<button type="button" onclick={() => (sort = s)} aria-pressed={sort === s} class="rounded-full px-3.5 py-1.5 text-sm transition-colors" class:bg-foreground={sort === s} class:text-background={sort === s}>{s}</button>
 			{/each}
 		</div>
-		{#if cat}<button type="button" onclick={() => (cat = null)} class="inline-flex items-center gap-1.5 rounded-full bg-primary px-3 py-1.5 text-sm text-primary-foreground">{cat}<X class="lucide size-3.5" /></button>{/if}
-		<label class="ml-auto flex min-w-0 flex-1 items-center gap-2 rounded-full border border-border px-4 py-2 sm:max-w-[260px]">
-			<Search class="lucide size-4 shrink-0 text-foreground/50" /><span class="sr-only">Search templates</span>
-			<input bind:value={q} placeholder="Search templates…" class="min-w-0 flex-1 bg-transparent text-sm outline-none placeholder:text-foreground/45" />
-		</label>
-		<div class="flex rounded-full border border-border p-1">
+		<div class="flex rounded-full border border-border bg-card p-1" role="group" aria-label="Price">
 			{#each ['All', 'Free', 'Paid'] as const as p (p)}
-				<button type="button" onclick={() => (price = p)} class="rounded-full px-3 py-1.5 text-sm transition-colors" class:bg-primary={price === p} class:text-primary-foreground={price === p}>{p}</button>
+				<button type="button" onclick={() => (price = p)} aria-pressed={price === p} class="rounded-full px-3.5 py-1.5 text-sm transition-colors" class:bg-primary={price === p} class:text-primary-foreground={price === p}>{p}</button>
 			{/each}
 		</div>
 	</div>
 
-	<p class="mt-6 text-sm text-foreground/60">{shown.length} templates{cat ? ` in ${cat}` : ''}</p>
 	{#if shown.length}
-		<div class="mt-4 grid gap-x-4 gap-y-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+		<div class="mt-6 grid gap-x-4 gap-y-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 			{#each shown as s (s.name)}<SiteCard site={s} />{/each}
 		</div>
 	{:else}
