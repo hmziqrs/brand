@@ -8,7 +8,7 @@
 </script>
 
 <footer class={cn('border-t border-[color-mix(in_oklab,var(--foreground)_10%,transparent)] bg-background', className)}>
-	<div class="mx-auto w-full max-w-[82rem] px-4 pt-16 pb-8 sm:px-6">
+	<div class="w-full px-4 pt-16 pb-8 sm:px-6 lg:px-10">
 		<div class="grid gap-10 sm:grid-cols-3 lg:grid-cols-[1.4fr_repeat(5,1fr)]">
 			<div class="sm:col-span-3 lg:col-span-1">
 				<a href={to('home')} class="text-foreground"><Wordmark name="contextline" class="text-[1.35rem]" /></a>

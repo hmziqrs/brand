@@ -57,7 +57,7 @@
 	<section class="mx-auto w-full max-w-[82rem] px-4 py-24 sm:px-6 sm:py-32">
 		<div class="grid gap-4 lg:grid-cols-[2fr_1fr]">
 			{#key f}
-				<OxideQuoteCard texture="rain" quote={featured[f].quote} name={featured[f].name} role={featured[f].role} class="min-h-[26rem]" />
+				<OxideQuoteCard texture="rain" quote={featured[f].quote} name={featured[f].name} role={featured[f].role} class="min-h-[26rem] [&_svg[viewBox='0_0_40_40']_rect]:hidden" />
 			{/key}
 			<div class="grid gap-4">
 				<StatSlab value="236%" label="Return in six months" detail="Example figure for this study." face="dot" />

@@ -62,7 +62,7 @@
 				{:else if o.kind === 'rings'}
 					<svg viewBox="0 0 100 100" class="size-full text-foreground">
 						{#each [48, 38, 28, 18] as r (r)}<circle cx="50" cy="50" {r} fill="none" stroke="currentColor" stroke-opacity="0.4" stroke-width="1" />{/each}
-						<rect x="44" y="44" width="12" height="12" fill="var(--primary)" />
+						<rect x="46" y="8" width="8" height="8" fill="var(--primary)" />
 					</svg>
 				{:else if o.kind === 'square'}
 					{#if o.preset}<img src={src(o.preset)} alt="" class="size-full object-cover" />{:else}<span class="block size-full bg-primary"></span>{/if}
