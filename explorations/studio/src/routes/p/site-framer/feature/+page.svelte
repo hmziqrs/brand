@@ -38,7 +38,7 @@
 	import OxideTile from '$moves/bento/oxide-tile.svelte';
 	import { to } from '$moves/site-framer/site';
 
-	const wrap = 'mx-auto max-w-[1280px] px-4 sm:px-8';
+	const wrap = 'mx-auto max-w-[1320px] px-4 sm:px-8';
 	let visible = $state(true);
 	let draft = $state('Dynamic pricing');
 </script>
@@ -48,22 +48,29 @@
 <div class="min-h-screen overflow-x-clip bg-background text-foreground">
 	<SiteHeader active="feature" />
 
-	<section class="{wrap} pt-16 md:pt-24">
-		<p class="font-mono text-xs tracking-[0.16em] text-primary uppercase">kiln CMS</p>
-		<h1 class="mt-5 max-w-[14ch] text-[clamp(3.25rem,8vw,7.25rem)] leading-[0.88] font-semibold tracking-[-0.06em]">Create, run and publish dynamic sites with agents<span class="ml-[0.05em] inline-block size-[0.15em] bg-primary"></span></h1>
-		<div class="mt-8 flex flex-wrap gap-3">
-			<Button href={to('pricing')} size="lg" class="h-12 rounded-full px-6 text-base">Start for free</Button>
-			<Button href={to('pricing')} size="lg" variant="outline" class="h-12 rounded-full px-6 text-base">Download the app<Download class="lucide" /></Button>
+	<section class="w-full pt-16 md:pt-24">
+		<div class="flex flex-wrap items-end justify-between gap-8 px-4 sm:px-6 lg:px-10">
+			<div>
+				<p class="font-mono text-xs tracking-[0.16em] text-primary uppercase">kiln CMS</p>
+				<h1 class="mt-5 max-w-[13ch] text-[clamp(3.25rem,8.6vw,8.5rem)] leading-[0.86] font-semibold tracking-[-0.065em]">Content that runs itself, with agents<span class="ml-[0.04em] inline-block size-[0.14em] bg-primary"></span></h1>
+			</div>
+			<div class="max-w-[34ch]">
+				<p class="text-xl leading-snug md:text-2xl">Create collections, fill them and publish dynamic pages by hand or by prompt, on the same canvas as the design.</p>
+				<div class="mt-7 flex flex-wrap gap-3">
+					<Button href={to('pricing')} size="lg" class="h-12 rounded-full px-6 text-base">Start for free</Button>
+					<Button href={to('pricing')} size="lg" variant="outline" class="h-12 rounded-full px-6 text-base">Download the app<Download class="lucide" /></Button>
+				</div>
+			</div>
 		</div>
-		<HeroStage class="mt-12 min-h-0 px-3 py-10 sm:px-10 md:min-h-0 md:py-14" preset="copper-sweep" live={false} veil={0.6} cell={56} corner="move the cursor">
-			<CmsTable agent class="w-full shadow-[0_40px_120px_-30px_var(--background)]" />
+		<HeroStage bleed class="mt-14 min-h-0 px-3 py-12 sm:px-10 md:min-h-0 md:py-20" preset="copper-sweep" live={false} veil={0.6} cell={56} corner="move the cursor">
+			<CmsTable agent class="w-full max-w-[1200px] shadow-[0_40px_120px_-30px_var(--background)]" />
 		</HeroStage>
 	</section>
 
 	<section class="{wrap} py-24"><ProofStrip /></section>
 
 	<section class="{wrap} pb-28">
-		<SectionHead title="Create, update and import content. By hand or by prompt." class="mb-12" />
+		<SectionHead title="Create, update and import content. By hand or by prompt" class="mb-12" />
 		<CapabilityTabs
 			items={[
 				{ title: 'Create a collection in seconds', body: 'Say what you want to store. The agent picks field types, makes the collection and sets up slugs.', prompt: 'Make an Authors collection for the journal: name, avatar, team, short bio and one social link.', panel: 'fields' },
@@ -77,7 +84,7 @@
 
 	<section class="{wrap} pb-28">
 		<SectionHead title="A CMS built around how teams actually work" class="mb-12" />
-		<div class="grid gap-px overflow-hidden rounded-[28px] border border-border bg-border md:grid-cols-2">
+		<div class="grid gap-4 md:grid-cols-2">
 			<BentoCell title="Edit content anywhere" href={to('feature')} body="Fix a typo from your phone, on the live site. Teammates never need to open the canvas.">
 				{#snippet art()}
 					<div class="w-[230px] rounded-[34px] border-[6px] border-foreground/15 bg-card p-3 pt-6">
@@ -116,7 +123,7 @@
 	<section class="{wrap} pb-28">
 		<SectionHead title="The small details that make content feel alive" class="mb-12" />
 		<div class="grid gap-4 lg:grid-cols-3">
-			<div class="grid gap-px overflow-hidden rounded-[28px] border border-border bg-border md:grid-cols-2 lg:col-span-2">
+			<div class="grid gap-4 md:grid-cols-2 lg:col-span-2">
 				<BentoCell title="Conditional visibility" body="Show or hide elements from CMS values.">
 					{#snippet art()}
 						<div class="w-full max-w-[280px] rounded-2xl border border-border bg-card p-4 text-sm">
@@ -136,7 +143,7 @@
 			</div>
 			<div class="flex flex-col gap-4">
 				<OxideTile eyebrow="Per project" big="100k" title="items in a single collection." body="Large catalogues, directories and changelogs stay fast to edit and fast to load." seed="kiln-cms" class="flex-1" />
-				<div class="rounded-[28px] border border-border p-6">
+				<div class="rounded-[24px] border border-border bg-card p-6">
 					<p class="flex items-center gap-2 text-xl font-medium tracking-[-0.02em]"><Link class="lucide size-5 text-primary" />Unlimited references</p>
 					<p class="mt-1.5 text-[1.0625rem] leading-snug text-foreground/75">Link authors to posts, products to collections, speakers to talks, as deep as you need.</p>
 				</div>
@@ -169,9 +176,9 @@
 
 	<section class="{wrap} pb-8">
 		<SectionHead title="Everything a site needs, already inside" size="md" class="mb-10" />
-		<div class="grid gap-px overflow-hidden rounded-[20px] border border-border bg-border sm:grid-cols-2 lg:grid-cols-5">
+		<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
 			{#each [{ i: Sparkles, t: 'Agent', b: 'Draft and refine pages' }, { i: PenTool, t: 'Canvas', b: 'Design without limits' }, { i: Server, t: 'Hosting', b: 'Global, fast, included' }, { i: Search, t: 'SEO', b: 'Ranked and readable' }, { i: ChartLine, t: 'Analytics', b: 'Traffic without cookies' }] as c (c.t)}
-				<a href={to('home')} class="group flex flex-col gap-8 bg-background p-5 transition-colors hover:bg-card">
+				<a href={to('home')} class="group flex flex-col gap-10 rounded-[22px] border border-border bg-card p-5 transition-colors hover:border-primary">
 					<c.i class="lucide size-5 text-primary" />
 					<span><span class="flex items-center gap-1.5 text-lg font-medium">{c.t}<ArrowRight class="lucide size-4 transition-transform group-hover:translate-x-1 motion-reduce:transition-none" /></span><span class="text-foreground/70">{c.b}</span></span>
 				</a>
