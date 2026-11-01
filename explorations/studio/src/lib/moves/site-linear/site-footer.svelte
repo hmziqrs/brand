@@ -16,7 +16,6 @@
 
 {#if closing}
 	<section data-slot="closing-cta" class="relative isolate overflow-hidden border-t border-border py-28 md:py-40">
-		<div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_45%_40%_at_50%_50%,color-mix(in_oklab,var(--primary)_22%,transparent),transparent)]"></div>
 		<div class="mx-auto flex max-w-[1320px] flex-col items-center gap-10 px-4 text-center sm:px-6">
 			<h2 class="max-w-[14ch] text-[clamp(3rem,8vw,7rem)] leading-[0.95] font-medium tracking-[-0.045em] text-balance text-foreground">
 				Built for what’s next. <span class="text-primary">Ready today.</span>

@@ -22,9 +22,9 @@
 </script>
 
 <section data-slot="integration-strip" class={cn('mx-auto max-w-[1320px] px-4 sm:px-6', className)}>
-	<div class="grid grid-cols-3 gap-px overflow-hidden rounded-xl bg-border ring-1 ring-border sm:grid-cols-4 lg:grid-cols-6 xl:grid-cols-12">
+	<div class="grid grid-cols-3 gap-2 sm:grid-cols-4 lg:grid-cols-6 xl:grid-cols-12">
 		{#each tools as [icon, name] (name)}
-			<div class="group flex flex-col items-center justify-center gap-2 bg-background py-6 text-foreground transition-colors hover:bg-primary hover:text-primary-foreground motion-reduce:transition-none">
+			<div class="group flex flex-col items-center justify-center gap-2 rounded-xl bg-background py-6 ring-1 ring-border text-foreground transition-colors hover:bg-primary hover:text-primary-foreground motion-reduce:transition-none">
 				<BrandIcon {icon} class="size-6" />
 				<span class="text-xs">{name}</span>
 			</div>

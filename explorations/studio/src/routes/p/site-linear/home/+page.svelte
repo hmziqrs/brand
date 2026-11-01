@@ -16,6 +16,8 @@
 	import QuotePair from '$moves/site-linear/quote-pair.svelte';
 	import OxideMarkHeadline from '$moves/bento/oxide-mark-headline.svelte';
 	import { to } from '$moves/site-linear/content';
+
+	const fig = 'rounded-2xl ring-1 ring-border transition-shadow duration-300 hover:ring-primary/60 motion-reduce:transition-none';
 </script>
 
 <svelte:head><title>Plumb · the product system for teams and agents</title></svelte:head>
@@ -38,10 +40,10 @@
 
 	<section class="mx-auto max-w-[1320px] px-4 pt-28 sm:px-6 md:pt-40">
 		<OxideMarkHeadline as="h2" before="" mark="A new kind of product tool." after=" Built around agents from day one, Plumb resets what planning and shipping software should feel like." class="max-w-[30ch] text-[clamp(2rem,4vw,3.5rem)] leading-[1.1] font-medium tracking-[-0.035em]" />
-		<div class="mt-16 grid divide-border border-y border-border md:grid-cols-3 md:divide-x">
-			<IsoFig kind="layers" fig="Fig 0.1" title="Made on purpose" body="Shaped by how the best product teams already plan, decide and ship." />
-			<IsoFig kind="cluster" fig="Fig 0.2" title="Run by agents too" body="Workflows people and agents share, from the first spec to the last PR." class="border-t border-border md:border-t-0" />
-			<IsoFig kind="bars" fig="Fig 0.3" title="Fast on purpose" body="Less noise, more momentum. Teams keep their pace and their focus." class="border-t border-border md:border-t-0" />
+		<div class="mt-16 grid gap-4 md:grid-cols-3">
+			<IsoFig kind="layers" fig="Fig 0.1" title="Made on purpose" body="Shaped by how the best product teams already plan, decide and ship." class={fig} />
+			<IsoFig kind="cluster" fig="Fig 0.2" title="Run by agents too" body="Workflows people and agents share, from the first spec to the last PR." class={fig} />
+			<IsoFig kind="bars" fig="Fig 0.3" title="Fast on purpose" body="Less noise, more momentum. Teams keep their pace and their focus." class={fig} />
 		</div>
 	</section>
 
