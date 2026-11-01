@@ -27,7 +27,7 @@
 					onclick={() => set(v)}
 					class={cn(
 						'rounded-full px-3 py-1.5 text-[0.85rem] font-medium transition-colors',
-						value === v ? 'bg-[var(--on-orange)] text-orange' : 'bg-[color-mix(in_oklab,var(--on-orange)_12%,transparent)] hover:bg-[color-mix(in_oklab,var(--on-orange)_22%,transparent)]'
+						value === v ? 'bg-[var(--on-orange)] text-white' : 'bg-[color-mix(in_oklab,var(--on-orange)_12%,transparent)] hover:bg-[color-mix(in_oklab,var(--on-orange)_22%,transparent)]'
 					)}
 				>
 					{v}
@@ -67,7 +67,7 @@
 							<span class="order-3 col-span-2 inline-flex items-center gap-2 font-mono text-[0.7rem] tracking-[0.12em] text-foreground/75 uppercase group-hover:text-[var(--on-orange)] sm:order-none sm:col-span-1">
 								<span class="size-1.5 bg-primary group-hover:bg-[var(--on-orange)]"></span>{r.place}
 							</span>
-							<span class="grid size-9 place-items-center rounded-full border border-[color-mix(in_oklab,var(--foreground)_18%,transparent)] text-foreground transition-colors group-hover:border-transparent group-hover:bg-[var(--on-orange)] group-hover:text-orange">
+							<span class="grid size-9 place-items-center rounded-full border border-[color-mix(in_oklab,var(--foreground)_18%,transparent)] text-foreground transition-colors group-hover:border-transparent group-hover:bg-[var(--on-orange)] group-hover:text-white">
 								<ArrowUpRight class="lucide size-4" />
 							</span>
 						</a>
