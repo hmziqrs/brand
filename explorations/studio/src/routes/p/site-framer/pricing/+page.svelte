@@ -9,12 +9,13 @@
 	import SiteFooter from '$moves/site-framer/site-footer.svelte';
 	import SectionHead from '$moves/site-framer/section-head.svelte';
 	import PricingTiers from '$moves/site-framer/pricing-tiers.svelte';
+	import GrowthDots from '$moves/site-framer/growth-dots.svelte';
 	import ProofStrip from '$moves/site-framer/proof-strip.svelte';
 	import CompareTable from '$moves/site-framer/compare-table.svelte';
 	import PromptBox from '$moves/site-framer/prompt-box.svelte';
 	import { to } from '$moves/site-framer/site';
 
-	const wrap = 'mx-auto max-w-[1280px] px-4 sm:px-8';
+	const wrap = 'mx-auto max-w-[1320px] px-4 sm:px-8';
 
 	const groups = [
 		{
@@ -75,23 +76,28 @@
 <div class="min-h-screen overflow-x-clip bg-background text-foreground">
 	<SiteHeader active="pricing" />
 
-	<section class="{wrap} pt-16 pb-20 md:pt-24">
-		<SectionHead as="h1" size="xl" title="Start free. Pay when the site grows." class="mb-12" />
-		<PricingTiers />
+	<section class="relative isolate w-full overflow-hidden pt-20 pb-24 md:pt-28">
+		<GrowthDots class="-z-10 [mask-image:linear-gradient(to_bottom,black_55%,transparent)]" />
+		<div class="mx-auto max-w-[1100px] px-4 text-center sm:px-8">
+			<p class="mx-auto w-fit rounded-full border border-border bg-background px-3 py-1 font-mono text-[0.6875rem] tracking-[0.14em] uppercase">Pricing</p>
+			<h1 class="mt-6 text-[clamp(3.25rem,9vw,8.5rem)] leading-[0.88] font-semibold tracking-[-0.06em]">Start free.<br /><span class="band-orange inline-block rounded-[0.12em] px-[0.1em] leading-[0.95]">Pay</span> when it <span class="whitespace-nowrap">grows<span class="ml-[0.04em] inline-block size-[0.14em] bg-primary"></span></span></h1>
+			<p class="mx-auto mt-7 max-w-[40ch] text-xl leading-snug text-foreground md:text-2xl">Every plan has the agent, the canvas and hosting. You only pay more when the site needs more.</p>
+		</div>
+		<div class="{wrap} mt-16"><PricingTiers /></div>
 	</section>
 
 	<section class="{wrap} pb-24"><ProofStrip label="Teams on Pro and Enterprise (names invented for this study)" /></section>
 
 	<section class="{wrap} pb-24">
-		<SectionHead title="Compare plans" size="md" />
-		<CompareTable {groups} />
+		<SectionHead title="Compare every plan" size="md" lede="Limits, features and seats, side by side. The header follows you down." />
+		<CompareTable {groups} class="mt-10" />
 	</section>
 
 	<section class="{wrap} pb-24">
 		<SectionHead title="Add-ons" size="md" lede="Power up one site at a time. Cancel whenever you like." class="mb-10" />
-		<div class="grid gap-px overflow-hidden rounded-[28px] border border-border bg-border md:grid-cols-3">
+		<div class="grid gap-4 md:grid-cols-3">
 			{#each [{ i: Languages, t: 'Translation', p: '$20', u: 'per locale', b: 'Translate the whole site with the agent, up to 20 languages.' }, { i: FlaskConical, t: 'Experiments', p: '$50', u: 'per 500k events', b: 'A/B tests, funnels and triggers, up to five tests at once.' }, { i: Server, t: 'Advanced hosting', p: '$200', u: 'per month', b: 'Several sites on one domain, custom headers and firewall rules.' }] as a (a.t)}
-				<div class="flex flex-col bg-background p-6 md:p-7">
+				<div class="flex flex-col rounded-[24px] border border-border bg-card p-6 md:p-7">
 					<a.i class="lucide size-5 text-primary" />
 					<p class="mt-8 text-xl font-medium tracking-[-0.02em]">{a.t}</p>
 					<p class="mt-1 text-[1.0625rem] leading-snug text-foreground/75">{a.b}</p>
