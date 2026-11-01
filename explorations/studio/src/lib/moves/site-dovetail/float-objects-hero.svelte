@@ -57,7 +57,7 @@
 				{:else if o.kind === 'disc'}
 					<span class="relative block size-full overflow-hidden rounded-full shadow-[0_30px_60px_-20px_color-mix(in_oklab,var(--foreground)_50%,transparent)]">
 						<img src={src(o.preset)} alt="" class="absolute inset-0 size-full object-cover" />
-						<span class="absolute inset-[34%] bg-background"></span>
+						<span class="absolute inset-[30%] rounded-full bg-background"></span>
 					</span>
 				{:else if o.kind === 'rings'}
 					<svg viewBox="0 0 100 100" class="size-full text-foreground">
