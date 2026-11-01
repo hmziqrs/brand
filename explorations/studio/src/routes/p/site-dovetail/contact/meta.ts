@@ -14,6 +14,7 @@ export const meta: Meta = {
 		'site-dovetail/demo-form',
 		'site-dovetail/source-strip',
 		'site-dovetail/report-cover',
+		'site-dovetail/book-3d',
 		'dovetail/oxide-quote-card',
 		'site-dovetail/proof-crowd',
 		'site-dovetail/site-footer'

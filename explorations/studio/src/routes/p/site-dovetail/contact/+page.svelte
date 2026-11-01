@@ -96,7 +96,7 @@
 	</section>
 
 	<section class="mx-auto w-full max-w-[82rem] px-4 py-24 sm:px-6">
-		<OxideQuoteCard texture="shader" preset="oxide-chalk" quote="Insight from five countries now lives in one place. That alone stopped us losing — and paying twice for — what we already knew about customers." name="Priya Okafor" role="Senior UX designer, a kitchen-appliance brand — invented example" class="min-h-[26rem]" />
+		<OxideQuoteCard texture="shader" preset="oxide-chalk" quote="Insight from five countries now lives in one place. That alone stopped us losing — and paying twice for — what we already knew about customers." name="Priya Okafor" role="Senior UX designer, a kitchen-appliance brand — invented example" class="min-h-[26rem] [&_svg[viewBox='0_0_40_40']_rect]:hidden" />
 	</section>
 
 	<ProofCrowd lines={['See', 'it', 'on', 'your', 'data']} accent={4}>
