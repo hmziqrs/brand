@@ -47,7 +47,7 @@
 		};
 		const draw = () => {
 			ctx.clearRect(0, 0, w, h);
-			ctx.globalAlpha = 1;
+			ctx.globalAlpha = 0.45;
 			ctx.strokeStyle = ln;
 			ctx.lineWidth = 1;
 			ctx.beginPath();
@@ -103,8 +103,8 @@
 <div bind:this={host} aria-hidden="true" class={cn('pointer-events-none absolute inset-0 overflow-hidden', className)}>
 	<canvas bind:this={canvas} class="absolute inset-0 h-full w-full [mask-image:radial-gradient(ellipse_80%_75%_at_50%_40%,black_30%,transparent_100%)]"></canvas>
 	{#if crosshair && inside}
-		<div class="absolute inset-y-0 w-px bg-foreground/25" style:left="{cx}px"></div>
-		<div class="absolute inset-x-0 h-px bg-foreground/25" style:top="{cy}px"></div>
+		<div class="absolute inset-y-0 w-px bg-foreground/15" style:left="{cx}px"></div>
+		<div class="absolute inset-x-0 h-px bg-foreground/15" style:top="{cy}px"></div>
 		<span class="absolute bg-background px-1.5 py-0.5 font-mono text-[11px] text-foreground tabular-nums" style:left="{cx + 6}px" style:top="{cy + 6}px">{Math.floor(px / cell)},{Math.floor(py / cell)}</span>
 	{/if}
 </div>
