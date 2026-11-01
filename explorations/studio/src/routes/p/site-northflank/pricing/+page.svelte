@@ -4,7 +4,7 @@
 	import SiteHeader from '$moves/site-northflank/site-header.svelte';
 	import SiteFooter from '$moves/site-northflank/site-footer.svelte';
 	import CursorDither from '$moves/site-northflank/cursor-dither.svelte';
-	import TierCards, { type Tier } from '$moves/site-northflank/tier-cards.svelte';
+	import PlanSheets, { type PlanSheet } from '$moves/site-northflank/plan-sheets.svelte';
 	import RateSheet from '$moves/site-northflank/rate-sheet.svelte';
 	import BillEstimator from '$moves/site-northflank/bill-estimator.svelte';
 	import PriceCompare from '$moves/site-northflank/price-compare.svelte';
@@ -17,10 +17,28 @@
 	const wrap = 'mx-auto w-full max-w-[1320px] px-4 sm:px-8';
 	const h2 = 'text-[clamp(38px,5vw,68px)] leading-[1.0] font-medium tracking-[-0.035em] text-foreground';
 
-	const tiers: Tier[] = [
-		{ name: 'Sandbox', price: 'Free', sub: 'No card needed', cta: 'Start free', key: 'S', href: to('home'), points: ['Two services, two jobs and one database', 'Up to $20 a month of resources on our cloud', 'One cluster in your own cloud, up to 12 vCPU', 'Always on. Nothing sleeps.'] },
-		{ name: 'Pay as you go', price: 'Usage', sub: 'From $0.016 per vCPU hour', cta: 'Deploy now', key: 'D', href: to('home'), hot: true, points: ['Unlimited people, deployments and workloads', 'Our cloud, or yours billed per managed node', 'GPUs, autoscaling, RBAC and the platform SDK'] },
-		{ name: 'Enterprise', price: 'Custom', sub: 'Platform fee, usage, support and SLA', cta: 'Talk to us', key: 'T', href: to('contact'), points: ['Your VPC, on-premises or air-gapped', 'SAML, SCIM and audit logging', 'Custom SLA and a shared engineering channel', 'White-labelling and your own tooling'] }
+	const plansheets: PlanSheet[] = [
+		{
+			name: 'Sandbox', tag: 'No card needed', price: '$0', unit: '/ month, forever', key: 'S', cta: 'Start free', href: to('home'),
+			line: 'A real project on real compute, for side projects and first agents.',
+			specs: [['Resource credit', '$20 / month'], ['Services · jobs · DBs', '2 · 2 · 1'], ['Your own cloud', '1 cluster · 12 vCPU'], ['Support', 'Community']],
+			points: ['Always on. Nothing sleeps.', 'Preview environments per pull request'],
+			art: [{ at: [0, 0], size: [3, 3], height: 1, tone: 'steel', rust: true, bumps: 2 }, { at: [1, -2], size: [1, 1], height: 2, tone: 'oxide' }]
+		},
+		{
+			name: 'Pay as you go', tag: 'Most teams', price: '$0.016', unit: '/ vCPU · hour', key: 'D', cta: 'Deploy now', href: to('home'), hot: true,
+			line: 'Billed by the second for exactly what runs. No seats, no minimum.',
+			specs: [['Memory', '$0.008 / GB · hour'], ['Services · jobs · DBs', 'Unlimited'], ['Your own cloud', '$0.02 / node vCPU'], ['Support', 'Email, next business day']],
+			points: ['GPUs, autoscaling and pipelines', 'RBAC and the full platform SDK'],
+			art: [{ at: [0, 0], size: [5, 4], height: 1, tone: 'ink', bumps: 0 }, { at: [0, -3], size: [2, 2], height: 2, tone: 'steel' }, { at: [3, -3], size: [1, 1], height: 3, tone: 'ink' }]
+		},
+		{
+			name: 'Enterprise', tag: 'Annual contract', price: 'Custom', unit: 'platform fee + usage', key: 'T', cta: 'Talk to us', href: to('contact'),
+			line: 'Your VPC, your keys and an SLA your procurement team signs off on.',
+			specs: [['Uptime SLA', '99.99%'], ['Deploy to', 'VPC · on-prem · air gap'], ['Identity', 'SAML · SCIM · audit export'], ['Support', 'Named engineers, shared channel']],
+			points: ['Volume and term discounts', 'White-label and your own tooling'],
+			art: [{ at: [0, 0], size: [7, 5], height: 1, tone: 'steel', rust: true, bumps: 8 }, { at: [0, -4], size: [2, 2], height: 3, tone: 'oxide' }, { at: [3, -4], size: [2, 2], height: 2, tone: 'ink' }, { at: [5, -2], size: [1, 1], height: 2, tone: 'glass' }]
+		}
 	];
 
 	const plans = [
@@ -86,7 +104,7 @@
 			<MonoLabel text="Pricing · billed per second" />
 			<h1 class="mt-6 max-w-[14ch] text-[clamp(52px,7.4vw,112px)] leading-[0.94] font-medium tracking-[-0.045em]">Pay for what actually runs.</h1>
 			<p class="mt-7 max-w-[36rem] text-[clamp(18px,1.6vw,22px)] leading-[1.45] text-foreground/90">Per-second billing and no seat fees. Start free, then pay as you go on our cloud or inside your own.</p>
-			<TierCards {tiers} class="mt-14" />
+			<PlanSheets plans={plansheets} class="mt-14" />
 		</div>
 	</section>
 
@@ -100,7 +118,7 @@
 		</div>
 	</section>
 
-	<section class="border-t bg-(--band)">
+	<section class="border-t">
 		<div class="{wrap} py-24">
 			<div class="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-end">
 				<div><MonoLabel index="02" text="Estimate" /><h2 class="{h2} mt-5">Estimate your bill.</h2></div>
