@@ -20,6 +20,6 @@ export const meta: Meta = {
 		'flora/rust-grid-field'
 	],
 	breaks: ['no-hover-motion', 'outline-only-cards'],
-	notes: 'Framer’s enterprise order: benefit cells beside a working expert form on cast-iron material, invented outcome strip, site mosaic, security grid with mono spec chips, then the form again.',
+	notes: 'Full-width hero; benefit cards beside a three-step brief form (big choice buttons, size and launch pills, then contact) with answer chips and an oxide thank-you; every grid now separate cards; feature list as pills.',
 	order: 4
 };
