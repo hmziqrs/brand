@@ -41,7 +41,7 @@
 	import StoryRail from '$moves/site-framer/story-rail.svelte';
 	import { sites, to } from '$moves/site-framer/site';
 
-	const wrap = 'mx-auto max-w-[1280px] px-4 sm:px-8';
+	const wrap = 'mx-auto max-w-[1320px] px-4 sm:px-8';
 	const top = [
 		{ icon: Shield, title: 'Secure by default', body: 'SSO, SCIM, roles and compliance keep access tight as you grow.' },
 		{ icon: SlidersHorizontal, title: 'Built to scale', body: 'Custom editors, limits and workflows for big teams and big traffic.' },
@@ -70,9 +70,12 @@
 <div class="min-h-screen overflow-x-clip bg-background text-foreground">
 	<SiteHeader active="enterprise" />
 
-	<section class="{wrap} pt-16 md:pt-24">
-		<SectionHead as="h1" size="xl" title="kiln Enterprise for flagship sites" class="mb-12" />
-		<ExpertForm cells={top} />
+	<section class="w-full px-4 pt-16 sm:px-6 md:pt-24 lg:px-10">
+		<div class="flex flex-wrap items-end justify-between gap-8">
+			<h1 class="max-w-[12ch] text-[clamp(3.25rem,8.6vw,8.5rem)] leading-[0.86] font-semibold tracking-[-0.065em]">Flagship sites, run by the people who write them<span class="ml-[0.04em] inline-block size-[0.14em] bg-primary"></span></h1>
+			<p class="max-w-[30ch] text-xl leading-snug md:text-2xl">kiln Enterprise adds SSO, custom limits and a named partner, so marketing ships without a queue.</p>
+		</div>
+		<ExpertForm cells={top} title="Brief a specialist" class="mt-14" />
 	</section>
 
 	<section class="{wrap} py-20">
@@ -96,9 +99,9 @@
 
 	<section class="{wrap} pb-28">
 		<SectionHead title="From design to deploy, together" class="mb-12" />
-		<div class="grid gap-px overflow-hidden rounded-[28px] border border-border bg-border md:grid-cols-2">
+		<div class="grid gap-4 md:grid-cols-2">
 			<BentoCell title="Enterprise-grade security" href={to('enterprise')} body="SSO, roles and audited compliance protect every site, every editor and every deploy.">{#snippet art()}<UiPanel kind="compliance" class="max-w-[340px]" />{/snippet}</BentoCell>
-			<BentoCell title="Design with an agent" href={to('home')} body="Start from a prompt and watch layouts, sections and style appear on your canvas, ready to refine.">{#snippet art()}<PromptBox glow chips={[]} class="max-w-[400px]" />{/snippet}</BentoCell>
+			<BentoCell title="Design with an agent" href={to('home')} body="Start from a prompt and watch layouts, sections and style appear on your canvas, ready to refine.">{#snippet art()}<PromptBox glow={false} chips={[]} class="max-w-[400px]" />{/snippet}</BentoCell>
 			<BentoCell title="Design together, ship together" href={to('feature')} body="Branch safely, stage before launch and give each role exactly the access it needs.">{#snippet art()}<UiPanel kind="branches" />{/snippet}</BentoCell>
 			<BentoCell title="Grows with the team" href={to('pricing')} body="From a startup page to a global .com, staging and fast hosting come with it.">{#snippet art()}<UiPanel kind="vitals" />{/snippet}</BentoCell>
 		</div>
@@ -119,13 +122,13 @@
 
 	<section class="{wrap} pb-28">
 		<SectionHead title="Security in every layer" class="mb-12" />
-		<div class="grid gap-px overflow-hidden rounded-[28px] border border-border bg-border md:grid-cols-2">
+		<div class="grid gap-4 md:grid-cols-2">
 			{#each security as s (s.t)}
-				<div class="bg-background p-6 md:p-8">
-					<s.i class="lucide size-5 text-primary" />
+				<div class="rounded-[24px] border border-border bg-card p-6 md:p-8">
+					<span class="grid size-10 place-items-center rounded-full bg-primary text-primary-foreground"><s.i class="lucide size-4" /></span>
 					<p class="mt-6 text-xl font-medium tracking-[-0.02em]">{s.t}</p>
 					<p class="mt-1.5 max-w-[46ch] text-[1.0625rem] leading-snug text-foreground/75">{s.b}</p>
-					{#if s.chips.length}<p class="mt-4 flex flex-wrap gap-1.5">{#each s.chips as c (c)}<code class="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">{c}</code>{/each}</p>{/if}
+					{#if s.chips.length}<p class="mt-4 flex flex-wrap gap-1.5">{#each s.chips as c (c)}<code class="rounded-full bg-background px-2 py-0.5 font-mono text-xs ring-1 ring-border">{c}</code>{/each}</p>{/if}
 				</div>
 			{/each}
 		</div>
@@ -137,7 +140,7 @@
 	</section>
 
 	<section class="{wrap} pb-8">
-		<ExpertForm title="Talk to an enterprise specialist" preset="hammered-copper" cells={[{ icon: ShieldCheck, title: 'Security built in', body: 'SSO, SCIM, permissions and audit logs for mission-critical sites.' }, { icon: Users, title: 'Scale without queues', body: 'Custom editor plans, limits and workflows.' }, { icon: Sparkles, title: 'Agents for site work', body: 'Every team drafts, fixes and ships on its own.' }, { icon: Timer, title: 'Priority support', body: 'Guaranteed uptime and a partner on launch day.' }]} />
+		<ExpertForm title="Talk to an enterprise specialist" preset="copper-sweep" cells={[{ icon: ShieldCheck, title: 'Security built in', body: 'SSO, SCIM, permissions and audit logs for mission-critical sites.' }, { icon: Users, title: 'Scale without queues', body: 'Custom editor plans, limits and workflows.' }, { icon: Sparkles, title: 'Agents for site work', body: 'Every team drafts, fixes and ships on its own.' }, { icon: Timer, title: 'Priority support', body: 'Guaranteed uptime and a partner on launch day.' }]} />
 	</section>
 
 	<SiteFooter />
