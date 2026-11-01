@@ -29,8 +29,8 @@
 	});
 </script>
 
-<div class={cn('grid border border-border md:grid-cols-[1.2fr_1fr]', className)}>
-	<div class="p-6 sm:p-8">
+<div class={cn('grid gap-5 md:grid-cols-[1.2fr_1fr]', className)}>
+	<div class="border border-border p-6 sm:p-8">
 		<p class="font-mono text-xs tracking-[0.14em] text-foreground uppercase"><span class="mr-2 inline-block size-2 bg-[var(--orange)]"></span>Compute profiles</p>
 		<h3 class="mt-4 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">Medium is on every paid plan. Go bigger by the minute.</h3>
 		<div role="radiogroup" aria-label="Compute profile" class="mt-8 grid grid-cols-5 border border-border">
@@ -45,7 +45,7 @@
 		</dl>
 		<p class="mt-4 text-[16px] text-foreground">{p.note}. Billed per minute of use; trials stay on Medium.</p>
 	</div>
-	<div class="grid place-items-center border-t border-border p-6 md:border-t-0 md:border-l">
+	<div class="grid place-items-center border border-border p-6">
 		<svg viewBox="-45 -45 125 110" class="h-auto w-full max-w-[320px] text-foreground" role="img" aria-label="{p.cpu} compute blocks" fill="none" stroke="currentColor" stroke-width="1" stroke-linejoin="round">
 			<SpotDefs {id} />
 			{#each cubes as c, i (i + '-' + p.cpu)}
