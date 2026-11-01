@@ -4,13 +4,10 @@
 	import Question from '$brand/components/question.svelte';
 	import ArrowRight from '@lucide/svelte/icons/arrow-right';
 	import ArrowUpRight from '@lucide/svelte/icons/arrow-up-right';
-	import UserRound from '@lucide/svelte/icons/user-round';
-	import LifeBuoy from '@lucide/svelte/icons/life-buoy';
 	import BrainCircuit from '@lucide/svelte/icons/brain-circuit';
 	import BadgeCheck from '@lucide/svelte/icons/badge-check';
 	import KeyRound from '@lucide/svelte/icons/key-round';
 	import SlidersHorizontal from '@lucide/svelte/icons/sliders-horizontal';
-	import ShieldCheck from '@lucide/svelte/icons/shield-check';
 	import FileCheck from '@lucide/svelte/icons/file-check';
 	import Lock from '@lucide/svelte/icons/lock';
 	import SerifItalicHeadline from '$moves/flora/serif-italic-headline.svelte';
@@ -18,6 +15,7 @@
 	import SiteFooter from '$moves/site-flora/site-footer.svelte';
 	import CanvasBoard from '$moves/site-flora/canvas-board.svelte';
 	import BrowserFrame from '$moves/site-flora/browser-frame.svelte';
+	import PillarSwitch from '$moves/site-flora/pillar-switch.svelte';
 	import FeatureBanner from '$moves/site-flora/feature-banner.svelte';
 	import MemberRoles from '$moves/site-flora/member-roles.svelte';
 	import UsecaseTabs, { type UseCase } from '$moves/site-flora/usecase-tabs.svelte';
@@ -42,13 +40,10 @@
 	];
 
 	const security = [
-		{ Icon: UserRound, t: 'A creative lead in your corner', b: 'An embedded lead builds your first workflows with you.' },
-		{ Icon: LifeBuoy, t: 'Priority support', b: 'A shared channel and quick answers at every step.' },
 		{ Icon: BrainCircuit, t: 'No training on your work', b: 'What you make never trains a model, ours or anyone’s.' },
 		{ Icon: BadgeCheck, t: 'You own the output', b: 'Everything generated is yours to use and keep.' },
 		{ Icon: KeyRound, t: 'Single sign-on', b: 'SAML SSO, so access scales up and down with the team.' },
 		{ Icon: SlidersHorizontal, t: 'Workspace controls', b: 'Model access, roles and rules from one admin view.' },
-		{ Icon: ShieldCheck, t: 'Clear access lines', b: 'Sub-workspaces scope every project and contractor.' },
 		{ Icon: FileCheck, t: 'Independently audited', b: 'Annual third-party audits of privacy and security controls.' },
 		{ Icon: Lock, t: 'Encrypted everywhere', b: 'Encrypted in transit and at rest, keys rotated on schedule.' }
 	];
@@ -121,72 +116,62 @@
 		/>
 	</div>
 
-	<section class="mx-auto max-w-[1320px] space-y-24 px-4 py-24 sm:px-8 sm:py-32">
-		{#each rows as r, i (r.tag)}
-			<div class="grid gap-10 lg:grid-cols-2 lg:items-center [&>*]:min-w-0">
-				<div class={i % 2 ? 'lg:order-2' : ''}>
-					<p class="font-mono text-xs tracking-[0.16em] text-primary uppercase">{r.tag}</p>
-					<h2 class="mt-4 text-[clamp(2rem,3.6vw,3.25rem)] leading-[1.04] font-medium tracking-[-0.035em] text-foreground">{r.title}</h2>
-					<p class="mt-4 max-w-[46ch] text-xl leading-snug text-foreground">{r.body}</p>
-					<ul class="mt-6 space-y-3">
-						{#each r.points as p (p)}
-							<li class="flex gap-3 text-[16px] leading-snug text-foreground"><span class="mt-2 size-1.5 shrink-0 bg-primary"></span>{p}</li>
-						{/each}
-					</ul>
-					<a href={to('contact')} class="mt-7 inline-flex items-center gap-2 text-[15px] font-medium text-primary hover:underline">Talk to sales <ArrowRight class="lucide size-4" /></a>
-				</div>
-				<div>
-					{#if i === 0}
-						<BrowserFrame crumb="Spring range">
-							<CanvasBoard
-								frame={false}
-								hint={false}
-								width={640}
-								height={380}
-								nodes={[
-									{ id: 'p', kind: 'palette', x: 30, y: 30, w: 170, title: 'Season palette' },
-									{ id: 'c', kind: 'image', x: 30, y: 190, w: 150, title: 'Chair', preset: 'endgrain-wood', aspect: 'aspect-[4/3]' },
-									{ id: 's', kind: 'image', x: 430, y: 160, w: 170, title: 'Runner', preset: 'pebbled-leather', aspect: 'aspect-[4/3]' },
-									{ id: 'k', kind: 'image', x: 250, y: 240, w: 140, title: 'Sketch', preset: 'creased-paper', aspect: 'aspect-[4/3]' }
-								]}
-								edges={[
-									['p', 's'],
-									['c', 's'],
-									['k', 's']
-								]}
-								cursors={[
-									{ name: 'Carys', tone: 'purple', x: 300, y: 120 },
-									{ name: 'Hari', tone: 'pink', x: 520, y: 80 }
-								]}
-							/>
-						</BrowserFrame>
-					{:else if i === 1}
-						<BrowserFrame crumb="Identity board">
-							<CanvasBoard
-								frame={false}
-								hint={false}
-								width={640}
-								height={380}
-								nodes={[
-									{ id: 'm', kind: 'image', x: 30, y: 30, w: 150, title: 'Mark', preset: 'black-ice', aspect: 'aspect-square' },
-									{ id: 'p', kind: 'grid', x: 30, y: 230, w: 150, title: 'Pattern', presets: ['terrazzo', 'halftone-print', 'woven-field', 'powder-coat'] },
-									{ id: 'b', kind: 'prompt', x: 240, y: 150, w: 150, title: 'Batch · 240 SKUs', text: 'Apply approved look to every variant and size.' },
-									{ id: 'o', kind: 'grid', x: 440, y: 60, w: 170, title: 'Posters', presets: ['copper-sweep', 'oxide-bloom', 'etched-silk', 'lava-fissures'] }
-								]}
-								edges={[
-									['m', 'b'],
-									['p', 'b'],
-									['b', 'o']
-								]}
-								cursors={[{ name: 'Mason', tone: 'green', x: 430, y: 320 }]}
-							/>
-						</BrowserFrame>
-					{:else}
-						<MemberRoles class="mx-auto max-w-[520px]" />
-					{/if}
-				</div>
-			</div>
-		{/each}
+	<section class="mx-auto max-w-[1320px] px-4 py-24 sm:px-8 sm:py-32">
+		<p class="font-mono text-xs tracking-[0.16em] text-primary uppercase">Explore · Extend · Protect</p>
+		<h2 class="mt-4 max-w-[18ch] text-[clamp(2.25rem,5vw,4.25rem)] leading-[1] font-medium tracking-[-0.04em] text-foreground">Range for the work, rails for the brand.</h2>
+		<PillarSwitch items={rows} class="mt-14">
+			{#snippet visual(i)}
+				{#if i === 0}
+					<BrowserFrame crumb="Spring range">
+						<CanvasBoard
+							frame={false}
+							hint={false}
+							width={640}
+							height={380}
+							nodes={[
+								{ id: 'p', kind: 'palette', x: 30, y: 30, w: 170, title: 'Season palette' },
+								{ id: 'c', kind: 'image', x: 30, y: 190, w: 150, title: 'Chair', preset: 'endgrain-wood', aspect: 'aspect-[4/3]' },
+								{ id: 's', kind: 'image', x: 430, y: 160, w: 170, title: 'Runner', preset: 'pebbled-leather', aspect: 'aspect-[4/3]' },
+								{ id: 'k', kind: 'image', x: 250, y: 240, w: 140, title: 'Sketch', preset: 'creased-paper', aspect: 'aspect-[4/3]' }
+							]}
+							edges={[
+								['p', 's'],
+								['c', 's'],
+								['k', 's']
+							]}
+							cursors={[
+								{ name: 'Carys', tone: 'purple', x: 300, y: 120 },
+								{ name: 'Hari', tone: 'pink', x: 520, y: 80 }
+							]}
+						/>
+					</BrowserFrame>
+				{:else if i === 1}
+					<BrowserFrame crumb="Identity board">
+						<CanvasBoard
+							frame={false}
+							hint={false}
+							width={640}
+							height={380}
+							nodes={[
+								{ id: 'm', kind: 'image', x: 30, y: 30, w: 150, title: 'Mark', preset: 'black-ice', aspect: 'aspect-square' },
+								{ id: 'p', kind: 'grid', x: 30, y: 230, w: 150, title: 'Pattern', presets: ['terrazzo', 'halftone-print', 'woven-field', 'powder-coat'] },
+								{ id: 'b', kind: 'prompt', x: 240, y: 150, w: 150, title: 'Batch · 240 SKUs', text: 'Apply approved look to every variant and size.' },
+								{ id: 'o', kind: 'grid', x: 440, y: 60, w: 170, title: 'Posters', presets: ['copper-sweep', 'oxide-bloom', 'etched-silk', 'lava-fissures'] }
+							]}
+							edges={[
+								['m', 'b'],
+								['p', 'b'],
+								['b', 'o']
+							]}
+							cursors={[{ name: 'Mason', tone: 'green', x: 430, y: 320 }]}
+						/>
+					</BrowserFrame>
+				{:else}
+					<MemberRoles class="mx-auto max-w-[520px]" />
+				{/if}
+			{/snippet}
+		</PillarSwitch>
+		<a href={to('contact')} class="mt-10 inline-flex items-center gap-2 text-[15px] font-medium text-primary hover:underline">Talk to sales <ArrowRight class="lucide size-4" /></a>
 	</section>
 
 	<section class="mx-auto max-w-[1320px] px-4 pb-24 sm:px-8 sm:pb-32">
@@ -207,10 +192,10 @@
 			</div>
 			<div class="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
 				{#each security as s, i (s.t)}
-					<div class={i === 2 ? 'rounded-2xl bg-primary p-6 text-primary-foreground' : 'rounded-2xl border border-border bg-card p-6 text-foreground'}>
+					<div class={i === 0 ? 'rounded-2xl bg-primary p-6 text-primary-foreground' : 'rounded-2xl border border-border bg-card p-6 text-foreground'}>
 						<s.Icon class="lucide size-5" />
 						<p class="mt-4 text-lg font-medium">{s.t}</p>
-						<p class={i === 2 ? 'mt-1 text-[15px] leading-snug' : 'mt-1 text-[15px] leading-snug text-foreground/80'}>{s.b}</p>
+						<p class={i === 0 ? 'mt-1 text-[15px] leading-snug' : 'mt-1 text-[15px] leading-snug text-foreground/80'}>{s.b}</p>
 					</div>
 				{/each}
 			</div>
