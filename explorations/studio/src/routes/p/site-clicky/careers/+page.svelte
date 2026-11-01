@@ -39,7 +39,7 @@
 		</div>
 	</section>
 
-	<section id="roles" class="mx-auto max-w-[1100px] scroll-mt-16 px-4 pt-20 sm:px-6">
+	<section id="roles" class="mx-auto max-w-[1240px] scroll-mt-16 px-4 pt-20 sm:px-6">
 		<div class="mb-10 grid items-end gap-6 md:grid-cols-[1fr_220px]">
 			<div>
 				<h2 class="text-5xl leading-[1] font-semibold tracking-[-0.04em] sm:text-7xl">find a spot</h2>
