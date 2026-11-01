@@ -7,6 +7,7 @@
 	import { Input } from '$brand/ui/input/index.js';
 	import BrandIcon from '$brand/components/brand-icon.svelte';
 	import ShaderMaterial from '$brand/components/shader-material.svelte';
+	import { shaderPosters } from '@hmziq/brand-core/shaders/posters';
 	import { company, tools, to } from './site';
 	import { pointer } from './pointer';
 
@@ -25,6 +26,7 @@
 	} = $props();
 
 	const uid = $props.id();
+	const poster = $derived((shaderPosters[preset] ?? shaderPosters['copper-sweep']).src);
 
 	const columns = [
 		{ title: 'Product', links: [{ label: 'Forge', href: to('platform') }] },
@@ -57,7 +59,7 @@
 
 <footer class={cn('site-footer dark bg-background text-foreground', className)}>
 	{#if newsletter}
-		<div class="mx-auto grid w-full max-w-[1280px] items-end gap-10 border-border px-4 py-16 sm:px-6 md:py-24 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:px-10 min-[1300px]:border-x">
+		<div class="mx-auto grid w-full max-w-[1280px] items-end gap-10 border-border px-4 py-16 sm:px-6 md:py-24 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:px-10">
 			<h2 class="max-w-[17ch] text-4xl leading-[1.02] font-medium tracking-[-0.04em] text-balance sm:text-6xl">{heading}</h2>
 			<form class="flex w-full max-w-md flex-col gap-3 lg:justify-self-end" onsubmit={submit}>
 				<label for={`${uid}-email`} class="text-lg font-medium">One email a month on what shipped</label>
@@ -70,19 +72,17 @@
 		</div>
 	{/if}
 
-	<div use:pointer class={cn('strip relative isolate grid place-items-center overflow-hidden', cta ? 'min-h-[28rem] px-4 py-16' : 'h-60 sm:h-80')}>
-		<div class="strip-field absolute -inset-[8%] -z-20">
-			<ShaderMaterial {preset} rendering="image" loading="lazy" controls={false} sizes="100vw" class="absolute inset-0" />
-		</div>
-		<div aria-hidden="true" class="strip-light pointer-events-none absolute inset-0 -z-10"></div>
-		{#if cta}
+	{#if cta}
+		<div use:pointer class="strip relative isolate grid min-h-[28rem] place-items-center overflow-hidden px-4 py-16">
+			<div class="strip-field absolute -inset-[8%] -z-20">
+				<ShaderMaterial {preset} rendering="image" loading="lazy" controls={false} sizes="100vw" class="absolute inset-0" />
+			</div>
+			<div aria-hidden="true" class="strip-light pointer-events-none absolute inset-0 -z-10"></div>
 			<div class="flex max-w-2xl flex-col items-center gap-6 rounded-2xl bg-background/85 p-8 text-center shadow-2xl backdrop-blur-xl sm:p-12">{@render cta()}</div>
-		{:else}
-		<span class="tile inline-flex items-baseline rounded-[22%] bg-background px-6 py-5 text-5xl leading-none font-semibold tracking-[-0.03em] text-foreground shadow-[0_30px_60px_-20px_color-mix(in_oklab,black_80%,transparent)] sm:text-6xl">{company.symbol}<i aria-hidden="true" class="ml-[0.07em] inline-block size-[0.3em] bg-mark-square"></i></span>
-		{/if}
-	</div>
+		</div>
+	{/if}
 
-	<div class="mx-auto w-full max-w-[1280px] border-border min-[1300px]:border-x">
+	<div class="mx-auto w-full max-w-[1280px] border-border">
 		<div class="grid grid-cols-2 gap-x-6 gap-y-10 px-4 pt-14 pb-14 sm:px-6 md:grid-cols-[repeat(3,minmax(0,1fr))_minmax(0,2fr)_auto] lg:px-10">
 			{#each columns as col (col.title)}
 				<nav aria-label={col.title} class="flex flex-col gap-3">
@@ -98,6 +98,11 @@
 				{/each}
 			</nav>
 		</div>
+	</div>
+	<div use:pointer class="mark relative overflow-hidden border-t border-border" style:--poster={`url(${poster})`}>
+		<p aria-hidden="true" class="mark-word px-[2vw] pt-[3vw] pb-[5vw] text-center text-[21.5vw] leading-[0.92] font-semibold tracking-[-0.065em] whitespace-nowrap select-none">{company.name.toLowerCase()}<span class="mark-sq ml-[0.04em] inline-block size-[0.17em]"></span></p>
+	</div>
+	<div class="mx-auto w-full max-w-[1280px]">
 		<p class="flex flex-wrap justify-between gap-2 border-t border-border px-4 py-6 text-xs text-muted-foreground sm:px-6 lg:px-10"><span>© 2026 {company.name}, a stand-in company for a study.</span><span>Built with the hmziq kit.</span></p>
 	</div>
 </footer>
@@ -115,12 +120,22 @@
 	.strip:global([data-hot]) .strip-light {
 		opacity: 1;
 	}
-	.tile {
-		transform: perspective(700px) rotateX(calc((var(--py, 0.5) - 0.5) * -18deg)) rotateY(calc((var(--px, 0.5) - 0.5) * 22deg));
+	.mark-word {
+		background-image: radial-gradient(22rem 14rem at calc(var(--px, 0.5) * 100%) calc(var(--py, 0.5) * 100%), transparent 0 35%, var(--foreground) 75%), var(--poster);
+		background-size: 100% 100%, 160% auto;
+		background-position: 0 0, calc(var(--px, 0.5) * 60%) 50%;
+		-webkit-background-clip: text;
+		background-clip: text;
+		color: transparent;
+	}
+	.mark:not([data-hot]) .mark-word {
+		background-image: linear-gradient(var(--foreground), var(--foreground)), var(--poster);
+	}
+	.mark-sq {
+		background: var(--orange);
 	}
 	@media (prefers-reduced-motion: reduce) {
-		.strip-field,
-		.tile {
+		.strip-field {
 			transform: none;
 		}
 	}
