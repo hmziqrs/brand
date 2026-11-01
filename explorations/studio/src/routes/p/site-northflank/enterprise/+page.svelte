@@ -36,7 +36,7 @@
 	import { to } from '$moves/site-northflank/site';
 	import KeyButton from '$moves/northflank/key-button.svelte';
 	import MonoLabel from '$moves/northflank/mono-label.svelte';
-	import BigCounters from '$moves/northflank/big-counters.svelte';
+	import StatCards from '$moves/site-northflank/stat-cards.svelte';
 	import OxideSlab from '$moves/northflank/oxide-slab.svelte';
 	import IsoTileStack from '$moves/northflank/iso-tile-stack.svelte';
 
@@ -49,7 +49,7 @@
 		{ icon: Network, label: 'Control plane on your side' }
 	];
 
-	const sections: { label: string; title: string; line: string; items: QuadItem[]; console?: boolean; band?: boolean }[] = [
+	const sections: { label: string; title: string; line: string; items: QuadItem[]; console?: boolean }[] = [
 		{
 			label: 'Enterprise platform',
 			title: 'Deploy in your cloud, with complete control.',
@@ -66,7 +66,6 @@
 			label: 'Automation and control',
 			title: 'Templates, secrets and enterprise features.',
 			line: 'Everything you click can be written down, versioned and applied again.',
-			band: true,
 			items: [
 				{ icon: FileCode, title: 'IaC with OpenTofu', line: 'Provision clusters and cloud resources from the same templates as your apps.' },
 				{ icon: KeyRound, title: 'Global secrets', line: 'One secret group, injected into every project that is allowed to read it.' },
@@ -192,7 +191,7 @@
 	</section>
 
 	{#each sections as s (s.label)}
-		<section class={s.band ? 'border-t bg-(--band)' : 'border-t'}>
+		<section class="border-t">
 			<div class="{wrap} py-24">
 				<FeatureQuad label={s.label} title={s.title} line={s.line} items={s.items}>
 					{#if s.console}<ConsoleMock />{/if}
@@ -208,12 +207,12 @@
 				<h2 class="text-[clamp(38px,5vw,68px)] leading-[1.0] font-medium tracking-[-0.035em]">In serious company.</h2>
 				<p class="max-w-[30rem] text-[18px] text-foreground/85 lg:justify-self-end">Since 2019 teams have run everything from one container to fleets of AI infrastructure here. Figures below are stand-ins for this study.</p>
 			</div>
-			<BigCounters class="mt-12" items={[{ value: '130', unit: 'B+', label: 'requests served' }, { value: '100', unit: 'k+', label: 'developers in production' }, { value: '330', unit: '+', label: 'availability zones' }, { value: '24', unit: 'M', label: 'raised to date' }]} />
+			<StatCards class="mt-12" items={[{ value: '130', unit: 'B+', label: 'requests served', fill: 0.9 }, { value: '100', unit: 'k+', label: 'developers in production', fill: 0.7 }, { value: '330', unit: '+', label: 'availability zones', fill: 0.55 }, { value: '24', unit: 'M', label: 'raised to date', fill: 0.35 }]} />
 		</div>
 	</section>
 
 	{#each more as s, n (s.label)}
-		<section class={n % 2 ? 'border-t bg-(--band)' : 'border-t'}>
+		<section class="border-t">
 			<div class="{wrap} py-24">
 				<FeatureQuad label={s.label} title={s.title} line={s.line} items={s.items} layout={n % 2 ? 'stack' : 'side'} />
 			</div>

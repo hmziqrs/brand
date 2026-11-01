@@ -15,7 +15,7 @@ export const meta: Meta = {
 		'site-northflank/cursor-dither',
 		'northflank/key-button',
 		'northflank/mono-label',
-		'northflank/big-counters',
+		'site-northflank/stat-cards',
 		'northflank/oxide-slab',
 		'northflank/iso-tile-stack'
 	],
