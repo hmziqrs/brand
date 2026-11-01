@@ -25,8 +25,8 @@
 	];
 </script>
 
-<div class={cn('overflow-hidden rounded-[28px] border border-border', className)}>
-	<div class="dark relative isolate grid gap-8 p-6 text-foreground sm:p-10 lg:grid-cols-[1fr_400px] lg:items-end">
+<div class={cn('grid gap-4', className)}>
+	<div class="dark relative isolate grid min-h-[440px] gap-8 overflow-hidden rounded-[28px] border border-border p-6 text-foreground sm:p-10 lg:grid-cols-[1fr_400px] lg:items-end">
 		<ShaderMaterial {preset} rendering="image" controls={false} sizes="1280px" class="absolute inset-0 -z-20 h-full w-full" />
 		<div class="absolute inset-0 -z-10 bg-[linear-gradient(90deg,var(--background)_15%,color-mix(in_oklab,var(--background)_40%,transparent))]"></div>
 		<div>
@@ -54,12 +54,12 @@
 			</div>
 		{/if}
 	</div>
-	<div class="grid gap-px border-t border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
+	<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
 		{#each small as s (s.t)}
-			<div class={cn('flex min-h-64 flex-col p-6 sm:p-7', s.oxide ? 'band-orange' : 'bg-background')}>
+			<div class={cn('flex min-h-64 flex-col rounded-[24px] p-6 sm:p-7', s.oxide ? 'band-orange' : 'border border-border bg-card')}>
 				<p class="text-2xl font-medium tracking-[-0.03em]">{s.t}</p>
 				<p class={cn('mt-1 text-lg leading-snug', !s.oxide && 'text-foreground/75')}>{s.b}</p>
-				<a href={s.href ?? '#/p/site-framer/contact'} onclick={(e) => { if (!s.href) { e.preventDefault(); chat = true; } }} class={cn('mt-auto w-fit rounded-full px-4 py-2 text-[0.9375rem] font-medium transition-opacity hover:opacity-85', s.oxide ? 'bg-(--on-orange) text-(--orange)' : 'bg-muted')}>{s.cta}</a>
+				<a href={s.href ?? '#/p/site-framer/contact'} onclick={(e) => { if (!s.href) { e.preventDefault(); chat = true; } }} class={cn('mt-auto w-fit rounded-full px-4 py-2 text-[0.9375rem] font-medium transition-opacity hover:opacity-85', s.oxide ? 'bg-(--on-orange) text-(--orange)' : 'bg-foreground text-background')}>{s.cta}</a>
 			</div>
 		{/each}
 	</div>
