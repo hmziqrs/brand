@@ -19,8 +19,8 @@
 	import SourceStrip from '$moves/site-dovetail/source-strip.svelte';
 	import MaterialReel from '$moves/site-dovetail/material-reel.svelte';
 	import NumberedFeature from '$moves/site-dovetail/numbered-feature.svelte';
-	import AgentAnatomy from '$moves/site-dovetail/agent-anatomy.svelte';
-	import SourceGrid from '$moves/site-dovetail/source-grid.svelte';
+	import AgentSetup from '$moves/site-dovetail/agent-setup.svelte';
+	import McpHandoff from '$moves/site-dovetail/mcp-handoff.svelte';
 	import ReplicaChat from '$moves/site-dovetail/replica-chat.svelte';
 	import UsecaseCards from '$moves/site-dovetail/usecase-cards.svelte';
 	import QuoteSlider from '$moves/site-dovetail/quote-slider.svelte';
@@ -95,11 +95,11 @@
 		<MaterialReel preset="oxide-bloom" label="Product tour" caption="Two minutes with an agent, from trigger to Slack post." class="mx-auto mt-14 max-w-[56rem] text-left" />
 	</section>
 
-	<NumberedFeature n={1} title="Set it up once, sharper every run" body="Give each agent its context and skills, then choose whether it runs on a schedule, on an event or from an outside trigger. Each run reads your latest evidence, so outputs improve with no extra work.">
-		{#snippet visual()}<AgentAnatomy />{/snippet}
+	<NumberedFeature inset n={1} title="Set it up once, sharper every run" body="Give each agent its context and skills, then choose whether it runs on a schedule, on an event or from an outside trigger. Each run reads your latest evidence, so outputs improve with no extra work.">
+		{#snippet visual()}<AgentSetup />{/snippet}
 	</NumberedFeature>
-	<NumberedFeature n={2} title="Plugs into the workflows you have" body="Agents connect over MCP to the tools your team already lives in — Linear, Jira, Notion, Figma and more. Ask a question and get the answer without leaving the thread.">
-		{#snippet visual()}<SourceGrid focus={['Linear', 'Jira', 'Notion', 'Figma', 'Confluence', 'Miro', 'Claude', 'Cursor']} caption="Over MCP" />{/snippet}
+	<NumberedFeature inset n={2} title="Plugs into the workflows you have" body="Agents connect over MCP to the tools your team already lives in — Linear, Jira, Notion, Figma and more. Ask a question and get the answer without leaving the thread.">
+		{#snippet visual()}<McpHandoff />{/snippet}
 	</NumberedFeature>
 	<NumberedFeature n={3} title="Built for teams, not just tasks" body="Agents live in Ask, where anyone can review outputs, tweak instructions and collaborate without handing over judgment. Your team stays in charge of what ships.">
 		{#snippet visual()}<ReplicaChat turn={{ persona: 'Weekly churn agent', role: 'Agent · shared with Growth', ask: 'Rewrite the summary for the sales team and drop the jargon.', answer: 'Done. Customers leaving this month mostly mention offline playback and surprise price changes. Here are the three calls worth hearing first.', cites: ['Call · 3 Oct', 'Call · 9 Oct', 'Signals: Churn'] }} preset="brushed-alloy" />{/snippet}

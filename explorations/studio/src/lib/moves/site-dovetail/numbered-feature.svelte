@@ -9,6 +9,7 @@
 		title,
 		body,
 		more,
+		inset = false,
 		visual,
 		class: className
 	}: {
@@ -16,6 +17,7 @@
 		title: string;
 		body: string;
 		more?: string;
+		inset?: boolean;
 		visual: Snippet;
 		class?: string;
 	} = $props();
@@ -31,7 +33,9 @@
 			{#if more}<Button variant="outline" href={to('product')}>{more}</Button>{/if}
 		</div>
 	</div>
-	<div class="relative min-h-[24rem] overflow-hidden rounded-2xl border border-[color-mix(in_oklab,var(--foreground)_12%,transparent)] bg-card">
-		{@render visual()}
+	<div class={cn('relative isolate min-w-0 min-h-[24rem] overflow-hidden rounded-2xl border border-[color-mix(in_oklab,var(--foreground)_12%,transparent)] bg-card', inset && 'grid grid-cols-[minmax(0,1fr)] place-items-center p-4 sm:p-10')}>
+		<span aria-hidden="true" class="absolute inset-0 -z-10 opacity-60 [background-image:radial-gradient(color-mix(in_oklab,var(--foreground)_22%,transparent)_1px,transparent_1.5px)] [background-size:14px_14px] [mask-image:radial-gradient(ellipse_at_center,transparent_35%,black_90%)]"></span>
+		<span aria-hidden="true" class="absolute inset-x-0 bottom-0 -z-10 h-2/3 bg-[radial-gradient(ellipse_at_50%_100%,color-mix(in_oklab,var(--orange)_14%,transparent),transparent_70%)]"></span>
+		{#if inset}<div class="w-full min-w-0 max-w-[34rem]">{@render visual()}</div>{:else}{@render visual()}{/if}
 	</div>
 </section>
