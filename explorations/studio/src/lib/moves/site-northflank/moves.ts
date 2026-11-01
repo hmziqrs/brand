@@ -30,5 +30,6 @@ export const moves: Move[] = [
 	{ id: 'site-northflank/contact-form', axis: 'section', name: 'Contact form', file: f('contact-form'), notes: 'Email, query type and message with inline validation, a live character count, an oxide send button and a thank-you state.' },
 	{ id: 'site-northflank/resource-switch', axis: 'nav', name: 'Resource switch', file: f('resource-switch'), notes: 'Pill tab group (Guides, Changelog, Blog) with an oxide ring on the current section.' },
 	{ id: 'site-northflank/post-card', axis: 'cards', name: 'Post card', file: f('post-card'), notes: 'Cover with the title on a solid plate, monogram byline, excerpt and tag; featured variant sits side by side.' },
+	{ id: 'site-northflank/release-log', axis: 'section', name: 'Release log', file: f('release-log'), notes: 'Changelog timeline: sticky big period + version, a 1px rail that fills oxide on scroll, voxel release media with a command chip, feature paragraphs and Added/Changed/Fixed cards.' },
 	{ id: 'site-northflank/release-cover', axis: 'illustration', name: 'Release voxel cover', file: f('release-cover'), notes: 'Seeded iso voxel cluster on a dot grid that tilts toward the cursor, with the release name on a reading plate.' }
 ];
