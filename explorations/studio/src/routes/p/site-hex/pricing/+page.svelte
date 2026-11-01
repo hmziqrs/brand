@@ -16,6 +16,8 @@
 		{ name: 'Enterprise', for: 'For orgs that need strict security, governance and support.', month: null, year: null, unit: '', cta: 'Talk to sales', href: href('contact'), kind: 'lock', items: ['SSO, SCIM and audit logs', 'Single-tenant option', 'Bring your own model', 'Named customer engineer'] }
 	] as const;
 
+	const tiers = plans.map((p) => ({ name: p.name, price: p.year === null ? 'Custom' : p.year === 0 ? 'Free' : `$${p.year}`, unit: p.year ? '/ mo' : undefined, cta: p.cta, href: p.href, kind: p.kind, hot: 'hot' in p && p.hot }));
+
 	const groups: { name: string; rows: [string, ...(boolean | string)[]][] }[] = [
 		{ name: 'Data', rows: [['Warehouse connections', '1', '3', 'Unlimited', 'Unlimited'], ['Compute', 'Small', 'Medium', 'Medium + add-ons', 'Custom'], ['Scheduled runs', false, true, true, true], ['Write back to warehouse', false, false, true, true]] },
 		{ name: 'AI', rows: [['Agent questions / month', '20', '300', '1,500 / editor', 'Custom'], ['Semantic model grounding', false, true, true, true], ['Context studio + evals', false, false, true, true], ['Bring your own model', false, false, false, true]] },
@@ -49,7 +51,7 @@
 	</section>
 
 	<section class="mx-auto w-full max-w-[1320px] px-4 pt-24 sm:px-8">
-		<CompareTable plans={plans.map((p) => p.name)} {groups} />
+		<CompareTable plans={tiers} {groups} />
 	</section>
 
 	<FaqSplit class="pt-24" items={faqs} contactHref={href('contact')} />

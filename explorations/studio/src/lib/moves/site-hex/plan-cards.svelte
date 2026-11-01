@@ -16,10 +16,10 @@
 			<button type="button" role="radio" aria-checked={annual} onclick={() => (annual = true)} class="px-4 py-2 text-sm text-foreground aria-checked:bg-foreground aria-checked:text-background">Yearly <span class="ml-1 font-mono text-xs">−17%</span></button>
 		</div>
 	</div>
-	<div class="grid gap-px border border-border bg-border sm:grid-cols-2 xl:grid-cols-4">
+	<div class="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
 		{#each plans as p (p.name)}
 			{@const price = annual ? p.year : p.month}
-			<article class="flex flex-col bg-background">
+			<article class={cn('flex flex-col border bg-background', p.hot ? 'border-[var(--orange)]' : 'border-border')}>
 				<div class={cn('relative border-b border-border px-8 pt-6 pb-2', p.hot && 'bg-[var(--orange)] text-[var(--on-orange)]')}>
 					{#if p.hot}<span class="absolute top-4 left-4 font-mono text-[11px] tracking-[0.14em] uppercase">Most teams</span>{/if}
 					<SpotMini kind={p.kind} class={cn('mx-auto max-w-[150px]', p.hot && '[--orange:var(--on-orange)]')} />
