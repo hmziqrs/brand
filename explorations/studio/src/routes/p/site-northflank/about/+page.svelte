@@ -71,7 +71,7 @@
 		</div>
 	</section>
 
-	<section class="border-t bg-(--band)">
+	<section class="border-t">
 		<div class="{wrap} py-24 lg:py-32">
 			<div class="text-center">
 				<MonoLabel text="Leadership" class="justify-center" />
