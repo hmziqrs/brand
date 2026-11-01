@@ -11,7 +11,7 @@
 </script>
 
 <header class={cn('sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur-xl', className)}>
-	<div class="mx-auto flex h-16 max-w-[1280px] items-center gap-8 px-4 sm:px-8">
+	<div class="flex h-16 w-full items-center gap-8 px-4 sm:px-6 lg:px-10">
 		<a href={to('home')} class="shrink-0" aria-label="kiln home"><Wordmark /></a>
 		<nav class="hidden items-center gap-1 md:flex" aria-label="Main">
 			{#each nav as l (l.slug)}

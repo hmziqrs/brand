@@ -179,7 +179,7 @@
 		</div>
 	</section>
 
-	<SiteFooter preset="copper-sweep">
+	<SiteFooter>
 		{#snippet cta()}
 			<div class="flex flex-col items-center text-center">
 				<h2 class="text-[clamp(2.75rem,7vw,6rem)] leading-[0.9] font-semibold tracking-[-0.055em]">Your next idea starts here<span class="ml-[0.05em] inline-block size-[0.15em] bg-primary"></span></h2>

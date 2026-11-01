@@ -45,5 +45,5 @@
 		</div>
 	</section>
 
-	<SiteFooter preset="mineral-fault" />
+	<SiteFooter />
 </div>

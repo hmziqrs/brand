@@ -8,11 +8,12 @@ export const meta: Meta = {
 	inspiredBy: ['framer', 'flora'],
 	moves: [
 		'site-framer/site-header',
-		'site-framer/hero-stage',
+		'site-framer/poster-hero',
+		'site-framer/inline-poster',
 		'site-framer/prompt-box',
 		'site-framer/proof-strip',
 		'site-framer/section-head',
-		'site-framer/editor-window',
+		'site-framer/build-steps',
 		'site-framer/bento-cell',
 		'site-framer/cms-table',
 		'site-framer/agent-terminal',
@@ -25,6 +26,6 @@ export const meta: Meta = {
 		'flora/rust-grid-field'
 	],
 	breaks: ['no-hover-motion', 'outline-only-cards', 'single-typeface'],
-	notes: 'Framer’s home IA section for section, re-skinned: hover-grid oxide hero around the agent prompt, hairline bento of working mini-panels, one solid oxide tile, material site posters.',
+	notes: 'Full-width hero: giant headline with a cycling site poster inline and a fan of posters that sways with the cursor; sticky three-step build demo; separate bento tiles; material-filled kiln footer with a publish ticker.',
 	order: 1
 };

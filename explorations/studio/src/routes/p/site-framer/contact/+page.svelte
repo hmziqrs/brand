@@ -20,5 +20,5 @@
 			{/each}
 		</div>
 	</section>
-	<SiteFooter preset="etched-silk" />
+	<SiteFooter />
 </div>
