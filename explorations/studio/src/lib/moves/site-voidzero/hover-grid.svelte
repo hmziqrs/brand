@@ -6,7 +6,8 @@
 		radius = 2.2,
 		lines = true,
 		fade = 0.94,
-		strength = 0.38,
+		strength = 0.16,
+		lineAlpha = 0.35,
 		class: className
 	}: {
 		cell?: number;
@@ -14,6 +15,7 @@
 		lines?: boolean;
 		fade?: number;
 		strength?: number;
+		lineAlpha?: number;
 		class?: string;
 	} = $props();
 
@@ -69,6 +71,7 @@
 				}
 			ctx.globalAlpha = 1;
 			if (lines) {
+				ctx.globalAlpha = lineAlpha;
 				ctx.strokeStyle = line;
 				ctx.lineWidth = 1;
 				ctx.beginPath();
@@ -83,6 +86,7 @@
 					ctx.lineTo(w, y);
 				}
 				ctx.stroke();
+				ctx.globalAlpha = 1;
 			}
 		};
 		const tick = () => {

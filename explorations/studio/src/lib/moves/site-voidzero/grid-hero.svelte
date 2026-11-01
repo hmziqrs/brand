@@ -26,7 +26,7 @@
 </script>
 
 <section use:pointer class={cn('grid-hero relative isolate overflow-hidden border-b border-border bg-background text-foreground', tone === 'ink' && 'dark', className)}>
-	<HoverGrid {cell} class="-z-10 [mask-image:radial-gradient(90%_75%_at_50%_35%,black_35%,transparent)]" />
+	<HoverGrid {cell} lineAlpha={0.2} class="-z-10 [mask-image:radial-gradient(55%_50%_at_50%_30%,black_10%,transparent)]" />
 	<div class="mx-auto flex w-full max-w-[1280px] flex-col items-center px-4 pt-16 pb-6 text-center sm:px-6 md:pt-24">
 		{#if chip}
 			<p class="inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1 font-mono text-xs text-muted-foreground">
