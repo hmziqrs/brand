@@ -16,6 +16,6 @@ export const meta: Meta = {
 		'site-dovetail/site-footer'
 	],
 	breaks: ['orange-only-fill'],
-	notes: 'dovetail.com/blog in our kit: two staggered featured posts over patina rain, a giant “Blog■” with tag chips, and a grid of generated covers (oxide word tiles, materials, thin rings, turning globes, UI snippets) instead of illustrations.',
+	notes: 'dovetail.com/blog in our kit: a full-width giant “Blog■” over patina rain with lede and oxide tag chips, one wide latest-post row, and a grid of generated covers (oxide word tiles, materials, thin rings, turning globes, UI snippets) instead of illustrations.',
 	order: 7
 };
