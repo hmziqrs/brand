@@ -69,7 +69,7 @@
 	<Button size="sm"><Plus class="lucide" />New monitor</Button>
 {/snippet}
 
-<ProductScope hue="blue" tweak="tarnish">
+<ProductScope hue="blue" tweak="tarnish" class="tarnish-shell">
 	<AppShell {nav} currentPath={here} {brand} {account} {topbar} breadcrumbs={[{ label: 'tarnish', href: here }, { label: 'Overview' }]}>
 		<AppPage>
 			<AppPageHeader
@@ -151,5 +151,9 @@
 	.slab-btn {
 		background: var(--on-pa);
 		color: var(--pa-fill);
+	}
+	:global(.tarnish-shell [data-slot='sidebar']) {
+		background: var(--sidebar);
+		box-shadow: inset -1px 0 var(--sidebar-border);
 	}
 </style>
