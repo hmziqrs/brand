@@ -8,7 +8,7 @@ export const meta: Meta = {
 	moves: [
 		'site-northflank/site-header',
 		'site-northflank/cursor-dither',
-		'site-northflank/tier-cards',
+		'site-northflank/plan-sheets',
 		'site-northflank/rate-sheet',
 		'site-northflank/bill-estimator',
 		'site-northflank/price-compare',
