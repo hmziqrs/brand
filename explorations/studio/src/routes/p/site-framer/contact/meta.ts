@@ -8,6 +8,6 @@ export const meta: Meta = {
 	inspiredBy: ['framer'],
 	moves: ['site-framer/site-header', 'site-framer/section-head', 'site-framer/contact-board', 'site-framer/site-footer', 'flora/rust-grid-field'],
 	breaks: ['no-hover-motion'],
-	notes: 'Framer’s contact page kept short: one big support panel on etched-silk material with a chat that actually opens, four channel cells with Emergency as the solid oxide one.',
+	notes: 'Short contact page, all separate cards: a big support card on material with a chat that opens, four channel cards (Emergency solid oxide), then three office cards.',
 	order: 8
 };
