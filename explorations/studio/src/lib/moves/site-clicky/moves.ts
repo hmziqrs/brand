@@ -12,12 +12,12 @@ export const moves: Move[] = [
 	{ id: 'site-clicky/agent-notch', axis: 'section', name: 'Agents under the notch', file: f('agent-notch'), notes: 'Notch pill with agent job cards ticking through their plan; a button hands it a new job.' },
 	{ id: 'site-clicky/notes-manifesto', axis: 'section', name: 'Notes-app manifesto', file: f('notes-manifesto'), notes: 'Manifesto in a yellow-bar notes window with a highlighter phrase and a blinking signature, flanked by square arcs.' },
 	{ id: 'site-clicky/square-arc', axis: 'illustration', name: 'Palette square arcs', file: f('square-arc'), notes: 'Rainbow arch of stacked rounded squares blending between two palette colours; squares hop on hover.' },
-	{ id: 'site-clicky/feedback-wall', axis: 'cards', name: 'Window feedback wall', file: f('feedback-wall'), notes: 'Sliding giant headline over a staggered three-column wall of tinted window posts (invented), fading into a join button.' },
+	{ id: 'site-clicky/feedback-bubbles', axis: 'cards', name: 'Speech-bubble feedback rows', file: f('feedback-bubbles'), notes: 'Two counter-drifting rows of solid palette speech bubbles (invented posts) with a small name line under each; tilt on hover, rows pause under the cursor.' },
 	{ id: 'site-clicky/plan-windows', axis: 'cards', name: 'Plan windows', file: f('plan-windows'), notes: 'Three plans as tinted app windows with a monthly/yearly pill toggle and an inverted mono student strip.' },
 	{ id: 'site-clicky/faq-window', axis: 'section', name: 'FAQ in a window', file: f('faq-window'), notes: 'Kit accordion inside a faq.txt window under a big lowercase title.' },
 	{ id: 'site-clicky/sticky-notes', axis: 'cards', name: 'Taped sticky notes', file: f('sticky-notes'), notes: 'Square pastel notes in yellow, blue and pink with tape strips and slight tilts that straighten and lift on hover.' },
 	{ id: 'site-clicky/release-feed', axis: 'layout', name: 'Filtered release feed', file: f('release-feed'), notes: 'All/mac/windows pill filter, sticky date + version rail, colour-dotted section heads, reporter initials.' },
 	{ id: 'site-clicky/role-list', axis: 'cards', name: 'Role windows with inline draft', file: f('role-list'), notes: 'Each role is a tinted window; reach out unfolds an email draft inside it and sends with a toast.' },
 	{ id: 'site-clicky/plan-picker', axis: 'section', name: 'Jobs slider plan picker', file: f('plan-picker'), notes: 'A calculator window: drag jobs per month and a solid oxide card names the plan, price and usage bar.' },
-	{ id: 'site-clicky/desk-footer', axis: 'footer', name: 'Face footer', file: f('desk-footer'), notes: 'Lowercase link columns and disclaimer over a giant clickable mono face whose nose is the oxide square.' }
+	{ id: 'site-clicky/desk-footer', axis: 'footer', name: 'Face footer', file: f('desk-footer'), notes: 'Full-width lowercase link columns and disclaimer over a giant clickable mono face whose nose is the oxide square.' }
 ];
