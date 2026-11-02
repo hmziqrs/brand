@@ -20,7 +20,7 @@ packages/brand-astro/
 │   ├── blocks/app/              app blocks (app-blocks.md, phase 10)
 │   └── styles/kit.css           Starwind's stylesheet + the BRAND.md 3.1 adapter
 ├── starwind.config.json         which Starwind version each stock component came from
-├── astro.config.mjs             the `$brand` alias, so `astro check` resolves the kit
+├── astro.config.ts             the `$brand` alias, so `astro check` resolves the kit
 └── package.json
 ```
 

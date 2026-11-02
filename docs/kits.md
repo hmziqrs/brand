@@ -101,7 +101,7 @@ packages/brand-astro/
 Every plan adds its own pieces to the roster. Two tools read it:
 
 - **`bun run check:parity`** fails when a piece in the roster is missing from either kit, from either kit's stories or gallery, or from either registry. A piece can be marked "not yet" while its plan is in progress. It runs in `bun run check`.
-- **`bun run compare <piece|group>`** (`scripts/compare.mjs`, with Playwright) screenshots the Svelte story and the Astro gallery entry, in light and dark, at 360px and 1280px. It lays them side by side in `compare/` (git-ignored). `bun run compare --pages <path>` does the same for a demo page in both boilerplates. The report relays every shot in the folder, not just the latest run's — so a page-pair run no longer drops the per-piece rows a full run laid down — and `bun run compare --report` rebuilds it from what is there without shooting anything. Every "matches" check in these plans is done from this report.
+- **`bun run compare <piece|group>`** (`scripts/compare.ts`, with Playwright) screenshots the Svelte story and the Astro gallery entry, in light and dark, at 360px and 1280px. It lays them side by side in `compare/` (git-ignored). `bun run compare --pages <path>` does the same for a demo page in both boilerplates. The report relays every shot in the folder, not just the latest run's — so a page-pair run no longer drops the per-piece rows a full run laid down — and `bun run compare --report` rebuilds it from what is there without shooting anything. Every "matches" check in these plans is done from this report.
 
 ## Boilerplates
 
@@ -118,7 +118,7 @@ Every plan adds its own pieces to the roster. Two tools read it:
 
 `astro-app` also has a `/kit` gallery: one page per group, showing every piece in every state. It stands in for Storybook, which doesn't support Astro components. `astro-app` renders on demand with the `@astrojs/node` adapter, so Astro Actions, URL params and server islands work.
 
-**Starting a new project:** `bun run new-project <svelte|astro> <folder>` (`scripts/new-project.mjs`):
+**Starting a new project:** `bun run new-project <svelte|astro> <folder>` (`scripts/new-project.ts`):
 
 1. Copies the boilerplate.
 2. Replaces `workspace:*` versions with the published `@hmziq/brand-core` version.
@@ -173,7 +173,7 @@ Everything is served from the existing GitHub Pages site:
 2. Run `shadcn-svelte init` with the CSS file set to `src/lib/styles/kit.css` and the aliases set to `$brand/…`. Delete the color variables it writes.
 3. Add Storybook (`@storybook/sveltekit`) with the a11y and themes addons, dark first, reusing the lab's manager theme and heads. Stories are `*.stories.svelte` files next to each component.
 4. Extend `check-colors` and `check-motion` to `.svelte` files (markup and `<style>`), scanning `packages/brand-svelte/src/lib` and `boilerplates/svelte-app`. Stock `ui/` is exempt from the color check but not the motion check. Add one passing and one failing example file for each check.
-5. Write `scripts/pieces.json`, `check:parity` and `scripts/compare.mjs`.
+5. Write `scripts/pieces.json`, `check:parity` and `scripts/compare.ts`.
 6. List the lab's changes to stock components (porting rule 6).
 7. Add shadcn-svelte components as the ported pieces need them, with the brand's changes.
 8. Port every brand piece from `apps/lab/src/components/brand`, each with stories for the same states as its React stories.
@@ -213,7 +213,7 @@ Everything is served from the existing GitHub Pages site:
   `head.html` will hold, for a site's id in `family.ts`, with the theme-color hexes
   derived from core's `theme.css` at build time (`readTheme` + `toHex`) rather than
   typed in.
-- `bun run compare` (new, `scripts/compare.mjs`, Playwright) lays each piece next to its
+- `bun run compare` (new, `scripts/compare.ts`, Playwright) lays each piece next to its
   lab story in light and dark at 360px and 1280px. All 13 brand pieces with lab stories
   are byte-identical screenshots; `Scene` can't be (it animates — the lab differs from
   itself too) and matches in its `still` story, same canvas size, same pause button.
@@ -300,7 +300,7 @@ app-blocks.md phase 10). Done:
   not fatal, so the checks pass before the boilerplate exists.
 
 The `/kit` axe pass has run and is clear: `bun run --filter @hmziq/brand-astro
-check:a11y` (`packages/brand-astro/scripts/axe.mjs`, with the gallery server
+check:a11y` (`packages/brand-astro/scripts/axe.ts`, with the gallery server
 running) reports 0 violations across the five gallery pages (2026-10-02;
 it reported 7 before the fixes; re-run in round 3 from a gallery server
 started fresh at the round-3 tree — still 5 pages, 0 violations). What
@@ -421,7 +421,7 @@ Needs steps 1 and 2.
 2. Write `packages/brand-svelte/registry.json` for every piece in the roster so far, each with its npm dependencies (including core) and the other registry items it needs. Build it into the Pages deploy at `/r/svelte/`.
 3. Build the Astro registry at `/r/astro/`, using the install method from step 2's test.
 4. Install one component into a fresh SvelteKit app and one into a fresh Astro app. Then install all of them.
-5. Write `scripts/new-project.mjs` and `check:fresh-copy` for both.
+5. Write `scripts/new-project.ts` and `check:fresh-copy` for both.
 6. Serve `/theme.css` from the Pages deploy.
 7. Update BRAND.md:
    - section 2: installing from npm and the registries, and `bun run new-project`;
@@ -459,8 +459,8 @@ by-hand release steps below. Done:
   `bunx changeset publish` → push (the Pages workflow then deploys the
   registries).
 - Both registries, generated from the roster and the kits' source trees by
-  `bun run registry:generate` (scripts/registry-lib.mjs +
-  scripts/generate-registries.mjs): one item per roster piece, one per
+  `bun run registry:generate` (scripts/registry-lib.ts +
+  scripts/generate-registries.ts): one item per roster piece, one per
   vendored stock folder (`ui-*`, `starwind-*`), `utils`, a `kit` item that
   depends on everything, and a catch-all per blocks folder the roster
   doesn't list yet (`content-blocks`, `app-blocks`) — pieces become their
@@ -480,14 +480,14 @@ by-hand release steps below. Done:
     resolved through the project's `registries` map.
   - The Scene items carry `three` (core's optional peer): the kit barrel
     exports Scene, so every whole-kit install has to build it.
-- `bun run registry:build` (scripts/build-registries.mjs) writes the Pages
+- `bun run registry:build` (scripts/build-registries.ts) writes the Pages
   layout — `r/svelte/`, `r/astro/`, `theme.css` — into `dist/registries/`
   (git-ignored), including the `styles/vega/index.json` the shadcn-svelte
   CLI fetches before every add. The Storybook workflow copies it into the
   Pages artifact, but only once core's version is not 0.0.0: an unreleased
   version would send installs to npm for a package that isn't there.
 - `bun run new-project <svelte|astro> <folder>`
-  (scripts/new-project.mjs): copies the boilerplate, points
+  (scripts/new-project.ts): copies the boilerplate, points
   `@hmziq/brand-core` at the published version (`--core` overrides, e.g. a
   `bun pm pack` tarball before a release), writes the `components.json` the
   CLIs need, points `$brand` at the installed kit folder, rewrites the
@@ -497,8 +497,8 @@ by-hand release steps below. Done:
   core's Markdown plugins, which the config's own comment asks for),
   installs, and adds the whole kit from the registry. No import in the
   boilerplate changes.
-- `bun run check:fresh-copy <svelte|astro>` (scripts/check-fresh-copy.mjs):
-  builds the registries, serves them from `scripts/serve-registries.mjs`
+- `bun run check:fresh-copy <svelte|astro>` (scripts/check-fresh-copy.ts):
+  builds the registries, serves them from `scripts/serve-registries.ts`
   (a separate process — the installs run under `spawnSync`), runs
   `new-project` into a temp folder outside the repo, and builds the copy.
   While core is unreleased it installs the local `bun pm pack` tarball — the
@@ -527,7 +527,7 @@ plan's "Decisions"):
   the served registry — were previewed beside the built in-repo
   boilerplates, and their `/`, `/about`, `/blog` and `/app/overview` pages
   are byte-identical screenshots in all 32 pairs (both frameworks, light
-  and dark, 360px and 1280px, full page, the `compare.mjs` method). The
+  and dark, 360px and 1280px, full page, the `compare.ts` method). The
   references are themselves the matched views — step 1 matched svelte-app's
   landing to the lab's, step 2 the whole roster — so the fresh copies look
   like the references. Reading that half against the public registry URLs

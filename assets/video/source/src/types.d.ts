@@ -1,4 +1,4 @@
-// The bundle's asset imports (see scripts/webpack.mjs): the fonts load from
+// The bundle's asset imports (see scripts/webpack.ts): the fonts load from
 // URLs, and theme.css arrives as text for the resolver to read in the browser.
 declare module "*.woff2" {
   const url: string

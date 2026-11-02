@@ -171,10 +171,10 @@ separate 480/960px WebPs. `/shaders/renderer` loads only for a live preview;
 The legacy `/shaders` export retains embedded previews for compatibility;
 kit components and the studio use cacheable poster assets instead.
 
-Source recipes and WGSL came from `hmziq-shader-pack/`. Core tests compare
-all recipes, uniforms, shader tokens, source image hashes, and generated poster
-hashes. After changing source textures, run `bun scripts/generate-shader-posters.mjs`
-from the repository root, then run `bun run check` and inspect rendered twins.
+`@hmziq/brand-core/shaders` is the shader source of truth: recipes, WGSL,
+uniforms, and poster assets all live there. Core tests compare all recipes,
+uniforms, and generated poster hashes. The `hmziq-shader-pack/` folder the port
+started from was removed after the port; its git history is the record.
 
 ## Glass
 
@@ -220,7 +220,7 @@ Announce, plus `Templates/Glass sections` and `Sites/freeoxide tools`.
 ## Registry
 
 `registry.json` is generated, never hand-edited: `bun run registry:generate`
-(scripts/generate-registries.mjs + scripts/registry-lib.mjs) builds it from
+(scripts/generate-registries.ts + scripts/registry-lib.ts) builds it from
 the pieces roster and the kit's source tree — one item per roster piece
 (named by its `svelteItem` in `scripts/pieces.json`), one per vendored stock
 folder (`ui-*`), plus `utils`, a `kit` item that depends on everything, and a
