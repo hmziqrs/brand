@@ -5,7 +5,7 @@ import { glob } from "astro/loaders";
 /*
  * The content collections (docs/content-blocks.md, step 3): posts and docs
  * written in Markdown, rendered through core's plugins — the callout, the
- * heading anchor, the code meta and the table — which astro.config.mjs wires
+ * heading anchor, the code meta and the table — which astro.config.ts wires
  * into every collection's pipeline with the built-in highlighter off. A
  * post's cover, and whether it's line art (so it inverts on light pages),
  * come from its frontmatter.

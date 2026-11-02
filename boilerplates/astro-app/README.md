@@ -21,7 +21,7 @@ Astro components). Start new projects with `bun run new-project astro <folder>`.
   `contact`, `404` and `components` — the content pages, from the
   content-page blocks. The posts and docs pages come from the content
   collections in `src/content/`, rendered through core's Markdown plugins
-  (astro.config.mjs, with the built-in highlighter off). All example content.
+  (astro.config.ts, with the built-in highlighter off). All example content.
 - `src/pages/kit/` — the gallery: one page per group, every piece in every
   state. Each section's id is the piece's anchor in `scripts/pieces.json`,
   which `bun run check:parity` reads.
@@ -42,7 +42,7 @@ Astro components). Start new projects with `bun run new-project astro <folder>`.
 ## Inside this repo
 
 The boilerplate uses the kit from its source, so kit changes show up right
-away: `$brand` points at `packages/brand-astro/src` (astro.config.mjs and
+away: `$brand` points at `packages/brand-astro/src` (astro.config.ts and
 tsconfig.json). `bun run new-project` points `$brand` at the folder the kit is
 installed into instead; no import in here changes.
 

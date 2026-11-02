@@ -322,7 +322,7 @@ fixes they forced are in:
   — closed in round 3, when the Svelte twin took the same first
   sentence as the Astro twin.
 - The Astro axe runner exists: `bun run --filter @hmziq/brand-astro
-  check:a11y` (`scripts/axe.mjs`) reads the `/kit` gallery's own index
+  check:a11y` (`scripts/axe.ts`) reads the `/kit` gallery's own index
   for its pages and runs axe over each. `/kit/content` passes with zero
   violations (the gallery's two PostContents variants carry distinct
   nav labels now — two "On this page" navs on one page was its one

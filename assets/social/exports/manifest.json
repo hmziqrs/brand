@@ -1,7 +1,7 @@
 {
   "target": "social",
   "command": "bun run render-assets --only social",
-  "digest": "186721301350e40bdb90d8b00f4b3db5698fb8105856c9167b01bc942eddb068",
+  "digest": "6bf63e0ac52fa313f4e73a31968190b8d9cf3cda979a8fea50591f6a10776538",
   "renderers": {
     "@resvg/resvg-js": "2.6.2",
     "opentype.js": "2.0.0",
@@ -132,7 +132,7 @@
     },
     {
       "path": "bun.lock",
-      "sha256": "1d12fb138a0769ce8201c4f7b685a2260e868bb60f199bb2dd0b1a26fed81d2b"
+      "sha256": "8b90c90bd8c6b0ef669f625964e38d0299756782b29d2e50fae0041eee71fd3f"
     },
     {
       "path": "packages/brand-core/rings.css",
@@ -140,7 +140,7 @@
     },
     {
       "path": "packages/brand-core/src/color.ts",
-      "sha256": "10daad0a78e06212244343dcd7ddc520616b8d0dc19b1696a9196bb71fa0c845"
+      "sha256": "5be3d55566df5747a4743765198780ff833f1015fffa8b8af76bdd43a3004936"
     },
     {
       "path": "packages/brand-core/src/family.ts",
@@ -203,12 +203,12 @@
       "sha256": "70568a10f0ddf35d4164d763081ddb3f548691ece3a46d0c148af66b6d52ed48"
     },
     {
-      "path": "scripts/assets-lib.mjs",
-      "sha256": "cc21a84cf888f3b4ad3514dffad6c3e5ef3a4b63b52f3532e5afa50d474ae3bc"
+      "path": "scripts/assets-lib.ts",
+      "sha256": "03785e76db43ddcc11f260908cea14efa3a9d7f583994e6600f294f57c920728"
     },
     {
-      "path": "scripts/render-assets.mjs",
-      "sha256": "cf22c6bc98b88a36cba1b490605df6094102af74769ad2eb8daa09e400d71de9"
+      "path": "scripts/render-assets.ts",
+      "sha256": "f199d274c6caaed090f795446c11f18a918d8ae24a13a4f0b7b912c743d53f77"
     }
   ],
   "files": [
