@@ -86,7 +86,7 @@
 			title: "Navigation",
 			line: "Getting around a site or an app.",
 			items: [
-				{ name: "Nav bar", use: "Header: bar, floating glass or centered, with menus and a phone sheet", id: "custom-nav-bar--bar", fresh: true },
+				{ name: "Nav bar", use: "Header: bar, floating glass or centered, with hover menus, a closable announcement and a phone sheet", id: "custom-nav-bar--with-dropdowns", fresh: true },
 				{ name: "Site footer", use: "Footer: columns, simple or minimal", id: "custom-site-footer--columns", fresh: true },
 				{ name: "Site shell", use: "Header, page rhythm and the family footer together", id: "site-structure-site-shell--landing" },
 				{ name: "Command palette", use: "\u2318K search with actions", id: "custom-command-palette--inline", fresh: true },

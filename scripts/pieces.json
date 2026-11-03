@@ -2514,7 +2514,7 @@
     {
       "name": "NavBar",
       "group": "brand",
-      "svelte": "custom-nav-bar--bar",
+      "svelte": "custom-nav-bar--with-dropdowns",
       "astro": "not yet",
       "svelteFile": "components/nav-bar.stories.svelte",
       "svelteItem": "not yet",
