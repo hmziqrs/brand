@@ -4,12 +4,9 @@ import Database from '@lucide/svelte/icons/database';
 import RefreshCw from '@lucide/svelte/icons/refresh-cw';
 import Wrench from '@lucide/svelte/icons/wrench';
 import NavBar from '$brand/components/nav-bar.svelte';
-import FloraNav from '$moves/site-flora/site-nav.svelte';
-import FloatNav from '$moves/flora/float-nav.svelte';
-import VoidzeroHeader from '$moves/site-voidzero/site-header.svelte';
 import NorthflankHeader from '$moves/site-northflank/site-header.svelte';
-import HexNav from '$moves/site-hex/top-nav.svelte';
 import FreeoxideNav from '$moves/voidzero/top-nav.svelte';
+import FinalHeader from '$moves/review/site-header-final.svelte';
 
 export type HeaderCandidate = {
 	id: string;
@@ -21,9 +18,40 @@ export type HeaderCandidate = {
 };
 
 const gq = '#/p/bento/gpui-query-1';
-const oxlabs = '#/p/flora/oxlabs-1';
 
 export const headers: HeaderCandidate[] = [
+	{
+		id: 'final',
+		name: 'Final — your picks merged',
+		line: 'The kit header as the base, the freeoxide closable shader-poster announcement on top, ferrous single-level hover dropdowns; full-width bar, contents in the kit container.',
+		src: 'src/lib/moves/review/site-header-final.svelte',
+		component: FinalHeader,
+		props: {
+			brand: { name: 'gpui-query', maker: 'by hmziq', href: gq },
+			links: [
+				{
+					label: 'Guide',
+					children: [
+						{ label: 'Quickstart', href: gq, description: 'Your first cached query in five minutes.' },
+						{ label: 'Queries', href: gq, description: 'Typed keys, stale times, background refetch.' },
+						{ label: 'Mutations', href: gq, description: 'Optimistic writes that roll back on error.' },
+						{ label: 'Devtools', href: gq, description: 'Watch the cache live while the app runs.' }
+					]
+				},
+				{
+					label: 'Resources',
+					children: [
+						{ label: 'Examples', href: gq, description: 'Small apps that use one feature each.' },
+						{ label: 'Recipes', href: gq, description: 'Pagination, polling and offline, step by step.' },
+						{ label: 'Migration', href: gq, description: 'Moving over from hand-rolled caches.' }
+					]
+				},
+				{ label: 'Changelog', href: gq }
+			],
+			actions: { github: 'https://github.com/hmziqrs', primary: { label: 'Get started', href: gq } },
+			announcement: { text: 'gpui-query 0.3 tries again on its own when the network drops', href: gq, preset: 'copper-sweep' }
+		}
+	},
 	{
 		id: 'current',
 		name: 'Current',
@@ -52,30 +80,6 @@ export const headers: HeaderCandidate[] = [
 		}
 	},
 	{
-		id: 'flora',
-		name: 'Flora',
-		line: 'From site-flora/home: announcement strip, pill links with two-column mega menus, Contact sales + Start free.',
-		src: 'src/lib/moves/site-flora/site-nav.svelte',
-		component: FloraNav,
-		props: {}
-	},
-	{
-		id: 'float-pill',
-		name: 'Float pill',
-		line: 'A glass pill floating over the page: wordmark, four links, one round button.',
-		src: 'src/lib/moves/flora/float-nav.svelte',
-		component: FloatNav,
-		props: {
-			href: oxlabs,
-			links: [
-				{ label: 'Services', href: oxlabs },
-				{ label: 'Process', href: oxlabs },
-				{ label: 'Open source', href: oxlabs },
-				{ label: 'About', href: oxlabs }
-			]
-		}
-	},
-	{
 		id: 'freeoxide',
 		name: 'freeoxide bar',
 		line: 'A closable shader-poster announcement over a tall plain bar: freeoxide wordmark, quiet links, GitHub icon, button.',
@@ -84,27 +88,11 @@ export const headers: HeaderCandidate[] = [
 		props: { announce: 'gpui-query 0.3 tries again on its own when the network drops' }
 	},
 	{
-		id: 'mega-panel',
-		name: 'Mega panel',
-		line: 'Click “Open source” for a full-width panel of product tiles; social icons on the right.',
-		src: 'src/lib/moves/site-voidzero/site-header.svelte',
-		component: VoidzeroHeader,
-		props: {}
-	},
-	{
 		id: 'hover-menus',
 		name: 'Hover menus',
 		line: 'Notice line on top, hover dropdowns with a line per page, Log in + a keyboard-key Get started.',
 		src: 'src/lib/moves/site-northflank/site-header.svelte',
 		component: NorthflankHeader,
-		props: { active: 'home' }
-	},
-	{
-		id: 'centred',
-		name: 'Centred',
-		line: 'Notice line on top, wordmark in the middle between split links, solid ink Get started.',
-		src: 'src/lib/moves/site-hex/top-nav.svelte',
-		component: HexNav,
 		props: { active: 'home' }
 	}
 ];
