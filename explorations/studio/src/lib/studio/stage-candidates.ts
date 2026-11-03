@@ -10,7 +10,8 @@ import Plates from '$moves/review/stages/plates.svelte';
 import Lattice from '$moves/review/stages/lattice.svelte';
 import Shader from '$moves/review/stages/shader.svelte';
 import Rings from '$moves/review/stages/rings.svelte';
-import Grid from '$moves/review/stages/grid.svelte';
+import Ascii from '$moves/review/stages/ascii.svelte';
+import Hatch from '$moves/review/stages/hatch.svelte';
 
 export type StageCandidate = {
 	id: string;
@@ -29,12 +30,13 @@ export const stages: StageCandidate[] = [
 	{ id: 'float-material', name: 'Floating materials', line: 'Material cards drifting away from the cursor over a faint paint grid.', src: 'src/lib/moves/review/stages/float-material.svelte', panel: false, align: 'center', component: FloatMaterial },
 	{ id: 'float-real', name: 'Floating, real content', line: 'The same drift with real cards: an app window, an install terminal, a project, a post, a phone.', src: 'src/lib/moves/review/stages/float-real.svelte', panel: false, align: 'center', component: FloatReal },
 	{ id: 'lattice', name: 'Lattice scene', line: 'The kit three.js lattice to the right, fading out behind the words.', src: 'src/lib/moves/review/stages/lattice.svelte', panel: false, align: 'left', component: Lattice },
-	{ id: 'voxel', name: 'Voxel stack', line: 'Isometric voxel stack on a faint grid; blocks light up and lift under the mouse.', src: 'src/lib/moves/review/stages/voxel.svelte', panel: false, align: 'left', component: Voxel },
+	{ id: 'voxel', name: 'Voxel stack', line: 'Isometric voxel stack on the plain page; blocks light up and lift under the mouse.', src: 'src/lib/moves/review/stages/voxel.svelte', panel: false, align: 'left', component: Voxel },
 	{ id: 'plates', name: 'Plate stack', line: 'A stack of thin floating plates, one cut from oxide.', src: 'src/lib/moves/review/stages/plates.svelte', panel: false, align: 'left', component: Plates },
 	{ id: 'desk', name: 'Desk windows', line: 'A dotted desktop that bends round the cursor, with draggable material windows at the edges.', src: 'src/lib/moves/review/stages/desk.svelte', panel: false, align: 'center', component: Desk },
 	{ id: 'contour', name: 'Contour lines', line: 'Topographic lines that bend around the cursor.', src: 'src/lib/moves/review/stages/contour.svelte', panel: false, align: 'left', component: Contour },
 	{ id: 'rings', name: 'Ring field', line: 'Thin rings off the edges and a few stars, drifting with the cursor. The quietest stage.', src: 'src/lib/moves/review/stages/rings.svelte', panel: false, align: 'center', component: Rings },
-	{ id: 'grid', name: 'Quiet grid', line: 'A faint static grid fading out from the centre. The Product and Personal default.', src: 'src/lib/moves/review/stages/grid.svelte', panel: false, align: 'center', component: Grid }
+	{ id: 'ascii', name: 'Glyph rain', line: 'Columns of square glyphs raining down the right side, quiet behind the words; the cursor lights the glyphs near it and speeds the columns under it.', src: 'src/lib/moves/review/stages/ascii.svelte', panel: false, align: 'left', component: Ascii },
+	{ id: 'hatch', name: 'Diagonal hatch', line: 'Fine diagonal lines thickening toward one corner; they bend toward the cursor and drift when it is away.', src: 'src/lib/moves/review/stages/hatch.svelte', panel: false, align: 'left', component: Hatch }
 ];
 
 export const stage = (id: string) => stages.find((s) => s.id === id);
