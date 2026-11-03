@@ -14,6 +14,7 @@
     "logo.css",
     "glass.css",
     "materials.css",
+    "resolve-title.css",
     "src",
     "dist",
     "README.md",
@@ -36,6 +37,7 @@
     "./logo.css": "./logo.css",
     "./glass.css": "./glass.css",
     "./materials.css": "./materials.css",
+    "./resolve-title.css": "./resolve-title.css",
     "./app/nav": {
       "types": "./dist/app/nav.d.ts",
       "default": "./dist/app/nav.js"
@@ -107,6 +109,30 @@
     "./motion/frame": {
       "types": "./dist/motion/frame.d.ts",
       "default": "./dist/motion/frame.js"
+    },
+    "./motion/canvas": {
+      "types": "./dist/motion/canvas.d.ts",
+      "default": "./dist/motion/canvas.js"
+    },
+    "./motion/diagonal-hatch": {
+      "types": "./dist/motion/diagonal-hatch.d.ts",
+      "default": "./dist/motion/diagonal-hatch.js"
+    },
+    "./motion/dot-name": {
+      "types": "./dist/motion/dot-name.d.ts",
+      "default": "./dist/motion/dot-name.js"
+    },
+    "./motion/hover-grid": {
+      "types": "./dist/motion/hover-grid.d.ts",
+      "default": "./dist/motion/hover-grid.js"
+    },
+    "./motion/resolve-title": {
+      "types": "./dist/motion/resolve-title.d.ts",
+      "default": "./dist/motion/resolve-title.js"
+    },
+    "./motion/ring-field": {
+      "types": "./dist/motion/ring-field.d.ts",
+      "default": "./dist/motion/ring-field.js"
     },
     "./motion/scenes": {
       "types": "./dist/motion/scenes/index.d.ts",
