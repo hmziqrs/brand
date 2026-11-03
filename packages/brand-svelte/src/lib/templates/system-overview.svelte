@@ -77,6 +77,7 @@
 				{ name: "Hero stages", use: "Full-width backgrounds behind a hero: a material wash, a material grid the cursor opens, a hatch, a ring field, a scene", id: "custom-material-grid--live", fresh: true },
 				{ name: "Dot name & resolve title", use: "A name in dots that fly in; a title that resolves letter by letter", id: "custom-dot-name--default", fresh: true },
 				{ name: "Product window", use: "A product in a frosted glass window", id: "custom-product-window--with-chrome", fresh: true },
+				{ name: "Footer fields", use: "What a footer ends on: a name in dots or glyphs, a dithered name, a heat field, a voxel ridge, a faded wash", id: "custom-pixel-name--dots", fresh: true },
 				{ name: "Marker", use: "The ring bullet for lists and states", id: "custom-marker--default" },
 				{ name: "Tag", use: "A soft label for a status or category", id: "custom-tag--default" },
 				{ name: "Material tag", use: "One word with a metal edge", id: "custom-material-tag--default", fresh: true },
@@ -90,7 +91,8 @@
 			line: "Getting around a site or an app.",
 			items: [
 				{ name: "Nav bar", use: "Header: bar, floating glass or centered, with hover menus, a closable announcement and a phone sheet", id: "custom-nav-bar--with-dropdowns", fresh: true },
-				{ name: "Site footer", use: "Footer: columns, simple or minimal", id: "custom-site-footer--columns", fresh: true },
+				{ name: "Site footer", use: "Footer: columns, simple or minimal, over an optional stage", id: "custom-site-footer--columns", fresh: true },
+				{ name: "Footers", use: "A footer per flavour: material, dot matrix, glyphs, heat field, voxel ridge, hatch, and calm for reading", id: "sections-material-footer--with-a-closing-line", fresh: true },
 				{ name: "Site shell", use: "Header, page rhythm and the family footer together", id: "site-structure-site-shell--landing" },
 				{ name: "Command palette", use: "\u2318K search with actions", id: "custom-command-palette--inline", fresh: true },
 				{ name: "Line tabs", use: "Tabs with an orange line under the open one", id: "custom-line-tabs--default", fresh: true },
