@@ -27,7 +27,7 @@
 	} = $props();
 </script>
 
-<section class={cn('relative isolate flex min-h-[min(84svh,760px)] flex-col items-center justify-center overflow-hidden px-4 py-24 text-center sm:px-8', className)}>
+<section data-pointer-host class={cn('relative isolate flex min-h-[min(84svh,760px)] flex-col items-center justify-center overflow-hidden px-4 py-24 text-center sm:px-8', className)}>
 	{#if stage}<div class="absolute inset-0 -z-10">{@render stage()}</div>{/if}
 	<h1 class="w-full">
 		{#if treatment === 'dot'}
