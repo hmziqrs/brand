@@ -1,8 +1,8 @@
 <script lang="ts">
+	import { Button } from '$brand/ui/button/index.js';
 	import CommandBox from '$brand/components/command-box.svelte';
 	import IsoTileStack, { type IsoCluster } from '$moves/northflank/iso-tile-stack.svelte';
 	import TerminalChip from '$moves/northflank/terminal-chip.svelte';
-	import KeyButton from '$moves/northflank/key-button.svelte';
 	import MonoLabel from '$moves/northflank/mono-label.svelte';
 
 	const here = '#/p/northflank/gpui-starter-1';
@@ -21,8 +21,8 @@
 			Window chrome, theming, routing, settings and auto-update, wired into a GPUI app on day one. Then packaged for macOS, Windows and Linux.
 		</p>
 		<div class="mt-8 flex flex-wrap gap-3">
-			<KeyButton label="Start a project" key="S" href={here} />
-			<KeyButton label="Read the docs" key="D" variant="outline" href={here} />
+			<Button href={here} size="lg">Start a project</Button>
+			<Button href={here} size="lg" variant="outline">Read the docs</Button>
 		</div>
 		<CommandBox command="cargo generate gh:hmziqrs/gpui-starter" class="mt-6 max-w-[30rem] bg-background" />
 	</div>
