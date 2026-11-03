@@ -13,7 +13,7 @@
 	];
 </script>
 
-<section class="mx-auto grid w-full max-w-[1320px] grid-cols-1 items-center gap-10 px-4 pt-16 pb-12 sm:px-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] lg:pt-24">
+<section class="mx-auto grid w-full max-w-[82rem] grid-cols-1 items-center gap-10 px-6 pt-16 pb-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] lg:pt-24">
 	<div>
 		<MonoLabel text="Rust · GPUI · desktop starter" />
 		<h1 class="mt-6 text-[clamp(48px,7.2vw,92px)] leading-[0.98] font-medium tracking-[-0.035em] text-foreground">Native Rust apps, shipped from one command.</h1>

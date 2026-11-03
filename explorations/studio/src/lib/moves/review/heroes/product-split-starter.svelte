@@ -22,7 +22,6 @@
 	title="One repo for the whole desktop app."
 	accent="whole"
 	lede="Routing, 24 themes, Fluent i18n, SQLite, keyring, tray, signed updates and a Cmd+K launcher are already wired. Run cargo run, then start deleting what you don't need."
-	installLabel="Clone gpui-starter v0.3.0"
 	install="git clone https://github.com/freeoxide/gpui-starter.git"
 >
 	{#snippet eyebrow()}

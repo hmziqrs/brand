@@ -40,15 +40,15 @@
 </script>
 
 {#snippet body()}
-	<p class={cn('text-[clamp(18px,1.7vw,22px)] text-foreground [line-height:1.5]', center ? 'mx-auto max-w-[40rem]' : 'max-w-[36rem]')}>{lede}</p>
+	<p class={cn('text-[clamp(18px,1.7vw,22px)] text-pretty text-foreground [line-height:1.5]', center ? 'mx-auto max-w-[40rem]' : 'max-w-[36rem]')}>{lede}</p>
 	{#if actions}<div class={cn('mt-8 flex flex-wrap gap-3', center && 'justify-center')}>{@render actions()}</div>{/if}
 {/snippet}
 
 <section data-pointer-host class={cn('relative isolate flex min-h-[min(88svh,820px)] flex-col justify-center overflow-hidden', className)}>
 	{#if stage}<div class="absolute inset-0 -z-10">{@render stage()}</div>{/if}
-	<div class={cn('pointer-events-none relative mx-auto w-full max-w-[1320px] px-4 py-24 sm:px-8 lg:py-32 [&>*]:pointer-events-auto', center && 'flex flex-col items-center text-center')}>
+	<div class={cn('pointer-events-none relative mx-auto w-full max-w-[82rem] px-6 py-24 lg:py-32 [&>*]:pointer-events-auto', center && 'flex flex-col items-center text-center')}>
 		{#if eyebrow}<div class="mb-7">{@render eyebrow()}</div>{/if}
-		{#if wordmark}<div class={cn('mb-8 w-full', center && 'flex justify-center')}>{@render wordmark()}</div>{/if}
+		{#if wordmark}<div data-display class={cn('mb-8 w-full', center && 'flex justify-center')}>{@render wordmark()}</div>{/if}
 		{#if heading}{@render heading()}{:else}<AccentTitle
 			{title}
 			{accent}

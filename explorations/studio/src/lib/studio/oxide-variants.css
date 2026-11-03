@@ -63,3 +63,16 @@
 :root[data-light="e"][data-oxide]:not(.dark) :is(.text-primary, .text-orange):not(.dark *, .dark) {
 	color: var(--oxide-deep);
 }
+
+:root {
+	--oxide-display: oklch(0.66 0.18 48);
+}
+
+:root[data-hue]:not([data-hue="oxide"]) {
+	--oxide-display: color-mix(in oklab, var(--oxide-vivid) 62%, var(--oxide-ink));
+}
+
+:root[data-light="e"][data-oxide]:not(.dark) :is(h1, h2, [data-display]) :is(.text-primary, .text-orange):not(.dark *, .dark),
+:root[data-light="e"][data-oxide]:not(.dark) [data-display]:is(.text-primary, .text-orange):not(.dark *, .dark) {
+	color: var(--oxide-display);
+}
