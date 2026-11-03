@@ -2,6 +2,10 @@
    clear (labels and controls only); data-grain adds grain. Reduced transparency and
    browsers without backdrop-filter get a solid card. */
 
+/* Tailwind's layer order, up front: Astro loads this file before the main stylesheet, and a
+   components layer seen first would rank under base, whose border-border would win. */
+@layer properties, theme, base, components, utilities;
+
 @layer components {
   [data-slot="glass"] {
     --glass-blur: 22px;
