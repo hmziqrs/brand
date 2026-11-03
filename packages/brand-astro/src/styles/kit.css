@@ -71,7 +71,7 @@
    names itself. */
 :root,
 .dark {
-  --primary-accent: var(--primary); /* links and accents on the page background */
+  --primary-accent: var(--primary-ink); /* links and accents on the page background */
   --secondary-accent: var(--foreground);
   --error: var(--destructive);
   --outline: var(--ring);

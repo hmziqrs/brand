@@ -74,6 +74,13 @@ pub fn users(cx: &mut App) -> Query<Vec<User>> {
 		<code>--orange</code>.
 	</p>
 	<p>
+		In dark mode one vivid shade does everything. In light mode the same vivid shade fills
+		(the main button, the orange band) with near-black text on it, small oxide text
+		(<code>text-primary</code>, <code>text-orange</code>, links) is the deep ink
+		<code>--primary-ink</code>, and oxide words in a headline (<code>h1</code>,
+		<code>h2</code>, <code>[data-display]</code>) are the brighter <code>--primary-display</code>.
+	</p>
+	<p>
 		<strong>Use it for</strong> the main action on a page, links, the focus ring, and small
 		highlights.
 	</p>
@@ -124,7 +131,7 @@ pub fn users(cx: &mut App) -> Query<Vec<User>> {
 					{/each}
 				<div class="flex flex-col items-start gap-2 pt-1.5">
 					<Tag tone={hue}>{hue[0].toUpperCase() + hue.slice(1)}</Tag>
-					<span class="text-sm" style={`color: var(--${hue})`}>Text in {hue}</span>
+					<span class="text-sm" style={`color: var(--${hue}-ink, var(--${hue}))`}>Text in {hue}</span>
 				</div>
 			</div>
 		{/each}
@@ -210,9 +217,10 @@ pub fn users(cx: &mut App) -> Query<Vec<User>> {
 
 	<h2>Neutrals</h2>
 	<p>
-		These are shadcn's neutral greys, with one change: light-mode secondary text is a touch
-		darker (<code>0.54</code> instead of <code>0.556</code>) so it stays readable on grey
-		surfaces like code blocks. They have no color in them on purpose. A tint doesn't improve
+		These are shadcn's neutral greys, with light mode pushed toward black: a pure white page,
+		near-black text (<code>0.08</code>), darker secondary text (<code>0.3</code>) and firmer
+		lines (<code>0.86</code>), with every weight a step heavier, so light pages read as
+		solid as dark ones. They have no color in them on purpose. A tint doesn't improve
 		readability, and it makes the greys look muddy next to the colors.
 	</p>
 	<table>
@@ -236,7 +244,7 @@ pub fn users(cx: &mut App) -> Query<Vec<User>> {
 	<h2>Readability</h2>
 	<p>
 		Every pair people actually read, measured from <code>theme.css</code> right now. 4.5:1 is
-		the minimum for comfortable reading (WCAG AA); focus rings need 3:1.
+		the minimum for comfortable reading (WCAG AA); focus rings and large headline words need 3:1.
 		<code>bun run check:contrast</code> runs the same measurements on every deploy and fails if
 		one drops below.
 	</p>
@@ -262,7 +270,7 @@ pub fn users(cx: &mut App) -> Query<Vec<User>> {
 
 	<h2>Changing colors</h2>
 	<ul>
-		<li><strong>The brand color:</strong> <code>--primary: var(--orange)</code> appears once in <code>:root</code> and once in <code>.dark</code>. Point both at another color, like <code>var(--blue)</code>, and every button, link, focus ring and code keyword follows.</li>
+		<li><strong>The brand color:</strong> <code>--primary: var(--orange)</code> appears once in <code>:root</code> and once in <code>.dark</code>, with <code>--primary-ink</code> and <code>--primary-display</code> beside it. Point all three at another color, like <code>var(--blue)</code>, and every button, link, focus ring and code keyword follows.</li>
 		<li><strong>A supporting color:</strong> change its two lines in part 2 of <code>theme.css</code> (light and dark), then run <code>bun run check:contrast</code>.</li>
 		<li><strong>A theme tool</strong> (like tweakcn): its output can replace the two shadcn blocks in part 1. The colors in part 2 and the roles in part 3 stay.</li>
 	</ul>

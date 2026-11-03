@@ -12,7 +12,7 @@ Live reference: the Storybook in the `hmziq/brand` repo (`bun run storybook`), w
 | --- | --- |
 | Stack | Tailwind CSS v4 + shadcn/ui, **Base UI** primitives, **Vega** style (`base-vega`). |
 | Typeface | **Onest** for everything people read. **JetBrains Mono** for code only. Self-hosted with Fontsource. |
-| Weights | 400 text, 500 headings, 600 wordmark. Never heavier than 600. |
+| Weights | 400 text, 500 headings, 600 wordmark. Never heavier than 600. Light mode sets each a step heavier (450, 600, 680) so black type on white reads as solid (`theme.css` part 5). |
 | Color | shadcn **neutral** greys (no tint), **oxide orange** as the brand color (`--primary`), and seven supporting colors (red, yellow, green, teal, blue, purple, pink) for status, categories, charts and code. |
 | Mode | **Dark by default** (`<html class="dark">`). Light mode must also work. |
 | Radius | `--radius: 0.625rem`. |
@@ -158,7 +158,7 @@ The real file lives at `packages/brand-core/theme.css` in the brand repo. This b
  *
  * Dark is the default: ship <html class="dark"> and remove the class for light.
  *
- * The file has three parts:
+ * The file has five parts:
  *   1. shadcn's tokens, in shadcn's layout. Greys are shadcn "neutral" (zero
  *      chroma, no tint). A theme tool's output can replace these two blocks.
  *   2. The colors: oxide orange plus seven supporting colors, tuned per mode
@@ -166,10 +166,18 @@ The real file lives at `packages/brand-core/theme.css` in the brand repo. This b
  *   3. Roles that point at those colors: status, code, icons, the logo
  *      square and the faint line used by ring art.
  *   4. Bands: full-width sections that change the colors inside them.
+ *   5. Type weight: light mode sets every weight a step heavier.
  *
- * --primary points at --orange. To try another brand color, point it at
- * another color (e.g. var(--blue)) in both blocks; everything that follows
- * the brand (ring, chart-1, sidebar, code keywords) follows it.
+ * Light mode is a pure white page with near-black type. Oxide fills (the
+ * main button, the orange band) are the vivid orange with near-black text
+ * on them; small oxide text (text-primary, text-orange) is the deep ink
+ * --primary-ink, and oxide words in a headline (h1, h2, [data-display]) are
+ * the brighter --primary-display. Dark mode uses the vivid orange for all three.
+ *
+ * --primary points at --orange. To try another brand color, point --primary,
+ * --primary-ink and --primary-display at another color (e.g. var(--blue)) in
+ * both blocks; everything that follows the brand (ring, chart-1, sidebar,
+ * code keywords) follows it.
  * `bun run check:contrast` measures every pair after a change.
  */
 
@@ -183,26 +191,27 @@ The real file lives at `packages/brand-core/theme.css` in the brand repo. This b
   --radius: 0.625rem;
 
   --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+  --foreground: oklch(0.08 0 0);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
+  --card-foreground: oklch(0.08 0 0);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
+  --popover-foreground: oklch(0.08 0 0);
 
   --primary: var(--orange);
-  --primary-foreground: oklch(0.985 0 0);
+  --primary-foreground: oklch(0.08 0 0);
+  --primary-ink: var(--orange-ink);
+  --primary-display: var(--orange-display);
 
   --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
+  --secondary-foreground: oklch(0.12 0 0);
   --muted: oklch(0.97 0 0);
-  /* shadcn ships 0.556; 0.54 keeps grey text readable on muted surfaces too (4.6:1) */
-  --muted-foreground: oklch(0.54 0 0);
+  --muted-foreground: oklch(0.3 0 0);
   --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+  --accent-foreground: oklch(0.12 0 0);
   --destructive: var(--red);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: var(--primary);
+  --border: oklch(0.86 0 0);
+  --input: oklch(0.86 0 0);
+  --ring: var(--primary-display);
 
   --chart-1: var(--primary);
   --chart-2: var(--blue);
@@ -211,13 +220,13 @@ The real file lives at `packages/brand-core/theme.css` in the brand repo. This b
   --chart-5: var(--yellow);
 
   --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-foreground: oklch(0.08 0 0);
   --sidebar-primary: var(--primary);
   --sidebar-primary-foreground: var(--primary-foreground);
   --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: var(--primary);
+  --sidebar-accent-foreground: oklch(0.12 0 0);
+  --sidebar-border: oklch(0.86 0 0);
+  --sidebar-ring: var(--ring);
 }
 
 .dark {
@@ -230,6 +239,8 @@ The real file lives at `packages/brand-core/theme.css` in the brand repo. This b
 
   --primary: var(--orange);
   --primary-foreground: oklch(0.145 0 0);
+  --primary-ink: var(--orange-ink);
+  --primary-display: var(--orange-display);
 
   --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);
@@ -255,7 +266,7 @@ The real file lives at `packages/brand-core/theme.css` in the brand repo. This b
   --sidebar-accent: oklch(0.269 0 0);
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: var(--primary);
+  --sidebar-ring: var(--ring);
 }
 
 /* 2. Colors ----------------------------------------------------------------
@@ -265,26 +276,32 @@ The real file lives at `packages/brand-core/theme.css` in the brand repo. This b
  * (bg-green/10 text-green dark:bg-green/20).
  * Light shades sit around L 0.53 and dark shades around L 0.72–0.80, so
  * every color passes AA as text on a card and on its own soft fill.
+ * Orange is the exception: the vivid shade fills in both modes, and light
+ * mode writes it as text in --orange-ink (small) or --orange-display (large).
  * --band is the gray of a full-width band; --on-orange is text on orange.
  */
 
 :root,
 .light {
   --red: oklch(0.54 0.21 26);
-  --orange: oklch(0.54 0.135 52);
+  --orange: oklch(0.72 0.165 52);
+  --orange-ink: oklch(0.42 0.11 48);
+  --orange-display: oklch(0.66 0.18 48);
   --yellow: oklch(0.53 0.11 75);
   --green: oklch(0.51 0.14 150);
   --teal: oklch(0.515 0.09 185);
   --blue: oklch(0.53 0.175 255);
   --purple: oklch(0.55 0.2 300);
   --pink: oklch(0.55 0.19 350);
-  --band: oklch(0.97 0 0);
-  --on-orange: oklch(0.985 0 0);
+  --band: oklch(0.955 0 0);
+  --on-orange: oklch(0.08 0 0);
 }
 
 .dark {
   --red: oklch(0.704 0.191 22.216);
   --orange: oklch(0.72 0.165 52);
+  --orange-ink: var(--orange);
+  --orange-display: var(--orange);
   --yellow: oklch(0.8 0.14 85);
   --green: oklch(0.75 0.15 150);
   --teal: oklch(0.75 0.12 185);
@@ -311,7 +328,7 @@ The real file lives at `packages/brand-core/theme.css` in the brand repo. This b
   /* Code highlighting: Shiki's css-variables theme with variablePrefix "--code-". */
   --code-foreground: var(--foreground);
   --code-background: var(--card);
-  --code-token-keyword: var(--primary);
+  --code-token-keyword: var(--primary-ink);
   --code-token-function: var(--blue);
   --code-token-string: var(--green);
   --code-token-string-expression: var(--green);
@@ -352,6 +369,8 @@ The real file lives at `packages/brand-core/theme.css` in the brand repo. This b
   --muted-foreground: var(--on-orange);
   --primary: var(--on-orange);
   --primary-foreground: var(--orange);
+  --primary-ink: var(--on-orange);
+  --primary-display: var(--on-orange);
   --border: color-mix(in oklab, var(--on-orange) 22%, transparent);
   --input: color-mix(in oklab, var(--on-orange) 45%, transparent);
   --ring: var(--on-orange);
@@ -441,6 +460,31 @@ The real file lives at `packages/brand-core/theme.css` in the brand repo. This b
   --color-on-orange: var(--on-orange);
   --color-mark-square: var(--mark-square);
   --color-line: var(--line);
+
+  /* Oxide as text: text-primary and text-orange print the ink, bg-* the fill. */
+  --text-color-primary: var(--primary-ink);
+  --text-color-orange: var(--orange-ink);
+}
+
+/* 5. Type weight -------------------------------------------------------------
+ * Black type on white reads lighter than white type on black, so light mode
+ * sets every weight a step heavier. A .dark island inside a light page goes
+ * back to the dark weights, and a .light band in a dark page takes the light ones.
+ */
+
+:root,
+.light {
+  --font-weight-light: 360;
+  --font-weight-normal: 450;
+  --font-weight-medium: 600;
+  --font-weight-semibold: 680;
+}
+
+.dark {
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
 }
 
 @layer base {
@@ -452,6 +496,16 @@ The real file lives at `packages/brand-core/theme.css` in the brand repo. This b
   }
   body {
     @apply bg-background text-foreground font-sans;
+    font-weight: var(--font-weight-normal);
+  }
+  .light,
+  .dark {
+    font-weight: var(--font-weight-normal);
+  }
+  /* Oxide words in a headline are large text: the brighter display shade. */
+  :is(h1, h2, [data-display]) {
+    --primary-ink: var(--primary-display);
+    --orange-ink: var(--orange-display);
   }
   /* Every lucide icon uses the brand line weight. Change one with stroke-[2]. */
   .lucide {
@@ -468,7 +522,7 @@ Starwind uses shadcn's names plus a few of its own. Add this after `theme.css`. 
 ```css
 :root,
 .dark {
-  --primary-accent: var(--primary); /* links and accents on the page background */
+  --primary-accent: var(--primary-ink); /* links and accents on the page background */
   --secondary-accent: var(--foreground);
   --error: var(--destructive);
   --outline: var(--ring);
@@ -491,7 +545,15 @@ Starwind uses shadcn's names plus a few of its own. Add this after `theme.css`. 
 
 ### Oxide orange, the brand
 
-`--primary` points at `--orange`, which has two tuned shades: `oklch(0.72 0.165 52)` · `#F38230` in dark mode and `oklch(0.54 0.135 52)` · `#AA530A` in light mode. Text on it is `--primary-foreground`: near-black in dark mode, white in light mode.
+`--primary` points at `--orange`, the vivid `oklch(0.72 0.165 52)` · `#F38230` in both modes. Text on it is `--primary-foreground`, near-black in both modes. In dark mode that one shade is also the text color. Light mode writes oxide as text in two more shades:
+
+| Token | Light mode | For |
+| --- | --- | --- |
+| `--primary` / `--orange` | `oklch(0.72 0.165 52)` · `#F38230` | Fills: the main button, the orange band, the wordmark square, chart lines |
+| `--primary-ink` / `--orange-ink` | `oklch(0.42 0.11 48)` · `#7B3606` | Small oxide text: `text-primary`, `text-orange`, links, code keywords (AA, 8.8:1) |
+| `--primary-display` / `--orange-display` | `oklch(0.66 0.18 48)` · `#E66700` | Oxide words in a headline (`h1`, `h2`, `[data-display]`) and the focus ring (large text, 3.3:1) |
+
+`text-primary` and `text-orange` print the ink, `bg-primary` and `bg-orange` the fill; inside a headline the ink switches to the display shade by itself. In dark mode all three are the vivid orange.
 
 Use `primary` for: the one main action on a view, links, the focus ring, and small highlights (an icon in an icon tile, a hovered card border at `/50`).
 
@@ -507,7 +569,7 @@ Orange plus seven supporting colors, each tuned per mode so it passes AA as text
 | Color | Dark mode | Light mode | Role | For |
 | --- | --- | --- | --- | --- |
 | `red` | `oklch(0.704 0.191 22.216)` · `#FF6467` | `oklch(0.54 0.21 26)` · `#CD1622` | `destructive` | Errors, and buttons that delete things. |
-| `orange` | `oklch(0.72 0.165 52)` · `#F38230` | `oklch(0.54 0.135 52)` · `#AA530A` | `primary` | The brand: the main button, links, focus rings, code keywords. |
+| `orange` | `oklch(0.72 0.165 52)` · `#F38230` | `oklch(0.72 0.165 52)` · `#F38230` | `primary` | The brand: the main button, links, focus rings, code keywords. |
 | `yellow` | `oklch(0.8 0.14 85)` · `#E7B643` | `oklch(0.53 0.11 75)` · `#906106` | `warning` | Warnings and work in progress. |
 | `green` | `oklch(0.75 0.15 150)` · `#5DC879` | `oklch(0.51 0.14 150)` · `#017B37` | `success` | Done, shipped, available, saved. |
 | `teal` | `oklch(0.75 0.12 185)` · `#36C6B8` | `oklch(0.515 0.09 185)` · `#04786E` |  | Categories and charts. |
@@ -545,21 +607,21 @@ A change in a number (a metric trend) is colored by whether it's good or bad new
 
 ### Code and charts
 
-- Code: keywords in `--primary`, function and type names in blue, strings in green, numbers and constants in purple, comments and punctuation in `--muted-foreground`. Set up in section 2 ("Code highlighting").
+- Code: keywords in `--primary-ink`, function and type names in blue, strings in green, numbers and constants in purple, comments and punctuation in `--muted-foreground`. Set up in section 2 ("Code highlighting").
 - Charts: `chart-1` to `chart-5` are orange, blue, green, purple, yellow. Label lines and bars; don't rely on color alone.
 
 ### Neutrals
 
-shadcn neutral with zero chroma. The only change: light `--muted-foreground` is `0.54` (shadcn ships `0.556`), so grey text stays readable on grey surfaces.
+shadcn neutral with zero chroma. Light mode is pushed toward black: a pure white page, near-black text (`0.08`), darker secondary text (`0.3`, shadcn ships `0.556`) and firmer lines (`0.86`), so light pages read as solid as dark ones.
 
 | Token | Dark | Light | Use |
 | --- | --- | --- | --- |
 | `background` | `#0A0A0A` | `#FFFFFF` | page |
 | `card` / `popover` | `#171717` | `#FFFFFF` | raised surfaces, code blocks |
 | `muted` / `secondary` / `accent` | `#262626` | `#F5F5F5` | quiet surfaces, hover states, inline code |
-| `foreground` | `#FAFAFA` | `#0A0A0A` | main text |
-| `muted-foreground` | `#A1A1A1` | `#6F6F6F` | secondary text, captions, dates |
-| `border` / `input` | white 10% / 15% | `#E5E5E5` | lines and fields |
+| `foreground` | `#FAFAFA` | `#020202` | main text |
+| `muted-foreground` | `#A1A1A1` | `#2E2E2E` | secondary text, captions, dates |
+| `border` / `input` | white 10% / 15% | `#D1D1D1` | lines and fields |
 
 ### Measured contrast
 
@@ -568,22 +630,23 @@ Generated from `theme.css`. `bun run check:contrast` fails the build if any pair
 <!-- contrast:start -->
 | Pair | Dark | Light | Needs |
 | --- | --- | --- | --- |
-| Body text on the page | 19.0:1 | 19.8:1 | 4.5:1 |
-| Secondary text on the page | 7.6:1 | 5.1:1 | 4.5:1 |
-| Secondary text on a card | 6.9:1 | 5.1:1 | 4.5:1 |
-| Secondary text on a muted surface | 5.8:1 | 4.6:1 | 4.5:1 |
-| Button text on oxide | 7.6:1 | 5.1:1 | 4.5:1 |
-| Oxide links on the page | 7.6:1 | 5.3:1 | 4.5:1 |
-| Oxide text on a card | 6.9:1 | 5.3:1 | 4.5:1 |
-| Focus ring on the page | 7.6:1 | 5.3:1 | 3:1 |
-| Text on the orange band | 7.6:1 | 5.1:1 | 4.5:1 |
-| Code and hover on the orange band | 8.6:1 | 6.2:1 | 4.5:1 |
-| Text on a gray band | 17.2:1 | 18.1:1 | 4.5:1 |
-| Secondary text on a gray band | 6.9:1 | 4.6:1 | 4.5:1 |
+| Body text on the page | 19.0:1 | 20.8:1 | 4.5:1 |
+| Secondary text on the page | 7.6:1 | 13.6:1 | 4.5:1 |
+| Secondary text on a card | 6.9:1 | 13.6:1 | 4.5:1 |
+| Secondary text on a muted surface | 5.8:1 | 12.5:1 | 4.5:1 |
+| Button text on oxide | 7.6:1 | 8.0:1 | 4.5:1 |
+| Oxide links on the page | 7.6:1 | 8.8:1 | 4.5:1 |
+| Oxide text on a card | 6.9:1 | 8.8:1 | 4.5:1 |
+| Oxide headline words (large text) | 7.6:1 | 3.3:1 | 3:1 |
+| Focus ring on the page | 7.6:1 | 3.3:1 | 3:1 |
+| Text on the orange band | 7.6:1 | 8.0:1 | 4.5:1 |
+| Code and hover on the orange band | 8.6:1 | 6.0:1 | 4.5:1 |
+| Text on a gray band | 17.2:1 | 18.2:1 | 4.5:1 |
+| Secondary text on a gray band | 6.9:1 | 12.0:1 | 4.5:1 |
 | Red text on a card | 6.2:1 | 5.6:1 | 4.5:1 |
 | Red text on its soft fill | 4.6:1 | 4.8:1 | 4.5:1 |
-| Orange text on a card | 6.9:1 | 5.3:1 | 4.5:1 |
-| Orange text on its soft fill | 5.0:1 | 4.6:1 | 4.5:1 |
+| Orange text on a card | 6.9:1 | 8.8:1 | 4.5:1 |
+| Orange text on its soft fill | 5.0:1 | 8.1:1 | 4.5:1 |
 | Yellow text on a card | 9.5:1 | 5.4:1 | 4.5:1 |
 | Yellow text on its soft fill | 6.2:1 | 4.7:1 | 4.5:1 |
 | Green text on a card | 8.5:1 | 5.4:1 | 4.5:1 |
@@ -597,12 +660,12 @@ Generated from `theme.css`. `bun run check:contrast` fails the build if any pair
 | Pink text on a card | 6.9:1 | 5.4:1 | 4.5:1 |
 | Pink text on its soft fill | 5.0:1 | 4.7:1 | 4.5:1 |
 | Error text on its soft fill | 4.6:1 | 4.8:1 | 4.5:1 |
-| Code keywords | 6.9:1 | 5.3:1 | 4.5:1 |
+| Code keywords | 6.9:1 | 8.8:1 | 4.5:1 |
 | Code function and type names | 7.2:1 | 5.4:1 | 4.5:1 |
 | Code strings | 8.5:1 | 5.4:1 | 4.5:1 |
 | Code numbers and constants | 6.8:1 | 5.3:1 | 4.5:1 |
-| Code comments | 6.9:1 | 5.1:1 | 4.5:1 |
-| Code punctuation | 6.9:1 | 5.1:1 | 4.5:1 |
+| Code comments | 6.9:1 | 13.6:1 | 4.5:1 |
+| Code punctuation | 6.9:1 | 13.6:1 | 4.5:1 |
 <!-- contrast:end -->
 
 ### Changing colors
@@ -630,7 +693,7 @@ Do not add: background tints, gradients, glows, per-site color schemes, colored 
 
 Rules:
 
-- Nothing above weight 600. Headings are 500.
+- Nothing above weight 600. Headings are 500. Light mode maps each weight a step heavier (`--font-weight-normal` 450, `-medium` 600, `-semibold` 680); write the same classes, the theme does the rest.
 - Normal-width type only. No wide, condensed, stencil, display or handwriting fonts.
 - **No spaced-out uppercase labels** (`uppercase tracking-widest` eyebrows). Small labels are sentence case in `text-muted-foreground`.
 - Body text lines stay around 60–75 characters (`max-w-prose` or `max-w-2xl`).
