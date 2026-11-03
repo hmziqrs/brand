@@ -6,7 +6,6 @@ import Wrench from '@lucide/svelte/icons/wrench';
 import NavBar from '$brand/components/nav-bar.svelte';
 import NorthflankHeader from '$moves/site-northflank/site-header.svelte';
 import FreeoxideNav from '$moves/voidzero/top-nav.svelte';
-import FinalHeader from '$moves/review/site-header-final.svelte';
 
 export type HeaderCandidate = {
 	id: string;
@@ -23,11 +22,14 @@ export const headers: HeaderCandidate[] = [
 	{
 		id: 'final',
 		name: 'Final — your picks merged',
-		line: 'The kit header as the base, the freeoxide closable shader-poster announcement on top, ferrous single-level hover dropdowns; full-width bar, contents in the kit container.',
-		src: 'src/lib/moves/review/site-header-final.svelte',
-		component: FinalHeader,
+		line: 'Now the kit NavBar: the kit header as the base, the freeoxide closable shader-poster announcement on top, ferrous single-level hover dropdowns; full-width bar, contents in the kit container.',
+		src: 'packages/brand-svelte/src/lib/components/nav-bar.svelte',
+		component: NavBar,
 		props: {
-			brand: { name: 'gpui-query', maker: 'by hmziq', href: gq },
+			site: 'gpui-query',
+			maker: 'by hmziq',
+			href: gq,
+			sticky: true,
 			links: [
 				{
 					label: 'Guide',
@@ -48,14 +50,15 @@ export const headers: HeaderCandidate[] = [
 				},
 				{ label: 'Changelog', href: gq }
 			],
-			actions: { github: 'https://github.com/hmziqrs', primary: { label: 'Get started', href: gq } },
+			github: 'https://github.com/hmziqrs',
+			cta: { label: 'Get started', href: gq },
 			announcement: { text: 'gpui-query 0.3 tries again on its own when the network drops', href: gq, preset: 'copper-sweep' }
 		}
 	},
 	{
 		id: 'current',
-		name: 'Current',
-		line: 'The kit header today: wordmark left, links with one dropdown, GitHub + Get started, a slide-in sheet on phones.',
+		name: 'Previous kit props',
+		line: 'The old kit header props (menu with body + icons, secondary GitHub button) rendered by the promoted NavBar: the backward-compatible path.',
 		src: 'packages/brand-svelte/src/lib/components/nav-bar.svelte',
 		component: NavBar,
 		props: {
