@@ -22,6 +22,10 @@
   animation-delay: calc(var(--d) * 80ms + 120ms), calc(var(--i) * 70ms + 2.4s);
 }
 
+[data-slot="resolve-title"]:not(.dark *) [data-ch] {
+  color: color-mix(in oklab, var(--primary-display) calc(max(var(--g), var(--resolve-title-s)) * 100%), var(--foreground));
+}
+
 [data-slot="resolve-title"][data-wait] [data-ch] {
   opacity: 0;
   animation: none;
