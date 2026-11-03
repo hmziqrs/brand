@@ -43,8 +43,8 @@
 					<Button href={here} variant="outline" size="lg" class="w-fit">Start a project<ArrowRight class="lucide" data-icon="inline-end" /></Button>
 				</div>
 			</article>
-			<SurfaceTile href={here} preset="ink-diffusion" title="Web apps" body="Fast on a bad connection." kind="Web" class="lg:col-start-2 lg:row-start-2">
-				{#snippet art()}<AppWindow kind="web" preset="caustic-glass" class="mx-auto max-w-[300px] bg-background" />{/snippet}
+			<SurfaceTile href={here} preset="black-ice" title="Web apps" body="Fast on a bad connection." kind="Web" class="lg:col-start-2 lg:row-start-2">
+				{#snippet art()}<AppWindow kind="web" preset="etched-silk" class="mx-auto max-w-[300px] bg-background" />{/snippet}
 			</SurfaceTile>
 			<SurfaceTile href={here} preset="oxide-bloom" title="CLI tools" body="Installed with one command." kind="Terminal" class="lg:col-start-3 lg:row-start-2">
 				{#snippet art()}<AppWindow kind="terminal" class="mx-auto max-w-[300px]" />{/snippet}

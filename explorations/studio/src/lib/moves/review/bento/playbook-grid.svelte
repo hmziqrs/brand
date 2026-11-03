@@ -10,7 +10,7 @@
 		{ cat: 'Phone', name: 'Phone app that works offline', line: 'iPhone and Android from one Flutter codebase, still useful with no signal.', stack: ['Flutter'], preset: 'sediment' },
 		{ cat: 'Desktop', name: 'Desktop app with Tauri', line: 'Your web UI in a native window on Mac, Windows and Linux, signed and updating.', stack: ['Tauri', 'Svelte', 'Rust'], preset: 'copper-sweep' },
 		{ cat: 'Desktop', name: 'Native desktop in Rust', line: 'GPUI and gpui-starter, for apps that open fast and stay small.', stack: ['Rust', 'GPUI'], preset: 'hammered-copper' },
-		{ cat: 'Web', name: 'Web app on the edge', line: 'Svelte and TypeScript on Cloudflare, quick on a bad connection.', stack: ['Svelte', 'TypeScript', 'Cloudflare'], preset: 'ink-diffusion' },
+		{ cat: 'Web', name: 'Web app on the edge', line: 'Svelte and TypeScript on Cloudflare, quick on a bad connection.', stack: ['Svelte', 'TypeScript', 'Cloudflare'], preset: 'etched-silk' },
 		{ cat: 'Web', name: 'API and database', line: 'Node and Postgres behind your app, with tests that run in CI.', stack: ['Node', 'Postgres'], preset: 'mineral-fault' },
 		{ cat: 'Terminal', name: 'Command-line tool', line: 'A Rust binary your team installs with one command.', stack: ['Rust'], preset: 'oxide-bloom' }
 	];
