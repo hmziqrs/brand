@@ -17,7 +17,7 @@
 
 <footer data-slot="footer-voxel" class={cn('relative border-t border-border bg-background text-foreground', className)}>
 	<div data-pointer-host class="relative isolate overflow-hidden border-b border-border">
-		<div aria-hidden="true" class="absolute inset-0 -z-20"><VoxelRelief size={22} reach={150} lift={72} /></div>
+		<div aria-hidden="true" class="absolute inset-0 -z-20"><VoxelRelief size={22} reach={150} lift={72} quiet /></div>
 		<div aria-hidden="true" class="absolute inset-0 -z-10 bg-[linear-gradient(to_bottom,color-mix(in_oklab,var(--background)_90%,transparent),color-mix(in_oklab,var(--background)_55%,transparent))] lg:bg-[linear-gradient(to_right,var(--background)_0%,color-mix(in_oklab,var(--background)_90%,transparent)_36%,transparent_68%)]"></div>
 		<Container size="wide" class="flex min-h-[clamp(320px,30vw,420px)] flex-col justify-center gap-6 py-16">
 			<p class={label}>{site.aside}</p>
