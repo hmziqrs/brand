@@ -3,7 +3,6 @@
 	import { cn } from '$brand/utils.js';
 	import CommandBox from '$brand/components/command-box.svelte';
 	import AccentTitle from './accent-title.svelte';
-	import GridBackdrop from './grid-backdrop.svelte';
 
 	let {
 		title,
@@ -15,7 +14,6 @@
 		installLabel,
 		note,
 		layout = 'split',
-		grid = true,
 		visual,
 		class: className
 	}: {
@@ -28,7 +26,6 @@
 		installLabel?: string;
 		note?: Snippet;
 		layout?: 'split' | 'centered';
-		grid?: boolean;
 		visual?: Snippet;
 		class?: string;
 	} = $props();
@@ -37,7 +34,6 @@
 </script>
 
 <section class={cn('relative isolate overflow-hidden', className)}>
-	{#if grid}<GridBackdrop fade={centered ? 'top' : 'radial'} />{/if}
 	<div
 		class={cn(
 			'mx-auto w-full max-w-[1320px] px-4 sm:px-8',
