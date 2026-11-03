@@ -162,3 +162,10 @@ export { default as ProductWindow } from "./components/product-window.svelte";
 export { default as ResolveTitle } from "./components/resolve-title.svelte";
 export { default as RingField } from "./components/ring-field.svelte";
 export { default as SceneStage } from "./components/scene-stage.svelte";
+
+// Heroes.
+export { default as AccentTitle } from "./blocks/sections/accent-title.svelte";
+export { default as BrandHero } from "./blocks/sections/brand-hero.svelte";
+export { default as PersonalHero } from "./blocks/sections/personal-hero.svelte";
+export type { PersonalSocial } from "./blocks/sections/personal-hero.svelte";
+export { default as ProductHero } from "./blocks/sections/product-hero.svelte";

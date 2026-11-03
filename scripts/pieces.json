@@ -2764,6 +2764,42 @@
       "astroItem": "not yet"
     },
     {
+      "name": "ProductHero",
+      "group": "site",
+      "svelte": "sections-product-hero--split",
+      "astro": "not yet",
+      "svelteFile": "blocks/sections/product-hero.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "BrandHero",
+      "group": "site",
+      "svelte": "sections-brand-hero--left-over-the-material-grid",
+      "astro": "not yet",
+      "svelteFile": "blocks/sections/brand-hero.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "PersonalHero",
+      "group": "site",
+      "svelte": "sections-personal-hero--dot-name-over-the-hatch",
+      "astro": "not yet",
+      "svelteFile": "blocks/sections/personal-hero.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "AccentTitle",
+      "group": "site",
+      "svelte": "sections-product-hero--split",
+      "astro": "not yet",
+      "svelteFile": "blocks/sections/product-hero.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
       "name": "FeatureBento",
       "group": "site",
       "svelte": "sections-feature-bento--a-speed",
