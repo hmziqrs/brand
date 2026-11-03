@@ -34,19 +34,19 @@ export const heroGroups: { id: HeroGroup; name: string; when: string; src: strin
 		id: 'product',
 		name: 'Product',
 		when: 'Use for one tool or app: the words sell it, an install command gets it, and the visual is the product working (a diagram, a terminal, a demo).',
-		src: 'src/lib/moves/review/heroes/product-hero.svelte'
+		src: 'packages/brand-svelte/src/lib/blocks/sections/product-hero.svelte'
 	},
 	{
 		id: 'brand',
 		name: 'Brand',
 		when: 'Use for a studio, an initiative or a lab: one big statement over a full-width stage that carries the identity; pick the stage on the Stages page.',
-		src: 'src/lib/moves/review/heroes/brand-hero.svelte'
+		src: 'packages/brand-svelte/src/lib/blocks/sections/brand-hero.svelte'
 	},
 	{
 		id: 'personal',
 		name: 'Personal',
 		when: 'Use for a person: name, role, one line about the work, two ways in and the places to find them.',
-		src: 'src/lib/moves/review/heroes/personal-intro.svelte'
+		src: 'packages/brand-svelte/src/lib/blocks/sections/personal-hero.svelte'
 	}
 ];
 

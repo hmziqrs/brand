@@ -4,8 +4,8 @@
 	import { Button } from '$brand/ui/button/index.js';
 	import BrandIcon from '$brand/components/brand-icon.svelte';
 	import DotMatrixWord from '$moves/northflank/dot-matrix-word.svelte';
-	import BrandHero from './brand-hero.svelte';
-	import Lattice from '../stages/lattice.svelte';
+	import BrandHero from '$brand/blocks/sections/brand-hero.svelte';
+	import SceneStage from '$brand/components/scene-stage.svelte';
 
 	const here = '#/c/hero/brand-freeoxide';
 	const stats = [
@@ -22,7 +22,7 @@
 	scrim
 	titleClass="max-w-[17ch] text-[clamp(34px,4.4vw,60px)] leading-[1.02] tracking-[-0.035em]"
 >
-	{#snippet stage()}<Lattice />{/snippet}
+	{#snippet stage()}<SceneStage seed="freeoxide" />{/snippet}
 	{#snippet eyebrow()}
 		<div class="font-mono text-xs leading-[1.8] text-muted-foreground">
 			<div><span class="text-primary">$</span> <span class="text-foreground">freeoxide --init</span></div>

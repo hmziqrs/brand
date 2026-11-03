@@ -2,8 +2,8 @@
 	import ArrowRight from '@lucide/svelte/icons/arrow-right';
 	import Glass from '$brand/components/glass.svelte';
 	import { Button } from '$brand/ui/button/index.js';
-	import BrandHero from './brand-hero.svelte';
-	import MaterialGrid from '../stages/material-grid.svelte';
+	import BrandHero from '$brand/blocks/sections/brand-hero.svelte';
+	import MaterialGrid from '$brand/components/material-grid.svelte';
 
 	const here = '#/c/hero/brand-oxlabs';
 	const stack = ['Svelte', 'TypeScript', 'Rust', 'Node', 'Postgres', 'Flutter', 'Tauri', 'Cloudflare'];
