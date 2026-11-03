@@ -2881,6 +2881,69 @@
       "astroItem": "accent-title"
     },
     {
+      "name": "MaterialFooter",
+      "group": "site",
+      "svelte": "sections-material-footer--with-a-closing-line",
+      "astro": "not yet",
+      "svelteFile": "blocks/sections/material-footer.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "DotFooter",
+      "group": "site",
+      "svelte": "sections-dot-footer--default",
+      "astro": "not yet",
+      "svelteFile": "blocks/sections/dot-footer.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "GlyphFooter",
+      "group": "site",
+      "svelte": "sections-glyph-footer--default",
+      "astro": "not yet",
+      "svelteFile": "blocks/sections/glyph-footer.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "HeatFooter",
+      "group": "site",
+      "svelte": "sections-heat-footer--default",
+      "astro": "not yet",
+      "svelteFile": "blocks/sections/heat-footer.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "VoxelFooter",
+      "group": "site",
+      "svelte": "sections-voxel-footer--default",
+      "astro": "not yet",
+      "svelteFile": "blocks/sections/voxel-footer.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "HatchFooter",
+      "group": "site",
+      "svelte": "sections-hatch-footer--default",
+      "astro": "not yet",
+      "svelteFile": "blocks/sections/hatch-footer.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "CalmFooter",
+      "group": "site",
+      "svelte": "sections-calm-footer--default",
+      "astro": "not yet",
+      "svelteFile": "blocks/sections/calm-footer.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
       "name": "FeatureBento",
       "group": "site",
       "svelte": "sections-feature-bento--a-speed",
