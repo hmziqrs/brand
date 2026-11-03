@@ -124,3 +124,9 @@ Notes: `/tmp/claude-0/-home-user-brand/e8d9d117-3591-5190-9941-249217f87da2/scra
 - No gradient "aura" glows; the soft grey card with a subtle background effect + restrained gradient on site-dovetail/customers is the one approved gradient use.
 - Owner loves: site-flora/home (best page), site-flora/techniques, site-dovetail/home, site-linear/blog interactive cards, site-clicky/pricing hero background, site-clicky/changelog draggable window + sticky changelog, site-northflank/about hero + backing section, site-dovetail/contact 3D book (extract it as a reusable move).
 - Hover-grid backgrounds must stay subtle (grid lines barely visible).
+
+# Round 4: review one family at a time (owner direction)
+
+- Theme model: **freeoxide is the default identity** (buttons, cards: accent/brand/material/frosted, rings, materials). There are **no per-product colours**. Sub-themes are *initiatives* (freeoxide, rust slop, easy islam, …) that only pick structural flavours for a few slots — e.g. a pixelated hero or a pixelated/interactive footer — never different buttons/cards/colours.
+- Review pages live at `#/review/<family>`: every candidate rendered live and interactive, full width, with Keep / Remove / Tweak + note, and an "Open alone" link to `#/c/<family>/<id>` (the candidate on its own page with filler content so scrolling/sticky behaviour can be tried).
+- One family per round. Header first, then hero, then footer, then the rest.

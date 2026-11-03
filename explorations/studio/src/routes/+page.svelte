@@ -42,6 +42,11 @@
 <svelte:head><title>hmziq studio</title></svelte:head>
 
 <main class="mx-auto max-w-[1400px] px-4 py-10 sm:px-8">
+	<section class="mb-8 rounded-xl border border-primary/40 bg-card p-4" aria-label="Review">
+		<h2 class="font-mono text-xs tracking-widest text-primary uppercase">Review</h2>
+		<a href="#/review/header" class="mt-2 inline-flex items-center gap-2 text-lg font-medium hover:text-primary">Header — pick what stays →</a>
+	</section>
+
 	<header class="flex flex-wrap items-end justify-between gap-6 border-b border-border pb-8">
 		<div class="max-w-2xl">
 			<p class="font-mono text-xs uppercase tracking-widest text-primary">Round 2 · mix</p>
