@@ -3,6 +3,7 @@ import QueryChores from '$moves/review/bento/query-chores.svelte';
 import QueryNumbers from '$moves/review/bento/query-numbers.svelte';
 import StarterWired from '$moves/review/bento/starter-wired.svelte';
 import MultiMetal from '$moves/review/bento/multi-metal.svelte';
+import OxlabsFlow from '$moves/review/bento/oxlabs-flow.svelte';
 
 export type BentoSite = {
 	id: string;
@@ -76,6 +77,16 @@ export const bentos: BentoCandidate[] = [
 		component: MultiMetal,
 		props: { here: here('multi-metal') },
 		site: bentoSites.claudeMulti
+	},
+	{
+		id: 'oxlabs-flow',
+		name: 'Flow, bento, frosted glass · oxlabs',
+		line: 'The three oxlabs-3 favourites in one section: the brief to ship flowchart with running wires (point at a step), a bento of the four surfaces whose apps tip toward the cursor beside one oxide card, then a full-width frosted panel on drifting etched silk.',
+		use: 'Real use: oxlabs.dev, under the hover-grid hero; any studio page that sells a way of working.',
+		src: `${dir}/oxlabs-flow.svelte`,
+		component: OxlabsFlow,
+		props: { here: here('oxlabs-flow') },
+		site: bentoSites.oxlabs
 	}
 ];
 
