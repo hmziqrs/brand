@@ -168,6 +168,28 @@ const visualOpacity = Number.isFinite(opacity) ? Math.max(0, Math.min(1, opacity
     if (label) label.textContent = paused ? "Play" : "Pause";
   }
 
+  function recipeOf(root: ShaderRoot) {
+    const preset = shaderLooks.find((look) => look.id === root.dataset.preset) ?? shaderLooks[0];
+    const recipe = normalizeShaderRecipe(root.dataset.recipe ? JSON.parse(root.dataset.recipe) : preset);
+    if (root.dataset.time !== undefined) recipe.time = Number(root.dataset.time);
+    return recipe;
+  }
+
+  function presetChanged(root: ShaderRoot) {
+    const look = shaderLooks.find((entry) => entry.id === root.dataset.preset) ?? shaderLooks[0];
+    root.dataset.posterPreset = look.id;
+    const image = root.querySelector<HTMLImageElement>("[data-shader-poster]");
+    if (image && root.dataset.posterCustom !== "true") {
+      const poster = shaderPosters[look.id] ?? shaderPosters["oxide-bloom"];
+      image.srcset = poster.srcset;
+      image.src = poster.src;
+    }
+    const state = states.get(root);
+    if (!state?.handle || !state.options || root.dataset.recipe) return;
+    state.options = { ...state.options, recipe: recipeOf(root) };
+    state.handle.update({ ...state.options, animated: state.options.animated && !state.paused });
+  }
+
   function dispose(root: ShaderRoot) {
     const state = states.get(root);
     if (!state) return;
@@ -214,11 +236,9 @@ const visualOpacity = Number.isFinite(opacity) ? Math.max(0, Math.min(1, opacity
       root.dataset.shaderStarted = "true";
       state.observer?.disconnect();
       status(root, "loading", "Starting WebGPU.");
-      const preset = shaderLooks.find((look) => look.id === root.dataset.preset) ?? shaderLooks[0];
       let recipe;
       try {
-        recipe = normalizeShaderRecipe(root.dataset.recipe ? JSON.parse(root.dataset.recipe) : preset);
-        if (root.dataset.time !== undefined) recipe.time = Number(root.dataset.time);
+        recipe = recipeOf(root);
       } catch (error) {
         status(root, "fallback", error instanceof Error ? error.message : "Invalid shader recipe.");
         root.exportPng = undefined;
@@ -250,7 +270,8 @@ const visualOpacity = Number.isFinite(opacity) ? Math.max(0, Math.min(1, opacity
             return;
           }
           state.handle = handle;
-          handle.update(options);
+          state.options = { ...options, recipe: recipeOf(root) };
+          handle.update(state.options);
           root.exportPng = (width) => handle.png(width);
           status(root, "ready", "WebGPU ready.");
           updatePauseButton(root, false);
@@ -304,6 +325,12 @@ const visualOpacity = Number.isFinite(opacity) ? Math.max(0, Math.min(1, opacity
     for (const root of document.querySelectorAll<ShaderRoot>("[data-slot='shader-material']")) dispose(root);
   });
   document.addEventListener("error", posterError, true);
+  new MutationObserver((records) => {
+    for (const record of records) {
+      const root = record.target as ShaderRoot;
+      if (root.dataset.slot === "shader-material") presetChanged(root);
+    }
+  }).observe(document.documentElement, { subtree: true, attributes: true, attributeFilter: ["data-preset"] });
   document.addEventListener("click", (event) => {
     const button = (event.target as HTMLElement | null)?.closest<HTMLButtonElement>("[data-shader-pause]");
     const root = button?.closest<ShaderRoot>("[data-slot='shader-material']");
