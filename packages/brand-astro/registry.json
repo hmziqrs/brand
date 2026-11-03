@@ -747,6 +747,25 @@
 			]
 		},
 		{
+			"name": "dither-name",
+			"type": "registry:file",
+			"title": "dither-name",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/components/dither-name.astro",
+					"target": "src/components/brand/components/dither-name.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
 			"name": "docs-layout",
 			"type": "registry:file",
 			"title": "docs-layout",
@@ -1016,6 +1035,89 @@
 			]
 		},
 		{
+			"name": "fit-wordmark",
+			"type": "registry:file",
+			"title": "fit-wordmark",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/utils",
+				"@hmziq/wordmark"
+			],
+			"files": [
+				{
+					"path": "src/components/fit-wordmark.astro",
+					"target": "src/components/brand/components/fit-wordmark.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "footer-columns",
+			"type": "registry:file",
+			"title": "footer-columns",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/components/footer-columns.astro",
+					"target": "src/components/brand/components/footer-columns.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/components/footer-ui.ts",
+					"target": "src/components/brand/components/footer-ui.ts",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "footer-family",
+			"type": "registry:file",
+			"title": "footer-family",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"@hmziq/footer-columns",
+				"@hmziq/mark",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/components/footer-family.astro",
+					"target": "src/components/brand/components/footer-family.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "footer-socials",
+			"type": "registry:file",
+			"title": "footer-socials",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@lucide/astro@^1.48.0",
+				"simple-icons@16.32.0"
+			],
+			"registryDependencies": [
+				"@hmziq/brand-icon",
+				"@hmziq/content-blocks-shared",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/components/footer-socials.astro",
+					"target": "src/components/brand/components/footer-socials.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
 			"name": "forgot-password-form",
 			"type": "registry:file",
 			"title": "forgot-password-form",
@@ -1076,6 +1178,25 @@
 				{
 					"path": "src/components/glass.astro",
 					"target": "src/components/brand/components/glass.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "heat-field",
+			"type": "registry:file",
+			"title": "heat-field",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/components/heat-field.astro",
+					"target": "src/components/brand/components/heat-field.astro",
 					"type": "registry:file"
 				}
 			]
@@ -1349,6 +1470,7 @@
 				"@hmziq/detail-section",
 				"@hmziq/details-app-blocks-shared",
 				"@hmziq/diagonal-hatch",
+				"@hmziq/dither-name",
 				"@hmziq/docs-layout",
 				"@hmziq/docs-pager",
 				"@hmziq/docs-search",
@@ -1362,9 +1484,14 @@
 				"@hmziq/feature-cards",
 				"@hmziq/feature-grid",
 				"@hmziq/filter-chip",
+				"@hmziq/fit-wordmark",
+				"@hmziq/footer-columns",
+				"@hmziq/footer-family",
+				"@hmziq/footer-socials",
 				"@hmziq/forgot-password-form",
 				"@hmziq/form-actions",
 				"@hmziq/glass",
+				"@hmziq/heat-field",
 				"@hmziq/hero",
 				"@hmziq/hero-actions",
 				"@hmziq/hero-lede",
@@ -1403,6 +1530,7 @@
 				"@hmziq/password-input",
 				"@hmziq/past-releases",
 				"@hmziq/personal-hero",
+				"@hmziq/pixel-name",
 				"@hmziq/post-card",
 				"@hmziq/post-contents",
 				"@hmziq/post-header",
@@ -1501,6 +1629,8 @@
 				"@hmziq/user-menu",
 				"@hmziq/utils",
 				"@hmziq/verify-email",
+				"@hmziq/voxel-field",
+				"@hmziq/wash-glow",
 				"@hmziq/wordmark",
 				"@hmziq/workspace-switcher"
 			],
@@ -2058,6 +2188,25 @@
 				{
 					"path": "src/blocks/sections/personal-hero.astro",
 					"target": "src/components/brand/blocks/sections/personal-hero.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "pixel-name",
+			"type": "registry:file",
+			"title": "pixel-name",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/components/pixel-name.astro",
+					"target": "src/components/brand/components/pixel-name.astro",
 					"type": "registry:file"
 				}
 			]
@@ -4837,6 +4986,45 @@
 				{
 					"path": "src/blocks/app/auth/verify-email.astro",
 					"target": "src/components/brand/blocks/app/auth/verify-email.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "voxel-field",
+			"type": "registry:file",
+			"title": "voxel-field",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/components/voxel-field.astro",
+					"target": "src/components/brand/components/voxel-field.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "wash-glow",
+			"type": "registry:file",
+			"title": "wash-glow",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"@hmziq/shader-material",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/components/wash-glow.astro",
+					"target": "src/components/brand/components/wash-glow.astro",
 					"type": "registry:file"
 				}
 			]

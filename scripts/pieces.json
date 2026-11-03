@@ -2605,82 +2605,82 @@
       "name": "FooterColumns",
       "group": "brand",
       "svelte": "custom-footer-columns--default",
-      "astro": "not yet",
-      "svelteFile": "components/footer-columns.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "astro": "footer-columns",
+      "svelteFile": "components/footer-columns.svelte",
+      "svelteItem": "footer-columns",
+      "astroItem": "footer-columns"
     },
     {
       "name": "FooterFamily",
       "group": "brand",
       "svelte": "custom-footer-family--default",
-      "astro": "not yet",
-      "svelteFile": "components/footer-family.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "astro": "footer-family",
+      "svelteFile": "components/footer-family.svelte",
+      "svelteItem": "footer-family",
+      "astroItem": "footer-family"
     },
     {
       "name": "FooterSocials",
       "group": "brand",
       "svelte": "custom-footer-socials--default",
-      "astro": "not yet",
-      "svelteFile": "components/footer-socials.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "astro": "footer-socials",
+      "svelteFile": "components/footer-socials.svelte",
+      "svelteItem": "footer-socials",
+      "astroItem": "footer-socials"
     },
     {
       "name": "PixelName",
       "group": "brand",
       "svelte": "custom-pixel-name--dots",
-      "astro": "not yet",
-      "svelteFile": "components/pixel-name.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "astro": "pixel-name",
+      "svelteFile": "components/pixel-name.svelte",
+      "svelteItem": "pixel-name",
+      "astroItem": "pixel-name"
     },
     {
       "name": "HeatField",
       "group": "brand",
       "svelte": "custom-heat-field--default",
-      "astro": "not yet",
-      "svelteFile": "components/heat-field.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "astro": "heat-field",
+      "svelteFile": "components/heat-field.svelte",
+      "svelteItem": "heat-field",
+      "astroItem": "heat-field"
     },
     {
       "name": "FitWordmark",
       "group": "brand",
       "svelte": "custom-fit-wordmark--default",
-      "astro": "not yet",
-      "svelteFile": "components/fit-wordmark.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "astro": "fit-wordmark",
+      "svelteFile": "components/fit-wordmark.svelte",
+      "svelteItem": "fit-wordmark",
+      "astroItem": "fit-wordmark"
     },
     {
       "name": "DitherName",
       "group": "brand",
       "svelte": "custom-dither-name--drifting",
-      "astro": "not yet",
-      "svelteFile": "components/dither-name.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "astro": "dither-name",
+      "svelteFile": "components/dither-name.svelte",
+      "svelteItem": "dither-name",
+      "astroItem": "dither-name"
     },
     {
       "name": "VoxelField",
       "group": "brand",
       "svelte": "custom-voxel-field--quiet",
-      "astro": "not yet",
-      "svelteFile": "components/voxel-field.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "astro": "voxel-field",
+      "svelteFile": "components/voxel-field.svelte",
+      "svelteItem": "voxel-field",
+      "astroItem": "voxel-field"
     },
     {
       "name": "WashGlow",
       "group": "brand",
       "svelte": "custom-wash-glow--chalk",
-      "astro": "not yet",
-      "svelteFile": "components/wash-glow.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "astro": "wash-glow",
+      "svelteFile": "components/wash-glow.svelte",
+      "svelteItem": "wash-glow",
+      "astroItem": "wash-glow"
     },
     {
       "name": "Roadmap",

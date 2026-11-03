@@ -169,3 +169,15 @@ export { default as BrandHero } from "./blocks/sections/brand-hero.astro";
 export { default as PersonalHero } from "./blocks/sections/personal-hero.astro";
 export type { PersonalSocial } from "./blocks/sections/personal-hero.astro";
 export { default as ProductHero } from "./blocks/sections/product-hero.astro";
+
+// Footer fields and parts.
+export { default as DitherName } from "./components/dither-name.astro";
+export { default as FitWordmark } from "./components/fit-wordmark.astro";
+export { default as FooterColumns } from "./components/footer-columns.astro";
+export type { FooterColumn, FooterLink } from "./components/footer-columns.astro";
+export { default as FooterFamily } from "./components/footer-family.astro";
+export { default as FooterSocials } from "./components/footer-socials.astro";
+export { default as HeatField } from "./components/heat-field.astro";
+export { default as PixelName } from "./components/pixel-name.astro";
+export { default as VoxelField } from "./components/voxel-field.astro";
+export { default as WashGlow } from "./components/wash-glow.astro";

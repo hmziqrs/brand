@@ -1,0 +1,50 @@
+---
+import { cn } from "$brand/utils";
+
+/*
+ * An isometric field of voxel columns in the page's grays that rises into
+ * an oxide ridge under the cursor over the nearest [data-pointer-host], and
+ * drifts on its own while the cursor is away. Fills its positioned parent.
+ * Still for reduced motion.
+ */
+
+interface Props {
+  /** Half a column's width, in pixels. */
+  size?: number;
+  /** How far the cursor reaches, in pixels. */
+  reach?: number;
+  /** How high the cursor raises a column, in pixels. */
+  lift?: number;
+  /** Edges barely there at rest, showing only where the field heats. */
+  quiet?: boolean;
+  class?: string;
+}
+
+const { size = 22, reach = 115, lift = 58, quiet = false, class: className } = Astro.props;
+---
+
+<div data-slot="voxel-field" data-options={JSON.stringify({ size, reach, lift, quiet })} aria-hidden="true" class={cn("absolute inset-0", className)}>
+  <canvas class="absolute inset-0 h-full w-full"></canvas>
+</div>
+
+<script>
+  import { mountVoxelField } from "@hmziq/brand-core/motion/voxel-field";
+
+  const fields = new WeakMap<HTMLElement, () => void>();
+
+  function initAll() {
+    for (const root of document.querySelectorAll<HTMLElement>("[data-slot='voxel-field']")) {
+      const canvas = root.querySelector("canvas");
+      if (canvas && !fields.has(root)) fields.set(root, mountVoxelField(canvas, JSON.parse(root.dataset.options ?? "{}")));
+    }
+  }
+
+  initAll();
+  document.addEventListener("astro:page-load", initAll);
+  document.addEventListener("astro:before-swap", () => {
+    for (const root of document.querySelectorAll<HTMLElement>("[data-slot='voxel-field']")) {
+      fields.get(root)?.();
+      fields.delete(root);
+    }
+  });
+</script>
