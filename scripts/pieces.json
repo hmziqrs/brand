@@ -2596,10 +2596,10 @@
       "name": "SiteFooter",
       "group": "brand",
       "svelte": "custom-site-footer--columns",
-      "astro": "not yet",
-      "svelteFile": "components/site-footer.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "astro": "site-footer",
+      "svelteFile": "components/site-footer.svelte",
+      "svelteItem": "site-footer",
+      "astroItem": "site-footer"
     },
     {
       "name": "FooterColumns",
@@ -2884,64 +2884,64 @@
       "name": "MaterialFooter",
       "group": "site",
       "svelte": "sections-material-footer--with-a-closing-line",
-      "astro": "not yet",
-      "svelteFile": "blocks/sections/material-footer.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "astro": "material-footer",
+      "svelteFile": "blocks/sections/material-footer.svelte",
+      "svelteItem": "material-footer",
+      "astroItem": "material-footer"
     },
     {
       "name": "DotFooter",
       "group": "site",
       "svelte": "sections-dot-footer--default",
-      "astro": "not yet",
-      "svelteFile": "blocks/sections/dot-footer.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "astro": "dot-footer",
+      "svelteFile": "blocks/sections/dot-footer.svelte",
+      "svelteItem": "dot-footer",
+      "astroItem": "dot-footer"
     },
     {
       "name": "GlyphFooter",
       "group": "site",
       "svelte": "sections-glyph-footer--default",
-      "astro": "not yet",
-      "svelteFile": "blocks/sections/glyph-footer.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "astro": "glyph-footer",
+      "svelteFile": "blocks/sections/glyph-footer.svelte",
+      "svelteItem": "glyph-footer",
+      "astroItem": "glyph-footer"
     },
     {
       "name": "HeatFooter",
       "group": "site",
       "svelte": "sections-heat-footer--default",
-      "astro": "not yet",
-      "svelteFile": "blocks/sections/heat-footer.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "astro": "heat-footer",
+      "svelteFile": "blocks/sections/heat-footer.svelte",
+      "svelteItem": "heat-footer",
+      "astroItem": "heat-footer"
     },
     {
       "name": "VoxelFooter",
       "group": "site",
       "svelte": "sections-voxel-footer--default",
-      "astro": "not yet",
-      "svelteFile": "blocks/sections/voxel-footer.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "astro": "voxel-footer",
+      "svelteFile": "blocks/sections/voxel-footer.svelte",
+      "svelteItem": "voxel-footer",
+      "astroItem": "voxel-footer"
     },
     {
       "name": "HatchFooter",
       "group": "site",
       "svelte": "sections-hatch-footer--default",
-      "astro": "not yet",
-      "svelteFile": "blocks/sections/hatch-footer.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "astro": "hatch-footer",
+      "svelteFile": "blocks/sections/hatch-footer.svelte",
+      "svelteItem": "hatch-footer",
+      "astroItem": "hatch-footer"
     },
     {
       "name": "CalmFooter",
       "group": "site",
       "svelte": "sections-calm-footer--default",
-      "astro": "not yet",
-      "svelteFile": "blocks/sections/calm-footer.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "astro": "calm-footer",
+      "svelteFile": "blocks/sections/calm-footer.svelte",
+      "svelteItem": "calm-footer",
+      "astroItem": "calm-footer"
     },
     {
       "name": "FeatureBento",
