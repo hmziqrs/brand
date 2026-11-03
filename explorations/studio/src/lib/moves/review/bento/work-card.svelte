@@ -57,7 +57,7 @@
 					{/each}
 				{:else if work.art === 'fan'}
 					{#each Array.from({ length: 12 }, (_, i) => i) as i (i)}
-						<line x1="30" y1="170" x2="290" y2={30 + i * 12 + (on && !still ? (py - 0.5) * 50 : 0)} stroke-width="1" class={cn('transition-[stroke] duration-200', i === Math.round(eased(hx) * 11) ? 'stroke-primary' : 'stroke-foreground/45')} />
+						<line x1="30" y1="170" x2="290" y2={Math.max(30, Math.min(170, 30 + i * 12 + (on && !still ? (py - 0.5) * 40 : 0)))} stroke-width="1" class={cn('transition-[stroke] duration-200', i === Math.round(eased(hx) * 11) ? 'stroke-primary' : 'stroke-foreground/45')} />
 					{/each}
 					<rect x="30" y="30" width="260" height="140" fill="none" stroke-width="1" class="stroke-foreground/30" />
 					<circle cx="30" cy="170" r="3.5" class="fill-primary" />

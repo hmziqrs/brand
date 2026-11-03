@@ -54,7 +54,7 @@
 
 <div class={cn('grid gap-3 md:grid-cols-3', className)}>
 	{#each steps as s, i (s.n)}
-		<article class="flex min-h-[32rem] min-w-0 flex-col overflow-hidden rounded-2xl ring-1 ring-foreground/10">
+		<article class="flex min-h-[26rem] min-w-0 flex-col overflow-hidden rounded-2xl ring-1 ring-foreground/10 md:min-h-[32rem]">
 			<h3 class="px-6 pt-6 text-[clamp(2.5rem,4vw,3.75rem)] leading-none font-medium tracking-[-0.045em]">
 				<span class="text-muted-foreground">{s.n}</span> <span class="text-foreground">{s.word}</span>
 			</h3>

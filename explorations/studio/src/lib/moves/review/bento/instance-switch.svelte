@@ -113,7 +113,7 @@
 					<span class="text-primary">{log[0]}</span>
 					<span class="text-foreground/85">{log[1]}</span>
 				{:else}
-					<span class="flex items-center gap-2 text-foreground/80"><Link2 class="lucide size-3.5 text-primary" />Plugins and skills linked from ~/.claude, which stays untouched.</span>
+					<span class="flex items-start gap-2 text-foreground/80"><Link2 class="lucide mt-0.5 size-3.5 shrink-0 text-primary" />Plugins and skills linked from ~/.claude, which stays untouched.</span>
 				{/if}
 			</div>
 			<div class="flex flex-wrap items-center justify-end gap-2">

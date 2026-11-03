@@ -45,6 +45,7 @@
 	let target = $state<number | null>(null);
 	let pathEl: SVGPathElement | undefined = $state();
 	let box: HTMLDivElement | undefined = $state();
+	let root: HTMLDivElement | undefined = $state();
 	let samples: { x: number; y: number; f: number }[] = [];
 
 	const point = $derived.by(() => {
@@ -52,17 +53,18 @@
 		const p = pathEl.getPointAtLength(progress * pathEl.getTotalLength());
 		return { x: p.x, y: p.y };
 	});
+	const lead = $derived((progress + 0.008) % 1);
 	const active = $derived.by(() => {
 		let best = spots.length - 1;
 		spots.forEach((s, n) => {
-			if (progress >= s.f) best = n;
+			if (lead >= s.f) best = n;
 		});
-		return progress < spots[0].f ? spots.length - 1 : best;
+		return lead < spots[0].f ? spots.length - 1 : best;
 	});
 	const phase = $derived.by(() => {
 		const a = spots[active].f;
 		const b = active === spots.length - 1 ? spots[0].f + 1 : spots[active + 1].f;
-		const p = progress < a ? progress + 1 : progress;
+		const p = lead < a ? lead + 1 : lead;
 		return Math.max(0, Math.min(1, (p - a) / (b - a)));
 	});
 
@@ -90,7 +92,7 @@
 		let visible = true;
 		let last = active;
 		const io = new IntersectionObserver((e) => (visible = e.some((x) => x.isIntersecting)));
-		if (box) io.observe(box);
+		if (root) io.observe(root);
 		const frame = (now: number) => {
 			raf = requestAnimationFrame(frame);
 			const dt = prev ? Math.min(0.05, (now - prev) / 1000) : 0;
@@ -103,7 +105,7 @@
 				progress = (progress + d * (1 - Math.exp(-dt * 9)) + 1) % 1;
 			} else progress = (progress + dt / 11) % 1;
 			if (active !== last) {
-				if (active === 0 && last === spots.length - 1) minor++;
+				if (active === 0 && last === spots.length - 1 && target === null) minor++;
 				last = active;
 			}
 		};
@@ -134,7 +136,7 @@
 	const icon = (os: string) => (os === 'mac' ? siApple : os === 'linux' ? siLinux : siWindows);
 </script>
 
-<div data-slot="release-loop" class={cn('grid min-w-0 gap-8 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] lg:items-center lg:gap-10', className)}>
+<div bind:this={root} data-slot="release-loop" class={cn('grid min-w-0 gap-8 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] lg:items-center lg:gap-10', className)}>
 	<div class="min-w-0">
 		<div
 			bind:this={box}

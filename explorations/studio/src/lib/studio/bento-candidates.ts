@@ -54,7 +54,7 @@ export const bentos: BentoCandidate[] = [
 	{
 		id: 'query-numbers',
 		name: 'Numbers bento · gpui-query',
-		line: 'The gpui-query-2 stats bento: an oxide KPI, a requests trend, time to rows per screen and a frosted cache share on cast iron, with three plain feature tiles; one switch flips every number between gpui-query and a fetch in every render.',
+		line: 'The gpui-query-2 stats bento: an oxide KPI, a requests trend, time to rows per screen and a frosted cache share on hammered copper, with three plain feature tiles; one switch flips every number between gpui-query and a fetch in every render.',
 		use: 'Real use: gpui-query, as the proof section after the feature tiles; any tool that can show a before and after.',
 		src: `${dir}/query-numbers.svelte`,
 		component: QueryNumbers,

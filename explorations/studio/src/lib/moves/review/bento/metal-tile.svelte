@@ -45,7 +45,7 @@
 	aria-label={`${provider.name}: show claude-${provider.id} in the switcher`}
 	class={cn(
 		'group/metal relative isolate flex flex-col justify-between overflow-hidden rounded-2xl p-2 text-left outline-none ring-1 ring-foreground/10 transition-shadow duration-300 focus-visible:ring-3 focus-visible:ring-ring/60 motion-reduce:transition-none',
-		size === 'lg' ? 'min-h-[22rem]' : 'min-h-[16.5rem]',
+		size === 'lg' ? 'min-h-[19rem] sm:min-h-[22rem]' : 'min-h-[15rem] sm:min-h-[16.5rem]',
 		picked && 'ring-2 ring-primary',
 		className
 	)}
