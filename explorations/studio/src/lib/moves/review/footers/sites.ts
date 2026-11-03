@@ -228,7 +228,7 @@ export const hmziq: FooterSite = {
 		{ title: 'Site', links: [{ label: 'Work' }, { label: 'Blog', href: 'https://blog.hmziq.rs' }, { label: 'CV', href: 'https://cv.hmziq.rs' }, { label: 'Uses' }] },
 		{ title: 'Elsewhere', links: [gh('hmziqrs'), { label: 'LinkedIn', href: 'https://linkedin.com/in/hmziqrs' }, x, { label: 'Email', href: 'mailto:hmziqrs@gmail.com' }] }
 	],
-	socials: [gh('hmziqrs'), x],
+	socials: [gh('hmziqrs'), { label: 'LinkedIn', href: 'https://linkedin.com/in/hmziqrs' }, x, { label: 'Email', href: 'mailto:hmziqrs@gmail.com' }],
 	legal: '© 2026 hmziq',
 	aside: 'Built with the hmziq kit',
 	nav: { links: [{ label: 'Work' }, { label: 'Blog' }, { label: 'CV' }], cta: 'Get in touch', github: 'https://github.com/hmziqrs' },
