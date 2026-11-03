@@ -1,104 +1,107 @@
 import type { Component } from 'svelte';
-import Current from '$moves/review/heroes/current.svelte';
-import Float from '$moves/review/heroes/float.svelte';
-import FloatReal from '$moves/review/heroes/float-real.svelte';
-import MaterialGrid from '$moves/review/heroes/material-grid.svelte';
-import Reveal from '$moves/review/heroes/reveal.svelte';
-import Voxel from '$moves/review/heroes/voxel.svelte';
-import Desk from '$moves/review/heroes/desk.svelte';
-import Contour from '$moves/review/heroes/contour.svelte';
-import Plates from '$moves/review/heroes/plates.svelte';
+import ProductSplitQuery from '$moves/review/heroes/product-split-query.svelte';
+import ProductSplitStarter from '$moves/review/heroes/product-split-starter.svelte';
+import ProductCenteredMulti from '$moves/review/heroes/product-centered-multi.svelte';
+import BrandOxlabs from '$moves/review/heroes/brand-oxlabs.svelte';
+import BrandFreeoxide from '$moves/review/heroes/brand-freeoxide.svelte';
+import BrandLabs from '$moves/review/heroes/brand-labs.svelte';
+import PersonalHmziq from '$moves/review/heroes/personal-hmziq.svelte';
+
+export type HeroGroup = 'product' | 'brand' | 'personal';
 
 export type HeroCandidate = {
 	id: string;
+	group: HeroGroup;
 	name: string;
 	line: string;
-	use: string;
 	src: string;
 	component: Component<any>;
 	props: Record<string, unknown>;
 };
 
+export const heroGroups: { id: HeroGroup; name: string; when: string; src: string }[] = [
+	{
+		id: 'product',
+		name: 'Product',
+		when: 'Use for one tool or app: the words sell it, an install command gets it, and the visual is the product working (a diagram, a terminal, a demo).',
+		src: 'src/lib/moves/review/heroes/product-hero.svelte'
+	},
+	{
+		id: 'brand',
+		name: 'Brand',
+		when: 'Use for a studio, an initiative or a lab: one big statement over a full-width stage that carries the identity; pick the stage on the Stages page.',
+		src: 'src/lib/moves/review/heroes/brand-hero.svelte'
+	},
+	{
+		id: 'personal',
+		name: 'Personal',
+		when: 'Use for a person: name, role, one line about the work, two ways in and the places to find them.',
+		src: 'src/lib/moves/review/heroes/personal-intro.svelte'
+	}
+];
+
 export const heroes: HeroCandidate[] = [
 	{
-		id: 'current',
-		name: 'Current',
-		line: 'The kit hero today: title, lede, two buttons and a note in a narrow column, rings beside it.',
-		use: 'Real use: the default landing hero for a single project or person; the rings stay the only art.',
-		src: 'packages/brand-svelte/src/lib/blocks/site/hero.svelte',
-		component: Current,
+		id: 'product-split-query',
+		group: 'product',
+		name: 'Split · gpui-query',
+		line: 'Words left, a live cache → fetch → render schematic right; refetch() and invalidate() drive it.',
+		src: 'src/lib/moves/review/heroes/product-split-query.svelte',
+		component: ProductSplitQuery,
 		props: {}
 	},
 	{
-		id: 'float',
-		name: 'Floating materials',
-		line: 'Centered words over a faint paint grid, with material cards that drift away from the cursor (site-flora/home).',
-		use: 'Real use: a brand backdrop only; real sites swap the material cards for product shots, as in Floating, real content.',
-		src: 'src/lib/moves/site-flora/float-hero.svelte',
-		component: Float,
+		id: 'product-split-starter',
+		group: 'product',
+		name: 'Split · gpui-starter',
+		line: 'Release chip, clone command and platforms left; the kit terminal with cargo run / cargo test / hot reload tabs right.',
+		src: 'src/lib/moves/review/heroes/product-split-starter.svelte',
+		component: ProductSplitStarter,
 		props: {}
 	},
 	{
-		id: 'float-real',
-		name: 'Floating, real content',
-		line: 'The Floating materials layout with real cards instead of materials: an app window, an install terminal, a project card, a blog post and a phone, all drifting away from the cursor.',
-		use: 'Real use: product or app landing pages, where the floating cards are screenshots and posts from the product itself.',
-		src: 'src/lib/moves/review/heroes/float-real.svelte',
-		component: FloatReal,
+		id: 'product-centered-multi',
+		group: 'product',
+		name: 'Centered · claude-multi',
+		line: 'Centered words and install command, a large interactive terminal demo below (hover or ↑↓ the menu).',
+		src: 'src/lib/moves/review/heroes/product-centered-multi.svelte',
+		component: ProductCenteredMulti,
 		props: {}
 	},
 	{
-		id: 'material-grid',
-		name: 'Material + hover grid',
-		line: 'A full-width live oxide material under a veil; the hover grid reveals it cell by cell, words on a glass panel (flora/oxlabs-3).',
-		use: 'Real use: brand backdrop for studio and agency landing pages, where the material is the art and the copy sells the service.',
-		src: 'src/routes/p/flora/oxlabs-3/+page.svelte',
-		component: MaterialGrid,
+		id: 'brand-oxlabs',
+		group: 'brand',
+		name: 'Left · oxlabs',
+		line: 'Live oxide material revealed through a subtle hover grid; words on a glass panel.',
+		src: 'src/lib/moves/review/heroes/brand-oxlabs.svelte',
+		component: BrandOxlabs,
 		props: {}
 	},
 	{
-		id: 'reveal',
-		name: 'Reveal stage',
-		line: 'The same material and hover grid as a band, a giant headline with an inline tile, sources and a context board inside it (site-dovetail/home).',
-		use: 'Real use: product landing for a data or B2B tool; the board below the headline is the real product UI.',
-		src: 'src/lib/moves/site-dovetail/reveal-stage.svelte',
-		component: Reveal,
+		id: 'brand-freeoxide',
+		group: 'brand',
+		name: 'Left · freeoxide',
+		line: 'Dot-matrix wordmark, boot log and stats over the kit three.js lattice scene.',
+		src: 'src/lib/moves/review/heroes/brand-freeoxide.svelte',
+		component: BrandFreeoxide,
 		props: {}
 	},
 	{
-		id: 'voxel',
-		name: 'Voxel stack',
-		line: 'Words left, an isometric voxel stack right that lights up and lifts under the mouse (northflank/gpui-starter-1).',
-		use: 'Real use: product illustration for infra and dev tools, each block labelled with a real part of the stack.',
-		src: 'src/lib/moves/northflank/iso-tile-stack.svelte',
-		component: Voxel,
+		id: 'brand-labs',
+		group: 'brand',
+		name: 'Centered · hmziq labs',
+		line: 'Thin wide-tracked title over a quiet field of thin rings and stars that drift with the cursor.',
+		src: 'src/lib/moves/review/heroes/brand-labs.svelte',
+		component: BrandLabs,
 		props: {}
 	},
 	{
-		id: 'desk',
-		name: 'Desktop',
-		line: 'A dotted desktop background with draggable windows, a giant product name and a live demo under it (site-clicky/home).',
-		use: 'Real use: interactive product demo for a desktop app; the windows hold real clips and the demo under it is the product.',
-		src: 'src/lib/moves/site-clicky/desk-hero.svelte',
-		component: Desk,
-		props: {}
-	},
-	{
-		id: 'contour',
-		name: 'Contour lines',
-		line: 'Topographic lines that bend around the cursor behind a big two-tone headline (site-northflank/about).',
-		use: 'Real use: about, company and mission pages, where words carry the page and the art stays quiet.',
-		src: 'src/lib/moves/site-northflank/contour-field.svelte',
-		component: Contour,
-		props: {}
-	},
-	{
-		id: 'plates',
-		name: 'Plate stack',
-		line: 'Centered freeoxide words over a stack of thin floating plates, one cut from oxide (voidzero/freeoxide-1).',
-		use: 'Real use: org or project index, one plate per layer or project, the oxide plate marks the one in focus.',
-		src: 'src/lib/moves/voidzero/plate-stack.svelte',
-		component: Plates,
+		id: 'personal-hmziq',
+		group: 'personal',
+		name: 'Intro · hmziq.rs',
+		line: 'Dot-matrix name, role, one line, two buttons and ghost icon links on a faint grid.',
+		src: 'src/lib/moves/review/heroes/personal-hmziq.svelte',
+		component: PersonalHmziq,
 		props: {}
 	}
 ];
