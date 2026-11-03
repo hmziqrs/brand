@@ -2521,6 +2521,78 @@
       "astroItem": "not yet"
     },
     {
+      "name": "ProductWindow",
+      "group": "brand",
+      "svelte": "custom-product-window--with-chrome",
+      "astro": "not yet",
+      "svelteFile": "components/product-window.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "MaterialWash",
+      "group": "brand",
+      "svelte": "custom-material-wash--copper",
+      "astro": "not yet",
+      "svelteFile": "components/material-wash.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "MaterialGrid",
+      "group": "brand",
+      "svelte": "custom-material-grid--live",
+      "astro": "not yet",
+      "svelteFile": "components/material-grid.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "DiagonalHatch",
+      "group": "brand",
+      "svelte": "custom-diagonal-hatch--corner",
+      "astro": "not yet",
+      "svelteFile": "components/diagonal-hatch.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "RingField",
+      "group": "brand",
+      "svelte": "custom-ring-field--default",
+      "astro": "not yet",
+      "svelteFile": "components/ring-field.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "SceneStage",
+      "group": "brand",
+      "svelte": "custom-scene-stage--lattice",
+      "astro": "not yet",
+      "svelteFile": "components/scene-stage.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "DotName",
+      "group": "brand",
+      "svelte": "custom-dot-name--default",
+      "astro": "not yet",
+      "svelteFile": "components/dot-name.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "ResolveTitle",
+      "group": "brand",
+      "svelte": "custom-resolve-title--default",
+      "astro": "not yet",
+      "svelteFile": "components/resolve-title.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
       "name": "SiteFooter",
       "group": "brand",
       "svelte": "custom-site-footer--columns",
