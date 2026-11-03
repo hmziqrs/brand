@@ -1,4 +1,4 @@
-export type Verdict = 'keep' | 'nuke' | 'star' | undefined;
+export type Verdict = 'keep' | 'nuke' | 'star' | 'tweak' | 'remove' | undefined;
 
 type Row = { id: string; v?: Verdict | null; note?: string };
 type Db = {
@@ -79,7 +79,7 @@ class Verdicts {
 	report() {
 		const ids = new Set([...Object.keys(this.all), ...Object.keys(this.notes)]);
 		const lines: string[] = [];
-		for (const v of ['star', 'keep', 'nuke'] as const) {
+		for (const v of ['star', 'keep', 'tweak', 'nuke', 'remove'] as const) {
 			const hit = [...ids].filter((id) => this.all[id] === v);
 			if (hit.length) lines.push(`${v.toUpperCase()}:`, ...hit.map((id) => `  ${id}${this.notes[id] ? ` — ${this.notes[id]}` : ''}`));
 		}
