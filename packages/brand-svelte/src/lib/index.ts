@@ -169,3 +169,15 @@ export { default as BrandHero } from "./blocks/sections/brand-hero.svelte";
 export { default as PersonalHero } from "./blocks/sections/personal-hero.svelte";
 export type { PersonalSocial } from "./blocks/sections/personal-hero.svelte";
 export { default as ProductHero } from "./blocks/sections/product-hero.svelte";
+
+// Footer fields and parts.
+export { default as DitherName } from "./components/dither-name.svelte";
+export { default as FitWordmark } from "./components/fit-wordmark.svelte";
+export { default as FooterColumns } from "./components/footer-columns.svelte";
+export type { FooterColumn, FooterLink } from "./components/footer-columns.svelte";
+export { default as FooterFamily } from "./components/footer-family.svelte";
+export { default as FooterSocials } from "./components/footer-socials.svelte";
+export { default as HeatField } from "./components/heat-field.svelte";
+export { default as PixelName } from "./components/pixel-name.svelte";
+export { default as VoxelField } from "./components/voxel-field.svelte";
+export { default as WashGlow } from "./components/wash-glow.svelte";

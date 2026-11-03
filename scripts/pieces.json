@@ -2602,6 +2602,87 @@
       "astroItem": "not yet"
     },
     {
+      "name": "FooterColumns",
+      "group": "brand",
+      "svelte": "custom-footer-columns--default",
+      "astro": "not yet",
+      "svelteFile": "components/footer-columns.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "FooterFamily",
+      "group": "brand",
+      "svelte": "custom-footer-family--default",
+      "astro": "not yet",
+      "svelteFile": "components/footer-family.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "FooterSocials",
+      "group": "brand",
+      "svelte": "custom-footer-socials--default",
+      "astro": "not yet",
+      "svelteFile": "components/footer-socials.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "PixelName",
+      "group": "brand",
+      "svelte": "custom-pixel-name--dots",
+      "astro": "not yet",
+      "svelteFile": "components/pixel-name.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "HeatField",
+      "group": "brand",
+      "svelte": "custom-heat-field--default",
+      "astro": "not yet",
+      "svelteFile": "components/heat-field.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "FitWordmark",
+      "group": "brand",
+      "svelte": "custom-fit-wordmark--default",
+      "astro": "not yet",
+      "svelteFile": "components/fit-wordmark.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "DitherName",
+      "group": "brand",
+      "svelte": "custom-dither-name--drifting",
+      "astro": "not yet",
+      "svelteFile": "components/dither-name.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "VoxelField",
+      "group": "brand",
+      "svelte": "custom-voxel-field--quiet",
+      "astro": "not yet",
+      "svelteFile": "components/voxel-field.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "WashGlow",
+      "group": "brand",
+      "svelte": "custom-wash-glow--chalk",
+      "astro": "not yet",
+      "svelteFile": "components/wash-glow.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
       "name": "Roadmap",
       "group": "brand",
       "svelte": "custom-roadmap--board",
