@@ -45,7 +45,7 @@ export const heroes: HeroCandidate[] = [
 		id: 'product-split-query',
 		group: 'product',
 		name: 'Split · gpui-query',
-		line: 'Words left, a live cache → fetch → render schematic right; refetch() and invalidate() drive it.',
+		line: 'Words left, a frameless live cache → fetch → render schematic right, pulses along the active wire; refetch() and invalidate() drive it.',
 		src: 'src/lib/moves/review/heroes/product-split-query.svelte',
 		component: ProductSplitQuery,
 		props: {}
@@ -54,7 +54,7 @@ export const heroes: HeroCandidate[] = [
 		id: 'product-split-starter',
 		group: 'product',
 		name: 'Split · gpui-starter',
-		line: 'Release chip, clone command and platforms left; the kit terminal with cargo run / cargo test / hot reload tabs right.',
+		line: 'Release chip, clone command and frosted platform pills left; a windowed terminal on a material panel with cargo run / cargo test / hot reload tabs right.',
 		src: 'src/lib/moves/review/heroes/product-split-starter.svelte',
 		component: ProductSplitStarter,
 		props: {}
@@ -90,7 +90,7 @@ export const heroes: HeroCandidate[] = [
 		id: 'brand-labs',
 		group: 'brand',
 		name: 'Centered · hmziq labs',
-		line: 'Thin wide-tracked title over a quiet field of thin rings and stars that drift with the cursor.',
+		line: 'Thin wide-tracked title that resolves in letter by letter, shimmers and glows under the cursor, over a quiet field of rings and stars.',
 		src: 'src/lib/moves/review/heroes/brand-labs.svelte',
 		component: BrandLabs,
 		props: {}
@@ -99,7 +99,7 @@ export const heroes: HeroCandidate[] = [
 		id: 'personal-hmziq',
 		group: 'personal',
 		name: 'Intro · hmziq.rs',
-		line: 'Dot-matrix name, role, one line, two buttons and ghost icon links on a faint grid.',
+		line: 'Dot-matrix name that assembles on load and parts round the cursor, role, one line, two buttons and ghost icon links on the plain page.',
 		src: 'src/lib/moves/review/heroes/personal-hmziq.svelte',
 		component: PersonalHmziq,
 		props: {}

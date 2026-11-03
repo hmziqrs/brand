@@ -80,22 +80,21 @@
 </script>
 
 {#snippet node(title: string, sub: string, active: boolean, cls = '')}
-	<div class={cn('flex h-14 min-w-0 flex-col justify-center rounded-lg border bg-background px-3 transition-colors duration-300 motion-reduce:transition-none sm:w-[7.5rem]', active ? 'border-primary' : 'border-border', cls)}>
-		<span class="truncate font-mono text-[12.5px] text-foreground">{title}</span>
-		<span class={cn('truncate font-mono text-[9.5px] tracking-[0.14em] uppercase transition-colors duration-300 motion-reduce:transition-none', active ? 'text-primary' : 'text-muted-foreground')}>{sub}</span>
+	<div class={cn('relative flex h-16 min-w-0 flex-col justify-center rounded-lg border bg-background px-3.5 transition-[border-color,box-shadow] duration-300 motion-reduce:transition-none sm:w-auto sm:min-w-[5.75rem] sm:shrink-0', active ? 'border-primary shadow-[0_0_0_4px_color-mix(in_oklab,var(--primary)_14%,transparent)]' : 'border-border', cls)}>
+		<span class="truncate font-mono text-[13px] text-foreground">{title}</span>
+		<span class={cn('mt-0.5 truncate font-mono text-[10px] tracking-[0.14em] uppercase transition-colors duration-300 motion-reduce:transition-none', active ? 'text-primary' : 'text-muted-foreground')}>{sub}</span>
 	</div>
 {/snippet}
 
 {#snippet edge(active: boolean)}
-	<span aria-hidden="true" class={cn('mx-auto block h-6 w-px transition-colors duration-300 motion-reduce:transition-none sm:mx-0 sm:h-px sm:w-auto sm:min-w-5 sm:flex-1', active ? 'bg-primary' : 'bg-border')}></span>
+	<span aria-hidden="true" data-on={active || undefined} class={cn('wire relative mx-auto block h-7 w-0.5 rounded-full transition-colors duration-300 motion-reduce:transition-none sm:mx-0 sm:h-0.5 sm:w-auto sm:min-w-8 sm:flex-1', active ? 'bg-primary/30 motion-reduce:bg-primary' : 'bg-border')}><i></i></span>
 {/snippet}
 
-<figure class="m-0 overflow-hidden rounded-xl border border-border bg-card shadow-[0_40px_80px_-50px_color-mix(in_oklab,black_70%,transparent)]">
-	<div class="flex h-10 items-center justify-between border-b border-border px-4 font-mono text-[11px] text-muted-foreground">
-		<span>schematic://query-path</span>
-		<span class="flex items-center gap-2 tracking-[0.14em] text-foreground uppercase"><span class="size-1.5 rounded-full bg-primary motion-safe:animate-pulse"></span>Live</span>
+<figure class="m-0">
+	<div class="mb-6 flex items-center gap-2 font-mono text-[11px] tracking-[0.14em] text-muted-foreground uppercase">
+		<span class="size-1.5 rounded-full bg-primary motion-safe:animate-pulse"></span><span class="text-foreground">Live</span><span aria-hidden="true">·</span><span class="normal-case tracking-normal">query path</span>
 	</div>
-	<div class="px-4 py-8 sm:px-6 sm:py-12" aria-label="Query path: your view calls use_query, which asks the QueryClient, which reads the cache or the network" role="img">
+	<div aria-label="Query path: your view calls use_query, which asks the QueryClient, which reads the cache or the network" role="img">
 		<div class="flex flex-col items-stretch sm:flex-row sm:items-center">
 			{@render node('render()', 'your view', on('view'))}
 			{@render edge(on('view') && on('hook'))}
@@ -104,21 +103,70 @@
 			{@render node('QueryClient', 'global', on('cache') || on('net') || on('hook'))}
 			{@render edge(on('cache') || on('net'))}
 			<div class="relative grid grid-cols-2 gap-3 sm:flex sm:flex-col sm:gap-8 sm:pl-6">
-				<span aria-hidden="true" class={cn('absolute top-7 bottom-7 left-0 hidden w-px transition-colors duration-300 motion-reduce:transition-none sm:block', on('cache') || on('net') ? 'bg-primary' : 'bg-border')}></span>
+				<span aria-hidden="true" data-on={on('cache') || on('net') || undefined} class={cn('wire wire-y absolute top-8 bottom-8 left-0 hidden w-0.5 rounded-full transition-colors duration-300 motion-reduce:transition-none sm:block', on('cache') || on('net') ? 'bg-primary/30 motion-reduce:bg-primary' : 'bg-border')}><i></i></span>
 				<div class="relative">
-					<span aria-hidden="true" class={cn('absolute top-1/2 -left-6 hidden h-px w-6 transition-colors duration-300 motion-reduce:transition-none sm:block', on('cache') ? 'bg-primary' : 'bg-border')}></span>
+					<span aria-hidden="true" data-on={on('cache') || undefined} class={cn('wire wire-x absolute top-1/2 -left-6 hidden h-0.5 w-6 -translate-y-1/2 transition-colors duration-300 motion-reduce:transition-none sm:block', on('cache') ? 'bg-primary/30 motion-reduce:bg-primary' : 'bg-border')}><i></i></span>
 					{@render node('Cache', cache, on('cache') || cache !== 'fresh', cache === 'stale' ? 'border-dashed' : '')}
 				</div>
 				<div class="relative">
-					<span aria-hidden="true" class={cn('absolute top-1/2 -left-6 hidden h-px w-6 transition-colors duration-300 motion-reduce:transition-none sm:block', on('net') ? 'bg-primary' : 'bg-border')}></span>
+					<span aria-hidden="true" data-on={on('net') || undefined} class={cn('wire wire-x absolute top-1/2 -left-6 hidden h-0.5 w-6 -translate-y-1/2 transition-colors duration-300 motion-reduce:transition-none sm:block', on('net') ? 'bg-primary/30 motion-reduce:bg-primary' : 'bg-border')}><i></i></span>
 					{@render node('Network', net === 'idle' ? 'fetcher' : net, on('net'))}
 				</div>
 			</div>
 		</div>
 	</div>
-	<figcaption class="flex flex-wrap items-center gap-2 border-t border-border px-4 py-3">
+	<figcaption class="mt-8 flex flex-wrap items-center gap-2">
 		<Button variant="outline" size="sm" class="font-mono" onclick={() => (cut(), refetch())}>refetch()</Button>
 		<Button variant="outline" size="sm" class="font-mono" onclick={invalidate}>invalidate()</Button>
-		<span class="ml-auto min-w-0 truncate font-mono text-[11px] text-muted-foreground" aria-live="polite"><span class="text-primary">▸</span> {log}</span>
+		<span class="min-w-0 basis-full truncate pt-2 font-mono text-[12px] text-muted-foreground sm:basis-auto sm:pt-0 sm:pl-3" aria-live="polite"><span class="text-primary">▸</span> {log}</span>
 	</figcaption>
 </figure>
+
+<style>
+	.wire {
+		overflow: hidden;
+	}
+	.wire > i {
+		position: absolute;
+		inset: 0;
+		opacity: 0;
+		background-repeat: no-repeat;
+		background-image: linear-gradient(180deg, transparent, var(--primary), transparent);
+		background-size: 100% 45%;
+	}
+	.wire[data-on] > i {
+		opacity: 1;
+		animation: flow-y 0.9s linear infinite;
+	}
+	@media (min-width: 40rem) {
+		.wire:not(.wire-y) > i {
+			background-image: linear-gradient(90deg, transparent, var(--primary), transparent);
+			background-size: 45% 100%;
+		}
+		.wire[data-on]:not(.wire-y) > i {
+			animation-name: flow-x;
+		}
+	}
+	@keyframes flow-x {
+		from {
+			background-position: -80% 0;
+		}
+		to {
+			background-position: 180% 0;
+		}
+	}
+	@keyframes flow-y {
+		from {
+			background-position: 0 -80%;
+		}
+		to {
+			background-position: 0 180%;
+		}
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.wire[data-on] > i {
+			animation: none;
+			opacity: 0;
+		}
+	}
+</style>

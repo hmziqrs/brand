@@ -5,15 +5,16 @@
 	import BrandIcon from '$brand/components/brand-icon.svelte';
 	import BrandHero from './brand-hero.svelte';
 	import Rings from '../stages/rings.svelte';
+	import LabsTitle from './labs-title.svelte';
 </script>
 
 <BrandHero
 	align="center"
 	title="HMZIQ LABS"
 	lede="Experiments in Flutter, React Native, Rust and Go: UI challenges, small games, CLIs, and the tools that grew out of them."
-	titleClass="max-w-none text-[clamp(34px,8.6vw,128px)] leading-[1] font-light tracking-[0.16em] uppercase [text-indent:0.16em]"
 >
 	{#snippet stage()}<Rings />{/snippet}
+	{#snippet heading()}<LabsTitle text="HMZIQ LABS" class="text-[clamp(34px,8.6vw,128px)] leading-[1] font-light tracking-[0.16em] text-foreground uppercase [text-indent:0.16em]" />{/snippet}
 	{#snippet eyebrow()}<span class="font-mono text-xs tracking-[0.4em] text-muted-foreground uppercase">Experiments</span>{/snippet}
 	{#snippet actions()}
 		<Button href="#/c/hero/brand-labs" size="lg">Explore<ArrowDown class="lucide" data-icon="inline-end" /></Button>

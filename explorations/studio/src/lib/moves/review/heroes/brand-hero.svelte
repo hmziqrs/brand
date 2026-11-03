@@ -15,6 +15,7 @@
 		panel = false,
 		scrim,
 		wordmark,
+		heading,
 		stage,
 		titleClass,
 		class: className
@@ -29,6 +30,7 @@
 		panel?: boolean;
 		scrim?: boolean;
 		wordmark?: Snippet;
+		heading?: Snippet;
 		stage?: Snippet;
 		titleClass?: string;
 		class?: string;
@@ -42,12 +44,12 @@
 	{#if actions}<div class={cn('mt-8 flex flex-wrap gap-3', center && 'justify-center')}>{@render actions()}</div>{/if}
 {/snippet}
 
-<section class={cn('relative isolate flex min-h-[min(88svh,820px)] flex-col justify-center overflow-hidden', className)}>
+<section data-pointer-host class={cn('relative isolate flex min-h-[min(88svh,820px)] flex-col justify-center overflow-hidden', className)}>
 	{#if stage}<div class="absolute inset-0 -z-10">{@render stage()}</div>{/if}
 	<div class={cn('pointer-events-none relative mx-auto w-full max-w-[1320px] px-4 py-24 sm:px-8 lg:py-32 [&>*]:pointer-events-auto', center && 'flex flex-col items-center text-center')}>
 		{#if eyebrow}<div class="mb-7">{@render eyebrow()}</div>{/if}
 		{#if wordmark}<div class={cn('mb-8 w-full', center && 'flex justify-center')}>{@render wordmark()}</div>{/if}
-		<AccentTitle
+		{#if heading}{@render heading()}{:else}<AccentTitle
 			{title}
 			{accent}
 			class={cn(
@@ -57,7 +59,7 @@
 				'leading-[0.95]',
 				titleClass
 			)}
-		/>
+		/>{/if}
 		{#if panel}
 			<Glass variant="smoke" class={cn('mt-10 rounded-2xl p-6 sm:p-7', center ? 'mx-auto max-w-[44rem]' : 'max-w-[40rem]')}>{@render body()}</Glass>
 		{:else}

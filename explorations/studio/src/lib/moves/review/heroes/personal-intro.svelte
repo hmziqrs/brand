@@ -2,8 +2,7 @@
 	import type { Snippet } from 'svelte';
 	import { cn } from '$brand/utils.js';
 	import { Button } from '$brand/ui/button/index.js';
-	import DotMatrixWord from '$moves/northflank/dot-matrix-word.svelte';
-	import GridBackdrop from './grid-backdrop.svelte';
+	import DotName from './dot-name.svelte';
 
 	type Social = { label: string; href: string; icon: Snippet };
 
@@ -29,12 +28,10 @@
 </script>
 
 <section class={cn('relative isolate flex min-h-[min(84svh,760px)] flex-col items-center justify-center overflow-hidden px-4 py-24 text-center sm:px-8', className)}>
-	<div class="absolute inset-0 -z-10">
-		{#if stage}{@render stage()}{:else}<GridBackdrop cell={40} fade="radial" />{/if}
-	</div>
+	{#if stage}<div class="absolute inset-0 -z-10">{@render stage()}</div>{/if}
 	<h1 class="w-full">
 		{#if treatment === 'dot'}
-			<DotMatrixWord word={name} tone="ink" scatter={0} grid={false} rust={false} label={name} class="mx-auto w-[min(100%,520px)]" />
+			<DotName word={name} label={name} class="mx-auto w-[min(100%,560px)]" />
 		{:else}
 			<span class="text-[clamp(56px,10vw,128px)] font-semibold [line-height:1] tracking-[-0.05em]">{name}</span>
 		{/if}
