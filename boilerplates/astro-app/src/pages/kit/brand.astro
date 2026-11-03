@@ -22,6 +22,7 @@ import HorizonRings from "$brand/components/horizon-rings.astro";
 import IconTile from "$brand/components/icon-tile.astro";
 import InlineCode from "$brand/components/inline-code.astro";
 import Mark from "$brand/components/mark.astro";
+import NavBar, { type NavLink } from "$brand/components/nav-bar.astro";
 import Marker from "$brand/components/marker.astro";
 import Notice from "$brand/components/notice.astro";
 import Question from "$brand/components/question.astro";
@@ -42,6 +43,36 @@ import Toc from "$brand/components/toc.astro";
 import Wordmark from "$brand/components/wordmark.astro";
 import ThemeInit from "../../components/theme-init.astro";
 import ThemeToggle from "../../components/theme-toggle.astro";
+
+const navPlain: NavLink[] = [
+  { label: "Projects", href: "#" },
+  { label: "How I work", href: "#" },
+  { label: "Writing", href: "#" },
+  { label: "About", href: "#", current: true },
+];
+
+const navLinks: NavLink[] = [
+  {
+    label: "Guide",
+    children: [
+      { label: "Quickstart", href: "#", description: "Your first cached query in five minutes." },
+      { label: "Queries", href: "#", description: "Typed keys, stale times, background refetch." },
+      { label: "Mutations", href: "#", description: "Optimistic writes that roll back on error." },
+      { label: "Devtools", href: "#", description: "Watch the cache live while the app runs." },
+    ],
+  },
+  {
+    label: "Resources",
+    children: [
+      { label: "Examples", href: "#", description: "Small apps that use one feature each." },
+      { label: "Recipes", href: "#", description: "Pagination, polling and offline, step by step." },
+      { label: "Migration", href: "#", description: "Moving over from hand-rolled caches." },
+    ],
+  },
+  { label: "Changelog", href: "#" },
+];
+
+const announcement = { text: "gpui-query 0.3 tries again on its own when the network drops", href: "#", preset: "copper-sweep" };
 ---
 
 <SiteLayout site="example" maker="the kit" layout="page" mainClassName="gap-14 pt-12 pb-20 md:pt-20" head={{ site: "freeoxide", title: "Brand pieces — the kit", description: "Every brand piece the Astro kit ships.", url: "https://example.com/kit/brand" }}>
@@ -341,6 +372,22 @@ import ThemeToggle from "../../components/theme-toggle.astro";
     <section id="piece-questions" class="flex flex-col gap-4 border-t pt-8">
       <h2 class="text-lg font-medium">Questions</h2>
       <p class="text-[0.8125rem] text-muted-foreground">The list around the questions; shown above as the border-t wrapper.</p>
+    </section>
+
+    <section id="piece-nav-bar" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">NavBar</h2>
+      <div class="flex flex-col gap-6">
+        <div class="overflow-hidden rounded-xl border">
+          <NavBar site="freeoxide" maker="by hmziq" links={navPlain} cta={{ label: "Browse projects", href: "#" }} github="https://github.com/hmziqrs" />
+        </div>
+        <div class="min-h-80 overflow-hidden rounded-xl border">
+          <NavBar site="gpui-query" maker="by hmziq" links={navLinks} cta={{ label: "Get started", href: "#" }} github="https://github.com/hmziqrs" />
+        </div>
+        <div class="min-h-80 overflow-hidden rounded-xl border">
+          <NavBar site="gpui-query" maker="by hmziq" links={navLinks} cta={{ label: "Get started", href: "#" }} github="https://github.com/hmziqrs" announcement={announcement} announcementKey="hmziq-announce-gallery" />
+        </div>
+      </div>
+      <p class="text-[0.8125rem] text-muted-foreground">Plain, with hover menus, and with a closable announcement. Below md the links fold into a menu sheet.</p>
     </section>
 
     <section id="piece-toc" class="flex flex-col gap-4 border-t pt-8">

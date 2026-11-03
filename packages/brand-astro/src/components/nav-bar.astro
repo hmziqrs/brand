@@ -1,0 +1,218 @@
+---
+import { cn, type AstroPiece } from "$brand/utils";
+import Container from "$brand/blocks/site/container.astro";
+import Wordmark from "./wordmark.astro";
+import Glass from "./glass.astro";
+import NavBarMenu from "./nav-bar-menu.astro";
+import NavBarActions from "./nav-bar-actions.astro";
+import NavBarAnnouncement from "./nav-bar-announcement.astro";
+
+/*
+ * A site's header: an optional closable announcement on a shader poster,
+ * then the wordmark, links (some opening a hover menu of pages with a line
+ * on each), a GitHub link, the main button, and a menu sheet on phones. bar
+ * spans the page with its contents in the kit Container, floating is a
+ * glass pill, centered puts the wordmark in the middle. A closed
+ * announcement is remembered per text in localStorage.
+ */
+
+export type NavChild = { label: string; href: string; description?: string; icon?: AstroPiece };
+export type NavLink = { label: string; href?: string; current?: boolean; children?: NavChild[] };
+export type NavAnnouncement = { text: string; href: string; preset?: string };
+
+interface Props {
+  site: string;
+  maker?: string;
+  /** Where the wordmark links to. */
+  href?: string;
+  links?: NavLink[];
+  cta?: { label: string; href: string };
+  /** A quieter button before the main one, e.g. "Sign in". */
+  secondary?: { label: string; href: string };
+  /** A GitHub icon link before the buttons (a row in the phone menu). */
+  github?: string;
+  /** A strip above the header on a shader poster; closing it is remembered per text. */
+  announcement?: NavAnnouncement | null;
+  /** The localStorage key that remembers a closed announcement. */
+  announcementKey?: string;
+  variant?: "bar" | "floating" | "centered";
+  sticky?: boolean;
+  class?: string;
+}
+
+const {
+  site,
+  maker,
+  href = "/",
+  links = [],
+  cta,
+  secondary,
+  github,
+  announcement = null,
+  announcementKey = "hmziq-announce-dismissed",
+  variant = "bar",
+  sticky = false,
+  class: className,
+} = Astro.props;
+
+const half = Math.ceil(links.length / 2);
+const actions = { site, maker, href, links, cta, secondary, github };
+const brandClass = "flex shrink-0 items-baseline gap-[0.35em] rounded-sm text-lg outline-none focus-visible:ring-3 focus-visible:ring-ring/50";
+---
+
+{
+  variant === "floating" ? (
+    <div data-slot="nav-bar" data-variant={variant} class={cn("z-40", sticky && "sticky top-0", className)}>
+      {announcement && <NavBarAnnouncement announcement={announcement} storageKey={announcementKey} />}
+      <div class="px-4 pt-4">
+        <Glass as="header" class="mx-auto flex h-14 max-w-4xl items-center gap-4 rounded-full py-2 pr-2 pl-5">
+          <a href={href} class={brandClass}>
+            <Wordmark name={site} />
+            {maker && <span class="hidden text-[0.78em] text-muted-foreground sm:inline">{maker}</span>}
+          </a>
+          <div class="ml-auto">
+            <NavBarMenu links={links} align="end" />
+          </div>
+          <NavBarActions {...actions} pill>
+            <slot name="extra" slot="extra" />
+          </NavBarActions>
+        </Glass>
+      </div>
+    </div>
+  ) : (
+    <>
+      {announcement && <NavBarAnnouncement announcement={announcement} storageKey={announcementKey} />}
+      <header data-slot="nav-bar" data-variant={variant} class={cn("z-40 border-b bg-background", sticky && "sticky top-0", className)}>
+        {variant === "centered" ? (
+          <Container class="grid h-16 grid-cols-[1fr_auto_1fr] items-center gap-4">
+            <div class="min-w-0">
+              <NavBarMenu links={links.slice(0, half)} />
+            </div>
+            <a href={href} class={brandClass}>
+              <Wordmark name={site} />
+              {maker && <span class="hidden text-[0.78em] text-muted-foreground sm:inline">{maker}</span>}
+            </a>
+            <div class="flex items-center justify-end gap-2">
+              <div class="hidden lg:block">
+                <NavBarMenu links={links.slice(half)} align="end" label="More" />
+              </div>
+              <NavBarActions {...actions}>
+                <slot name="extra" slot="extra" />
+              </NavBarActions>
+            </div>
+          </Container>
+        ) : (
+          <Container class="flex h-16 items-center gap-6">
+            <a href={href} class={brandClass}>
+              <Wordmark name={site} />
+              {maker && <span class="hidden text-[0.78em] text-muted-foreground sm:inline">{maker}</span>}
+            </a>
+            <div class="ml-auto">
+              <NavBarMenu links={links} align="end" />
+            </div>
+            <NavBarActions {...actions}>
+              <slot name="extra" slot="extra" />
+            </NavBarActions>
+          </Container>
+        )}
+      </header>
+    </>
+  )
+}
+
+<script>
+  // Menus open on hover (mouse only), click or Enter, one at a time, and
+  // close on leaving, Escape, focus moving out or a click elsewhere. A
+  // closed announcement stays closed for its text. Picking a link in the
+  // phone sheet closes the sheet. Delegated, so it survives view transitions.
+  const timers = new WeakMap<HTMLElement, number>();
+  const hovered = new WeakMap<HTMLElement, number>();
+
+  const contentOf = (item: HTMLElement) => item.querySelector<HTMLElement>("[data-slot='navigation-menu-content']");
+  const triggerOf = (item: HTMLElement) => item.querySelector<HTMLElement>("[data-nav-bar-trigger]");
+
+  function setOpen(item: HTMLElement, open: boolean) {
+    const content = contentOf(item);
+    const trigger = triggerOf(item);
+    if (!content || !trigger) return;
+    window.clearTimeout(timers.get(item));
+    trigger.setAttribute("aria-expanded", String(open));
+    content.dataset.state = open ? "open" : "closed";
+    content.hidden = !open;
+    if (open) {
+      for (const other of document.querySelectorAll<HTMLElement>("[data-nav-bar-item]")) {
+        if (other !== item && triggerOf(other)?.getAttribute("aria-expanded") === "true") setOpen(other, false);
+      }
+    }
+  }
+
+  const closeAll = () => {
+    for (const item of document.querySelectorAll<HTMLElement>("[data-nav-bar-item]")) {
+      if (triggerOf(item)?.getAttribute("aria-expanded") === "true") setOpen(item, false);
+    }
+  };
+
+  document.addEventListener("pointerover", (event) => {
+    if ((event as PointerEvent).pointerType !== "mouse") return;
+    const item = (event.target as Element | null)?.closest<HTMLElement>("[data-nav-bar-item]");
+    if (!item || !triggerOf(item)) return;
+    if (triggerOf(item)?.getAttribute("aria-expanded") !== "true") hovered.set(item, Date.now());
+    setOpen(item, true);
+  });
+
+  document.addEventListener("pointerout", (event) => {
+    if ((event as PointerEvent).pointerType !== "mouse") return;
+    const item = (event.target as Element | null)?.closest<HTMLElement>("[data-nav-bar-item]");
+    if (!item || item.contains(event.relatedTarget as Node | null)) return;
+    timers.set(item, window.setTimeout(() => setOpen(item, false), 150));
+  });
+
+  document.addEventListener("click", (event) => {
+    const target = event.target as Element | null;
+    const trigger = target?.closest<HTMLElement>("[data-nav-bar-trigger]");
+    if (trigger) {
+      const item = trigger.closest<HTMLElement>("[data-nav-bar-item]");
+      if (item && Date.now() - (hovered.get(item) ?? 0) > 500) setOpen(item, trigger.getAttribute("aria-expanded") !== "true");
+      return;
+    }
+    if (!target?.closest("[data-slot='navigation-menu-content']")) closeAll();
+
+    const dismiss = target?.closest("[data-nav-bar-dismiss]");
+    const strip = dismiss?.closest<HTMLElement>("[data-slot='nav-bar-announcement']");
+    if (strip) {
+      strip.hidden = true;
+      try {
+        localStorage.setItem(strip.dataset.key ?? "", strip.dataset.text ?? "");
+      } catch {}
+    }
+
+    const link = target?.closest("a[data-nav-bar-link]");
+    const sheet = link?.closest("[data-sw-drawer]");
+    sheet?.querySelector<HTMLElement>("[data-sw-drawer-close]")?.click();
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") return;
+    const item = (event.target as Element | null)?.closest<HTMLElement>("[data-nav-bar-item]");
+    if (item && triggerOf(item)?.getAttribute("aria-expanded") === "true") {
+      setOpen(item, false);
+      triggerOf(item)?.focus();
+    }
+  });
+
+  document.addEventListener("focusout", (event) => {
+    const item = (event.target as Element | null)?.closest<HTMLElement>("[data-nav-bar-item]");
+    if (item && !item.contains(event.relatedTarget as Node | null) && triggerOf(item)?.getAttribute("aria-expanded") === "true") setOpen(item, false);
+  });
+
+  function restore() {
+    for (const strip of document.querySelectorAll<HTMLElement>("[data-slot='nav-bar-announcement']")) {
+      try {
+        if (localStorage.getItem(strip.dataset.key ?? "") === strip.dataset.text) strip.hidden = true;
+      } catch {}
+    }
+  }
+
+  restore();
+  document.addEventListener("astro:page-load", restore);
+</script>

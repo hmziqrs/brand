@@ -19,6 +19,8 @@ export { default as IconTile } from "./components/icon-tile.astro";
 export { default as InlineCode } from "./components/inline-code.astro";
 export { default as Mark } from "./components/mark.astro";
 export { default as Marker } from "./components/marker.astro";
+export { default as NavBar } from "./components/nav-bar.astro";
+export type { NavAnnouncement, NavChild, NavLink } from "./components/nav-bar.astro";
 export { default as Notice } from "./components/notice.astro";
 export { default as Question } from "./components/question.astro";
 export { default as Questions } from "./components/questions.astro";

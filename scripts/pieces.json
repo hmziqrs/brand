@@ -2515,7 +2515,7 @@
       "name": "NavBar",
       "group": "brand",
       "svelte": "custom-nav-bar--with-dropdowns",
-      "astro": "not yet",
+      "astro": "nav-bar",
       "svelteFile": "components/nav-bar.stories.svelte",
       "svelteItem": "not yet",
       "astroItem": "not yet"
