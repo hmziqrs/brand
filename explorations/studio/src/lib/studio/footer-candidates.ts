@@ -67,7 +67,7 @@ export const footers: FooterCandidate[] = [
 	{
 		id: 'glyphs',
 		name: 'Pixel · glyph name',
-		line: 'Opens on the name built from ■ □ ○ ◎ glyphs; the cursor pushes the glyphs apart and heats them into oxide squares. Links sit calm underneath.',
+		line: 'Opens on the name built from ■ □ ○ ◎ glyphs that the cursor pushes apart and heats into oxide squares, with calm links underneath.',
 		use: 'Real use: initiative flavour for Labs (hmziq.xyz) and other playful sites.',
 		src: `${dir}/glyphs.svelte`,
 		component: Glyphs,
@@ -107,7 +107,7 @@ export const footers: FooterCandidate[] = [
 	{
 		id: 'calm',
 		name: 'Calm, for reading',
-		line: 'No art: wordmark, one line and an email box, three plain columns, the family with a line each, fine print. Stays out of the way of the text above.',
+		line: 'No art: wordmark, one line and an email box, three plain columns, the family with a line each and the fine print, so it never competes with the text above.',
 		use: 'Real use: blog.hmziq.rs and every docs site (gpui-query, gpui-starter docs).',
 		src: `${dir}/calm.svelte`,
 		component: Calm,

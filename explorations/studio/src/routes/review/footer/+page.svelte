@@ -34,7 +34,7 @@
 				<ReviewVerdict {id} />
 				<a href={`#/c/footer/${f.id}`} class="text-sm whitespace-nowrap text-primary hover:underline">Open alone ↗</a>
 			</div>
-			<div class="overflow-x-clip bg-background">
+			<div class="overflow-x-clip bg-background [&>footer]:border-t-0">
 				<f.component {...f.props} />
 			</div>
 		</section>
