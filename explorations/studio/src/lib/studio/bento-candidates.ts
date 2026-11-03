@@ -2,6 +2,7 @@ import type { Component } from 'svelte';
 import QueryChores from '$moves/review/bento/query-chores.svelte';
 import QueryNumbers from '$moves/review/bento/query-numbers.svelte';
 import StarterWired from '$moves/review/bento/starter-wired.svelte';
+import MultiMetal from '$moves/review/bento/multi-metal.svelte';
 
 export type BentoSite = {
 	id: string;
@@ -65,6 +66,16 @@ export const bentos: BentoCandidate[] = [
 		component: StarterWired,
 		props: { here: here('starter-wired') },
 		site: bentoSites.gpuiStarter
+	},
+	{
+		id: 'multi-metal',
+		name: 'Pick your metal · claude-multi',
+		line: 'The loud half of claude-multi-3: mega headline with a Doto word, eight provider tiles cut from metal that shift under the cursor, the instance switcher on lava (click a tile or use the arrow keys, then Launch), and big Doto numbers on oxide and outline cards.',
+		use: 'Real use: claude-multi, under the centred hero; any CLI that turns many accounts or providers into one command each.',
+		src: `${dir}/multi-metal.svelte`,
+		component: MultiMetal,
+		props: { here: here('multi-metal') },
+		site: bentoSites.claudeMulti
 	}
 ];
 
