@@ -691,6 +691,25 @@
 			]
 		},
 		{
+			"name": "diagonal-hatch",
+			"type": "registry:file",
+			"title": "diagonal-hatch",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/components/diagonal-hatch.astro",
+					"target": "src/components/brand/components/diagonal-hatch.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
 			"name": "docs-layout",
 			"type": "registry:file",
 			"title": "docs-layout",
@@ -771,6 +790,25 @@
 				{
 					"path": "src/blocks/content/docs-title.astro",
 					"target": "src/components/brand/blocks/content/docs-title.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "dot-name",
+			"type": "registry:file",
+			"title": "dot-name",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/components/dot-name.astro",
+					"target": "src/components/brand/components/dot-name.astro",
 					"type": "registry:file"
 				}
 			]
@@ -1230,7 +1268,10 @@
 			"title": "kit",
 			"description": "The kit barrel and stylesheet. Depends on every other item, so installing it installs the whole kit.",
 			"dependencies": [
-				"@tailwindcss/forms@^0.5.11"
+				"@hmziq/brand-core@0.0.0",
+				"@lucide/astro@^1.48.0",
+				"@tailwindcss/forms@^0.5.11",
+				"simple-icons@16.32.0"
 			],
 			"registryDependencies": [
 				"@hmziq/account-app-blocks-shared",
@@ -1268,10 +1309,12 @@
 				"@hmziq/detail-list",
 				"@hmziq/detail-section",
 				"@hmziq/details-app-blocks-shared",
+				"@hmziq/diagonal-hatch",
 				"@hmziq/docs-layout",
 				"@hmziq/docs-pager",
 				"@hmziq/docs-search",
 				"@hmziq/docs-title",
+				"@hmziq/dot-name",
 				"@hmziq/element-card",
 				"@hmziq/empty-note",
 				"@hmziq/empty-state",
@@ -1307,7 +1350,9 @@
 				"@hmziq/live-widget",
 				"@hmziq/mark",
 				"@hmziq/marker",
+				"@hmziq/material-grid",
 				"@hmziq/material-text",
+				"@hmziq/material-wash",
 				"@hmziq/metric-trend",
 				"@hmziq/metrics-app-blocks-shared",
 				"@hmziq/newsletter-band",
@@ -1325,6 +1370,7 @@
 				"@hmziq/post-meta",
 				"@hmziq/price",
 				"@hmziq/pricing-plans",
+				"@hmziq/product-window",
 				"@hmziq/prose",
 				"@hmziq/provider-buttons",
 				"@hmziq/pull-quote",
@@ -1335,12 +1381,15 @@
 				"@hmziq/release-notes",
 				"@hmziq/release-timeline",
 				"@hmziq/reset-password-form",
+				"@hmziq/resolve-title",
+				"@hmziq/ring-field",
 				"@hmziq/ring-gauge",
 				"@hmziq/ring-stats",
 				"@hmziq/rings",
 				"@hmziq/row-actions",
 				"@hmziq/row-checkbox",
 				"@hmziq/scene",
+				"@hmziq/scene-stage",
 				"@hmziq/search-box",
 				"@hmziq/section",
 				"@hmziq/segmented",
@@ -1415,6 +1464,26 @@
 				"@hmziq/workspace-switcher"
 			],
 			"files": [
+				{
+					"path": "src/components/nav-bar-actions.astro",
+					"target": "src/components/brand/components/nav-bar-actions.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/components/nav-bar-announcement.astro",
+					"target": "src/components/brand/components/nav-bar-announcement.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/components/nav-bar-menu.astro",
+					"target": "src/components/brand/components/nav-bar-menu.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/components/nav-bar.astro",
+					"target": "src/components/brand/components/nav-bar.astro",
+					"type": "registry:file"
+				},
 				{
 					"path": "src/index.ts",
 					"target": "src/components/brand/index.ts",
@@ -1689,6 +1758,26 @@
 			]
 		},
 		{
+			"name": "material-grid",
+			"type": "registry:file",
+			"title": "material-grid",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"@hmziq/shader-material",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/components/material-grid.astro",
+					"target": "src/components/brand/components/material-grid.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
 			"name": "material-text",
 			"type": "registry:file",
 			"title": "material-text",
@@ -1703,6 +1792,24 @@
 				{
 					"path": "src/components/material-text.astro",
 					"target": "src/components/brand/components/material-text.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "material-wash",
+			"type": "registry:file",
+			"title": "material-wash",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/shader-material",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/components/material-wash.astro",
+					"target": "src/components/brand/components/material-wash.astro",
 					"type": "registry:file"
 				}
 			]
@@ -2048,6 +2155,25 @@
 			]
 		},
 		{
+			"name": "product-window",
+			"type": "registry:file",
+			"title": "product-window",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/glass",
+				"@hmziq/shader-material",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/components/product-window.astro",
+					"target": "src/components/brand/components/product-window.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
 			"name": "prose",
 			"type": "registry:file",
 			"title": "prose",
@@ -2245,6 +2371,44 @@
 			]
 		},
 		{
+			"name": "resolve-title",
+			"type": "registry:file",
+			"title": "resolve-title",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/components/resolve-title.astro",
+					"target": "src/components/brand/components/resolve-title.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "ring-field",
+			"type": "registry:file",
+			"title": "ring-field",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/components/ring-field.astro",
+					"target": "src/components/brand/components/ring-field.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
 			"name": "ring-gauge",
 			"type": "registry:file",
 			"title": "ring-gauge",
@@ -2361,6 +2525,27 @@
 				{
 					"path": "src/components/scene.astro",
 					"target": "src/components/brand/components/scene.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "scene-stage",
+			"type": "registry:file",
+			"title": "scene-stage",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0",
+				"three@^0.184.0"
+			],
+			"registryDependencies": [
+				"@hmziq/scene",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/components/scene-stage.astro",
+					"target": "src/components/brand/components/scene-stage.astro",
 					"type": "registry:file"
 				}
 			]

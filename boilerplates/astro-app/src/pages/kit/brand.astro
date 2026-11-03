@@ -17,6 +17,8 @@ import CommandBox from "$brand/components/command-box.astro";
 import CopyButton from "$brand/components/copy-button.astro";
 import CornerRings from "$brand/components/corner-rings.astro";
 import DataTable from "$brand/components/data-table.astro";
+import DiagonalHatch from "$brand/components/diagonal-hatch.astro";
+import DotName from "$brand/components/dot-name.astro";
 import Glass from "$brand/components/glass.astro";
 import HorizonRings from "$brand/components/horizon-rings.astro";
 import IconTile from "$brand/components/icon-tile.astro";
@@ -24,11 +26,17 @@ import InlineCode from "$brand/components/inline-code.astro";
 import Mark from "$brand/components/mark.astro";
 import NavBar, { type NavLink } from "$brand/components/nav-bar.astro";
 import Marker from "$brand/components/marker.astro";
+import MaterialGrid from "$brand/components/material-grid.astro";
+import MaterialWash from "$brand/components/material-wash.astro";
 import Notice from "$brand/components/notice.astro";
+import ProductWindow from "$brand/components/product-window.astro";
 import Question from "$brand/components/question.astro";
+import ResolveTitle from "$brand/components/resolve-title.astro";
+import RingField from "$brand/components/ring-field.astro";
 import RingGauge from "$brand/components/ring-gauge.astro";
 import Rings from "$brand/components/rings.astro";
 import Scene from "$brand/components/scene.astro";
+import SceneStage from "$brand/components/scene-stage.astro";
 import ShaderMaterial from "$brand/components/shader-material.astro";
 import Segmented from "$brand/components/segmented.astro";
 import StatusRing from "$brand/components/status-ring.astro";
@@ -73,6 +81,12 @@ const navLinks: NavLink[] = [
 ];
 
 const announcement = { text: "gpui-query 0.3 tries again on its own when the network drops", href: "#", preset: "copper-sweep" };
+
+const windowCode = `pub fn users(cx: &mut App) -> Query<Vec<User>> {
+    use_query("users", |signal| async move {
+        fetch_users(&signal).await
+    }, cx)
+}`;
 ---
 
 <SiteLayout site="example" maker="the kit" layout="page" mainClassName="gap-14 pt-12 pb-20 md:pt-20" head={{ site: "freeoxide", title: "Brand pieces — the kit", description: "Every brand piece the Astro kit ships.", url: "https://example.com/kit/brand" }}>
@@ -388,6 +402,104 @@ const announcement = { text: "gpui-query 0.3 tries again on its own when the net
         </div>
       </div>
       <p class="text-[0.8125rem] text-muted-foreground">Plain, with hover menus, and with a closable announcement. Below md the links fold into a menu sheet.</p>
+    </section>
+
+    <section id="piece-product-window" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">ProductWindow</h2>
+      <div class="flex flex-col gap-6">
+        <div data-pointer-host class="relative isolate overflow-hidden rounded-xl border px-6 py-16">
+          <MaterialWash preset="chalk-dunes" class="-z-10" />
+          <ProductWindow title="src/users.rs" live class="mx-auto max-w-2xl"><CodeLines code={windowCode} /></ProductWindow>
+        </div>
+        <div data-pointer-host class="relative isolate overflow-hidden rounded-xl border px-6 py-16">
+          <MaterialWash preset="copper-sweep" class="-z-10" />
+          <ProductWindow chrome={false} class="mx-auto max-w-2xl"><CodeLines code={windowCode} /></ProductWindow>
+        </div>
+        <div class="px-6 py-4">
+          <ProductWindow panel title="src/users.rs" class="mx-auto max-w-2xl"><CodeLines code={windowCode} /></ProductWindow>
+        </div>
+      </div>
+      <p class="text-[0.8125rem] text-muted-foreground">With its title bar and a Live mark over a stage, bare over a stage, and on its own still material panel.</p>
+    </section>
+
+    <section id="piece-material-wash" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">MaterialWash</h2>
+      <div class="flex flex-col gap-6">
+        {
+          ["copper-sweep", "chalk-dunes", "white-sweep"].map((preset) => (
+            <div class="relative isolate overflow-hidden rounded-xl border">
+              <MaterialWash preset={preset} class="-z-10" />
+              <div class="relative mx-auto max-w-[82rem] px-6 py-24">
+                <p data-display class="max-w-[14ch] text-5xl leading-[0.98] font-semibold tracking-[-0.04em]">Words read over the <span class="text-primary">material.</span></p>
+                <p class="mt-6 max-w-[34rem] text-lg text-foreground/90">A still poster under a veil of the page color. No canvas, no animation.</p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+      <p class="text-[0.8125rem] text-muted-foreground">Copper, chalk and silver: a still poster under a veil of the page color. No canvas, no animation.</p>
+    </section>
+
+    <section id="piece-material-grid" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">MaterialGrid</h2>
+      <div class="flex flex-col gap-6">
+        <div data-pointer-host class="relative isolate min-h-[30rem] overflow-hidden rounded-xl border">
+          <MaterialGrid class="-z-10" />
+          <div class="pointer-events-none relative px-6 py-28"><p data-display class="max-w-[14ch] text-5xl leading-[0.95] font-semibold tracking-[-0.045em]">Move the cursor over the <span class="text-primary">grid.</span></p></div>
+        </div>
+        <div data-pointer-host class="relative isolate min-h-[30rem] overflow-hidden rounded-xl border">
+          <MaterialGrid live={false} class="-z-10" />
+          <div class="pointer-events-none relative px-6 py-28"><p data-display class="max-w-[14ch] text-5xl leading-[0.95] font-semibold tracking-[-0.045em]">A still material under the <span class="text-primary">grid.</span></p></div>
+        </div>
+      </div>
+      <p class="text-[0.8125rem] text-muted-foreground">Live and still. Dark: oxide-bloom under a 0.8 veil with teal stains; light: copper-sweep under a 0.95 veil with oxide stains.</p>
+    </section>
+
+    <section id="piece-diagonal-hatch" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">DiagonalHatch</h2>
+      <div class="flex flex-col gap-6">
+        <div data-pointer-host class="relative isolate min-h-[30rem] overflow-hidden rounded-xl border">
+          <DiagonalHatch class="-z-10" />
+          <div class="px-6 py-28"><p data-display class="max-w-[14ch] text-5xl leading-[0.95] font-semibold tracking-[-0.045em]">Lines grow from the <span class="text-primary">corner.</span></p></div>
+        </div>
+        <div data-pointer-host class="relative isolate flex min-h-[30rem] items-center justify-center overflow-hidden rounded-xl border px-6 text-center">
+          <DiagonalHatch variant="frame" class="-z-10" />
+          <p data-display class="max-w-[16ch] text-5xl leading-[0.95] font-semibold tracking-[-0.045em]">Two corners, a clear <span class="text-primary">middle.</span></p>
+        </div>
+      </div>
+      <p class="text-[0.8125rem] text-muted-foreground">corner and frame. The lines bend toward the cursor inside the frame around them.</p>
+    </section>
+
+    <section id="piece-ring-field" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">RingField</h2>
+      <div class="relative isolate flex min-h-[30rem] items-center justify-center overflow-hidden rounded-xl border px-6 text-center">
+        <RingField class="-z-10" />
+        <p class="max-w-[16ch] text-5xl leading-[0.95] font-semibold tracking-[-0.045em]">Rings drift against the pointer.</p>
+      </div>
+    </section>
+
+    <section id="piece-scene-stage" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">SceneStage</h2>
+      <div class="relative isolate min-h-[30rem] overflow-hidden rounded-xl border">
+        <SceneStage seed="scene-stage" class="-z-10" />
+        <div class="px-6 py-28"><p data-display class="max-w-[14ch] text-5xl leading-[0.95] font-semibold tracking-[-0.045em]">A scene beside the <span class="text-primary">words.</span></p></div>
+      </div>
+    </section>
+
+    <section id="piece-dot-name" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">DotName</h2>
+      <div data-pointer-host class="flex min-h-[24rem] flex-col items-center justify-center gap-10 rounded-xl border px-6 py-10">
+        <div data-display class="w-full"><DotName word="hmziq" class="mx-auto w-[min(100%,560px)]" /></div>
+        <div data-display class="w-full"><DotName word="example■" label="example" class="mx-auto w-[min(100%,560px)]" /></div>
+      </div>
+      <p class="text-[0.8125rem] text-muted-foreground">A word, and a word with the mark. The dots fly in when the name scrolls into view.</p>
+    </section>
+
+    <section id="piece-resolve-title" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">ResolveTitle</h2>
+      <div data-pointer-host class="flex min-h-[24rem] items-center justify-center rounded-xl border px-6 text-center">
+        <ResolveTitle as="p" text="EXAMPLE LABS" class="text-[clamp(34px,8.6vw,128px)] leading-[1] font-light tracking-[0.16em] text-foreground uppercase [text-indent:0.16em]" />
+      </div>
     </section>
 
     <section id="piece-toc" class="flex flex-col gap-4 border-t pt-8">

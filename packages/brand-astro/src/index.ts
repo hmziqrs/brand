@@ -152,3 +152,13 @@ export { default as UsageMeter } from "./blocks/app/metrics/usage-meter.astro";
 export { default as UserMenu } from "./blocks/app/account/user-menu.astro";
 export { default as VerifyEmail } from "./blocks/app/auth/verify-email.astro";
 export { default as WorkspaceSwitcher } from "./blocks/app/account/workspace-switcher.astro";
+
+// Hero stages and parts.
+export { default as DiagonalHatch } from "./components/diagonal-hatch.astro";
+export { default as DotName } from "./components/dot-name.astro";
+export { default as MaterialGrid } from "./components/material-grid.astro";
+export { default as MaterialWash } from "./components/material-wash.astro";
+export { default as ProductWindow } from "./components/product-window.astro";
+export { default as ResolveTitle } from "./components/resolve-title.astro";
+export { default as RingField } from "./components/ring-field.astro";
+export { default as SceneStage } from "./components/scene-stage.astro";
