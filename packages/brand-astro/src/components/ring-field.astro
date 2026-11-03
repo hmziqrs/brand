@@ -1,0 +1,71 @@
+---
+import { cn } from "$brand/utils";
+import { isAccentRing, ringFieldSets, ringFieldStars, setTransform, starAt } from "@hmziq/brand-core/motion/ring-field";
+
+/*
+ * A hero stage: thin rings off two edges, one of them oxide, and a few faint
+ * stars. Moving the pointer anywhere on the page drifts the stars one way and
+ * the rings the other. The quietest stage. Still for reduced motion.
+ */
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<div data-slot="ring-field" aria-hidden="true" class={cn("pointer-events-none absolute inset-0 overflow-hidden", className)}>
+  <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" class="absolute inset-0 h-full w-full">
+    {
+      ringFieldStars.map((s, i) => {
+        const at = starAt(s, 0, 0);
+        return <circle data-star={i} cx={at.cx} cy={at.cy} r={s.r} class="fill-foreground/40" />;
+      })
+    }
+    {
+      ringFieldSets.map((set, i) => (
+        <g data-ring-set={i} transform={setTransform(set, 0, 0)}>
+          {set.radii.map((r, j) => (
+            <circle cx={set.cx} cy={set.cy} r={r} fill="none" vector-effect="non-scaling-stroke" stroke-width="1" class={isAccentRing(i, j) ? "stroke-primary/70" : "stroke-line"} />
+          ))}
+        </g>
+      ))
+    }
+  </svg>
+</div>
+
+<script>
+  import { driftRingField, ringFieldSets, ringFieldStars, setTransform, starAt } from "@hmziq/brand-core/motion/ring-field";
+
+  const fields = new WeakMap<HTMLElement, () => void>();
+
+  function init(root: HTMLElement) {
+    const stars = [...root.querySelectorAll<SVGCircleElement>("[data-star]")];
+    const sets = [...root.querySelectorAll<SVGGElement>("[data-ring-set]")];
+    fields.set(
+      root,
+      driftRingField(root, (mx, my) => {
+        stars.forEach((el, i) => {
+          const at = starAt(ringFieldStars[i], mx, my);
+          el.setAttribute("cx", String(at.cx));
+          el.setAttribute("cy", String(at.cy));
+        });
+        sets.forEach((el, i) => el.setAttribute("transform", setTransform(ringFieldSets[i], mx, my)));
+      }),
+    );
+  }
+
+  function initAll() {
+    for (const root of document.querySelectorAll<HTMLElement>("[data-slot='ring-field']")) if (!fields.has(root)) init(root);
+  }
+
+  initAll();
+  document.addEventListener("astro:page-load", initAll);
+  document.addEventListener("astro:before-swap", () => {
+    for (const root of document.querySelectorAll<HTMLElement>("[data-slot='ring-field']")) {
+      fields.get(root)?.();
+      fields.delete(root);
+    }
+  });
+</script>

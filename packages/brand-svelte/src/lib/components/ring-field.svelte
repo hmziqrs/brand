@@ -24,10 +24,10 @@
 	<svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" class="absolute inset-0 h-full w-full">
 		{#each ringFieldStars as s, i (i)}
 			{@const at = starAt(s, mx, my)}
-			<circle cx={at.cx} cy={at.cy} r={s.r} class="fill-foreground/40" />
+			<circle data-star={i} cx={at.cx} cy={at.cy} r={s.r} class="fill-foreground/40" />
 		{/each}
 		{#each ringFieldSets as set, i (i)}
-			<g transform={setTransform(set, mx, my)}>
+			<g data-ring-set={i} transform={setTransform(set, mx, my)}>
 				{#each set.radii as r, j (r)}
 					<circle cx={set.cx} cy={set.cy} {r} fill="none" vector-effect="non-scaling-stroke" stroke-width="1" class={isAccentRing(i, j) ? "stroke-primary/70" : "stroke-line"} />
 				{/each}

@@ -1,0 +1,111 @@
+---
+import { cn } from "$brand/utils";
+import ShaderMaterial from "./shader-material.astro";
+
+/*
+ * A hero stage: a live material under a veil of cells. The cursor, anywhere
+ * on the page, opens the cells it passes and leaves them stained; a few warm
+ * up on their own. Dark mode shows the dark material through a lighter veil
+ * with teal stains, light mode a copper material through a near opaque veil
+ * with oxide stains. Still for reduced motion.
+ */
+
+interface Props {
+  /** The material in dark mode. */
+  preset?: string;
+  /** The material in light mode. */
+  presetLight?: string;
+  /** A moving material; off shows its still poster. */
+  live?: boolean;
+  /** How opaque the veil is in dark mode, 0–1. */
+  veil?: number;
+  veilLight?: number;
+  /** The theme token the visited cells stain with, per mode. */
+  stain?: string;
+  stainLight?: string;
+  /** Cell size in pixels. */
+  cell?: number;
+  class?: string;
+}
+
+const {
+  preset = "oxide-bloom",
+  presetLight = "copper-sweep",
+  live = true,
+  veil = 0.8,
+  veilLight = 0.95,
+  stain = "--teal",
+  stainLight = "--orange",
+  cell = 56,
+  class: className,
+} = Astro.props;
+---
+
+<div
+  data-slot="material-grid"
+  data-preset={preset}
+  data-preset-light={presetLight}
+  data-veil={veil}
+  data-veil-light={veilLight}
+  data-stain={stain}
+  data-stain-light={stainLight}
+  data-cell={cell}
+  class={cn("absolute inset-0 isolate overflow-hidden", className)}
+>
+  <ShaderMaterial preset={preset} rendering={live ? "live" : "image"} animated={live} controls={false} loading="eager" class="absolute inset-0 -z-20 h-full w-full" />
+  <div data-material-grid-cells aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+    <canvas class="absolute inset-0 h-full w-full"></canvas>
+  </div>
+</div>
+
+<script>
+  import { isDark, onThemeChange } from "@hmziq/brand-core/motion/canvas";
+  import { mountHoverGrid } from "@hmziq/brand-core/motion/hover-grid";
+
+  const grids = new WeakMap<HTMLElement, () => void>();
+  const modes = new WeakMap<HTMLElement, boolean>();
+
+  function mount(root: HTMLElement) {
+    grids.get(root)?.();
+    const cells = root.querySelector<HTMLElement>("[data-material-grid-cells]");
+    const canvas = cells?.querySelector("canvas");
+    if (!cells || !canvas) return;
+    const dark = isDark(root);
+    modes.set(root, dark);
+    const d = root.dataset;
+    const shader = root.querySelector<HTMLElement>("[data-slot='shader-material']");
+    const preset = (dark ? d.preset : d.presetLight) ?? "";
+    if (shader && preset && shader.dataset.preset !== preset) shader.dataset.preset = preset;
+    grids.set(
+      root,
+      mountHoverGrid(cells, canvas, {
+        mode: "reveal",
+        cell: Number(d.cell),
+        veil: Number(dark ? d.veil : d.veilLight),
+        stain: dark ? d.stain : d.stainLight,
+        gap: 0,
+        line: "--border",
+      }),
+    );
+  }
+
+  function initAll() {
+    for (const root of document.querySelectorAll<HTMLElement>("[data-slot='material-grid']")) {
+      if (!grids.has(root)) mount(root);
+    }
+  }
+
+  initAll();
+  document.addEventListener("astro:page-load", initAll);
+  document.addEventListener("astro:before-swap", () => {
+    for (const root of document.querySelectorAll<HTMLElement>("[data-slot='material-grid']")) {
+      grids.get(root)?.();
+      grids.delete(root);
+    }
+  });
+  onThemeChange(() => {
+    for (const root of document.querySelectorAll<HTMLElement>("[data-slot='material-grid']")) {
+      if (grids.has(root) && modes.get(root) !== isDark(root)) mount(root);
+    }
+  });
+</script>
