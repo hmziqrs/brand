@@ -53,5 +53,5 @@
 		<p class="p-10">No hero candidate “{page.params.id}”.</p>
 	{/if}
 
-	<a href="#/review/hero" class="fixed bottom-4 left-4 z-50 rounded-full border border-border bg-background/90 px-3.5 py-1.5 text-sm shadow-lg backdrop-blur-md hover:text-primary">← back to review</a>
+	<span class="fixed bottom-4 left-4 z-50 rounded-md bg-background shadow-lg"><Button href="#/review/hero" variant="outline" size="sm">← back to review</Button></span>
 </div>

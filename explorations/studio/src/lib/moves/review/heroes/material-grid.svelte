@@ -25,18 +25,15 @@
 			<Glass variant="smoke" class="max-w-[540px] p-6 sm:p-7">
 				<p class="text-xl leading-snug text-foreground sm:text-2xl">We design and build apps for phones, desktops, the web and the terminal, then ship them signed. Between projects we publish free Rust tools.</p>
 				<div class="mt-6 flex flex-wrap gap-3">
-					<Button href={here} size="lg" class="h-12 rounded-full px-6 text-base">Start a project</Button>
-					<Button href={here} size="lg" variant="outline" class="h-12 rounded-full px-6 text-base">How we work <ArrowRight class="lucide" /></Button>
+					<Button href={here} size="lg">Start a project</Button>
+					<Button href={here} size="lg" variant="outline">How we work<ArrowRight class="lucide" data-icon="inline-end" /></Button>
 				</div>
 			</Glass>
-			<button
-				type="button"
-				onclick={() => (playing = !playing)}
-				aria-pressed={!playing}
-				class="inline-flex items-center gap-2 rounded-full bg-background px-4 py-2 text-sm text-foreground hover:text-primary"
-			>
-				{#if playing}<Pause class="lucide size-4" />Pause the material{:else}<Play class="lucide size-4" />Play the material{/if}
-			</button>
+			<span class="rounded-md bg-background">
+				<Button variant="outline" onclick={() => (playing = !playing)} aria-pressed={!playing}>
+					{#if playing}<Pause class="lucide" data-icon="inline-start" />Pause the material{:else}<Play class="lucide" data-icon="inline-start" />Play the material{/if}
+				</Button>
+			</span>
 		</div>
 	</div>
 </section>

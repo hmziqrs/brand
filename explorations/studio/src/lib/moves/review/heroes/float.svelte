@@ -30,8 +30,8 @@
 		<SerifItalicHeadline lead="The" accent="creative" tail="canvas for teams" face="fraunces" size="xl" class="mx-auto max-w-[12ch]" />
 		<p class="mx-auto mt-6 max-w-[34ch] text-xl leading-snug text-foreground sm:text-2xl">Every model, made for each stage of the work, on one board your whole team can touch.</p>
 		<div class="mt-8 flex flex-wrap justify-center gap-3">
-			<Button href={to('pricing')} size="lg" class="h-12 rounded-full px-6 text-base">Start free</Button>
-			<Button href={to('enterprise')} size="lg" variant="outline" class="h-12 gap-2 rounded-full bg-background px-5 text-base"><BrandIcon icon={siClaude} />Connect to Claude</Button>
+			<Button href={to('pricing')} size="lg">Start free</Button>
+			<Button href={to('enterprise')} size="lg" variant="outline"><BrandIcon icon={siClaude} data-icon="inline-start" />Connect to Claude</Button>
 		</div>
 		<div class="mt-8 flex flex-wrap items-center justify-center gap-4 text-sm text-foreground">
 			<span class="font-mono text-[11px] tracking-[0.14em] uppercase">Works with</span>
