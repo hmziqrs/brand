@@ -1,0 +1,69 @@
+---
+import { cn } from "$brand/utils";
+import Wordmark from "./wordmark.astro";
+
+/*
+ * The Wordmark sized to fill its box's width, up to `max` pixels tall type,
+ * for a footer to end on. It measures once the fonts are in and follows the
+ * box's width.
+ */
+
+interface Props {
+  name: string;
+  /** The largest font size, in pixels. */
+  max?: number;
+  class?: string;
+}
+
+const { name, max = 360, class: className } = Astro.props;
+---
+
+<div data-slot="fit-wordmark" data-max={max} class={cn("relative", className)}>
+  <span aria-hidden="true" class="pointer-events-none invisible absolute inset-0 overflow-hidden">
+    <span data-fit-probe class="absolute top-0 left-0 text-[100px]"><Wordmark name={name} class="tracking-[-0.045em]" /></span>
+  </span>
+  <Wordmark data-fit-name name={name} class="block leading-[0.9] tracking-[-0.045em]" style={{ fontSize: "12vw" }} />
+</div>
+
+<script>
+  const fits = new WeakMap<HTMLElement, () => void>();
+
+  function init(root: HTMLElement) {
+    const probe = root.querySelector<HTMLElement>("[data-fit-probe]");
+    const name = root.querySelector<HTMLElement>("[data-fit-name]");
+    if (!probe || !name) return;
+    const max = Number(root.dataset.max);
+    let ratio = 0;
+    let alive = true;
+    const apply = () => {
+      const width = root.clientWidth;
+      if (ratio && width) name.style.fontSize = `${Math.min(max, (width * 0.995) / ratio)}px`;
+    };
+    const measure = () => {
+      if (!alive) return;
+      ratio = probe.getBoundingClientRect().width / 100;
+      apply();
+    };
+    measure();
+    document.fonts?.ready.then(measure);
+    const ro = new ResizeObserver(apply);
+    ro.observe(root);
+    fits.set(root, () => {
+      alive = false;
+      ro.disconnect();
+    });
+  }
+
+  function initAll() {
+    for (const root of document.querySelectorAll<HTMLElement>("[data-slot='fit-wordmark']")) if (!fits.has(root)) init(root);
+  }
+
+  initAll();
+  document.addEventListener("astro:page-load", initAll);
+  document.addEventListener("astro:before-swap", () => {
+    for (const root of document.querySelectorAll<HTMLElement>("[data-slot='fit-wordmark']")) {
+      fits.get(root)?.();
+      fits.delete(root);
+    }
+  });
+</script>

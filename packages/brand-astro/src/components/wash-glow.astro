@@ -1,0 +1,99 @@
+---
+import { glowMask } from "@hmziq/brand-core/motion/wash-glow";
+import { cn } from "$brand/utils";
+import ShaderMaterial from "./shader-material.astro";
+
+/*
+ * A material faded almost to the page color, drifting slowly, that
+ * brightens in a soft pool around the cursor over the nearest
+ * [data-pointer-host]: a quiet stage for a footer, from the site's hero
+ * material. Fills its positioned parent. Still for reduced motion.
+ */
+
+interface Props {
+  preset?: string;
+  /** How much of the material shows at rest in light mode, 0–1. */
+  base?: number;
+  /** And in dark mode. */
+  baseDark?: number;
+  /** How much shows under the cursor, 0–1. */
+  glow?: number;
+  /** The pool's radius in pixels. */
+  radius?: number;
+  class?: string;
+}
+
+const { preset = "chalk-dunes", base = 0.1, baseDark = 0.14, glow = 0.3, radius = 320, class: className } = Astro.props;
+---
+
+<div
+  data-slot="wash-glow"
+  data-glow={glow}
+  data-radius={radius}
+  aria-hidden="true"
+  class={cn("pointer-events-none absolute inset-0 overflow-hidden", className)}
+  style={`--wash-base: ${base}; --wash-base-dark: ${baseDark};`}
+>
+  <div class="absolute inset-0 opacity-(--wash-base) dark:opacity-(--wash-base-dark)">
+    <div class="wash-drift absolute -inset-[4%]">
+      <ShaderMaterial preset={preset} rendering="image" animated={false} controls={false} loading="lazy" sizes="100vw" class="absolute inset-0 h-full w-full" />
+    </div>
+  </div>
+  <div data-wash-glow class="absolute inset-0 transition-opacity duration-500 motion-reduce:transition-none" style={`opacity: 0; mask-image: ${glowMask(0, 0, radius)};`}>
+    <div class="wash-drift absolute -inset-[4%]">
+      <ShaderMaterial preset={preset} rendering="image" animated={false} controls={false} loading="lazy" sizes="100vw" class="absolute inset-0 h-full w-full" />
+    </div>
+  </div>
+</div>
+
+<style>
+  .wash-drift {
+    animation: wash-drift 46s ease-in-out infinite alternate;
+  }
+  @keyframes wash-drift {
+    from {
+      transform: translate3d(-2%, 1%, 0);
+    }
+    to {
+      transform: translate3d(2%, -1%, 0);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .wash-drift {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  import { followGlow, glowMask } from "@hmziq/brand-core/motion/wash-glow";
+
+  const glows = new WeakMap<HTMLElement, () => void>();
+
+  function init(root: HTMLElement) {
+    const layer = root.querySelector<HTMLElement>("[data-wash-glow]");
+    if (!layer) return;
+    const glow = root.dataset.glow ?? "0.3";
+    const radius = Number(root.dataset.radius);
+    glows.set(
+      root,
+      followGlow(root, (x, y, on) => {
+        layer.style.opacity = on ? glow : "0";
+        layer.style.maskImage = glowMask(x, y, radius);
+      }),
+    );
+  }
+
+  function initAll() {
+    for (const root of document.querySelectorAll<HTMLElement>("[data-slot='wash-glow']")) if (!glows.has(root)) init(root);
+  }
+
+  initAll();
+  document.addEventListener("astro:page-load", initAll);
+  document.addEventListener("astro:before-swap", () => {
+    for (const root of document.querySelectorAll<HTMLElement>("[data-slot='wash-glow']")) {
+      glows.get(root)?.();
+      glows.delete(root);
+    }
+  });
+</script>

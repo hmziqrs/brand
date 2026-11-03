@@ -1,0 +1,53 @@
+---
+import { cn } from "$brand/utils";
+
+/*
+ * A name across its box's full width, rebuilt from small square blocks
+ * through an ordered dither: a slow noise rusts the letters toward oxide,
+ * and the cursor rusts the blocks near it. Its height follows its width.
+ * Still for reduced motion.
+ */
+
+interface Props {
+  name: string;
+  /** The largest block, in pixels; narrow boxes get smaller blocks. */
+  block?: number;
+  /** The rust drifts on its own. */
+  animate?: boolean;
+  /** The cursor rusts the blocks near it. */
+  hover?: boolean;
+  class?: string;
+}
+
+const { name, block = 6, animate = false, hover = true, class: className } = Astro.props;
+---
+
+<div data-slot="dither-name" data-options={JSON.stringify({ name, block, animate, hover })} class={cn("relative w-full", className)} style="height: 22vw;">
+  <span class="sr-only">{name}</span>
+  <canvas aria-hidden="true" class="absolute inset-0 h-full w-full"></canvas>
+</div>
+
+<script>
+  import { mountDitherName } from "@hmziq/brand-core/motion/dither-name";
+
+  const names = new WeakMap<HTMLElement, () => void>();
+
+  function init(root: HTMLElement) {
+    const canvas = root.querySelector("canvas");
+    if (!canvas) return;
+    names.set(root, mountDitherName(root, canvas, { ...JSON.parse(root.dataset.options ?? "{}"), onHeight: (h: number) => (root.style.height = `${h}px`) }));
+  }
+
+  function initAll() {
+    for (const root of document.querySelectorAll<HTMLElement>("[data-slot='dither-name']")) if (!names.has(root)) init(root);
+  }
+
+  initAll();
+  document.addEventListener("astro:page-load", initAll);
+  document.addEventListener("astro:before-swap", () => {
+    for (const root of document.querySelectorAll<HTMLElement>("[data-slot='dither-name']")) {
+      names.get(root)?.();
+      names.delete(root);
+    }
+  });
+</script>

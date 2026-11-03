@@ -642,7 +642,6 @@
 				"local:ui-avatar",
 				"local:ui-button",
 				"local:ui-carousel",
-				"local:ui-input",
 				"local:ui-kbd",
 				"local:ui-navigation-menu",
 				"local:ui-progress",
@@ -843,11 +842,6 @@
 					"path": "src/lib/components/scroll-rings.svelte",
 					"type": "registry:file",
 					"target": "components/scroll-rings.svelte"
-				},
-				{
-					"path": "src/lib/components/site-footer.svelte",
-					"type": "registry:file",
-					"target": "components/site-footer.svelte"
 				},
 				{
 					"path": "src/lib/components/theme-toggle.svelte",
@@ -1163,6 +1157,25 @@
 					"path": "src/lib/components/diagonal-hatch.svelte",
 					"type": "registry:file",
 					"target": "components/diagonal-hatch.svelte"
+				}
+			]
+		},
+		{
+			"name": "dither-name",
+			"type": "registry:lib",
+			"title": "dither-name",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/components/dither-name.svelte",
+					"type": "registry:file",
+					"target": "components/dither-name.svelte"
 				}
 			]
 		},
@@ -1511,6 +1524,89 @@
 			]
 		},
 		{
+			"name": "fit-wordmark",
+			"type": "registry:lib",
+			"title": "fit-wordmark",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:utils",
+				"local:wordmark"
+			],
+			"files": [
+				{
+					"path": "src/lib/components/fit-wordmark.svelte",
+					"type": "registry:file",
+					"target": "components/fit-wordmark.svelte"
+				}
+			]
+		},
+		{
+			"name": "footer-columns",
+			"type": "registry:lib",
+			"title": "footer-columns",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/components/footer-columns.svelte",
+					"type": "registry:file",
+					"target": "components/footer-columns.svelte"
+				},
+				{
+					"path": "src/lib/components/footer-ui.ts",
+					"type": "registry:file",
+					"target": "components/footer-ui.ts"
+				}
+			]
+		},
+		{
+			"name": "footer-family",
+			"type": "registry:lib",
+			"title": "footer-family",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"local:footer-columns",
+				"local:mark",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/components/footer-family.svelte",
+					"type": "registry:file",
+					"target": "components/footer-family.svelte"
+				}
+			]
+		},
+		{
+			"name": "footer-socials",
+			"type": "registry:lib",
+			"title": "footer-socials",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@lucide/svelte@^1.52.0",
+				"simple-icons@16.32.0"
+			],
+			"registryDependencies": [
+				"local:brand-icon",
+				"local:content-blocks-shared",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/components/footer-socials.svelte",
+					"type": "registry:file",
+					"target": "components/footer-socials.svelte"
+				}
+			]
+		},
+		{
 			"name": "forgot-password-form",
 			"type": "registry:lib",
 			"title": "forgot-password-form",
@@ -1572,6 +1668,25 @@
 					"path": "src/lib/components/glass.svelte",
 					"type": "registry:file",
 					"target": "components/glass.svelte"
+				}
+			]
+		},
+		{
+			"name": "heat-field",
+			"type": "registry:lib",
+			"title": "heat-field",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/components/heat-field.svelte",
+					"type": "registry:file",
+					"target": "components/heat-field.svelte"
 				}
 			]
 		},
@@ -1814,7 +1929,10 @@
 			"title": "kit",
 			"description": "The kit barrel and stylesheet. Depends on every other item, so installing it installs the whole kit.",
 			"dependencies": [
-				"shadcn-svelte@^1.7.0"
+				"@hmziq/brand-core@0.0.0",
+				"@lucide/svelte@^1.52.0",
+				"shadcn-svelte@^1.7.0",
+				"simple-icons@16.32.0"
 			],
 			"registryDependencies": [
 				"local:accent-title",
@@ -1864,6 +1982,7 @@
 				"local:details-app-blocks",
 				"local:details-app-blocks-shared",
 				"local:diagonal-hatch",
+				"local:dither-name",
 				"local:docs",
 				"local:docs-layout",
 				"local:docs-pager",
@@ -1878,9 +1997,14 @@
 				"local:feature-cards",
 				"local:feature-grid",
 				"local:filter-chip",
+				"local:fit-wordmark",
+				"local:footer-columns",
+				"local:footer-family",
+				"local:footer-socials",
 				"local:forgot-password-form",
 				"local:form-actions",
 				"local:glass",
+				"local:heat-field",
 				"local:hero",
 				"local:hero-actions",
 				"local:hero-lede",
@@ -1923,6 +2047,7 @@
 				"local:password-input",
 				"local:past-releases",
 				"local:personal-hero",
+				"local:pixel-name",
 				"local:post-card",
 				"local:post-contents",
 				"local:post-header",
@@ -2065,10 +2190,52 @@
 				"local:user-menu",
 				"local:utils",
 				"local:verify-email",
+				"local:voxel-field",
+				"local:wash-glow",
 				"local:wordmark",
 				"local:workspace-switcher"
 			],
 			"files": [
+				{
+					"path": "src/lib/blocks/sections/calm-footer.svelte",
+					"type": "registry:file",
+					"target": "blocks/sections/calm-footer.svelte"
+				},
+				{
+					"path": "src/lib/blocks/sections/dot-footer.svelte",
+					"type": "registry:file",
+					"target": "blocks/sections/dot-footer.svelte"
+				},
+				{
+					"path": "src/lib/blocks/sections/glyph-footer.svelte",
+					"type": "registry:file",
+					"target": "blocks/sections/glyph-footer.svelte"
+				},
+				{
+					"path": "src/lib/blocks/sections/hatch-footer.svelte",
+					"type": "registry:file",
+					"target": "blocks/sections/hatch-footer.svelte"
+				},
+				{
+					"path": "src/lib/blocks/sections/heat-footer.svelte",
+					"type": "registry:file",
+					"target": "blocks/sections/heat-footer.svelte"
+				},
+				{
+					"path": "src/lib/blocks/sections/material-footer.svelte",
+					"type": "registry:file",
+					"target": "blocks/sections/material-footer.svelte"
+				},
+				{
+					"path": "src/lib/blocks/sections/voxel-footer.svelte",
+					"type": "registry:file",
+					"target": "blocks/sections/voxel-footer.svelte"
+				},
+				{
+					"path": "src/lib/components/site-footer.svelte",
+					"type": "registry:file",
+					"target": "components/site-footer.svelte"
+				},
 				{
 					"path": "src/lib/index.ts",
 					"type": "registry:file",
@@ -2658,6 +2825,25 @@
 					"path": "src/lib/blocks/sections/personal-hero.svelte",
 					"type": "registry:file",
 					"target": "blocks/sections/personal-hero.svelte"
+				}
+			]
+		},
+		{
+			"name": "pixel-name",
+			"type": "registry:lib",
+			"title": "pixel-name",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/components/pixel-name.svelte",
+					"type": "registry:file",
+					"target": "components/pixel-name.svelte"
 				}
 			]
 		},
@@ -7705,6 +7891,45 @@
 					"path": "src/lib/blocks/app/auth/verify-email.svelte",
 					"type": "registry:file",
 					"target": "blocks/app/auth/verify-email.svelte"
+				}
+			]
+		},
+		{
+			"name": "voxel-field",
+			"type": "registry:lib",
+			"title": "voxel-field",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/components/voxel-field.svelte",
+					"type": "registry:file",
+					"target": "components/voxel-field.svelte"
+				}
+			]
+		},
+		{
+			"name": "wash-glow",
+			"type": "registry:lib",
+			"title": "wash-glow",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"local:shader-material",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/components/wash-glow.svelte",
+					"type": "registry:file",
+					"target": "components/wash-glow.svelte"
 				}
 			]
 		},

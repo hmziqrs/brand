@@ -18,13 +18,20 @@ import CopyButton from "$brand/components/copy-button.astro";
 import CornerRings from "$brand/components/corner-rings.astro";
 import DataTable from "$brand/components/data-table.astro";
 import DiagonalHatch from "$brand/components/diagonal-hatch.astro";
+import DitherName from "$brand/components/dither-name.astro";
 import DotName from "$brand/components/dot-name.astro";
+import FitWordmark from "$brand/components/fit-wordmark.astro";
+import FooterColumns from "$brand/components/footer-columns.astro";
+import FooterFamily from "$brand/components/footer-family.astro";
+import FooterSocials from "$brand/components/footer-socials.astro";
 import Glass from "$brand/components/glass.astro";
+import HeatField from "$brand/components/heat-field.astro";
 import HorizonRings from "$brand/components/horizon-rings.astro";
 import IconTile from "$brand/components/icon-tile.astro";
 import InlineCode from "$brand/components/inline-code.astro";
 import Mark from "$brand/components/mark.astro";
 import NavBar, { type NavLink } from "$brand/components/nav-bar.astro";
+import PixelName from "$brand/components/pixel-name.astro";
 import Marker from "$brand/components/marker.astro";
 import MaterialGrid from "$brand/components/material-grid.astro";
 import MaterialWash from "$brand/components/material-wash.astro";
@@ -48,9 +55,26 @@ import TerminalBody from "$brand/components/terminal-body.astro";
 import TerminalLine from "$brand/components/terminal-line.astro";
 import TerminalWindow from "$brand/components/terminal-window.astro";
 import Toc from "$brand/components/toc.astro";
+import VoxelField from "$brand/components/voxel-field.astro";
+import WashGlow from "$brand/components/wash-glow.astro";
 import Wordmark from "$brand/components/wordmark.astro";
 import ThemeInit from "../../components/theme-init.astro";
 import ThemeToggle from "../../components/theme-toggle.astro";
+
+const footerColumns = [
+  { title: "Docs", links: [{ label: "Quickstart", href: "#" }, { label: "Guides", href: "#" }, { label: "Reference", href: "#", tag: "New" }, { label: "Examples", href: "#" }] },
+  { title: "Project", links: [{ label: "Changelog", href: "#" }, { label: "Roadmap", href: "#" }, { label: "Releases", href: "#" }, { label: "FAQ", href: "#" }] },
+  { title: "Community", links: [{ label: "Discussions", href: "#" }, { label: "Report a bug", href: "#" }, { label: "Security", href: "#" }, { label: "Sponsor", href: "#" }] },
+];
+
+const socialLinks = [
+  { label: "GitHub", href: "https://github.com/" },
+  { label: "X", href: "https://x.com/" },
+  { label: "YouTube", href: "https://youtube.com/" },
+  { label: "RSS", href: "#" },
+  { label: "LinkedIn", href: "https://linkedin.com/" },
+  { label: "Email", href: "mailto:hello@example.com" },
+];
 
 const navPlain: NavLink[] = [
   { label: "Projects", href: "#" },
@@ -500,6 +524,77 @@ const windowCode = `pub fn users(cx: &mut App) -> Query<Vec<User>> {
       <div data-pointer-host class="flex min-h-[24rem] items-center justify-center rounded-xl border px-6 text-center">
         <ResolveTitle as="p" text="EXAMPLE LABS" class="text-[clamp(34px,8.6vw,128px)] leading-[1] font-light tracking-[0.16em] text-foreground uppercase [text-indent:0.16em]" />
       </div>
+    </section>
+
+    <section id="piece-footer-columns" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">FooterColumns</h2>
+      <div class="py-16"><FooterColumns columns={footerColumns} /></div>
+      <p class="text-[0.8125rem] text-muted-foreground">A mono oxide label over each column, an oxide underline on hover, and a small tag after a link.</p>
+    </section>
+
+    <section id="piece-footer-family" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">FooterFamily</h2>
+      <div class="py-16"><FooterFamily site="freeoxide" /></div>
+      <p class="text-[0.8125rem] text-muted-foreground">Every other site in the family with its mark; this one, freeoxide, is left out.</p>
+    </section>
+
+    <section id="piece-footer-socials" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">FooterSocials</h2>
+      <div class="py-16"><FooterSocials links={socialLinks} /></div>
+      <p class="text-[0.8125rem] text-muted-foreground">GitHub, X, YouTube, RSS and LinkedIn logos, and the mail icon for anything else.</p>
+    </section>
+
+    <section id="piece-pixel-name" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">PixelName</h2>
+      <div data-pointer-host class="py-16"><PixelName text="example" look="dots" pitch={9} min={5} cols={140} reach={130} class="aspect-[5.4/1]" /></div>
+      <div data-pointer-host class="py-16"><PixelName text="example" look="glyphs" pitch={14} min={6} cols={90} reach={120} class="aspect-[2.4/1] sm:aspect-[3.6/1]" /></div>
+      <p class="text-[0.8125rem] text-muted-foreground">dots and glyphs. Run the cursor through the name.</p>
+    </section>
+
+    <section id="piece-heat-field" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">HeatField</h2>
+      <div class="relative overflow-hidden rounded-xl border pt-24">
+        <div class="relative h-[clamp(150px,21vw,300px)]"><HeatField class="[mask-image:linear-gradient(to_bottom,black_58%,transparent)]" /></div>
+        <div class="relative -mt-[clamp(52px,9.6vw,136px)] px-6 pb-16"><FitWordmark name="example" max={250} /></div>
+      </div>
+      <p class="text-[0.8125rem] text-muted-foreground">Rising from the bottom edge with a name standing in it. The cursor heats it from anywhere within reach.</p>
+    </section>
+
+    <section id="piece-fit-wordmark" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">FitWordmark</h2>
+      <div class="py-16"><FitWordmark name="example" max={250} /></div>
+      <p class="text-[0.8125rem] text-muted-foreground">The wordmark across the box's width, up to 250px type.</p>
+    </section>
+
+    <section id="piece-dither-name" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">DitherName</h2>
+      <div class="py-16"><DitherName name="example" animate /></div>
+      <div class="py-16"><DitherName name="example" /></div>
+      <p class="text-[0.8125rem] text-muted-foreground">Drifting and still. The cursor rusts the blocks near it.</p>
+    </section>
+
+    <section id="piece-voxel-field" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">VoxelField</h2>
+      <div class="flex flex-col gap-6">
+        <div data-pointer-host class="relative isolate min-h-[26rem] overflow-hidden rounded-xl border"><VoxelField size={22} reach={150} lift={72} quiet class="-z-10" /></div>
+        <div data-pointer-host class="relative isolate min-h-[26rem] overflow-hidden rounded-xl border"><VoxelField class="-z-10" /></div>
+      </div>
+      <p class="text-[0.8125rem] text-muted-foreground">Quiet and edged. The columns rise into an oxide ridge under the cursor.</p>
+    </section>
+
+    <section id="piece-wash-glow" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">WashGlow</h2>
+      <div class="flex flex-col gap-6">
+        {
+          ["chalk-dunes", "copper-sweep"].map((preset) => (
+            <div data-pointer-host class="relative isolate flex min-h-[26rem] items-center overflow-hidden rounded-xl border">
+              <WashGlow preset={preset} class="-z-10" />
+              <p data-display class="flex-1 px-6 text-5xl leading-[0.95] font-semibold tracking-[-0.045em]">Move the cursor over the wash.</p>
+            </div>
+          ))
+        }
+      </div>
+      <p class="text-[0.8125rem] text-muted-foreground">Chalk and copper, faded almost to the page and brighter around the cursor.</p>
     </section>
 
     <section id="piece-toc" class="flex flex-col gap-4 border-t pt-8">
