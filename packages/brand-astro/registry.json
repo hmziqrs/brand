@@ -4,6 +4,23 @@
 	"homepage": "https://hmziqrs.github.io/brand/",
 	"items": [
 		{
+			"name": "accent-title",
+			"type": "registry:file",
+			"title": "accent-title",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/sections/accent-title.astro",
+					"target": "src/components/brand/blocks/sections/accent-title.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
 			"name": "account-app-blocks-shared",
 			"type": "registry:file",
 			"title": "account-app-blocks-shared",
@@ -204,6 +221,26 @@
 				{
 					"path": "src/blocks/content/blog-layout.astro",
 					"target": "src/components/brand/blocks/content/blog-layout.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "brand-hero",
+			"type": "registry:file",
+			"title": "brand-hero",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/accent-title",
+				"@hmziq/container",
+				"@hmziq/glass",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/sections/brand-hero.astro",
+					"target": "src/components/brand/blocks/sections/brand-hero.astro",
 					"type": "registry:file"
 				}
 			]
@@ -1274,6 +1311,7 @@
 				"simple-icons@16.32.0"
 			],
 			"registryDependencies": [
+				"@hmziq/accent-title",
 				"@hmziq/account-app-blocks-shared",
 				"@hmziq/app-page",
 				"@hmziq/app-page-header",
@@ -1285,6 +1323,7 @@
 				"@hmziq/before-after",
 				"@hmziq/big-numbers",
 				"@hmziq/blog-layout",
+				"@hmziq/brand-hero",
 				"@hmziq/brand-icon",
 				"@hmziq/bulk-action-bar",
 				"@hmziq/bullets",
@@ -1363,6 +1402,7 @@
 				"@hmziq/page-intro",
 				"@hmziq/password-input",
 				"@hmziq/past-releases",
+				"@hmziq/personal-hero",
 				"@hmziq/post-card",
 				"@hmziq/post-contents",
 				"@hmziq/post-header",
@@ -1370,6 +1410,7 @@
 				"@hmziq/post-meta",
 				"@hmziq/price",
 				"@hmziq/pricing-plans",
+				"@hmziq/product-hero",
 				"@hmziq/product-window",
 				"@hmziq/prose",
 				"@hmziq/provider-buttons",
@@ -2002,6 +2043,26 @@
 			]
 		},
 		{
+			"name": "personal-hero",
+			"type": "registry:file",
+			"title": "personal-hero",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/brand-icon",
+				"@hmziq/dot-name",
+				"@hmziq/starwind-button",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/sections/personal-hero.astro",
+					"target": "src/components/brand/blocks/sections/personal-hero.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
 			"name": "post-card",
 			"type": "registry:file",
 			"title": "post-card",
@@ -2150,6 +2211,26 @@
 				{
 					"path": "src/blocks/site/pricing-plans.astro",
 					"target": "src/components/brand/blocks/site/pricing-plans.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "product-hero",
+			"type": "registry:file",
+			"title": "product-hero",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/accent-title",
+				"@hmziq/command-box",
+				"@hmziq/container",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/sections/product-hero.astro",
+					"target": "src/components/brand/blocks/sections/product-hero.astro",
 					"type": "registry:file"
 				}
 			]

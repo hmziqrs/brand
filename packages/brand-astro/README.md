@@ -16,6 +16,7 @@ packages/brand-astro/
 │   ├── starwind/                Starwind stock components, with the brand's changes
 │   ├── components/              brand pieces (ported from apps/lab/src/components/brand)
 │   ├── blocks/site/             site blocks, content pieces, SiteLayout, SiteHead
+│   ├── blocks/sections/         the heroes: ProductHero, BrandHero, PersonalHero, AccentTitle
 │   ├── blocks/content/          content-page blocks (content-blocks.md)
 │   ├── blocks/app/              app blocks (app-blocks.md, phase 10)
 │   └── styles/kit.css           Starwind's stylesheet + the BRAND.md 3.1 adapter
@@ -23,6 +24,14 @@ packages/brand-astro/
 ├── astro.config.ts             the `$brand` alias, so `astro check` resolves the kit
 └── package.json
 ```
+
+The heroes' stages (`MaterialWash`, `MaterialGrid`, `DiagonalHatch`,
+`RingField`, `SceneStage`) and parts (`ProductWindow`, `DotName`,
+`ResolveTitle`) are in `components/`. The moving ones mount from a module
+script the Starwind way (found by `data-slot`, rerun on `astro:page-load`,
+torn down on `astro:before-swap`) and call the same `@hmziq/brand-core/motion/*`
+functions as the Svelte kit. `MaterialGrid` swaps its material with the theme
+by setting the inner `ShaderMaterial`'s `data-preset`, which that piece follows.
 
 `$brand` points at `src/` here, and at the folder the kit is installed into
 in a copied project (`src/components/brand`). Kit files import each other

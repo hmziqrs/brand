@@ -1,0 +1,56 @@
+---
+import { cn, type AstroPiece } from "$brand/utils";
+import { Button } from "$brand/starwind/button";
+import BrandIcon from "$brand/components/brand-icon.astro";
+import DotName from "$brand/components/dot-name.astro";
+
+/*
+ * The hero for a person: the name (a dot-matrix DotName, or plain big type),
+ * the role in oxide, one line about the work, two ways in and icon links to
+ * the places to find them, centered over an optional full-width stage.
+ * Slots: actions (the buttons) and stage (a full-width background:
+ * DiagonalHatch variant="frame", RingField, …).
+ */
+
+/** An icon link: `icon` is a Lucide icon component or a Simple Icons logo ({ path }). */
+export type PersonalSocial = { label: string; href: string; icon: AstroPiece | { path: string } };
+
+interface Props {
+  name: string;
+  /** dot draws the name with DotName; plain sets it in big type. */
+  treatment?: "plain" | "dot";
+  role: string;
+  line: string;
+  /** Icon links under the buttons; the label names each for screen readers. */
+  socials?: PersonalSocial[];
+  class?: string;
+}
+
+const { name, treatment = "dot", role, line, socials = [], class: className } = Astro.props;
+---
+
+<section data-slot="personal-hero" data-pointer-host class={cn("relative isolate flex min-h-[min(84svh,760px)] flex-col items-center justify-center overflow-hidden px-4 py-24 text-center sm:px-8", className)}>
+  {Astro.slots.has("stage") && <div class="absolute inset-0 -z-10"><slot name="stage" /></div>}
+  <h1 class="w-full">
+    {treatment === "dot" ? <DotName word={name} label={name} class="mx-auto w-[min(100%,560px)]" /> : <span class="text-[clamp(56px,10vw,128px)] font-semibold [line-height:1] tracking-[-0.05em]">{name}</span>}
+  </h1>
+  <p class="mt-8 font-mono text-sm tracking-[0.32em] text-primary uppercase">{role}</p>
+  <p class="mt-5 max-w-[30ch] text-[clamp(20px,2vw,26px)] text-foreground [line-height:1.35]">{line}</p>
+  {Astro.slots.has("actions") && <div class="mt-9 flex flex-wrap justify-center gap-3"><slot name="actions" /></div>}
+  {
+    socials.length > 0 && (
+      <ul class="mt-8 flex items-center gap-1" aria-label="Elsewhere">
+        {socials.map((s) => {
+          const Icon = s.icon as AstroPiece;
+          return (
+            <li>
+              <Button href={s.href} variant="ghost" size="icon" aria-label={s.label} title={s.label} class="text-foreground/80 hover:text-foreground">
+                {"path" in s.icon ? <BrandIcon icon={s.icon} /> : <Icon class="lucide" />}
+              </Button>
+            </li>
+          );
+        })}
+      </ul>
+    )
+  }
+</section>

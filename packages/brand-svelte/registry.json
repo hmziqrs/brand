@@ -11,6 +11,23 @@
 	},
 	"items": [
 		{
+			"name": "accent-title",
+			"type": "registry:lib",
+			"title": "accent-title",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/sections/accent-title.svelte",
+					"type": "registry:file",
+					"target": "blocks/sections/accent-title.svelte"
+				}
+			]
+		},
+		{
 			"name": "account-app-blocks",
 			"type": "registry:lib",
 			"title": "account-app-blocks",
@@ -309,6 +326,26 @@
 					"path": "src/lib/blocks/content/blog-layout.svelte",
 					"type": "registry:file",
 					"target": "blocks/content/blog-layout.svelte"
+				}
+			]
+		},
+		{
+			"name": "brand-hero",
+			"type": "registry:lib",
+			"title": "brand-hero",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:accent-title",
+				"local:container",
+				"local:glass",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/sections/brand-hero.svelte",
+					"type": "registry:file",
+					"target": "blocks/sections/brand-hero.svelte"
 				}
 			]
 		},
@@ -1780,6 +1817,7 @@
 				"shadcn-svelte@^1.7.0"
 			],
 			"registryDependencies": [
+				"local:accent-title",
 				"local:account-app-blocks",
 				"local:account-app-blocks-shared",
 				"local:actions-app-blocks",
@@ -1796,6 +1834,7 @@
 				"local:before-after",
 				"local:big-numbers",
 				"local:blog-layout",
+				"local:brand-hero",
 				"local:brand-icon",
 				"local:bulk-action-bar",
 				"local:bullets",
@@ -1883,6 +1922,7 @@
 				"local:parts-micro-blocks",
 				"local:password-input",
 				"local:past-releases",
+				"local:personal-hero",
 				"local:post-card",
 				"local:post-contents",
 				"local:post-header",
@@ -1890,6 +1930,7 @@
 				"local:post-meta",
 				"local:price",
 				"local:pricing-plans",
+				"local:product-hero",
 				"local:product-window",
 				"local:prose",
 				"local:provider-buttons",
@@ -2028,26 +2069,6 @@
 				"local:workspace-switcher"
 			],
 			"files": [
-				{
-					"path": "src/lib/blocks/sections/accent-title.svelte",
-					"type": "registry:file",
-					"target": "blocks/sections/accent-title.svelte"
-				},
-				{
-					"path": "src/lib/blocks/sections/brand-hero.svelte",
-					"type": "registry:file",
-					"target": "blocks/sections/brand-hero.svelte"
-				},
-				{
-					"path": "src/lib/blocks/sections/personal-hero.svelte",
-					"type": "registry:file",
-					"target": "blocks/sections/personal-hero.svelte"
-				},
-				{
-					"path": "src/lib/blocks/sections/product-hero.svelte",
-					"type": "registry:file",
-					"target": "blocks/sections/product-hero.svelte"
-				},
 				{
 					"path": "src/lib/index.ts",
 					"type": "registry:file",
@@ -2622,6 +2643,25 @@
 			]
 		},
 		{
+			"name": "personal-hero",
+			"type": "registry:lib",
+			"title": "personal-hero",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:dot-name",
+				"local:ui-button",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/sections/personal-hero.svelte",
+					"type": "registry:file",
+					"target": "blocks/sections/personal-hero.svelte"
+				}
+			]
+		},
+		{
 			"name": "post-card",
 			"type": "registry:lib",
 			"title": "post-card",
@@ -2763,6 +2803,26 @@
 					"path": "src/lib/blocks/site/pricing-plans.svelte",
 					"type": "registry:file",
 					"target": "blocks/site/pricing-plans.svelte"
+				}
+			]
+		},
+		{
+			"name": "product-hero",
+			"type": "registry:lib",
+			"title": "product-hero",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:accent-title",
+				"local:command-box",
+				"local:container",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/sections/product-hero.svelte",
+					"type": "registry:file",
+					"target": "blocks/sections/product-hero.svelte"
 				}
 			]
 		},

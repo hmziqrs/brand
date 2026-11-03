@@ -2767,37 +2767,37 @@
       "name": "ProductHero",
       "group": "site",
       "svelte": "sections-product-hero--split",
-      "astro": "not yet",
-      "svelteFile": "blocks/sections/product-hero.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "astro": "product-hero",
+      "svelteFile": "blocks/sections/product-hero.svelte",
+      "svelteItem": "product-hero",
+      "astroItem": "product-hero"
     },
     {
       "name": "BrandHero",
       "group": "site",
       "svelte": "sections-brand-hero--left-over-the-material-grid",
-      "astro": "not yet",
-      "svelteFile": "blocks/sections/brand-hero.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "astro": "brand-hero",
+      "svelteFile": "blocks/sections/brand-hero.svelte",
+      "svelteItem": "brand-hero",
+      "astroItem": "brand-hero"
     },
     {
       "name": "PersonalHero",
       "group": "site",
       "svelte": "sections-personal-hero--dot-name-over-the-hatch",
-      "astro": "not yet",
-      "svelteFile": "blocks/sections/personal-hero.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "astro": "personal-hero",
+      "svelteFile": "blocks/sections/personal-hero.svelte",
+      "svelteItem": "personal-hero",
+      "astroItem": "personal-hero"
     },
     {
       "name": "AccentTitle",
       "group": "site",
       "svelte": "sections-product-hero--split",
-      "astro": "not yet",
-      "svelteFile": "blocks/sections/product-hero.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "astro": "accent-title",
+      "svelteFile": "blocks/sections/accent-title.svelte",
+      "svelteItem": "accent-title",
+      "astroItem": "accent-title"
     },
     {
       "name": "FeatureBento",

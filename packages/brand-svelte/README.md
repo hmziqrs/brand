@@ -218,6 +218,21 @@ These pieces are Svelte-only until picked (roster: `astro: "not yet"`).
 Storybook: everything under `Custom/` named Material…, Ring…, Glass… and
 Announce, plus `Templates/Glass sections` and `Sites/freeoxide tools`.
 
+Heroes (also in the Astro kit): `ProductHero` (one tool: words, an install
+command and the product working, split or centered), `BrandHero` (a studio
+or lab: one big statement, left or centered, optional smoke panel) and
+`PersonalHero` (a person: a dot-matrix or plain name, role, line, buttons,
+icon links). Each puts a full-width `stage` behind its contents, which sit in
+the wide Container, with a reading layer of the page color behind the words.
+Stages: `MaterialWash` (a still material under a veil), `MaterialGrid` (a
+live material under a veil of cells the cursor opens: oxide-bloom at 0.8 in
+dark, copper at 0.95 with oxide stains in light), `DiagonalHatch` (corner or
+frame), `RingField`, `SceneStage`. Parts: `ProductWindow` (frosted glass,
+optional title bar), `DotName`, `ResolveTitle`, `AccentTitle`. The hero's
+section is the `data-pointer-host` the fields follow; every field is still
+for reduced motion, and the framework-free halves live in
+`@hmziq/brand-core/motion/*`.
+
 ## Registry
 
 `registry.json` is generated, never hand-edited: `bun run registry:generate`
