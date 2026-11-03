@@ -181,3 +181,13 @@ export { default as HeatField } from "./components/heat-field.svelte";
 export { default as PixelName } from "./components/pixel-name.svelte";
 export { default as VoxelField } from "./components/voxel-field.svelte";
 export { default as WashGlow } from "./components/wash-glow.svelte";
+
+// Footers.
+export { default as CalmFooter } from "./blocks/sections/calm-footer.svelte";
+export { default as DotFooter } from "./blocks/sections/dot-footer.svelte";
+export { default as GlyphFooter } from "./blocks/sections/glyph-footer.svelte";
+export { default as HatchFooter } from "./blocks/sections/hatch-footer.svelte";
+export { default as HeatFooter } from "./blocks/sections/heat-footer.svelte";
+export { default as MaterialFooter } from "./blocks/sections/material-footer.svelte";
+export { default as SiteFooter } from "./components/site-footer.svelte";
+export { default as VoxelFooter } from "./blocks/sections/voxel-footer.svelte";

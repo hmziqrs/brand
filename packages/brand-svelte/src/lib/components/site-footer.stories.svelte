@@ -1,6 +1,7 @@
 <script module lang="ts">
 	import { defineMeta } from '@storybook/addon-svelte-csf'
 	import SiteFooter from './site-footer.svelte'
+	import WashGlow from './wash-glow.svelte'
 
 	const { Story } = defineMeta({
 		title: 'Custom/Site footer',
@@ -25,4 +26,10 @@
 
 <Story name="Minimal" asChild>
 	<SiteFooter variant="minimal" site="freeoxide" github="#" />
+</Story>
+
+<Story name="Wide over a wash" asChild>
+	<SiteFooter site="example" tagline="Data loading for desktop apps: typed keys, one shared cache, refetch in the background." {columns} size="wide" github="#" x="#">
+		{#snippet stage()}<WashGlow preset="chalk-dunes" />{/snippet}
+	</SiteFooter>
 </Story>
