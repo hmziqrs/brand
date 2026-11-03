@@ -7,7 +7,7 @@ interface Props extends HTMLAttributes<"div"> {
   /** frost for text, smoke for long text over busy pictures, tint in the accent, clear for labels and controls only. */
   variant?: "frost" | "smoke" | "tint" | "clear";
   grain?: boolean;
-  as?: "div" | "section" | "article" | "aside" | "nav" | "span" | "li";
+  as?: "div" | "section" | "article" | "aside" | "nav" | "header" | "span" | "li";
 }
 
 const { variant = "frost", grain = false, as: Tag = "div", class: className, ...rest } = Astro.props;

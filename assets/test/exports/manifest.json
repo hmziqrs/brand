@@ -1,7 +1,7 @@
 {
   "target": "test-card",
   "command": "bun run render-assets --only test-card",
-  "digest": "32938d7668295a605e990bdd1e1a683caeb9e9fca577f72b6a252bff5a7ec644",
+  "digest": "215be94a1f2c85b048c9fed9e259638121e9108343ca5f721071a15d8cb5d2b2",
   "renderers": {
     "@resvg/resvg-js": "2.6.2",
     "opentype.js": "2.0.0",
@@ -40,7 +40,7 @@
     },
     {
       "path": "bun.lock",
-      "sha256": "8b90c90bd8c6b0ef669f625964e38d0299756782b29d2e50fae0041eee71fd3f"
+      "sha256": "dd5acd45bd2270f61439b8be491b5c283eba5e8d717a4621b0697b73dbf8155f"
     },
     {
       "path": "packages/brand-core/rings.css",
