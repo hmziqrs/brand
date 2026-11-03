@@ -6,9 +6,9 @@
 	import BrandIcon from '$brand/components/brand-icon.svelte';
 	import Tag from '$brand/components/tag.svelte';
 	import Glass from '$brand/components/glass.svelte';
-	import ProductHero from './product-hero.svelte';
+	import ProductHero from '$brand/blocks/sections/product-hero.svelte';
 	import StarterTerminal from './starter-terminal.svelte';
-	import MaterialWash from '../stages/material-wash.svelte';
+	import MaterialWash from '$brand/components/material-wash.svelte';
 
 	const here = '#/c/hero/product-split-starter';
 	const siWindows = { path: 'M0 3.449 9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801' };

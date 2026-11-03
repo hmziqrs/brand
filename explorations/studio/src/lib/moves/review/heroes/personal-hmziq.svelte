@@ -4,8 +4,8 @@
 	import { siGithub, siX } from 'simple-icons';
 	import { Button } from '$brand/ui/button/index.js';
 	import BrandIcon from '$brand/components/brand-icon.svelte';
-	import PersonalIntro from './personal-intro.svelte';
-	import DiagonalHatch from '$moves/specimens/diagonal-hatch.svelte';
+	import PersonalHero from '$brand/blocks/sections/personal-hero.svelte';
+	import DiagonalHatch from '$brand/components/diagonal-hatch.svelte';
 </script>
 
 {#snippet gh()}<BrandIcon icon={siGithub} />{/snippet}
@@ -13,7 +13,7 @@
 {#snippet li()}<span class="font-sans text-[15px] leading-none font-bold tracking-tight">in</span>{/snippet}
 {#snippet mail()}<Mail class="lucide" />{/snippet}
 
-<PersonalIntro
+<PersonalHero
 	name="hmziqrs"
 	role="Senior software engineer"
 	line="I build CLI, mobile, web, desktop, server, and anything."
@@ -24,14 +24,9 @@
 		{ label: 'Email · hmziqrs@gmail.com', href: 'mailto:hmziqrs@gmail.com', icon: mail }
 	]}
 >
-	{#snippet stage()}
-		<div class="absolute inset-0 overflow-hidden opacity-75 [mask-image:radial-gradient(ellipse_44%_50%_at_50%_50%,transparent_42%,black_100%)]">
-			<div class="absolute inset-0"><DiagonalHatch spacing={9} from="top-right" reach={200} bend={0.4} /></div>
-			<div class="absolute inset-0"><DiagonalHatch spacing={9} from="bottom-left" reach={200} bend={0.4} /></div>
-		</div>
-	{/snippet}
+	{#snippet stage()}<DiagonalHatch variant="frame" />{/snippet}
 	{#snippet actions()}
 		<Button href="#/c/hero/personal-hmziq" size="lg">See my work</Button>
 		<Button href="https://cv.hmziq.rs" size="lg" variant="outline">Read CV<ArrowUpRight class="lucide" data-icon="inline-end" /></Button>
 	{/snippet}
-</PersonalIntro>
+</PersonalHero>

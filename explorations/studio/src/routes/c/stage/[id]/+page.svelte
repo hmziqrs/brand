@@ -30,7 +30,7 @@
 	</header>
 
 	{#if s}
-		<StageSample stage={s.component} panel={s.panel} align={s.align} href={self} />
+		<StageSample stage={s.component} stageProps={s.props} panel={s.panel} align={s.align} href={self} />
 		{#each sections as x (x.title)}
 			<section class="border-t border-border">
 				<div class="mx-auto grid max-w-[1320px] gap-8 px-4 py-24 sm:px-8 lg:grid-cols-[1fr_1.4fr]">

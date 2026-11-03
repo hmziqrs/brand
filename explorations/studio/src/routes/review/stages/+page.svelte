@@ -35,7 +35,7 @@
 				<a href={`#/c/stage/${s.id}`} class="text-sm whitespace-nowrap text-primary hover:underline">Open alone ↗</a>
 			</div>
 			<div class="overflow-x-clip bg-background">
-				<StageSample stage={s.component} panel={s.panel} align={s.align} />
+				<StageSample stage={s.component} stageProps={s.props} panel={s.panel} align={s.align} />
 			</div>
 		</section>
 	{/each}

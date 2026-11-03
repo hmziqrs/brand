@@ -3,9 +3,9 @@
 	import { siGithub } from 'simple-icons';
 	import { Button } from '$brand/ui/button/index.js';
 	import BrandIcon from '$brand/components/brand-icon.svelte';
-	import ProductHero from './product-hero.svelte';
+	import ProductHero from '$brand/blocks/sections/product-hero.svelte';
 	import MultiTerminal from './multi-terminal.svelte';
-	import MaterialWash from '../stages/material-wash.svelte';
+	import MaterialWash from '$brand/components/material-wash.svelte';
 </script>
 
 <ProductHero
