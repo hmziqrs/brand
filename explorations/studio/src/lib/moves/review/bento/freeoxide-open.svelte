@@ -90,7 +90,7 @@ match pulls.status() {
 				title: 'awake',
 				lines: [
 					['cmd', 'awake -- cargo build --release'],
-					['step', 'Holding sleep', 'until the command exits'],
+					['step', 'Holding sleep', 'until it exits'],
 					['kv', 'Finished', 'release build in 2m 14s'],
 					['ok', 'Sleep allowed again.']
 				]
@@ -151,8 +151,8 @@ match pulls.status() {
 			<p class={kicker}>In use</p>
 			<h3 class={cn(subtitle, 'mt-4 max-w-[18ch]')}>Pulled into Rust projects every day.</h3>
 
-			<div class="mt-10 grid gap-3 lg:grid-cols-3">
-				<article class={cn(outline, 'grid min-w-0 gap-8 p-6 sm:p-8 lg:col-span-3 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-end')}>
+			<div class="mt-10 grid grid-cols-2 gap-3 lg:grid-cols-3">
+				<article class={cn(outline, 'col-span-2 grid min-w-0 gap-8 p-6 sm:p-8 lg:col-span-3 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-end')}>
 					<div class="flex flex-col gap-3">
 						<p class="flex items-center gap-2 font-mono text-xs text-muted-foreground"><span aria-hidden="true" class="size-1.5 bg-mark-square"></span>Example numbers, for layout only</p>
 						<p class="text-[clamp(3rem,7.4vw,6.5rem)] leading-[0.9] font-medium tracking-[-0.055em]"><RollingNumber value={1284906 + live} /></p>
@@ -171,9 +171,9 @@ match pulls.status() {
 					</div>
 				</article>
 				{#each stats as s (s.label)}
-					<article class={cn('relative isolate flex min-h-52 min-w-0 flex-col justify-between gap-6 overflow-hidden rounded-2xl p-6 sm:p-8', s.tone === 'oxide' ? 'band-orange' : outline)}>
+					<article class={cn('relative isolate flex min-h-40 min-w-0 flex-col justify-between gap-6 overflow-hidden rounded-2xl p-5 sm:min-h-52 sm:p-8', s.tone === 'oxide' ? 'col-span-2 band-orange lg:col-span-1' : outline)}>
 						{#if s.tone === 'oxide'}<CornerRings seed="freeoxide-rounds" color="var(--on-orange)" class="pointer-events-none -z-10 w-1/2 opacity-60 [&_circle]:[stroke-width:0.5]" />{/if}
-						<p class="text-6xl leading-none font-medium tracking-[-0.045em] sm:text-7xl">{s.value}</p>
+						<p class="text-[clamp(2.5rem,9vw,4.5rem)] leading-none font-medium tracking-[-0.045em]">{s.value}</p>
 						<p class={cn('text-[0.95rem]', s.tone === 'oxide' ? '' : 'text-foreground/85')}>{s.label}</p>
 					</article>
 				{/each}

@@ -8,6 +8,7 @@
 	import FlowNodes from './flow-nodes.svelte';
 	import SurfaceTile from './surface-tile.svelte';
 	import GlassBand from './glass-band.svelte';
+	import CornerRings from '$brand/components/corner-rings.svelte';
 	import { kicker, subtitle } from './ui';
 
 	let { here = '#', class: className }: { here?: string; class?: string } = $props();
@@ -33,7 +34,8 @@
 			<SurfaceTile href={here} preset="copper-sweep" title="Desktop apps" body="Mac, Windows and Linux, signed and updating." kind="Desktop" class="sm:col-span-1 lg:col-span-2 lg:col-start-2 lg:row-start-1">
 				{#snippet art()}<AppWindow kind="desktop" preset="hammered-copper" title="Ledgerline" class="mx-auto max-w-[440px] bg-background" />{/snippet}
 			</SurfaceTile>
-			<article class="band-orange relative flex min-h-72 flex-col justify-between gap-8 overflow-hidden rounded-2xl p-6 sm:p-7 lg:col-start-4 lg:row-span-2 lg:row-start-1">
+			<article class="band-orange relative isolate flex min-h-72 flex-col justify-between gap-8 overflow-hidden rounded-2xl p-6 sm:p-7 lg:col-start-4 lg:row-span-2 lg:row-start-1">
+				<CornerRings seed="oxlabs-team" color="var(--on-orange)" class="pointer-events-none -z-10 w-3/4 opacity-60 [&_circle]:[stroke-width:0.5]" />
 				<p class="flex items-center gap-2 font-mono text-xs tracking-wide uppercase"><span class="size-2 rounded-full bg-current motion-safe:animate-pulse"></span>Available for new projects</p>
 				<div class="flex flex-col gap-5">
 					<p class="text-[clamp(2.5rem,4vw,3.75rem)] leading-[0.92] font-medium tracking-[-0.05em]">One team, four surfaces.</p>
@@ -56,7 +58,7 @@
 		<p class="mt-5 text-xl leading-snug text-foreground">The people on the first call write the code, and you can reach them the whole way through.</p>
 		<ul class="mt-7 space-y-3 text-lg text-foreground">
 			{#each ['A build you can install every week', 'A short written update with each build', 'A direct line to whoever is doing the work'] as l (l)}
-				<li class="flex items-center gap-3"><span class="size-2.5 shrink-0 bg-primary"></span>{l}</li>
+				<li class="flex items-start gap-3"><span class="mt-2.5 size-2.5 shrink-0 bg-primary"></span>{l}</li>
 			{/each}
 		</ul>
 		<Button href={here} size="lg" class="mt-8">Book a call<ArrowRight class="lucide" data-icon="inline-end" /></Button>

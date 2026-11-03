@@ -31,7 +31,7 @@
 			lede="Each feature is a module behind one line in main.rs. Delete the line and the module, and the build still passes."
 		/>
 
-		<ul data-pointer-host class="mt-14 grid grid-cols-1 gap-x-10 gap-y-12 sm:grid-cols-2 md:mt-20 lg:grid-cols-4">
+		<ul data-pointer-host class="mt-14 grid grid-cols-2 gap-x-6 gap-y-12 sm:gap-x-10 md:mt-20 lg:grid-cols-4">
 			{#each features as f (f.title)}
 				<li class="flex min-w-0 flex-col gap-5">
 					<div class="flex h-[58px] items-end"><PixelGlyph glyph={f.glyph} label={`${f.title} icon`} /></div>

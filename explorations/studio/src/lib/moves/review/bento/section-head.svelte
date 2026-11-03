@@ -44,7 +44,7 @@
 		</h2>
 	</div>
 	{#if lede || aside}
-		<div class={cn('flex min-w-0 flex-col gap-5', layout === 'split' && 'lg:items-end lg:justify-self-end', layout === 'center' && 'items-center')}>
+		<div class={cn('flex min-w-0 flex-col items-start gap-5', layout === 'split' && 'lg:items-end lg:justify-self-end', layout === 'center' && 'items-center')}>
 			{#if lede}<p class={cn(ledeClass, 'max-w-[46ch]')}>{lede}</p>{/if}
 			{@render aside?.()}
 		</div>

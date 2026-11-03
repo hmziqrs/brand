@@ -53,29 +53,29 @@
 			<InstanceSwitch {providers} bind:picked />
 		</MaterialStage>
 
-		<div class="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-			<article class="band-orange flex min-h-[15rem] flex-col justify-between gap-8 rounded-2xl p-6 sm:p-7">
+		<div class="mt-3 grid grid-cols-2 gap-3 lg:grid-cols-4">
+			<article class="band-orange col-span-2 flex min-h-[12rem] flex-col justify-between gap-6 rounded-2xl p-5 sm:col-span-1 sm:min-h-[15rem] sm:gap-8 sm:p-7">
 				<span class={digits}>0</span>
 				<div class="flex flex-col gap-1">
 					<span class="text-[0.95rem] font-medium">Changes to your ~/.claude</span>
 					<span class="text-[0.8125rem] leading-snug opacity-85">Remove claude-multi and everything is as it was.</span>
 				</div>
 			</article>
-			<article class={cn(outline, 'flex min-h-[15rem] flex-col justify-between gap-8 p-6 sm:p-7')}>
+			<article class={cn(outline, 'flex min-h-[12rem] flex-col justify-between gap-6 p-5 sm:min-h-[15rem] sm:gap-8 sm:p-7')}>
 				<span class={cn(digits, 'text-foreground')}>1</span>
 				<div class="flex flex-col gap-1">
 					<span class="text-[0.95rem] font-medium">Command per provider</span>
 					<span class="text-[0.8125rem] leading-snug text-muted-foreground">claude-glm, claude-ds, claude-kimi, each with its own folder.</span>
 				</div>
 			</article>
-			<article class={cn(outline, 'flex min-h-[15rem] flex-col justify-between gap-8 p-6 sm:p-7')}>
+			<article class={cn(outline, 'flex min-h-[12rem] flex-col justify-between gap-6 p-5 sm:min-h-[15rem] sm:gap-8 sm:p-7')}>
 				<span class={cn(digits, 'text-primary')} data-display>8</span>
 				<div class="flex flex-col gap-1">
 					<span class="text-[0.95rem] font-medium">Provider templates</span>
 					<span class="text-[0.8125rem] leading-snug text-muted-foreground">Anthropic, GLM, Kimi, DeepSeek, Qwen, MiniMax, MiMo and local.</span>
 				</div>
 			</article>
-			<article class="relative isolate flex min-h-[15rem] flex-col justify-end overflow-hidden rounded-2xl p-2 ring-1 ring-foreground/10">
+			<article class="relative isolate col-span-2 flex min-h-[15rem] flex-col justify-end overflow-hidden rounded-2xl p-2 ring-1 ring-foreground/10 sm:col-span-1">
 				<ShaderMaterial preset="hammered-copper" rendering="image" controls={false} sizes="(min-width: 1024px) 25vw, 50vw" class="absolute inset-0 -z-10" />
 				<div class="flex flex-col gap-3 rounded-xl bg-background p-5">
 					<p class="text-[0.95rem] font-medium">Per-project overrides</p>
