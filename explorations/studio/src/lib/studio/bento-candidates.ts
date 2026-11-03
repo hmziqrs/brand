@@ -5,6 +5,7 @@ import StarterWired from '$moves/review/bento/starter-wired.svelte';
 import MultiMetal from '$moves/review/bento/multi-metal.svelte';
 import OxlabsFlow from '$moves/review/bento/oxlabs-flow.svelte';
 import OxlabsProcess from '$moves/review/bento/oxlabs-process.svelte';
+import FreeoxideOpen from '$moves/review/bento/freeoxide-open.svelte';
 
 export type BentoSite = {
 	id: string;
@@ -98,6 +99,16 @@ export const bentos: BentoCandidate[] = [
 		component: OxlabsProcess,
 		props: { here: here('oxlabs-process') },
 		site: bentoSites.oxlabs
+	},
+	{
+		id: 'freeoxide-open',
+		name: 'In the open · freeoxide',
+		line: 'The freeoxide-1 favourites as separate cards: a sticky project rail beside one card per tool with its terminal centred on its material (the material shifts under the cursor), then the download counter with a curve you can point at and three oxide and outline stat cards.',
+		use: 'Real use: freeoxide, under the dot-matrix hero; any initiative that ships several open-source tools.',
+		src: `${dir}/freeoxide-open.svelte`,
+		component: FreeoxideOpen,
+		props: { here: here('freeoxide-open') },
+		site: bentoSites.freeoxide
 	}
 ];
 
