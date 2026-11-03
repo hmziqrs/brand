@@ -8,7 +8,7 @@
 	import Glass from '$brand/components/glass.svelte';
 	import ProductHero from './product-hero.svelte';
 	import StarterTerminal from './starter-terminal.svelte';
-	import MaterialGrid from '../stages/material-grid.svelte';
+	import MaterialWash from '../stages/material-wash.svelte';
 
 	const here = '#/c/hero/product-split-starter';
 	const siWindows = { path: 'M0 3.449 9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801' };
@@ -46,6 +46,6 @@
 			<Button href={here} variant="link" size="sm" class="px-1">Build requirements<ArrowUpRight class="lucide" data-icon="inline-end" /></Button>
 		</div>
 	{/snippet}
-	{#snippet stage()}<MaterialGrid preset="copper-sweep" presetLight="copper-sweep" />{/snippet}
+	{#snippet stage()}<MaterialWash preset="copper-sweep" />{/snippet}
 	{#snippet visual()}<StarterTerminal panel={false} />{/snippet}
 </ProductHero>

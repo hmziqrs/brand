@@ -5,7 +5,7 @@
 	import BrandIcon from '$brand/components/brand-icon.svelte';
 	import ProductHero from './product-hero.svelte';
 	import MultiTerminal from './multi-terminal.svelte';
-	import MaterialGrid from '../stages/material-grid.svelte';
+	import MaterialWash from '../stages/material-wash.svelte';
 </script>
 
 <ProductHero
@@ -19,6 +19,6 @@
 		<Button href="#/c/hero/product-centered-multi" size="lg">Get started<ArrowRight class="lucide" data-icon="inline-end" /></Button>
 		<Button href="https://github.com/hmziqrs/claude-multi" size="lg" variant="outline"><BrandIcon icon={siGithub} data-icon="inline-start" />GitHub</Button>
 	{/snippet}
-	{#snippet stage()}<MaterialGrid preset="white-sweep" presetLight="white-sweep" />{/snippet}
+	{#snippet stage()}<MaterialWash preset="white-sweep" />{/snippet}
 	{#snippet visual()}<MultiTerminal />{/snippet}
 </ProductHero>

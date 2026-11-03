@@ -36,7 +36,18 @@
 </script>
 
 <section data-pointer-host class={cn('relative isolate overflow-hidden', className)}>
-	{#if stage}<div class="absolute inset-0 -z-10">{@render stage()}</div>{/if}
+	{#if stage}
+		<div class="absolute inset-0 -z-10">{@render stage()}</div>
+		<div
+			aria-hidden="true"
+			class={cn(
+				'pointer-events-none absolute inset-0 -z-[5]',
+				centered
+					? 'bg-[radial-gradient(ellipse_46%_44%_at_50%_34%,color-mix(in_oklab,var(--background)_84%,transparent)_0%,color-mix(in_oklab,var(--background)_70%,transparent)_55%,transparent_100%)]'
+					: 'bg-[linear-gradient(to_right,color-mix(in_oklab,var(--background)_86%,transparent)_0%,color-mix(in_oklab,var(--background)_74%,transparent)_34%,color-mix(in_oklab,var(--background)_30%,transparent)_52%,transparent_64%)]'
+			)}
+		></div>
+	{/if}
 	<div
 		class={cn(
 			'mx-auto w-full max-w-[82rem] px-6',

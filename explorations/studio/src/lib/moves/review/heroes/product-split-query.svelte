@@ -7,7 +7,7 @@
 	import ProductHero from './product-hero.svelte';
 	import DevtoolsInspector from '$moves/bento/devtools-inspector.svelte';
 	import ProductWindow from './product-window.svelte';
-	import MaterialGrid from '../stages/material-grid.svelte';
+	import MaterialWash from '../stages/material-wash.svelte';
 </script>
 
 <ProductHero
@@ -21,7 +21,7 @@
 		<Button href="#/c/hero/product-split-query" size="lg">Get started<ArrowRight class="lucide" data-icon="inline-end" /></Button>
 		<Button href="https://github.com/freeoxide/gpui-query" size="lg" variant="outline"><BrandIcon icon={siGithub} data-icon="inline-start" />GitHub</Button>
 	{/snippet}
-	{#snippet stage()}<MaterialGrid preset="chalk-dunes" presetLight="chalk-dunes" />{/snippet}
+	{#snippet stage()}<MaterialWash preset="chalk-dunes" />{/snippet}
 	{#snippet visual()}
 		<ProductWindow chrome={false}>
 			<DevtoolsInspector class="min-h-[23rem] bg-transparent" />
