@@ -26,7 +26,7 @@ const glyphs = ["■", "□", "▪", "○", "◎", "●"]
 /** The cell size for a box `w` pixels wide: `w / cols`, held between `min` and `pitch`. */
 export const pixelPitch = (w: number, pitch: number, min: number, cols: number) => Math.max(min, Math.min(pitch, Math.round(w / cols)))
 
-/** Draws `text` on `canvas`, filling its box, once the page's fonts are in. Returns the cleanup. */
+/** Draws `text` on `canvas`, filling its box, once its faces are loaded. Returns the cleanup. */
 export function mountPixelName(canvas: HTMLCanvasElement, { text, look = "dots", pitch = 9, min = 5, cols = 140, reach = 120 }: PixelNameOptions) {
   const host = canvas.parentElement!
   const R2 = reach * reach
@@ -35,8 +35,10 @@ export function mountPixelName(canvas: HTMLCanvasElement, { text, look = "dots",
   let ptr: ReturnType<typeof trackPointer> | undefined
   let off = () => {}
   let dead = false
+  const faces = [document.fonts.load(`600 16px ${sansFamily(host)}`, text)]
+  if (look === "glyphs") faces.push(document.fonts.load('16px "JetBrains Mono Variable"', [...glyphs, "·"].join("")))
 
-  document.fonts.ready.then(() => {
+  const start = () => {
     if (dead) return
     let fg: RGB = [0, 0, 0]
     let ox: RGB = [0, 0, 0]
@@ -144,7 +146,12 @@ export function mountPixelName(canvas: HTMLCanvasElement, { text, look = "dots",
       read()
       if (m?.still) m.redraw()
     })
-  })
+  }
+
+  Promise.all(faces)
+    .catch(() => [])
+    .then(() => document.fonts.ready)
+    .then(start)
 
   return () => {
     dead = true
