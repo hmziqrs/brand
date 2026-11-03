@@ -134,6 +134,26 @@
       "types": "./dist/motion/ring-field.d.ts",
       "default": "./dist/motion/ring-field.js"
     },
+    "./motion/dither-name": {
+      "types": "./dist/motion/dither-name.d.ts",
+      "default": "./dist/motion/dither-name.js"
+    },
+    "./motion/heat-field": {
+      "types": "./dist/motion/heat-field.d.ts",
+      "default": "./dist/motion/heat-field.js"
+    },
+    "./motion/pixel-name": {
+      "types": "./dist/motion/pixel-name.d.ts",
+      "default": "./dist/motion/pixel-name.js"
+    },
+    "./motion/voxel-field": {
+      "types": "./dist/motion/voxel-field.d.ts",
+      "default": "./dist/motion/voxel-field.js"
+    },
+    "./motion/wash-glow": {
+      "types": "./dist/motion/wash-glow.d.ts",
+      "default": "./dist/motion/wash-glow.js"
+    },
     "./motion/scenes": {
       "types": "./dist/motion/scenes/index.d.ts",
       "default": "./dist/motion/scenes/index.js"

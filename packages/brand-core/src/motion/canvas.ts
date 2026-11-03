@@ -1,8 +1,9 @@
 /*
- * Shared plumbing for the hero fields drawn on a 2D canvas (diagonal hatch,
- * hover grid, dot name): theme colors read off the page, a seeded random
- * generator, a sized and paused-offscreen draw loop, and a pointer that eases
- * after the cursor and drifts on its own while the cursor is away.
+ * Shared plumbing for the hero and footer fields drawn on a 2D canvas
+ * (diagonal hatch, hover grid, dot name, pixel name, voxel field): theme
+ * colors read off the page, a seeded random generator, a sized and
+ * paused-offscreen draw loop, and a pointer that eases after the cursor and
+ * drifts on its own while the cursor is away.
  */
 
 export type RGB = [number, number, number]
@@ -25,6 +26,27 @@ export function readColor(host: Element, css: string): RGB {
 }
 
 export const rgba = ([r, g, b]: RGB, a = 1) => `rgba(${r},${g},${b},${a})`
+
+/** The color `t` of the way from `a` to `b`. */
+export const mix = (a: RGB, b: RGB, t: number): RGB => [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t]
+
+/** The 8×8 Bayer threshold for cell (x, y), 0–1: the dither's order. */
+export const bayer8 = (() => {
+  const m = [
+    [0, 32, 8, 40, 2, 34, 10, 42],
+    [48, 16, 56, 24, 50, 18, 58, 26],
+    [12, 44, 4, 36, 14, 46, 6, 38],
+    [60, 28, 52, 20, 62, 30, 54, 22],
+    [3, 35, 11, 43, 1, 33, 9, 41],
+    [51, 19, 59, 27, 49, 17, 57, 25],
+    [15, 47, 7, 39, 13, 45, 5, 37],
+    [63, 31, 55, 23, 61, 29, 53, 21],
+  ]
+  return (x: number, y: number) => (m[y & 7][x & 7] + 0.5) / 64
+})()
+
+/** The page's sans face as a canvas font family: the theme's --font-sans, Onest when it isn't set. */
+export const sansFamily = (el: Element) => getComputedStyle(el).getPropertyValue("--font-sans").trim() || '"Onest Variable", sans-serif'
 
 export function rng(seed: number) {
   let s = seed >>> 0 || 1
@@ -160,6 +182,12 @@ export function trackPointer(canvas: HTMLCanvasElement, onMove?: () => void) {
       p.speed += (sp - p.speed) * Math.min(1, dt * 8)
       p.live = real || !!ghost
       p.dwell = p.speed < 60 && p.live ? p.dwell + dt : 0
+    },
+    /** Jumps to the cursor at once, for a still frame. */
+    snap() {
+      p.x = tx
+      p.y = ty
+      p.live = p.inside
     },
     destroy() {
       host.removeEventListener("pointermove", move)

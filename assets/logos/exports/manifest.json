@@ -1,7 +1,7 @@
 {
   "target": "logos",
   "command": "bun run render-assets --only logos",
-  "digest": "c3946273399d2f52284226357711452914579d768a844ad56e962a8cfe5a8267",
+  "digest": "6b278a9ae3fa9e308e4649260b0b75e73f6a38ef7103565e7de5130ea2c7d50a",
   "renderers": {
     "@resvg/resvg-js": "2.6.2",
     "opentype.js": "2.0.0",
@@ -106,11 +106,15 @@
     },
     {
       "path": "packages/brand-core/src/motion/canvas.ts",
-      "sha256": "65803bf2227cd0eeac19ea4a7bc4fc4451216d81cabcda8a9faa10289c58d716"
+      "sha256": "7159a2df0b1c373c42d3097e049d810ba7068b8a0adc15dc6fc7afc3db0f67c4"
     },
     {
       "path": "packages/brand-core/src/motion/diagonal-hatch.ts",
       "sha256": "6a874e4c8d6ed54a71258b813079d960732e22e0863789aefcf0089b43c38d9a"
+    },
+    {
+      "path": "packages/brand-core/src/motion/dither-name.ts",
+      "sha256": "2d8baf4ed17227515713d5b58c19d07a5a586284b2877544e36f0b6c421d7401"
     },
     {
       "path": "packages/brand-core/src/motion/dot-name.ts",
@@ -121,8 +125,16 @@
       "sha256": "feb3426b5bd0bf90ae617fd7cd0b6161c64cda73998c7fdf074a2d5e5b04ddf2"
     },
     {
+      "path": "packages/brand-core/src/motion/heat-field.ts",
+      "sha256": "8c4dc81be1c07694b238e4fbb5af6d4530ea82b617537a553ef93d16a6259010"
+    },
+    {
       "path": "packages/brand-core/src/motion/hover-grid.ts",
       "sha256": "a7f86cea30e40d0ed415c47e69345394e5e985934ac88a053e04bfc84796bb3a"
+    },
+    {
+      "path": "packages/brand-core/src/motion/pixel-name.ts",
+      "sha256": "d7806d3ffd4271ed51f8cc04269a033e08b4fc8aee45c4637f9406d2a6dd5271"
     },
     {
       "path": "packages/brand-core/src/motion/resolve-title.ts",
@@ -175,6 +187,14 @@
     {
       "path": "packages/brand-core/src/motion/scenes/tiles.ts",
       "sha256": "3e3cd9ffbdb91d6fbfc68c13222fe6c562ae412274283e37bb6ba87b1c255b88"
+    },
+    {
+      "path": "packages/brand-core/src/motion/voxel-field.ts",
+      "sha256": "f9f99a7392da4032497b65bb67ffe0bb669316ecb5c8d4021ef459130a449dd1"
+    },
+    {
+      "path": "packages/brand-core/src/motion/wash-glow.ts",
+      "sha256": "7d4816e511eab037ac7209a4d0397f6a01cd729893ff10a468f4e016667d5e00"
     },
     {
       "path": "packages/brand-core/theme.css",
