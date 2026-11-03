@@ -88,7 +88,7 @@ cache.invalidate_where(|k: &RepoKey| {
 
 			<article class={cn(outline, 'flex min-w-0 flex-col gap-5 overflow-hidden p-5 md:col-span-4 md:row-span-2 lg:col-span-4 sm:p-6')}>
 				{@render head('05 · Devtools', 'See the cache while you build.', 'Pick a key to see its data, observers and stale countdown. Refetch and invalidate from the panel; release builds leave it out.')}
-				<DevtoolsInspector class="mt-auto min-h-[22rem] rounded-xl bg-transparent ring-1 ring-foreground/10 max-sm:[&_pre]:whitespace-pre-wrap" initial={2} />
+				<DevtoolsInspector class="min-h-[22rem] flex-1 rounded-xl bg-transparent ring-1 ring-foreground/10 max-sm:[&_pre]:whitespace-pre-wrap" initial={2} />
 			</article>
 
 			<MaterialTile preset="copper-sweep" eyebrow="Install" title="Add it before your next fetch." body="One crate. Wrap the app in a QueryClient and your views read from the cache." class="min-h-72 md:col-span-2 lg:col-span-2">

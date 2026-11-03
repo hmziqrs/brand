@@ -23,7 +23,7 @@
 		{ name: 'macOS', preset: 'hammered-copper' },
 		{ name: 'Windows', preset: 'folded-foil' },
 		{ name: 'Linux', preset: 'mineral-fault' },
-		{ name: 'Web', preset: 'ink-diffusion' }
+		{ name: 'Web', preset: 'lava-fissures' }
 	];
 
 	let pick = $state(1);
@@ -71,7 +71,7 @@
 				{:else if i === 1}
 					<div class="relative w-full max-w-[260px]">
 						<div class="relative aspect-[4/5] overflow-hidden rounded-xl ring-1 ring-foreground/10">
-							<ShaderMaterial preset="interference-film" rendering="image" loading="lazy" controls={false} sizes="260px" class="absolute inset-0 h-full w-full" />
+							<ShaderMaterial preset="liquid-chrome" rendering="image" loading="lazy" controls={false} sizes="260px" class="absolute inset-0 h-full w-full" />
 							<span class="absolute top-2 left-2 rounded-md bg-background px-1.5 py-0.5 font-mono text-[10px] text-foreground">build 8 · Settings</span>
 						</div>
 						<div class="absolute -right-3 bottom-[34%] max-w-[180px] rounded-xl bg-background p-2.5 text-[12px] leading-snug text-foreground shadow-lg ring-1 ring-foreground/12">
