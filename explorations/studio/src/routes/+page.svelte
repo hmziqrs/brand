@@ -48,6 +48,7 @@
 		<br /><a href="#/review/hero" class="mt-1 inline-flex items-center gap-2 text-lg font-medium hover:text-primary">Hero — pick what stays →</a>
 		<br /><a href="#/review/stages" class="mt-1 inline-flex items-center gap-2 text-lg font-medium hover:text-primary">Stages — hero backgrounds →</a>
 		<br /><a href="#/review/footer" class="mt-1 inline-flex items-center gap-2 text-lg font-medium hover:text-primary">Footer — pick what stays →</a>
+		<br /><a href="#/review/bento" class="mt-1 inline-flex items-center gap-2 text-lg font-medium hover:text-primary">Feature sections — pick what stays →</a>
 	</section>
 
 	<header class="flex flex-wrap items-end justify-between gap-6 border-b border-border pb-8">
