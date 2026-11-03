@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { cn } from '$brand/utils.js';
 	import IsoTileStack, { type IsoCluster } from '$moves/northflank/iso-tile-stack.svelte';
-	import GridBackdrop from '$moves/review/heroes/grid-backdrop.svelte';
 
 	let { class: className }: { class?: string } = $props();
 
@@ -13,8 +12,7 @@
 </script>
 
 <div class={cn('absolute inset-0 isolate overflow-hidden', className)}>
-	<GridBackdrop fade="radial" />
 	<div class="absolute top-[58%] right-[-18%] w-[110%] -translate-y-1/2 opacity-30 sm:right-[-4%] sm:w-[44%] lg:opacity-100">
-		<IsoTileStack {clusters} class="mx-auto max-w-[760px]" />
+		<IsoTileStack {clusters} class="mx-auto max-w-[760px] [&_.iso-floor]:hidden" />
 	</div>
 </div>
