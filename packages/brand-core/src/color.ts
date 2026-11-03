@@ -195,13 +195,18 @@ type Pair = {
   label: string
   fg: string
   bg: string
-  /** Paint `fg` at this strength over `bg` first (soft fills). */
+  /** Paint the fill at the soft-fill strength over `bg` first (soft fills). */
   soft?: boolean
-  /** 4.5 for text, 3 for icons and focus rings. */
+  /** The soft fill's color, when it isn't `fg` (orange fills vivid and writes in its ink). */
+  fill?: string
+  /** 4.5 for text, 3 for large text, icons and focus rings. */
   min: number
 }
 
 const title = (s: string) => s[0].toUpperCase() + s.slice(1)
+
+/** The token a hue is written in as text, when it isn't the hue itself. */
+const inks: Partial<Record<Hue, string>> = { orange: "orange-ink" }
 
 export const pairs: Pair[] = [
   { group: "Text", label: "Body text on the page", fg: "foreground", bg: "background", min: 4.5 },
@@ -209,16 +214,17 @@ export const pairs: Pair[] = [
   { group: "Text", label: "Secondary text on a card", fg: "muted-foreground", bg: "card", min: 4.5 },
   { group: "Text", label: "Secondary text on a muted surface", fg: "muted-foreground", bg: "muted", min: 4.5 },
   { group: "Oxide", label: "Button text on oxide", fg: "primary-foreground", bg: "primary", min: 4.5 },
-  { group: "Oxide", label: "Oxide links on the page", fg: "primary", bg: "background", min: 4.5 },
-  { group: "Oxide", label: "Oxide text on a card", fg: "primary", bg: "card", min: 4.5 },
+  { group: "Oxide", label: "Oxide links on the page", fg: "primary-ink", bg: "background", min: 4.5 },
+  { group: "Oxide", label: "Oxide text on a card", fg: "primary-ink", bg: "card", min: 4.5 },
+  { group: "Oxide", label: "Oxide headline words (large text)", fg: "primary-display", bg: "background", min: 3 },
   { group: "Oxide", label: "Focus ring on the page", fg: "ring", bg: "background", min: 3 },
   { group: "Oxide", label: "Text on the orange band", fg: "on-orange", bg: "orange", min: 4.5 },
   { group: "Oxide", label: "Code and hover on the orange band", fg: "on-orange", bg: "band-orange-muted", min: 4.5 },
   { group: "Text", label: "Text on a gray band", fg: "foreground", bg: "band", min: 4.5 },
   { group: "Text", label: "Secondary text on a gray band", fg: "muted-foreground", bg: "band", min: 4.5 },
   ...hues.flatMap((hue): Pair[] => [
-    { group: "Colors", label: `${title(hue)} text on a card`, fg: hue, bg: "card", min: 4.5 },
-    { group: "Colors", label: `${title(hue)} text on its soft fill`, fg: hue, bg: "card", soft: true, min: 4.5 },
+    { group: "Colors", label: `${title(hue)} text on a card`, fg: inks[hue] ?? hue, bg: "card", min: 4.5 },
+    { group: "Colors", label: `${title(hue)} text on its soft fill`, fg: inks[hue] ?? hue, bg: "card", soft: true, fill: hue, min: 4.5 },
   ]),
   { group: "Colors", label: "Error text on its soft fill", fg: "destructive", bg: "card", soft: true, min: 4.5 },
   ...Object.entries({
@@ -244,7 +250,8 @@ export function measure(css: string): Result[] {
       const page = color(tokens, "background").rgb
       const bg = over(color(tokens, pair.bg), page)
       const fg = color(tokens, pair.fg)
-      const surface = pair.soft ? over({ rgb: fg.rgb, alpha: softAlpha[mode] }, bg) : bg
+      const fill = pair.fill ? color(tokens, pair.fill) : fg
+      const surface = pair.soft ? over({ rgb: fill.rgb, alpha: softAlpha[mode] }, bg) : bg
       ratio[mode] = contrast(over(fg, surface), surface)
     }
     return { ...pair, ratio, pass: ratio.dark >= pair.min && ratio.light >= pair.min }

@@ -116,7 +116,7 @@
   .live-carousel-lettering-label { background: none; -webkit-text-fill-color: currentColor; }
   .live-carousel-lettering-shine { display: none; }
 }
-.live-carousel-detail { margin-top: 2rem; font-family: var(--font-mono); font-size: .625rem; color: var(--primary); }
+.live-carousel-detail { margin-top: 2rem; font-family: var(--font-mono); font-size: .625rem; color: var(--primary-ink); }
 .live-carousel-material-stage { display: grid; flex: 1; place-items: center; min-width: 0; min-height: 14rem; padding-top: 1.5rem; }
 .live-carousel-scene[data-type="material"][data-surface="glass"] .live-carousel-copy { margin-top: -4rem; }
 .live-carousel-material {
