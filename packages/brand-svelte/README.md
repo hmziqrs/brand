@@ -207,8 +207,9 @@ Layout: `Bento` + `BentoTile`. Cards: `ReleaseCard`,
 `ProjectCard`, `EndpointCard`, `PlanCard`. Motion that answers data or a mode,
 never hover: `RollingNumber`, `ThemeToggle` (view-transition reveal).
 
-Pages and navigation: `NavBar` (bar, floating, centered; menus; a phone
-sheet), `SiteFooter` (columns, simple, minimal), `CardCarousel`,
+Pages and navigation: `NavBar` (the default header: bar, floating,
+centered; hover menus with a line per page; a closable shader-poster
+announcement; a phone sheet; also in the Astro kit), `SiteFooter` (columns, simple, minimal), `CardCarousel`,
 `FeatureCarousel`, `LineTabs`, `Roadmap`, `PersonCard`, `Gallery`,
 `CommentThread`, `NotificationList`, `FileDrop`, `ConsentBanner`.
 `System/Overview` in Storybook lists every piece by what it's for.
