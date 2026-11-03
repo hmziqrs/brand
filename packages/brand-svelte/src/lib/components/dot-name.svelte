@@ -25,7 +25,7 @@
 	});
 </script>
 
-<span data-slot="dot-name" class={cn("relative block", className)} role="img" aria-label={label ?? word}>
+<span data-slot="dot-name" data-display class={cn("relative block", className)} role="img" aria-label={label ?? word}>
 	<canvas bind:this={canvas} class="block h-auto w-full" style:aspect-ratio="{grid.cols} / {grid.rows}"></canvas>
 	<span bind:this={ink} class="hidden text-foreground"></span>
 	<span bind:this={accent} class="hidden text-primary"></span>

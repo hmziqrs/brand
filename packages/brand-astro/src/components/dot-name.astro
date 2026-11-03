@@ -21,7 +21,7 @@ const { word, label, class: className } = Astro.props;
 const grid = dotNameGrid(word);
 ---
 
-<span data-slot="dot-name" data-word={word} class={cn("relative block", className)} role="img" aria-label={label ?? word}>
+<span data-slot="dot-name" data-display data-word={word} class={cn("relative block", className)} role="img" aria-label={label ?? word}>
   <canvas class="block h-auto w-full" style={`aspect-ratio: ${grid.cols} / ${grid.rows};`}></canvas>
   <span data-dot-ink class="hidden text-foreground"></span>
   <span data-dot-accent class="hidden text-primary"></span>
