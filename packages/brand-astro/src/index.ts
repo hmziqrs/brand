@@ -162,3 +162,10 @@ export { default as ProductWindow } from "./components/product-window.astro";
 export { default as ResolveTitle } from "./components/resolve-title.astro";
 export { default as RingField } from "./components/ring-field.astro";
 export { default as SceneStage } from "./components/scene-stage.astro";
+
+// Heroes.
+export { default as AccentTitle } from "./blocks/sections/accent-title.astro";
+export { default as BrandHero } from "./blocks/sections/brand-hero.astro";
+export { default as PersonalHero } from "./blocks/sections/personal-hero.astro";
+export type { PersonalSocial } from "./blocks/sections/personal-hero.astro";
+export { default as ProductHero } from "./blocks/sections/product-hero.astro";
