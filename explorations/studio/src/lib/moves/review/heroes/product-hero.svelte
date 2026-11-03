@@ -1,0 +1,68 @@
+<script lang="ts">
+	import type { Snippet } from 'svelte';
+	import { cn } from '$brand/utils.js';
+	import CommandBox from '$brand/components/command-box.svelte';
+	import AccentTitle from './accent-title.svelte';
+	import GridBackdrop from './grid-backdrop.svelte';
+
+	let {
+		title,
+		accent,
+		lede,
+		eyebrow,
+		actions,
+		install,
+		installLabel,
+		note,
+		layout = 'split',
+		grid = true,
+		visual,
+		class: className
+	}: {
+		title: string;
+		accent?: string;
+		lede: string;
+		eyebrow?: Snippet;
+		actions?: Snippet;
+		install?: string;
+		installLabel?: string;
+		note?: Snippet;
+		layout?: 'split' | 'centered';
+		grid?: boolean;
+		visual?: Snippet;
+		class?: string;
+	} = $props();
+
+	const centered = $derived(layout === 'centered');
+</script>
+
+<section class={cn('relative isolate overflow-hidden', className)}>
+	{#if grid}<GridBackdrop fade={centered ? 'top' : 'radial'} />{/if}
+	<div
+		class={cn(
+			'mx-auto w-full max-w-[1320px] px-4 sm:px-8',
+			centered ? 'pt-20 pb-16 lg:pt-28' : 'grid grid-cols-1 items-center gap-12 py-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.08fr)] lg:gap-16 lg:py-28'
+		)}
+	>
+		<div class={cn('min-w-0', centered && 'mx-auto flex max-w-[52rem] flex-col items-center text-center')}>
+			{#if eyebrow}<div class="mb-7">{@render eyebrow()}</div>{/if}
+			<AccentTitle
+				{title}
+				{accent}
+				class={cn('font-semibold tracking-[-0.04em] text-foreground', centered ? 'max-w-[18ch] text-[clamp(44px,6.4vw,84px)]' : 'max-w-[13ch] text-[clamp(46px,6.6vw,92px)]', 'leading-[0.98]')}
+			/>
+			<p class={cn('mt-7 text-[clamp(18px,1.6vw,21px)] text-foreground/90 [line-height:1.5]', centered ? 'max-w-[44rem]' : 'max-w-[34rem]')}>{lede}</p>
+			{#if actions}<div class={cn('mt-9 flex flex-wrap gap-3', centered && 'justify-center')}>{@render actions()}</div>{/if}
+			{#if install}
+				<div class={cn('mt-8 w-full max-w-[30rem]', centered && 'mx-auto')}>
+					{#if installLabel}<p class={cn('mb-2 text-sm font-medium text-foreground', centered && 'text-center')}>{installLabel}</p>{/if}
+					<CommandBox command={install} class="bg-background text-left" />
+				</div>
+			{/if}
+			{#if note}<div class={cn('mt-5', centered && 'flex justify-center')}>{@render note()}</div>{/if}
+		</div>
+		{#if visual}
+			<div class={cn('relative min-w-0', centered && 'mx-auto mt-16 max-w-[1120px] lg:mt-20')}>{@render visual()}</div>
+		{/if}
+	</div>
+</section>
