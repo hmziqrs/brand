@@ -152,3 +152,13 @@ export { default as VerifyEmail } from "./blocks/app/auth/verify-email.svelte";
 export { default as WorkspaceSwitcher } from "./blocks/app/account/workspace-switcher.svelte";
 
 export { default as ShaderMaterial } from "./components/shader-material.svelte";
+
+// Hero stages and parts.
+export { default as DiagonalHatch } from "./components/diagonal-hatch.svelte";
+export { default as DotName } from "./components/dot-name.svelte";
+export { default as MaterialGrid } from "./components/material-grid.svelte";
+export { default as MaterialWash } from "./components/material-wash.svelte";
+export { default as ProductWindow } from "./components/product-window.svelte";
+export { default as ResolveTitle } from "./components/resolve-title.svelte";
+export { default as RingField } from "./components/ring-field.svelte";
+export { default as SceneStage } from "./components/scene-stage.svelte";
