@@ -1,11 +1,11 @@
 import type { Component } from 'svelte';
-import SiteFooter from '$brand/components/site-footer.svelte';
+import KitWash from '$moves/review/footers/kit-wash.svelte';
 import Material from '$moves/review/footers/material.svelte';
 import Dots from '$moves/review/footers/dots.svelte';
 import Glyphs from '$moves/review/footers/glyphs.svelte';
 import Heat from '$moves/review/footers/heat.svelte';
 import Voxel from '$moves/review/footers/voxel.svelte';
-import Index from '$moves/review/footers/index.svelte';
+import Personal from '$moves/review/footers/personal.svelte';
 import Calm from '$moves/review/footers/calm.svelte';
 import { blog, claudeMulti, freeoxide, gpuiQuery, gpuiStarter, hmziq, labs, oxlabs, type FooterSite } from '$moves/review/footers/sites';
 
@@ -36,12 +36,12 @@ const own = (id: string, site: FooterSite) => ({ site, here: here(id) });
 export const footers: FooterCandidate[] = [
 	{
 		id: 'current',
-		name: 'Current kit footer',
-		line: 'The kit SiteFooter as it ships: contents in the narrow max-w-5xl column, grey links, the More from hmziq row and the giant hmziq signature.',
-		use: 'Real use: every hmziq site today, shown here for gpui-query; the baseline the others have to beat.',
-		src: 'packages/brand-svelte/src/lib/components/site-footer.svelte',
-		component: SiteFooter,
-		props: kit('current', gpuiQuery),
+		name: 'Kit footer + faded wash',
+		line: 'The kit SiteFooter, now on the wide container so it lines up with the header and hero, over a very faded copy of the gpui-query hero material that drifts slowly and brightens in a soft pool around the cursor.',
+		use: 'Real use: gpui-query, under its chalk-dunes hero; any product site can pass its own hero material.',
+		src: `${dir}/kit-wash.svelte`,
+		component: KitWash,
+		props: { ...kit('current', gpuiQuery), preset: 'chalk-dunes' },
 		site: gpuiQuery
 	},
 	{
@@ -95,20 +95,20 @@ export const footers: FooterCandidate[] = [
 		site: gpuiStarter
 	},
 	{
-		id: 'index',
-		name: 'Family index',
-		line: 'More from hmziq becomes the footer: every site as a giant numbered row that floods with oxide on hover, then a short sign-off.',
-		use: 'Real use: hmziq.rs, the personal site, where the footer is the map of everything else.',
-		src: `${dir}/index.svelte`,
-		component: Index,
-		props: own('index', hmziq),
+		id: 'personal',
+		name: 'Hatch + dot name',
+		line: 'The hmziq.rs hero, closing the page: columns and the family up top, then the diagonal hatch around the name in the dot font, both bending away from the cursor.',
+		use: 'Real use: hmziq.rs and cv.hmziq.rs, under the hatch and dot-name hero.',
+		src: `${dir}/personal.svelte`,
+		component: Personal,
+		props: own('personal', hmziq),
 		site: hmziq
 	},
 	{
 		id: 'calm',
 		name: 'Calm, for reading',
-		line: 'No art: wordmark, one line and an email box, three plain columns, the family with a line each and the fine print, so it never competes with the text above.',
-		use: 'Real use: blog.hmziq.rs and every docs site (gpui-query, gpui-starter docs).',
+		line: 'Wordmark, one line and an email box, the same mono labels and family row as the other footers, icon links, and a faint hatch from the hmziq hero that bends toward the cursor; it never competes with the text above.',
+		use: 'Real use: blog.hmziq.rs, and docs pages where the reading should win.',
 		src: `${dir}/calm.svelte`,
 		component: Calm,
 		props: own('calm', blog),

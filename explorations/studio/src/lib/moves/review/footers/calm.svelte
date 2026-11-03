@@ -2,6 +2,7 @@
 	import { cn } from '$brand/utils.js';
 	import Wordmark from '$brand/components/wordmark.svelte';
 	import Container from '$brand/blocks/site/container.svelte';
+	import DiagonalHatch from '$brand/components/diagonal-hatch.svelte';
 	import { Button } from '$brand/ui/button/index.js';
 	import { Input } from '$brand/ui/input/index.js';
 	import LinkColumns from './link-columns.svelte';
@@ -15,7 +16,8 @@
 	const field = $derived(`${site.id}-footer-email`);
 </script>
 
-<footer data-slot="footer-calm" class={cn('border-t border-border bg-background text-foreground', className)}>
+<footer data-slot="footer-calm" data-pointer-host class={cn('relative isolate overflow-hidden border-t border-border bg-background text-foreground', className)}>
+	<DiagonalHatch class="-z-10 opacity-35" />
 	<Container size="wide" class="pt-14 pb-10 sm:pt-16">
 		<div class="grid gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,2fr)]">
 			<div class="flex max-w-md flex-col gap-5">
@@ -31,10 +33,10 @@
 				</form>
 				<p class="text-[13px] text-muted-foreground">One email when a post goes up, nothing else. Or follow the <a href={here} class={cn(link, 'text-foreground decoration-foreground/40')}>RSS feed</a>.</p>
 			</div>
-			<LinkColumns columns={site.columns} {here} heading="plain" />
+			<LinkColumns columns={site.columns} {here} />
 		</div>
 
-		<FamilyRow site={site.id} variant="grid" heading="plain" class="mt-14 border-t border-border pt-10" />
+		<FamilyRow site={site.id} class="mt-14 border-t border-border pt-8" />
 
 		<div class="mt-12 flex flex-wrap items-center justify-between gap-x-6 gap-y-3 border-t border-border pt-6 text-[13px]">
 			<span class="text-muted-foreground">{site.legal}</span>
