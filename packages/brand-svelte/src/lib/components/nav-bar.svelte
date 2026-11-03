@@ -52,6 +52,8 @@
 		/** The localStorage key that remembers a closed announcement. */
 		announcementKey = "hmziq-announce-dismissed",
 		variant = "bar",
+		/** The kit Container width for the bar's contents: default for most sites, wide to line up with wide page sections. */
+		size = "default",
 		sticky = false,
 		/** Right before the buttons: a theme toggle. */
 		extra,
@@ -67,6 +69,7 @@
 		announcement?: NavAnnouncement | null;
 		announcementKey?: string;
 		variant?: "bar" | "floating" | "centered";
+		size?: "default" | "wide";
 		sticky?: boolean;
 		extra?: Snippet;
 		class?: string;
@@ -110,7 +113,7 @@
 {#snippet banner()}
 	{#if announcement && showBanner}
 		<div data-slot="nav-bar-announcement" class="relative bg-cover bg-center" style:background-image={`url(${poster})`}>
-			<Container class="relative flex h-10 items-center justify-center pr-14">
+			<Container {size} class="relative flex h-10 items-center justify-center pr-14">
 				<a href={announcement.href} class="dark inline-flex max-w-full items-center gap-2 rounded-full bg-background/85 px-3 py-1 text-xs text-foreground backdrop-blur-md hover:underline">
 					<span aria-hidden="true" class="size-1.5 shrink-0 bg-primary"></span>
 					<span class="truncate">{announcement.text}</span>
@@ -216,7 +219,7 @@
 {:else if variant === "centered"}
 	{@render banner()}
 	<header data-slot="nav-bar" data-variant={variant} class={cn("z-40 border-b bg-background", sticky && "sticky top-0", className)}>
-		<Container class="grid h-16 grid-cols-[1fr_auto_1fr] items-center gap-4">
+		<Container {size} class="grid h-16 grid-cols-[1fr_auto_1fr] items-center gap-4">
 			<div class="min-w-0">{@render nav(links.slice(0, half))}</div>
 			{@render brand()}
 			<div class="flex items-center justify-end gap-2">
@@ -228,7 +231,7 @@
 {:else}
 	{@render banner()}
 	<header data-slot="nav-bar" data-variant={variant} class={cn("z-40 border-b bg-background", sticky && "sticky top-0", className)}>
-		<Container class="flex h-16 items-center gap-6">
+		<Container {size} class="flex h-16 items-center gap-6">
 			{@render brand()}
 			<div class="ml-auto">{@render nav(links, "end")}</div>
 			{@render actions()}

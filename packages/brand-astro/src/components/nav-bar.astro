@@ -36,6 +36,8 @@ interface Props {
   /** The localStorage key that remembers a closed announcement. */
   announcementKey?: string;
   variant?: "bar" | "floating" | "centered";
+  /** The kit Container width for the bar's contents: default for most sites, wide to line up with wide page sections. */
+  size?: "default" | "wide";
   sticky?: boolean;
   class?: string;
 }
@@ -51,6 +53,7 @@ const {
   announcement = null,
   announcementKey = "hmziq-announce-dismissed",
   variant = "bar",
+  size = "default",
   sticky = false,
   class: className,
 } = Astro.props;
@@ -63,7 +66,7 @@ const brandClass = "flex shrink-0 items-baseline gap-[0.35em] rounded-sm text-lg
 {
   variant === "floating" ? (
     <div data-slot="nav-bar" data-variant={variant} class={cn("z-40", sticky && "sticky top-0", className)}>
-      {announcement && <NavBarAnnouncement announcement={announcement} storageKey={announcementKey} />}
+      {announcement && <NavBarAnnouncement announcement={announcement} storageKey={announcementKey} size={size} />}
       <div class="px-4 pt-4">
         <Glass as="header" class="mx-auto flex h-14 max-w-4xl items-center gap-4 rounded-full py-2 pr-2 pl-5">
           <a href={href} class={brandClass}>
@@ -81,10 +84,10 @@ const brandClass = "flex shrink-0 items-baseline gap-[0.35em] rounded-sm text-lg
     </div>
   ) : (
     <>
-      {announcement && <NavBarAnnouncement announcement={announcement} storageKey={announcementKey} />}
+      {announcement && <NavBarAnnouncement announcement={announcement} storageKey={announcementKey} size={size} />}
       <header data-slot="nav-bar" data-variant={variant} class={cn("z-40 border-b bg-background", sticky && "sticky top-0", className)}>
         {variant === "centered" ? (
-          <Container class="grid h-16 grid-cols-[1fr_auto_1fr] items-center gap-4">
+          <Container size={size} class="grid h-16 grid-cols-[1fr_auto_1fr] items-center gap-4">
             <div class="min-w-0">
               <NavBarMenu links={links.slice(0, half)} />
             </div>
@@ -102,7 +105,7 @@ const brandClass = "flex shrink-0 items-baseline gap-[0.35em] rounded-sm text-lg
             </div>
           </Container>
         ) : (
-          <Container class="flex h-16 items-center gap-6">
+          <Container size={size} class="flex h-16 items-center gap-6">
             <a href={href} class={brandClass}>
               <Wordmark name={site} />
               {maker && <span class="hidden text-[0.78em] text-muted-foreground sm:inline">{maker}</span>}
