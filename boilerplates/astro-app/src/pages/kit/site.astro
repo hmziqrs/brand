@@ -54,8 +54,17 @@ import Tag from "$brand/components/tag.astro";
 import TerminalBody from "$brand/components/terminal-body.astro";
 import TerminalLine from "$brand/components/terminal-line.astro";
 import TerminalWindow from "$brand/components/terminal-window.astro";
+import SiteFooter from "$brand/components/site-footer.astro";
+import WashGlow from "$brand/components/wash-glow.astro";
 import AccentTitle from "$brand/blocks/sections/accent-title.astro";
 import BrandHero from "$brand/blocks/sections/brand-hero.astro";
+import CalmFooter from "$brand/blocks/sections/calm-footer.astro";
+import DotFooter from "$brand/blocks/sections/dot-footer.astro";
+import GlyphFooter from "$brand/blocks/sections/glyph-footer.astro";
+import HatchFooter from "$brand/blocks/sections/hatch-footer.astro";
+import HeatFooter from "$brand/blocks/sections/heat-footer.astro";
+import MaterialFooter from "$brand/blocks/sections/material-footer.astro";
+import VoxelFooter from "$brand/blocks/sections/voxel-footer.astro";
 import PersonalHero from "$brand/blocks/sections/personal-hero.astro";
 import ProductHero from "$brand/blocks/sections/product-hero.astro";
 import ThemeInit from "../../components/theme-init.astro";
@@ -84,6 +93,43 @@ const socials = [
   { label: "GitHub", href: "https://github.com/", icon: siGithub },
   { label: "X", href: "https://x.com/", icon: siX },
   { label: "Email", href: "mailto:hello@example.com", icon: Mail },
+];
+
+const siteFooterColumns = [
+  { title: "Projects", links: [{ label: "gpui-query", href: "#" }, { label: "gpui-starter", href: "#" }, { label: "tunnel", href: "#" }, { label: "oxiwake", href: "#" }] },
+  { title: "Read", links: [{ label: "Writing", href: "#" }, { label: "How I work", href: "#" }, { label: "Changelog", href: "#" }] },
+  { title: "About", links: [{ label: "hmziq", href: "#" }, { label: "Contact", href: "#" }, { label: "Privacy", href: "#" }] },
+];
+const footerColumns = [
+  { title: "Docs", links: [{ label: "Quickstart", href: "#" }, { label: "Guides", href: "#" }, { label: "Reference", href: "#", tag: "New" }, { label: "Examples", href: "#" }] },
+  { title: "Project", links: [{ label: "Changelog", href: "#" }, { label: "Roadmap", href: "#" }, { label: "Releases", href: "#" }, { label: "FAQ", href: "#" }] },
+  { title: "Community", links: [{ label: "Discussions", href: "#" }, { label: "Report a bug", href: "#" }, { label: "Security", href: "#" }, { label: "Sponsor", href: "#" }] },
+];
+const studioColumns = [
+  { title: "Services", links: [{ label: "Phone apps", href: "#" }, { label: "Desktop apps", href: "#" }, { label: "Web apps", href: "#" }, { label: "CLI tools", href: "#" }] },
+  { title: "Studio", links: [{ label: "Work", href: "#" }, { label: "Process", href: "#" }, { label: "Pricing", href: "#" }, { label: "About", href: "#" }] },
+  { title: "Contact", links: [{ label: "Start a project", href: "#" }, { label: "Book a call", href: "#" }, { label: "hello@example.com", href: "mailto:hello@example.com" }] },
+  { title: "Elsewhere", links: [{ label: "GitHub", href: "https://github.com/" }, { label: "X", href: "https://x.com/" }, { label: "LinkedIn", href: "https://linkedin.com/" }] },
+];
+const personalColumns = [
+  { title: "Site", links: [{ label: "Work", href: "#" }, { label: "Blog", href: "#" }, { label: "CV", href: "#" }, { label: "Uses", href: "#" }] },
+  { title: "Elsewhere", links: [{ label: "GitHub", href: "https://github.com/" }, { label: "LinkedIn", href: "https://linkedin.com/" }, { label: "X", href: "https://x.com/" }, { label: "Email", href: "mailto:hello@example.com" }] },
+];
+const readingColumns = [
+  { title: "Read", links: [{ label: "Latest posts", href: "#" }, { label: "Series", href: "#" }, { label: "Archive", href: "#" }, { label: "RSS feed", href: "#" }] },
+  { title: "Topics", links: [{ label: "Process", href: "#" }, { label: "Rust", href: "#" }, { label: "Tools", href: "#" }, { label: "Design", href: "#" }, { label: "Web", href: "#" }] },
+  { title: "About", links: [{ label: "About me", href: "#" }, { label: "Now", href: "#" }, { label: "Uses", href: "#" }, { label: "Contact", href: "#" }] },
+];
+const footerSocials = [
+  { label: "GitHub", href: "https://github.com/" },
+  { label: "X", href: "https://x.com/" },
+  { label: "RSS", href: "#" },
+];
+const personalSocials = [
+  { label: "GitHub", href: "https://github.com/" },
+  { label: "LinkedIn", href: "https://linkedin.com/" },
+  { label: "X", href: "https://x.com/" },
+  { label: "Email", href: "mailto:hello@example.com" },
 ];
 
 const kinds = {
@@ -505,5 +551,128 @@ const kinds = {
       </PersonalHero>
     </div>
     <Container size="wide"><p class="text-[0.8125rem] text-muted-foreground">The dot name over the hatch frame, and a plain name.</p></Container>
+  </section>
+  <section id="piece-site-footer" class="flex flex-col gap-4 border-t pt-8">
+    <Container size="wide"><h2 class="text-lg font-medium">SiteFooter</h2></Container>
+    <div data-footer="columns"><SiteFooter site="freeoxide" tagline="Free Rust tools, finished before they ship." columns={siteFooterColumns} newsletter github="#" x="#" /></div>
+    <div data-footer="simple"><SiteFooter variant="simple" site="freeoxide" columns={siteFooterColumns} github="#" x="#" /></div>
+    <div data-footer="minimal"><SiteFooter variant="minimal" site="freeoxide" github="#" /></div>
+    <div data-footer="wash">
+      <SiteFooter site="example" tagline="Data loading for desktop apps: typed keys, one shared cache, refetch in the background." columns={siteFooterColumns} size="wide" github="#" x="#">
+        <WashGlow slot="stage" preset="chalk-dunes" />
+      </SiteFooter>
+    </div>
+    <Container size="wide"><p class="text-[0.8125rem] text-muted-foreground">Columns with a newsletter, simple and minimal, then wide over a faded wash of the hero material that brightens around the cursor.</p></Container>
+  </section>
+
+  <section id="piece-material-footer" class="flex flex-col gap-4 border-t pt-8">
+    <Container size="wide"><h2 class="text-lg font-medium">MaterialFooter</h2></Container>
+    <div data-footer="closing">
+      <MaterialFooter
+        site="example"
+        maker="studio"
+        href="#"
+        tagline="A small studio. We build web, mobile, and desktop software, carefully."
+        columns={studioColumns}
+        cta={{ title: "Got an app in mind?", primary: { label: "Start a project", href: "#" }, secondary: { label: "See our work", href: "#" } }}
+        status="Available for new projects"
+        legal="© 2026 example. A small studio."
+        aside="Remote · replies within a working day"
+      />
+    </div>
+    <div data-footer="plain"><MaterialFooter site="example" maker="studio" href="#" tagline="A small studio. We build web, mobile, and desktop software, carefully." columns={studioColumns} legal="© 2026 example. A small studio." /></div>
+    <Container size="wide"><p class="text-[0.8125rem] text-muted-foreground">With a closing line, and plain. Always dark; the dithered name rusts under the cursor.</p></Container>
+  </section>
+
+  <section id="piece-dot-footer" class="flex flex-col gap-4 border-t pt-8">
+    <Container size="wide"><h2 class="text-lg font-medium">DotFooter</h2></Container>
+    <DotFooter
+      site="example"
+      maker="by example"
+      href="#"
+      tagline="Open-source tools, one person at the keyboard. Every project gets real tests before it ships."
+      columns={footerColumns}
+      status="All checks green"
+      socials={footerSocials}
+      legal="© 2026 example · MIT / Apache-2.0"
+    />
+  </section>
+
+  <section id="piece-glyph-footer" class="flex flex-col gap-4 border-t pt-8">
+    <Container size="wide"><h2 class="text-lg font-medium">GlyphFooter</h2></Container>
+    <GlyphFooter
+      site="example"
+      maker="by example"
+      href="#"
+      tagline="Experiments in four languages: UI challenges, small games, command-line tools and what grew out of them."
+      columns={footerColumns}
+      eyebrow="example labs · a new experiment most weeks"
+      socials={footerSocials}
+      legal="© 2026 example · Code MIT unless a repo says otherwise"
+    />
+  </section>
+
+  <section id="piece-heat-footer" class="flex flex-col gap-4 border-t pt-8">
+    <Container size="wide"><h2 class="text-lg font-medium">HeatFooter</h2></Container>
+    <HeatFooter
+      site="example"
+      maker="by example"
+      href="#"
+      tagline="A separate command for every account. Your existing settings stay untouched."
+      columns={footerColumns}
+      command="bun add -g example-multi"
+      status={{ label: "Latest release 0.9.2", href: "#" }}
+      socials={footerSocials}
+      legal="© 2026 example · MIT licensed"
+      aside="Not affiliated with any provider"
+    />
+  </section>
+
+  <section id="piece-voxel-footer" class="flex flex-col gap-4 border-t pt-8">
+    <Container size="wide"><h2 class="text-lg font-medium">VoxelFooter</h2></Container>
+    <VoxelFooter
+      site="example"
+      maker="by example"
+      href="#"
+      tagline="One repo for the whole desktop app. Run it, then start deleting what you don’t need."
+      columns={footerColumns}
+      eyebrow="Release 0.3.0 · signed updates"
+      cta={{ title: "Start with the whole app.", primary: { label: "Get started", href: "#" }, secondary: { label: "Read the docs", href: "#" } }}
+      command="git clone https://example.com/starter.git"
+      socials={footerSocials}
+      legal="© 2026 example · MIT licensed"
+    />
+  </section>
+
+  <section id="piece-hatch-footer" class="flex flex-col gap-4 border-t pt-8">
+    <Container size="wide"><h2 class="text-lg font-medium">HatchFooter</h2></Container>
+    <HatchFooter
+      site="example"
+      href="#"
+      tagline="Software engineer. I build tools for the command line, the desktop and the web."
+      columns={personalColumns}
+      contact={{ label: "Get in touch", href: "mailto:hello@example.com" }}
+      socials={personalSocials}
+      legal="© 2026 example"
+    />
+  </section>
+
+  <section id="piece-calm-footer" class="flex flex-col gap-4 border-t pt-8">
+    <Container size="wide"><h2 class="text-lg font-medium">CalmFooter</h2></Container>
+    <CalmFooter
+      site="example"
+      maker="by example"
+      href="#"
+      tagline="Long notes on building software in the open: tools, desktop apps and the process behind them."
+      columns={readingColumns}
+      rss="#"
+      socials={[
+        { label: "GitHub", href: "https://github.com/" },
+        { label: "X", href: "https://x.com/" },
+        { label: "LinkedIn", href: "https://linkedin.com/" },
+      ]}
+      edit={{ label: "Edit this page on GitHub", href: "https://github.com/" }}
+      legal="© 2026 example · Words CC BY 4.0, code MIT"
+    />
   </section>
 </SiteLayout>

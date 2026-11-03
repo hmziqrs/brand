@@ -209,7 +209,7 @@ never hover: `RollingNumber`, `ThemeToggle` (view-transition reveal).
 
 Pages and navigation: `NavBar` (the default header: bar, floating,
 centered; hover menus with a line per page; a closable shader-poster
-announcement; a phone sheet; also in the Astro kit), `SiteFooter` (columns, simple, minimal), `CardCarousel`,
+announcement; a phone sheet; also in the Astro kit), `SiteFooter` (columns, simple, minimal, over an optional `stage`), `CardCarousel`,
 `FeatureCarousel`, `LineTabs`, `Roadmap`, `PersonCard`, `Gallery`,
 `CommentThread`, `NotificationList`, `FileDrop`, `ConsentBanner`.
 `System/Overview` in Storybook lists every piece by what it's for.
@@ -232,6 +232,20 @@ optional title bar), `DotName`, `ResolveTitle`, `AccentTitle`. The hero's
 section is the `data-pointer-host` the fields follow; every field is still
 for reduced motion, and the framework-free halves live in
 `@hmziq/brand-core/motion/*`.
+
+Footers (also in the Astro kit), each on the wide Container: `SiteFooter`
+with a `stage` (`WashGlow`: the hero's material faded almost to the page,
+drifting, brighter around the cursor), `MaterialFooter` (always dark over a
+blurred copper material, a closing line and a dithered name), `DotFooter`
+(the name as a dot matrix), `GlyphFooter` (the name in ■ □ ○ ◎ glyphs),
+`HeatFooter` (an install command, then an oxide dither field with the name
+standing in it), `VoxelFooter` (a voxel ridge carrying the last call to
+install), `HatchFooter` (the hatch frame around a dot name) and `CalmFooter`
+(an email box over a faint hatch, for reading). They share `FooterColumns`
+(mono oxide labels, optional tags), `FooterFamily` (the "More from hmziq"
+row) and `FooterSocials` (logo icon links), and the fields `PixelName`,
+`HeatField`, `FitWordmark`, `DitherName`, `VoxelField` and `WashGlow`, whose
+framework-free halves live in `@hmziq/brand-core/motion/*` too.
 
 ## Registry
 

@@ -181,3 +181,13 @@ export { default as HeatField } from "./components/heat-field.astro";
 export { default as PixelName } from "./components/pixel-name.astro";
 export { default as VoxelField } from "./components/voxel-field.astro";
 export { default as WashGlow } from "./components/wash-glow.astro";
+
+// Footers.
+export { default as CalmFooter } from "./blocks/sections/calm-footer.astro";
+export { default as DotFooter } from "./blocks/sections/dot-footer.astro";
+export { default as GlyphFooter } from "./blocks/sections/glyph-footer.astro";
+export { default as HatchFooter } from "./blocks/sections/hatch-footer.astro";
+export { default as HeatFooter } from "./blocks/sections/heat-footer.astro";
+export { default as MaterialFooter } from "./blocks/sections/material-footer.astro";
+export { default as SiteFooter } from "./components/site-footer.astro";
+export { default as VoxelFooter } from "./blocks/sections/voxel-footer.astro";

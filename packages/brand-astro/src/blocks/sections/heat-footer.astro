@@ -1,0 +1,75 @@
+---
+import { cn } from "$brand/utils";
+import Container from "$brand/blocks/site/container.astro";
+import Wordmark from "$brand/components/wordmark.astro";
+import CommandBox from "$brand/components/command-box.astro";
+import HeatField from "$brand/components/heat-field.astro";
+import FitWordmark from "$brand/components/fit-wordmark.astro";
+import FooterColumns, { type FooterColumn } from "$brand/components/footer-columns.astro";
+import FooterFamily from "$brand/components/footer-family.astro";
+import FooterSocials from "$brand/components/footer-socials.astro";
+
+/*
+ * An engineered footer: the install command, an optional status link and
+ * the columns up top, then an oxide dither field rising from the bottom edge
+ * that the cursor heats, with the site's name standing in it across the full
+ * width.
+ */
+
+interface Props {
+  site: string;
+  /** After the wordmark in small type: "by hmziq". */
+  maker?: string;
+  /** Where the wordmark links to. */
+  href?: string;
+  tagline: string;
+  columns: FooterColumn[];
+  /** The install command, with a copy button. */
+  command?: string;
+  /** A pill link under the command with a green dot: the latest release. */
+  status?: { label: string; href: string };
+  /** Icon links: GitHub, X, … */
+  socials?: { label: string; href: string }[];
+  legal?: string;
+  /** After the legal line: "Not affiliated with …". */
+  aside?: string;
+  class?: string;
+}
+
+const { site, maker, href = "/", tagline, columns, command, status, socials = [], legal = "© 2026 hmziq", aside, class: className } = Astro.props;
+---
+
+<footer data-slot="heat-footer" class={cn("relative overflow-hidden border-t border-border bg-background text-foreground", className)}>
+  <Container size="wide" class="pt-16">
+    <div class="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)]">
+      <div class="flex flex-col gap-5">
+        <a href={href} class="inline-flex items-baseline gap-2 self-start rounded-sm text-2xl outline-none focus-visible:ring-3 focus-visible:ring-ring/50">
+          <Wordmark name={site} />
+          {maker && <span class="text-base text-foreground/80">{maker}</span>}
+        </a>
+        <p class="max-w-[34ch] text-[17px] leading-snug">{tagline}</p>
+        {command && <CommandBox command={command} class="w-full max-w-sm bg-background" />}
+        {
+          status && (
+            <a href={status.href} class="inline-flex items-center gap-2 self-start rounded-md border border-border px-2.5 py-1 font-mono text-[11px] tracking-[0.08em] uppercase transition-colors hover:border-primary motion-reduce:transition-none"><i class="size-1.5 rounded-full bg-green"></i>{status.label}</a>
+          )
+        }
+      </div>
+      <FooterColumns columns={columns} />
+    </div>
+    <FooterFamily site={site} class="mt-14 border-t border-border pt-8" />
+  </Container>
+
+  <div class="relative mt-6">
+    <div class="relative h-[clamp(150px,21vw,300px)]">
+      <HeatField class="[mask-image:linear-gradient(to_bottom,black_58%,transparent)]" />
+    </div>
+    <Container size="wide" class="relative -mt-[clamp(52px,9.6vw,136px)]">
+      <FitWordmark name={site} max={250} />
+    </Container>
+    <Container size="wide" class="relative flex flex-wrap items-center justify-between gap-x-6 gap-y-3 pt-8 pb-12 font-mono text-[12px]">
+      <span class="text-muted-foreground">{aside ? `${legal} · ${aside}` : legal}</span>
+      {socials.length > 0 && <FooterSocials links={socials} />}
+    </Container>
+  </div>
+</footer>

@@ -315,6 +315,31 @@
 			]
 		},
 		{
+			"name": "calm-footer",
+			"type": "registry:file",
+			"title": "calm-footer",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/container",
+				"@hmziq/diagonal-hatch",
+				"@hmziq/footer-columns",
+				"@hmziq/footer-family",
+				"@hmziq/footer-socials",
+				"@hmziq/starwind-button",
+				"@hmziq/starwind-input",
+				"@hmziq/utils",
+				"@hmziq/wordmark"
+			],
+			"files": [
+				{
+					"path": "src/blocks/sections/calm-footer.astro",
+					"target": "src/components/brand/blocks/sections/calm-footer.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
 			"name": "check-list",
 			"type": "registry:file",
 			"title": "check-list",
@@ -851,6 +876,29 @@
 			]
 		},
 		{
+			"name": "dot-footer",
+			"type": "registry:file",
+			"title": "dot-footer",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/container",
+				"@hmziq/footer-columns",
+				"@hmziq/footer-family",
+				"@hmziq/footer-socials",
+				"@hmziq/pixel-name",
+				"@hmziq/utils",
+				"@hmziq/wordmark"
+			],
+			"files": [
+				{
+					"path": "src/blocks/sections/dot-footer.astro",
+					"target": "src/components/brand/blocks/sections/dot-footer.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
 			"name": "dot-name",
 			"type": "registry:file",
 			"title": "dot-name",
@@ -1183,6 +1231,54 @@
 			]
 		},
 		{
+			"name": "glyph-footer",
+			"type": "registry:file",
+			"title": "glyph-footer",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/container",
+				"@hmziq/footer-columns",
+				"@hmziq/footer-family",
+				"@hmziq/footer-socials",
+				"@hmziq/pixel-name",
+				"@hmziq/utils",
+				"@hmziq/wordmark"
+			],
+			"files": [
+				{
+					"path": "src/blocks/sections/glyph-footer.astro",
+					"target": "src/components/brand/blocks/sections/glyph-footer.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "hatch-footer",
+			"type": "registry:file",
+			"title": "hatch-footer",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/container",
+				"@hmziq/diagonal-hatch",
+				"@hmziq/dot-name",
+				"@hmziq/footer-columns",
+				"@hmziq/footer-family",
+				"@hmziq/footer-socials",
+				"@hmziq/starwind-button",
+				"@hmziq/utils",
+				"@hmziq/wordmark"
+			],
+			"files": [
+				{
+					"path": "src/blocks/sections/hatch-footer.astro",
+					"target": "src/components/brand/blocks/sections/hatch-footer.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
 			"name": "heat-field",
 			"type": "registry:file",
 			"title": "heat-field",
@@ -1197,6 +1293,31 @@
 				{
 					"path": "src/components/heat-field.astro",
 					"target": "src/components/brand/components/heat-field.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "heat-footer",
+			"type": "registry:file",
+			"title": "heat-footer",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/command-box",
+				"@hmziq/container",
+				"@hmziq/fit-wordmark",
+				"@hmziq/footer-columns",
+				"@hmziq/footer-family",
+				"@hmziq/footer-socials",
+				"@hmziq/heat-field",
+				"@hmziq/utils",
+				"@hmziq/wordmark"
+			],
+			"files": [
+				{
+					"path": "src/blocks/sections/heat-footer.astro",
+					"target": "src/components/brand/blocks/sections/heat-footer.astro",
 					"type": "registry:file"
 				}
 			]
@@ -1449,6 +1570,7 @@
 				"@hmziq/bulk-action-bar",
 				"@hmziq/bullets",
 				"@hmziq/button-link",
+				"@hmziq/calm-footer",
 				"@hmziq/check-list",
 				"@hmziq/code-block",
 				"@hmziq/code-editor",
@@ -1475,6 +1597,7 @@
 				"@hmziq/docs-pager",
 				"@hmziq/docs-search",
 				"@hmziq/docs-title",
+				"@hmziq/dot-footer",
 				"@hmziq/dot-name",
 				"@hmziq/element-card",
 				"@hmziq/empty-note",
@@ -1491,7 +1614,10 @@
 				"@hmziq/forgot-password-form",
 				"@hmziq/form-actions",
 				"@hmziq/glass",
+				"@hmziq/glyph-footer",
+				"@hmziq/hatch-footer",
 				"@hmziq/heat-field",
+				"@hmziq/heat-footer",
 				"@hmziq/hero",
 				"@hmziq/hero-actions",
 				"@hmziq/hero-lede",
@@ -1516,6 +1642,7 @@
 				"@hmziq/live-widget",
 				"@hmziq/mark",
 				"@hmziq/marker",
+				"@hmziq/material-footer",
 				"@hmziq/material-grid",
 				"@hmziq/material-text",
 				"@hmziq/material-wash",
@@ -1571,6 +1698,7 @@
 				"@hmziq/sign-in-form",
 				"@hmziq/sign-up-form",
 				"@hmziq/site-blocks-shared",
+				"@hmziq/site-footer",
 				"@hmziq/site-head",
 				"@hmziq/site-shell",
 				"@hmziq/skeleton-details",
@@ -1630,6 +1758,7 @@
 				"@hmziq/utils",
 				"@hmziq/verify-email",
 				"@hmziq/voxel-field",
+				"@hmziq/voxel-footer",
 				"@hmziq/wash-glow",
 				"@hmziq/wordmark",
 				"@hmziq/workspace-switcher"
@@ -1924,6 +2053,32 @@
 				{
 					"path": "src/components/marker.astro",
 					"target": "src/components/brand/components/marker.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "material-footer",
+			"type": "registry:file",
+			"title": "material-footer",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@lucide/astro@^1.48.0"
+			],
+			"registryDependencies": [
+				"@hmziq/container",
+				"@hmziq/dither-name",
+				"@hmziq/footer-columns",
+				"@hmziq/footer-family",
+				"@hmziq/shader-material",
+				"@hmziq/starwind-button",
+				"@hmziq/utils",
+				"@hmziq/wordmark"
+			],
+			"files": [
+				{
+					"path": "src/blocks/sections/material-footer.astro",
+					"target": "src/components/brand/blocks/sections/material-footer.astro",
 					"type": "registry:file"
 				}
 			]
@@ -3020,6 +3175,32 @@
 				{
 					"path": "src/blocks/site/plan.ts",
 					"target": "src/components/brand/blocks/site/plan.ts",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "site-footer",
+			"type": "registry:file",
+			"title": "site-footer",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0",
+				"simple-icons@16.32.0"
+			],
+			"registryDependencies": [
+				"@hmziq/brand-icon",
+				"@hmziq/container",
+				"@hmziq/mark",
+				"@hmziq/starwind-button",
+				"@hmziq/starwind-input",
+				"@hmziq/utils",
+				"@hmziq/wordmark"
+			],
+			"files": [
+				{
+					"path": "src/components/site-footer.astro",
+					"target": "src/components/brand/components/site-footer.astro",
 					"type": "registry:file"
 				}
 			]
@@ -5005,6 +5186,33 @@
 				{
 					"path": "src/components/voxel-field.astro",
 					"target": "src/components/brand/components/voxel-field.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "voxel-footer",
+			"type": "registry:file",
+			"title": "voxel-footer",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@lucide/astro@^1.48.0"
+			],
+			"registryDependencies": [
+				"@hmziq/command-box",
+				"@hmziq/container",
+				"@hmziq/footer-columns",
+				"@hmziq/footer-family",
+				"@hmziq/footer-socials",
+				"@hmziq/starwind-button",
+				"@hmziq/utils",
+				"@hmziq/voxel-field",
+				"@hmziq/wordmark"
+			],
+			"files": [
+				{
+					"path": "src/blocks/sections/voxel-footer.astro",
+					"target": "src/components/brand/blocks/sections/voxel-footer.astro",
 					"type": "registry:file"
 				}
 			]

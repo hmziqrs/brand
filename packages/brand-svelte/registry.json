@@ -419,6 +419,31 @@
 			]
 		},
 		{
+			"name": "calm-footer",
+			"type": "registry:lib",
+			"title": "calm-footer",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:container",
+				"local:diagonal-hatch",
+				"local:footer-columns",
+				"local:footer-family",
+				"local:footer-socials",
+				"local:ui-button",
+				"local:ui-input",
+				"local:utils",
+				"local:wordmark"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/sections/calm-footer.svelte",
+					"type": "registry:file",
+					"target": "blocks/sections/calm-footer.svelte"
+				}
+			]
+		},
+		{
 			"name": "check-list",
 			"type": "registry:lib",
 			"title": "check-list",
@@ -1345,6 +1370,29 @@
 			]
 		},
 		{
+			"name": "dot-footer",
+			"type": "registry:lib",
+			"title": "dot-footer",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:container",
+				"local:footer-columns",
+				"local:footer-family",
+				"local:footer-socials",
+				"local:pixel-name",
+				"local:utils",
+				"local:wordmark"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/sections/dot-footer.svelte",
+					"type": "registry:file",
+					"target": "blocks/sections/dot-footer.svelte"
+				}
+			]
+		},
+		{
 			"name": "dot-name",
 			"type": "registry:lib",
 			"title": "dot-name",
@@ -1672,6 +1720,54 @@
 			]
 		},
 		{
+			"name": "glyph-footer",
+			"type": "registry:lib",
+			"title": "glyph-footer",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:container",
+				"local:footer-columns",
+				"local:footer-family",
+				"local:footer-socials",
+				"local:pixel-name",
+				"local:utils",
+				"local:wordmark"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/sections/glyph-footer.svelte",
+					"type": "registry:file",
+					"target": "blocks/sections/glyph-footer.svelte"
+				}
+			]
+		},
+		{
+			"name": "hatch-footer",
+			"type": "registry:lib",
+			"title": "hatch-footer",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:container",
+				"local:diagonal-hatch",
+				"local:dot-name",
+				"local:footer-columns",
+				"local:footer-family",
+				"local:footer-socials",
+				"local:ui-button",
+				"local:utils",
+				"local:wordmark"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/sections/hatch-footer.svelte",
+					"type": "registry:file",
+					"target": "blocks/sections/hatch-footer.svelte"
+				}
+			]
+		},
+		{
 			"name": "heat-field",
 			"type": "registry:lib",
 			"title": "heat-field",
@@ -1687,6 +1783,31 @@
 					"path": "src/lib/components/heat-field.svelte",
 					"type": "registry:file",
 					"target": "components/heat-field.svelte"
+				}
+			]
+		},
+		{
+			"name": "heat-footer",
+			"type": "registry:lib",
+			"title": "heat-footer",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:command-box",
+				"local:container",
+				"local:fit-wordmark",
+				"local:footer-columns",
+				"local:footer-family",
+				"local:footer-socials",
+				"local:heat-field",
+				"local:utils",
+				"local:wordmark"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/sections/heat-footer.svelte",
+					"type": "registry:file",
+					"target": "blocks/sections/heat-footer.svelte"
 				}
 			]
 		},
@@ -1929,10 +2050,7 @@
 			"title": "kit",
 			"description": "The kit barrel and stylesheet. Depends on every other item, so installing it installs the whole kit.",
 			"dependencies": [
-				"@hmziq/brand-core@0.0.0",
-				"@lucide/svelte@^1.52.0",
-				"shadcn-svelte@^1.7.0",
-				"simple-icons@16.32.0"
+				"shadcn-svelte@^1.7.0"
 			],
 			"registryDependencies": [
 				"local:accent-title",
@@ -1957,6 +2075,7 @@
 				"local:bulk-action-bar",
 				"local:bullets",
 				"local:button-link",
+				"local:calm-footer",
 				"local:check-list",
 				"local:code-block",
 				"local:code-editor",
@@ -1988,6 +2107,7 @@
 				"local:docs-pager",
 				"local:docs-search",
 				"local:docs-title",
+				"local:dot-footer",
 				"local:dot-name",
 				"local:element-card",
 				"local:empty-note",
@@ -2004,7 +2124,10 @@
 				"local:forgot-password-form",
 				"local:form-actions",
 				"local:glass",
+				"local:glyph-footer",
+				"local:hatch-footer",
 				"local:heat-field",
+				"local:heat-footer",
 				"local:hero",
 				"local:hero-actions",
 				"local:hero-lede",
@@ -2030,6 +2153,7 @@
 				"local:live-widget",
 				"local:mark",
 				"local:marker",
+				"local:material-footer",
 				"local:material-grid",
 				"local:material-text",
 				"local:material-wash",
@@ -2096,6 +2220,7 @@
 				"local:sign-up-form",
 				"local:site-blocks",
 				"local:site-blocks-shared",
+				"local:site-footer",
 				"local:site-head",
 				"local:site-shell",
 				"local:skeleton-details",
@@ -2191,51 +2316,12 @@
 				"local:utils",
 				"local:verify-email",
 				"local:voxel-field",
+				"local:voxel-footer",
 				"local:wash-glow",
 				"local:wordmark",
 				"local:workspace-switcher"
 			],
 			"files": [
-				{
-					"path": "src/lib/blocks/sections/calm-footer.svelte",
-					"type": "registry:file",
-					"target": "blocks/sections/calm-footer.svelte"
-				},
-				{
-					"path": "src/lib/blocks/sections/dot-footer.svelte",
-					"type": "registry:file",
-					"target": "blocks/sections/dot-footer.svelte"
-				},
-				{
-					"path": "src/lib/blocks/sections/glyph-footer.svelte",
-					"type": "registry:file",
-					"target": "blocks/sections/glyph-footer.svelte"
-				},
-				{
-					"path": "src/lib/blocks/sections/hatch-footer.svelte",
-					"type": "registry:file",
-					"target": "blocks/sections/hatch-footer.svelte"
-				},
-				{
-					"path": "src/lib/blocks/sections/heat-footer.svelte",
-					"type": "registry:file",
-					"target": "blocks/sections/heat-footer.svelte"
-				},
-				{
-					"path": "src/lib/blocks/sections/material-footer.svelte",
-					"type": "registry:file",
-					"target": "blocks/sections/material-footer.svelte"
-				},
-				{
-					"path": "src/lib/blocks/sections/voxel-footer.svelte",
-					"type": "registry:file",
-					"target": "blocks/sections/voxel-footer.svelte"
-				},
-				{
-					"path": "src/lib/components/site-footer.svelte",
-					"type": "registry:file",
-					"target": "components/site-footer.svelte"
-				},
 				{
 					"path": "src/lib/index.ts",
 					"type": "registry:file",
@@ -2511,6 +2597,32 @@
 					"path": "src/lib/components/marker.svelte",
 					"type": "registry:file",
 					"target": "components/marker.svelte"
+				}
+			]
+		},
+		{
+			"name": "material-footer",
+			"type": "registry:lib",
+			"title": "material-footer",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@lucide/svelte@^1.52.0"
+			],
+			"registryDependencies": [
+				"local:container",
+				"local:dither-name",
+				"local:footer-columns",
+				"local:footer-family",
+				"local:shader-material",
+				"local:ui-button",
+				"local:utils",
+				"local:wordmark"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/sections/material-footer.svelte",
+					"type": "registry:file",
+					"target": "blocks/sections/material-footer.svelte"
 				}
 			]
 		},
@@ -3986,6 +4098,32 @@
 					"path": "src/lib/blocks/site/plan.ts",
 					"type": "registry:file",
 					"target": "blocks/site/plan.ts"
+				}
+			]
+		},
+		{
+			"name": "site-footer",
+			"type": "registry:lib",
+			"title": "site-footer",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0",
+				"simple-icons@16.32.0"
+			],
+			"registryDependencies": [
+				"local:brand-icon",
+				"local:container",
+				"local:mark",
+				"local:ui-button",
+				"local:ui-input",
+				"local:utils",
+				"local:wordmark"
+			],
+			"files": [
+				{
+					"path": "src/lib/components/site-footer.svelte",
+					"type": "registry:file",
+					"target": "components/site-footer.svelte"
 				}
 			]
 		},
@@ -7910,6 +8048,33 @@
 					"path": "src/lib/components/voxel-field.svelte",
 					"type": "registry:file",
 					"target": "components/voxel-field.svelte"
+				}
+			]
+		},
+		{
+			"name": "voxel-footer",
+			"type": "registry:lib",
+			"title": "voxel-footer",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@lucide/svelte@^1.52.0"
+			],
+			"registryDependencies": [
+				"local:command-box",
+				"local:container",
+				"local:footer-columns",
+				"local:footer-family",
+				"local:footer-socials",
+				"local:ui-button",
+				"local:utils",
+				"local:voxel-field",
+				"local:wordmark"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/sections/voxel-footer.svelte",
+					"type": "registry:file",
+					"target": "blocks/sections/voxel-footer.svelte"
 				}
 			]
 		},
