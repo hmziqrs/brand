@@ -45,7 +45,12 @@
 {/snippet}
 
 <section data-pointer-host class={cn('relative isolate flex min-h-[min(88svh,820px)] flex-col justify-center overflow-hidden', className)}>
-	{#if stage}<div class="absolute inset-0 -z-10">{@render stage()}</div>{/if}
+	{#if stage}
+		<div class="absolute inset-0 -z-10">{@render stage()}</div>
+		{#if !center}
+			<div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-[5] bg-[linear-gradient(to_right,color-mix(in_oklab,var(--background)_78%,transparent)_0%,color-mix(in_oklab,var(--background)_62%,transparent)_36%,color-mix(in_oklab,var(--background)_22%,transparent)_56%,transparent_68%)]"></div>
+		{/if}
+	{/if}
 	<div class={cn('pointer-events-none relative mx-auto w-full max-w-[82rem] px-6 py-24 lg:py-32 [&>*]:pointer-events-auto', center && 'flex flex-col items-center text-center')}>
 		{#if eyebrow}<div class="mb-7">{@render eyebrow()}</div>{/if}
 		{#if wordmark}<div data-display class={cn('mb-8 w-full', center && 'flex justify-center')}>{@render wordmark()}</div>{/if}
