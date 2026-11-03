@@ -4,6 +4,7 @@ import QueryNumbers from '$moves/review/bento/query-numbers.svelte';
 import StarterWired from '$moves/review/bento/starter-wired.svelte';
 import MultiMetal from '$moves/review/bento/multi-metal.svelte';
 import OxlabsFlow from '$moves/review/bento/oxlabs-flow.svelte';
+import OxlabsProcess from '$moves/review/bento/oxlabs-process.svelte';
 
 export type BentoSite = {
 	id: string;
@@ -86,6 +87,16 @@ export const bentos: BentoCandidate[] = [
 		src: `${dir}/oxlabs-flow.svelte`,
 		component: OxlabsFlow,
 		props: { here: here('oxlabs-flow') },
+		site: bentoSites.oxlabs
+	},
+	{
+		id: 'oxlabs-process',
+		name: 'Steps and playbooks · oxlabs',
+		line: 'The site-flora home step cards (a picker you point at, a build with comments and drifting cursors, one repo fanning out to six platforms) and the techniques playbook cards as starting points, with filter pills and material that zooms under the cursor.',
+		use: 'Real use: oxlabs.dev, as the how-we-work section; any service page that lists ways to start.',
+		src: `${dir}/oxlabs-process.svelte`,
+		component: OxlabsProcess,
+		props: { here: here('oxlabs-process') },
 		site: bentoSites.oxlabs
 	}
 ];
