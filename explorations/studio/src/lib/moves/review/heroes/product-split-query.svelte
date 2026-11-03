@@ -5,8 +5,9 @@
 	import BrandIcon from '$brand/components/brand-icon.svelte';
 	import Tag from '$brand/components/tag.svelte';
 	import ProductHero from './product-hero.svelte';
-	import QueryPath from './query-path.svelte';
+	import DevtoolsInspector from '$moves/bento/devtools-inspector.svelte';
 	import ProductWindow from './product-window.svelte';
+	import MaterialGrid from '../stages/material-grid.svelte';
 </script>
 
 <ProductHero
@@ -20,9 +21,10 @@
 		<Button href="#/c/hero/product-split-query" size="lg">Get started<ArrowRight class="lucide" data-icon="inline-end" /></Button>
 		<Button href="https://github.com/freeoxide/gpui-query" size="lg" variant="outline"><BrandIcon icon={siGithub} data-icon="inline-start" />GitHub</Button>
 	{/snippet}
+	{#snippet stage()}<MaterialGrid preset="chalk-dunes" presetLight="chalk-dunes" />{/snippet}
 	{#snippet visual()}
-		<ProductWindow title="query path · users" live>
-			<QueryPath header={false} />
+		<ProductWindow chrome={false}>
+			<DevtoolsInspector class="min-h-[23rem] bg-transparent" />
 		</ProductWindow>
 	{/snippet}
 </ProductHero>

@@ -1,6 +1,9 @@
 <script lang="ts">
 	import ShaderMaterial from '$brand/components/shader-material.svelte';
 	import TerminalBody from '$brand/components/terminal-body.svelte';
+	import { cn } from '$brand/utils.js';
+
+	let { panel = true }: { panel?: boolean } = $props();
 
 	type Row = { k: 'cmd' | 'out' | 'ok' | 'gap' | 'done'; a?: string; b?: string };
 	type Tab = { id: string; label: string; rows: Row[] };
@@ -74,8 +77,8 @@
 	}
 </script>
 
-<div class="relative isolate flex items-center justify-center overflow-hidden rounded-2xl p-3 sm:p-10">
-	<ShaderMaterial preset="copper-sweep" rendering="image" animated={false} controls={false} sizes="(min-width: 1024px) 50vw, 100vw" class="absolute inset-0 -z-10 bg-transparent" />
+<div class={cn('relative isolate flex items-center justify-center', panel && 'overflow-hidden rounded-2xl p-3 sm:p-10')}>
+	{#if panel}<ShaderMaterial preset="copper-sweep" rendering="image" animated={false} controls={false} sizes="(min-width: 1024px) 50vw, 100vw" class="absolute inset-0 -z-10 bg-transparent" />{/if}
 	<div data-slot="terminal" class="dark w-full max-w-[38rem] min-w-0 overflow-hidden rounded-xl border bg-[color-mix(in_oklab,var(--background)_90%,transparent)] text-foreground shadow-[0_1px_0_0_color-mix(in_oklab,white_8%,transparent)_inset,0_30px_70px_-24px_color-mix(in_oklab,black_75%,transparent),0_8px_20px_-12px_color-mix(in_oklab,black_50%,transparent)] backdrop-blur-md">
 		<div class="relative flex h-11 items-center border-b px-4">
 			<span aria-hidden="true" class="flex gap-2">

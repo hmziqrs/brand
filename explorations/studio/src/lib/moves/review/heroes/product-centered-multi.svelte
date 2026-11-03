@@ -5,7 +5,7 @@
 	import BrandIcon from '$brand/components/brand-icon.svelte';
 	import ProductHero from './product-hero.svelte';
 	import MultiTerminal from './multi-terminal.svelte';
-	import ShaderMaterial from '$brand/components/shader-material.svelte';
+	import MaterialGrid from '../stages/material-grid.svelte';
 </script>
 
 <ProductHero
@@ -19,10 +19,6 @@
 		<Button href="#/c/hero/product-centered-multi" size="lg">Get started<ArrowRight class="lucide" data-icon="inline-end" /></Button>
 		<Button href="https://github.com/hmziqrs/claude-multi" size="lg" variant="outline"><BrandIcon icon={siGithub} data-icon="inline-start" />GitHub</Button>
 	{/snippet}
-	{#snippet visual()}
-		<div class="relative isolate overflow-hidden rounded-2xl p-3 sm:p-8 lg:p-10">
-			<ShaderMaterial preset="white-sweep" rendering="image" animated={false} controls={false} sizes="(min-width: 1024px) 70vw, 100vw" class="absolute inset-0 -z-10 bg-transparent" />
-			<MultiTerminal />
-		</div>
-	{/snippet}
+	{#snippet stage()}<MaterialGrid preset="white-sweep" presetLight="white-sweep" />{/snippet}
+	{#snippet visual()}<MultiTerminal />{/snippet}
 </ProductHero>
