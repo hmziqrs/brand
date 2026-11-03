@@ -1,6 +1,7 @@
 import type { Component } from 'svelte';
 import QueryChores from '$moves/review/bento/query-chores.svelte';
 import QueryNumbers from '$moves/review/bento/query-numbers.svelte';
+import StarterWired from '$moves/review/bento/starter-wired.svelte';
 
 export type BentoSite = {
 	id: string;
@@ -54,6 +55,16 @@ export const bentos: BentoCandidate[] = [
 		component: QueryNumbers,
 		props: { here: here('query-numbers') },
 		site: bentoSites.gpuiQuery
+	},
+	{
+		id: 'starter-wired',
+		name: 'Wired, looped, packaged · gpui-starter',
+		line: 'The gpui-starter-1 feature strip as a full-width row of eight pixel icons that heat to oxide under the cursor, then the release loop (point at it to steer the dot) driving the five installers beside it: queued, building, signed, published.',
+		use: 'Real use: gpui-starter, under its split hero; any desktop product with a release story.',
+		src: `${dir}/starter-wired.svelte`,
+		component: StarterWired,
+		props: { here: here('starter-wired') },
+		site: bentoSites.gpuiStarter
 	}
 ];
 
