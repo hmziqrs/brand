@@ -19,7 +19,7 @@
 			<p class="hidden font-mono text-[11px] tracking-[0.08em] text-foreground/80 uppercase sm:block">Run the cursor through the name</p>
 		</Container>
 		<Container size="wide" class="pt-6 pb-4">
-			<PixelName text={site.name} look="glyphs" pitch={14} min={8} cols={90} reach={120} class="aspect-[3.6/1]" />
+			<PixelName text={site.name} look="glyphs" pitch={14} min={6} cols={90} reach={120} class="aspect-[2.4/1] sm:aspect-[3.6/1]" />
 		</Container>
 	</div>
 

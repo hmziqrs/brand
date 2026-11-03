@@ -2,7 +2,7 @@
 	import { mountCanvas, readColor, rgba, mix, trackPointer, valueNoise } from './canvas-kit';
 	import { prefs } from '$studio/prefs.svelte';
 
-	let { size = 22, reach = 115, lift = 58 }: { size?: number; reach?: number; lift?: number } = $props();
+	let { size = 22, reach = 115, lift = 58, quiet = false }: { size?: number; reach?: number; lift?: number; quiet?: boolean } = $props();
 	let canvas: HTMLCanvasElement | undefined = $state();
 
 	$effect(() => {
@@ -79,7 +79,7 @@
 						ctx.closePath();
 						ctx.fillStyle = rgba(heat > 0.05 ? mix(top, ox, heat) : top, 1);
 						ctx.fill();
-						ctx.strokeStyle = edge;
+						ctx.strokeStyle = quiet ? rgba(fg, 0.025 + 0.22 * heat) : edge;
 						ctx.lineWidth = 0.75;
 						ctx.stroke();
 					}
