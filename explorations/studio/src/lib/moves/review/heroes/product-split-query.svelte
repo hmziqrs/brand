@@ -6,6 +6,7 @@
 	import Tag from '$brand/components/tag.svelte';
 	import ProductHero from './product-hero.svelte';
 	import QueryPath from './query-path.svelte';
+	import ProductWindow from './product-window.svelte';
 </script>
 
 <ProductHero
@@ -19,5 +20,9 @@
 		<Button href="#/c/hero/product-split-query" size="lg">Get started<ArrowRight class="lucide" data-icon="inline-end" /></Button>
 		<Button href="https://github.com/freeoxide/gpui-query" size="lg" variant="outline"><BrandIcon icon={siGithub} data-icon="inline-start" />GitHub</Button>
 	{/snippet}
-	{#snippet visual()}<QueryPath />{/snippet}
+	{#snippet visual()}
+		<ProductWindow title="query path · users" live>
+			<QueryPath header={false} />
+		</ProductWindow>
+	{/snippet}
 </ProductHero>

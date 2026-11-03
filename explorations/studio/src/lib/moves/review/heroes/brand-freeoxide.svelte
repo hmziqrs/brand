@@ -35,8 +35,7 @@
 	{/snippet}
 	{#snippet actions()}
 		<Button href={here} size="lg">Browse the projects<ArrowRight class="lucide" data-icon="inline-end" /></Button>
-		<Button href={here} size="lg" variant="outline">About</Button>
-		<Button href="https://github.com/freeoxide" size="lg" variant="ghost"><BrandIcon icon={siGithub} data-icon="inline-start" />GitHub</Button>
+		<Button href="https://github.com/freeoxide" size="lg" variant="outline"><BrandIcon icon={siGithub} data-icon="inline-start" />GitHub</Button>
 	{/snippet}
 	{#snippet meta()}
 		<ul class="grid max-w-[46rem] grid-cols-2 gap-3 sm:grid-cols-4">

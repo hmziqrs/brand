@@ -5,7 +5,7 @@
 
 <section class="relative overflow-hidden border-b">
 	<ContourField />
-	<div class="relative mx-auto w-full max-w-[1320px] px-4 py-24 sm:px-8 lg:py-36">
+	<div class="relative mx-auto w-full max-w-[82rem] px-6 py-24 lg:py-36">
 		<MonoLabel text="About us" />
 		<h1 class="mt-6 max-w-[16ch] text-[clamp(48px,6.8vw,100px)] leading-[0.95] font-medium tracking-[-0.045em]">Ship workloads, <span class="text-orange">not infrastructure.</span></h1>
 		<div class="mt-10 max-w-[40rem] rounded-xl border bg-background/85 p-5 backdrop-blur-sm sm:p-6">

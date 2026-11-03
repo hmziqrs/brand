@@ -16,7 +16,7 @@
 	<ShaderMaterial preset="oxide-bloom" rendering="live" animated={playing} controls={false} loading="eager" fetchpriority="high" class="absolute inset-0 -z-20 h-full w-full" />
 	<RustGridField mode="reveal" cell={56} veil={0.8} fade="none" gap={0} line="--muted-foreground" class="-z-10" />
 
-	<div class="mx-auto w-full max-w-[1320px] px-4 sm:px-8">
+	<div class="mx-auto w-full max-w-[82rem] px-6">
 		<p class="inline-flex items-center gap-2 rounded-full bg-background px-3 py-1 font-mono text-xs tracking-wide text-foreground uppercase">
 			<span class="size-2 bg-primary motion-safe:animate-pulse"></span>oxlabs · app studio · booking now
 		</p>
