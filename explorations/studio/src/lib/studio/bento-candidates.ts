@@ -6,6 +6,7 @@ import MultiMetal from '$moves/review/bento/multi-metal.svelte';
 import OxlabsFlow from '$moves/review/bento/oxlabs-flow.svelte';
 import OxlabsProcess from '$moves/review/bento/oxlabs-process.svelte';
 import FreeoxideOpen from '$moves/review/bento/freeoxide-open.svelte';
+import HmziqWork from '$moves/review/bento/hmziq-work.svelte';
 
 export type BentoSite = {
 	id: string;
@@ -109,6 +110,16 @@ export const bentos: BentoCandidate[] = [
 		component: FreeoxideOpen,
 		props: { here: here('freeoxide-open') },
 		site: bentoSites.freeoxide
+	},
+	{
+		id: 'hmziq-work',
+		name: 'Work cards · hmziq.rs',
+		line: 'The site-linear blog cards as a work grid: six projects, each with a line drawing that follows the cursor (cache lanes, instance rings, a share fan, writing lines) or a material that drifts under it.',
+		use: 'Real use: hmziq.rs, under the hatch and dot-name hero; any personal site with a body of work.',
+		src: `${dir}/hmziq-work.svelte`,
+		component: HmziqWork,
+		props: { here: here('hmziq-work') },
+		site: bentoSites.hmziq
 	}
 ];
 
