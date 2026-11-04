@@ -1,0 +1,69 @@
+---
+import { lineArt, type LineArtKind } from "@hmziq/brand-core/motion/line-art";
+import { cn } from "$brand/utils";
+
+/*
+ * A thin-line drawing for a picture card, filling its box: lanes, rings, a
+ * fan, bars, a window, the four surfaces, a phone, a webview, a native
+ * window, the edge, a database or a terminal. The part nearest the cursor
+ * over its host (the nearest [data-line-art-host], else its parent) lights
+ * in oxide; still for reduced motion.
+ */
+
+interface Props {
+  kind: LineArtKind;
+  class?: string;
+}
+
+const { kind, class: className } = Astro.props;
+const shapes = lineArt(kind, { x: 0.5, y: 0.5, on: false, still: false });
+---
+
+<svg data-slot="line-art" data-kind={kind} viewBox="0 0 320 200" class={cn("absolute inset-0 h-full w-full", className)} aria-hidden="true" fill="none" stroke-width="1">
+  {
+    shapes.map((s) => {
+      const Shape = s.tag;
+      return <Shape {...s.attrs} class={s.class} style={s.style} />;
+    })
+  }
+</svg>
+
+<script>
+  import { reducedMotion } from "@hmziq/brand-core/motion/canvas";
+  import { followLineArt, lineArt, type LineArtKind } from "@hmziq/brand-core/motion/line-art";
+
+  const drawings = new WeakMap<SVGSVGElement, () => void>();
+
+  function paint(svg: SVGSVGElement, x: number, y: number, on: boolean, still: boolean) {
+    const shapes = lineArt(svg.dataset.kind as LineArtKind, { x, y, on, still });
+    const els = svg.children;
+    shapes.forEach((s, i) => {
+      const el = els[i];
+      if (!el) return;
+      for (const [k, v] of Object.entries(s.attrs)) {
+        if (v === undefined) el.removeAttribute(k);
+        else if (el.getAttribute(k) !== String(v)) el.setAttribute(k, String(v));
+      }
+      if (s.class !== undefined && el.getAttribute("class") !== s.class) el.setAttribute("class", s.class);
+      if (s.style !== undefined && el.getAttribute("style") !== s.style) el.setAttribute("style", s.style);
+    });
+  }
+
+  function mount(svg: SVGSVGElement) {
+    const still = reducedMotion();
+    drawings.set(svg, followLineArt(svg, (x, y, on) => paint(svg, x, y, on, still)));
+  }
+
+  function initAll() {
+    for (const svg of document.querySelectorAll<SVGSVGElement>("svg[data-slot='line-art']")) if (!drawings.has(svg)) mount(svg);
+  }
+
+  initAll();
+  document.addEventListener("astro:page-load", initAll);
+  document.addEventListener("astro:before-swap", () => {
+    for (const svg of document.querySelectorAll<SVGSVGElement>("svg[data-slot='line-art']")) {
+      drawings.get(svg)?.();
+      drawings.delete(svg);
+    }
+  });
+</script>

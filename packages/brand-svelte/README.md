@@ -248,6 +248,27 @@ row) and `FooterSocials` (logo icon links), and the fields `PixelName`,
 `HeatField`, `FitWordmark`, `DitherName`, `VoxelField` and `WashGlow`, whose
 framework-free halves live in `@hmziq/brand-core/motion/*` too.
 
+Feature sections (also in the Astro kit), the parts between a hero and a
+footer, each on the wide Container: `SectionHead` (a mono oxide kicker, a big
+title with an optional oxide phrase and a lede; split, stack or center, lg or
+the md head of a part), `StepsSection` (numbered `StepCards`, each step's demo
+a snippet), `PictureSection` (a `PictureGrid` of `PictureCard`s: one card
+anatomy, a `LineArt` drawing that follows the cursor with a Tag on it, then the
+title, dek and meta; optional filter pills), `SurfaceBento` (four
+`SurfaceTile`s, each an `AppMock` on its material, beside one oxide card),
+`ProjectsSection` (`ProjectRows`: a sticky rail of Marks beside one row per
+project, its terminal on its material) and `CatalogSection` (a mega title with
+a dot-face word, then `CatalogCard`s you pick from). Beside them: `FlowSteps`
+(a flowchart with running wires, a content snippet per step), `GlassBand` (a
+frosted panel on a drifting material band), `StatTile` (a big number on an
+oxide or outline card, with a dot-face flavour) and `ReleaseLoop` (the release
+as a loop you can steer, driving the installers beside it). Material is only
+ever a surface behind a product or a band behind glass; pictures are line
+drawings or real UI. The framework-free halves (`line-art`, `flow-wires`,
+`release-loop`) live in `@hmziq/brand-core/motion/*`. Nothing moves on hover:
+the cards change color, while drawings, tilts and materials follow the
+cursor's position, and all of it holds still for reduced motion.
+
 ## Registry
 
 `registry.json` is generated, never hand-edited: `bun run registry:generate`

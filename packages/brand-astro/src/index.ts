@@ -191,3 +191,32 @@ export { default as HeatFooter } from "./blocks/sections/heat-footer.astro";
 export { default as MaterialFooter } from "./blocks/sections/material-footer.astro";
 export { default as SiteFooter } from "./components/site-footer.astro";
 export { default as VoxelFooter } from "./blocks/sections/voxel-footer.astro";
+
+// Feature section parts.
+export { default as AppMock } from "./components/app-mock.astro";
+export { default as CatalogCard } from "./components/catalog-card.astro";
+export type { CatalogItem } from "./components/catalog-card.astro";
+export { default as FlowSteps } from "./components/flow-steps.astro";
+export type { FlowStep } from "./components/flow-steps.astro";
+export { default as LineArt } from "./components/line-art.astro";
+export { default as PictureCard } from "./components/picture-card.astro";
+export type { PictureItem } from "./components/picture-card.astro";
+export { default as PictureGrid } from "./components/picture-grid.astro";
+export { default as ProjectRows } from "./components/project-rows.astro";
+export type { ProjectRow } from "./components/project-rows.astro";
+export { default as ReleaseLoop } from "./components/release-loop.astro";
+export type { ReleaseInstaller, ReleaseStep } from "./components/release-loop.astro";
+export { default as StatTile } from "./components/stat-tile.astro";
+export { default as StepCards } from "./components/step-cards.astro";
+export type { StepCard } from "./components/step-cards.astro";
+export { default as SurfaceTile } from "./components/surface-tile.astro";
+export { default as GlassBand } from "./blocks/sections/glass-band.astro";
+export { default as SectionHead } from "./blocks/sections/section-head.astro";
+
+// Feature sections.
+export { default as CatalogSection } from "./blocks/sections/catalog-section.astro";
+export { default as PictureSection } from "./blocks/sections/picture-section.astro";
+export { default as ProjectsSection } from "./blocks/sections/projects-section.astro";
+export { default as StepsSection } from "./blocks/sections/steps-section.astro";
+export { default as SurfaceBento } from "./blocks/sections/surface-bento.astro";
+export type { Surface } from "./blocks/sections/surface-bento.astro";

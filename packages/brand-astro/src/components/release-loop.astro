@@ -1,0 +1,261 @@
+---
+import { Check, KeyRound } from "@lucide/astro";
+import { siApple, siLinux } from "simple-icons";
+import { bumpPatch, fillVersion, installerState, loopHeight, loopPath, loopPoint, loopStage, loopStart, loopStops, loopWidth } from "@hmziq/brand-core/motion/release-loop";
+import { cn } from "$brand/utils";
+import BrandIcon from "./brand-icon.astro";
+
+/*
+ * A release as a loop you can steer: a dot runs a racetrack through four
+ * stops (tag, build, sign, update) around the version and the last thing
+ * that happened, and the installers beside it queue, build, sign and
+ * publish as it passes. Each lap ships the next patch version. Pointing at
+ * the track pulls the dot toward the cursor. Below sm the track becomes a
+ * card and four step tiles; still for reduced motion.
+ */
+
+export type ReleaseStep = {
+  label: string;
+  detail: string;
+  /** What happened, under the version; {version} and {previous} are filled in. */
+  log: string;
+};
+
+export type ReleaseInstaller = {
+  os: "mac" | "windows" | "linux";
+  target: string;
+  /** The file name; {version} is filled in. */
+  file: string;
+  /** How it is signed, once it is. */
+  sign: string;
+  size: string;
+};
+
+export const releaseSteps: ReleaseStep[] = [
+  { label: "tag", detail: "git push --tags", log: "Tagged v{version} on main." },
+  { label: "build", detail: "on native runners", log: "Built dmg, msi, AppImage and deb." },
+  { label: "sign", detail: "your keys · ed25519", log: "Signed the installers and the update manifest." },
+  { label: "update", detail: "checked on launch", log: "Apps on {previous} offer the update at next launch." },
+];
+
+export const releaseInstallers: ReleaseInstaller[] = [
+  { os: "mac", target: "aarch64-apple-darwin", file: "Fieldnotes-{version}-arm64.dmg", sign: "signed + notarized", size: "11.8 MB" },
+  { os: "mac", target: "x86_64-apple-darwin", file: "Fieldnotes-{version}-x64.dmg", sign: "signed + notarized", size: "12.4 MB" },
+  { os: "windows", target: "x86_64-pc-windows-msvc", file: "Fieldnotes-{version}-x64.msi", sign: "Authenticode", size: "9.6 MB" },
+  { os: "linux", target: "x86_64-unknown-linux-gnu", file: "Fieldnotes-{version}.AppImage", sign: "detached .sig", size: "14.1 MB" },
+  { os: "linux", target: "x86_64-unknown-linux-gnu", file: "fieldnotes_{version}_amd64.deb", sign: "detached .sig", size: "10.2 MB" },
+];
+
+interface Props {
+  /** The version the loop starts on; each lap adds one to its last number. */
+  version?: string;
+  /** The four stops, in order round the loop. */
+  steps?: ReleaseStep[];
+  installers?: ReleaseInstaller[];
+  /** The word over the version. */
+  label?: string;
+  /** The installer list's name for screen readers. */
+  listLabel?: string;
+  class?: string;
+}
+
+const { version = "0.3.1", steps = releaseSteps, installers = releaseInstallers, label = "Release", listLabel = "Installers for this release", class: className } = Astro.props;
+
+const siWindows = { path: "M0 3.449 9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801" };
+const icon = (os: string) => (os === "mac" ? siApple : os === "linux" ? siLinux : siWindows);
+const previous = bumpPatch(version, -1);
+const stage = loopStage(loopStart);
+const point = loopPoint(loopStart);
+const log = fillVersion(steps[stage.active]?.log ?? "", version, previous);
+const rows = installers.map((_, i) => installerState(stage.active, stage.phase, i));
+const place = [
+  "-translate-y-[calc(100%+16px)]",
+  "-translate-y-1/2 translate-x-[calc(-100%-20px)] text-right",
+  "translate-y-[16px]",
+  "translate-x-[20px] -translate-y-1/2 text-left",
+];
+const data = JSON.stringify({ version, logs: steps.map((s) => s.log), files: installers.map((r) => r.file), signs: installers.map((r) => r.sign) });
+---
+
+<div data-slot="release-loop" data-loop={data} class={cn("grid min-w-0 gap-8 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] lg:items-center lg:gap-10", className)}>
+  <div class="min-w-0">
+    <div data-loop-box role="presentation" class="relative mx-auto hidden w-full max-w-[1000px] cursor-crosshair touch-pan-y sm:block" style={`aspect-ratio: ${loopWidth} / ${loopHeight};`}>
+      <svg viewBox={`0 0 ${loopWidth} ${loopHeight}`} class="absolute inset-0 h-full w-full overflow-visible" aria-hidden="true">
+        <path d={loopPath} fill="none" stroke="var(--line)" stroke-width="1.5" stroke-dasharray="3 6" />
+        <path data-loop-dash d={loopPath} fill="none" stroke="var(--primary)" stroke-width="2" pathLength="1" stroke-dasharray="0.08 0.92" stroke-dashoffset={0.08 - loopStart} stroke-linecap="round" />
+        {
+          loopStops.map((s, n) => (
+            <circle data-loop-stop={n} cx={s.x} cy={s.y} r={n === stage.active ? 8 : 5} fill={n === stage.active ? "var(--primary)" : "var(--background)"} stroke={n === stage.active ? "var(--primary)" : "var(--muted-foreground)"} stroke-width="1.5" />
+          ))
+        }
+        <circle data-loop-dot cx={point.x} cy={point.y} r="4.5" fill="var(--primary)" />
+      </svg>
+      {
+        steps.map((step, n) => (
+          <div class={cn("pointer-events-none absolute w-40 -translate-x-1/2 text-center", place[n])} style={`left: ${(loopStops[n].x / loopWidth) * 100}%; top: ${(loopStops[n].y / loopHeight) * 100}%;`}>
+            <p data-loop-label={n} data-active={n === stage.active ? "true" : undefined} class="font-mono text-[12px] tracking-[0.12em] text-foreground uppercase data-active:text-primary">{step.label}</p>
+            <p class="mt-0.5 text-xs text-muted-foreground">{step.detail}</p>
+          </div>
+        ))
+      }
+      <div class="pointer-events-none absolute inset-0 flex flex-col items-center justify-center px-[27%] text-center">
+        <p class="font-mono text-[11px] tracking-[0.14em] text-muted-foreground uppercase">{label}</p>
+        <p data-loop-version class="mt-1 font-mono text-[clamp(30px,4.2vw,52px)] leading-none font-medium tracking-[-0.04em] text-foreground tabular-nums">v{version}</p>
+        <p data-loop-log class="mt-3 min-h-[2.6em] max-w-[30ch] text-[13px] leading-snug text-foreground/85">{log}</p>
+      </div>
+    </div>
+
+    <div class="sm:hidden">
+      <div class="rounded-2xl p-5 text-center ring-1 ring-foreground/10">
+        <p class="font-mono text-[11px] tracking-[0.14em] text-muted-foreground uppercase">{label}</p>
+        <p data-loop-version class="mt-1 font-mono text-4xl leading-none font-medium tracking-[-0.04em] tabular-nums">v{version}</p>
+        <p data-loop-log class="mt-3 min-h-[2.6em] text-[13px] text-foreground/85">{log}</p>
+      </div>
+      <ol class="mt-3 grid grid-cols-2 gap-2">
+        {
+          steps.map((step, n) => (
+            <li data-loop-tile={n} data-active={n === stage.active ? "true" : undefined} class="group/step rounded-xl p-3 ring-1 ring-foreground/10 transition-shadow data-active:ring-primary">
+              <p class="font-mono text-[12px] tracking-[0.12em] text-foreground uppercase group-data-active/step:text-primary"><span class="text-muted-foreground">0{n + 1}</span>{` ${step.label}`}</p>
+              <p class="mt-1 text-xs text-muted-foreground">{step.detail}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </div>
+
+  <ul class="flex min-w-0 flex-col gap-2" aria-label={listLabel}>
+    {
+      installers.map((r, i) => (
+        <li data-loop-row={i} data-state={rows[i].kind} class="group/row flex min-w-0 items-center gap-3 rounded-xl px-4 py-3 ring-1 ring-foreground/10 transition-shadow duration-300 hover:ring-primary/60 data-busy:not-hover:ring-primary/40 motion-reduce:transition-none">
+          <span class="grid size-8 shrink-0 place-items-center rounded-lg ring-1 ring-foreground/10"><BrandIcon icon={icon(r.os)} class="size-4" /></span>
+          <span class="flex min-w-0 flex-1 flex-col gap-1">
+            <span data-loop-file class="truncate font-mono text-[12.5px] text-foreground">{fillVersion(r.file, version, previous)}</span>
+            <span class="hidden h-1 overflow-hidden rounded-full bg-foreground/10 group-data-bar/row:block"><span data-loop-bar class="block h-full rounded-full bg-primary" style="width: 0%;"></span></span>
+            <span class="truncate font-mono text-[11px] text-muted-foreground group-data-bar/row:hidden">{r.target}</span>
+          </span>
+          <span class="flex shrink-0 flex-col items-end gap-1 text-right">
+            <span class="inline-flex items-center gap-1.5 text-[12px] text-muted-foreground group-data-[state=published]/row:text-foreground group-data-[state=signed]/row:text-foreground">
+              <i class="hidden size-1.5 rounded-full bg-green group-data-[state=published]/row:block"></i>
+              <Check class="lucide hidden size-3.5 text-green group-data-[state=signed]/row:block" />
+              <KeyRound class="lucide hidden size-3.5 group-data-[state=signing]/row:block" />
+              <span data-loop-status>{rows[i].kind}</span>
+            </span>
+            <span class="font-mono text-[11px] text-muted-foreground">{r.size}</span>
+          </span>
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<script>
+  import { reducedMotion } from "@hmziq/brand-core/motion/canvas";
+  import { advanceLoop, bumpPatch, fillVersion, installerState, loopHeight, loopPoint, loopStage, loopStart, loopStops, loopWidth, nearestOnLoop } from "@hmziq/brand-core/motion/release-loop";
+
+  type LoopData = { version: string; logs: string[]; files: string[]; signs: string[] };
+  const loops = new WeakMap<HTMLElement, () => void>();
+
+  function mount(root: HTMLElement) {
+    const data: LoopData = JSON.parse(root.dataset.loop ?? "{}");
+    const box = root.querySelector<HTMLElement>("[data-loop-box]");
+    const dash = root.querySelector<SVGPathElement>("[data-loop-dash]");
+    const dot = root.querySelector<SVGCircleElement>("[data-loop-dot]");
+    const stops = [...root.querySelectorAll<SVGCircleElement>("[data-loop-stop]")];
+    const labels = [...root.querySelectorAll<HTMLElement>("[data-loop-label]")];
+    const tiles = [...root.querySelectorAll<HTMLElement>("[data-loop-tile]")];
+    const versions = [...root.querySelectorAll<HTMLElement>("[data-loop-version]")];
+    const logs = [...root.querySelectorAll<HTMLElement>("[data-loop-log]")];
+    const rows = [...root.querySelectorAll<HTMLElement>("[data-loop-row]")];
+    let progress = loopStart;
+    let target: number | null = null;
+    let laps = 0;
+
+    const render = () => {
+      const { active, phase } = loopStage(progress);
+      const current = bumpPatch(data.version, laps);
+      const previous = bumpPatch(current, -1);
+      dash?.setAttribute("stroke-dashoffset", String(0.08 - progress));
+      const p = loopPoint(progress);
+      dot?.setAttribute("cx", String(p.x));
+      dot?.setAttribute("cy", String(p.y));
+      stops.forEach((c, n) => {
+        const on = n === active;
+        c.setAttribute("r", on ? "8" : "5");
+        c.setAttribute("fill", on ? "var(--primary)" : "var(--background)");
+        c.setAttribute("stroke", on ? "var(--primary)" : "var(--muted-foreground)");
+      });
+      [...labels, ...tiles].forEach((el) => el.toggleAttribute("data-active", Number(el.dataset.loopLabel ?? el.dataset.loopTile) === active));
+      versions.forEach((el) => (el.textContent = `v${current}`));
+      const log = fillVersion(data.logs[active] ?? "", current, previous);
+      logs.forEach((el) => (el.textContent = log));
+      rows.forEach((row, i) => {
+        const st = installerState(active, phase, i);
+        const state = st.kind === "building" ? (st.share >= 1 ? "built" : "building") : st.kind === "built" ? "signing" : st.kind;
+        row.dataset.state = state;
+        row.toggleAttribute("data-busy", st.kind === "building" && st.share > 0 && st.share < 1);
+        row.toggleAttribute("data-bar", st.kind === "building");
+        const bar = row.querySelector<HTMLElement>("[data-loop-bar]");
+        if (bar) bar.style.width = `${st.share * 100}%`;
+        const file = row.querySelector<HTMLElement>("[data-loop-file]");
+        if (file) file.textContent = fillVersion(data.files[i] ?? "", current, previous);
+        const status = row.querySelector<HTMLElement>("[data-loop-status]");
+        if (status) status.textContent = state === "signed" ? (data.signs[i] ?? "") : state;
+      });
+    };
+
+    const aim = (e: PointerEvent) => {
+      if (!box) return;
+      const r = box.getBoundingClientRect();
+      target = nearestOnLoop(((e.clientX - r.left) / r.width) * loopWidth, ((e.clientY - r.top) / r.height) * loopHeight);
+    };
+    const release = () => (target = null);
+    box?.addEventListener("pointermove", aim);
+    box?.addEventListener("pointerleave", release);
+    render();
+
+    let raf = 0;
+    let io: IntersectionObserver | undefined;
+    if (!reducedMotion()) {
+      let prev = 0;
+      let visible = true;
+      let last = loopStage(progress).active;
+      io = new IntersectionObserver((e) => (visible = e.some((x) => x.isIntersecting)));
+      io.observe(root);
+      const frame = (now: number) => {
+        raf = requestAnimationFrame(frame);
+        const dt = prev ? Math.min(0.05, (now - prev) / 1000) : 0;
+        prev = now;
+        if (!visible) return;
+        progress = advanceLoop(progress, target, dt);
+        const active = loopStage(progress).active;
+        if (active !== last) {
+          if (active === 0 && last === loopStops.length - 1 && target === null) laps++;
+          last = active;
+        }
+        render();
+      };
+      raf = requestAnimationFrame(frame);
+    }
+
+    loops.set(root, () => {
+      cancelAnimationFrame(raf);
+      io?.disconnect();
+      box?.removeEventListener("pointermove", aim);
+      box?.removeEventListener("pointerleave", release);
+    });
+  }
+
+  function initAll() {
+    for (const root of document.querySelectorAll<HTMLElement>("[data-slot='release-loop']")) if (!loops.has(root)) mount(root);
+  }
+
+  initAll();
+  document.addEventListener("astro:page-load", initAll);
+  document.addEventListener("astro:before-swap", () => {
+    for (const root of document.querySelectorAll<HTMLElement>("[data-slot='release-loop']")) {
+      loops.get(root)?.();
+      loops.delete(root);
+    }
+  });
+</script>

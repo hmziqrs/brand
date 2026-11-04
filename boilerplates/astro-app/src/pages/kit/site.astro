@@ -67,6 +67,16 @@ import MaterialFooter from "$brand/blocks/sections/material-footer.astro";
 import VoxelFooter from "$brand/blocks/sections/voxel-footer.astro";
 import PersonalHero from "$brand/blocks/sections/personal-hero.astro";
 import ProductHero from "$brand/blocks/sections/product-hero.astro";
+import CatalogSection from "$brand/blocks/sections/catalog-section.astro";
+import GlassBand from "$brand/blocks/sections/glass-band.astro";
+import PictureSection from "$brand/blocks/sections/picture-section.astro";
+import ProjectsSection from "$brand/blocks/sections/projects-section.astro";
+import SectionHead from "$brand/blocks/sections/section-head.astro";
+import StepsSection from "$brand/blocks/sections/steps-section.astro";
+import SurfaceBento from "$brand/blocks/sections/surface-bento.astro";
+import PictureGrid from "$brand/components/picture-grid.astro";
+import StepDemo from "../../components/kit/step-demo.astro";
+import { glassPoints, playbooks, projects, providers, steps, surfaceCard, surfaces, work } from "../../components/kit/features-data";
 import ThemeInit from "../../components/theme-init.astro";
 import ThemeToggle from "../../components/theme-toggle.astro";
 import type { Tone } from "@hmziq/brand-core/tones";
@@ -674,5 +684,74 @@ const kinds = {
       edit={{ label: "Edit this page on GitHub", href: "https://github.com/" }}
       legal="© 2026 example · Words CC BY 4.0, code MIT"
     />
+  </section>
+  <section id="piece-section-head" class="flex flex-col gap-4 border-t pt-8">
+    <Container size="wide" class="flex flex-col gap-10">
+      <h2 class="text-lg font-medium">SectionHead</h2>
+      <SectionHead kicker="What it does" title="Four chores your app stops doing by hand." lede="Every tile runs the real state machine. Drag across the timeline, point at the refetch rings, approve the pull request and click through the cache." />
+      <SectionHead kicker="Work" title="Things I've built lately." lede="Open-source tools, client apps and long notes on how they were made. Run the cursor across a card, then pick a thread and follow it.">
+        <Button slot="aside" href="#" variant="outline" size="lg">All work<ArrowRight class="lucide" data-icon="inline-end" /></Button>
+      </SectionHead>
+      <SectionHead kicker="In numbers" title="Fewer requests. No spinners on the way back." accent="No spinners" lede="Measured in the example inbox app, built twice: once with gpui-query, once with a fetch in every render." />
+      <SectionHead size="md" kicker="Starting points" title="Pick the project closest to yours." lede="Each one names the stack we reach for first. Filter by where it runs." />
+      <SectionHead layout="center" kicker="Release" title="Push a tag. Get five installers." lede="One workflow builds every installer on native runners and signs it with your keys." />
+      <p class="text-[0.8125rem] text-muted-foreground">Split, with an aside, with an oxide phrase, as the md head of a part, and centered.</p>
+    </Container>
+  </section>
+
+  <section id="piece-glass-band" class="flex flex-col gap-4 border-t pt-8">
+    <Container size="wide"><h2 class="text-lg font-medium">GlassBand</h2></Container>
+    <GlassBand preset="etched-silk" kicker="Working from day one" title="Small team, no hand-offs." lede="The people on the first call write the code, and you can reach them the whole way through." points={glassPoints}>
+      <Button slot="actions" href="#" size="lg">Book a call<ArrowRight class="lucide" data-icon="inline-end" /></Button>
+    </GlassBand>
+    <Container size="wide"><p class="text-[0.8125rem] text-muted-foreground">A frosted panel on drifting etched silk that shifts under the cursor.</p></Container>
+  </section>
+
+  <section id="piece-steps-section" class="flex flex-col gap-4 border-t pt-8">
+    <Container size="wide"><h2 class="text-lg font-medium">StepsSection</h2></Container>
+    <StepsSection kicker="How we work" title="From the first call to the store review." lede="Three steps, and the same people the whole way through. Point at the first card to pick what you need." steps={steps}>
+      <Button slot="actions" href="#" size="lg">Start a project<ArrowRight class="lucide" data-icon="inline-end" /></Button>
+      <StepDemo slot="demo-1" i={0} />
+      <StepDemo slot="demo-2" i={1} />
+      <StepDemo slot="demo-3" i={2} />
+      <SectionHead size="md" kicker="Starting points" title="Pick the project closest to yours." lede="Each one names the stack we reach for first. Filter by where it runs." class="mt-28 md:mt-36" />
+      <PictureGrid items={playbooks} filter="Where it runs" class="mt-10" />
+    </StepsSection>
+    <Container size="wide"><p class="text-[0.8125rem] text-muted-foreground">Three steps with live demos, then starting points as filterable picture cards.</p></Container>
+  </section>
+
+  <section id="piece-picture-section" class="flex flex-col gap-4 border-t pt-8">
+    <Container size="wide"><h2 class="text-lg font-medium">PictureSection</h2></Container>
+    <PictureSection kicker="Work" title="Things I've built lately." lede="Open-source tools, client apps and long notes on how they were made. Run the cursor across a card, then pick a thread and follow it." items={work}>
+      <Button slot="actions" href="#" variant="outline" size="lg">All work<ArrowRight class="lucide" data-icon="inline-end" /></Button>
+    </PictureSection>
+    <Container size="wide"><p class="text-[0.8125rem] text-muted-foreground">A body of work: six picture cards whose drawings follow the cursor.</p></Container>
+  </section>
+
+  <section id="piece-surface-bento" class="flex flex-col gap-4 border-t pt-8">
+    <Container size="wide"><h2 class="text-lg font-medium">SurfaceBento</h2></Container>
+    <SurfaceBento kicker="What we build" title="Phones, desktops, the web and the terminal." lede="One codebase when it fits, two when it does not. Move the cursor over a surface to tip the app toward you." size="md" surfaces={surfaces} card={surfaceCard}>
+      <Button slot="card-actions" href="#" variant="outline" size="lg">Start a project<ArrowRight class="lucide" data-icon="inline-end" /></Button>
+    </SurfaceBento>
+    <Container size="wide"><p class="text-[0.8125rem] text-muted-foreground">Four surfaces with real apps on their materials, beside one oxide card.</p></Container>
+  </section>
+
+  <section id="piece-projects-section" class="flex flex-col gap-4 border-t pt-8">
+    <Container size="wide"><h2 class="text-lg font-medium">ProjectsSection</h2></Container>
+    <ProjectsSection kicker="Open source" title="Every line, in the open." lede="I build the tools I wish I had, finish them properly and give them away. Pick one to see what it does and how it starts." projects={projects} />
+    <Container size="wide"><p class="text-[0.8125rem] text-muted-foreground">The rail follows the row in the middle of the screen.</p></Container>
+  </section>
+
+  <section id="piece-catalog-section" class="flex flex-col gap-4 border-t pt-8">
+    <Container size="wide"><h2 class="text-lg font-medium">CatalogSection</h2></Container>
+    <CatalogSection
+      title="Pick your provider"
+      accent="provider"
+      tags={[{ label: "claude-multi", tone: "orange" }, { label: "8 templates" }, { label: "One instance per key" }]}
+      lede="Every template maps a provider's models into Claude Code's Opus and fast slots. Bring a key, get an instance. Click a provider, then find it in the switcher below."
+      items={providers}
+      picked="ds"
+    />
+    <Container size="wide"><p class="text-[0.8125rem] text-muted-foreground">A mega title with a dot word, Tags beside the lede, then eight cards; click one to pick it.</p></Container>
   </section>
 </SiteLayout>

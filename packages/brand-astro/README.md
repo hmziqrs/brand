@@ -16,7 +16,7 @@ packages/brand-astro/
 │   ├── starwind/                Starwind stock components, with the brand's changes
 │   ├── components/              brand pieces (ported from apps/lab/src/components/brand)
 │   ├── blocks/site/             site blocks, content pieces, SiteLayout, SiteHead
-│   ├── blocks/sections/         the heroes (ProductHero, BrandHero, PersonalHero, AccentTitle) and the footers
+│   ├── blocks/sections/         the heroes (ProductHero, BrandHero, PersonalHero, AccentTitle), the footers and the feature sections
 │   ├── blocks/content/          content-page blocks (content-blocks.md)
 │   ├── blocks/app/              app blocks (app-blocks.md, phase 10)
 │   └── styles/kit.css           Starwind's stylesheet + the BRAND.md 3.1 adapter
@@ -41,6 +41,21 @@ and the fields `PixelName`, `HeatField`, `FitWordmark`, `DitherName`,
 `VoxelField` and `WashGlow`, which mount the same way as the hero fields.
 The newsletter inputs take the Svelte kit's input size through classes on
 Starwind's `Input` (h-9, px-2.5, text-sm from md).
+
+The feature sections (`StepsSection`, `PictureSection`, `SurfaceBento`,
+`ProjectsSection`, `CatalogSection`) and `SectionHead` and `GlassBand` sit in
+`blocks/sections/`; their parts (`StepCards`, `FlowSteps`, `PictureCard`,
+`PictureGrid`, `LineArt`, `SurfaceTile`, `AppMock`, `ProjectRows`,
+`CatalogCard`, `StatTile`, `ReleaseLoop`) are in `components/`. Where the
+Svelte kit takes a snippet per step, the Astro twin takes a named slot per
+step: `demo-1`, `demo-2`, … for `StepCards` and `content-1`, … for
+`FlowSteps`; the sections forward them. `LineArt` draws its server picture
+from core's `lineArt()` and patches the same elements on pointer moves;
+`FlowSteps` measures and draws its wires with core's `observeFlowWires()`;
+`ReleaseLoop` runs core's loop and writes the stage into `data-*` attributes
+that the classes read. Picking bubbles events, the Starwind way:
+`catalog-pick` (a `CatalogCard`, with its id) and `picture-filter` (a
+`PictureGrid` pill, with its group).
 
 `$brand` points at `src/` here, and at the folder the kit is installed into
 in a copied project (`src/components/brand`). Kit files import each other

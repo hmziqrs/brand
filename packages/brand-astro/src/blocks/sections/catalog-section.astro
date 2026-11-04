@@ -1,0 +1,52 @@
+---
+import "@fontsource/doto";
+import type { Tone } from "@hmziq/brand-core/tones";
+import { cn } from "$brand/utils";
+import Container from "$brand/blocks/site/container.astro";
+import CatalogCard, { type CatalogItem } from "$brand/components/catalog-card.astro";
+import Tag from "$brand/components/tag.astro";
+
+/*
+ * A catalog to pick from: a mega title with one word in the dot face, a row
+ * of Tags beside the lede, then CatalogCards four across. Picking a card
+ * rings it and bubbles a `catalog-pick` event with its id. The default slot
+ * follows the catalog inside the same section.
+ */
+
+interface Props {
+  title: string;
+  /** The word of the title set in oxide dots; it must appear in the title. */
+  accent?: string;
+  /** Tags beside the lede: the tool, the count, the rule. */
+  tags?: { label: string; tone?: Tone }[];
+  lede?: string;
+  items: CatalogItem[];
+  /** The picked item's id. */
+  picked?: string;
+  class?: string;
+}
+
+const { title, accent, tags = [], lede, items, picked, class: className } = Astro.props;
+const at = accent ? title.indexOf(accent) : -1;
+const parts = !accent || at < 0 ? { lead: title, hit: "", tail: "" } : { lead: title.slice(0, at), hit: accent, tail: title.slice(at + accent.length) };
+---
+
+<section data-slot="catalog-section" class={cn("overflow-x-clip py-24 sm:py-32", className)}>
+  <Container size="wide">
+    <h2 class="font-sans text-[clamp(2.7rem,8.4vw,7.5rem)] leading-[0.92] font-[500] tracking-[-0.05em] text-balance text-foreground">{parts.lead}{parts.hit && <em class="[font-family:Doto,ui-monospace,monospace] text-[1.02em] font-bold tracking-[-0.04em] text-(--primary) not-italic">{parts.hit}</em>}{parts.tail}</h2>
+    {
+      (tags.length > 0 || lede) && (
+        <div class="mt-8 flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+          <div class="flex flex-wrap gap-2">
+            {tags.map((t) => <Tag tone={t.tone}>{t.label}</Tag>)}
+          </div>
+          {lede && <p class="max-w-[30rem] text-[1.15rem] leading-snug text-foreground">{lede}</p>}
+        </div>
+      )
+    }
+    <div data-catalog class="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      {items.map((item) => <CatalogCard item={item} picked={picked === item.id} />)}
+    </div>
+    <slot />
+  </Container>
+</section>
