@@ -154,6 +154,18 @@
       "types": "./dist/motion/wash-glow.d.ts",
       "default": "./dist/motion/wash-glow.js"
     },
+    "./motion/line-art": {
+      "types": "./dist/motion/line-art.d.ts",
+      "default": "./dist/motion/line-art.js"
+    },
+    "./motion/flow-wires": {
+      "types": "./dist/motion/flow-wires.d.ts",
+      "default": "./dist/motion/flow-wires.js"
+    },
+    "./motion/release-loop": {
+      "types": "./dist/motion/release-loop.d.ts",
+      "default": "./dist/motion/release-loop.js"
+    },
     "./motion/scenes": {
       "types": "./dist/motion/scenes/index.d.ts",
       "default": "./dist/motion/scenes/index.js"

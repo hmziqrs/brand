@@ -129,6 +129,7 @@
       "name": "@hmziq/brand-astro",
       "version": "0.0.0",
       "dependencies": {
+        "@fontsource/doto": "^5.3.0",
         "@hmziq/brand-core": "workspace:*",
         "@lucide/astro": "^1.48.0",
         "@starwind-ui/astro": "^1.2.1",
@@ -183,6 +184,7 @@
       "dependencies": {
         "@fontsource-variable/jetbrains-mono": "^5.3.0",
         "@fontsource-variable/onest": "^5.3.1",
+        "@fontsource/doto": "^5.3.0",
         "@hmziq/brand-core": "workspace:*",
         "@lucide/svelte": "^1.52.0",
         "bits-ui": "^2.18.0",

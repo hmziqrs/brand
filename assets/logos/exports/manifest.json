@@ -1,7 +1,7 @@
 {
   "target": "logos",
   "command": "bun run render-assets --only logos",
-  "digest": "369ba0773acd798d60b3b3ca0a8ef17bba435d8506314725ed1a94ab7048d363",
+  "digest": "2c09f801cd0d3f2e3a6cc796ef1752edab55c50c4c531b35da77e16b713e45ba",
   "renderers": {
     "@resvg/resvg-js": "2.6.2",
     "opentype.js": "2.0.0",
@@ -86,7 +86,7 @@
     },
     {
       "path": "bun.lock",
-      "sha256": "dd5acd45bd2270f61439b8be491b5c283eba5e8d717a4621b0697b73dbf8155f"
+      "sha256": "db421fe803de3c5495f8be0739b9bf59692d9e3d3e5ba5283b82448351378fed"
     },
     {
       "path": "packages/brand-core/rings.css",
@@ -121,6 +121,10 @@
       "sha256": "77491d9a000bf08c9a0dd347348672eeec3272c050a6c60bfb9e4be83f59b3bd"
     },
     {
+      "path": "packages/brand-core/src/motion/flow-wires.ts",
+      "sha256": "b72b1495d98bceb0e94f4838e1fa8bc5d6214437f0086d3fbfd2c34ab4aa27ef"
+    },
+    {
       "path": "packages/brand-core/src/motion/frame.ts",
       "sha256": "feb3426b5bd0bf90ae617fd7cd0b6161c64cda73998c7fdf074a2d5e5b04ddf2"
     },
@@ -133,8 +137,16 @@
       "sha256": "a7f86cea30e40d0ed415c47e69345394e5e985934ac88a053e04bfc84796bb3a"
     },
     {
+      "path": "packages/brand-core/src/motion/line-art.ts",
+      "sha256": "aa727da19cf770b8b7ad4e74697a692b68e0a5bb86ec5dafacc1afcc65b43bd3"
+    },
+    {
       "path": "packages/brand-core/src/motion/pixel-name.ts",
       "sha256": "54ef1ec808a67ff309af39e7674b23b68bca6a22f3ba286f6b5a102388ee35a2"
+    },
+    {
+      "path": "packages/brand-core/src/motion/release-loop.ts",
+      "sha256": "395f765c0d39c826333c576ad9c551b78d935c764824d25f150eaa359bccdd15"
     },
     {
       "path": "packages/brand-core/src/motion/resolve-title.ts",
