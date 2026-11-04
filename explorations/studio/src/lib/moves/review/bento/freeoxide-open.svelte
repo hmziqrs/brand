@@ -1,15 +1,15 @@
 <script lang="ts">
 	import { cn } from '$brand/utils.js';
-	import Container from '$brand/blocks/site/container.svelte';
 	import RollingNumber from '$brand/components/rolling-number.svelte';
-	import CornerRings from '$brand/components/corner-rings.svelte';
-	import SectionHead from './section-head.svelte';
-	import ProjectRows, { type OpenProject } from './project-rows.svelte';
-	import { kicker, outline, subtitle } from './ui';
+	import StatTile from '$brand/components/stat-tile.svelte';
+	import type { ProjectRow } from '$brand/components/project-rows.svelte';
+	import ProjectsSection from '$brand/blocks/sections/projects-section.svelte';
+	import SectionHead from '$brand/blocks/sections/section-head.svelte';
+	import { outline } from './ui';
 
 	let { here = '#', class: className }: { here?: string; class?: string } = $props();
 
-	const projects: OpenProject[] = [
+	const projects: ProjectRow[] = [
 		{
 			id: 'gpui-starter',
 			name: 'gpui-starter',
@@ -144,53 +144,38 @@ match pulls.status() {
 
 	const dot = $derived(at === null ? null : { x: (at / (series.length - 1)) * 100, y: ((100 - 6 - ((series[at] - lo) / span) * 88) / 100) * 100 });
 
-	const stats = [
-		{ value: '5', label: 'Review rounds before a version number', tone: 'oxide' },
-		{ value: '>90%', label: 'Test coverage floor on every project', tone: 'outline' },
-		{ value: '100%', label: 'Open source, MIT or Apache-2.0', tone: 'outline' }
-	];
 </script>
 
-<section data-slot="freeoxide-open" class={cn('py-24 sm:py-32', className)}>
-	<Container size="wide">
-		<SectionHead kicker="Open source" title="Every line, in the open." lede="I build the tools I wish I had, finish them properly and give them away. Pick one to see what it does and how it starts." />
-		<ProjectRows {projects} {here} class="mt-12 md:mt-16" />
+<ProjectsSection kicker="Open source" title="Every line, in the open." lede="I build the tools I wish I had, finish them properly and give them away. Pick one to see what it does and how it starts." {projects} href={here} class={className}>
+	<div bind:this={root} class="mt-28 md:mt-36">
+		<SectionHead size="md" kicker="In use" title="Pulled into Rust projects every day." titleClass="max-w-[18ch]" />
 
-		<div bind:this={root} class="mt-28 md:mt-36">
-			<p class={kicker}>In use</p>
-			<h3 class={cn(subtitle, 'mt-4 max-w-[18ch]')}>Pulled into Rust projects every day.</h3>
-
-			<div class="mt-10 grid grid-cols-2 gap-3 lg:grid-cols-3">
-				<article class={cn(outline, 'col-span-2 grid min-w-0 gap-8 p-6 sm:p-8 lg:col-span-3 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-end')}>
-					<div class="flex flex-col gap-3">
-						<p class="flex items-center gap-2 font-mono text-xs text-muted-foreground"><span aria-hidden="true" class="size-1.5 bg-mark-square"></span>Example numbers, for layout only</p>
-						<p class="text-[clamp(3rem,7.4vw,6.5rem)] leading-[0.9] font-medium tracking-[-0.055em]"><RollingNumber value={1284906 + live} /></p>
-						<p class="text-lg text-foreground/85">Downloads across every tool, crates.io and releases</p>
+		<div class="mt-10 grid grid-cols-2 gap-3 lg:grid-cols-3">
+			<article class={cn(outline, 'col-span-2 grid min-w-0 gap-8 p-6 sm:p-8 lg:col-span-3 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-end')}>
+				<div class="flex flex-col gap-3">
+					<p class="flex items-center gap-2 font-mono text-xs text-muted-foreground"><span aria-hidden="true" class="size-1.5 bg-mark-square"></span>Example numbers, for layout only</p>
+					<p class="text-[clamp(3rem,7.4vw,6.5rem)] leading-[0.9] font-medium tracking-[-0.055em]"><RollingNumber value={1284906 + live} /></p>
+					<p class="text-lg text-foreground/85">Downloads across every tool, crates.io and releases</p>
+				</div>
+				<div class="flex min-w-0 flex-col gap-2">
+					<div role="presentation" class="relative cursor-crosshair" onpointermove={scrub} onpointerleave={() => (at = null)}>
+						<svg viewBox="0 0 300 100" role="img" aria-label="Downloads, January 2025 to today, rising" class="block h-auto w-full overflow-visible">
+							<line x1="0" x2="300" y1="94" y2="94" class="stroke-foreground/20" stroke-width="1" />
+							<path d={`${curve} L300 100 L0 100 Z`} class="fill-primary/10" />
+							<path d={curve} fill="none" class="stroke-primary" stroke-width="1.75" vector-effect="non-scaling-stroke" />
+						</svg>
+						{#if dot && at !== null}
+							<span aria-hidden="true" class="pointer-events-none absolute inset-y-0 w-px bg-foreground/40" style:left={`${dot.x}%`}></span>
+							<span aria-hidden="true" class="pointer-events-none absolute size-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary ring-2 ring-background" style:left={`${dot.x}%`} style:top={`${dot.y}%`}></span>
+							<span class={cn('pointer-events-none absolute top-0 rounded-md bg-background px-2 py-1 font-mono text-[11px] whitespace-nowrap text-foreground shadow-lg ring-1 ring-foreground/10', dot.x > 70 ? '-translate-x-[calc(100%+10px)]' : 'translate-x-[10px]')} style:left={`${dot.x}%`}>{when(at)} · {series[at]}k a week</span>
+						{/if}
 					</div>
-					<div class="flex min-w-0 flex-col gap-2">
-						<div role="presentation" class="relative cursor-crosshair" onpointermove={scrub} onpointerleave={() => (at = null)}>
-							<svg viewBox="0 0 300 100" role="img" aria-label="Downloads, January 2025 to today, rising" class="block h-auto w-full overflow-visible">
-								<line x1="0" x2="300" y1="94" y2="94" class="stroke-foreground/20" stroke-width="1" />
-								<path d={`${curve} L300 100 L0 100 Z`} class="fill-primary/10" />
-								<path d={curve} fill="none" class="stroke-primary" stroke-width="1.75" vector-effect="non-scaling-stroke" />
-							</svg>
-							{#if dot && at !== null}
-								<span aria-hidden="true" class="pointer-events-none absolute inset-y-0 w-px bg-foreground/40" style:left={`${dot.x}%`}></span>
-								<span aria-hidden="true" class="pointer-events-none absolute size-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary ring-2 ring-background" style:left={`${dot.x}%`} style:top={`${dot.y}%`}></span>
-								<span class={cn('pointer-events-none absolute top-0 rounded-md bg-background px-2 py-1 font-mono text-[11px] whitespace-nowrap text-foreground shadow-lg ring-1 ring-foreground/10', dot.x > 70 ? '-translate-x-[calc(100%+10px)]' : 'translate-x-[10px]')} style:left={`${dot.x}%`}>{when(at)} · {series[at]}k a week</span>
-							{/if}
-						</div>
-						<div class="flex justify-between font-mono text-xs text-muted-foreground"><span>Jan 2025</span><span>Point at the curve</span><span>Today</span></div>
-					</div>
-				</article>
-				{#each stats as s (s.label)}
-					<article class={cn('relative isolate flex min-h-40 min-w-0 flex-col justify-between gap-6 overflow-hidden rounded-2xl p-5 sm:min-h-52 sm:p-8', s.tone === 'oxide' ? 'col-span-2 band-orange lg:col-span-1' : outline)}>
-						{#if s.tone === 'oxide'}<CornerRings seed="freeoxide-rounds" color="var(--on-orange)" class="pointer-events-none -z-10 w-1/2 opacity-60 [&_circle]:[stroke-width:0.5]" />{/if}
-						<p class="text-[clamp(2.5rem,9vw,4.5rem)] leading-none font-medium tracking-[-0.045em]">{s.value}</p>
-						<p class={cn('text-[0.95rem]', s.tone === 'oxide' ? '' : 'text-foreground/85')}>{s.label}</p>
-					</article>
-				{/each}
-			</div>
+					<div class="flex justify-between font-mono text-xs text-muted-foreground"><span>Jan 2025</span><span>Point at the curve</span><span>Today</span></div>
+				</div>
+			</article>
+			<StatTile tone="oxide" value="5" label="Review rounds before a version number" rings="freeoxide-rounds" class="col-span-2 lg:col-span-1" />
+			<StatTile value=">90%" label="Test coverage floor on every project" />
+			<StatTile value="100%" label="Open source, MIT or Apache-2.0" />
 		</div>
-	</Container>
-</section>
+	</div>
+</ProjectsSection>

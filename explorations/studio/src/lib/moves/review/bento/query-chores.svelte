@@ -13,11 +13,11 @@
 	import OxideTile from '$moves/bento/oxide-tile.svelte';
 	import MaterialTile from '$moves/bento/material-tile.svelte';
 	import { install } from '$moves/bento/query-data';
-	import SectionHead from './section-head.svelte';
+	import SectionHead from '$brand/blocks/sections/section-head.svelte';
 	import CacheLanes from './cache-lanes.svelte';
 	import RefetchRings from './refetch-rings.svelte';
 	import RollbackRow from './rollback-row.svelte';
-	import { kicker, outline, subtitle, tileTitle } from './ui';
+	import { kicker, outline, tileTitle } from './ui';
 
 	let { class: className }: { here?: string; class?: string } = $props();
 
@@ -104,13 +104,7 @@ cache.invalidate_where(|k: &RepoKey| {
 			</article>
 		</div>
 
-		<div class="mt-24 grid gap-6 md:mt-28 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] lg:items-end lg:gap-12">
-			<div>
-				<p class={kicker}>Defaults</p>
-				<h3 class={cn(subtitle, 'mt-4')}>Defaults you can read in one grid.</h3>
-			</div>
-			<p class="max-w-[46ch] text-lg leading-snug text-foreground lg:justify-self-end">Borrowed from TanStack Query, because they hold up. Point at a default to see how one query changes it.</p>
-		</div>
+		<SectionHead size="md" kicker="Defaults" title="Defaults you can read in one grid." lede="Borrowed from TanStack Query, because they hold up. Point at a default to see how one query changes it." class="mt-24 md:mt-28" />
 		<div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
 			{#each defaults as d (d.name)}
 				<article class={cn(outline, 'group/default relative flex min-h-72 min-w-0 flex-col overflow-hidden')}>

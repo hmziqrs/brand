@@ -4,8 +4,8 @@
 	import { Button } from '$brand/ui/button/index.js';
 	import Container from '$brand/blocks/site/container.svelte';
 	import CommandBox from '$brand/components/command-box.svelte';
-	import SectionHead from './section-head.svelte';
-	import ReleaseLoop from './release-loop.svelte';
+	import SectionHead from '$brand/blocks/sections/section-head.svelte';
+	import ReleaseLoop from '$brand/components/release-loop.svelte';
 
 	let { here = '#', class: className }: { here?: string; class?: string } = $props();
 </script>
