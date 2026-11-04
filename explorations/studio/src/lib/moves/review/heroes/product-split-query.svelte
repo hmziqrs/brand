@@ -5,7 +5,7 @@
 	import BrandIcon from '$brand/components/brand-icon.svelte';
 	import Tag from '$brand/components/tag.svelte';
 	import ProductHero from '$brand/blocks/sections/product-hero.svelte';
-	import DevtoolsInspector from '$moves/bento/devtools-inspector.svelte';
+	import DevtoolsInspector from '$moves/review/parts/bento/devtools-inspector.svelte';
 	import ProductWindow from '$brand/components/product-window.svelte';
 	import MaterialWash from '$brand/components/material-wash.svelte';
 </script>

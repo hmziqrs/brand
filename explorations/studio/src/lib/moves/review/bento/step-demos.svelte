@@ -7,7 +7,7 @@
 	import Globe from '@lucide/svelte/icons/globe';
 	import SquareTerminal from '@lucide/svelte/icons/square-terminal';
 	import Server from '@lucide/svelte/icons/server';
-	import CursorTag from '$moves/site-flora/cursor-tag.svelte';
+	import CursorTag from '$moves/review/parts/site-flora/cursor-tag.svelte';
 
 	let { i }: { i: number } = $props();
 

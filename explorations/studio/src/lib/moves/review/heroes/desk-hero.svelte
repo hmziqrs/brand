@@ -5,8 +5,8 @@
 	import BrandIcon from '$brand/components/brand-icon.svelte';
 	import { siApple } from 'simple-icons';
 	import MonitorSmartphone from '@lucide/svelte/icons/monitor';
-	import DeskWindow from '$moves/site-clicky/desk-window.svelte';
-	import DotDesk from '$moves/site-clicky/dot-desk.svelte';
+	import DeskWindow from '$moves/review/parts/site-clicky/desk-window.svelte';
+	import DotDesk from '$moves/review/parts/site-clicky/dot-desk.svelte';
 	import type { Snippet } from 'svelte';
 
 	let {

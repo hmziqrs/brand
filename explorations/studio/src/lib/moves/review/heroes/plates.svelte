@@ -3,8 +3,8 @@
 	import { siGithub } from 'simple-icons';
 	import { Button } from '$brand/ui/button/index.js';
 	import BrandIcon from '$brand/components/brand-icon.svelte';
-	import PlateStack from '$moves/voidzero/plate-stack.svelte';
-	import ModeBand from '$moves/voidzero/mode-band.svelte';
+	import PlateStack from '$moves/review/parts/voidzero/plate-stack.svelte';
+	import ModeBand from '$moves/review/parts/voidzero/mode-band.svelte';
 
 	const plates = [
 		{ label: 'five review rounds', side: 'left' as const },

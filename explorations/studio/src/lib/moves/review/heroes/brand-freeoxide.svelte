@@ -3,7 +3,7 @@
 	import { siGithub } from 'simple-icons';
 	import { Button } from '$brand/ui/button/index.js';
 	import BrandIcon from '$brand/components/brand-icon.svelte';
-	import DotMatrixWord from '$moves/northflank/dot-matrix-word.svelte';
+	import DotMatrixWord from '$moves/review/parts/northflank/dot-matrix-word.svelte';
 	import BrandHero from '$brand/blocks/sections/brand-hero.svelte';
 	import SceneStage from '$brand/components/scene-stage.svelte';
 

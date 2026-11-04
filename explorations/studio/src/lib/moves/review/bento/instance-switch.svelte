@@ -6,8 +6,8 @@
 	import { cn } from '$brand/utils.js';
 	import { Button } from '$brand/ui/button/index.js';
 	import Tag from '$brand/components/tag.svelte';
-	import ProviderMark from '$moves/dovetail/provider-mark.svelte';
-	import type { Provider } from '$moves/dovetail/providers';
+	import ProviderMark from '$moves/review/parts/dovetail/provider-mark.svelte';
+	import type { Provider } from '$moves/review/parts/dovetail/providers';
 
 	let {
 		providers,

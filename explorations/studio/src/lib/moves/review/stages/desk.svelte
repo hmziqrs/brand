@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { cn } from '$brand/utils.js';
 	import ShaderMaterial from '$brand/components/shader-material.svelte';
-	import DeskWindow from '$moves/site-clicky/desk-window.svelte';
-	import DotDesk from '$moves/site-clicky/dot-desk.svelte';
+	import DeskWindow from '$moves/review/parts/site-clicky/desk-window.svelte';
+	import DotDesk from '$moves/review/parts/site-clicky/dot-desk.svelte';
 
 	let { class: className }: { class?: string } = $props();
 

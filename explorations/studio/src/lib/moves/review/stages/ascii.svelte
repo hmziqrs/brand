@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { cn } from '$brand/utils.js';
-	import GlyphRain from '$moves/specimens/glyph-rain.svelte';
+	import GlyphRain from '$moves/review/parts/specimens/glyph-rain.svelte';
 
 	let { class: className }: { class?: string } = $props();
 </script>

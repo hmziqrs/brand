@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { cn } from '$brand/utils.js';
-	import PlateStack from '$moves/voidzero/plate-stack.svelte';
+	import PlateStack from '$moves/review/parts/voidzero/plate-stack.svelte';
 
 	let { class: className }: { class?: string } = $props();
 

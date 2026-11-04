@@ -3,12 +3,10 @@ import NotFoundPage from '$brand/blocks/content/not-found-page.svelte';
 import LegalPage from '$brand/blocks/content/legal-page.svelte';
 import FaqPage from '$brand/blocks/content/faq-page.svelte';
 import CvPage from '$brand/blocks/site/cv-page.svelte';
-import LabsIndex from '$brand/blocks/site/labs-index.svelte';
 import { notFound } from '$moves/review/pages/content';
 import { privacy, terms } from '$moves/review/pages/legal-data';
 import { faqEntries, faqIntro } from '$moves/review/pages/faq-data';
 import { cv } from '$moves/review/pages/cv-data';
-import { labsData } from '$moves/review/pages/labs-data';
 
 export type PagesCandidate = {
 	id: string;
@@ -74,18 +72,6 @@ export const pagesCandidates: PagesCandidate[] = [
 		site: { label: 'cv.hmziq.rs', footer: 'personal', current: 'CV' },
 		component: CvPage,
 		props: { data: cv }
-	},
-	{
-		id: 'labs-index',
-		name: 'Labs · experiments index',
-		line: 'Labs’ title and lede big beside the live GitHub numbers as stat tiles (contributions in solid oxide), then the twelve live repositories from hmziq.xyz as picture cards with line drawings, filtered by Experiments, Games and Tools, each with its stack tag, its line, stars, forks and last update.',
-		why: 'It is the approved picture-card pattern as is, filled with the real entries from the live hmziq.xyz instead of invented ones.',
-		from: 'the kit’s PictureCard with LineArt and PictureGrid with filter pills, StatTile; labs’ words from footers/sites.ts; the entries from the live hmziq.xyz',
-		invented: 'Sorting the twelve live repositories into Experiments, Games and Tools (the live site filters Flutter, Rust and Web). The title and lede are the studio’s labs site data (sites.ts), not live words; its game names (Pocket roguelike…) are not on the live site, so they are left out.',
-		src: `${kit}/site/labs-index.svelte`,
-		site: { label: 'hmziq.xyz', footer: 'glyphs', current: 'Experiments' },
-		component: LabsIndex,
-		props: { data: labsData }
 	}
 ];
 

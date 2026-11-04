@@ -9,10 +9,10 @@
 	import CommandBox from '$brand/components/command-box.svelte';
 	import IconTile from '$brand/components/icon-tile.svelte';
 	import TrendChart from '$brand/blocks/showcase/trend-chart.svelte';
-	import DevtoolsInspector from '$moves/bento/devtools-inspector.svelte';
-	import OxideTile from '$moves/bento/oxide-tile.svelte';
-	import MaterialTile from '$moves/bento/material-tile.svelte';
-	import { install } from '$moves/bento/query-data';
+	import DevtoolsInspector from '$moves/review/parts/bento/devtools-inspector.svelte';
+	import OxideTile from '$moves/review/parts/bento/oxide-tile.svelte';
+	import MaterialTile from '$moves/review/parts/bento/material-tile.svelte';
+	import { install } from '$moves/review/parts/bento/query-data';
 	import SectionHead from '$brand/blocks/sections/section-head.svelte';
 	import CacheLanes from './cache-lanes.svelte';
 	import RefetchRings from './refetch-rings.svelte';
