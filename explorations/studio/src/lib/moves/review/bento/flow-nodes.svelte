@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { cn } from '$brand/utils.js';
-	import ShaderMaterial from '$brand/components/shader-material.svelte';
 	import FileText from '@lucide/svelte/icons/file-text';
 	import PenTool from '@lucide/svelte/icons/pen-tool';
 	import Hammer from '@lucide/svelte/icons/hammer';
@@ -11,7 +10,7 @@
 	import SquareTerminal from '@lucide/svelte/icons/square-terminal';
 	import Check from '@lucide/svelte/icons/check';
 
-	let { preset = 'folded-foil', class: className }: { preset?: string; class?: string } = $props();
+	let { class: className }: { class?: string } = $props();
 
 	const steps = [
 		{ kind: 'brief', name: 'Brief', when: 'First call', icon: FileText, caption: 'One page that says who it is for and what done means.' },
@@ -117,9 +116,14 @@
 						</ul>
 						<p class="mt-4 inline-flex rounded-md px-2 py-1 font-mono text-[11px] text-foreground ring-1 ring-foreground/15">Signed off by both sides</p>
 					{:else if s.kind === 'design'}
-						<div class="relative h-24 overflow-hidden rounded-lg">
-							<ShaderMaterial {preset} rendering="image" loading="eager" controls={false} sizes="320px" class="absolute inset-0" />
-							<span class="absolute bottom-2 left-2 rounded bg-background px-1.5 py-0.5 text-lg leading-none font-medium tracking-tight text-foreground">Aa</span>
+						<div class="grid h-24 grid-cols-[auto_minmax(0,1fr)] items-center gap-4 rounded-lg px-4 ring-1 ring-foreground/10">
+							<span class="text-[2.75rem] leading-none font-medium tracking-[-0.04em] text-foreground">Aa</span>
+							<span class="flex flex-col gap-1.5" aria-hidden="true">
+								<span class="h-2 w-4/5 rounded-full bg-foreground/60"></span>
+								<span class="h-1.5 w-full rounded-full bg-foreground/25"></span>
+								<span class="h-1.5 w-3/5 rounded-full bg-foreground/25"></span>
+								<span class="mt-1 h-3 w-12 rounded-sm bg-primary"></span>
+							</span>
 						</div>
 						<div class="mt-3 flex items-center gap-1.5">
 							{#each ['bg-primary', 'bg-teal', 'bg-foreground', 'bg-background', 'bg-yellow'] as c (c)}

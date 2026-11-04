@@ -8,7 +8,6 @@
 	import CodeBlock from '$brand/components/code-block.svelte';
 	import CommandBox from '$brand/components/command-box.svelte';
 	import IconTile from '$brand/components/icon-tile.svelte';
-	import ShaderMaterial from '$brand/components/shader-material.svelte';
 	import TrendChart from '$brand/blocks/showcase/trend-chart.svelte';
 	import DevtoolsInspector from '$moves/bento/devtools-inspector.svelte';
 	import OxideTile from '$moves/bento/oxide-tile.svelte';
@@ -41,7 +40,7 @@ cache.invalidate_where(|k: &RepoKey| {
 
 	const defaults = [
 		{ title: 'Stale time', body: 'Data is stale the moment it lands, so the next mount refetches in the background.', icon: Timer, value: '0s', name: 'stale_time', override: '.stale_time(Duration::from_secs(30))' },
-		{ title: 'Garbage collection', body: 'Keys no view reads stay cached for five minutes, then go.', icon: Recycle, value: '5m', name: 'gc_time', override: '.gc_time(Duration::from_secs(600))', preset: 'mica-flakes' },
+		{ title: 'Garbage collection', body: 'Keys no view reads stay cached for five minutes, then go.', icon: Recycle, value: '5m', name: 'gc_time', override: '.gc_time(Duration::from_secs(600))' },
 		{ title: 'Retries', body: 'A failed fetch is tried three more times, waiting longer each time, before your view sees the error.', icon: RotateCw, value: '3', name: 'retry', override: '.retry(5)' },
 		{ title: 'Refetch on focus', body: 'When a window comes back to the front, its stale queries refresh.', icon: AppWindow, value: 'on', name: 'refetch_on_focus', override: '.refetch_on_focus(false)' }
 	];
@@ -115,13 +114,8 @@ cache.invalidate_where(|k: &RepoKey| {
 		<div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
 			{#each defaults as d (d.name)}
 				<article class={cn(outline, 'group/default relative flex min-h-72 min-w-0 flex-col overflow-hidden')}>
-					{#if d.preset}
-						<div class="relative h-28 shrink-0 overflow-hidden border-b border-foreground/10">
-							<ShaderMaterial preset={d.preset} rendering="image" controls={false} sizes="(min-width: 1024px) 25vw, 50vw" class="absolute inset-0 transition-transform duration-700 group-hover/default:scale-110 motion-reduce:transition-none motion-reduce:group-hover/default:scale-100" />
-						</div>
-					{/if}
 					<div class="flex flex-1 flex-col gap-4 p-5 sm:p-6">
-						{#if !d.preset}<IconTile><d.icon class="lucide" /></IconTile>{/if}
+						<IconTile><d.icon class="lucide" /></IconTile>
 						<div class="flex flex-col gap-1.5">
 							<h4 class="text-lg font-medium tracking-[-0.01em]">{d.title}</h4>
 							<p class="text-[0.9375rem] leading-snug text-foreground/85">{d.body}</p>

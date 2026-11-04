@@ -3,7 +3,7 @@
 	import { cn } from '$brand/utils.js';
 	import { Button } from '$brand/ui/button/index.js';
 	import Container from '$brand/blocks/site/container.svelte';
-	import AppWindow from '$moves/flora/app-window.svelte';
+	import AppMock from './app-mock.svelte';
 	import SectionHead from './section-head.svelte';
 	import FlowNodes from './flow-nodes.svelte';
 	import SurfaceTile from './surface-tile.svelte';
@@ -29,10 +29,10 @@
 
 		<div class="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4 lg:grid-rows-[repeat(2,minmax(19rem,auto))]">
 			<SurfaceTile href={here} preset="sediment" title="Phone apps" body="iPhone and Android apps that feel native." kind="Phone" class="sm:row-span-2 lg:col-start-1 lg:row-span-2 lg:row-start-1">
-				{#snippet art()}<AppWindow kind="phone" preset="oxide-bloom" class="mx-auto max-w-[220px] bg-background" />{/snippet}
+				{#snippet art()}<AppMock kind="phone" class="mx-auto max-w-[220px] bg-background" />{/snippet}
 			</SurfaceTile>
 			<SurfaceTile href={here} preset="copper-sweep" title="Desktop apps" body="Mac, Windows and Linux, signed and updating." kind="Desktop" class="sm:col-span-1 lg:col-span-2 lg:col-start-2 lg:row-start-1">
-				{#snippet art()}<AppWindow kind="desktop" preset="hammered-copper" title="Ledgerline" class="mx-auto max-w-[440px] bg-background" />{/snippet}
+				{#snippet art()}<AppMock kind="desktop" title="Ledgerline" class="mx-auto max-w-[440px] bg-background" />{/snippet}
 			</SurfaceTile>
 			<article class="band-orange relative isolate flex min-h-72 flex-col justify-between gap-8 overflow-hidden rounded-2xl p-6 sm:p-7 lg:col-start-4 lg:row-span-2 lg:row-start-1">
 				<CornerRings seed="oxlabs-team" color="var(--on-orange)" class="pointer-events-none -z-10 w-3/4 opacity-60 [&_circle]:[stroke-width:0.5]" />
@@ -44,10 +44,10 @@
 				</div>
 			</article>
 			<SurfaceTile href={here} preset="black-ice" title="Web apps" body="Fast on a bad connection." kind="Web" class="lg:col-start-2 lg:row-start-2">
-				{#snippet art()}<AppWindow kind="web" preset="etched-silk" class="mx-auto max-w-[300px] bg-background" />{/snippet}
+				{#snippet art()}<AppMock kind="web" class="mx-auto max-w-[300px] bg-background" />{/snippet}
 			</SurfaceTile>
 			<SurfaceTile href={here} preset="oxide-bloom" title="CLI tools" body="Installed with one command." kind="Terminal" class="lg:col-start-3 lg:row-start-2">
-				{#snippet art()}<AppWindow kind="terminal" class="mx-auto max-w-[300px]" />{/snippet}
+				{#snippet art()}<AppMock kind="terminal" class="mx-auto max-w-[300px]" />{/snippet}
 			</SurfaceTile>
 		</div>
 	</Container>
