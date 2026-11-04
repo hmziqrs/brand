@@ -101,6 +101,7 @@ export { default as ReleaseNotes } from "./blocks/content/release-notes.svelte";
 export { default as ReleaseTimeline } from "./blocks/content/release-timeline.svelte";
 export { default as ShareBar } from "./blocks/content/share-bar.svelte";
 export { default as TypingTerminal } from "./blocks/content/typing-terminal.svelte";
+export type { PostBlock, PostItem, PostSection, TopicShelf, TopicTone } from "./blocks/content/types.js";
 
 // App blocks (app-blocks.md), the same 45 the Astro barrel exports. The
 // folder's small sub-parts stay internal, as they do there: `AuthField`,
