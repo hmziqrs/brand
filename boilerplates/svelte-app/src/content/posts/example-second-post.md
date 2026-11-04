@@ -5,11 +5,12 @@ date: September 2, 2026
 pubDate: 2026-09-02
 readingTime: 2 min read
 topic: Notes
+art: plan
 ---
 
 ## What this one shows
 
-Example copy: a post without a cover, so its title takes the larger size.
+Example copy: a short post with a line drawing as its cover.
 Two headings are enough to feed the contents list.
 
 ## The rest

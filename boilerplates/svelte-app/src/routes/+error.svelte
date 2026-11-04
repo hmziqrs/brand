@@ -1,35 +1,30 @@
 <script lang="ts">
-	// The 404: the not-found words, and rings drawn from "not found" beside
-	// them. The same block covers a page that failed to draw, with its status
-	// and words.
+	// The error page: the kit's NotFoundPage for a 404, and the same page
+	// with the status and words of the error for anything else.
 	import { page } from '$app/state';
 	import SiteHead from '$brand/blocks/site/site-head.svelte';
-	import NotFound from '$brand/blocks/content/not-found.svelte';
-	import ButtonLink from '$brand/blocks/site/button-link.svelte';
-	import SiteShell from '$brand/blocks/site/site-shell.svelte';
+	import NotFoundPage from '$brand/blocks/content/not-found-page.svelte';
+	import SiteFrame from '#lib/site-frame.svelte';
+	import { notFoundData } from '#lib/example.js';
 
-	const notFound = $derived(page.status === 404);
+	const missing = $derived(page.status === 404);
+	const data = $derived(
+		missing
+			? notFoundData
+			: {
+					...notFoundData,
+					status: String(page.status),
+					title: 'Something went wrong',
+					lede: 'An error happened while drawing this page. Trying again usually fixes it.'
+				}
+	);
 </script>
 
-<SiteShell site="example" layout="page" mainClassName="pb-24">
-	{#snippet children()}
-		<SiteHead
-			site="freeoxide"
-			title={notFound ? 'Page not found — svelte-app' : 'Something went wrong — svelte-app'}
-			description={notFound ? "This URL doesn't point to anything." : 'An error happened while drawing this page.'}
-			url={`https://example.com${page.url.pathname}`}
-		/>
-		<NotFound
-			status={String(page.status)}
-			title={notFound ? 'Page not found' : 'Something went wrong'}
-			lede={notFound
-				? "This URL doesn't point to anything. The page probably moved, or the link was wrong."
-				: 'An error happened while drawing this page. Trying again usually fixes it.'}
-		>
-			{#snippet children()}
-				<ButtonLink href="/" size="lg" class="px-5">Back to home</ButtonLink>
-				<ButtonLink href="/docs/introduction" size="lg" variant="outline" class="px-5">Read the docs</ButtonLink>
-			{/snippet}
-		</NotFound>
-	{/snippet}
-</SiteShell>
+<SiteHead
+	site="freeoxide"
+	title={missing ? 'Page not found — svelte-app' : 'Something went wrong — svelte-app'}
+	description={missing ? "This URL doesn't point to anything." : 'An error happened while drawing this page.'}
+	url={`https://example.com${page.url.pathname}`}
+/>
+
+<SiteFrame><NotFoundPage {data} /></SiteFrame>
