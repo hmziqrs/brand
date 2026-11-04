@@ -287,6 +287,22 @@ lg or xl, xl split beside its drawing, and a post without a drawing gets the
 same card wearing the thin ring itself. The contents links are plain `#id`
 links; an app whose router owns the hash catches them itself.
 
+Changelog pages (also in the Astro kit), two blocks in `blocks/content/` on
+the wide Container: `ReleaseDesk` (the `ProductHero` on the site's material
+with the latest release in a `DragWindow`, a frosted window you drag by its
+title bar inside the hero, then each release's `ReleaseHead` sticky in a
+column beside its title and `ReleaseNotes`) and `ReleaseTimelinePage` (the
+page intro with the latest release, `BigNumbers`, `ReleaseFilters` (search,
+one chip per kind in its `KindTag` color, open all), then `ReleaseTimeline`'s
+`rail`: thin rings, the latest filled, a line that fills with oxide down to
+where you read, each release a `PastReleases` with its picture kept beside it
+in a `ReleasePicture`). The first `open` releases show every change; the rest
+fold to their first. A change keeps its **bold** lead, `code`, links and
+nested lines; `spots` link a change to the part of its picture it names, and
+the picture comes in as a snippet that binds the shared `SpotState`
+(`spot.current`), so a product's own sketch lights with its changes. The
+filter, the dates and the change marks are core's `changelog` module.
+
 ## Registry
 
 `registry.json` is generated, never hand-edited: `bun run registry:generate`

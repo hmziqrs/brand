@@ -104,13 +104,17 @@ export { default as PostHeader } from "./blocks/content/post-header.astro";
 export { default as PostList } from "./blocks/content/post-list.astro";
 export { default as PostMeta } from "./blocks/content/post-meta.astro";
 export { default as PullQuote } from "./blocks/content/pull-quote.astro";
+export { default as ReleaseDesk } from "./blocks/content/release-desk.astro";
+export { default as ReleaseFilters } from "./blocks/content/release-filters.astro";
 export { default as ReleaseHead } from "./blocks/content/release-head.astro";
 export { default as ReleaseNotes } from "./blocks/content/release-notes.astro";
+export { default as ReleasePicture } from "./blocks/content/release-picture.astro";
 export { default as ReleaseTimeline } from "./blocks/content/release-timeline.astro";
+export { default as ReleaseTimelinePage } from "./blocks/content/release-timeline-page.astro";
 export { default as ShareBar } from "./blocks/content/share-bar.astro";
 export { default as TopicCards } from "./blocks/content/topic-cards.astro";
 export { default as TypingTerminal } from "./blocks/content/typing-terminal.astro";
-export type { PostBlock, PostItem, PostSection, TopicShelf, TopicTone } from "./blocks/content/types";
+export type { ChangeItem, ChangeSpots, PostBlock, PostItem, PostSection, Release, ReleaseLink, ReleasePictureInfo, SpotState, TopicShelf, TopicTone } from "./blocks/content/types";
 
 // App blocks (app-blocks.md).
 export { default as AppPage } from "./blocks/app/shell/app-page.astro";
@@ -165,6 +169,7 @@ export { default as DotName } from "./components/dot-name.astro";
 export { default as MaterialGrid } from "./components/material-grid.astro";
 export { default as MaterialWash } from "./components/material-wash.astro";
 export { default as ProductWindow } from "./components/product-window.astro";
+export { default as DragWindow } from "./components/drag-window.astro";
 export { default as ResolveTitle } from "./components/resolve-title.astro";
 export { default as RingField } from "./components/ring-field.astro";
 export { default as SceneStage } from "./components/scene-stage.astro";

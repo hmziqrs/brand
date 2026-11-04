@@ -1,0 +1,72 @@
+---
+import { cn } from "$brand/utils";
+
+// claude-multi's instance settings.json from its docs, the two lines 0.13.2
+// added marked; each marked line is a spot its change lights.
+
+type Line = { key?: string; value?: string; text?: string; spot?: string; add?: boolean; last?: boolean };
+
+const lines: Line[] = [
+  { text: "{" },
+  { text: '  "env": {' },
+  { key: "ANTHROPIC_AUTH_TOKEN", value: "sk-your-key", spot: "env" },
+  { key: "ANTHROPIC_BASE_URL", value: "https://api.deepseek.com/anthropic" },
+  { key: "API_TIMEOUT_MS", value: "3000000", spot: "env" },
+  { key: "ANTHROPIC_MODEL", value: "deepseek-flash[1m]" },
+  { key: "ANTHROPIC_DEFAULT_OPUS_MODEL", value: "deepseek-flash[1m]" },
+  { key: "ANTHROPIC_DEFAULT_SONNET_MODEL", value: "deepseek-flash[1m]" },
+  { key: "ANTHROPIC_DEFAULT_FABLE_MODEL", value: "deepseek-flash[1m]", spot: "fable", add: true },
+  { key: "ANTHROPIC_DEFAULT_HAIKU_MODEL", value: "deepseek-flash" },
+  { key: "CLAUDE_CODE_SUBAGENT_MODEL", value: "deepseek-flash", spot: "env" },
+  { key: "CLAUDE_CODE_AUTO_COMPACT_WINDOW", value: "786432" },
+  { key: "CLAUDE_CODE_MAX_OUTPUT_TOKENS", value: "128000" },
+  { key: "CLAUDE_CODE_EFFORT_LEVEL", value: "max", spot: "effort" },
+  { key: "CLAUDE_CODE_ALWAYS_ENABLE_EFFORT", value: "1", spot: "effort", add: true },
+  { key: "MAX_THINKING_TOKENS", value: "32000", last: true },
+  { text: "  }," },
+  { text: '  "enabledPlugins": { … },' },
+  { text: '  "mcpServers": { … }' },
+  { text: "}" },
+];
+
+const notes: Record<string, string> = {
+  fable: "0.13.2 · Provider templates now map the Fable alias.",
+  effort: "0.13.2 · Effort now reaches custom model IDs.",
+  env: "0.13.2 · Environment-variable documentation now matches current Claude Code behavior.",
+};
+const rest = "+ 2 lines from 0.13.2 · point at a marked line";
+---
+
+<div data-slot="settings-sketch" class="flex flex-col">
+  <div class="min-w-0 overflow-x-auto py-3 font-mono text-[12px] leading-[1.7] sm:text-[12.5px]">
+    <ol class="w-max min-w-full">
+      {lines.map((l, i) => (
+        <li data-spot={l.spot} class={cn("group/line flex pr-5 transition-colors duration-150 motion-reduce:transition-none", l.spot && "cursor-default", l.add && "bg-primary/5", "data-[lit]:bg-primary/12")}>
+          <span aria-hidden="true" class="w-9 shrink-0 pr-3 text-right text-foreground/40 tabular-nums select-none">{i + 1}</span>
+          <span aria-hidden="true" class={cn("w-3 shrink-0", l.add ? "text-primary" : "text-transparent")}>+</span>
+          {l.key ? (
+            <>
+              <span class="whitespace-pre text-foreground/55">{'    "'}</span><span class="whitespace-pre text-foreground group-data-[lit]/line:text-primary">{l.key}</span><span class="whitespace-pre text-foreground/55">{'": "'}</span><span class="whitespace-pre text-foreground/80">{l.value}</span><span class="whitespace-pre text-foreground/55">{`"${l.last ? "" : ","}`}</span>
+            </>
+          ) : (
+            <span class="whitespace-pre text-foreground/70">{l.text}</span>
+          )}
+        </li>
+      ))}
+    </ol>
+  </div>
+  <div class="flex h-9 items-center justify-between gap-4 border-t border-foreground/10 px-4 font-mono text-[11px] text-foreground/80">
+    <span data-note data-notes={JSON.stringify(notes)} data-rest={rest} class="min-w-0 truncate">{rest}</span>
+    <span class="shrink-0 text-foreground/60">JSON</span>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("spot-change", (event) => {
+    const spot = (event as CustomEvent<{ spot: string | null }>).detail.spot;
+    for (const note of (event.target as HTMLElement).querySelectorAll<HTMLElement>("[data-slot='settings-sketch'] [data-note]")) {
+      const notes: Record<string, string> = JSON.parse(note.dataset.notes ?? "{}");
+      note.textContent = spot && notes[spot] ? notes[spot] : (note.dataset.rest ?? "");
+    }
+  });
+</script>

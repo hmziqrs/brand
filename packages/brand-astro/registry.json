@@ -693,6 +693,11 @@
 			"registryDependencies": [],
 			"files": [
 				{
+					"path": "src/blocks/content/release-list.ts",
+					"target": "src/components/brand/blocks/content/release-list.ts",
+					"type": "registry:file"
+				},
+				{
 					"path": "src/blocks/content/share-icons.ts",
 					"target": "src/components/brand/blocks/content/share-icons.ts",
 					"type": "registry:file"
@@ -1019,6 +1024,27 @@
 				{
 					"path": "src/components/dot-name.astro",
 					"target": "src/components/brand/components/dot-name.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "drag-window",
+			"type": "registry:file",
+			"title": "drag-window",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0",
+				"@lucide/astro@^1.48.0"
+			],
+			"registryDependencies": [
+				"@hmziq/glass",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/components/drag-window.astro",
+					"target": "src/components/brand/components/drag-window.astro",
 					"type": "registry:file"
 				}
 			]
@@ -1751,6 +1777,7 @@
 				"@hmziq/docs-title",
 				"@hmziq/dot-footer",
 				"@hmziq/dot-name",
+				"@hmziq/drag-window",
 				"@hmziq/element-card",
 				"@hmziq/empty-note",
 				"@hmziq/empty-state",
@@ -1835,10 +1862,14 @@
 				"@hmziq/question",
 				"@hmziq/questions",
 				"@hmziq/record-sheet",
+				"@hmziq/release-desk",
+				"@hmziq/release-filters",
 				"@hmziq/release-head",
 				"@hmziq/release-loop",
 				"@hmziq/release-notes",
+				"@hmziq/release-picture",
 				"@hmziq/release-timeline",
+				"@hmziq/release-timeline-page",
 				"@hmziq/reset-password-form",
 				"@hmziq/resolve-title",
 				"@hmziq/ring-field",
@@ -3036,11 +3067,66 @@
 			]
 		},
 		{
+			"name": "release-desk",
+			"type": "registry:file",
+			"title": "release-desk",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0",
+				"@lucide/astro@^1.48.0"
+			],
+			"registryDependencies": [
+				"@hmziq/big-numbers",
+				"@hmziq/button-link",
+				"@hmziq/container",
+				"@hmziq/content-blocks-shared",
+				"@hmziq/drag-window",
+				"@hmziq/material-wash",
+				"@hmziq/product-hero",
+				"@hmziq/release-filters",
+				"@hmziq/release-head",
+				"@hmziq/release-notes",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/content/release-desk.astro",
+					"target": "src/components/brand/blocks/content/release-desk.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "release-filters",
+			"type": "registry:file",
+			"title": "release-filters",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0",
+				"@lucide/astro@^1.48.0"
+			],
+			"registryDependencies": [
+				"@hmziq/content-blocks-shared",
+				"@hmziq/search-box",
+				"@hmziq/topic-chips",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/content/release-filters.astro",
+					"target": "src/components/brand/blocks/content/release-filters.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
 			"name": "release-head",
 			"type": "registry:file",
 			"title": "release-head",
 			"description": "Content piece from the hmziq brand kit (BRAND.md section 9).",
-			"dependencies": [],
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
 			"registryDependencies": [
 				"@hmziq/content-blocks-shared",
 				"@hmziq/kicker",
@@ -3082,7 +3168,10 @@
 			"type": "registry:file",
 			"title": "release-notes",
 			"description": "Content piece from the hmziq brand kit (BRAND.md section 9).",
-			"dependencies": [],
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0",
+				"@lucide/astro@^1.48.0"
+			],
 			"registryDependencies": [
 				"@hmziq/content-blocks-shared",
 				"@hmziq/kind-tag",
@@ -3092,6 +3181,24 @@
 				{
 					"path": "src/blocks/content/release-notes.astro",
 					"target": "src/components/brand/blocks/content/release-notes.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "release-picture",
+			"type": "registry:file",
+			"title": "release-picture",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/tag",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/content/release-picture.astro",
+					"target": "src/components/brand/blocks/content/release-picture.astro",
 					"type": "registry:file"
 				}
 			]
@@ -3111,6 +3218,35 @@
 				{
 					"path": "src/blocks/content/release-timeline.astro",
 					"target": "src/components/brand/blocks/content/release-timeline.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "release-timeline-page",
+			"type": "registry:file",
+			"title": "release-timeline-page",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0",
+				"@lucide/astro@^1.48.0"
+			],
+			"registryDependencies": [
+				"@hmziq/big-numbers",
+				"@hmziq/button-link",
+				"@hmziq/container",
+				"@hmziq/content-blocks-shared",
+				"@hmziq/page-intro",
+				"@hmziq/past-releases",
+				"@hmziq/release-filters",
+				"@hmziq/release-picture",
+				"@hmziq/release-timeline",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/content/release-timeline-page.astro",
+					"target": "src/components/brand/blocks/content/release-timeline-page.astro",
 					"type": "registry:file"
 				}
 			]
