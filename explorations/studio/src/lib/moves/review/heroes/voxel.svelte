@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { Button } from '$brand/ui/button/index.js';
 	import CommandBox from '$brand/components/command-box.svelte';
-	import IsoTileStack, { type IsoCluster } from '$moves/northflank/iso-tile-stack.svelte';
-	import TerminalChip from '$moves/northflank/terminal-chip.svelte';
-	import MonoLabel from '$moves/northflank/mono-label.svelte';
+	import IsoTileStack, { type IsoCluster } from '$moves/review/parts/northflank/iso-tile-stack.svelte';
+	import TerminalChip from '$moves/review/parts/northflank/terminal-chip.svelte';
+	import MonoLabel from '$moves/review/parts/northflank/mono-label.svelte';
 
 	const here = '#/p/northflank/gpui-starter-1';
 	const heroStack: IsoCluster[] = [

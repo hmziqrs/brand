@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { cn } from '$brand/utils.js';
-	import IsoTileStack, { type IsoCluster } from '$moves/northflank/iso-tile-stack.svelte';
+	import IsoTileStack, { type IsoCluster } from '$moves/review/parts/northflank/iso-tile-stack.svelte';
 
 	let { class: className }: { class?: string } = $props();
 

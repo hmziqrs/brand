@@ -1,6 +1,6 @@
 <script lang="ts">
-	import ContourField from '$moves/site-northflank/contour-field.svelte';
-	import MonoLabel from '$moves/northflank/mono-label.svelte';
+	import ContourField from '$moves/review/parts/site-northflank/contour-field.svelte';
+	import MonoLabel from '$moves/review/parts/northflank/mono-label.svelte';
 </script>
 
 <section class="relative overflow-hidden border-b">

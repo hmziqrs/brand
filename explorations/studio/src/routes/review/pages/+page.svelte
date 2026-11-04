@@ -17,7 +17,7 @@
 	<div class="mx-auto flex max-w-[1400px] items-end justify-between gap-4 px-4 pt-10 pb-8 sm:px-8">
 		<div>
 			<a href="#/" class="font-mono text-xs text-muted-foreground hover:text-foreground">← studio</a>
-			<h1 class="mt-2 text-4xl font-medium tracking-tight">Remaining pages · 404, legal, FAQ, CV and Labs</h1>
+			<h1 class="mt-2 text-4xl font-medium tracking-tight">Remaining pages · 404, legal, FAQ and CV</h1>
 			<p class="mt-2 max-w-2xl text-foreground/80">The last five page types, one recommended design each, no alternatives. Words come from the live claude-multi.hmziq.xyz, cv.hmziq.rs and hmziq.xyz; anything invented is named on its row. Each shows its top part first and runs live; open one alone to see it under its site’s sticky header and approved footer.</p>
 		</div>
 		<button type="button" aria-label="Toggle theme" class="grid size-9 shrink-0 place-items-center rounded-md border border-border" onclick={() => prefs.toggleTheme()}>

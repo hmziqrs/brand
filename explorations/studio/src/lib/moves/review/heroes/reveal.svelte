@@ -1,13 +1,13 @@
 <script lang="ts">
 	import { Button } from '$brand/ui/button/index.js';
 	import Glass from '$brand/components/glass.svelte';
-	import InlineGlyph from '$moves/dovetail/inline-glyph.svelte';
-	import SquareRatingRow from '$moves/dovetail/square-rating-row.svelte';
-	import AccentHeadline from '$moves/site-dovetail/accent-headline.svelte';
-	import RevealStage from '$moves/site-dovetail/reveal-stage.svelte';
-	import SourceStrip from '$moves/site-dovetail/source-strip.svelte';
-	import ContextBoard from '$moves/site-dovetail/context-board.svelte';
-	import { to } from '$moves/site-dovetail/site';
+	import InlineGlyph from '$moves/review/parts/dovetail/inline-glyph.svelte';
+	import SquareRatingRow from '$moves/review/parts/dovetail/square-rating-row.svelte';
+	import AccentHeadline from '$moves/review/parts/site-dovetail/accent-headline.svelte';
+	import RevealStage from '$moves/review/parts/site-dovetail/reveal-stage.svelte';
+	import SourceStrip from '$moves/review/parts/site-dovetail/source-strip.svelte';
+	import ContextBoard from '$moves/review/parts/site-dovetail/context-board.svelte';
+	import { to } from '$moves/review/parts/site-dovetail/site';
 
 	const trust = [
 		{ label: 'Reviewer score', value: '4.7', score: 4.7, example: true },

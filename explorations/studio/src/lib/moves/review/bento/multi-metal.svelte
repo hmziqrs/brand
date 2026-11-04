@@ -6,8 +6,8 @@
 	import StatTile from '$brand/components/stat-tile.svelte';
 	import type { CatalogItem } from '$brand/components/catalog-card.svelte';
 	import CatalogSection from '$brand/blocks/sections/catalog-section.svelte';
-	import MixedHeadline from '$moves/dovetail/mixed-headline.svelte';
-	import { providers } from '$moves/dovetail/providers';
+	import MixedHeadline from '$moves/review/parts/dovetail/mixed-headline.svelte';
+	import { providers } from '$moves/review/parts/dovetail/providers';
 	import InstanceSwitch from './instance-switch.svelte';
 	import { outline } from './ui';
 

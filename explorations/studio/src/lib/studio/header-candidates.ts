@@ -4,8 +4,8 @@ import Database from '@lucide/svelte/icons/database';
 import RefreshCw from '@lucide/svelte/icons/refresh-cw';
 import Wrench from '@lucide/svelte/icons/wrench';
 import NavBar from '$brand/components/nav-bar.svelte';
-import NorthflankHeader from '$moves/site-northflank/site-header.svelte';
-import FreeoxideNav from '$moves/voidzero/top-nav.svelte';
+import NorthflankHeader from '$moves/review/parts/site-northflank/site-header.svelte';
+import FreeoxideNav from '$moves/review/parts/voidzero/top-nav.svelte';
 
 export type HeaderCandidate = {
 	id: string;
@@ -86,7 +86,7 @@ export const headers: HeaderCandidate[] = [
 		id: 'freeoxide',
 		name: 'freeoxide bar',
 		line: 'A closable shader-poster announcement over a tall plain bar: freeoxide wordmark, quiet links, GitHub icon, button.',
-		src: 'src/lib/moves/voidzero/top-nav.svelte',
+		src: 'src/lib/moves/review/parts/voidzero/top-nav.svelte',
 		component: FreeoxideNav,
 		props: { announce: 'gpui-query 0.3 tries again on its own when the network drops' }
 	},
@@ -94,7 +94,7 @@ export const headers: HeaderCandidate[] = [
 		id: 'hover-menus',
 		name: 'Hover menus',
 		line: 'Notice line on top, hover dropdowns with a line per page, Log in + a keyboard-key Get started.',
-		src: 'src/lib/moves/site-northflank/site-header.svelte',
+		src: 'src/lib/moves/review/parts/site-northflank/site-header.svelte',
 		component: NorthflankHeader,
 		props: { active: 'home' }
 	}

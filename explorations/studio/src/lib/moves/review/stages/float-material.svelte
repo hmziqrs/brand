@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { cn } from '$brand/utils.js';
-	import FloatHero, { type Float } from '$moves/site-flora/float-hero.svelte';
+	import FloatHero, { type Float } from '$moves/review/parts/site-flora/float-hero.svelte';
 
 	let { class: className }: { class?: string } = $props();
 

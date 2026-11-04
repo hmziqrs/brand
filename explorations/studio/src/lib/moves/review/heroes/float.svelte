@@ -2,9 +2,9 @@
 	import { Button } from '$brand/ui/button/index.js';
 	import BrandIcon from '$brand/components/brand-icon.svelte';
 	import { siClaude, siFigma, siNotion, siGoogledrive, siDropbox } from 'simple-icons';
-	import SerifItalicHeadline from '$moves/flora/serif-italic-headline.svelte';
-	import FloatHero, { type Float } from '$moves/site-flora/float-hero.svelte';
-	import { to } from '$moves/site-flora/site';
+	import SerifItalicHeadline from '$moves/review/parts/flora/serif-italic-headline.svelte';
+	import FloatHero, { type Float } from '$moves/review/parts/site-flora/float-hero.svelte';
+	import { to } from '$moves/review/parts/site-flora/site';
 
 	const floats: Float[] = [
 		{ preset: 'etched-silk', x: 2, y: 8, w: 170, depth: 0.9, label: 'Halide 3 · still' },

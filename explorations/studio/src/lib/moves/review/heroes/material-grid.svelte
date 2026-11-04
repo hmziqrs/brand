@@ -5,8 +5,8 @@
 	import Pause from '@lucide/svelte/icons/pause';
 	import Play from '@lucide/svelte/icons/play';
 	import ArrowRight from '@lucide/svelte/icons/arrow-right';
-	import RustGridField from '$moves/flora/rust-grid-field.svelte';
-	import SerifItalicHeadline from '$moves/flora/serif-italic-headline.svelte';
+	import RustGridField from '$moves/review/parts/flora/rust-grid-field.svelte';
+	import SerifItalicHeadline from '$moves/review/parts/flora/serif-italic-headline.svelte';
 
 	const here = '#/p/flora/oxlabs-3';
 	let playing = $state(true);

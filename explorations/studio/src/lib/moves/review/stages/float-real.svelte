@@ -8,10 +8,10 @@
 	import TerminalBody from '$brand/components/terminal-body.svelte';
 	import TerminalLine from '$brand/components/terminal-line.svelte';
 	import type { TerminalLineData } from '$brand/components/terminal-line.js';
-	import RustGridField from '$moves/flora/rust-grid-field.svelte';
-	import ForgeAppWindow from '$moves/bento/forge-app-window.svelte';
-	import MaterialCover from '$moves/content/material-cover.svelte';
-	import PhoneFrame from '$moves/new/phone-frame.svelte';
+	import RustGridField from '$moves/review/parts/flora/rust-grid-field.svelte';
+	import ForgeAppWindow from '$moves/review/parts/bento/forge-app-window.svelte';
+	import MaterialCover from '$moves/review/parts/content/material-cover.svelte';
+	import PhoneFrame from '$moves/review/parts/new/phone-frame.svelte';
 
 	type Kind = 'app' | 'terminal' | 'project' | 'post' | 'phone';
 	type Card = { kind: Kind; x: number; y: number; w: number; depth: number; aspect: string; zoom: number; label?: string; hide?: boolean; bare?: boolean };
