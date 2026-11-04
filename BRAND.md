@@ -923,7 +923,7 @@ Build pages from shadcn components (Button, Card, Badge, Tabs, Table, Accordion,
 
 | Pattern | Recipe |
 | --- | --- |
-| Container | `mx-auto w-full max-w-5xl px-6` |
+| Container | `Container`: `mx-auto w-full px-6`, `narrow` (`max-w-[46rem]`) for reading, `default` (`max-w-5xl`), `wide` (`max-w-[82rem]`) for the header, hero, full-width sections and footer so their edges line up |
 | Page rhythm | `main`: `flex flex-col gap-24 md:gap-32 py-16 md:py-24` |
 | Header | Clean: no line under it, `h-19`. The wordmark (section 7) + small maker line (`by hmziq` / `by freeoxide`), ghost `sm` nav buttons in `text-muted-foreground`, one primary `sm` button |
 | Hero | h1 (`leading-[1.02] font-medium tracking-[-0.035em]`) + lede + primary `lg` button + outline `lg` button + optional one-line note with a ring marker. Hero rings on the right from `md` (a product page may show its product there instead). No code in the hero. |
@@ -963,6 +963,36 @@ Icons: see section 6.
 9. Footer with "More from hmziq" and the signature
 
 The freeoxide page in the Storybook (`Sites/Landing pages`) is the reference.
+
+### Site families
+
+Every family below was reviewed against the live sites and kept. Use the kit piece as it ships; each one is a roster piece in both kits and its own registry item, and its Storybook story is the reference. The header, hero, full-width sections and footer sit in `Container size="wide"` (`max-w-[82rem]`) so their edges line up; reading columns stay `narrow`.
+
+| Site | Hero | Under the hero | Footer |
+| --- | --- | --- | --- |
+| hmziq.rs | PersonalHero, DotName over the DiagonalHatch | PictureSection (work as PictureCards with LineArt) | HatchFooter |
+| cv.hmziq.rs | CvPage | n/a | HatchFooter |
+| blog.hmziq.rs | MagazineIndex | PostArticle for posts, ReleaseDesk for its changelog | CalmFooter |
+| hmziq.xyz (Labs) | BrandHero centered over the rings (RingField), ResolveTitle | LabsIndex | GlyphFooter |
+| freeoxide.com | BrandHero over a scene (SceneStage), DotName wordmark | ProjectsSection (ProjectRows + StatTile) | DotFooter |
+| gpui-query | ProductHero split over MaterialWash, the product in a ProductWindow | SectionHead + the kit's code, command and chart pieces | SiteFooter over MaterialWash + WashGlow |
+| gpui-starter | ProductHero split over MaterialWash, with a terminal | ReleaseLoop | VoxelFooter |
+| claude-multi | ProductHero centered over MaterialWash, with the terminal demo | CatalogSection (CatalogCard pills + StatTile) | HeatFooter |
+| oxlabs.dev | BrandHero over the MaterialGrid, words on Glass | SurfaceBento, GlassBand + FlowSteps, StepsSection (StepCards + PictureGrid) | MaterialFooter |
+
+| Page | Main blog (blog.hmziq.rs) | Product site (blog inside the product) |
+| --- | --- | --- |
+| Blog index | MagazineIndex | BlogIndex |
+| Post | PostArticle with Byline | PostArticle |
+| Changelog | ReleaseDesk (DragWindow, ReleaseFilters) | ReleaseTimelinePage with ReleasePicture |
+| Docs | n/a | DocsReference (DocsNav, DocsBlocks) |
+| Pricing | n/a | PricingPage with PricingCard (subscription and lifetime), PricingCompare, FaqSection |
+| Contact, About | ContactDirect, AboutEssay (Book, BookSteps, CommitmentCards, ExperienceRail) | the same |
+| 404, Legal, FAQ | NotFoundPage, LegalPage, FaqPage | the same |
+
+A new site picks the family closest to it: a tool or app takes a product row, a studio or initiative takes a brand row, a person takes the personal row. The initiative flavour (the footer field, the hero stage, the material) changes; the columns, family row and type do not.
+
+Materials are surfaces, never pictures. A material appears only behind a real product visual, as a full-width band behind frosted glass (GlassBand), or as a whole MaterialCard with the words on glass. Never a material cover, thumbnail or fake screen; a card that needs a picture gets a real one (a UI sketch from AppMock, a LineArt drawing, an icon) or none. Tags are the kit's Tag pills. Cards are outlines with thin rings, never grey fills.
 
 ### Page patterns
 
@@ -1149,7 +1179,7 @@ Maker lines next to the wordmark: `by hmziq` (blog, labs, freeoxide, claude-mult
 
 ## 13. Never do this
 
-These made the old sites look like every other developer site:
+These made the old sites look like every other developer site. The kit's own hero stages, materials and footer fields (section 8, "Site families") are the reviewed exceptions: use them as they ship, where that table places them.
 
 - Near-black page with one neon accent (lime, hot pink, electric blue).
 - Fake terminal or code windows, boot logs or "LIVE" panels in the hero.
@@ -1165,6 +1195,7 @@ These made the old sites look like every other developer site:
 - Solid fills in any color but orange behind text (solid green badges, blue buttons).
 - Colored paragraphs, tinted notice boxes, colored card backgrounds. The only colored section backgrounds are the bands in section 7.
 - Grey-filled cards, tiles or panels sitting in the page.
+- A material used as a picture: a material cover, thumbnail or fake screen. Materials are surfaces (section 8).
 - Rings in a logo or mark, or rings behind text. A solid dot as a bullet.
 - Rings stacked under a hero's words on narrow screens. Rings sit beside the words; when the layout has no room for "beside" (below md), they sit out instead of taking vertical space.
 - Tailwind's numbered palette (`bg-green-500`) or hex values in components.
