@@ -2,6 +2,7 @@ import type { Component } from 'svelte';
 import IndexMagazine from '$moves/review/blog/index-magazine.svelte';
 import IndexGrid from '$moves/review/blog/index-grid.svelte';
 import IndexRows from '$moves/review/blog/index-rows.svelte';
+import PostClean from '$moves/review/blog/post-clean.svelte';
 
 export type BlogCandidate = {
 	id: string;
@@ -49,6 +50,16 @@ export const blogs: BlogCandidate[] = [
 		src: `${dir}/index-rows.svelte`,
 		component: IndexRows,
 		props: { here: here('index-rows') }
+	},
+	{
+		id: 'post-clean',
+		page: 'post',
+		name: 'Post · clean',
+		line: 'The site-linear post you called very clean, with the real post: big left title, the post’s own laptop drawing as the cover (point at the editor lines, or the cloud), a sticky contents column, the TL;DR box, one oxide quote card and three more posts.',
+		from: 'site-linear/post',
+		src: `${dir}/post-clean.svelte`,
+		component: PostClean,
+		props: { here: here('post-clean') }
 	}
 ];
 
