@@ -1,7 +1,7 @@
 import type { Component } from 'svelte';
 import QueryChores from '$moves/review/bento/query-chores.svelte';
 import QueryNumbers from '$moves/review/bento/query-numbers.svelte';
-import StarterWired from '$moves/review/bento/starter-wired.svelte';
+import StarterLoop from '$moves/review/bento/starter-loop.svelte';
 import MultiMetal from '$moves/review/bento/multi-metal.svelte';
 import OxlabsFlow from '$moves/review/bento/oxlabs-flow.svelte';
 import OxlabsProcess from '$moves/review/bento/oxlabs-process.svelte';
@@ -62,19 +62,19 @@ export const bentos: BentoCandidate[] = [
 		site: bentoSites.gpuiQuery
 	},
 	{
-		id: 'starter-wired',
-		name: 'Wired, looped, packaged · gpui-starter',
-		line: 'The gpui-starter-1 feature strip as a full-width row of eight pixel icons that heat to oxide under the cursor, then the release loop (point at it to steer the dot) driving the five installers beside it: queued, building, signed, published.',
+		id: 'starter-loop',
+		name: 'Release loop · gpui-starter',
+		line: 'The part of gpui-starter-1 you kept: the release loop (point at it to steer the dot) driving the five installers beside it, queued, building, signed, published. The pixel icon strip is gone.',
 		use: 'Real use: gpui-starter, under its split hero; any desktop product with a release story.',
-		src: `${dir}/starter-wired.svelte`,
-		component: StarterWired,
-		props: { here: here('starter-wired') },
+		src: `${dir}/starter-loop.svelte`,
+		component: StarterLoop,
+		props: { here: here('starter-loop') },
 		site: bentoSites.gpuiStarter
 	},
 	{
 		id: 'multi-metal',
-		name: 'Pick your metal · claude-multi',
-		line: 'The loud half of claude-multi-3: mega headline with a Doto word, eight provider tiles cut from metal (each provider is its metal, so the words sit on it), the instance switcher on lava (click a tile or use the arrow keys, then Launch), and big Doto numbers on oxide and outline cards.',
+		name: 'Providers and switcher · claude-multi',
+		line: 'The loud half of claude-multi-3 as a real catalog: a mega headline with a Doto word, eight provider cards with the command and each slot model as pill tags (click one to load it), the instance switcher on lava (arrow keys, then Launch), and big Doto numbers on oxide and outline cards.',
 		use: 'Real use: claude-multi, under the centred hero; any CLI that turns many accounts or providers into one command each.',
 		src: `${dir}/multi-metal.svelte`,
 		component: MultiMetal,
