@@ -41,9 +41,12 @@ import CodeEditor from "$brand/blocks/content/code-editor.astro";
 import ThemeInit from "../../components/theme-init.astro";
 import ThemeToggle from "../../components/theme-toggle.astro";
 import { channels, faq, releases, topicTone } from "../../lib/example";
+import { contactData } from "../../components/kit/company-data";
+
 import { multiReleases } from "../../components/kit/changelog-data";
 import { blogAuthor, blogPosts, blogTone, blogTopics } from "../../components/kit/blog-data";
 
+const cardChannels = contactData.channels;
 const posts = [
   { title: "The example post, using every Markdown element", summary: "One post that renders every row of the Markdown table.", date: "September 18, 2026", readingTime: "3 min read", topic: "Engineering", href: "/blog/example-every-element" },
   { title: "The second example post, shorter", summary: "A post without a cover, so its title takes the larger size.", date: "September 2, 2026", readingTime: "2 min read", topic: "Notes", href: "/blog/example-second-post" },
@@ -333,6 +336,7 @@ const shelf = blogTopics.map((topic) => {
     <section id="piece-contact-channels" class="flex flex-col gap-4 border-t pt-8">
       <h2 class="text-lg font-medium">ContactChannels</h2>
       <ContactChannels channels={channels} note="Replies from a person, on weekdays. Example copy." class="max-w-xl" />
+      <ContactChannels variant="cards" channels={cardChannels} note="Replies from a person · weekdays" class="max-w-3xl" />
     </section>
 
     <section id="piece-not-found" class="flex flex-col gap-4 border-t pt-8">

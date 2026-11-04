@@ -104,6 +104,10 @@ export type Channel = {
   note: string;
   href: string;
   icon?: ChannelIcon;
+  /** The handle to look for, in small mono type under the note (cards only). */
+  handle?: string;
+  /** The card in solid oxide: the channel to use first (cards only). */
+  oxide?: boolean;
 };
 
 /** One step of an install: what to do, and the command that does it. */

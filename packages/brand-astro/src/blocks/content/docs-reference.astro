@@ -1,0 +1,155 @@
+---
+import { PanelLeft, Pencil } from "@lucide/astro";
+import Container from "$brand/blocks/site/container.astro";
+import Prose from "$brand/blocks/site/prose.astro";
+import Tag from "$brand/components/tag.astro";
+import DocsSearch from "./docs-search.astro";
+import DocsTitle from "./docs-title.astro";
+import DocsPager from "./docs-pager.astro";
+import PostContents from "./post-contents.astro";
+import DocsNav from "./docs-nav.astro";
+import DocsBlocks from "./docs-blocks.astro";
+import { cn } from "$brand/utils";
+import { docsHeadings, docsLinker, docsNeighbours, type DocsSiteData } from "@hmziq/brand-core/docs-reference";
+
+/*
+ * A product's whole docs on one page, in the three columns of DocsLayout:
+ * the line menu with its search on the left, the page in the middle (title
+ * with thin rings, the blocks, the foot) and "On this page" on the right.
+ * Every page is in the HTML and a script shows one: the menu, the pager and
+ * the links between pages switch pages in place, and the contents rail
+ * follows the page. Put it under the site's own header; `offset` is how tall
+ * a sticky header is.
+ */
+
+interface Props {
+  site: DocsSiteData;
+  /** Where the docs sit: links between pages are `<here>#~<key>`. */
+  here?: string;
+  /** Keeps the headings' ids unique when two docs share a page. */
+  prefix?: string;
+  /** The height of a sticky header above the docs, so the menu and the rail sit under it. */
+  offset?: number;
+  class?: string;
+}
+
+const { site, here = "", prefix = "docs", offset = 0, class: className } = Astro.props;
+const link = docsLinker(site, here, prefix);
+const pages = site.order.map((key) => site.pages[key]);
+---
+
+<div data-slot="docs-reference" data-here={here} data-offset={offset} data-start={site.start} style={`--docs-top:${offset + 24}px`} class={className}>
+  <Container size="wide">
+    <div class="grid gap-12 pt-10 pb-20 md:grid-cols-[14rem_minmax(0,1fr)] lg:grid-cols-[14rem_minmax(0,1fr)_12rem]">
+      <div>
+        <button
+          type="button"
+          data-docs-menu-button
+          aria-expanded="false"
+          class="mb-4 inline-flex h-8.5 items-center gap-2 rounded-md border pr-3 pl-3 text-[0.8125rem] text-muted-foreground outline-none transition-colors hover:border-foreground/30 hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50 md:hidden"
+        >
+          <PanelLeft class="size-3.75" />
+          Pages
+        </button>
+        <div data-docs-side class="flex-col gap-6 max-md:hidden max-md:pb-2 md:sticky md:top-(--docs-top) md:flex md:max-h-[calc(100vh-var(--docs-top)-1rem)] md:overflow-y-auto md:pr-2 md:[scrollbar-width:thin]">
+          <DocsSearch class="ml-0 flex w-full min-w-0 shrink-0" />
+          <DocsNav menu={site.menu} current={site.start} go={(key) => link.go(key)} />
+        </div>
+      </div>
+
+      {
+        pages.map((page) => {
+          const near = docsNeighbours(site, page.key);
+          const stamp = [page.reviewed, page.updated && `Last updated ${page.updated}`].filter(Boolean).join(" · ");
+          return (
+            <article data-docs-page-body={page.key} class={cn("max-w-[46rem] min-w-0", page.key !== site.start && "hidden")}>
+              <DocsTitle title={page.title} lede={page.desc} trail={["Docs", ...(page.group ? [page.group] : [])]} seed={site.product} thin />
+              {page.applies && (
+                <Tag marker tone="orange" class="relative mt-5">
+                  {page.applies}
+                </Tag>
+              )}
+              <Prose class="docs-prose mt-9 text-[0.9375rem] [&_h2]:mt-9 [&>h2:first-child]:mt-0">
+                <DocsBlocks blocks={page.blocks} prefix={prefix} html={link.html} />
+              </Prose>
+              <div class="mt-12 flex flex-wrap items-center justify-between gap-x-6 gap-y-2 border-t pt-5 text-[0.8125rem] text-muted-foreground">
+                <a href={page.edit ?? site.github} target="_blank" rel="noreferrer" class="inline-flex items-center gap-2 transition-colors hover:text-foreground">
+                  <Pencil class="size-3.5" />
+                  {page.edit ? "Edit this page on GitHub" : `${site.product} on GitHub`}
+                </a>
+                {stamp && <span>{stamp}</span>}
+              </div>
+              <DocsPager class="mt-8" prev={near.prev && { title: near.prev.title, href: link.go(near.prev.key) }} next={near.next && { title: near.next.title, href: link.go(near.next.key) }} />
+            </article>
+          );
+        })
+      }
+
+      {
+        pages.map((page) => {
+          const toc = docsHeadings(page, prefix).filter((h) => h.level === 2);
+          return (
+            toc.length > 0 && (
+              <aside data-docs-page-rail={page.key} aria-label="On this page" class={cn("hidden", page.key === site.start ? "lg:block" : "")}>
+                <div class="sticky top-(--docs-top) max-h-[calc(100vh-var(--docs-top)-1rem)] overflow-y-auto [scrollbar-width:thin]">
+                  <PostContents items={toc} variant="rail" />
+                </div>
+              </aside>
+            )
+          );
+        })
+      }
+    </div>
+  </Container>
+</div>
+
+<style is:global>
+  .docs-prose :is(p, li, td, th, span, blockquote) > code,
+  .docs-prose :is(p, li, td, th, span, blockquote) > :is(a, strong, em) > code {
+    border-radius: calc(var(--radius) - 6px);
+    background: var(--muted);
+    padding: 0.125rem 0.375rem;
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    color: var(--foreground);
+  }
+</style>
+
+<script>
+  import { docsFollow, docsJump } from "@hmziq/brand-core/docs-reference";
+
+  const init = (root: HTMLElement) => {
+    const here = root.dataset.here ?? "";
+    const offset = Number(root.dataset.offset ?? 0);
+    const show = (key: string, anchor?: string) => {
+      const next = root.querySelector(`[data-docs-page-body="${CSS.escape(key)}"]`);
+      if (!next) return;
+      for (const el of root.querySelectorAll<HTMLElement>("[data-docs-page-body]")) el.classList.toggle("hidden", el !== next);
+      for (const el of root.querySelectorAll<HTMLElement>("[data-docs-page-rail]")) {
+        const mine = el.dataset.docsPageRail === key;
+        el.classList.toggle("lg:block", mine);
+      }
+      for (const a of root.querySelectorAll<HTMLElement>("[data-docs-key]")) {
+        if (a.dataset.docsKey === key) a.setAttribute("aria-current", "page");
+        else a.removeAttribute("aria-current");
+      }
+      const side = root.querySelector<HTMLElement>("[data-docs-side]");
+      side?.classList.add("max-md:hidden");
+      root.querySelector("[data-docs-menu-button]")?.setAttribute("aria-expanded", "false");
+      if (anchor) docsJump(anchor);
+      else if (root.getBoundingClientRect().top < offset) window.scrollTo({ top: root.getBoundingClientRect().top + window.scrollY - offset });
+    };
+    root.addEventListener("click", (event) => {
+      const button = (event.target as HTMLElement).closest<HTMLElement>("[data-docs-menu-button]");
+      if (button) {
+        const side = root.querySelector<HTMLElement>("[data-docs-side]");
+        const open = side?.classList.toggle("max-md:hidden") === false;
+        button.setAttribute("aria-expanded", String(open));
+        return;
+      }
+      docsFollow(event, here, show);
+    });
+  };
+
+  for (const root of document.querySelectorAll<HTMLElement>("[data-slot='docs-reference']")) init(root);
+</script>
