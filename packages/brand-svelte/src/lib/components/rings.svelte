@@ -22,6 +22,8 @@
 		motion = "still",
 		/** Stops the movement where it is. */
 		paused = false,
+		/** Hairline rings and a smaller dot, for a quiet corner. */
+		thin = false,
 		/** 1 as designed; 2 takes twice as long, 0.5 half as long. */
 		speed = 1,
 		class: className,
@@ -32,6 +34,7 @@
 		label?: string;
 		motion?: RingPreset | RingMotion;
 		paused?: boolean;
+		thin?: boolean;
 		speed?: number;
 		class?: string;
 		style?: Record<string, string>;
@@ -48,5 +51,5 @@
 
 <svg data-slot="rings" data-paused={paused || undefined} viewBox="0 0 520 440" role="img" aria-label={label} class={cn("h-auto w-full", className)} style={styleText({ ...center, ...style })} {...rest}>
 	{#if css}{@html `<style>${css}</style>`}{/if}
-	<RingCircles list={list} cx={440} cy={225} color="var(--primary)" width={[1.25, 3]} dot={7} moves={moves} />
+	<RingCircles list={list} cx={440} cy={225} color="var(--primary)" width={thin ? [1.25, 1.25] : [1.25, 3]} dot={thin ? 5 : 7} moves={moves} />
 </svg>

@@ -17,13 +17,15 @@
 		trail = [],
 		/** The rings' seed: the site's or the product's name. */
 		seed,
+		/** Hairline rings, for a page that wants the rings quieter. */
+		thin = false,
 		class: className,
-	}: { title: string; lede?: string; trail?: string[]; seed?: string; class?: string } = $props();
+	}: { title: string; lede?: string; trail?: string[]; seed?: string; thin?: boolean; class?: string } = $props();
 </script>
 
 <div class={cn("relative", className)}>
 	{#if seed}
-		<Rings seed={seed} aria-hidden="true" role={undefined} class="pointer-events-none absolute -top-10 -right-4 w-60 max-w-[40%] opacity-90" />
+		<Rings seed={seed} {thin} aria-hidden="true" role={undefined} class="pointer-events-none absolute -top-10 -right-4 w-60 max-w-[40%] opacity-90" />
 	{/if}
 	<div class="relative">
 		{#if trail.length > 0}
