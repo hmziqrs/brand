@@ -84,6 +84,30 @@
       "types": "./dist/docs-reference.d.ts",
       "default": "./dist/docs-reference.js"
     },
+    "./rich-blocks": {
+      "types": "./dist/rich-blocks.d.ts",
+      "default": "./dist/rich-blocks.js"
+    },
+    "./faq-search": {
+      "types": "./dist/faq-search.d.ts",
+      "default": "./dist/faq-search.js"
+    },
+    "./legal-page": {
+      "types": "./dist/legal-page.d.ts",
+      "default": "./dist/legal-page.js"
+    },
+    "./labs-index": {
+      "types": "./dist/labs-index.d.ts",
+      "default": "./dist/labs-index.js"
+    },
+    "./cv-page": {
+      "types": "./dist/cv-page.d.ts",
+      "default": "./dist/cv-page.js"
+    },
+    "./not-found-page": {
+      "types": "./dist/not-found-page.d.ts",
+      "default": "./dist/not-found-page.js"
+    },
     "./scroll-spy": {
       "types": "./dist/scroll-spy.d.ts",
       "default": "./dist/scroll-spy.js"
