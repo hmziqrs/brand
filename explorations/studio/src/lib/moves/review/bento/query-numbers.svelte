@@ -13,7 +13,7 @@
 	import ShaderMaterial from '$brand/components/shader-material.svelte';
 	import CornerRings from '$brand/components/corner-rings.svelte';
 	import TrendChart from '$brand/blocks/showcase/trend-chart.svelte';
-	import SectionHead from './section-head.svelte';
+	import SectionHead from '$brand/blocks/sections/section-head.svelte';
 	import { kicker, outline } from './ui';
 
 	let { class: className }: { here?: string; class?: string } = $props();

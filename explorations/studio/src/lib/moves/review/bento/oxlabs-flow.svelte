@@ -1,66 +1,68 @@
 <script lang="ts">
 	import ArrowRight from '@lucide/svelte/icons/arrow-right';
+	import FileText from '@lucide/svelte/icons/file-text';
+	import PenTool from '@lucide/svelte/icons/pen-tool';
+	import Hammer from '@lucide/svelte/icons/hammer';
+	import Rocket from '@lucide/svelte/icons/rocket';
 	import { cn } from '$brand/utils.js';
 	import { Button } from '$brand/ui/button/index.js';
 	import Container from '$brand/blocks/site/container.svelte';
-	import AppMock from './app-mock.svelte';
-	import SectionHead from './section-head.svelte';
-	import FlowNodes from './flow-nodes.svelte';
-	import SurfaceTile from './surface-tile.svelte';
-	import GlassBand from './glass-band.svelte';
-	import CornerRings from '$brand/components/corner-rings.svelte';
-	import { kicker, subtitle } from './ui';
+	import SectionHead from '$brand/blocks/sections/section-head.svelte';
+	import SurfaceBento, { type Surface } from '$brand/blocks/sections/surface-bento.svelte';
+	import GlassBand from '$brand/blocks/sections/glass-band.svelte';
+	import FlowSteps, { type FlowStep } from '$brand/components/flow-steps.svelte';
+	import FlowContent from './flow-contents.svelte';
 
 	let { here = '#', class: className }: { here?: string; class?: string } = $props();
+
+	const flow: FlowStep[] = [
+		{ name: 'Brief', when: 'First call', icon: FileText, caption: 'One page that says who it is for and what done means.' },
+		{ name: 'Design', when: 'Before code', icon: PenTool, caption: 'Real screens you can click through on your own phone.' },
+		{ name: 'Build', when: 'Every week', icon: Hammer, caption: 'A build you can install every week, with a short written update.' },
+		{ name: 'Ship', when: 'Launch', icon: Rocket, caption: 'Signed releases, and a repository that was yours from the first commit.' }
+	];
+
+	const surfaces: Surface[] = [
+		{ title: 'Phone apps', body: 'iPhone and Android apps that feel native.', tag: 'Phone', preset: 'sediment', mock: { kind: 'phone' } },
+		{ title: 'Desktop apps', body: 'Mac, Windows and Linux, signed and updating.', tag: 'Desktop', preset: 'copper-sweep', mock: { kind: 'desktop', title: 'Ledgerline' } },
+		{ title: 'Web apps', body: 'Fast on a bad connection.', tag: 'Web', preset: 'black-ice', mock: { kind: 'web' } },
+		{ title: 'CLI tools', body: 'Installed with one command.', tag: 'Terminal', preset: 'oxide-bloom', mock: { kind: 'terminal' } }
+	];
 </script>
 
 <section data-slot="oxlabs-flow" class={cn('pt-24 sm:pt-32', className)}>
 	<Container size="wide">
 		<SectionHead kicker="How a project moves" title="Four steps, always in this order." lede="Point at a step to see what it hands to the next one. Every step ends with something you can hold." />
-		<FlowNodes class="mt-14 md:mt-20" />
-
-		<div class="mt-28 grid gap-6 md:mt-36 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] lg:items-end lg:gap-12">
-			<div>
-				<p class={kicker}>What we build</p>
-				<h3 class={cn(subtitle, 'mt-4')}>Phones, desktops, the web and the terminal.</h3>
-			</div>
-			<p class="max-w-[46ch] text-lg leading-snug text-foreground lg:justify-self-end">One codebase when it fits, two when it does not. Move the cursor over a surface to tip the app toward you.</p>
-		</div>
-
-		<div class="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4 lg:grid-rows-[repeat(2,minmax(19rem,auto))]">
-			<SurfaceTile href={here} preset="sediment" title="Phone apps" body="iPhone and Android apps that feel native." kind="Phone" class="sm:row-span-2 lg:col-start-1 lg:row-span-2 lg:row-start-1">
-				{#snippet art()}<AppMock kind="phone" class="mx-auto max-w-[220px] bg-background" />{/snippet}
-			</SurfaceTile>
-			<SurfaceTile href={here} preset="copper-sweep" title="Desktop apps" body="Mac, Windows and Linux, signed and updating." kind="Desktop" class="sm:col-span-1 lg:col-span-2 lg:col-start-2 lg:row-start-1">
-				{#snippet art()}<AppMock kind="desktop" title="Ledgerline" class="mx-auto max-w-[440px] bg-background" />{/snippet}
-			</SurfaceTile>
-			<article class="band-orange relative isolate flex min-h-72 flex-col justify-between gap-8 overflow-hidden rounded-2xl p-6 sm:p-7 lg:col-start-4 lg:row-span-2 lg:row-start-1">
-				<CornerRings seed="oxlabs-team" color="var(--on-orange)" class="pointer-events-none -z-10 w-3/4 opacity-60 [&_circle]:[stroke-width:0.5]" />
-				<p class="flex items-center gap-2 font-mono text-xs tracking-wide uppercase"><span class="size-2 rounded-full bg-current motion-safe:animate-pulse"></span>Available for new projects</p>
-				<div class="flex flex-col gap-5">
-					<p class="text-[clamp(2.5rem,4vw,3.75rem)] leading-[0.92] font-medium tracking-[-0.05em]">One team, four surfaces.</p>
-					<p class="text-lg leading-snug">One team from the first call to the store review. The people on that call write the code.</p>
-					<Button href={here} variant="outline" size="lg" class="w-fit">Start a project<ArrowRight class="lucide" data-icon="inline-end" /></Button>
-				</div>
-			</article>
-			<SurfaceTile href={here} preset="black-ice" title="Web apps" body="Fast on a bad connection." kind="Web" class="lg:col-start-2 lg:row-start-2">
-				{#snippet art()}<AppMock kind="web" class="mx-auto max-w-[300px] bg-background" />{/snippet}
-			</SurfaceTile>
-			<SurfaceTile href={here} preset="oxide-bloom" title="CLI tools" body="Installed with one command." kind="Terminal" class="lg:col-start-3 lg:row-start-2">
-				{#snippet art()}<AppMock kind="terminal" class="mx-auto max-w-[300px]" />{/snippet}
-			</SurfaceTile>
-		</div>
+		<FlowSteps steps={flow} class="mt-14 md:mt-20">
+			{#snippet content(i)}<FlowContent {i} />{/snippet}
+		</FlowSteps>
 	</Container>
 
-	<GlassBand preset="etched-silk" class="mt-24 sm:mt-32">
-		<p class={kicker}>Working from day one</p>
-		<h3 class="mt-4 text-[clamp(2rem,3.6vw,3rem)] leading-[1.02] font-medium tracking-[-0.035em] text-balance">Small team, no hand-offs.</h3>
-		<p class="mt-5 text-xl leading-snug text-foreground">The people on the first call write the code, and you can reach them the whole way through.</p>
-		<ul class="mt-7 space-y-3 text-lg text-foreground">
-			{#each ['A build you can install every week', 'A short written update with each build', 'A direct line to whoever is doing the work'] as l (l)}
-				<li class="flex items-start gap-3"><span class="mt-2.5 size-2.5 shrink-0 bg-primary"></span>{l}</li>
-			{/each}
-		</ul>
-		<Button href={here} size="lg" class="mt-8">Book a call<ArrowRight class="lucide" data-icon="inline-end" /></Button>
+	<SurfaceBento
+		size="md"
+		kicker="What we build"
+		title="Phones, desktops, the web and the terminal."
+		lede="One codebase when it fits, two when it does not. Move the cursor over a surface to tip the app toward you."
+		{surfaces}
+		card={{ status: 'Available for new projects', title: 'One team, four surfaces.', body: 'One team from the first call to the store review. The people on that call write the code.', seed: 'oxlabs-team' }}
+		href={here}
+		class="mt-28 py-0 sm:py-0 md:mt-36"
+	>
+		{#snippet cardActions()}
+			<Button href={here} variant="outline" size="lg">Start a project<ArrowRight class="lucide" data-icon="inline-end" /></Button>
+		{/snippet}
+	</SurfaceBento>
+
+	<GlassBand
+		preset="etched-silk"
+		kicker="Working from day one"
+		title="Small team, no hand-offs."
+		lede="The people on the first call write the code, and you can reach them the whole way through."
+		points={['A build you can install every week', 'A short written update with each build', 'A direct line to whoever is doing the work']}
+		class="mt-24 sm:mt-32"
+	>
+		{#snippet actions()}
+			<Button href={here} size="lg">Book a call<ArrowRight class="lucide" data-icon="inline-end" /></Button>
+		{/snippet}
 	</GlassBand>
 </section>
