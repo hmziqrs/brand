@@ -1,7 +1,7 @@
 import Mail from "@lucide/svelte/icons/mail";
 import { siGithub } from "simple-icons";
 import type { Tone } from "@hmziq/brand-core/tones";
-import type { Channel, DocsMenu, FaqItem, LegalDoc, PostItem, Release } from "./types.js";
+import type { Channel, FaqItem, LegalDoc, PostItem, Release } from "./types.js";
 import type { TerminalLineData } from "$brand/components/terminal-line.js";
 import { shareIcons } from "./share-icons.js";
 
@@ -97,15 +97,6 @@ export const channels: Channel[] = [
 	{ name: "GitHub", note: "github.com/hmziqrs", href: "https://github.com/hmziqrs", icon: siGithub },
 	{ name: "X", note: "@hmziqrs", href: "https://x.com/hmziqrs", icon: { path: shareIcons.x } },
 	{ name: "LinkedIn", note: "in/hmziqrs", href: "https://linkedin.com/in/hmziqrs", icon: { path: shareIcons.linkedin } },
-];
-
-/** gpui-query's docs menu, every page of it. */
-export const docsMenu: DocsMenu = [
-	[null, [{ title: "Introduction", href: "#" }]],
-	["Getting Started", [{ title: "Installation", href: "#" }, { title: "Quick Start", href: "#" }]],
-	["API Reference", [{ title: "Queries", href: "#" }, { title: "Mutations", href: "#" }, { title: "Infinite Queries", href: "#" }, { title: "QueryClient", href: "#" }]],
-	["Guides", [{ title: "Caching", href: "#" }, { title: "Error handling", href: "#" }, { title: "Retry", href: "#" }, { title: "Persistence", href: "#" }, { title: "HTTP cache headers", href: "#" }, { title: "Query Keys", href: "#" }, { title: "The Select Pattern", href: "#" }, { title: "Claude Code skills", href: "#" }]],
-	["Advanced", [{ title: "Devtools", href: "#" }, { title: "Observers", href: "#" }, { title: "gpui-query vs. raw async", href: "#" }, { title: "API Reference", href: "#" }, { title: "Migrating from v1 to v2", href: "#" }]],
 ];
 
 /** The docs page's headings. */
