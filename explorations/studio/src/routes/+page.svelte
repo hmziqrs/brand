@@ -51,6 +51,7 @@
 		<br /><a href="#/review/bento" class="mt-1 inline-flex items-center gap-2 text-lg font-medium hover:text-primary">Feature sections — pick what stays →</a>
 		<br /><a href="#/review/blog" class="mt-1 inline-flex items-center gap-2 text-lg font-medium hover:text-primary">Blog — pick what stays →</a>
 		<br /><a href="#/review/changelog" class="mt-1 inline-flex items-center gap-2 text-lg font-medium hover:text-primary">Changelog — pick what stays →</a>
+		<br /><a href="#/review/pricing" class="mt-1 inline-flex items-center gap-2 text-lg font-medium hover:text-primary">Pricing — pick what stays →</a>
 	</section>
 
 	<header class="flex flex-wrap items-end justify-between gap-6 border-b border-border pb-8">
