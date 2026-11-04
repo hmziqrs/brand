@@ -1,6 +1,7 @@
 import type { Component } from 'svelte';
 import IndexMagazine from '$moves/review/blog/index-magazine.svelte';
 import IndexGrid from '$moves/review/blog/index-grid.svelte';
+import IndexRows from '$moves/review/blog/index-rows.svelte';
 
 export type BlogCandidate = {
 	id: string;
@@ -38,6 +39,16 @@ export const blogs: BlogCandidate[] = [
 		src: `${dir}/index-grid.svelte`,
 		component: IndexGrid,
 		props: { here: here('index-grid') }
+	},
+	{
+		id: 'index-rows',
+		page: 'index',
+		name: 'Index · rows by month',
+		line: 'The list half of site-flora and site-voidzero: the newest post as a large row, then every post as a row grouped under a month that sticks while you scroll, each with its drawing on the right that follows the cursor across the whole row.',
+		from: 'site-flora/blog, site-voidzero/blog',
+		src: `${dir}/index-rows.svelte`,
+		component: IndexRows,
+		props: { here: here('index-rows') }
 	}
 ];
 
