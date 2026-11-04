@@ -1,21 +1,8 @@
-import type { RichBlock } from './rich';
-
-export type LegalPage = {
-	id: 'privacy' | 'terms';
-	tab: string;
-	title: [string, string];
-	updated: string;
-	short: string;
-	sections: { id: string; title: string; blocks: RichBlock[] }[];
-	other: string;
-	history: string;
-	close: { label: string; href: string };
-	ask: string;
-};
+import type { LegalDoc } from '@hmziq/brand-core/legal-page';
 
 const issues = 'https://github.com/hmziqrs/claude-multi/issues';
 
-export const privacy: LegalPage = {
+export const privacy: LegalDoc = {
 	id: 'privacy',
 	tab: 'Privacy policy',
 	title: ['Privacy ', 'Policy.'],
@@ -96,7 +83,7 @@ export const privacy: LegalPage = {
 	]
 };
 
-export const terms: LegalPage = {
+export const terms: LegalDoc = {
 	id: 'terms',
 	tab: 'Terms of use',
 	title: ['Terms of ', 'Use.'],

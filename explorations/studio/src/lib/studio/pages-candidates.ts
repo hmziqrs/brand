@@ -1,9 +1,14 @@
 import type { Component } from 'svelte';
-import NotFoundPage from '$moves/review/pages/not-found-page.svelte';
-import LegalPage from '$moves/review/pages/legal-page.svelte';
-import FaqPage from '$moves/review/pages/faq-page.svelte';
-import CvPage from '$moves/review/pages/cv-page.svelte';
-import LabsIndex from '$moves/review/pages/labs-index.svelte';
+import NotFoundPage from '$brand/blocks/content/not-found-page.svelte';
+import LegalPage from '$brand/blocks/content/legal-page.svelte';
+import FaqPage from '$brand/blocks/content/faq-page.svelte';
+import CvPage from '$brand/blocks/site/cv-page.svelte';
+import LabsIndex from '$brand/blocks/site/labs-index.svelte';
+import { notFound } from '$moves/review/pages/content';
+import { privacy, terms } from '$moves/review/pages/legal-data';
+import { faqEntries, faqIntro } from '$moves/review/pages/faq-data';
+import { cv } from '$moves/review/pages/cv-data';
+import { labsData } from '$moves/review/pages/labs-data';
 
 export type PagesCandidate = {
 	id: string;
@@ -18,7 +23,7 @@ export type PagesCandidate = {
 	props: Record<string, unknown>;
 };
 
-const dir = 'src/lib/moves/review/pages';
+const kit = 'packages/brand-svelte/src/lib/blocks';
 const here = (id: string) => `#/c/pages/${id}`;
 
 export const pagesCandidates: PagesCandidate[] = [
@@ -29,10 +34,10 @@ export const pagesCandidates: PagesCandidate[] = [
 		why: 'It keeps the live page’s words and one way home, adds the one playful thing you asked for (a mouse toy, not an empty grid), and the dot font matches the heat footer under it.',
 		from: 'the kit’s Not found - claude-multi story and NotFound block (words left, art right), DotName from the hatch footer and personal hero, PictureCard without a drawing',
 		invented: 'Three lines: “Point at the 404. It scatters.”, “Try one of these.” and “claude-multi doctor check fixes broken symlinks, not broken links. These four pages answer most of what brings people here.” The four page blurbs are the live docs’ own descriptions.',
-		src: `${dir}/not-found-page.svelte`,
+		src: `${kit}/content/not-found-page.svelte`,
 		site: { label: 'claude-multi.hmziq.xyz/404', footer: 'heat' },
 		component: NotFoundPage,
-		props: { here: here('not-found') }
+		props: { data: { ...notFound, home: { label: notFound.home, href: here('not-found') } } }
 	},
 	{
 		id: 'legal',
@@ -41,10 +46,10 @@ export const pagesCandidates: PagesCandidate[] = [
 		why: 'Reading-first: one measure, numbered sections and contents you can follow, word for word from both live pages including their bold, code and links, and nothing competing with the text.',
 		from: 'the kit’s Privacy/Terms - claude-multi stories, LegalLayout’s side contents, LegalSection, LegalBlock’s caps and definitions, Toc, LineTabs',
 		invented: 'The “Every change is in the GitHub history” link label (from the kit story) and the Questions rail heading; the rail’s sentence and two buttons are each document’s own closing lines.',
-		src: `${dir}/legal-page.svelte`,
+		src: `${kit}/content/legal-page.svelte`,
 		site: { label: 'claude-multi.hmziq.xyz/privacy · /terms', footer: 'heat' },
 		component: LegalPage,
-		props: { here: here('legal') }
+		props: { docs: [privacy, terms] }
 	},
 	{
 		id: 'faq',
@@ -53,10 +58,10 @@ export const pagesCandidates: PagesCandidate[] = [
 		why: 'It is the kit’s FAQ (numbered Question rows, SearchBox) at full live depth, with the same sticky-left/questions-right shape as the approved pricing and company questions.',
 		from: 'the kit’s FAQ - claude-multi story (FaqList’s numbered Questions, SearchBox, the closing card) and FaqSection’s sticky head beside the questions',
 		invented: 'Nothing but the counts line under the search (“15 questions · 10 topics”).',
-		src: `${dir}/faq-page.svelte`,
+		src: `${kit}/content/faq-page.svelte`,
 		site: { label: 'claude-multi.hmziq.xyz/faq', footer: 'heat', current: 'FAQ' },
 		component: FaqPage,
-		props: { here: here('faq') }
+		props: { data: { intro: faqIntro, entries: faqEntries } }
 	},
 	{
 		id: 'cv',
@@ -65,10 +70,10 @@ export const pagesCandidates: PagesCandidate[] = [
 		why: 'It reads as a résumé first (who, then what you did, then what you know), keeps every word of the live CV, and prints on paper without the dark theme.',
 		from: 'the kit’s ReleaseTimeline rail (as on the approved changelog), Tag, PictureGrid with LineArt, and the company about page’s experience rail',
 		invented: 'The “Print this page” button and the “9+ years · Dec 2016 - Present” line (both from the live data). The live project bullets are hidden placeholders there and stay out; screenshots become line drawings.',
-		src: `${dir}/cv-page.svelte`,
+		src: `${kit}/site/cv-page.svelte`,
 		site: { label: 'cv.hmziq.rs', footer: 'personal', current: 'CV' },
 		component: CvPage,
-		props: { here: here('cv') }
+		props: { data: cv }
 	},
 	{
 		id: 'labs-index',
@@ -77,10 +82,10 @@ export const pagesCandidates: PagesCandidate[] = [
 		why: 'It is the approved picture-card pattern as is, filled with the real entries from the live hmziq.xyz instead of invented ones.',
 		from: 'the kit’s PictureCard with LineArt and PictureGrid with filter pills, StatTile; labs’ words from footers/sites.ts; the entries from the live hmziq.xyz',
 		invented: 'Sorting the twelve live repositories into Experiments, Games and Tools (the live site filters Flutter, Rust and Web). The title and lede are the studio’s labs site data (sites.ts), not live words; its game names (Pocket roguelike…) are not on the live site, so they are left out.',
-		src: `${dir}/labs-index.svelte`,
+		src: `${kit}/site/labs-index.svelte`,
 		site: { label: 'hmziq.xyz', footer: 'glyphs', current: 'Experiments' },
 		component: LabsIndex,
-		props: { here: here('labs-index') }
+		props: { data: labsData }
 	}
 ];
 
