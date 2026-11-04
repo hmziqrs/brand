@@ -1,0 +1,36 @@
+---
+import CommandBox from "$brand/components/command-box.astro";
+import TerminalBody from "$brand/components/terminal-body.astro";
+import TerminalLine from "$brand/components/terminal-line.astro";
+import TerminalWindow from "$brand/components/terminal-window.astro";
+
+interface Props {
+  i: number;
+}
+
+const { i } = Astro.props;
+---
+
+{i === 0 && <CommandBox command="bun add -g example-tool" class="w-full bg-background" />}
+{
+  i === 1 && (
+    <TerminalWindow title="example-tool add" class="w-full max-w-[22rem]">
+      <TerminalBody>
+        <TerminalLine line={["cmd", "example-tool add work"]} />
+        <TerminalLine line={["step", "Config directory", "~/.example-work"]} />
+        <TerminalLine line={["ok", "Added work"]} />
+      </TerminalBody>
+    </TerminalWindow>
+  )
+}
+{
+  i === 2 && (
+    <TerminalWindow title="example-work" class="w-full max-w-[22rem]">
+      <TerminalBody>
+        <TerminalLine line={["cmd", "example-work run"]} />
+        <TerminalLine line={["note", "Example output"]} />
+        <TerminalLine line={["ok", "Done: 1 run, 0 failures"]} />
+      </TerminalBody>
+    </TerminalWindow>
+  )
+}

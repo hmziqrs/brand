@@ -1,14 +1,14 @@
 import { defineCollection } from "astro:content";
 import { z } from "astro/zod";
 import { glob } from "astro/loaders";
+import { lineArtKinds, type LineArtKind } from "@hmziq/brand-core/motion/line-art";
 
 /*
  * The content collections (docs/content-blocks.md, step 3): posts and docs
  * written in Markdown, rendered through core's plugins — the callout, the
  * heading anchor, the code meta and the table — which astro.config.ts wires
  * into every collection's pipeline with the built-in highlighter off. A
- * post's cover, and whether it's line art (so it inverts on light pages),
- * come from its frontmatter.
+ * post's line drawing comes from its frontmatter.
  */
 
 const blog = defineCollection({
@@ -26,11 +26,8 @@ const blog = defineCollection({
     updated: z.string().optional(),
     /** The post's category, as a colored tag. */
     topic: z.string().optional(),
-    /** The post's cover image, from public/. */
-    cover: z.string().optional(),
-    coverAlt: z.string().optional(),
-    /** Line art drawn for dark pages, inverted on light ones. */
-    lineArt: z.boolean().optional(),
+    /** The post's line drawing: its picture on cards and its cover. */
+    art: z.enum(lineArtKinds as [LineArtKind, ...LineArtKind[]]).optional(),
     /** Who wrote it. hmziq by default. */
     author: z.string().optional(),
   }),

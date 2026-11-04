@@ -1,100 +1,62 @@
 ---
-// The landing page, built from the kit's site blocks. Every word here is
-// example copy: replace it with the project's own before shipping.
+// The landing page for a product site: ProductHero centered over a
+// MaterialWash, a catalog, the steps and the stat tiles. Every word is
+// example copy (lib/example.ts): replace it with the project's own.
+import { ArrowRight } from "@lucide/astro";
 import { siGithub } from "simple-icons";
-import { BookOpenText, FolderTree, GitBranch, ListChecks, ScanSearch } from "@lucide/astro";
-import BrandIcon from "$brand/components/brand-icon.astro";
-import Rings from "$brand/components/rings.astro";
+import Site from "../layouts/Site.astro";
+import Container from "$brand/blocks/site/container.astro";
 import ButtonLink from "$brand/blocks/site/button-link.astro";
-import CtaBand from "$brand/blocks/site/cta-band.astro";
-import ElementCard from "$brand/blocks/site/element-card.astro";
-import FeatureGrid from "$brand/blocks/site/feature-grid.astro";
-import Hero from "$brand/blocks/site/hero.astro";
-import HeroNote from "$brand/blocks/site/hero-note.astro";
-import RingStats from "$brand/blocks/site/ring-stats.astro";
-import Section from "$brand/blocks/site/section.astro";
-import SiteLayout from "$brand/blocks/site/site-layout.astro";
-import ThemeInit from "../components/theme-init.astro";
-import ThemeToggle from "../components/theme-toggle.astro";
-import type { Tone } from "@hmziq/brand-core/tones";
-
-// Example content, in the shape the lab's site pages use.
-const kinds = {
-  library: { label: "Library", color: "var(--blue)", tone: "blue" as Tone },
-  cli: { label: "Command-line tool", color: "var(--teal)", tone: "teal" as Tone },
-  app: { label: "Desktop app", color: "var(--purple)", tone: "purple" as Tone },
-};
-
-type Project = { n: number; symbol: string; name: string; kind: { label: string; color: string; tone: Tone }; status: { label: string; tone?: Tone }; body: string };
-
-const projects: Project[] = [
-  { n: 1, symbol: "Ex", name: "Example one", kind: kinds.library, status: { label: "Shipped", tone: "success" as Tone }, body: "One line on what it does and who it is for. Example copy." },
-  { n: 2, symbol: "Tw", name: "Example two", kind: kinds.cli, status: { label: "In progress", tone: "warning" as Tone }, body: "One line on what it does and who it is for. Example copy." },
-  { n: 3, symbol: "Th", name: "Example three", kind: kinds.app, status: { label: "Planned" }, body: "One line on what it does and who it is for. Example copy." },
-];
-
-const facts = [
-  { value: "100%", label: "example number, filled ring", ring: 1 },
-  { value: "90%+", label: "example number, most of a ring", ring: 0.9 },
-  { value: "5", label: "example count, five segments", ring: 5 },
-];
+import ProductHero from "$brand/blocks/sections/product-hero.astro";
+import CatalogSection from "$brand/blocks/sections/catalog-section.astro";
+import StepsSection from "$brand/blocks/sections/steps-section.astro";
+import SectionHead from "$brand/blocks/sections/section-head.astro";
+import MaterialWash from "$brand/components/material-wash.astro";
+import StatTile from "$brand/components/stat-tile.astro";
+import Tag from "$brand/components/tag.astro";
+import BrandIcon from "$brand/components/brand-icon.astro";
+import TerminalWindow from "$brand/components/terminal-window.astro";
+import TerminalBody from "$brand/components/terminal-body.astro";
+import TerminalLine from "$brand/components/terminal-line.astro";
+import StepDemo from "../components/step-demo.astro";
+import { landing, site } from "../lib/example";
 ---
 
-<SiteLayout site="example" maker="by hmziq" nav={["Projects", "How it works", "About"]} current="Projects" cta={{ label: "Browse projects" }} head={{ site: "freeoxide", title: "astro-app — a hmziq site", description: "The Astro starter for hmziq sites: the theme, the brand kit, a landing page built from the site blocks, and the content pages.", url: "https://example.com/" }}>
-  <ThemeInit slot="head" />
-  <ThemeToggle slot="extra" />
-
-  <Hero>
-    <Fragment slot="title">Example headline, finished before it ships.</Fragment>
-    <Fragment slot="lede">One sentence on what this is and who it is for. Replace every word on this page with the project's own.</Fragment>
+<Site head={{ site: "freeoxide", title: "astro-app — a hmziq site", description: "The Astro starter for hmziq sites: the theme, the brand kit, a product landing page and the content pages.", url: "https://example.com/" }}>
+  <ProductHero layout="centered" title={landing.hero.title} accent={landing.hero.accent} lede={landing.hero.lede} install={site.install}>
+    <Tag slot="eyebrow" tone="orange" marker class="font-mono uppercase">{landing.hero.eyebrow}</Tag>
     <Fragment slot="actions">
-      <ButtonLink href="#projects" size="lg" class="px-5">Browse the projects</ButtonLink>
-      <ButtonLink href="https://github.com" size="lg" variant="outline" class="px-5">
-        <BrandIcon icon={siGithub} data-icon="inline-start" />
-        View on GitHub
-      </ButtonLink>
+      <ButtonLink href="/docs/installation" size="lg">Get started<ArrowRight data-icon="inline-end" /></ButtonLink>
+      <ButtonLink href="https://github.com" size="lg" variant="outline"><BrandIcon icon={siGithub} data-icon="inline-start" />GitHub</ButtonLink>
     </Fragment>
-    <Fragment slot="note"><HeroNote>Example note under the buttons, with an orange ring.</HeroNote></Fragment>
-    <Fragment slot="aside">
-      <!-- Beside the words from md up; below it, the rings sit out rather than stack under the text. -->
-      <div class="hidden md:block"><Rings seed="example" /></div>
-    </Fragment>
-  </Hero>
+    <MaterialWash slot="stage" preset="white-sweep" />
+    <TerminalWindow slot="visual" title="example-tool setup">
+      <TerminalBody>
+        {landing.terminal.map((line) => <TerminalLine line={line} />)}
+      </TerminalBody>
+    </TerminalWindow>
+  </ProductHero>
 
-  <RingStats items={facts} />
-
-  <Section>
-    <Fragment slot="caption">Example section · with a caption</Fragment>
-    <Fragment slot="title">The projects</Fragment>
-    <Fragment slot="intro">A short list on purpose. Each one ships only when it meets every standard below.</Fragment>
-    <div id="projects" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {projects.map((p) => (
-        <ElementCard n={p.n} symbol={p.symbol} name={p.name} kind={p.kind} status={p.status}>
-          {p.body}
-        </ElementCard>
-      ))}
+  <CatalogSection title={landing.catalog.title} accent={landing.catalog.accent} tags={landing.catalog.tags} lede={landing.catalog.lede} items={landing.catalog.items} picked={landing.catalog.picked}>
+    <div class="mt-12 grid grid-cols-2 gap-3 lg:grid-cols-3">
+      {landing.stats.map((s, i) => <StatTile {...s} class={i === 0 ? "col-span-2 lg:col-span-1" : ""} />)}
     </div>
-  </Section>
+  </CatalogSection>
 
-  <Section>
-    <Fragment slot="title">How every project is made</Fragment>
-    <Fragment slot="intro">Example copy for the second section, with the quieter feature grid under it.</Fragment>
-    <FeatureGrid
-      items={[
-        { icon: FolderTree, title: "Structure by hand", body: "Example copy for a feature." },
-        { icon: ScanSearch, title: "Five review rounds", body: "Example copy for a feature." },
-        { icon: ListChecks, title: "Five rounds of tests", body: "Example copy for a feature." },
-        { icon: BookOpenText, title: "Clean and documented", body: "Example copy for a feature." },
-        { icon: GitBranch, title: "Open by default", body: "Example copy for a feature." },
-      ]}
-    />
-  </Section>
+  <StepsSection kicker={landing.steps.kicker} title={landing.steps.title} lede={landing.steps.lede} steps={landing.steps.items}>
+    <ButtonLink slot="actions" href="/docs/quick-start" size="lg">Quick start<ArrowRight data-icon="inline-end" /></ButtonLink>
+    <StepDemo slot="demo-1" i={0} />
+    <StepDemo slot="demo-2" i={1} />
+    <StepDemo slot="demo-3" i={2} />
+  </StepsSection>
 
-  <CtaBand title="One person. All of it.">
-    <Fragment slot="body">Example closing copy: who is behind this and how to get in touch.</Fragment>
-    <Fragment slot="actions">
-      <ButtonLink href="/about" size="lg" class="px-5">Read the full story</ButtonLink>
-      <ButtonLink href="/contact" size="lg" variant="outline" class="px-5">Get in touch</ButtonLink>
-    </Fragment>
-  </CtaBand>
-</SiteLayout>
+  <section class="pb-24 sm:pb-32">
+    <Container size="wide">
+      <SectionHead layout="center" kicker={landing.closing.kicker} title={landing.closing.title} lede={landing.closing.lede} />
+      <div class="mt-9 flex flex-wrap justify-center gap-3">
+        <ButtonLink href="/docs/installation" size="lg">Read the docs</ButtonLink>
+        <ButtonLink href="/contact" size="lg" variant="outline">Get in touch</ButtonLink>
+      </div>
+    </Container>
+  </section>
+</Site>
