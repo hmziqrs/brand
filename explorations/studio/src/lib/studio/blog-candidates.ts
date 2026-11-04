@@ -4,6 +4,7 @@ import IndexGrid from '$moves/review/blog/index-grid.svelte';
 import IndexRows from '$moves/review/blog/index-rows.svelte';
 import PostClean from '$moves/review/blog/post-clean.svelte';
 import PostMargins from '$moves/review/blog/post-margins.svelte';
+import PostDrawn from '$moves/review/blog/post-drawn.svelte';
 
 export type BlogCandidate = {
 	id: string;
@@ -71,6 +72,16 @@ export const blogs: BlogCandidate[] = [
 		src: `${dir}/post-margins.svelte`,
 		component: PostMargins,
 		props: { here: here('post-margins') }
+	},
+	{
+		id: 'post-drawn',
+		page: 'post',
+		name: 'Post · drawn alongside',
+		line: 'The reading column beside a line drawing of the stack the post describes: as you read, the parts each section talks about light up; point at a part for its sentence from the post, click it to jump there.',
+		from: 'site-voidzero/post, site-flora/post',
+		src: `${dir}/post-drawn.svelte`,
+		component: PostDrawn,
+		props: { here: here('post-drawn') }
 	}
 ];
 
