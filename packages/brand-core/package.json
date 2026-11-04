@@ -142,6 +142,10 @@
       "types": "./dist/motion/dither-name.d.ts",
       "default": "./dist/motion/dither-name.js"
     },
+    "./motion/dot-field": {
+      "types": "./dist/motion/dot-field.d.ts",
+      "default": "./dist/motion/dot-field.js"
+    },
     "./motion/heat-field": {
       "types": "./dist/motion/heat-field.d.ts",
       "default": "./dist/motion/heat-field.js"

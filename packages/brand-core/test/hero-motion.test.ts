@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest"
 import { dotNameGrid, layoutWord } from "../src/motion/dot-name"
 import { titleWords } from "../src/motion/resolve-title"
+import { dotAt } from "../src/motion/dot-field"
 import { ringFieldSets, ringFieldStars, setTransform, starAt } from "../src/motion/ring-field"
 
 describe("dot name", () => {
@@ -44,5 +45,20 @@ describe("ring field", () => {
     expect(starAt(ringFieldStars[0], 1, -1)).toEqual({ cx: ringFieldStars[0].x + 0.4, cy: ringFieldStars[0].y - 0.4 })
     expect(setTransform(ringFieldSets[0], 1, 0)).toBe("translate(-1.20 0.00)")
     expect(setTransform(ringFieldSets[1], 1, 0)).toBe("translate(-1.92 0.00)")
+  })
+})
+
+describe("dot field", () => {
+  it("leaves a dot alone when the cursor is out of reach", () => {
+    const dot = dotAt(100, 100, -9999, -9999, 140)
+    expect(dot).toMatchObject({ x: 100, y: 100, radius: 1, alpha: 0.2, hot: false })
+  })
+
+  it("pushes a dot away from the cursor, swells it and heats it up close", () => {
+    const near = dotAt(110, 100, 100, 100, 140)
+    expect(near.x).toBeGreaterThan(110)
+    expect(near.radius).toBeGreaterThan(2)
+    expect(near.hot).toBe(true)
+    expect(dotAt(220, 100, 100, 100, 140).hot).toBe(false)
   })
 })

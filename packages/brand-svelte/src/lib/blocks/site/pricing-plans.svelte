@@ -16,15 +16,17 @@
 
 	let {
 		plans,
-		/** The monthly / yearly switch. On by default. */
+		/** The monthly / yearly switch, with lifetime when a plan has a lifetime price. On by default. */
 		billing = true,
 		/** Draw the price yourself, e.g. with a total for the team size. */
 		price,
 		class: className,
 	}: { plans: Plan[]; billing?: boolean; price?: Snippet<[Plan, boolean]>; class?: string } = $props();
 
-	let billingPeriod = $state<"monthly" | "yearly">("monthly");
+	let billingPeriod = $state<"monthly" | "yearly" | "lifetime">("monthly");
 	const yearly = $derived(billingPeriod === "yearly");
+	const lifetime = $derived(billingPeriod === "lifetime");
+	const sellsLifetime = $derived(plans.some((p) => p.lifetime !== undefined));
 </script>
 
 <div class={cn("flex flex-col items-start gap-6", className)}>
@@ -32,10 +34,11 @@
 		<Segmented
 			label="Billing"
 			value={billingPeriod}
-			onValueChange={(v) => (billingPeriod = v as "monthly" | "yearly")}
+			onValueChange={(v) => (billingPeriod = v as "monthly" | "yearly" | "lifetime")}
 			options={[
 				{ value: "monthly", label: "Monthly" },
 				{ value: "yearly", label: "Yearly, 2 months free" },
+				...(sellsLifetime ? [{ value: "lifetime", label: "Lifetime" }] : []),
 			]}
 		/>
 	{/if}
@@ -50,7 +53,7 @@
 					{/if}
 				</div>
 				<div class="relative">
-					{#if price}{@render price(p, yearly)}{:else}<Price plan={p} {yearly} />{/if}
+					{#if price}{@render price(p, yearly)}{:else}<Price plan={p} {yearly} {lifetime} />{/if}
 				</div>
 				<p class="relative text-[0.9rem] text-muted-foreground">{p.blurb}</p>
 				<CheckList items={p.features} class="relative mb-2" />
