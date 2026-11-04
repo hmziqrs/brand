@@ -2683,6 +2683,123 @@
       "astroItem": "wash-glow"
     },
     {
+      "name": "SectionHead",
+      "group": "site",
+      "svelte": "sections-section-head--split",
+      "astro": "not yet",
+      "svelteFile": "blocks/sections/section-head.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "LineArt",
+      "group": "brand",
+      "svelte": "custom-line-art--kinds",
+      "astro": "not yet",
+      "svelteFile": "components/line-art.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "PictureCard",
+      "group": "brand",
+      "svelte": "custom-picture-card--default",
+      "astro": "not yet",
+      "svelteFile": "components/picture-card.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "PictureGrid",
+      "group": "brand",
+      "svelte": "custom-picture-grid--work",
+      "astro": "not yet",
+      "svelteFile": "components/picture-grid.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "StepCards",
+      "group": "brand",
+      "svelte": "custom-step-cards--with-demos",
+      "astro": "not yet",
+      "svelteFile": "components/step-cards.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "FlowSteps",
+      "group": "brand",
+      "svelte": "custom-flow-steps--brief-to-ship",
+      "astro": "not yet",
+      "svelteFile": "components/flow-steps.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "AppMock",
+      "group": "brand",
+      "svelte": "custom-app-mock--kinds",
+      "astro": "not yet",
+      "svelteFile": "components/app-mock.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "SurfaceTile",
+      "group": "brand",
+      "svelte": "custom-surface-tile--desktop",
+      "astro": "not yet",
+      "svelteFile": "components/surface-tile.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "ProjectRows",
+      "group": "brand",
+      "svelte": "custom-project-rows--four-tools",
+      "astro": "not yet",
+      "svelteFile": "components/project-rows.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "CatalogCard",
+      "group": "brand",
+      "svelte": "custom-catalog-card--default-and-picked",
+      "astro": "not yet",
+      "svelteFile": "components/catalog-card.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "StatTile",
+      "group": "brand",
+      "svelte": "custom-stat-tile--oxide-and-outline",
+      "astro": "not yet",
+      "svelteFile": "components/stat-tile.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "ReleaseLoop",
+      "group": "brand",
+      "svelte": "custom-release-loop--desktop-release",
+      "astro": "not yet",
+      "svelteFile": "components/release-loop.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "GlassBand",
+      "group": "site",
+      "svelte": "sections-glass-band--etched-silk",
+      "astro": "not yet",
+      "svelteFile": "blocks/sections/glass-band.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
       "name": "Roadmap",
       "group": "brand",
       "svelte": "custom-roadmap--board",

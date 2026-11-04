@@ -191,3 +191,24 @@ export { default as HeatFooter } from "./blocks/sections/heat-footer.svelte";
 export { default as MaterialFooter } from "./blocks/sections/material-footer.svelte";
 export { default as SiteFooter } from "./components/site-footer.svelte";
 export { default as VoxelFooter } from "./blocks/sections/voxel-footer.svelte";
+
+// Feature section parts.
+export { default as AppMock } from "./components/app-mock.svelte";
+export { default as CatalogCard } from "./components/catalog-card.svelte";
+export type { CatalogItem } from "./components/catalog-card.svelte";
+export { default as FlowSteps } from "./components/flow-steps.svelte";
+export type { FlowStep } from "./components/flow-steps.svelte";
+export { default as LineArt } from "./components/line-art.svelte";
+export { default as PictureCard } from "./components/picture-card.svelte";
+export type { PictureItem } from "./components/picture-card.svelte";
+export { default as PictureGrid } from "./components/picture-grid.svelte";
+export { default as ProjectRows } from "./components/project-rows.svelte";
+export type { ProjectRow } from "./components/project-rows.svelte";
+export { default as ReleaseLoop } from "./components/release-loop.svelte";
+export type { ReleaseInstaller, ReleaseStep } from "./components/release-loop.svelte";
+export { default as StatTile } from "./components/stat-tile.svelte";
+export { default as StepCards } from "./components/step-cards.svelte";
+export type { StepCard } from "./components/step-cards.svelte";
+export { default as SurfaceTile } from "./components/surface-tile.svelte";
+export { default as GlassBand } from "./blocks/sections/glass-band.svelte";
+export { default as SectionHead } from "./blocks/sections/section-head.svelte";
