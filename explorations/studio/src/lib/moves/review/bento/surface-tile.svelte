@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 	import ArrowUpRight from '@lucide/svelte/icons/arrow-up-right';
+	import Tag from '$brand/components/tag.svelte';
 	import { cn } from '$brand/utils.js';
 	import ShaderMaterial from '$brand/components/shader-material.svelte';
 
@@ -60,7 +61,7 @@
 			<span class="mt-1 block text-[15px] leading-snug text-foreground/80">{body}</span>
 		</span>
 		<span class="flex shrink-0 items-center gap-2">
-			<span class="hidden rounded-md px-2 py-1 font-mono text-[11px] tracking-wide text-foreground uppercase ring-1 ring-foreground/15 sm:inline">{kind}</span>
+			<Tag class="hidden sm:inline-flex">{kind}</Tag>
 			<span class="grid size-8 place-items-center rounded-full text-foreground ring-1 ring-foreground/15 transition-[rotate,background-color,color] duration-500 group-hover/surface:rotate-45 group-hover/surface:bg-primary group-hover/surface:text-primary-foreground motion-reduce:transition-none"><ArrowUpRight class="lucide size-4" /></span>
 		</span>
 	</span>

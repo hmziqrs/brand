@@ -5,7 +5,7 @@
 	import Link2 from '@lucide/svelte/icons/link-2';
 	import { cn } from '$brand/utils.js';
 	import { Button } from '$brand/ui/button/index.js';
-	import MonoChip from '$moves/dovetail/mono-chip.svelte';
+	import Tag from '$brand/components/tag.svelte';
 	import ProviderMark from '$moves/dovetail/provider-mark.svelte';
 	import type { Provider } from '$moves/dovetail/providers';
 
@@ -59,7 +59,7 @@
 	<div class="flex h-11 items-center gap-3 border-b px-4">
 		<span class="flex gap-1.5" aria-hidden="true">{#each [0, 1, 2] as i (i)}<i class="size-2.5 rounded-full bg-[color-mix(in_oklab,var(--foreground)_22%,transparent)]"></i>{/each}</span>
 		<span class="font-mono text-[0.75rem] text-muted-foreground">claude-multi</span>
-		<MonoChip class="ml-auto" tone="ghost">{version}</MonoChip>
+		<span class="ml-auto font-mono text-[11px] text-foreground/70">{version}</span>
 	</div>
 	<div class="border-b px-3 py-3 sm:px-4">
 		<div class="flex h-11 items-center gap-3 rounded-lg border px-3.5">
@@ -97,7 +97,7 @@
 					<span class="font-mono text-[1.25rem] font-semibold tracking-tight">claude-{current.id}</span>
 					<span class="text-[0.8125rem] text-muted-foreground">{current.name}</span>
 				</span>
-				<MonoChip class="ml-auto" mark="ring">Ready</MonoChip>
+				<Tag tone="success" marker class="ml-auto">Ready</Tag>
 			</div>
 			<dl class="grid gap-2.5 font-mono text-[0.78rem]">
 				{#each rows as [k, v] (k)}

@@ -5,15 +5,14 @@
 	import Container from '$brand/blocks/site/container.svelte';
 	import MaterialStage from '$brand/components/material-stage.svelte';
 	import MixedHeadline from '$moves/dovetail/mixed-headline.svelte';
-	import MonoChip from '$moves/dovetail/mono-chip.svelte';
+	import Tag from '$brand/components/tag.svelte';
 	import { providers } from '$moves/dovetail/providers';
-	import MetalTile from './metal-tile.svelte';
+	import ProviderCard from './provider-card.svelte';
 	import InstanceSwitch from './instance-switch.svelte';
 	import { outline } from './ui';
 
 	let { here = '#', class: className }: { here?: string; class?: string } = $props();
 
-	const metals = ['copper-sweep', 'hammered-copper', 'lava-fissures', 'mica-flakes', 'sediment', 'folded-foil', 'brushed-alloy', 'oxide-ink'];
 	let picked = $state('ds');
 
 	const digits = 'font-dot text-[clamp(3.5rem,6.5vw,5.75rem)] leading-[0.85] font-bold tracking-[-0.04em]';
@@ -21,24 +20,19 @@
 
 <section data-slot="multi-metal" class={cn('overflow-x-clip py-24 sm:py-32', className)}>
 	<Container size="wide">
-		<MixedHeadline size="xl" alt="dot" tint="primary">Pick your <em>metal</em></MixedHeadline>
+		<MixedHeadline size="xl" alt="dot" tint="primary">Pick your <em>provider</em></MixedHeadline>
 		<div class="mt-8 flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
 			<div class="flex flex-wrap gap-2">
-				<MonoChip tone="oxide" mark="square">claude-multi</MonoChip>
-				<MonoChip mark="plus">8 templates</MonoChip>
-				<MonoChip mark="plus">One instance per key</MonoChip>
+				<Tag tone="orange">claude-multi</Tag>
+				<Tag>8 templates</Tag>
+				<Tag>One instance per key</Tag>
 			</div>
-			<p class="max-w-[30rem] text-[1.15rem] leading-snug text-foreground">Every template maps a provider's models into Claude Code's Opus and fast slots. Bring a key, get an instance. Click a metal, then find it in the switcher below.</p>
+			<p class="max-w-[30rem] text-[1.15rem] leading-snug text-foreground">Every template maps a provider's models into Claude Code's Opus and fast slots. Bring a key, get an instance. Click a provider, then find it in the switcher below.</p>
 		</div>
 
-		<div class="mt-12 grid gap-3 md:grid-cols-2">
-			{#each providers.slice(0, 2) as p, i (p.id)}
-				<MetalTile provider={p} preset={metals[i]} size="lg" picked={picked === p.id} onpick={(id) => (picked = id)} />
-			{/each}
-		</div>
-		<div class="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-			{#each providers.slice(2) as p, i (p.id)}
-				<MetalTile provider={p} preset={metals[i + 2]} picked={picked === p.id} onpick={(id) => (picked = id)} />
+		<div class="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+			{#each providers as p (p.id)}
+				<ProviderCard provider={p} picked={picked === p.id} onpick={(id) => (picked = id)} />
 			{/each}
 		</div>
 
