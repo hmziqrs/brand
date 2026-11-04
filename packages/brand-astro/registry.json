@@ -987,6 +987,25 @@
 			]
 		},
 		{
+			"name": "dot-field",
+			"type": "registry:file",
+			"title": "dot-field",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/components/dot-field.astro",
+					"target": "src/components/brand/components/dot-field.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
 			"name": "dot-footer",
 			"type": "registry:file",
 			"title": "dot-footer",
@@ -1148,6 +1167,26 @@
 				{
 					"path": "src/blocks/content/faq-list.astro",
 					"target": "src/components/brand/blocks/content/faq-list.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "faq-section",
+			"type": "registry:file",
+			"title": "faq-section",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/question",
+				"@hmziq/questions",
+				"@hmziq/section-head",
+				"@hmziq/site-blocks-shared"
+			],
+			"files": [
+				{
+					"path": "src/blocks/site/faq-section.astro",
+					"target": "src/components/brand/blocks/site/faq-section.astro",
 					"type": "registry:file"
 				}
 			]
@@ -1775,6 +1814,7 @@
 				"@hmziq/docs-pager",
 				"@hmziq/docs-search",
 				"@hmziq/docs-title",
+				"@hmziq/dot-field",
 				"@hmziq/dot-footer",
 				"@hmziq/dot-name",
 				"@hmziq/drag-window",
@@ -1783,6 +1823,7 @@
 				"@hmziq/empty-state",
 				"@hmziq/error-state",
 				"@hmziq/faq-list",
+				"@hmziq/faq-section",
 				"@hmziq/feature-cards",
 				"@hmziq/feature-grid",
 				"@hmziq/filter-chip",
@@ -1851,6 +1892,9 @@
 				"@hmziq/post-list",
 				"@hmziq/post-meta",
 				"@hmziq/price",
+				"@hmziq/pricing-card",
+				"@hmziq/pricing-compare",
+				"@hmziq/pricing-page",
 				"@hmziq/pricing-plans",
 				"@hmziq/product-hero",
 				"@hmziq/product-window",
@@ -2840,6 +2884,78 @@
 			]
 		},
 		{
+			"name": "pricing-card",
+			"type": "registry:file",
+			"title": "pricing-card",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/button-link",
+				"@hmziq/check-list",
+				"@hmziq/corner-rings",
+				"@hmziq/line-art",
+				"@hmziq/site-blocks-shared",
+				"@hmziq/tag",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/site/pricing-card.astro",
+					"target": "src/components/brand/blocks/site/pricing-card.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "pricing-compare",
+			"type": "registry:file",
+			"title": "pricing-compare",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@lucide/astro@^1.48.0"
+			],
+			"registryDependencies": [
+				"@hmziq/button-link",
+				"@hmziq/section-head",
+				"@hmziq/segmented",
+				"@hmziq/site-blocks-shared",
+				"@hmziq/starwind-switch",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/site/pricing-compare.astro",
+					"target": "src/components/brand/blocks/site/pricing-compare.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "pricing-page",
+			"type": "registry:file",
+			"title": "pricing-page",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/container",
+				"@hmziq/dot-field",
+				"@hmziq/faq-section",
+				"@hmziq/pricing-card",
+				"@hmziq/pricing-compare",
+				"@hmziq/segmented",
+				"@hmziq/site-blocks-shared",
+				"@hmziq/tag",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/site/pricing-page.astro",
+					"target": "src/components/brand/blocks/site/pricing-page.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
 			"name": "pricing-plans",
 			"type": "registry:file",
 			"title": "pricing-plans",
@@ -3706,12 +3822,24 @@
 			"type": "registry:file",
 			"title": "site-blocks-shared",
 			"description": "Files from \"site-blocks-shared\" the pieces roster does not list yet; they become their own items when their plan finishes and this script is re-run.",
-			"dependencies": [],
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
 			"registryDependencies": [],
 			"files": [
 				{
 					"path": "src/blocks/site/plan.ts",
 					"target": "src/components/brand/blocks/site/plan.ts",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/blocks/site/pricing-mode.ts",
+					"target": "src/components/brand/blocks/site/pricing-mode.ts",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/blocks/site/pricing-types.ts",
+					"target": "src/components/brand/blocks/site/pricing-types.ts",
 					"type": "registry:file"
 				}
 			]

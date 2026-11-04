@@ -303,6 +303,19 @@ the picture comes in as a snippet that binds the shared `SpotState`
 (`spot.current`), so a product's own sketch lights with its changes. The
 filter, the dates and the change marks are core's `changelog` module.
 
+Pricing pages (also in the Astro kit), `PricingPage` in `blocks/site/`: the
+`DotField` hero (dots that swell, push and heat under the cursor; its canvas
+logic is core's `motion/dot-field`) with a billing switch, a row of
+`PricingCard`s, `PricingCompare` and `FaqSection`. The switch is any list of
+modes (monthly, yearly, lifetime; or a commitment): every `PricingTier` carries
+its `amount`, `unit`, `short` and `note` per mode, and the cards and the
+compare table's plan headers follow it. `PricingCompare` keeps its plan row
+sticky under `--pricing-top`, tints the column under the cursor, hides the
+rows that don't differ on "Only show differences", and on a phone shows one
+plan at a time. `PricingPlans` takes a `lifetime` price on a `Plan` and adds a
+Lifetime option to its switch. Example prices live in the stories and in the
+studio, never in the pieces.
+
 ## Registry
 
 `registry.json` is generated, never hand-edited: `bun run registry:generate`
