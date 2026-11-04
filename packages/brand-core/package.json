@@ -74,6 +74,10 @@
       "types": "./dist/tones.d.ts",
       "default": "./dist/tones.js"
     },
+    "./changelog": {
+      "types": "./dist/changelog.d.ts",
+      "default": "./dist/changelog.js"
+    },
     "./scroll-spy": {
       "types": "./dist/scroll-spy.d.ts",
       "default": "./dist/scroll-spy.js"
