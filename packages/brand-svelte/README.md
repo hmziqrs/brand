@@ -152,17 +152,8 @@ Svelte exposes `onstatus`, `ontime`, and `bind:exportPng`. The Astro adapter
 emits bubbling `shader:status` / `shader:time` events and exposes `exportPng`
 on the mounted root element while its live renderer is ready.
 
-Storybook includes `Custom/Shaders`, `Tweakers/Shader studio`,
-`Templates/Shader sections` (six section treatments), and
-`Templates/Shader pages/Usage guide` (image/live comparisons, tradeoffs, and
-copyable implementation recipes). The Svelte starter's `/shaders` route
-opens the guide; separate product, editorial, and showcase variants remain.
-
-`Templates/Oxide SaaS pages` copies the complete Sightline, Groundwork, and
-Hookline examples with oxide-only materials. The originals stay unchanged.
-Static stories create no GPU devices; animated variants use one live field.
-The starter exposes `/shaders/saas/analytics`, `/shaders/saas/team-planning`,
-and `/shaders/saas/developer-api`. Enable motion explicitly with `?motion=on`.
+Storybook includes `Custom/Shaders` and `Tweakers/Shader studio`. Static
+stories create no GPU devices; a live preview uses one field.
 
 Framework-free recipes and uniforms live in `@hmziq/brand-core/shaders/catalog`.
 `/shaders/posters` is the Vite asset URL module used by both kits; it serves
@@ -195,29 +186,20 @@ Materials (shader images in the brand's palette; `brandMaterials` and
 name; `materials.css` keeps metal drawn into shapes readable in both modes):
 `MaterialCard` (words on a smoke-glass panel over the material; the
 material is a surface, never a picture), `MaterialStage` (a product
-screen or code on metal), `MaterialTabs`, `MaterialFrame`, `MaterialGauge`, `MaterialSparkline`,
-`MaterialBar`, `MaterialSlider`, `MaterialRule`, `MaterialTag`,
-`MaterialTile`, `MaterialRings`, and `AnnouncePill` / `AnnounceBar`. Code has
+screen or code on metal). Code has
 no fill of its own: on a material, give `CodeBlock` `bg-background`.
 
-Rings: `RingLoader` (`tone="current"` inside buttons), `RingDivider`,
-`RingMeter`, `ScrollRings` (draw themselves on scroll), `HorizonRings`,
-`StatusRing`. Glass: `GlassDock`, `LiquidGlass` (edge refraction, Chromium
-only, frosted elsewhere), `CommandPalette` (⌘K, glass, actions panel).
-Layout: `Bento` + `BentoTile`. Cards: `ReleaseCard`,
-`ProjectCard`, `EndpointCard`, `PlanCard`. Motion that answers data or a mode,
-never hover: `RollingNumber`, `ThemeToggle` (view-transition reveal).
+Rings: `HorizonRings`, `StatusRing`. Glass: `CommandPalette` (⌘K, glass,
+actions panel). Layout: `Bento` + `BentoTile`. Motion that answers data or a
+mode, never hover: `RollingNumber`, `ThemeToggle` (view-transition reveal).
 
 Pages and navigation: `NavBar` (the default header: bar, floating,
 centered; hover menus with a line per page; a closable shader-poster
-announcement; a phone sheet; also in the Astro kit), `SiteFooter` (columns, simple, minimal, over an optional `stage`), `CardCarousel`,
-`FeatureCarousel`, `LineTabs`, `Roadmap`, `PersonCard`, `Gallery`,
-`CommentThread`, `NotificationList`, `FileDrop`, `ConsentBanner`.
+announcement; a phone sheet; also in the Astro kit), `SiteFooter` (columns, simple, minimal, over an optional `stage`),
+`LineTabs`, `PersonCard`, `CommentThread`, `NotificationList`, `FileDrop`, `ConsentBanner`.
 `System/Overview` in Storybook lists every piece by what it's for.
 
 These pieces are Svelte-only until picked (roster: `astro: "not yet"`).
-Storybook: everything under `Custom/` named Material…, Ring…, Glass… and
-Announce, plus `Templates/Glass sections` and `Sites/freeoxide tools`.
 
 Heroes (also in the Astro kit): `ProductHero` (one tool: words, an install
 command and the product working, split or centered), `BrandHero` (a studio
@@ -312,12 +294,11 @@ its `amount`, `unit`, `short` and `note` per mode, and the cards and the
 compare table's plan headers follow it. `PricingCompare` keeps its plan row
 sticky under `--pricing-top`, tints the column under the cursor, hides the
 rows that don't differ on "Only show differences", and on a phone shows one
-plan at a time. `PricingPlans` takes a `lifetime` price on a `Plan` and adds a
-Lifetime option to its switch. Example prices live in the stories and in the
+plan at a time. Example prices live in the stories and in the
 studio, never in the pieces.
 
 Docs reference page (also in the Astro kit), `DocsReference` in
-`blocks/content/`: a product's whole docs in `DocsLayout`'s three columns. It
+`blocks/content/`: a product's whole docs in three columns. It
 takes a `DocsSiteData` (core's `docs-reference` types: a menu, pages of blocks
 in reading order, the start page) and renders the blocks with the kit's own
 pieces through `DocsBlocks` (`CodeBlock`, `Notice`, `DataTable`, `Bullets`,
@@ -337,9 +318,10 @@ in oxide, `ExperienceRail` is a career as a line of years. `--company-top`
 is the height of a sticky header the sticky titles sit under.
 
 Pages (also in the Astro kit): `NotFoundPage`, `LegalPage` and `FaqPage` in
-`blocks/content/`, `CvPage` and `LabsIndex` in `blocks/site/`. Each takes its
-words as one data object (core's `not-found-page`, `legal-page`, `faq-search`,
-`cv-page` and `labs-index` types). `NotFoundPage` draws the status in
+`blocks/content/`, `CvPage` in `blocks/site/`. Each takes its
+words as one data object (core's `not-found-page`, `legal-page`, `faq-search`
+and `cv-page` types). The Labs page has no block of its own: it is
+`PictureGrid` with `LineArt` drawings. `NotFoundPage` draws the status in
 `DotName`, which scatters and heats under the cursor. `LegalPage` switches
 documents under `LineTabs` and its "other document" button, with numbered
 `Toc` contents and a sticky closing rail. `FaqPage` narrows its questions with

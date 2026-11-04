@@ -2,23 +2,17 @@
 	import ArrowUpRight from "@lucide/svelte/icons/arrow-up-right";
 	import Container from "$brand/blocks/site/container.svelte";
 	import Marker from "$brand/components/marker.svelte";
-	import MaterialTag from "$brand/components/material-tag.svelte";
 	import Wordmark from "$brand/components/wordmark.svelte";
 	import Mark from "$brand/components/mark.svelte";
+	import RingGauge from "$brand/components/ring-gauge.svelte";
 	import Rings from "$brand/components/rings.svelte";
 	import Tag from "$brand/components/tag.svelte";
 	import StatusRing from "$brand/components/status-ring.svelte";
-	import RingLoader from "$brand/components/ring-loader.svelte";
-	import RingMeter from "$brand/components/ring-meter.svelte";
-	import MaterialGauge from "$brand/components/material-gauge.svelte";
-	import MaterialTile from "$brand/components/material-tile.svelte";
 	import MaterialCard from "$brand/components/material-card.svelte";
 	import Glass from "$brand/components/glass.svelte";
 	import ShaderMaterial from "$brand/components/shader-material.svelte";
 	import Notice from "$brand/components/notice.svelte";
-	import RetentionGrid from "$brand/blocks/showcase/retention-grid.svelte";
-	import FunnelChart from "$brand/blocks/showcase/funnel-chart.svelte";
-	import { cohorts, funnel } from "$brand/blocks/showcase/demo.js";
+	import TrendChart from "$brand/blocks/showcase/trend-chart.svelte";
 	import Segmented from "$brand/components/segmented.svelte";
 	import { Button } from "$brand/ui/button/index.js";
 	import { Kbd } from "$brand/ui/kbd/index.js";
@@ -40,29 +34,10 @@
 			],
 		},
 		{
-			title: "Sections",
-			line: "Whole page sections, each in several versions to pick from.",
-			items: [
-				{ name: "Bento section", use: "A: analytics · B: developer · C: mixed tones · D: on the band · E: on a material", id: "sections-bento--a-analytics", fresh: true },
-				{ name: "Band section", use: "Full-width orange, inverse or grey: call to action, numbers, quote, product, customers", id: "sections-band--call-to-action", fresh: true },
-				{ name: "Showcase section", use: "The product over a material, with notes, on the band, over the rings, or split", id: "sections-showcase--a-over-a-material", fresh: true },
-				{ name: "Glass sections", use: "Glass over the rings, a shader, a floating header, a glass band", id: "templates-glass-sections--over-the-rings", fresh: true },
-				{ name: "Shader sections", use: "A material as a section's ground, six ways", id: "templates-shader-sections--brand-accent" },
-			],
-		},
-		{
 			title: "Product visuals",
 			line: "The pictures of a product that fill those sections.",
 			items: [
-				{ name: "Retention grid", use: "Cohorts by period, darker when more came back", id: "showcase-product-visuals--retention-grid", fresh: true },
-				{ name: "Funnel", use: "Where people leave, in rows or columns", id: "showcase-product-visuals--funnel", fresh: true },
 				{ name: "Trend chart", use: "This period against the last, with a readout", id: "showcase-product-visuals--trend-chart", fresh: true },
-				{ name: "KPI stat", use: "A number and how it moved", id: "showcase-product-visuals--kpi-stats", fresh: true },
-				{ name: "Bar list", use: "Top pages, sources, countries", id: "showcase-product-visuals--bar-list", fresh: true },
-				{ name: "Live feed", use: "What people are doing right now", id: "showcase-product-visuals--live-feed", fresh: true },
-				{ name: "Goal", use: "A target and whether the pace gets there", id: "showcase-product-visuals--goal", fresh: true },
-				{ name: "Alert", use: "An alert that fired, the drop marked", id: "showcase-product-visuals--alert", fresh: true },
-				{ name: "Activity heatmap", use: "A square a day, darker when busier", id: "showcase-product-visuals--activity-heatmap", fresh: true },
 			],
 		},
 		{
@@ -71,8 +46,6 @@
 			items: [
 				{ name: "Wordmark & Mark", use: "The name with its square; the two-letter tile", id: "custom-logo--default" },
 				{ name: "Rings", use: "The hero picture, drawn from a name", id: "custom-rings--hero" },
-				{ name: "Material rings", use: "The hero rings cut from metal", id: "custom-material-rings--chrome", fresh: true },
-				{ name: "Scroll rings", use: "Rings that draw themselves as you scroll", id: "custom-scroll-rings--on-scroll", fresh: true },
 				{ name: "Horizon rings", use: "A sun that rises and sets: on/off art", id: "custom-horizon-rings--awake", fresh: true },
 				{ name: "Hero stages", use: "Full-width backgrounds behind a hero: a material wash, a material grid the cursor opens, a hatch, a ring field, a scene", id: "custom-material-grid--live", fresh: true },
 				{ name: "Dot name & resolve title", use: "A name in dots that fly in; a title that resolves letter by letter", id: "custom-dot-name--default", fresh: true },
@@ -85,9 +58,7 @@
 				{ name: "Line art", use: "Twenty thin-line pictures for cards, eight of them a blog's post drawings; the part nearest the cursor lights in oxide", id: "custom-line-art--kinds", fresh: true },
 				{ name: "Marker", use: "The ring bullet for lists and states", id: "custom-marker--default" },
 				{ name: "Tag", use: "A soft label for a status or category", id: "custom-tag--default" },
-				{ name: "Material tag", use: "One word with a metal edge", id: "custom-material-tag--default", fresh: true },
 				{ name: "Icon tile", use: "An icon in a thin outline", id: "custom-icon-tile--default" },
-				{ name: "Material tile", use: "An icon or letters in a metal frame", id: "custom-material-tile--with-icons", fresh: true },
 				{ name: "Brand icon", use: "Other companies' logos", id: "custom-brand-icon--default" },
 			],
 		},
@@ -98,15 +69,12 @@
 				{ name: "Nav bar", use: "Header: bar, floating glass or centered, with hover menus, a closable announcement and a phone sheet", id: "custom-nav-bar--with-dropdowns", fresh: true },
 				{ name: "Site footer", use: "Footer: columns, simple or minimal, over an optional stage", id: "custom-site-footer--columns", fresh: true },
 				{ name: "Footers", use: "A footer per flavour: material, dot matrix, glyphs, heat field, voxel ridge, hatch, and calm for reading", id: "sections-material-footer--with-a-closing-line", fresh: true },
-				{ name: "Site shell", use: "Header, page rhythm and the family footer together", id: "site-structure-site-shell--landing" },
 				{ name: "Command palette", use: "\u2318K search with actions", id: "custom-command-palette--inline", fresh: true },
 				{ name: "Line tabs", use: "Tabs with an orange line under the open one", id: "custom-line-tabs--default", fresh: true },
-				{ name: "Glass dock", use: "A floating bar of actions", id: "custom-glass-dock--reading", fresh: true },
 				{ name: "Contents (Toc)", use: "On-this-page links", id: "custom-toc--default" },
 				{ name: "Docs pager", use: "Previous and next page", id: "content-docs-pager--default" },
 				{ name: "Docs reference page", use: "A product's whole docs in three columns: the menu with its search, the page with its title, callouts, tables and code, and the contents rail", id: "content-docs-reference--gpui-query", fresh: true },
 				{ name: "Docs menu & blocks", use: "The line menu, and a docs page's blocks rendered with the kit's pieces", id: "content-docs-nav--default", fresh: true },
-				{ name: "Announce", use: "A news pill or a strip across the top", id: "custom-announce--pill", fresh: true },
 				{ name: "Theme toggle", use: "Light and dark, revealed in a circle", id: "custom-theme-toggle--in-a-header", fresh: true },
 			],
 		},
@@ -123,14 +91,7 @@
 				{ name: "Flow steps", use: "A flowchart with running wires and what each step hands on", id: "custom-flow-steps--brief-to-ship", fresh: true },
 				{ name: "Glass band", use: "A frosted panel of words on a drifting material band", id: "sections-glass-band--etched-silk", fresh: true },
 				{ name: "Release loop", use: "A release as a loop you can steer, driving the installers beside it", id: "custom-release-loop--desktop-release", fresh: true },
-				{ name: "Section", use: "A titled part of a page", id: "site-sections-section--default" },
-				{ name: "Feature grid & cards", use: "What it does, three to six at a time", id: "site-cards-feature-cards--default" },
-				{ name: "Steps", use: "How it works, in order", id: "site-sections-steps--default" },
 				{ name: "Bento", use: "A grid of different-sized tiles", id: "custom-bento--freeoxide", fresh: true },
-				{ name: "Material tabs", use: "Pick a feature, see it on its metal", id: "custom-material-tabs--default", fresh: true },
-				{ name: "Feature carousel", use: "A tour, one slide at a time", id: "custom-carousel--feature-tour", fresh: true },
-				{ name: "Big numbers & ring stats", use: "The numbers that matter", id: "site-sections-ring-stats--default" },
-				{ name: "Pricing plans", use: "Plans side by side, monthly, yearly or lifetime", id: "site-pricing-pricing-plans--default" },
 				{ name: "Pricing page", use: "A dot-field hero with a billing switch, plan cards, a compare table and the questions", id: "site-pricing-pricing-page--torii-tools", fresh: true },
 				{ name: "Pricing card & compare table", use: "A plan with its drawing; every plan compared under a sticky header row, with the column tint and only the differences", id: "site-pricing-pricing-compare--torii-tools", fresh: true },
 				{ name: "FAQ section", use: "A sticky head beside numbered questions that open", id: "site-pricing-faq-section--default", fresh: true },
@@ -141,13 +102,8 @@
 				{ name: "FAQ page", use: "A search that narrows and opens matches, sticky topic contents beside numbered questions with full rich answers", id: "content-faq-page--claude-multi", fresh: true },
 				{ name: "Rich blocks", use: "A rich answer or document section: paragraphs, lists, code, caps notes and definitions", id: "content-rich-blocks--default", fresh: true },
 				{ name: "CV page", use: "A résumé on the thin-ring rail with skills as pills and projects as picture cards, printing black on white", id: "site-cv-page--cv-hmziq-rs", fresh: true },
-				{ name: "Labs page", use: "Repositories as picture cards with line drawings and kind pills beside GitHub numbers in stat tiles", id: "site-labs-page--hmziq-xyz", fresh: true },
 				{ name: "Book steps & commitment cards", use: "Steps beside a 3D book that tilts, changes and turns over; numbered commitments as separate cards", id: "sections-book-steps--default", fresh: true },
-				{ name: "Before and after", use: "By hand vs. with the product", id: "site-cards-before-after--default" },
-				{ name: "FAQ", use: "Questions people ask", id: "content-faq-list--default" },
 						
-				{ name: "CTA band", use: "The orange closing band", id: "site-sections-cta-band--default" },
-				{ name: "Newsletter band", use: "Sign up for posts", id: "content-blog-newsletter-band--default" },
 			],
 		},
 		{
@@ -155,20 +111,14 @@
 			line: "One thing, summed up in a box.",
 			items: [
 				{ name: "Outline card", use: "The plain card: a line, no fill", id: "site-cards-outline-card--default" },
-				{ name: "Element card", use: "A project like an element, with corner rings", id: "site-cards-element-card--default" },
 				{ name: "Picture card", use: "The one picture card: a line drawing, a Tag, the title, a dek and the meta; in a grid with filter pills", id: "custom-picture-grid--with-filters", fresh: true },
 				{ name: "Post picture card", use: "The same card for a post: its meta over the title, lg and xl leads, a thin ring when it has no drawing", id: "custom-picture-card--post", fresh: true },
 				{ name: "Catalog card", use: "One entry to pick: an icon, a Tag, the name and key/value tags", id: "custom-catalog-card--default-and-picked", fresh: true },
 				{ name: "Stat tile", use: "One big number on an oxide or outline card, sans or dot digits", id: "custom-stat-tile--oxide-and-outline", fresh: true },
 				{ name: "Surface tile & app mock", use: "A product's real UI on its material, tipping toward the cursor", id: "custom-surface-tile--desktop", fresh: true },
-				{ name: "Material card", use: "Cover, glass panel, side or frame", id: "custom-material-card--cover", fresh: true },
-				{ name: "Material frame", use: "A metal frame around the one that leads", id: "custom-material-frame--pricing", fresh: true },
+				{ name: "Material card", use: "Cover, glass panel, side or frame", id: "custom-material-card--default", fresh: true },
 				{ name: "Post card", use: "A blog post", id: "content-blog-post-card--default" },
 				{ name: "Person card", use: "Someone on the team", id: "custom-person-card--team", fresh: true },
-				{ name: "Release card", use: "One release and its update command", id: "custom-cards--release", fresh: true },
-				{ name: "Project card", use: "A project with its numbers and install line", id: "custom-cards--project", fresh: true },
-				{ name: "Endpoint card", use: "A webhook's month of health", id: "custom-cards--endpoint", fresh: true },
-				{ name: "Plan card", use: "Your plan, seats and usage", id: "custom-cards--plan", fresh: true },
 			],
 		},
 		{
@@ -179,15 +129,11 @@
 				{ name: "Code block", use: "Highlighted code, with tabs and copy", id: "custom-code-block--rust" },
 				{ name: "Command bar", use: "A command to copy", id: "custom-command--bar" },
 				{ name: "Terminal", use: "A terminal window and its lines", id: "custom-terminal--window" },
-				{ name: "Code editor", use: "Two files, side by side", id: "content-docs-code-editor--default" },
 				{ name: "Notice", use: "A note: info, success, warning, error", id: "custom-notice--info" },
 				{ name: "Release notes & timeline", use: "What changed, release by release: bold leads, code and links, a rail that fills as you read", id: "content-changelog-release-notes--grouped" },
 				{ name: "Release desk", use: "A changelog page: the latest release in a window on the hero, each release's head sticky beside its changes", id: "content-changelog-release-desk--blog-hmziq-rs", fresh: true },
 				{ name: "Release timeline page", use: "A long changelog: counts, search and kind chips, the filling rail, pictures kept beside their release, older releases folded", id: "content-changelog-release-timeline-page--claude-multi", fresh: true },
 				{ name: "Release filters and picture", use: "Search, kind chips and open all; a release's picture with its Tag and caption, lit by its changes", id: "content-changelog-release-filters--default", fresh: true },
-				{ name: "Roadmap", use: "Shipped, being built, next", id: "custom-roadmap--board", fresh: true },
-				{ name: "Card carousel", use: "Cards that scroll sideways", id: "custom-carousel--posts", fresh: true },
-				{ name: "Gallery", use: "Pictures that open large", id: "custom-gallery--materials", fresh: true },
 				{ name: "Comment thread", use: "A conversation under a post", id: "custom-comment-thread--default", fresh: true },
 				{ name: "Share bar", use: "Share a post", id: "content-blog-share-bar--bar" },
 				{ name: "Magazine index", use: "A blog's front page: the post to start with, the latest at two sizes, rows further back and topic cards that filter", id: "content-blog-magazine-index--blog-hmziq-rs", fresh: true },
@@ -201,10 +147,7 @@
 			line: "Numbers, trends and live state.",
 			items: [
 				{ name: "Data table", use: "Facts in rows: boxed or lined", id: "custom-data-table--accent" },
-				{ name: "Ring meter", use: "A few shares as rings inside rings", id: "custom-ring-meter--usage", fresh: true },
-				{ name: "Ring gauge & material gauge", use: "One share or count as a ring", id: "custom-material-gauge--numbers", fresh: true },
-				{ name: "Material bar", use: "A share as a metal bar", id: "custom-material-bar--usage", fresh: true },
-				{ name: "Material sparkline", use: "A trend cut from metal", id: "custom-material-sparkline--in-a-card", fresh: true },
+				{ name: "Ring gauge", use: "One share or count as a ring", id: "custom-rings--gauges" },
 				{ name: "Rolling number", use: "Digits that roll to a new value", id: "custom-rolling-number--price", fresh: true },
 				{ name: "Status ring", use: "Live, stopped, off", id: "custom-status-ring--states", fresh: true },
 				{ name: "Stat cards", use: "App metrics with trends", id: "app-metrics--trend-rising" },
@@ -217,7 +160,6 @@
 				{ name: "Segmented", use: "Pick one of a few", id: "custom-segmented--default" },
 				{ name: "Search box", use: "Search a list", id: "content-search-box--default" },
 				{ name: "Install block", use: "The install command per package manager", id: "content-docs-install-block--default" },
-				{ name: "Material slider", use: "A slider with a metal fill", id: "custom-material-slider--pricing", fresh: true },
 				{ name: "File drop", use: "Drop or choose files, with progress", id: "custom-file-drop--default", fresh: true },
 				{ name: "Consent banner", use: "Cookies, asked fairly", id: "custom-consent-banner--card", fresh: true },
 				{ name: "Sign in and sign up", use: "Auth forms and their layout", id: "app-auth-layout--centered" },
@@ -228,10 +170,8 @@
 			title: "Feedback and states",
 			line: "Waiting, empty, wrong, new.",
 			items: [
-				{ name: "Ring loader", use: "Loading, in rings", id: "custom-ring-loader--default", fresh: true },
 				{ name: "Empty, error and loading states", use: "What a screen shows before data", id: "app-states--data-pending" },
 				{ name: "Notification list", use: "What happened while you were away", id: "custom-notification-list--default", fresh: true },
-				{ name: "Stepper", use: "Progress through a few steps", id: "custom-stepper--done" },
 			],
 		},
 		{
@@ -239,13 +179,10 @@
 			line: "What things sit on.",
 			items: [
 				{ name: "Glass", use: "Frosted, over rings or a material", id: "custom-glass--over-a-shader", fresh: true },
-				{ name: "Liquid glass", use: "Glass that bends at its edges", id: "custom-liquid-glass--over-a-material", fresh: true },
 				{ name: "Material text", use: "Material fills inside selectable lettering", id: "custom-material-text--copper", fresh: true },
 				{ name: "Material text tweaker", use: "Tune typography, texture and light", id: "tweakers-material-text--page", fresh: true },
 				{ name: "Shader material", use: "The materials themselves, still or moving", id: "custom-shaders--static-oxide" },
 				{ name: "Material stage", use: "A product screen or code on metal", id: "custom-material-stage--product-screen", fresh: true },
-				{ name: "Material rule", use: "A strip of metal between sections", id: "custom-material-rule--between-sections", fresh: true },
-				{ name: "Ring divider", use: "A hairline meeting a few rings", id: "custom-ring-divider--default", fresh: true },
 				{ name: "3D scenes", use: "The lattice and friends, opt-in", id: "custom-scenes-3d--default" },
 			],
 		},
@@ -322,6 +259,7 @@
 		["Onest, 400 and 500", "Titles medium, text regular, mono only for code. Plain words for people."],
 	];
 
+	const trend = Array.from({ length: 14 }, (_, i) => ({ label: `Day ${i + 1}`, value: 120 + i * 9 + (i % 3) * 14, previous: 100 + i * 6 + (i % 4) * 9 }));
 	let segment = $state("month");
 	const href = (id: string) => `/?path=/story/${id}`;
 	const total = $derived(groups.reduce((n, g) => n + g.items.length, 0));
@@ -329,22 +267,20 @@
 </script>
 
 {#snippet sample(title: string)}
-	{#if title === "Sections"}
-		<div class="flex max-w-md flex-col overflow-hidden rounded-xl"><div class="band-orange px-5 py-4"><p class="text-lg leading-tight font-medium">Know what your users do by Friday.</p></div><div class="grid grid-cols-3 gap-2 border-x border-b p-2">{#each [1, 2, 3] as i (i)}<div class="h-8 rounded-md ring-1 ring-foreground/10"></div>{/each}</div></div>
-	{:else if title === "Product visuals"}
-		<div class="grid max-w-md grid-cols-2 items-end gap-6"><FunnelChart steps={funnel} variant="columns" callout={false} /><RetentionGrid cohorts={cohorts.slice(0, 5)} numbers={false} legend={false} periods={5} /></div>
+	{#if title === "Product visuals"}
+		<div class="max-w-md"><TrendChart label="Visitors a day" points={trend} height={110} /></div>
 	{:else if title === "Brand"}
-		<div class="flex flex-wrap items-center gap-5"><Wordmark name="freeoxide" class="text-2xl" /><Mark symbol="Fx" size={32} /><Tag tone="green" marker>Shipped</Tag><MaterialTag>New</MaterialTag><MaterialTile preset="copper-sweep" size={32}>Gq</MaterialTile></div>
+		<div class="flex flex-wrap items-center gap-5"><Wordmark name="freeoxide" class="text-2xl" /><Mark symbol="Fx" size={32} /><Tag tone="green" marker>Shipped</Tag><Tag>New</Tag></div>
 	{:else if title === "Navigation"}
 		<div class="flex flex-wrap items-center gap-3 rounded-full border py-1.5 pr-1.5 pl-4 text-sm"><Wordmark name="freeoxide" /><span class="ml-4 text-muted-foreground">Projects</span><span class="text-muted-foreground">Writing</span><span class="ml-auto flex items-center gap-1 text-muted-foreground"><Kbd>⌘</Kbd><Kbd>K</Kbd></span><Button size="sm" class="rounded-full">Browse</Button></div>
 	{:else if title === "Cards"}
 		<div class="grid max-w-md grid-cols-2 gap-3"><MaterialCard title="tunnel" preset="copper-sweep" body="A public link." class="min-h-0" sizes="200px" /><MaterialCard title="oxiwake" preset="liquid-chrome" class="min-h-0" sizes="200px" /></div>
 	{:else if title === "Data and status"}
-		<div class="flex flex-wrap items-center gap-8"><RingMeter size={84} label="This release" items={[{ label: "Tests", value: 0.97 }, { label: "Covered", value: 0.91 }]} /><MaterialGauge value={0.72} preset="brushed-alloy" class="size-14" /></div>
+		<div class="flex flex-wrap items-center gap-8"><RingGauge value={0.72} /><RingGauge value={0.45} /></div>
 	{:else if title === "Input and choices"}
 		<Segmented label="Billing" value={segment} onValueChange={(v) => (segment = v)} options={[{ value: "month", label: "Monthly" }, { value: "year", label: "Yearly" }]} />
 	{:else if title === "Feedback and states"}
-		<div class="flex flex-wrap items-center gap-6"><RingLoader visible label="Loading" /><span class="flex items-center gap-2 text-sm"><StatusRing />Live</span><Notice tone="success" title="Saved" class="max-w-xs" /></div>
+		<div class="flex flex-wrap items-center gap-6"><span class="flex items-center gap-2 text-sm"><StatusRing />Live</span><Notice tone="success" title="Saved" class="max-w-xs" /></div>
 	{:else if title === "Surfaces and effects"}
 		<div class="relative isolate grid h-28 max-w-md place-items-center overflow-hidden rounded-xl"><ShaderMaterial rendering="image" preset="etched-silk" controls={false} sizes="448px" class="absolute inset-0 -z-10" /><Glass class="rounded-lg px-5 py-3 text-sm">Glass over etched silk</Glass></div>
 	{:else if title === "Page sections"}
@@ -382,7 +318,7 @@
 					{#each group.items as item (item.id + item.name)}
 						<li>
 							<a href={href(item.id)} target="_top" class="group flex h-full flex-col gap-1 rounded-lg p-4 ring-1 ring-foreground/10 transition-colors outline-none hover:ring-primary/50 focus-visible:ring-3 focus-visible:ring-ring/50">
-								<span class="flex items-center gap-2 text-sm font-medium">{item.name}{#if item.fresh}<MaterialTag>New</MaterialTag>{/if}<ArrowUpRight class="lucide ml-auto size-4 text-muted-foreground transition-colors group-hover:text-foreground" /></span>
+								<span class="flex items-center gap-2 text-sm font-medium">{item.name}{#if item.fresh}{/if}<ArrowUpRight class="lucide ml-auto size-4 text-muted-foreground transition-colors group-hover:text-foreground" /></span>
 								<span class="text-[0.8125rem] leading-relaxed text-muted-foreground">{item.use}</span>
 							</a>
 						</li>

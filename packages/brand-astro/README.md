@@ -93,7 +93,6 @@ render and `blocks/site/pricing-mode.ts` shows the one the page's `Segmented`
 `PricingCompare` narrows its rows in place (`data-differs`), lights the column
 under the cursor with `data-lit`, and shows one plan at a time on a phone with
 `data-show`; its differences switch is Starwind's, sized to the Svelte one.
-`PricingPlans` takes a `lifetime` price on a `Plan` the same way.
 
 The docs reference page (`DocsReference`, `DocsNav`, `DocsBlocks`) and the
 company pages (`ContactDirect`, `AboutEssay`, `Book`, `BookSteps`,
@@ -106,7 +105,7 @@ ids that are unique across the product's pages); the install block is a
 one book per step. The about page's person card is inline, as `PersonCard` has
 no Astro twin.
 
-The pages (`NotFoundPage`, `LegalPage`, `FaqPage`, `CvPage`, `LabsIndex`) and
+The pages (`NotFoundPage`, `LegalPage`, `FaqPage`, `CvPage`) and
 `RichBlocks` are the Svelte kit's. `LegalPage` puts every document in the HTML
 under inline line tabs and a script shows one; `FaqPage` puts every question in
 the HTML and a script narrows them and opens the matches with core's
@@ -267,18 +266,12 @@ is one of these:
   - `Segmented` and `TopicChips` set `aria-pressed` in their group and
     bubble a `segmented-change` / `topic-change` CustomEvent with the value
     — the Astro stand-in for the lab's `onValueChange` / `onChange` props.
-    `PricingPlans` listens for the first and shows the matching
-    `[data-billing]` price (both periods are rendered).
   - `Scene` mounts through core's `mountScene` in a dynamic import, so
     three.js only downloads when a scene is on the page. **A project using
     Scene installs `three` itself** (core's optional peer; the lab and the
     boilerplates carry it).
-- **Item props take components.** `FeatureCards` / `FeatureGrid` items carry
-  `icon` as an imported component (a `@lucide/astro` icon renders fine);
-  `DataTable` cells and `BeforeAfter` rows are strings. `PricingPlans` has
-  no per-plan `price` render prop — draw a custom price with `Price` and the
-  pieces around it instead.
-- **`SiteShell` is `SiteLayout` here**: it renders the whole document
+- **Item props take components.** `DataTable` cells are strings.
+- **`SiteLayout` is the page shell here**: it renders the whole document
   (`<html>` dark by default, `<head>` with `SiteHead` through the `head`
   prop, then the shell) because an Astro page needs a layout, not a wrapper
   div. Nav is the lab's `nav: string[]` rendered as `href="#"` links;

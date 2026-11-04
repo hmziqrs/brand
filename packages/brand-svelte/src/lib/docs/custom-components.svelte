@@ -96,7 +96,7 @@ export { Stat }`;
 	<ol>
 		<li>Use a shadcn component as it is.</li>
 		<li>Adjust it with a few classes (<code>className</code>).</li>
-		<li>Put shadcn components together into a block, like the page blocks in <code>src/sites/shared</code> (Hero, Section, FeatureGrid).</li>
+		<li>Put shadcn components together into a block, like the page blocks in <code>src/sites/shared</code> (Hero, PageIntro, OutlineCard).</li>
 		<li>Only then write a new component, following the rules below.</li>
 	</ol>
 
@@ -111,12 +111,12 @@ export { Stat }`;
 			</tr>
 			<tr>
 				<td><code>src/components/brand</code></td>
-				<td>Small brand pieces: <code>Wordmark</code>, <code>Mark</code>, <code>Marker</code>, <code>Rings</code>, <code>Tag</code>, <code>IconTile</code>, <code>Notice</code>, <code>CodeBlock</code>, <code>CommandBar</code>, <code>TerminalWindow</code>, <code>Stepper</code>, <code>Segmented</code>, <code>Question</code>, <code>Toc</code>, <code>DataTable</code>, <code>BrandIcon</code></td>
+				<td>Small brand pieces: <code>Wordmark</code>, <code>Mark</code>, <code>Marker</code>, <code>Rings</code>, <code>Tag</code>, <code>IconTile</code>, <code>Notice</code>, <code>CodeBlock</code>, <code>CommandBar</code>, <code>TerminalWindow</code>, <code>Segmented</code>, <code>Question</code>, <code>Toc</code>, <code>DataTable</code>, <code>BrandIcon</code></td>
 				<td>Built only from theme tokens. The signature pieces have stories under <strong>Custom</strong>; the rest are shown working in <strong>Sites → Pages → Components</strong>.</td>
 			</tr>
 			<tr>
 				<td><code>src/sites/shared</code></td>
-				<td>Page blocks: <code>SiteShell</code>, <code>Hero</code>, <code>PageIntro</code>, <code>RingStats</code>, <code>Section</code>, <code>OutlineCard</code>, <code>ElementCard</code>, <code>FeatureCards</code>, <code>FeatureGrid</code>, <code>Steps</code>, <code>CtaBand</code>, and content pieces for inner pages (<code>Prose</code>, <code>Bullets</code>, <code>SummaryBox</code>, <code>BigNumbers</code>, <code>SearchBox</code>, <code>TopicChips</code>)</td>
+				<td>Page blocks: <code>Hero</code>, <code>PageIntro</code>, <code>OutlineCard</code>, <code>BigNumbers</code>, and content pieces for inner pages (<code>Prose</code>, <code>Bullets</code>, <code>SummaryBox</code>, <code>BigNumbers</code>, <code>SearchBox</code>, <code>TopicChips</code>)</td>
 				<td>Shared by every site, so every site has the same rhythm.</td>
 			</tr>
 			<tr>
