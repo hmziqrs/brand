@@ -1516,12 +1516,12 @@
     },
     {
       "name": "FaqPage",
-      "group": "site",
-      "svelte": "sites-pages--faq-claude-multi",
-      "astro": "not yet",
-      "svelteFile": "blocks/content/pages.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "group": "content",
+      "svelte": "content-faq-page--claude-multi",
+      "astro": "faq-page",
+      "svelteFile": "blocks/content/faq-page.svelte",
+      "svelteItem": "faq-page",
+      "astroItem": "faq-page"
     },
     {
       "name": "ChangelogPage",
@@ -1561,12 +1561,12 @@
     },
     {
       "name": "NotFoundPage",
-      "group": "site",
-      "svelte": "sites-pages--not-found-claude-multi",
-      "astro": "not yet",
-      "svelteFile": "blocks/content/pages.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "group": "content",
+      "svelte": "content-not-found-page--claude-multi",
+      "astro": "not-found-page",
+      "svelteFile": "blocks/content/not-found-page.svelte",
+      "svelteItem": "not-found-page",
+      "astroItem": "not-found-page"
     },
     {
       "name": "ComponentsPage",
@@ -3524,6 +3524,42 @@
       "svelteFile": "components/experience-rail.svelte",
       "svelteItem": "experience-rail",
       "astroItem": "experience-rail"
+    },
+    {
+      "name": "LegalPage",
+      "group": "content",
+      "svelte": "content-legal-page--claude-multi",
+      "astro": "legal-page",
+      "svelteFile": "blocks/content/legal-page.svelte",
+      "svelteItem": "legal-page",
+      "astroItem": "legal-page"
+    },
+    {
+      "name": "RichBlocks",
+      "group": "content",
+      "svelte": "content-rich-blocks--default",
+      "astro": "rich-blocks",
+      "svelteFile": "blocks/content/rich-blocks.svelte",
+      "svelteItem": "rich-blocks",
+      "astroItem": "rich-blocks"
+    },
+    {
+      "name": "CvPage",
+      "group": "site",
+      "svelte": "site-cv-page--cv-hmziq-rs",
+      "astro": "cv-page",
+      "svelteFile": "blocks/site/cv-page.svelte",
+      "svelteItem": "cv-page",
+      "astroItem": "cv-page"
+    },
+    {
+      "name": "LabsIndex",
+      "group": "site",
+      "svelte": "site-labs-page--hmziq-xyz",
+      "astro": "labs-index",
+      "svelteFile": "blocks/site/labs-index.svelte",
+      "svelteItem": "labs-index",
+      "astroItem": "labs-index"
     }
   ]
 }

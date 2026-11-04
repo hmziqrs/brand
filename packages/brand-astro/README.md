@@ -106,6 +106,14 @@ ids that are unique across the product's pages); the install block is a
 one book per step. The about page's person card is inline, as `PersonCard` has
 no Astro twin.
 
+The pages (`NotFoundPage`, `LegalPage`, `FaqPage`, `CvPage`, `LabsIndex`) and
+`RichBlocks` are the Svelte kit's. `LegalPage` puts every document in the HTML
+under inline line tabs and a script shows one; `FaqPage` puts every question in
+the HTML and a script narrows them and opens the matches with core's
+`faqNeedle`; `CvPage`'s print button is a script. `LineTabs` has no Astro twin,
+so the tabs are inline. `Question` takes its words as a `question` slot as well
+as a prop.
+
 `$brand` points at `src/` here, and at the folder the kit is installed into
 in a copied project (`src/components/brand`). Kit files import each other
 through `$brand`, never through long relative paths.

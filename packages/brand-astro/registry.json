@@ -900,6 +900,36 @@
 			]
 		},
 		{
+			"name": "cv-page",
+			"type": "registry:file",
+			"title": "cv-page",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0",
+				"@lucide/astro@^1.48.0",
+				"simple-icons@16.32.0"
+			],
+			"registryDependencies": [
+				"@hmziq/brand-icon",
+				"@hmziq/button-link",
+				"@hmziq/container",
+				"@hmziq/content-blocks-shared",
+				"@hmziq/marker",
+				"@hmziq/picture-grid",
+				"@hmziq/release-timeline",
+				"@hmziq/starwind-button",
+				"@hmziq/tag",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/site/cv-page.astro",
+					"target": "src/components/brand/blocks/site/cv-page.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
 			"name": "data-state",
 			"type": "registry:file",
 			"title": "data-state",
@@ -1383,6 +1413,41 @@
 				{
 					"path": "src/blocks/content/faq-list.astro",
 					"target": "src/components/brand/blocks/content/faq-list.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "faq-page",
+			"type": "registry:file",
+			"title": "faq-page",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0",
+				"@lucide/astro@^1.48.0",
+				"simple-icons@16.32.0"
+			],
+			"registryDependencies": [
+				"@hmziq/brand-icon",
+				"@hmziq/button-link",
+				"@hmziq/container",
+				"@hmziq/empty-note",
+				"@hmziq/question",
+				"@hmziq/questions",
+				"@hmziq/rich-blocks",
+				"@hmziq/search-box",
+				"@hmziq/toc",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/content/faq-page.astro",
+					"target": "src/components/brand/blocks/content/faq-page.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/blocks/content/rich-text.astro",
+					"target": "src/components/brand/blocks/content/rich-text.astro",
 					"type": "registry:file"
 				}
 			]
@@ -2024,6 +2089,7 @@
 				"@hmziq/copy-button",
 				"@hmziq/corner-rings",
 				"@hmziq/cta-band",
+				"@hmziq/cv-page",
 				"@hmziq/data-state",
 				"@hmziq/data-table",
 				"@hmziq/detail-list",
@@ -2048,6 +2114,7 @@
 				"@hmziq/error-state",
 				"@hmziq/experience-rail",
 				"@hmziq/faq-list",
+				"@hmziq/faq-page",
 				"@hmziq/faq-section",
 				"@hmziq/feature-cards",
 				"@hmziq/feature-grid",
@@ -2077,8 +2144,10 @@
 				"@hmziq/install-steps",
 				"@hmziq/kicker",
 				"@hmziq/kind-tag",
+				"@hmziq/labs-index",
 				"@hmziq/legal-block",
 				"@hmziq/legal-layout",
+				"@hmziq/legal-page",
 				"@hmziq/legal-section",
 				"@hmziq/line-art",
 				"@hmziq/link-bar",
@@ -2100,6 +2169,7 @@
 				"@hmziq/newsletter-band",
 				"@hmziq/no-results",
 				"@hmziq/not-found",
+				"@hmziq/not-found-page",
 				"@hmziq/notice",
 				"@hmziq/outline-card",
 				"@hmziq/page-intro",
@@ -2141,6 +2211,7 @@
 				"@hmziq/release-timeline-page",
 				"@hmziq/reset-password-form",
 				"@hmziq/resolve-title",
+				"@hmziq/rich-blocks",
 				"@hmziq/ring-field",
 				"@hmziq/ring-gauge",
 				"@hmziq/ring-stats",
@@ -2267,6 +2338,32 @@
 			]
 		},
 		{
+			"name": "labs-index",
+			"type": "registry:file",
+			"title": "labs-index",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0",
+				"@lucide/astro@^1.48.0",
+				"simple-icons@16.32.0"
+			],
+			"registryDependencies": [
+				"@hmziq/brand-icon",
+				"@hmziq/button-link",
+				"@hmziq/container",
+				"@hmziq/picture-grid",
+				"@hmziq/stat-tile",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/site/labs-index.astro",
+					"target": "src/components/brand/blocks/site/labs-index.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
 			"name": "legal-block",
 			"type": "registry:file",
 			"title": "legal-block",
@@ -2304,6 +2401,34 @@
 				{
 					"path": "src/blocks/content/legal-layout.astro",
 					"target": "src/components/brand/blocks/content/legal-layout.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "legal-page",
+			"type": "registry:file",
+			"title": "legal-page",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0",
+				"@lucide/astro@^1.48.0",
+				"simple-icons@16.32.0"
+			],
+			"registryDependencies": [
+				"@hmziq/brand-icon",
+				"@hmziq/button-link",
+				"@hmziq/container",
+				"@hmziq/legal-section",
+				"@hmziq/rich-blocks",
+				"@hmziq/starwind-button",
+				"@hmziq/toc",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/content/legal-page.astro",
+					"target": "src/components/brand/blocks/content/legal-page.astro",
 					"type": "registry:file"
 				}
 			]
@@ -2745,6 +2870,31 @@
 				{
 					"path": "src/blocks/content/not-found.astro",
 					"target": "src/components/brand/blocks/content/not-found.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "not-found-page",
+			"type": "registry:file",
+			"title": "not-found-page",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0",
+				"@lucide/astro@^1.48.0"
+			],
+			"registryDependencies": [
+				"@hmziq/button-link",
+				"@hmziq/container",
+				"@hmziq/dot-name",
+				"@hmziq/inline-code",
+				"@hmziq/picture-card",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/content/not-found-page.astro",
+					"target": "src/components/brand/blocks/content/not-found-page.astro",
 					"type": "registry:file"
 				}
 			]
@@ -3631,6 +3781,28 @@
 				{
 					"path": "src/components/resolve-title.astro",
 					"target": "src/components/brand/components/resolve-title.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "rich-blocks",
+			"type": "registry:file",
+			"title": "rich-blocks",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"@hmziq/code-block",
+				"@hmziq/faq-page",
+				"@hmziq/marker",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/content/rich-blocks.astro",
+					"target": "src/components/brand/blocks/content/rich-blocks.astro",
 					"type": "registry:file"
 				}
 			]
