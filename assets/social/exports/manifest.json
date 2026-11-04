@@ -1,7 +1,7 @@
 {
   "target": "social",
   "command": "bun run render-assets --only social",
-  "digest": "b7d2c069bf2e6baa379bee77db709749cf811fff82bf48abb0b06ced1a783348",
+  "digest": "483047d077f206e1c4fb1103125b2a64275dedd8c78a204fff98be9337f95fe4",
   "renderers": {
     "@resvg/resvg-js": "2.6.2",
     "opentype.js": "2.0.0",
@@ -161,6 +161,10 @@
     {
       "path": "packages/brand-core/src/motion/dither-name.ts",
       "sha256": "2d8baf4ed17227515713d5b58c19d07a5a586284b2877544e36f0b6c421d7401"
+    },
+    {
+      "path": "packages/brand-core/src/motion/dot-field.ts",
+      "sha256": "a3b5aaa104f2e4c0b09be1c24d3af80a1b056c5595fa27e38e084fedf9ca72f3"
     },
     {
       "path": "packages/brand-core/src/motion/dot-name.ts",

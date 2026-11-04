@@ -1,7 +1,7 @@
 {
   "target": "test-card",
   "command": "bun run render-assets --only test-card",
-  "digest": "be91a38b4a0ed49ecb9445acf5ba8e97e5360235d101497576bfda75da37751b",
+  "digest": "fe0041f4f695f93c72e159ff4f62eab83285267fe1598cefd0c72f495aba485b",
   "renderers": {
     "@resvg/resvg-js": "2.6.2",
     "opentype.js": "2.0.0",
@@ -69,6 +69,10 @@
     {
       "path": "packages/brand-core/src/motion/dither-name.ts",
       "sha256": "2d8baf4ed17227515713d5b58c19d07a5a586284b2877544e36f0b6c421d7401"
+    },
+    {
+      "path": "packages/brand-core/src/motion/dot-field.ts",
+      "sha256": "a3b5aaa104f2e4c0b09be1c24d3af80a1b056c5595fa27e38e084fedf9ca72f3"
     },
     {
       "path": "packages/brand-core/src/motion/dot-name.ts",
