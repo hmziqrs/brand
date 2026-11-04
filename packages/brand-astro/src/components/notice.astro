@@ -2,7 +2,8 @@
 import type { HTMLAttributes } from "astro/types";
 import { CircleCheck, Info, OctagonAlert, TriangleAlert } from "@lucide/astro";
 import { cn } from "$brand/utils";
-import { Alert, AlertDescription, AlertTitle } from "$brand/starwind/alert";
+import { Alert, AlertTitle } from "$brand/starwind/alert";
+import { alertDescription } from "$brand/starwind/alert/variants";
 
 /*
  * A short message that sits in the page: a tip, a caveat, a warning. Built
@@ -42,5 +43,5 @@ const layout =
 <Alert role="note" class={cn(layout, t.className, className)} {...rest}>
   {hasIcon ? <slot name="icon" /> : <Icon />}
   <AlertTitle class="mb-0 text-sm leading-none tracking-normal group-has-[>svg]/alert:col-start-2">{title}</AlertTitle>
-  {hasBody && <AlertDescription class="text-balance md:text-pretty [&_a]:underline [&_a]:underline-offset-3 [&_a:hover]:text-foreground [&_p:not(:last-child)]:mb-4"><slot /></AlertDescription>}
+  {hasBody && <div data-sw-alert-description data-slot="alert-description" class={alertDescription({ class: "text-balance md:text-pretty [&_a]:underline [&_a]:underline-offset-3 [&_a:hover]:text-foreground [&_p:not(:last-child)]:mb-4" })}><slot /></div>}
 </Alert>
