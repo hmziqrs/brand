@@ -227,6 +227,29 @@
 			]
 		},
 		{
+			"name": "blog-index",
+			"type": "registry:file",
+			"title": "blog-index",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/container",
+				"@hmziq/content-blocks-shared",
+				"@hmziq/page-intro",
+				"@hmziq/post-list",
+				"@hmziq/search-box",
+				"@hmziq/topic-chips",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/content/blog-index.astro",
+					"target": "src/components/brand/blocks/content/blog-index.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
 			"name": "blog-layout",
 			"type": "registry:file",
 			"title": "blog-layout",
@@ -329,6 +352,28 @@
 				{
 					"path": "src/blocks/site/button-link.astro",
 					"target": "src/components/brand/blocks/site/button-link.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "byline",
+			"type": "registry:file",
+			"title": "byline",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@lucide/astro@^1.48.0",
+				"simple-icons@16.32.0"
+			],
+			"registryDependencies": [
+				"@hmziq/brand-icon",
+				"@hmziq/mark",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/content/byline.astro",
+					"target": "src/components/brand/blocks/content/byline.astro",
 					"type": "registry:file"
 				}
 			]
@@ -1667,12 +1712,14 @@
 				"@hmziq/band-arcs",
 				"@hmziq/before-after",
 				"@hmziq/big-numbers",
+				"@hmziq/blog-index",
 				"@hmziq/blog-layout",
 				"@hmziq/brand-hero",
 				"@hmziq/brand-icon",
 				"@hmziq/bulk-action-bar",
 				"@hmziq/bullets",
 				"@hmziq/button-link",
+				"@hmziq/byline",
 				"@hmziq/calm-footer",
 				"@hmziq/catalog-card",
 				"@hmziq/catalog-section",
@@ -1748,6 +1795,7 @@
 				"@hmziq/live-notification",
 				"@hmziq/live-pages",
 				"@hmziq/live-widget",
+				"@hmziq/magazine-index",
 				"@hmziq/mark",
 				"@hmziq/marker",
 				"@hmziq/material-footer",
@@ -1769,6 +1817,7 @@
 				"@hmziq/picture-grid",
 				"@hmziq/picture-section",
 				"@hmziq/pixel-name",
+				"@hmziq/post-article",
 				"@hmziq/post-card",
 				"@hmziq/post-contents",
 				"@hmziq/post-header",
@@ -1871,6 +1920,7 @@
 				"@hmziq/terminal-line",
 				"@hmziq/terminal-window",
 				"@hmziq/toc",
+				"@hmziq/topic-cards",
 				"@hmziq/topic-chips",
 				"@hmziq/typing-terminal",
 				"@hmziq/usage-meter",
@@ -2155,6 +2205,33 @@
 				{
 					"path": "src/components/live-widget.astro",
 					"target": "src/components/brand/components/live-widget.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "magazine-index",
+			"type": "registry:file",
+			"title": "magazine-index",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"@hmziq/container",
+				"@hmziq/content-blocks-shared",
+				"@hmziq/empty-note",
+				"@hmziq/picture-card",
+				"@hmziq/post-list",
+				"@hmziq/post-meta",
+				"@hmziq/topic-cards",
+				"@hmziq/topic-chips",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/content/magazine-index.astro",
+					"target": "src/components/brand/blocks/content/magazine-index.astro",
 					"type": "registry:file"
 				}
 			]
@@ -2492,7 +2569,8 @@
 			"title": "picture-card",
 			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9).",
 			"dependencies": [
-				"@hmziq/brand-core@0.0.0"
+				"@hmziq/brand-core@0.0.0",
+				"@lucide/astro@^1.48.0"
 			],
 			"registryDependencies": [
 				"@hmziq/line-art",
@@ -2568,6 +2646,36 @@
 			]
 		},
 		{
+			"name": "post-article",
+			"type": "registry:file",
+			"title": "post-article",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@lucide/astro@^1.48.0"
+			],
+			"registryDependencies": [
+				"@hmziq/byline",
+				"@hmziq/code-block",
+				"@hmziq/container",
+				"@hmziq/content-blocks-shared",
+				"@hmziq/picture-card",
+				"@hmziq/post-contents",
+				"@hmziq/post-header",
+				"@hmziq/post-meta",
+				"@hmziq/pull-quote",
+				"@hmziq/share-bar",
+				"@hmziq/summary-box",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/content/post-article.astro",
+					"target": "src/components/brand/blocks/content/post-article.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
 			"name": "post-card",
 			"type": "registry:file",
 			"title": "post-card",
@@ -2618,12 +2726,16 @@
 			"title": "post-header",
 			"description": "Content piece from the hmziq brand kit (BRAND.md section 9).",
 			"dependencies": [
-				"@hmziq/brand-core@0.0.0"
+				"@hmziq/brand-core@0.0.0",
+				"@lucide/astro@^1.48.0"
 			],
 			"registryDependencies": [
+				"@hmziq/byline",
 				"@hmziq/container",
+				"@hmziq/line-art",
 				"@hmziq/mark",
 				"@hmziq/post-meta",
+				"@hmziq/tag",
 				"@hmziq/utils"
 			],
 			"files": [
@@ -2645,6 +2757,7 @@
 			"registryDependencies": [
 				"@hmziq/content-blocks-shared",
 				"@hmziq/empty-note",
+				"@hmziq/line-art",
 				"@hmziq/post-card",
 				"@hmziq/post-meta",
 				"@hmziq/utils"
@@ -5429,6 +5542,25 @@
 				{
 					"path": "src/components/toc.astro",
 					"target": "src/components/brand/components/toc.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
+			"name": "topic-cards",
+			"type": "registry:file",
+			"title": "topic-cards",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/content-blocks-shared",
+				"@hmziq/tag",
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/content/topic-cards.astro",
+					"target": "src/components/brand/blocks/content/topic-cards.astro",
 					"type": "registry:file"
 				}
 			]

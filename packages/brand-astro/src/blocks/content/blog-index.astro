@@ -1,0 +1,79 @@
+---
+import { cn } from "$brand/utils";
+import Container from "$brand/blocks/site/container.astro";
+import PageIntro from "$brand/blocks/site/page-intro.astro";
+import SearchBox from "$brand/blocks/site/search-box.astro";
+import TopicChips from "$brand/blocks/site/topic-chips.astro";
+import PostList from "./post-list.astro";
+import type { PostItem, TopicTone } from "./types";
+
+/*
+ * A blog's index inside a product site, on the wide Container: the page
+ * intro (its `title` and `lede` slots), a search box and the topic chips in
+ * their colors, then the PostList with the newest post featured in its
+ * rings. The search (titles, summaries and tags) and the topic narrow the
+ * posts as you type and pick, and the first post left takes the featured
+ * card.
+ */
+
+interface Props {
+  /** Every post, newest first. */
+  posts: PostItem[];
+  /** The blog's topics, in the order the chips show them. */
+  topics: string[];
+  /** The topic's color, for the chips, the tags and the featured card's rings. */
+  tone?: TopicTone;
+  /** The search box's label and placeholder. */
+  search?: string;
+  class?: string;
+}
+
+const { posts, topics, tone, search = "Search posts", class: className } = Astro.props;
+---
+
+<section data-slot="blog-index" class={cn("pt-14 pb-28 md:pt-20 md:pb-36", className)}>
+  <Container size="wide">
+    <PageIntro class="max-w-2xl">
+      <Fragment slot="title"><slot name="title" /></Fragment>
+      {Astro.slots.has("lede") && <Fragment slot="lede"><slot name="lede" /></Fragment>}
+    </PageIntro>
+  </Container>
+  <Container size="wide" class="mt-12">
+    <div class="mb-7 flex flex-wrap items-center gap-3">
+      <div data-blog-index-search class="contents">
+        <SearchBox label={search} class="w-auto min-w-64" />
+      </div>
+      <TopicChips items={["All", ...topics]} value="All" tone={(t) => (t === "All" ? undefined : tone?.(t))} />
+    </div>
+    <PostList posts={posts} tone={tone} promote />
+  </Container>
+</section>
+
+<script>
+  function apply(root: HTMLElement) {
+    const list = root.querySelector<HTMLElement>("[data-slot='post-list']");
+    if (!list) return;
+    const q = (root.querySelector<HTMLInputElement>("[data-blog-index-search] input")?.value ?? "").trim().toLowerCase();
+    const topic = root.querySelector<HTMLElement>("[data-slot='topic-chips']")?.dataset.value ?? "All";
+    let lead = -1;
+    let shown = 0;
+    for (const el of list.querySelectorAll<HTMLElement>("[data-lead]")) {
+      const i = Number(el.dataset.lead);
+      const hit = (topic === "All" || el.dataset.topic === topic) && (!q || (el.dataset.search ?? "").includes(q));
+      if (hit && lead < 0) lead = i;
+      el.hidden = !(hit && i === lead);
+      list.querySelector<HTMLElement>(`[data-rest="${i}"]`)?.toggleAttribute("hidden", !hit || i === lead);
+      if (hit) shown++;
+    }
+    list.querySelector<HTMLElement>("[data-empty]")?.toggleAttribute("hidden", shown > 0);
+  }
+
+  document.addEventListener("input", (event) => {
+    const root = (event.target as HTMLElement | null)?.closest<HTMLElement>("[data-slot='blog-index']");
+    if (root && (event.target as HTMLElement).closest("[data-blog-index-search]")) apply(root);
+  });
+  document.addEventListener("topic-change", (event) => {
+    const root = (event.target as HTMLElement | null)?.closest<HTMLElement>("[data-slot='blog-index']");
+    if (root) apply(root);
+  });
+</script>

@@ -8,7 +8,8 @@ import Marker from "$brand/components/marker.astro";
  * screens. `left` puts it in the left margin instead. `ring` hangs it off an
  * orange ring in the text column. `signed` is one for quoting someone else,
  * with their name under it. `tldr` is the box, when the line is the whole
- * point of the section.
+ * point of the section. `oxide` is the one line a post pulls out big on an
+ * oxide card, with a mono caption under it.
  *
  * A pull quote that repeats a line the reader just read (or is about to) is
  * `repeated`: decoration, so screen readers skip it and it is never
@@ -16,10 +17,10 @@ import Marker from "$brand/components/marker.astro";
  */
 
 interface Props {
-  variant?: "margin" | "left" | "ring" | "signed" | "tldr";
+  variant?: "margin" | "left" | "ring" | "signed" | "tldr" | "oxide";
   /** The quote repeats a line from the text, so screen readers skip it. */
   repeated?: boolean;
-  /** For `signed` and `tldr`: who said it, e.g. "the lab's README". */
+  /** For `signed` and `tldr`: who said it, e.g. "the lab's README". For `oxide`: the caption, From this post when left out. */
   sign?: string;
   class?: string;
 }
@@ -59,6 +60,11 @@ const margins = {
         <slot />
       </blockquote>
       {sign && <figcaption class="mt-2 text-[0.8125rem] text-muted-foreground">— {sign}</figcaption>}
+    </figure>
+  ) : variant === "oxide" ? (
+    <figure aria-hidden={hidden} class={cn("rounded-2xl bg-primary px-6 py-7 text-primary-foreground sm:px-9 sm:py-9", className)}>
+      <blockquote class="text-[clamp(1.5rem,2.6vw,2.15rem)] leading-[1.12] font-medium tracking-[-0.03em] text-balance"><slot /></blockquote>
+      <figcaption class="mt-5 flex items-center gap-2 font-mono text-[11px] tracking-[0.14em] uppercase"><i class="size-1.5 bg-current"></i>{sign ?? "From this post"}</figcaption>
     </figure>
   ) : (
     <div aria-hidden={hidden} class={cn("rounded-xl border border-primary/45 px-5 py-4.5", className)}>

@@ -269,6 +269,24 @@ drawings or real UI. The framework-free halves (`line-art`, `flow-wires`,
 the cards change color, while drawings, tilts and materials follow the
 cursor's position, and all of it holds still for reduced motion.
 
+Blog pages (also in the Astro kit), three blocks in `blocks/content/` on the
+wide Container: `MagazineIndex` (a blog's front page: a facts line, a display
+title, the post to start with beside its drawing, the latest as picture cards
+at two sizes with topic chips that filter them, the ones further back as
+numbered `PostList` rows that float a post's drawing, and `TopicCards` that
+filter too), `PostArticle` (the post page: `PostHeader`'s wide layout with the
+post's drawing as the cover, `PostContents`' sticky rail, the reading column
+with a TL;DR `SummaryBox`, paragraphs, lists, code and links out, one line on
+`PullQuote`'s oxide card, the `ShareBar`, a `Byline` with its links, then
+related posts) and `BlogIndex` (a product's blog: `PageIntro`, `SearchBox`
+and toned `TopicChips` over the `PostList`). A post's picture is one of
+`LineArt`'s eight post drawings (laptop, request, modules, plan, queue, tools,
+pipeline, endpoints), which keep a 1.25px line at any size; a post card is a
+`PictureCard` with a `head` snippet (the post's `PostMeta`, a kicker), at md,
+lg or xl, xl split beside its drawing, and a post without a drawing gets the
+same card wearing the thin ring itself. The contents links are plain `#id`
+links; an app whose router owns the hash catches them itself.
+
 ## Registry
 
 `registry.json` is generated, never hand-edited: `bun run registry:generate`

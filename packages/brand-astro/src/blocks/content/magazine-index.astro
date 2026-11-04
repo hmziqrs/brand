@@ -1,0 +1,159 @@
+---
+import { cn } from "$brand/utils";
+import Container from "$brand/blocks/site/container.astro";
+import EmptyNote from "$brand/blocks/site/empty-note.astro";
+import TopicChips from "$brand/blocks/site/topic-chips.astro";
+import PictureCard from "$brand/components/picture-card.astro";
+import PostList from "./post-list.astro";
+import PostMeta from "./post-meta.astro";
+import TopicCards from "./topic-cards.astro";
+import type { PostItem, TopicShelf, TopicTone } from "./types";
+
+/*
+ * A blog's front page, magazine style, on the wide Container: a line of
+ * facts, a display title and why the blog exists, the post to start with
+ * beside its drawing, then the latest posts as picture cards at two sizes
+ * with topic chips that filter them, the ones further back as numbered rows
+ * that float their drawings, and the topics as cards that filter too. The
+ * latest are rendered once per topic and the chips and cards show one;
+ * picking a card scrolls back up to them.
+ */
+
+interface Props {
+  /** Every post, newest first. */
+  posts: PostItem[];
+  /** The title of the post to start with: it leads the page and leaves the latest. */
+  lead?: string;
+  /** The blog's topics, in the order the chips and cards show them. */
+  topics: string[];
+  /** The topic's color, for the tags, chips and cards. */
+  tone?: TopicTone;
+  title: string;
+  /** The part of the title in oxide; it must appear in the title. */
+  accent?: string;
+  /** Why the blog exists, under the title. */
+  lede?: string;
+  class?: string;
+}
+
+const { posts, lead, topics, tone, title, accent, lede, class: className } = Astro.props;
+
+const latestId = `magazine-${crypto.randomUUID().slice(0, 8)}-latest`;
+const start = posts.find((p) => p.title === lead);
+const groups = ["All", ...topics].map((topic) => {
+  const list = topic === "All" ? posts.filter((p) => p !== start) : posts.filter((p) => p.topic === topic);
+  return { topic, list, big: list.slice(0, 2), mid: list.slice(2, 5), tail: list.slice(5).map((p) => ({ ...p, updated: undefined, number: p.number ?? posts.length - posts.indexOf(p) })) };
+});
+const shelf: TopicShelf[] = topics.map((t) => {
+  const mine = posts.filter((p) => p.topic === t);
+  return { topic: t, count: mine.length, minutes: mine.reduce((sum, p) => sum + (p.minutes ?? 0), 0), latest: mine[0]?.title };
+});
+const at = accent ? title.indexOf(accent) : -1;
+const parts = !accent || at < 0 ? { lead: title, hit: "", tail: "" } : { lead: title.slice(0, at), hit: accent, tail: title.slice(at + accent.length) };
+const sectionTitle = "text-[clamp(2rem,4vw,3.25rem)] leading-[1] font-medium tracking-[-0.04em] text-foreground";
+---
+
+<div data-slot="magazine-index" data-latest={latestId} class={cn("pb-28 md:pb-36", className)}>
+  <Container size="wide" class="pt-12 md:pt-16">
+    <div class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-b border-border pb-4 text-sm">
+      <span class="font-medium text-foreground">The blog</span>
+      <span class="text-foreground/75">{`${posts.length} posts · ${topics.length} categories · updated ${posts[0]?.date}`}</span>
+    </div>
+    <h1 class="mt-10 text-[clamp(3.25rem,8.6vw,8rem)] leading-[0.94] font-medium tracking-[-0.045em] text-balance text-foreground md:mt-14">{parts.lead}{parts.hit && <span class="text-primary">{parts.hit}</span>}{parts.tail}</h1>
+    {lede && <p class="mt-8 max-w-[40ch] text-[1.3125rem] leading-[1.45] text-foreground md:mt-12 md:text-[1.625rem]">{lede}</p>}
+  </Container>
+
+  {
+    start && (
+      <Container size="wide" class="mt-16 md:mt-24">
+        <PictureCard title={start.title} dek={start.summary} art={start.art} href={start.href} as="h2" size="xl" layout="split" more="Read the post">
+          <Fragment slot="head">
+            <span class="font-mono text-[11px] tracking-[0.14em] text-primary uppercase">Start here</span>
+            <PostMeta post={start} tone={tone} />
+          </Fragment>
+        </PictureCard>
+      </Container>
+    )
+  }
+
+  <Container size="wide" class="mt-24 md:mt-32">
+    <div id={latestId} class="flex scroll-mt-24 flex-wrap items-end justify-between gap-6 border-b border-border pb-6">
+      <h2 class={sectionTitle}>Latest</h2>
+      <TopicChips items={["All", ...topics]} value="All" tone={(t) => tone?.(t)} />
+    </div>
+    {
+      groups.map((g) => (
+        <div data-topic-group={g.topic} hidden={g.topic !== "All"} class="contents">
+          {g.list.length === 0 && <EmptyNote>{`No posts in ${g.topic} yet.`}</EmptyNote>}
+          {g.big.length > 0 && (
+            <div class="mt-10 grid gap-x-8 gap-y-14 md:mt-12 md:grid-cols-2">
+              {g.big.map((p) => (
+                <PictureCard title={p.title} dek={p.summary} art={p.art} href={p.href} as="h3" size="lg">
+                  <PostMeta slot="head" post={{ ...p, updated: undefined }} tone={tone} />
+                </PictureCard>
+              ))}
+            </div>
+          )}
+          {g.mid.length > 0 && (
+            <div class="mt-16 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+              {g.mid.map((p) => (
+                <PictureCard title={p.title} dek={p.summary} art={p.art} href={p.href} as="h3">
+                  <PostMeta slot="head" post={{ ...p, updated: undefined }} tone={tone} />
+                </PictureCard>
+              ))}
+            </div>
+          )}
+          {g.tail.length > 0 && (
+            <div class="mt-20 md:mt-24">
+              <div class="mb-6 flex items-baseline justify-between gap-4">
+                <h2 class="text-[clamp(1.6rem,2.6vw,2.25rem)] font-medium tracking-[-0.03em] text-foreground">Further back</h2>
+                <span class="hidden text-sm text-foreground/75 md:inline">Point at a title to see its drawing</span>
+              </div>
+              <PostList posts={g.tail} variant="rows" tone={tone} />
+            </div>
+          )}
+        </div>
+      ))
+    }
+  </Container>
+
+  <Container size="wide" class="mt-24 md:mt-32">
+    <div class="grid gap-4 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
+      <h2 class={sectionTitle}>Read by category.</h2>
+      <p class="max-w-[36ch] text-lg leading-snug text-foreground">Pick one to filter the latest posts. Pick it again to see everything.</p>
+    </div>
+    <TopicCards items={shelf} value="All" tone={tone} class="mt-10" />
+  </Container>
+</div>
+
+<script>
+  import { reducedMotion } from "@hmziq/brand-core/motion/canvas";
+
+  function show(root: HTMLElement, value: string) {
+    for (const g of root.querySelectorAll<HTMLElement>("[data-topic-group]")) g.hidden = g.dataset.topicGroup !== value;
+    const chips = root.querySelector<HTMLElement>("[data-slot='topic-chips']");
+    if (chips) {
+      chips.dataset.value = value;
+      for (const b of chips.querySelectorAll<HTMLElement>("[data-topic-chip]")) b.setAttribute("aria-pressed", String(b.dataset.value === value));
+    }
+    const cards = root.querySelector<HTMLElement>("[data-slot='topic-cards']");
+    if (cards) {
+      cards.dataset.value = value;
+      for (const b of cards.querySelectorAll<HTMLElement>("button[data-topic]")) {
+        const on = b.dataset.topic === value;
+        b.setAttribute("aria-pressed", String(on));
+        b.querySelector<HTMLElement>("[data-showing]")?.toggleAttribute("hidden", !on);
+      }
+    }
+  }
+
+  document.addEventListener("topic-change", (event) => {
+    const from = event.target as HTMLElement | null;
+    const root = from?.closest<HTMLElement>("[data-slot='magazine-index']");
+    if (!from || !root) return;
+    show(root, (event as CustomEvent<{ value: string }>).detail?.value ?? "All");
+    if (from.matches("[data-slot='topic-cards']")) {
+      document.getElementById(root.dataset.latest ?? "")?.scrollIntoView({ behavior: reducedMotion() ? "auto" : "smooth", block: "start" });
+    }
+  });
+</script>

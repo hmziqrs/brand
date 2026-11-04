@@ -332,6 +332,29 @@
 			]
 		},
 		{
+			"name": "blog-index",
+			"type": "registry:lib",
+			"title": "blog-index",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:container",
+				"local:content-blocks-shared",
+				"local:page-intro",
+				"local:post-list",
+				"local:search-box",
+				"local:topic-chips",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/content/blog-index.svelte",
+					"type": "registry:file",
+					"target": "blocks/content/blog-index.svelte"
+				}
+			]
+		},
+		{
 			"name": "blog-layout",
 			"type": "registry:lib",
 			"title": "blog-layout",
@@ -434,6 +457,28 @@
 					"path": "src/lib/blocks/site/button-link.svelte",
 					"type": "registry:file",
 					"target": "blocks/site/button-link.svelte"
+				}
+			]
+		},
+		{
+			"name": "byline",
+			"type": "registry:lib",
+			"title": "byline",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@lucide/svelte@^1.52.0",
+				"simple-icons@16.32.0"
+			],
+			"registryDependencies": [
+				"local:brand-icon",
+				"local:mark",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/content/byline.svelte",
+					"type": "registry:file",
+					"target": "blocks/content/byline.svelte"
 				}
 			]
 		},
@@ -2172,12 +2217,14 @@
 				"local:band-arcs",
 				"local:before-after",
 				"local:big-numbers",
+				"local:blog-index",
 				"local:blog-layout",
 				"local:brand-hero",
 				"local:brand-icon",
 				"local:bulk-action-bar",
 				"local:bullets",
 				"local:button-link",
+				"local:byline",
 				"local:calm-footer",
 				"local:catalog-card",
 				"local:catalog-section",
@@ -2259,6 +2306,7 @@
 				"local:live-notification",
 				"local:live-pages",
 				"local:live-widget",
+				"local:magazine-index",
 				"local:mark",
 				"local:marker",
 				"local:material-footer",
@@ -2283,6 +2331,7 @@
 				"local:picture-grid",
 				"local:picture-section",
 				"local:pixel-name",
+				"local:post-article",
 				"local:post-card",
 				"local:post-contents",
 				"local:post-header",
@@ -2370,6 +2419,7 @@
 				"local:terminal-line",
 				"local:terminal-window",
 				"local:toc",
+				"local:topic-cards",
 				"local:topic-chips",
 				"local:tweakers",
 				"local:typing-terminal",
@@ -2699,6 +2749,33 @@
 					"path": "src/lib/components/rolling-number.svelte",
 					"type": "registry:file",
 					"target": "components/rolling-number.svelte"
+				}
+			]
+		},
+		{
+			"name": "magazine-index",
+			"type": "registry:lib",
+			"title": "magazine-index",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"local:container",
+				"local:content-blocks-shared",
+				"local:empty-note",
+				"local:picture-card",
+				"local:post-list",
+				"local:post-meta",
+				"local:topic-cards",
+				"local:topic-chips",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/content/magazine-index.svelte",
+					"type": "registry:file",
+					"target": "blocks/content/magazine-index.svelte"
 				}
 			]
 		},
@@ -3085,7 +3162,8 @@
 			"title": "picture-card",
 			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9).",
 			"dependencies": [
-				"@hmziq/brand-core@0.0.0"
+				"@hmziq/brand-core@0.0.0",
+				"@lucide/svelte@^1.52.0"
 			],
 			"registryDependencies": [
 				"local:line-art",
@@ -3161,6 +3239,36 @@
 			]
 		},
 		{
+			"name": "post-article",
+			"type": "registry:lib",
+			"title": "post-article",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@lucide/svelte@^1.52.0"
+			],
+			"registryDependencies": [
+				"local:byline",
+				"local:code-block",
+				"local:container",
+				"local:content-blocks-shared",
+				"local:picture-card",
+				"local:post-contents",
+				"local:post-header",
+				"local:post-meta",
+				"local:pull-quote",
+				"local:share-bar",
+				"local:summary-box",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/content/post-article.svelte",
+					"type": "registry:file",
+					"target": "blocks/content/post-article.svelte"
+				}
+			]
+		},
+		{
 			"name": "post-card",
 			"type": "registry:lib",
 			"title": "post-card",
@@ -3209,12 +3317,18 @@
 			"type": "registry:lib",
 			"title": "post-header",
 			"description": "Content piece from the hmziq brand kit (BRAND.md section 9).",
-			"dependencies": [],
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0",
+				"@lucide/svelte@^1.52.0"
+			],
 			"registryDependencies": [
+				"local:byline",
 				"local:container",
 				"local:content-blocks-shared",
+				"local:line-art",
 				"local:mark",
 				"local:post-meta",
+				"local:tag",
 				"local:utils"
 			],
 			"files": [
@@ -3230,10 +3344,13 @@
 			"type": "registry:lib",
 			"title": "post-list",
 			"description": "Content piece from the hmziq brand kit (BRAND.md section 9).",
-			"dependencies": [],
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
 			"registryDependencies": [
 				"local:content-blocks-shared",
 				"local:empty-note",
+				"local:line-art",
 				"local:post-card",
 				"local:post-meta",
 				"local:utils"
@@ -5280,6 +5397,25 @@
 					"path": "src/lib/components/toc.svelte",
 					"type": "registry:file",
 					"target": "components/toc.svelte"
+				}
+			]
+		},
+		{
+			"name": "topic-cards",
+			"type": "registry:lib",
+			"title": "topic-cards",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:content-blocks-shared",
+				"local:tag",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/content/topic-cards.svelte",
+					"type": "registry:file",
+					"target": "blocks/content/topic-cards.svelte"
 				}
 			]
 		},

@@ -1140,46 +1140,46 @@
       "name": "Byline",
       "group": "content",
       "svelte": "content-blog-byline--default",
-      "astro": "not yet",
-      "svelteFile": "blocks/content/byline.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "astro": "byline",
+      "svelteFile": "blocks/content/byline.svelte",
+      "svelteItem": "byline",
+      "astroItem": "byline"
     },
     {
       "name": "TopicCards",
       "group": "content",
       "svelte": "content-blog-topic-cards--default",
-      "astro": "not yet",
-      "svelteFile": "blocks/content/topic-cards.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "astro": "topic-cards",
+      "svelteFile": "blocks/content/topic-cards.svelte",
+      "svelteItem": "topic-cards",
+      "astroItem": "topic-cards"
     },
     {
       "name": "MagazineIndex",
       "group": "content",
       "svelte": "content-blog-magazine-index--blog-hmziq-rs",
-      "astro": "not yet",
-      "svelteFile": "blocks/content/magazine-index.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "astro": "magazine-index",
+      "svelteFile": "blocks/content/magazine-index.svelte",
+      "svelteItem": "magazine-index",
+      "astroItem": "magazine-index"
     },
     {
       "name": "PostArticle",
       "group": "content",
       "svelte": "content-blog-post-article--main-blog",
-      "astro": "not yet",
-      "svelteFile": "blocks/content/post-article.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "astro": "post-article",
+      "svelteFile": "blocks/content/post-article.svelte",
+      "svelteItem": "post-article",
+      "astroItem": "post-article"
     },
     {
       "name": "BlogIndex",
       "group": "content",
       "svelte": "content-blog-blog-index--claude-multi",
-      "astro": "not yet",
-      "svelteFile": "blocks/content/blog-index.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "astro": "blog-index",
+      "svelteFile": "blocks/content/blog-index.svelte",
+      "svelteItem": "blog-index",
+      "astroItem": "blog-index"
     },
     {
       "name": "DocsLayout",
