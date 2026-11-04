@@ -903,17 +903,8 @@ What each kind of page uses. Each one is in the explorations file, working, and 
 | Contact | Words on the left, channels on the right · who replies in an outline card. |
 | Docs | A thin line down the side menu that the current page lights orange · "On this page" in a right column with markers · quiet notes (a thin line in the note color and a colored icon) · outline code blocks · the page's own rings faintly beside the title · previous and next as two outline cards. |
 | 404 | The rings beside the words. |
-| SaaS landing (templates) | The sites' own `SiteShell`: the same header, rhythm, orange close and signature footer, signed with the product's name, with the product's mark and one line in place of the "More from hmziq" row · the kit's hero parts, so headlines stay at the landing size · a product demo you can click in the hero or right under it, at a fixed height · customers as plain grey wordmarks · quotes in outline cards with a hollow ring for the person · plans in outline cards (the recommended one with its fingerprint) or as an accent table · at most one orange band: a terminal or a second band goes on grey. Five of them in the Storybook under **Templates → SaaS landing pages**, all with example content. |
 
-The five SaaS templates, so a new product can start from the closest one (in the Storybook under **Templates → SaaS landing pages**, source in `packages/brand-svelte/src/lib/templates/`):
-
-| Template | Product | What makes it different |
-| --- | --- | --- |
-| Sightline | Analytics | Announcement strip · centered hero with the app underneath, wider than the text (four screens, a date switch, charts) · bento grid of outline cards · set-up steps beside the code · privacy on a grey band |
-| Hookline | Developer API | The kit's own landing layout: hero rings, ring gauges, install switch, SDK tabs · a delivery log you can play · terminal on grey · before and after · a usage slider with the price, and the plans as an accent table |
-| Groundwork | Team planning | Split hero with a board you can use · four views picked from a list · templates as element cards · integrations in a grid of hairlines · per-person pricing with a team-size counter · security on grey |
-| Parley | AI support | Hero on a grey band with a chat you can try · set-up steps beside an answer check · before and after as two outline columns · the same answer per channel · guardrails as notices · a customer story with its numbers · plans as an accent table · numbered FAQ |
-| Openslot | Scheduling | Editorial hero: the headline across the page, then a line, then the words and buttons side by side · the booking page on a band in the other mode (white on dark pages, dark on light ones) · time zones · use cases in tabs · integrations grouped by kind · a wall of short quotes · two plans |
+The demo products Sightline, Hookline, Groundwork, Parley, Openslot, Tunnel and Oxiwake keep their app screens in the kit (source in `packages/brand-svelte/src/lib/templates/`). Their landing pages are gone: a product's landing page is a site family below.
 
 ---
 
@@ -927,11 +918,11 @@ Build pages from shadcn components (Button, Card, Badge, Tabs, Table, Accordion,
 | Page rhythm | `main`: `flex flex-col gap-24 md:gap-32 py-16 md:py-24` |
 | Header | Clean: no line under it, `h-19`. The wordmark (section 7) + small maker line (`by hmziq` / `by freeoxide`), ghost `sm` nav buttons in `text-muted-foreground`, one primary `sm` button |
 | Hero | h1 (`leading-[1.02] font-medium tracking-[-0.035em]`) + lede + primary `lg` button + outline `lg` button + optional one-line note with a ring marker. Hero rings on the right from `md` (a product page may show its product there instead). No code in the hero. |
-| Section | h2 + one-sentence intro (`text-muted-foreground`), then content, `gap-10` |
+| Section | `SectionHead` (kicker, big title and one-sentence lede in `text-muted-foreground`; split, stacked or centered), then content, `gap-10` |
 | Feature grid | 2–3 columns; each item: an icon tile (section 9), `font-medium` title, `text-sm text-muted-foreground` body. All tiles in a grid are the same color. |
 | Cards | shadcn Card as an outline card (`bg-transparent shadow-none`); hover = `hover:ring-primary/50` only. Projects: element cards (section 7). |
 | Stats / facts | Ring gauges: `grid gap-8 sm:grid-cols-3`, each a gauge beside the number and its label (section 7). On an About or Changelog page: big numbers under a strong line. |
-| Steps | Numbered only when the order is real. The stepper: numbered rings (`size-9 rounded-full border-[1.75px]`) joined by a 1px line; a done step fills orange and the line below it turns orange. `Stepper` + `Step` in `components/brand`. |
+| Steps | Numbered only when the order is real. The stepper: numbered rings (`size-9 rounded-full border-[1.75px]`) joined by a 1px line; a done step fills orange and the line below it turns orange. `StepCards` for numbered cards, `FlowSteps` for a flowchart. |
 | Code block | An outline, no fill: `rounded-xl border`. A bar `h-10 border-b` with the file label (`text-xs text-muted-foreground`) or tabs for versions of the same thing (Terminal / Cargo.toml), and the copy button (ghost `icon-sm`, `Copy` → `Check`) on the right. `pre` with `px-4.5 py-4 font-mono text-[0.8125rem] leading-[1.7]`, highlighted with Shiki (section 2). No copy button on code people only read. |
 | Command to copy | `CommandBar`: `w-fit max-w-full rounded-xl border`, as wide as the command, `$` prompt in orange, the program in the function color and flags in the keyword color, an outline `sm` Copy button. Commands people shouldn't paste as they are (an alias they name themselves, an example) get no button. |
 | Terminal | `TerminalWindow`: always dark (`dark` class, even on light pages), `rounded-xl border`, a `h-10` title bar with a terminal icon, mono `text-[0.8125rem] leading-[1.9]` lines: `$ command`, `# note` in grey, `▸ step › answer`, `✓ result`. |
@@ -962,7 +953,7 @@ Icons: see section 6.
 8. The orange closing band
 9. Footer with "More from hmziq" and the signature
 
-The freeoxide page in the Storybook (`Sites/Landing pages`) is the reference.
+The site families below are the reference.
 
 ### Site families
 
@@ -973,7 +964,7 @@ Every family below was reviewed against the live sites and kept. Use the kit pie
 | hmziq.rs | PersonalHero, DotName over the DiagonalHatch | PictureSection (work as PictureCards with LineArt) | HatchFooter |
 | cv.hmziq.rs | CvPage | n/a | HatchFooter |
 | blog.hmziq.rs | MagazineIndex | PostArticle for posts, ReleaseDesk for its changelog | CalmFooter |
-| hmziq.xyz (Labs) | BrandHero centered over the rings (RingField), ResolveTitle | LabsIndex | GlyphFooter |
+| hmziq.xyz (Labs) | BrandHero centered over the rings (RingField), ResolveTitle | PictureGrid with LineArt (repositories as PictureCards) | GlyphFooter |
 | freeoxide.com | BrandHero over a scene (SceneStage), DotName wordmark | ProjectsSection (ProjectRows + StatTile) | DotFooter |
 | gpui-query | ProductHero split over MaterialWash, the product in a ProductWindow | SectionHead + the kit's code, command and chart pieces | SiteFooter over MaterialWash + WashGlow |
 | gpui-starter | ProductHero split over MaterialWash, with a terminal | ReleaseLoop | VoxelFooter |
@@ -996,20 +987,19 @@ Materials are surfaces, never pictures. A material appears only behind a real pr
 
 ### Page patterns
 
-Content pages have their own blocks, in `blocks/content` under `$brand`. Each installs from either registry by its kebab name: `blog-layout`, `post-header`, `docs-layout`, `release-timeline`, `faq-list`, `not-found`, …
+Content pages have their own blocks, in `blocks/content` under `$brand`. Each installs from either registry by its kebab name: `post-header`, `docs-reference`, `release-timeline`, `faq-page`, `not-found-page`, …
 
 | Page | Blocks |
 | --- | --- |
-| Blog post | BlogLayout (the shell), PostHeader, PostContents, PullQuote, ShareBar, NewsletterBand |
-| Blog index | PostList, PostCard, PostMeta; SearchBox and TopicChips filter (the page holds the filter state) |
-| Docs | DocsLayout, DocsSearch, DocsTitle, DocsPager |
-| Changelog | ReleaseTimeline, ReleaseHead with KindTag, ReleaseNotes, PastReleases |
-| FAQ | FaqList on Question, questions numbered 01, 02… in orange with the topic as a grey tag |
-| Legal | LegalLayout, LegalSection, LegalBlock; SummaryBox carries the short version |
+| Blog post | PostArticle (PostHeader, PostContents, PullQuote, ShareBar, Byline) |
+| Blog index | MagazineIndex or BlogIndex (PostList, PostCard, PostMeta); SearchBox and TopicChips filter (the page holds the filter state) |
+| Docs | DocsReference (DocsNav, DocsBlocks, DocsSearch, DocsTitle, DocsPager) |
+| Changelog | ReleaseDesk or ReleaseTimelinePage (ReleaseTimeline, ReleaseHead with KindTag, ReleaseNotes, PastReleases) |
+| FAQ | FaqPage on Question, questions numbered 01, 02… in orange with the topic as a grey tag |
+| Legal | LegalPage (LegalSection; SummaryBox carries the short version) |
 | Contact | ContactChannels. Email opens the mail app; the address never appears in the page text |
-| 404 | NotFound |
-| Landing pieces | InstallSteps, TypingTerminal, CodeEditor |
-| About | No block of its own: PageIntro, BigNumbers, Section, StepNumber, CommandBar, Mark, CtaBand |
+| 404 | NotFoundPage |
+| About | AboutEssay (PageIntro, BigNumbers, Book, BookSteps, CommitmentCards, ExperienceRail) |
 
 Blocks never read the URL or navigate. The page passes the current path in and handles navigation (section 9).
 
@@ -1054,7 +1044,7 @@ Everything else carries over from the sections above: outline panels, color only
 
 1. Use a shadcn component as it is.
 2. Adjust it with classes.
-3. Put shadcn components together into a page block (Hero, Section, FeatureGrid…).
+3. Put shadcn components together into a page block (Hero, SectionHead, PictureGrid…).
 4. Only then write a new component, with the rules below.
 
 ### Where things live
@@ -1064,8 +1054,8 @@ The kits are the source. In a site with a kit installed, `$brand` points at the 
 | Folder (under `$brand`) | What | Rule |
 | --- | --- | --- |
 | `ui` (Svelte) / `starwind` (Astro) | stock components, vendored with the brand's changes | Install from the registry (`ui-*`, `starwind-*` items), don't hand-edit beyond the brand's changes. Updates come from the registry too. |
-| `components` | small brand pieces (Wordmark, Mark, Marker, Rings, Scene, Tag, IconTile, Notice, CodeBlock, CodeLines, CopyButton, CommandBar, TerminalWindow, Stepper, Segmented, Question, Toc, DataTable, BrandIcon) | Tokens only. Install from the registry; the logic (tones, logo recipe, rings, scroll spy, code theme) comes from `@hmziq/brand-core`, never copied. A site using Scene adds `three` itself. |
-| `blocks/site` | page blocks (SiteShell/SiteLayout, Hero and its parts HeroTitle, HeroLede, HeroActions, HeroNotes, HeroNote, PageIntro, RingStats, Section, OutlineCard, ElementCard, FeatureCards, FeatureGrid, Steps, PricingPlans, Price, BeforeAfter, CtaBand) and content pieces (Prose, Bullets, CheckList, LinkBar, SummaryBox, BigNumbers, SearchBox, TopicChips, EmptyNote) | Same on every site. |
+| `components` | small brand pieces (Wordmark, Mark, Marker, Rings, Scene, Tag, IconTile, Notice, CodeBlock, CodeLines, CopyButton, CommandBar, TerminalWindow, Segmented, Question, Toc, DataTable, BrandIcon) | Tokens only. Install from the registry; the logic (tones, logo recipe, rings, scroll spy, code theme) comes from `@hmziq/brand-core`, never copied. A site using Scene adds `three` itself. |
+| `blocks/site` | page blocks (SiteLayout, Hero and its parts HeroTitle, HeroLede, HeroActions, HeroNotes, HeroNote, PageIntro, OutlineCard) and content pieces (Prose, Bullets, CheckList, LinkBar, SummaryBox, BigNumbers, SearchBox, TopicChips, EmptyNote) | Same on every site. |
 | `blocks/content` | content-page blocks (blog, docs, changelog, FAQ, legal, contact, 404) | Same on every site; pages pass the content in. |
 | `blocks/app` | app blocks: the shell (AppShell, AppPage, AppPageHeader, WorkspaceSwitcher, UserMenu), settings (SettingsSection, SettingRow, FormActions), states (EmptyState, NoResults, ErrorState, DataState, the skeletons), lists and tables (CollectionToolbar, FilterChip, SortMenu, BulkActionBar, the table parts), sign-in (AuthLayout, the forms, ProviderButtons, PasswordInput), records (DetailList, DetailSection), metrics (MetricTrend, StatCard, StatGrid, UsageMeter) and actions (ConfirmAction, RecordSheet) | For app screens, on both kits. Their contract is `APP-BLOCKS.md`; follow it. |
 | pages / routes | one per route | Put blocks together; no new styles. |

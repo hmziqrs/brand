@@ -220,25 +220,6 @@
 			]
 		},
 		{
-			"name": "before-after",
-			"type": "registry:file",
-			"title": "before-after",
-			"description": "Site block from the hmziq brand kit (BRAND.md section 9).",
-			"dependencies": [
-				"@lucide/astro@^1.48.0"
-			],
-			"registryDependencies": [
-				"@hmziq/marker"
-			],
-			"files": [
-				{
-					"path": "src/blocks/site/before-after.astro",
-					"target": "src/components/brand/blocks/site/before-after.astro",
-					"type": "registry:file"
-				}
-			]
-		},
-		{
 			"name": "big-numbers",
 			"type": "registry:file",
 			"title": "big-numbers",
@@ -274,24 +255,6 @@
 				{
 					"path": "src/blocks/content/blog-index.astro",
 					"target": "src/components/brand/blocks/content/blog-index.astro",
-					"type": "registry:file"
-				}
-			]
-		},
-		{
-			"name": "blog-layout",
-			"type": "registry:file",
-			"title": "blog-layout",
-			"description": "Content piece from the hmziq brand kit (BRAND.md section 9).",
-			"dependencies": [],
-			"registryDependencies": [
-				"@hmziq/site-head",
-				"@hmziq/site-shell"
-			],
-			"files": [
-				{
-					"path": "src/blocks/content/blog-layout.astro",
-					"target": "src/components/brand/blocks/content/blog-layout.astro",
 					"type": "registry:file"
 				}
 			]
@@ -569,26 +532,6 @@
 				{
 					"path": "src/components/code-tokens.astro",
 					"target": "src/components/brand/components/code-tokens.astro",
-					"type": "registry:file"
-				}
-			]
-		},
-		{
-			"name": "code-editor",
-			"type": "registry:file",
-			"title": "code-editor",
-			"description": "Content piece from the hmziq brand kit (BRAND.md section 9).",
-			"dependencies": [],
-			"registryDependencies": [
-				"@hmziq/code-block",
-				"@hmziq/code-lines",
-				"@hmziq/copy-button",
-				"@hmziq/utils"
-			],
-			"files": [
-				{
-					"path": "src/blocks/content/code-editor.astro",
-					"target": "src/components/brand/blocks/content/code-editor.astro",
 					"type": "registry:file"
 				}
 			]
@@ -881,25 +824,6 @@
 			]
 		},
 		{
-			"name": "cta-band",
-			"type": "registry:file",
-			"title": "cta-band",
-			"description": "Site block from the hmziq brand kit (BRAND.md section 9).",
-			"dependencies": [],
-			"registryDependencies": [
-				"@hmziq/band-arcs",
-				"@hmziq/container",
-				"@hmziq/utils"
-			],
-			"files": [
-				{
-					"path": "src/blocks/site/cta-band.astro",
-					"target": "src/components/brand/blocks/site/cta-band.astro",
-					"type": "registry:file"
-				}
-			]
-		},
-		{
 			"name": "cv-page",
 			"type": "registry:file",
 			"title": "cv-page",
@@ -1076,32 +1000,6 @@
 				{
 					"path": "src/blocks/content/docs-blocks.astro",
 					"target": "src/components/brand/blocks/content/docs-blocks.astro",
-					"type": "registry:file"
-				}
-			]
-		},
-		{
-			"name": "docs-layout",
-			"type": "registry:file",
-			"title": "docs-layout",
-			"description": "Content piece from the hmziq brand kit (BRAND.md section 9).",
-			"dependencies": [
-				"@hmziq/brand-core@0.0.0",
-				"@lucide/astro@^1.48.0"
-			],
-			"registryDependencies": [
-				"@hmziq/container",
-				"@hmziq/content-blocks-shared",
-				"@hmziq/docs-search",
-				"@hmziq/site-head",
-				"@hmziq/site-shell",
-				"@hmziq/toc",
-				"@hmziq/utils"
-			],
-			"files": [
-				{
-					"path": "src/blocks/content/docs-layout.astro",
-					"target": "src/components/brand/blocks/content/docs-layout.astro",
 					"type": "registry:file"
 				}
 			]
@@ -1297,29 +1195,6 @@
 			]
 		},
 		{
-			"name": "element-card",
-			"type": "registry:file",
-			"title": "element-card",
-			"description": "Site block from the hmziq brand kit (BRAND.md section 9).",
-			"dependencies": [
-				"@hmziq/brand-core@0.0.0"
-			],
-			"registryDependencies": [
-				"@hmziq/corner-rings",
-				"@hmziq/marker",
-				"@hmziq/starwind-card",
-				"@hmziq/tag",
-				"@hmziq/utils"
-			],
-			"files": [
-				{
-					"path": "src/blocks/site/element-card.astro",
-					"target": "src/components/brand/blocks/site/element-card.astro",
-					"type": "registry:file"
-				}
-			]
-		},
-		{
 			"name": "empty-note",
 			"type": "registry:file",
 			"title": "empty-note",
@@ -1398,26 +1273,6 @@
 			]
 		},
 		{
-			"name": "faq-list",
-			"type": "registry:file",
-			"title": "faq-list",
-			"description": "Content piece from the hmziq brand kit (BRAND.md section 9).",
-			"dependencies": [],
-			"registryDependencies": [
-				"@hmziq/content-blocks-shared",
-				"@hmziq/empty-note",
-				"@hmziq/question",
-				"@hmziq/questions"
-			],
-			"files": [
-				{
-					"path": "src/blocks/content/faq-list.astro",
-					"target": "src/components/brand/blocks/content/faq-list.astro",
-					"type": "registry:file"
-				}
-			]
-		},
-		{
 			"name": "faq-page",
 			"type": "registry:file",
 			"title": "faq-page",
@@ -1463,49 +1318,6 @@
 				{
 					"path": "src/blocks/site/faq-section.astro",
 					"target": "src/components/brand/blocks/site/faq-section.astro",
-					"type": "registry:file"
-				}
-			]
-		},
-		{
-			"name": "feature-cards",
-			"type": "registry:file",
-			"title": "feature-cards",
-			"description": "Site block from the hmziq brand kit (BRAND.md section 9).",
-			"dependencies": [],
-			"registryDependencies": [
-				"@hmziq/icon-tile",
-				"@hmziq/starwind-card",
-				"@hmziq/utils"
-			],
-			"files": [
-				{
-					"path": "src/blocks/site/feature-cards.astro",
-					"target": "src/components/brand/blocks/site/feature-cards.astro",
-					"type": "registry:file"
-				},
-				{
-					"path": "src/blocks/site/feature-icon.astro",
-					"target": "src/components/brand/blocks/site/feature-icon.astro",
-					"type": "registry:file"
-				}
-			]
-		},
-		{
-			"name": "feature-grid",
-			"type": "registry:file",
-			"title": "feature-grid",
-			"description": "Site block from the hmziq brand kit (BRAND.md section 9).",
-			"dependencies": [],
-			"registryDependencies": [
-				"@hmziq/feature-cards",
-				"@hmziq/icon-tile",
-				"@hmziq/utils"
-			],
-			"files": [
-				{
-					"path": "src/blocks/site/feature-grid.astro",
-					"target": "src/components/brand/blocks/site/feature-grid.astro",
 					"type": "registry:file"
 				}
 			]
@@ -1972,27 +1784,6 @@
 			]
 		},
 		{
-			"name": "install-steps",
-			"type": "registry:file",
-			"title": "install-steps",
-			"description": "Content piece from the hmziq brand kit (BRAND.md section 9).",
-			"dependencies": [],
-			"registryDependencies": [
-				"@hmziq/command-box",
-				"@hmziq/content-blocks-shared",
-				"@hmziq/segmented",
-				"@hmziq/step",
-				"@hmziq/stepper"
-			],
-			"files": [
-				{
-					"path": "src/blocks/content/install-steps.astro",
-					"target": "src/components/brand/blocks/content/install-steps.astro",
-					"type": "registry:file"
-				}
-			]
-		},
-		{
 			"name": "kicker",
 			"type": "registry:file",
 			"title": "kicker",
@@ -2052,10 +1843,8 @@
 				"@hmziq/auth-app-blocks-shared",
 				"@hmziq/auth-layout",
 				"@hmziq/band-arcs",
-				"@hmziq/before-after",
 				"@hmziq/big-numbers",
 				"@hmziq/blog-index",
-				"@hmziq/blog-layout",
 				"@hmziq/book",
 				"@hmziq/book-steps",
 				"@hmziq/brand-hero",
@@ -2069,7 +1858,6 @@
 				"@hmziq/catalog-section",
 				"@hmziq/check-list",
 				"@hmziq/code-block",
-				"@hmziq/code-editor",
 				"@hmziq/code-lines",
 				"@hmziq/collection-toolbar",
 				"@hmziq/command",
@@ -2083,7 +1871,6 @@
 				"@hmziq/content-blocks-shared",
 				"@hmziq/copy-button",
 				"@hmziq/corner-rings",
-				"@hmziq/cta-band",
 				"@hmziq/cv-page",
 				"@hmziq/data-state",
 				"@hmziq/data-table",
@@ -2093,7 +1880,6 @@
 				"@hmziq/diagonal-hatch",
 				"@hmziq/dither-name",
 				"@hmziq/docs-blocks",
-				"@hmziq/docs-layout",
 				"@hmziq/docs-nav",
 				"@hmziq/docs-pager",
 				"@hmziq/docs-reference",
@@ -2103,16 +1889,12 @@
 				"@hmziq/dot-footer",
 				"@hmziq/dot-name",
 				"@hmziq/drag-window",
-				"@hmziq/element-card",
 				"@hmziq/empty-note",
 				"@hmziq/empty-state",
 				"@hmziq/error-state",
 				"@hmziq/experience-rail",
-				"@hmziq/faq-list",
 				"@hmziq/faq-page",
 				"@hmziq/faq-section",
-				"@hmziq/feature-cards",
-				"@hmziq/feature-grid",
 				"@hmziq/filter-chip",
 				"@hmziq/fit-wordmark",
 				"@hmziq/flow-steps",
@@ -2136,12 +1918,8 @@
 				"@hmziq/horizon-rings",
 				"@hmziq/icon-tile",
 				"@hmziq/inline-code",
-				"@hmziq/install-steps",
 				"@hmziq/kicker",
 				"@hmziq/kind-tag",
-				"@hmziq/labs-index",
-				"@hmziq/legal-block",
-				"@hmziq/legal-layout",
 				"@hmziq/legal-page",
 				"@hmziq/legal-section",
 				"@hmziq/line-art",
@@ -2161,9 +1939,7 @@
 				"@hmziq/material-wash",
 				"@hmziq/metric-trend",
 				"@hmziq/metrics-app-blocks-shared",
-				"@hmziq/newsletter-band",
 				"@hmziq/no-results",
-				"@hmziq/not-found",
 				"@hmziq/not-found-page",
 				"@hmziq/notice",
 				"@hmziq/outline-card",
@@ -2181,11 +1957,9 @@
 				"@hmziq/post-header",
 				"@hmziq/post-list",
 				"@hmziq/post-meta",
-				"@hmziq/price",
 				"@hmziq/pricing-card",
 				"@hmziq/pricing-compare",
 				"@hmziq/pricing-page",
-				"@hmziq/pricing-plans",
 				"@hmziq/product-hero",
 				"@hmziq/product-window",
 				"@hmziq/project-rows",
@@ -2209,14 +1983,12 @@
 				"@hmziq/rich-blocks",
 				"@hmziq/ring-field",
 				"@hmziq/ring-gauge",
-				"@hmziq/ring-stats",
 				"@hmziq/rings",
 				"@hmziq/row-actions",
 				"@hmziq/row-checkbox",
 				"@hmziq/scene",
 				"@hmziq/scene-stage",
 				"@hmziq/search-box",
-				"@hmziq/section",
 				"@hmziq/section-head",
 				"@hmziq/segmented",
 				"@hmziq/select-all-checkbox",
@@ -2227,10 +1999,10 @@
 				"@hmziq/shell-app-blocks-shared",
 				"@hmziq/sign-in-form",
 				"@hmziq/sign-up-form",
+				"@hmziq/site-blocks",
 				"@hmziq/site-blocks-shared",
 				"@hmziq/site-footer",
 				"@hmziq/site-head",
-				"@hmziq/site-shell",
 				"@hmziq/skeleton-details",
 				"@hmziq/skeleton-settings",
 				"@hmziq/skeleton-stats",
@@ -2269,11 +2041,7 @@
 				"@hmziq/stat-grid",
 				"@hmziq/stat-tile",
 				"@hmziq/status-ring",
-				"@hmziq/step",
 				"@hmziq/step-cards",
-				"@hmziq/step-number",
-				"@hmziq/stepper",
-				"@hmziq/steps",
 				"@hmziq/steps-section",
 				"@hmziq/summary-box",
 				"@hmziq/surface-bento",
@@ -2288,7 +2056,6 @@
 				"@hmziq/toc",
 				"@hmziq/topic-cards",
 				"@hmziq/topic-chips",
-				"@hmziq/typing-terminal",
 				"@hmziq/usage-meter",
 				"@hmziq/user-menu",
 				"@hmziq/utils",
@@ -2300,6 +2067,11 @@
 				"@hmziq/workspace-switcher"
 			],
 			"files": [
+				{
+					"path": "src/blocks/site/site-layout.astro",
+					"target": "src/components/brand/blocks/site/site-layout.astro",
+					"type": "registry:file"
+				},
 				{
 					"path": "src/components/nav-bar-actions.astro",
 					"target": "src/components/brand/components/nav-bar-actions.astro",
@@ -2328,74 +2100,6 @@
 				{
 					"path": "src/styles/kit.css",
 					"target": "src/components/brand/styles/kit.css",
-					"type": "registry:file"
-				}
-			]
-		},
-		{
-			"name": "labs-index",
-			"type": "registry:file",
-			"title": "labs-index",
-			"description": "Site block from the hmziq brand kit (BRAND.md section 9).",
-			"dependencies": [
-				"@hmziq/brand-core@0.0.0",
-				"@lucide/astro@^1.48.0",
-				"simple-icons@16.32.0"
-			],
-			"registryDependencies": [
-				"@hmziq/brand-icon",
-				"@hmziq/button-link",
-				"@hmziq/container",
-				"@hmziq/picture-grid",
-				"@hmziq/stat-tile",
-				"@hmziq/utils"
-			],
-			"files": [
-				{
-					"path": "src/blocks/site/labs-index.astro",
-					"target": "src/components/brand/blocks/site/labs-index.astro",
-					"type": "registry:file"
-				}
-			]
-		},
-		{
-			"name": "legal-block",
-			"type": "registry:file",
-			"title": "legal-block",
-			"description": "Content piece from the hmziq brand kit (BRAND.md section 9).",
-			"dependencies": [],
-			"registryDependencies": [
-				"@hmziq/bullets",
-				"@hmziq/content-blocks-shared"
-			],
-			"files": [
-				{
-					"path": "src/blocks/content/legal-block.astro",
-					"target": "src/components/brand/blocks/content/legal-block.astro",
-					"type": "registry:file"
-				}
-			]
-		},
-		{
-			"name": "legal-layout",
-			"type": "registry:file",
-			"title": "legal-layout",
-			"description": "Content piece from the hmziq brand kit (BRAND.md section 9).",
-			"dependencies": [
-				"@hmziq/brand-core@0.0.0"
-			],
-			"registryDependencies": [
-				"@hmziq/container",
-				"@hmziq/content-blocks-shared",
-				"@hmziq/kicker",
-				"@hmziq/prose",
-				"@hmziq/summary-box",
-				"@hmziq/toc"
-			],
-			"files": [
-				{
-					"path": "src/blocks/content/legal-layout.astro",
-					"target": "src/components/brand/blocks/content/legal-layout.astro",
 					"type": "registry:file"
 				}
 			]
@@ -2812,25 +2516,6 @@
 			]
 		},
 		{
-			"name": "newsletter-band",
-			"type": "registry:file",
-			"title": "newsletter-band",
-			"description": "Content piece from the hmziq brand kit (BRAND.md section 9).",
-			"dependencies": [],
-			"registryDependencies": [
-				"@hmziq/cta-band",
-				"@hmziq/starwind-button",
-				"@hmziq/starwind-input"
-			],
-			"files": [
-				{
-					"path": "src/blocks/content/newsletter-band.astro",
-					"target": "src/components/brand/blocks/content/newsletter-band.astro",
-					"type": "registry:file"
-				}
-			]
-		},
-		{
 			"name": "no-results",
 			"type": "registry:file",
 			"title": "no-results",
@@ -2846,25 +2531,6 @@
 				{
 					"path": "src/blocks/app/states/no-results.astro",
 					"target": "src/components/brand/blocks/app/states/no-results.astro",
-					"type": "registry:file"
-				}
-			]
-		},
-		{
-			"name": "not-found",
-			"type": "registry:file",
-			"title": "not-found",
-			"description": "Content piece from the hmziq brand kit (BRAND.md section 9).",
-			"dependencies": [],
-			"registryDependencies": [
-				"@hmziq/container",
-				"@hmziq/page-intro",
-				"@hmziq/rings"
-			],
-			"files": [
-				{
-					"path": "src/blocks/content/not-found.astro",
-					"target": "src/components/brand/blocks/content/not-found.astro",
 					"type": "registry:file"
 				}
 			]
@@ -3237,23 +2903,6 @@
 			]
 		},
 		{
-			"name": "price",
-			"type": "registry:file",
-			"title": "price",
-			"description": "Site block from the hmziq brand kit (BRAND.md section 9).",
-			"dependencies": [],
-			"registryDependencies": [
-				"@hmziq/site-blocks-shared"
-			],
-			"files": [
-				{
-					"path": "src/blocks/site/price.astro",
-					"target": "src/components/brand/blocks/site/price.astro",
-					"type": "registry:file"
-				}
-			]
-		},
-		{
 			"name": "pricing-card",
 			"type": "registry:file",
 			"title": "pricing-card",
@@ -3321,31 +2970,6 @@
 				{
 					"path": "src/blocks/site/pricing-page.astro",
 					"target": "src/components/brand/blocks/site/pricing-page.astro",
-					"type": "registry:file"
-				}
-			]
-		},
-		{
-			"name": "pricing-plans",
-			"type": "registry:file",
-			"title": "pricing-plans",
-			"description": "Site block from the hmziq brand kit (BRAND.md section 9).",
-			"dependencies": [],
-			"registryDependencies": [
-				"@hmziq/button-link",
-				"@hmziq/check-list",
-				"@hmziq/corner-rings",
-				"@hmziq/outline-card",
-				"@hmziq/price",
-				"@hmziq/segmented",
-				"@hmziq/site-blocks-shared",
-				"@hmziq/tag",
-				"@hmziq/utils"
-			],
-			"files": [
-				{
-					"path": "src/blocks/site/pricing-plans.astro",
-					"target": "src/components/brand/blocks/site/pricing-plans.astro",
 					"type": "registry:file"
 				}
 			]
@@ -3843,24 +3467,6 @@
 			]
 		},
 		{
-			"name": "ring-stats",
-			"type": "registry:file",
-			"title": "ring-stats",
-			"description": "Site block from the hmziq brand kit (BRAND.md section 9).",
-			"dependencies": [],
-			"registryDependencies": [
-				"@hmziq/container",
-				"@hmziq/ring-gauge"
-			],
-			"files": [
-				{
-					"path": "src/blocks/site/ring-stats.astro",
-					"target": "src/components/brand/blocks/site/ring-stats.astro",
-					"type": "registry:file"
-				}
-			]
-		},
-		{
 			"name": "rings",
 			"type": "registry:file",
 			"title": "rings",
@@ -3983,25 +3589,6 @@
 				{
 					"path": "src/blocks/site/search-box.astro",
 					"target": "src/components/brand/blocks/site/search-box.astro",
-					"type": "registry:file"
-				}
-			]
-		},
-		{
-			"name": "section",
-			"type": "registry:file",
-			"title": "section",
-			"description": "Site block from the hmziq brand kit (BRAND.md section 9).",
-			"dependencies": [],
-			"registryDependencies": [
-				"@hmziq/container",
-				"@hmziq/marker",
-				"@hmziq/utils"
-			],
-			"files": [
-				{
-					"path": "src/blocks/site/section.astro",
-					"target": "src/components/brand/blocks/site/section.astro",
 					"type": "registry:file"
 				}
 			]
@@ -4214,6 +3801,23 @@
 			]
 		},
 		{
+			"name": "site-blocks",
+			"type": "registry:file",
+			"title": "site-blocks",
+			"description": "Files from \"site-blocks\" the pieces roster does not list yet; they become their own items when their plan finishes and this script is re-run.",
+			"dependencies": [],
+			"registryDependencies": [
+				"@hmziq/utils"
+			],
+			"files": [
+				{
+					"path": "src/blocks/site/feature-icon.astro",
+					"target": "src/components/brand/blocks/site/feature-icon.astro",
+					"type": "registry:file"
+				}
+			]
+		},
+		{
 			"name": "site-blocks-shared",
 			"type": "registry:file",
 			"title": "site-blocks-shared",
@@ -4228,11 +3832,6 @@
 				{
 					"path": "src/blocks/site/company-types.ts",
 					"target": "src/components/brand/blocks/site/company-types.ts",
-					"type": "registry:file"
-				},
-				{
-					"path": "src/blocks/site/plan.ts",
-					"target": "src/components/brand/blocks/site/plan.ts",
 					"type": "registry:file"
 				},
 				{
@@ -4286,30 +3885,6 @@
 				{
 					"path": "src/blocks/site/site-head.astro",
 					"target": "src/components/brand/blocks/site/site-head.astro",
-					"type": "registry:file"
-				}
-			]
-		},
-		{
-			"name": "site-shell",
-			"type": "registry:file",
-			"title": "site-shell",
-			"description": "Site block from the hmziq brand kit (BRAND.md section 9).",
-			"dependencies": [
-				"@hmziq/brand-core@0.0.0"
-			],
-			"registryDependencies": [
-				"@hmziq/button-link",
-				"@hmziq/container",
-				"@hmziq/mark",
-				"@hmziq/site-head",
-				"@hmziq/utils",
-				"@hmziq/wordmark"
-			],
-			"files": [
-				{
-					"path": "src/blocks/site/site-layout.astro",
-					"target": "src/components/brand/blocks/site/site-layout.astro",
 					"type": "registry:file"
 				}
 			]
@@ -5893,24 +5468,6 @@
 			]
 		},
 		{
-			"name": "step",
-			"type": "registry:file",
-			"title": "step",
-			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9).",
-			"dependencies": [],
-			"registryDependencies": [
-				"@hmziq/step-number",
-				"@hmziq/utils"
-			],
-			"files": [
-				{
-					"path": "src/components/step.astro",
-					"target": "src/components/brand/components/step.astro",
-					"type": "registry:file"
-				}
-			]
-		},
-		{
 			"name": "step-cards",
 			"type": "registry:file",
 			"title": "step-cards",
@@ -5923,58 +5480,6 @@
 				{
 					"path": "src/components/step-cards.astro",
 					"target": "src/components/brand/components/step-cards.astro",
-					"type": "registry:file"
-				}
-			]
-		},
-		{
-			"name": "step-number",
-			"type": "registry:file",
-			"title": "step-number",
-			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9).",
-			"dependencies": [],
-			"registryDependencies": [
-				"@hmziq/utils"
-			],
-			"files": [
-				{
-					"path": "src/components/step-number.astro",
-					"target": "src/components/brand/components/step-number.astro",
-					"type": "registry:file"
-				}
-			]
-		},
-		{
-			"name": "stepper",
-			"type": "registry:file",
-			"title": "stepper",
-			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9).",
-			"dependencies": [],
-			"registryDependencies": [
-				"@hmziq/utils"
-			],
-			"files": [
-				{
-					"path": "src/components/stepper.astro",
-					"target": "src/components/brand/components/stepper.astro",
-					"type": "registry:file"
-				}
-			]
-		},
-		{
-			"name": "steps",
-			"type": "registry:file",
-			"title": "steps",
-			"description": "Site block from the hmziq brand kit (BRAND.md section 9).",
-			"dependencies": [],
-			"registryDependencies": [
-				"@hmziq/step",
-				"@hmziq/stepper"
-			],
-			"files": [
-				{
-					"path": "src/blocks/site/steps.astro",
-					"target": "src/components/brand/blocks/site/steps.astro",
 					"type": "registry:file"
 				}
 			]
@@ -6248,31 +5753,6 @@
 				{
 					"path": "src/blocks/site/topic-chips.astro",
 					"target": "src/components/brand/blocks/site/topic-chips.astro",
-					"type": "registry:file"
-				}
-			]
-		},
-		{
-			"name": "typing-terminal",
-			"type": "registry:file",
-			"title": "typing-terminal",
-			"description": "Content piece from the hmziq brand kit (BRAND.md section 9).",
-			"dependencies": [
-				"@lucide/astro@^1.48.0"
-			],
-			"registryDependencies": [
-				"@hmziq/command",
-				"@hmziq/copy-button",
-				"@hmziq/starwind-button",
-				"@hmziq/terminal-body",
-				"@hmziq/terminal-line",
-				"@hmziq/terminal-window",
-				"@hmziq/utils"
-			],
-			"files": [
-				{
-					"path": "src/blocks/content/typing-terminal.astro",
-					"target": "src/components/brand/blocks/content/typing-terminal.astro",
 					"type": "registry:file"
 				}
 			]

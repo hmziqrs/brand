@@ -217,33 +217,6 @@
       "astroItem": "terminal-line"
     },
     {
-      "name": "Stepper",
-      "group": "brand",
-      "svelte": "custom-stepper--done",
-      "astro": "stepper",
-      "svelteFile": "components/stepper.svelte",
-      "svelteItem": "stepper",
-      "astroItem": "stepper"
-    },
-    {
-      "name": "Step",
-      "group": "brand",
-      "svelte": "custom-stepper--done",
-      "astro": "step",
-      "svelteFile": "components/step.svelte",
-      "svelteItem": "step",
-      "astroItem": "step"
-    },
-    {
-      "name": "StepNumber",
-      "group": "brand",
-      "svelte": "custom-stepper--done",
-      "astro": "step-number",
-      "svelteFile": "components/step-number.svelte",
-      "svelteItem": "step-number",
-      "astroItem": "step-number"
-    },
-    {
       "name": "Segmented",
       "group": "brand",
       "svelte": "custom-segmented--default",
@@ -323,16 +296,6 @@
       "svelteFile": "tweakers/ring-motion.stories.svelte",
       "svelteItem": "not yet",
       "astroItem": "not yet"
-    },
-    {
-      "name": "SiteShell",
-      "group": "site",
-      "svelte": "site-structure-site-shell--landing",
-      "astro": "site-shell",
-      "svelteFile": "blocks/site/site-shell.svelte",
-      "svelteItem": "site-shell",
-      "astroItem": "site-shell",
-      "astroFile": "blocks/site/site-layout.astro"
     },
     {
       "name": "SiteHead",
@@ -425,24 +388,6 @@
       "astroItem": "page-intro"
     },
     {
-      "name": "RingStats",
-      "group": "site",
-      "svelte": "site-sections-ring-stats--default",
-      "astro": "ring-stats",
-      "svelteFile": "blocks/site/ring-stats.svelte",
-      "svelteItem": "ring-stats",
-      "astroItem": "ring-stats"
-    },
-    {
-      "name": "Section",
-      "group": "site",
-      "svelte": "site-sections-section--default",
-      "astro": "section",
-      "svelteFile": "blocks/site/section.svelte",
-      "svelteItem": "section",
-      "astroItem": "section"
-    },
-    {
       "name": "OutlineCard",
       "group": "site",
       "svelte": "site-cards-outline-card--default",
@@ -450,51 +395,6 @@
       "svelteFile": "blocks/site/outline-card.svelte",
       "svelteItem": "outline-card",
       "astroItem": "outline-card"
-    },
-    {
-      "name": "ElementCard",
-      "group": "site",
-      "svelte": "site-cards-element-card--default",
-      "astro": "element-card",
-      "svelteFile": "blocks/site/element-card.svelte",
-      "svelteItem": "element-card",
-      "astroItem": "element-card"
-    },
-    {
-      "name": "FeatureCards",
-      "group": "site",
-      "svelte": "site-cards-feature-cards--default",
-      "astro": "feature-cards",
-      "svelteFile": "blocks/site/feature-cards.svelte",
-      "svelteItem": "feature-cards",
-      "astroItem": "feature-cards"
-    },
-    {
-      "name": "FeatureGrid",
-      "group": "site",
-      "svelte": "site-cards-feature-grid--default",
-      "astro": "feature-grid",
-      "svelteFile": "blocks/site/feature-grid.svelte",
-      "svelteItem": "feature-grid",
-      "astroItem": "feature-grid"
-    },
-    {
-      "name": "Steps",
-      "group": "site",
-      "svelte": "site-sections-steps--default",
-      "astro": "steps",
-      "svelteFile": "blocks/site/steps.svelte",
-      "svelteItem": "steps",
-      "astroItem": "steps"
-    },
-    {
-      "name": "PricingPlans",
-      "group": "site",
-      "svelte": "site-pricing-pricing-plans--default",
-      "astro": "pricing-plans",
-      "svelteFile": "blocks/site/pricing-plans.svelte",
-      "svelteItem": "pricing-plans",
-      "astroItem": "pricing-plans"
     },
     {
       "name": "PricingPage",
@@ -531,42 +431,6 @@
       "svelteFile": "blocks/site/faq-section.svelte",
       "svelteItem": "faq-section",
       "astroItem": "faq-section"
-    },
-    {
-      "name": "Price",
-      "group": "site",
-      "svelte": "site-pricing-pricing-plans--default",
-      "astro": "price",
-      "svelteFile": "blocks/site/price.svelte",
-      "svelteItem": "price",
-      "astroItem": "price"
-    },
-    {
-      "name": "BeforeAfter",
-      "group": "site",
-      "svelte": "site-cards-before-after--default",
-      "astro": "before-after",
-      "svelteFile": "blocks/site/before-after.svelte",
-      "svelteItem": "before-after",
-      "astroItem": "before-after"
-    },
-    {
-      "name": "CtaBand",
-      "group": "site",
-      "svelte": "site-sections-cta-band--default",
-      "astro": "cta-band",
-      "svelteFile": "blocks/site/cta-band.svelte",
-      "svelteItem": "cta-band",
-      "astroItem": "cta-band"
-    },
-    {
-      "name": "ProvidersTable",
-      "group": "site",
-      "svelte": "site-pricing-providers-table--default",
-      "astro": "not yet",
-      "svelteFile": "blocks/site/providers-table.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
     },
     {
       "name": "Prose",
@@ -1092,15 +956,6 @@
       "astroItem": "record-sheet"
     },
     {
-      "name": "BlogLayout",
-      "group": "content",
-      "svelte": "content-blog-layout--default",
-      "astro": "blog-layout",
-      "svelteFile": "blocks/content/blog-layout.svelte",
-      "svelteItem": "blog-layout",
-      "astroItem": "blog-layout"
-    },
-    {
       "name": "PostHeader",
       "group": "content",
       "svelte": "content-blog-post-header--with-cover",
@@ -1135,15 +990,6 @@
       "svelteFile": "blocks/content/share-bar.svelte",
       "svelteItem": "share-bar",
       "astroItem": "share-bar"
-    },
-    {
-      "name": "NewsletterBand",
-      "group": "content",
-      "svelte": "content-blog-newsletter-band--default",
-      "astro": "newsletter-band",
-      "svelteFile": "blocks/content/newsletter-band.svelte",
-      "svelteItem": "newsletter-band",
-      "astroItem": "newsletter-band"
     },
     {
       "name": "PostList",
@@ -1216,15 +1062,6 @@
       "svelteFile": "blocks/content/blog-index.svelte",
       "svelteItem": "blog-index",
       "astroItem": "blog-index"
-    },
-    {
-      "name": "DocsLayout",
-      "group": "content",
-      "svelte": "content-docs-layout--default",
-      "astro": "docs-layout",
-      "svelteFile": "blocks/content/docs-layout.svelte",
-      "svelteItem": "docs-layout",
-      "astroItem": "docs-layout"
     },
     {
       "name": "DocsSearch",
@@ -1335,24 +1172,6 @@
       "astroItem": "release-timeline-page"
     },
     {
-      "name": "FaqList",
-      "group": "content",
-      "svelte": "content-faq-list--default",
-      "astro": "faq-list",
-      "svelteFile": "blocks/content/faq-list.svelte",
-      "svelteItem": "faq-list",
-      "astroItem": "faq-list"
-    },
-    {
-      "name": "LegalLayout",
-      "group": "content",
-      "svelte": "content-legal-layout--side",
-      "astro": "legal-layout",
-      "svelteFile": "blocks/content/legal-layout.svelte",
-      "svelteItem": "legal-layout",
-      "astroItem": "legal-layout"
-    },
-    {
       "name": "LegalSection",
       "group": "content",
       "svelte": "content-legal-section--default",
@@ -1362,15 +1181,6 @@
       "astroItem": "legal-section"
     },
     {
-      "name": "LegalBlock",
-      "group": "content",
-      "svelte": "content-legal-block--default",
-      "astro": "legal-block",
-      "svelteFile": "blocks/content/legal-block.svelte",
-      "svelteItem": "legal-block",
-      "astroItem": "legal-block"
-    },
-    {
       "name": "ContactChannels",
       "group": "content",
       "svelte": "content-contact-channels--default",
@@ -1378,42 +1188,6 @@
       "svelteFile": "blocks/content/contact-channels.svelte",
       "svelteItem": "contact-channels",
       "astroItem": "contact-channels"
-    },
-    {
-      "name": "NotFound",
-      "group": "content",
-      "svelte": "content-not-found--default",
-      "astro": "not-found",
-      "svelteFile": "blocks/content/not-found.svelte",
-      "svelteItem": "not-found",
-      "astroItem": "not-found"
-    },
-    {
-      "name": "InstallSteps",
-      "group": "content",
-      "svelte": "content-docs-install-steps--default",
-      "astro": "install-steps",
-      "svelteFile": "blocks/content/install-steps.svelte",
-      "svelteItem": "install-steps",
-      "astroItem": "install-steps"
-    },
-    {
-      "name": "TypingTerminal",
-      "group": "content",
-      "svelte": "content-docs-typing-terminal--default",
-      "astro": "typing-terminal",
-      "svelteFile": "blocks/content/typing-terminal.svelte",
-      "svelteItem": "typing-terminal",
-      "astroItem": "typing-terminal"
-    },
-    {
-      "name": "CodeEditor",
-      "group": "content",
-      "svelte": "content-docs-code-editor--default",
-      "astro": "code-editor",
-      "svelteFile": "blocks/content/code-editor.svelte",
-      "svelteItem": "code-editor",
-      "astroItem": "code-editor"
     },
     {
       "name": "Checks",
@@ -1430,87 +1204,6 @@
       "svelte": "content-docs-install-block--default",
       "astro": "not yet",
       "svelteFile": "blocks/content/install-block.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "MenuDemo",
-      "group": "content",
-      "svelte": "content-docs-menu-demo--default",
-      "astro": "not yet",
-      "svelteFile": "blocks/content/menu-demo.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "InstanceGraph",
-      "group": "content",
-      "svelte": "content-docs-instance-graph--default",
-      "astro": "not yet",
-      "svelteFile": "blocks/content/instance-graph.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "Sightline",
-      "group": "site",
-      "svelte": "templates-saas-landing-pages--sightline-analytics",
-      "astro": "not yet",
-      "svelteFile": "templates/templates.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "Hookline",
-      "group": "site",
-      "svelte": "templates-saas-landing-pages--hookline-developer-api",
-      "astro": "not yet",
-      "svelteFile": "templates/templates.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "Groundwork",
-      "group": "site",
-      "svelte": "templates-saas-landing-pages--groundwork-team-planning",
-      "astro": "not yet",
-      "svelteFile": "templates/templates.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "Parley",
-      "group": "site",
-      "svelte": "templates-saas-landing-pages--parley-ai-support",
-      "astro": "not yet",
-      "svelteFile": "templates/templates.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "Openslot",
-      "group": "site",
-      "svelte": "templates-saas-landing-pages--openslot-scheduling",
-      "astro": "not yet",
-      "svelteFile": "templates/templates.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "AboutPage",
-      "group": "site",
-      "svelte": "sites-pages--about-claude-multi",
-      "astro": "not yet",
-      "svelteFile": "blocks/content/pages.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "ProvidersPage",
-      "group": "site",
-      "svelte": "sites-pages--providers-claude-multi",
-      "astro": "not yet",
-      "svelteFile": "blocks/content/pages.stories.svelte",
       "svelteItem": "not yet",
       "astroItem": "not yet"
     },
@@ -1533,42 +1226,6 @@
       "astroItem": "faq-page"
     },
     {
-      "name": "ChangelogPage",
-      "group": "site",
-      "svelte": "sites-pages--changelog-claude-multi",
-      "astro": "not yet",
-      "svelteFile": "blocks/content/pages.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "BlogIndexPage",
-      "group": "site",
-      "svelte": "sites-pages--blog-index-claude-multi",
-      "astro": "not yet",
-      "svelteFile": "blocks/content/pages.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "PrivacyPage",
-      "group": "site",
-      "svelte": "sites-pages--privacy-claude-multi",
-      "astro": "not yet",
-      "svelteFile": "blocks/content/pages.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "TermsPage",
-      "group": "site",
-      "svelte": "sites-pages--terms-claude-multi",
-      "astro": "not yet",
-      "svelteFile": "blocks/content/pages.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
       "name": "NotFoundPage",
       "group": "content",
       "svelte": "content-not-found-page--claude-multi",
@@ -1576,24 +1233,6 @@
       "svelteFile": "blocks/content/not-found-page.svelte",
       "svelteItem": "not-found-page",
       "astroItem": "not-found-page"
-    },
-    {
-      "name": "ComponentsPage",
-      "group": "site",
-      "svelte": "sites-pages--components-hmziq-rs",
-      "astro": "not yet",
-      "svelteFile": "blocks/content/pages.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "ContactPage",
-      "group": "site",
-      "svelte": "sites-pages--contact-oxlabs-dev",
-      "astro": "not yet",
-      "svelteFile": "blocks/content/pages.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
     },
     {
       "name": "Radius",
@@ -1894,96 +1533,6 @@
       "svelte": "ui-base-datepicker--with-popover",
       "astro": "not yet",
       "svelteFile": "ui/date-picker/date-picker.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "DocsPage",
-      "group": "site",
-      "svelte": "sites-pages--docs-gpui-query",
-      "astro": "not yet",
-      "svelteFile": "blocks/content/pages.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "BlogPostPage",
-      "group": "site",
-      "svelte": "sites-pages--blog-post-blog-hmziq-rs",
-      "astro": "not yet",
-      "svelteFile": "blocks/content/pages.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "HmziqLanding",
-      "group": "site",
-      "svelte": "sites-landing-pages--hmziq-rs",
-      "astro": "not yet",
-      "svelteFile": "blocks/site/sites.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "BlogLanding",
-      "group": "site",
-      "svelte": "sites-landing-pages--blog-hmziq-rs",
-      "astro": "not yet",
-      "svelteFile": "blocks/site/sites.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "LabsLanding",
-      "group": "site",
-      "svelte": "sites-landing-pages--hmziq-xyz-labs",
-      "astro": "not yet",
-      "svelteFile": "blocks/site/sites.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "FreeoxideLanding",
-      "group": "site",
-      "svelte": "sites-landing-pages--freeoxide-com",
-      "astro": "not yet",
-      "svelteFile": "blocks/site/sites.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "GpuiStarterLanding",
-      "group": "site",
-      "svelte": "sites-landing-pages--gpui-starter",
-      "astro": "not yet",
-      "svelteFile": "blocks/site/sites.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "GpuiQueryLanding",
-      "group": "site",
-      "svelte": "sites-landing-pages--gpui-query",
-      "astro": "not yet",
-      "svelteFile": "blocks/site/sites.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "ClaudeMultiLanding",
-      "group": "site",
-      "svelte": "sites-landing-pages--claude-multi",
-      "astro": "not yet",
-      "svelteFile": "blocks/site/sites.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "OxlabsLanding",
-      "group": "site",
-      "svelte": "sites-landing-pages--oxlabs-dev",
-      "astro": "not yet",
-      "svelteFile": "blocks/site/sites.stories.svelte",
       "svelteItem": "not yet",
       "astroItem": "not yet"
     },
@@ -2350,33 +1899,6 @@
       "astroItem": "not yet"
     },
     {
-      "name": "ShaderPages",
-      "group": "site",
-      "svelte": "templates-shader-pages--product",
-      "astro": "not yet",
-      "svelteFile": "templates/shader-pages.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "ShaderSections",
-      "group": "site",
-      "svelte": "templates-shader-sections--complete-catalog",
-      "astro": "not yet",
-      "svelteFile": "templates/shader-sections.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "OxideSaasPages",
-      "group": "site",
-      "svelte": "templates-oxide-saas-pages--analytics",
-      "astro": "not yet",
-      "svelteFile": "templates/oxide-saas.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
       "name": "Glass",
       "group": "brand",
       "svelte": "custom-glass--over-a-shader",
@@ -2404,24 +1926,6 @@
       "astroItem": "status-ring"
     },
     {
-      "name": "GlassSections",
-      "group": "site",
-      "svelte": "templates-glass-sections--complete-catalog",
-      "astro": "not yet",
-      "svelteFile": "templates/glass-sections.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "ToolPages",
-      "group": "site",
-      "svelte": "sites-freeoxide-tools--tunnel",
-      "astro": "not yet",
-      "svelteFile": "templates/freeoxide-tools.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
       "name": "MaterialCard",
       "group": "brand",
       "svelte": "custom-material-card--default",
@@ -2431,146 +1935,11 @@
       "astroItem": "not yet"
     },
     {
-      "name": "MaterialTile",
-      "group": "brand",
-      "svelte": "custom-material-tile--with-icons",
-      "astro": "not yet",
-      "svelteFile": "components/material-tile.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "MaterialRings",
-      "group": "brand",
-      "svelte": "custom-material-rings--chrome",
-      "astro": "not yet",
-      "svelteFile": "components/material-rings.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "MaterialBar",
-      "group": "brand",
-      "svelte": "custom-material-bar--usage",
-      "astro": "not yet",
-      "svelteFile": "components/material-bar.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "RingLoader",
-      "group": "brand",
-      "svelte": "custom-ring-loader--default",
-      "astro": "not yet",
-      "svelteFile": "components/ring-loader.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "RingDivider",
-      "group": "brand",
-      "svelte": "custom-ring-divider--default",
-      "astro": "not yet",
-      "svelteFile": "components/ring-divider.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "RingMeter",
-      "group": "brand",
-      "svelte": "custom-ring-meter--usage",
-      "astro": "not yet",
-      "svelteFile": "components/ring-meter.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "GlassDock",
-      "group": "brand",
-      "svelte": "custom-glass-dock--reading",
-      "astro": "not yet",
-      "svelteFile": "components/glass-dock.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "MaterialFrame",
-      "group": "brand",
-      "svelte": "custom-material-frame--pricing",
-      "astro": "not yet",
-      "svelteFile": "components/material-frame.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
       "name": "MaterialStage",
       "group": "brand",
       "svelte": "custom-material-stage--product-screen",
       "astro": "not yet",
       "svelteFile": "components/material-stage.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "MaterialTabs",
-      "group": "brand",
-      "svelte": "custom-material-tabs--default",
-      "astro": "not yet",
-      "svelteFile": "components/material-tabs.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "MaterialGauge",
-      "group": "brand",
-      "svelte": "custom-material-gauge--numbers",
-      "astro": "not yet",
-      "svelteFile": "components/material-gauge.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "MaterialRule",
-      "group": "brand",
-      "svelte": "custom-material-rule--between-sections",
-      "astro": "not yet",
-      "svelteFile": "components/material-rule.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "Announce",
-      "group": "brand",
-      "svelte": "custom-announce--pill",
-      "astro": "not yet",
-      "svelteFile": "components/announce.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "MaterialSlider",
-      "group": "brand",
-      "svelte": "custom-material-slider--pricing",
-      "astro": "not yet",
-      "svelteFile": "components/material-slider.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "MaterialSparkline",
-      "group": "brand",
-      "svelte": "custom-material-sparkline--in-a-card",
-      "astro": "not yet",
-      "svelteFile": "components/material-sparkline.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "MaterialTag",
-      "group": "brand",
-      "svelte": "custom-material-tag--default",
-      "astro": "not yet",
-      "svelteFile": "components/material-tag.stories.svelte",
       "svelteItem": "not yet",
       "astroItem": "not yet"
     },
@@ -2593,15 +1962,6 @@
       "astroItem": "not yet"
     },
     {
-      "name": "Cards",
-      "group": "brand",
-      "svelte": "custom-cards--release",
-      "astro": "not yet",
-      "svelteFile": "components/cards.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
       "name": "RollingNumber",
       "group": "brand",
       "svelte": "custom-rolling-number--price",
@@ -2616,24 +1976,6 @@
       "svelte": "custom-theme-toggle--in-a-header",
       "astro": "not yet",
       "svelteFile": "components/theme-toggle.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "ScrollRings",
-      "group": "brand",
-      "svelte": "custom-scroll-rings--on-scroll",
-      "astro": "not yet",
-      "svelteFile": "components/scroll-rings.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "LiquidGlass",
-      "group": "brand",
-      "svelte": "custom-liquid-glass--over-a-material",
-      "astro": "not yet",
-      "svelteFile": "components/liquid-glass.stories.svelte",
       "svelteItem": "not yet",
       "astroItem": "not yet"
     },
@@ -2944,29 +2286,11 @@
       "astroItem": "glass-band"
     },
     {
-      "name": "Roadmap",
-      "group": "brand",
-      "svelte": "custom-roadmap--board",
-      "astro": "not yet",
-      "svelteFile": "components/roadmap.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
       "name": "PersonCard",
       "group": "brand",
       "svelte": "custom-person-card--team",
       "astro": "not yet",
       "svelteFile": "components/person-card.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "Gallery",
-      "group": "brand",
-      "svelte": "custom-gallery--materials",
-      "astro": "not yet",
-      "svelteFile": "components/gallery.stories.svelte",
       "svelteItem": "not yet",
       "astroItem": "not yet"
     },
@@ -3016,15 +2340,6 @@
       "astroItem": "not yet"
     },
     {
-      "name": "CardCarousel",
-      "group": "brand",
-      "svelte": "custom-carousel--posts",
-      "astro": "not yet",
-      "svelteFile": "components/carousel.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
       "name": "SystemOverview",
       "group": "site",
       "svelte": "system-overview--all-components",
@@ -3036,72 +2351,9 @@
     {
       "name": "ProductVisuals",
       "group": "site",
-      "svelte": "showcase-product-visuals--retention-grid",
+      "svelte": "showcase-product-visuals--trend-chart",
       "astro": "not yet",
       "svelteFile": "blocks/showcase/showcase.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "BentoSection",
-      "group": "site",
-      "svelte": "sections-bento--a-analytics",
-      "astro": "not yet",
-      "svelteFile": "blocks/sections/bento-section.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "BandSection",
-      "group": "site",
-      "svelte": "sections-band--call-to-action",
-      "astro": "not yet",
-      "svelteFile": "blocks/sections/band-section.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "ShowcaseSection",
-      "group": "site",
-      "svelte": "sections-showcase--a-over-a-material",
-      "astro": "not yet",
-      "svelteFile": "blocks/sections/showcase-section.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "OrbitSection",
-      "group": "site",
-      "svelte": "sections-orbit--how-it-fits-together",
-      "astro": "not yet",
-      "svelteFile": "blocks/sections/orbit-section.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "FlowSection",
-      "group": "site",
-      "svelte": "sections-flow--visitors",
-      "astro": "not yet",
-      "svelteFile": "blocks/sections/flow-section.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "WaveHero",
-      "group": "site",
-      "svelte": "sections-wave-hero--centered",
-      "astro": "not yet",
-      "svelteFile": "blocks/sections/wave-hero.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "BackdropHero",
-      "group": "site",
-      "svelte": "sections-backdrop-hero--aurora",
-      "astro": "not yet",
-      "svelteFile": "blocks/sections/backdrop-hero.stories.svelte",
       "svelteItem": "not yet",
       "astroItem": "not yet"
     },
@@ -3250,33 +2502,6 @@
       "astroItem": "catalog-section"
     },
     {
-      "name": "FeatureBento",
-      "group": "site",
-      "svelte": "sections-feature-bento--a-speed",
-      "astro": "not yet",
-      "svelteFile": "blocks/sections/feature-bento.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "TestimonialWall",
-      "group": "site",
-      "svelte": "sections-testimonial-wall--a-marquee",
-      "astro": "not yet",
-      "svelteFile": "blocks/sections/testimonial-wall.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "Eyebrow",
-      "group": "brand",
-      "svelte": "custom-eyebrow--ring",
-      "astro": "not yet",
-      "svelteFile": "components/eyebrow.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
       "name": "LiveActivity",
       "group": "app",
       "svelte": "custom-live-activity--build",
@@ -3355,24 +2580,6 @@
       "astroItem": "not yet"
     },
     {
-      "name": "WaveTweaker",
-      "group": "brand",
-      "svelte": "tweakers-wave--page",
-      "astro": "not yet",
-      "svelteFile": "tweakers/wave.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "BackdropTweaker",
-      "group": "brand",
-      "svelte": "tweakers-backdrops--page",
-      "astro": "not yet",
-      "svelteFile": "tweakers/backdrops.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
       "name": "MicroInputs",
       "group": "app",
       "svelte": "micro-inputs--copy-field",
@@ -3423,33 +2630,6 @@
       "svelte": "micro-surfaces--dynamic-island",
       "astro": "not yet",
       "svelteFile": "blocks/micro/surfaces.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "MicroMotionCanvas",
-      "group": "app",
-      "svelte": "micro-motion-canvas--dot-swarm",
-      "astro": "not yet",
-      "svelteFile": "blocks/micro/motion-canvas.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "MicroMotionDrag",
-      "group": "app",
-      "svelte": "micro-motion-drag--option-wheel",
-      "astro": "not yet",
-      "svelteFile": "blocks/micro/motion-drag.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "MicroMotionUi",
-      "group": "app",
-      "svelte": "micro-motion-ui--line-sidebar",
-      "astro": "not yet",
-      "svelteFile": "blocks/micro/motion-ui.stories.svelte",
       "svelteItem": "not yet",
       "astroItem": "not yet"
     },
@@ -3551,15 +2731,6 @@
       "svelteFile": "blocks/site/cv-page.svelte",
       "svelteItem": "cv-page",
       "astroItem": "cv-page"
-    },
-    {
-      "name": "LabsIndex",
-      "group": "site",
-      "svelte": "site-labs-page--hmziq-xyz",
-      "astro": "labs-index",
-      "svelteFile": "blocks/site/labs-index.svelte",
-      "svelteItem": "labs-index",
-      "astroItem": "labs-index"
     }
   ]
 }
