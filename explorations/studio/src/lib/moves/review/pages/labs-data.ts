@@ -1,28 +1,14 @@
-import type { LineArtKind } from '@hmziq/brand-core/motion/line-art';
+import type { LabEntry, LabsIndexData } from '@hmziq/brand-core/labs-index';
+import { labs } from '$moves/review/footers/sites';
 
-export type LabEntry = {
-	n: string;
-	title: string;
-	line: string;
-	kind: 'Experiments' | 'Games' | 'Tools';
-	stack: string;
-	stars: number;
-	forks?: number;
-	updated: string;
-	art: LineArtKind;
-	href: string;
-	topics: string[];
-};
-
-export const labsStats = [
+const labsStats = [
 	{ value: '7009', label: 'Contributions this year' },
 	{ value: '81', label: 'Repositories' },
 	{ value: '102', label: 'Followers' }
 ];
 
-export const labsLive = { updated: 'Updated on 1, Sep 2026', github: 'https://github.com/hmziqrs' };
 
-export const labsEntries: LabEntry[] = [
+const labsEntries: LabEntry[] = [
 	{ n: '01', title: 'Flutter UI Designs', line: 'Cross-platform Flutter UI collection for mobile, web and desktop', kind: 'Experiments', stack: 'Flutter', stars: 332, forks: 60, updated: '2024-11-20', art: 'surfaces', href: 'https://flutter-uis.hmziq.xyz/', topics: ['flutter', 'ui-design', 'animations'] },
 	{ n: '02', title: 'Inv Movie Concept 1', line: 'Cross-platform movie UI with complex scroll animations in Flutter', kind: 'Experiments', stack: 'Flutter', stars: 63, forks: 18, updated: '2024-11-20', art: 'phone', href: 'https://movieui.hmziq.xyz/', topics: ['flutter', 'concept', 'flutter-animation'] },
 	{ n: '03', title: 'React Native Loop Game', line: 'Infinity loop puzzle game clone built with React Native', kind: 'Games', stack: 'Web', stars: 23, forks: 12, updated: '2024-11-20', art: 'fan', href: 'https://rnloop.hmziq.xyz/', topics: ['web', 'puzzle-game', 'react-hooks'] },
@@ -36,3 +22,16 @@ export const labsEntries: LabEntry[] = [
 	{ n: '11', title: 'RuxLog', line: 'Full-stack Rust blog platform with Axum and Dioxus', kind: 'Experiments', stack: 'Rust', stars: 3, forks: 3, updated: '2026-07-29', art: 'database', href: 'https://github.com/hmziqrs/ruxlog', topics: ['rust', 'fullstack', 'blog'] },
 	{ n: '12', title: 'go-minesweeper', line: 'CLI-based minesweeper game built with Go', kind: 'Games', stack: 'Go', stars: 1, updated: '2021-08-18', art: 'modules', href: 'https://github.com/hmziqrs/go-minesweeper', topics: ['web', 'game', 'cli'] }
 ];
+
+export const labsData: LabsIndexData = {
+	kicker: `hmziq labs · ${labs.aside}`,
+	seed: 'hmziq labs',
+	title: ['Small things, ', 'built to learn.'],
+	lede: labs.page.lede,
+	github: 'https://github.com/hmziqrs',
+	stats: labsStats,
+	heading: 'Experiments',
+	kinds: ['Experiments', 'Games', 'Tools'],
+	updated: 'Updated on 1, Sep 2026',
+	entries: labsEntries
+};

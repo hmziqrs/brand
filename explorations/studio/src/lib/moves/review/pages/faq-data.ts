@@ -1,8 +1,6 @@
-import type { RichBlock } from './rich';
+import type { FaqEntry, FaqPageIntro } from '@hmziq/brand-core/faq-search';
 
-export type FaqEntry = { id: string; topic: string; q: string; blocks: RichBlock[] };
-
-export const faqIntro = {
+export const faqIntro: FaqPageIntro = {
 	kicker: 'FAQ',
 	reviewed: '2026-10-31',
 	title: ['Frequently asked ', 'questions.'],

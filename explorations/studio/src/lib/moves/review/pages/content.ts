@@ -1,6 +1,8 @@
+import type { NotFoundPageData } from '@hmziq/brand-core/not-found-page';
+
 const live = 'https://claude-multi.hmziq.xyz';
 
-export const notFound = {
+export const notFound: Omit<NotFoundPageData, 'home'> & { home: string } = {
 	status: '404',
 	host: 'claude-multi.hmziq.xyz',
 	title: 'Page not found',

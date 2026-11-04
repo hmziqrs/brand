@@ -1,10 +1,6 @@
-import type { Tone } from '@hmziq/brand-core/tones';
-import type { LineArtKind } from '@hmziq/brand-core/motion/line-art';
+import type { CvData } from '@hmziq/brand-core/cv-page';
 
-export type CvRole = { org: string; type: string; tone: Tone; role: string; dates: string; now?: boolean; stack: string[]; lines: string[] };
-export type CvProject = { title: string; kind: 'Open Source' | 'Product'; category: string; art: LineArtKind; links: [label: string, href: string][] };
-
-export const cv = {
+export const cv: CvData = {
 	site: 'cv.hmziq.rs',
 	updated: 'Updated on May 18, 2026',
 	name: 'Hamza Iqbal',
@@ -26,13 +22,14 @@ export const cv = {
 			['PDF (dark mode)', 'https://cv.hmziq.rs/files/hmziqrs-dark-cv.pdf'],
 			['JPEG (light mode)', 'https://cv.hmziq.rs/files/hmziqrs-light-cv.pdf'],
 			['JPEG (dark mode)', 'https://cv.hmziq.rs/files/hmziqrs-dark-cv.pdf']
-		] as [string, string][]
+		]
 	},
 	skills: [
 		{ group: 'Web', items: ['React JS', 'Next JS', 'Tailwind CSS', 'Webassembly', 'Typescript', 'Material UI', 'Firebase'] },
 		{ group: 'Mobile', items: ['Dioxus', 'Flutter', 'React Native', 'Socket.IO', 'Internationalization', 'Multi Threaded Apps', 'E2E Testing', 'Pixel Perfect UI', 'Parallax Animations'] },
 		{ group: 'Server', items: ['Rust', 'Axum', 'Node JS', 'Adonis JS', 'Express JS', 'CLI App', 'Github Actions', 'Postgres'] }
 	],
+	span: '9+ years · Dec 2016 - Present',
 	roles: [
 		{
 			org: 'Mixfame',
@@ -108,7 +105,11 @@ export const cv = {
 				'Developed internal tools including an AngularJS admin panel and a server-side rendered analytics dashboard with PDF reporting capabilities.'
 			]
 		}
-	] satisfies CvRole[] as CvRole[],
+	],
+	counts: [
+		['Open Source', 'open source'],
+		['Product', 'products']
+	],
 	projects: [
 		{ title: 'Flutter UI Designs', kind: 'Open Source', category: 'Mobile App', art: 'surfaces', links: [['Google Play', 'https://play.google.com/store/apps/details?id=com.onemdev.flutter_ui_challenges'], ['Github', 'https://github.com/hmziqrs/flutter-ui-designs'], ['Web', 'https://flutter-uis.hmziq.xyz/']] },
 		{ title: 'Flutter movie concept', kind: 'Open Source', category: 'Mobile App', art: 'phone', links: [['Google Play', 'https://play.google.com/store/apps/details?id=com.onemdev.invmovieconcept1'], ['Github', 'https://github.com/hmziqrs/invmovieconcept1'], ['Web', 'https://movieui.hmziq.xyz/']] },
@@ -122,6 +123,6 @@ export const cv = {
 		{ title: 'Peekaboo Guru', kind: 'Product', category: 'Full Stack', art: 'database', links: [['Google Play', 'https://play.google.com/store/search?q=peekaboo%20guru&c=apps'], ['App Store', 'https://apps.apple.com/pk/app/peekaboo-guru/id1114129707'], ['Web', 'https://peekaboo.guru/']] },
 		{ title: 'Sastaticket.pk', kind: 'Product', category: 'Mobile App', art: 'request', links: [['Google Play', 'https://play.google.com/store/apps/details?id=com.pk.sastaticket'], ['App Store', 'https://apps.apple.com/by/app/sastaticket-flight-hotels/id1564441908'], ['Web', 'https://www.sastaticket.pk/']] },
 		{ title: 'Grow youth ministry', kind: 'Product', category: 'Mobile App', art: 'native', links: [['Google Play', 'https://play.google.com/store/apps/details?id=com.growappv2'], ['App Store', 'https://apps.apple.com/us/app/grow-youth-kids-ministry/id1260816727']] }
-	] satisfies CvProject[] as CvProject[],
+	],
 	legal: '© 2026 Hamza Iqbal. All rights reserved.'
 };
