@@ -54,8 +54,8 @@ export const blogs: BlogCandidate[] = [
 		kind: 'product',
 		page: 'index',
 		name: 'Product blog · index',
-		line: 'A blog that is part of a product, under the product’s own header and footer (claude-multi here): a short head, one category switch and the posts as text cards, the same card as the main blog without a drawing. The eight posts are the live claude-multi blog’s.',
-		from: 'claude-multi.hmziq.xyz/blog',
+		line: 'A blog that is part of a product, under the product’s own header and footer (claude-multi here), built from the kit’s blog pieces as in its claude-multi blog page: the page intro, search and coloured topic chips, the newest post as the featured card with thin rings in its topic colour, the rest as cards. The eight posts are the live claude-multi blog’s.',
+		from: 'claude-multi.hmziq.xyz/blog and the kit’s Blog index - claude-multi page',
 		src: `${dir}/product-index.svelte`,
 		component: ProductIndex,
 		props: { here: here('product-index') }
