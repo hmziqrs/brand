@@ -250,8 +250,8 @@ export const blog: FooterSite = {
 	maker: 'by hmziq',
 	tagline: 'Long notes on building software in the open: Rust, desktop apps, small tools and the process behind them.',
 	columns: [
-		{ title: 'Read', links: [{ label: 'Latest posts' }, { label: 'Series' }, { label: 'Archive' }, { label: 'RSS feed' }] },
-		{ title: 'Topics', links: [{ label: 'Process' }, { label: 'Rust' }, { label: 'Tools' }, { label: 'Design' }, { label: 'Web' }] },
+		{ title: 'Read', links: [{ label: 'Latest posts' }, { label: 'Archive' }, { label: 'Changelog' }, { label: 'RSS feed' }] },
+		{ title: 'Topics', links: [{ label: 'Engineering' }, { label: 'Projects' }, { label: 'Notes' }] },
 		{ title: 'About', links: [{ label: 'About me' }, { label: 'Now' }, { label: 'Uses' }, { label: 'Contact' }] }
 	],
 	socials: [gh('hmziqrs'), x, { label: 'LinkedIn', href: 'https://linkedin.com/in/hmziqrs' }],
