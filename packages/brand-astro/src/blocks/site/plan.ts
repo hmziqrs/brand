@@ -5,6 +5,8 @@ export type Plan = {
   price: number | string;
   /** Dollars for a year, shown when the switch is on yearly. */
   yearly?: number;
+  /** Dollars once, shown when the switch is on lifetime: a licence you keep. */
+  lifetime?: number;
   /** Who the price is for, before "a month": "per person". */
   per?: string;
   blurb: string;

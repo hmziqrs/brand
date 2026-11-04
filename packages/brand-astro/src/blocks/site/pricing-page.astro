@@ -1,0 +1,61 @@
+---
+import { cn } from "$brand/utils";
+import Tag from "$brand/components/tag.astro";
+import Segmented from "$brand/components/segmented.astro";
+import DotField from "$brand/components/dot-field.astro";
+import Container from "./container.astro";
+import PricingCard from "./pricing-card.astro";
+import PricingCompare from "./pricing-compare.astro";
+import FaqSection from "./faq-section.astro";
+import type { PricingBilling, PricingCompareData, PricingFaqData, PricingHeroData, PricingTier } from "./pricing-types";
+
+interface Props {
+  hero: PricingHeroData;
+  billing: PricingBilling;
+  /** The tag's sentence under the switch, saying every number is an example. */
+  example?: string;
+  tiers: PricingTier[];
+  compare: PricingCompareData;
+  faq: PricingFaqData;
+  href?: string;
+  /** The billing mode shown first, an index into the options. */
+  mode?: number;
+  /** Names the differences switch, `${id}-only`; give each pricing page on a page its own. */
+  id?: string;
+  class?: string;
+}
+
+const { hero, billing, example, tiers, compare, faq, href = "#", mode = 0, id = "pricing", class: className } = Astro.props;
+
+const lead = hero.title.slice(0, hero.title.indexOf(hero.accent));
+---
+
+<div data-slot="pricing-page" data-pricing-root data-mode={mode} class={cn("pb-24 md:pb-32", className)}>
+  <section class="relative isolate overflow-hidden pb-16 md:pb-24">
+    <DotField />
+    <Container size="wide" class="pt-16 md:pt-24">
+      <div class="mx-auto flex max-w-[64rem] flex-col items-center text-center">
+        <p class="font-mono text-xs tracking-[0.14em] text-primary uppercase">{hero.kicker}</p>
+        <h1 class="mt-6 text-[clamp(2.9rem,7.2vw,6.5rem)] leading-[0.95] font-semibold tracking-[-0.045em] text-balance text-foreground">{lead}<span class="text-primary">{hero.accent}</span></h1>
+        <p class="mt-7 max-w-[42rem] text-[clamp(1.125rem,1.6vw,1.375rem)] leading-snug text-pretty text-foreground">{hero.lede}</p>
+        <Segmented label={billing.label} class="mt-10 bg-background" value={String(mode)} options={billing.options.map((label, i) => ({ value: String(i), label }))} data-pricing-mode />
+        {example && <p class="mt-4 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-sm text-foreground/80"><Tag tone="yellow">Examples</Tag>{example}</p>}
+      </div>
+      <div class={cn("mt-12 grid gap-4 sm:grid-cols-2", tiers.length > 3 ? "xl:grid-cols-4" : "lg:grid-cols-3")}>
+        {tiers.map((t) => <PricingCard tier={t} {mode} {href} />)}
+      </div>
+    </Container>
+  </section>
+
+  <Container size="wide" class="mt-8 md:mt-16">
+    <PricingCompare {tiers} {compare} {mode} {href} id={`${id}-only`} />
+  </Container>
+
+  <Container size="wide" class="mt-24 md:mt-32">
+    <FaqSection {faq} />
+  </Container>
+</div>
+
+<script>
+  import "./pricing-mode";
+</script>

@@ -8,7 +8,7 @@ import type { Plan } from "./plan";
  */
 
 interface Props {
-  plan: Pick<Plan, "price" | "yearly" | "per">;
+  plan: Pick<Plan, "price" | "yearly" | "lifetime" | "per">;
 }
 
 const { plan } = Astro.props;
@@ -17,6 +17,7 @@ const free = plan.price === 0;
 const per = plan.per ? `${plan.per} ` : "";
 const monthly = typeof plan.price === "number" ? plan.price : 0;
 const yearly = plan.yearly ?? monthly;
+const lifetime = plan.lifetime;
 ---
 
 {
@@ -31,6 +32,10 @@ const yearly = plan.yearly ?? monthly;
       <p data-billing="yearly" hidden>
         <b class="text-[2.5rem] font-medium tracking-[-0.04em]">${yearly.toLocaleString("en-US")}</b>{" "}
         <span class="text-[0.9rem] text-muted-foreground">{free ? "forever" : `${per}a year`}</span>
+      </p>
+      <p data-billing="lifetime" hidden>
+        <b class="text-[2.5rem] font-medium tracking-[-0.04em]">${(lifetime ?? monthly).toLocaleString("en-US")}</b>{" "}
+        <span class="text-[0.9rem] text-muted-foreground">{free ? "forever" : lifetime === undefined ? `${per}a month` : `${per}once`}</span>
       </p>
     </>
   )
