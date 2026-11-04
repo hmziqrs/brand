@@ -1,0 +1,47 @@
+---
+// The product site's frame: the document, the head, the kit's NavBar
+// (sticky, with the announcement) and HeatFooter around the page, in the
+// wide Container. Every page passes its own `head`.
+import NavBar from "$brand/components/nav-bar.astro";
+import HeatFooter from "$brand/blocks/sections/heat-footer.astro";
+import SiteHead, { type Props as SiteHeadProps } from "$brand/blocks/site/site-head.astro";
+import ThemeInit from "../components/theme-init.astro";
+import ThemeToggle from "../components/theme-toggle.astro";
+import { announcement, footerColumns, footerSocials, navLinks, site } from "../lib/example";
+
+interface Props {
+  head: SiteHeadProps;
+}
+
+const { head } = Astro.props;
+const path = Astro.url.pathname;
+const links = navLinks.map((l) => ({ ...l, current: !!l.href && (path === l.href || path.startsWith(`${l.href}/`)) }));
+---
+
+<html lang="en" class="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <SiteHead {...head} />
+    <ThemeInit />
+  </head>
+  <body>
+    <div class="flex min-h-screen flex-col bg-background text-foreground">
+      <NavBar site={site.name} maker={site.maker} links={links} cta={{ label: "Get started", href: "/docs/installation" }} github="https://github.com" announcement={announcement} size="wide" sticky>
+        <ThemeToggle slot="extra" />
+      </NavBar>
+      <main class="flex-1"><slot /></main>
+      <HeatFooter
+        site={site.name}
+        maker={site.maker}
+        tagline="Example tagline: one sentence on what the project does. Replace it with your own."
+        columns={footerColumns}
+        command={site.install}
+        status={{ label: "Latest release 0.4.0", href: "/changelog" }}
+        socials={footerSocials}
+        legal="© 2026 example · MIT licensed"
+        aside="Example footer"
+      />
+    </div>
+  </body>
+</html>

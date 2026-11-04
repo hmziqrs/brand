@@ -1,6 +1,10 @@
 ---
-// The privacy page: the legal layout with the privacy document.
-import Legal from "./legal.astro";
+// The privacy page: LegalPage with the privacy document first. The words are example copy.
+import Site from "../layouts/Site.astro";
+import LegalPage from "$brand/blocks/content/legal-page.astro";
+import { privacy, terms } from "../lib/example";
 ---
 
-<Legal doc="privacy" />
+<Site head={{ site: "freeoxide", title: "Privacy policy — astro-app", description: "What this site collects and what it does not. Example content.", url: "https://example.com/privacy" }}>
+  <LegalPage docs={[privacy, terms]} class="[--pages-top:4rem]" />
+</Site>
