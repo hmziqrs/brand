@@ -1,0 +1,53 @@
+/*
+ * A closed book in 3D (the kit's Book). Plain CSS, so the same book draws in
+ * any framework: the book is `[data-slot="book"]`, its cover colors are
+ * `[data-face]` (ink and paper; oxide is the kit's .band-orange), and each
+ * shaded edge is a `[data-part]`. Sizes are in cqw, so the book scales with
+ * its own width.
+ */
+
+[data-slot="book"] {
+  container-type: inline-size;
+}
+
+[data-slot="book"] [data-face="ink"] {
+  background-color: color-mix(in oklab, black 88%, var(--orange-ink));
+  color: color-mix(in oklab, white 92%, var(--orange));
+}
+
+[data-slot="book"] [data-face="paper"] {
+  background-color: color-mix(in oklab, white 94%, var(--orange));
+  color: color-mix(in oklab, black 90%, var(--orange-ink));
+}
+
+[data-slot="book"] [data-part="shadow"] {
+  background-color: color-mix(in oklab, black 55%, transparent);
+}
+
+[data-slot="book"] [data-part="back-edge"] {
+  background-image: linear-gradient(270deg, color-mix(in oklab, black 22%, transparent), transparent);
+}
+
+[data-slot="book"] [data-part="hinge"] {
+  background-image: linear-gradient(90deg, color-mix(in oklab, black 22%, transparent), transparent);
+}
+
+[data-slot="book"] [data-part="crease"] {
+  background-color: color-mix(in oklab, currentColor 22%, transparent);
+}
+
+[data-slot="book"] [data-part="gloss"] {
+  background-image: linear-gradient(115deg, color-mix(in oklab, white 16%, transparent), transparent 38%);
+}
+
+[data-slot="book"] [data-part="spine"] {
+  background-image: linear-gradient(90deg, color-mix(in oklab, black 28%, transparent), transparent 40%, color-mix(in oklab, black 18%, transparent));
+}
+
+[data-slot="book"] [data-part="pages"] {
+  background: repeating-linear-gradient(90deg, color-mix(in oklab, white 92%, var(--orange)) 0 2px, color-mix(in oklab, black 14%, white) 2px 3px);
+}
+
+[data-slot="book"] [data-part="pages-h"] {
+  background: repeating-linear-gradient(180deg, color-mix(in oklab, white 92%, var(--orange)) 0 2px, color-mix(in oklab, black 14%, white) 2px 3px);
+}
