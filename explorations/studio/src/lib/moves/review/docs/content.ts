@@ -142,20 +142,6 @@ export function headings(p: DocsPage, prefix: string): Heading[] {
 	return p.blocks.flatMap((b) => (b.kind === 'h2' || b.kind === 'h3' ? [{ id: `${prefix}-${b.id}`, label: b.text, level: b.kind === 'h2' ? 2 : 3 } as Heading] : []));
 }
 
-export type Section = { id?: string; heading?: { kind: 'h2'; id: string; text: string }; all: Block[]; code: Block[] };
-
-export function sections(p: DocsPage): Section[] {
-	const out: Section[] = [{ all: [], code: [] }];
-	for (const b of p.blocks) {
-		if (b.kind === 'h2') out.push({ id: b.id, heading: { kind: 'h2', id: b.id, text: b.text }, all: [], code: [] });
-		else {
-			out[out.length - 1].all.push(b);
-			if (b.kind === 'code') out[out.length - 1].code.push(b);
-		}
-	}
-	return out.filter((s) => s.heading || s.all.length);
-}
-
 export const neighbours = (site: DocsSite, key: string) => {
 	const i = site.order.indexOf(key);
 	return { prev: i > 0 ? site.pages[site.order[i - 1]] : undefined, next: i >= 0 && i < site.order.length - 1 ? site.pages[site.order[i + 1]] : undefined };
@@ -202,44 +188,4 @@ export function jump(id: string) {
 	const el = document.getElementById(id);
 	if (!el) return;
 	el.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
-}
-
-export type Hit = { key: string; page: string; label: string; id?: string; snippet?: string };
-
-export function index(site: DocsSite) {
-	const rows: { key: string; page: string; label: string; id?: string; words: string }[] = [];
-	for (const key of site.order) {
-		const p = site.pages[key];
-		let current: { label: string; id?: string } = { label: p.title };
-		let words = '';
-		const flush = () => rows.push({ key, page: p.title, ...current, words });
-		const walk = (bs: Block[]) => {
-			for (const b of bs) {
-				if (b.kind === 'h2' || b.kind === 'h3') {
-					flush();
-					current = { label: b.text, id: b.id };
-					words = '';
-				} else if (b.kind === 'p' || b.kind === 'quote') words += ' ' + text(b.html);
-				else if (b.kind === 'aside') walk(b.blocks);
-				else if (b.kind === 'list') for (const it of b.items) (it.html ? (words += ' ' + text(it.html)) : it.blocks && walk(it.blocks));
-			}
-		};
-		walk(p.blocks);
-		flush();
-	}
-	return (query: string): Hit[] => {
-		const q = query.trim().toLowerCase();
-		if (q.length < 2) return [];
-		const scored: (Hit & { score: number })[] = [];
-		for (const r of rows) {
-			const inLabel = r.label.toLowerCase().indexOf(q);
-			const inWords = r.words.toLowerCase().indexOf(q);
-			if (inLabel < 0 && inWords < 0) continue;
-			const score = (r.id ? 0 : 3) + (inLabel === 0 ? 3 : inLabel > 0 ? 2 : 0);
-			const at = inWords;
-			const snippet = at >= 0 ? `${at > 40 ? '…' : ''}${r.words.slice(Math.max(0, at - 40), at + q.length + 70).trim()}…` : undefined;
-			scored.push({ key: r.key, page: r.page, label: r.label, id: r.id, snippet, score });
-		}
-		return scored.sort((a, b) => b.score - a.score).slice(0, 8);
-	};
 }

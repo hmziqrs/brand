@@ -9,7 +9,7 @@
 	import { companyCandidates } from '$studio/company-candidates';
 
 	const groups = [
-		{ kind: 'contact', title: 'Contact · oxlabs.dev/contact', note: 'A studio taking client work, under oxlabs’ header with Contact current and its material footer. The words come from the live oxlabs.dev (contact, home, services and about) and the channel lines from hmziq.rs; the alternative’s form is invented and marked. The email address stays in the link, as in the kit.' },
+		{ kind: 'contact', title: 'Contact · oxlabs.dev/contact', note: 'A studio taking client work, under oxlabs’ header with Contact current and its material footer. The words come from the live oxlabs.dev (contact, home, services and about) and the channel lines from hmziq.rs. The email address stays in the link, as in the kit.' },
 		{ kind: 'about', title: 'About · oxlabs.dev/about', note: 'oxlabs.dev/about has the beliefs, six principles, the stack and who runs it; hmziq.rs has no about page. Under oxlabs’ header with About current and its material footer; the experience rail is hmziqrs’ from hmziq.rs.' }
 	] as const;
 
@@ -23,7 +23,7 @@
 		<div>
 			<a href="#/" class="font-mono text-xs text-muted-foreground hover:text-foreground">← studio</a>
 			<h1 class="mt-2 text-4xl font-medium tracking-tight">Company pages · contact and about</h1>
-			<p class="mt-2 max-w-2xl text-foreground/80">Two page types for oxlabs.dev, each with one recommended design and one alternative. The channel cards, the 3D book and its steps, the person card, the stat tiles, the commitment cards and the stack cards are the same pieces wherever they appear. Each shows its top part first and runs live; open one alone to see it under oxlabs’ header and footer.</p>
+			<p class="mt-2 max-w-2xl text-foreground/80">Two page types for oxlabs.dev, one design each. The channel cards, the 3D book and its steps, the person card, the stat tiles, the commitment cards and the stack cards are the same pieces wherever they appear. Each shows its top part first and runs live; open one alone to see it under oxlabs’ header and footer.</p>
 		</div>
 		<button type="button" aria-label="Toggle theme" class="grid size-9 shrink-0 place-items-center rounded-md border border-border" onclick={() => prefs.toggleTheme()}>
 			{#if prefs.dark}<Sun class="lucide size-4" />{:else}<Moon class="lucide size-4" />{/if}

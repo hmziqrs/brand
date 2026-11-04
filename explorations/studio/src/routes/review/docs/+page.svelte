@@ -23,7 +23,7 @@
 		<div>
 			<a href="#/" class="font-mono text-xs text-muted-foreground hover:text-foreground">← studio</a>
 			<h1 class="mt-2 text-4xl font-medium tracking-tight">Product docs</h1>
-			<p class="mt-2 max-w-2xl text-foreground/80">Two designs for a product’s docs, each shown for claude-multi and gpui-query: the kit’s three-column reference page, and a guide with a sticky search and the code beside the words. Titles, code, callouts, menus and the pager are the same kit pieces in all four. Click around: the menu, the pager and links between pages switch pages, and the contents rail jumps within one.</p>
+			<p class="mt-2 max-w-2xl text-foreground/80">The kit’s three-column reference page, shown for claude-multi and gpui-query. Titles, code, callouts, menus and the pager are kit pieces. Click around: the menu, the pager and links between pages switch pages, and the contents rail jumps within one.</p>
 		</div>
 		<button type="button" aria-label="Toggle theme" class="grid size-9 shrink-0 place-items-center rounded-md border border-border" onclick={() => prefs.toggleTheme()}>
 			{#if prefs.dark}<Sun class="lucide size-4" />{:else}<Moon class="lucide size-4" />{/if}

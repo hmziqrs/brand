@@ -37,15 +37,7 @@ export const contact = {
 	title: 'Get in touch.',
 	lede: 'No form to fill out. Pick a channel below — email is the most direct line, and GitHub and the socials work too. Every message gets a real human reply.',
 	pick: 'Click a channel to open it. It comes straight to the engineer writing your code.',
-	replies: 'Replies from a person · weekdays',
-	brief: {
-		kicker: '› Next step',
-		title: 'Tell us what you’re building.',
-		accent: 'what you’re building.',
-		lede: 'Every email gets a real reply from someone who writes code, not a sales inbox.',
-		chips: 'human replies · skip the discovery call gauntlet · no slide deck',
-		elsewhere: 'Email is the most direct line; GitHub and the socials work too.'
-	}
+	replies: 'Replies from a person · weekdays'
 };
 
 export const channels: Channel[] = [
@@ -87,14 +79,6 @@ export const questions = {
 	]
 };
 
-export const form = {
-	note: 'Invented for this design: oxlabs.dev has no form. It writes the email for you and opens it in your mail app.',
-	needs: ['Front end', 'Back end', 'Mobile', 'Desktop'],
-	ways: ['Fixed project', 'Retainer', 'Not sure yet'],
-	to: 'hmziqrs@gmail.com',
-	submit: 'Start a project'
-};
-
 export const about = {
 	kicker: '› About',
 	title: 'A small studio, deliberately.',
@@ -108,10 +92,6 @@ export const about = {
 		tools: { title: 'We pick technology the way you’d pick tools for a workshop, for the job, not for the brand.', body: 'PostgreSQL is unfashionable; we’ll keep using it. Rust is fashionable; we use it where it earns its complexity. The hard part isn’t choosing the stack. It’s the next ten thousand decisions.' },
 		write: { title: 'We write things down.', body: 'The discovery doc, the architecture spec, the post-mortem, the runbook. Code is a means; the system that produced it has to outlive whoever wrote it.' }
 	},
-	stats: [
-		{ value: '9 years', label: 'across the stack' },
-		{ value: 'Four', label: 'disciplines, one small studio.' }
-	],
 	principles: {
 		kicker: '› Principles',
 		title: 'Six commitments, in priority order.',
