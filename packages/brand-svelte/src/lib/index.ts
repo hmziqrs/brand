@@ -74,6 +74,7 @@ export { default as TopicChips } from "./blocks/site/topic-chips.svelte";
 export type { Plan } from "./blocks/site/plan.js";
 
 // Content-page blocks (content-blocks.md).
+export { default as BlogIndex } from "./blocks/content/blog-index.svelte";
 export { default as BlogLayout } from "./blocks/content/blog-layout.svelte";
 export { default as Byline } from "./blocks/content/byline.svelte";
 export { default as CodeEditor } from "./blocks/content/code-editor.svelte";
@@ -88,9 +89,11 @@ export { default as KindTag } from "./blocks/content/kind-tag.svelte";
 export { default as LegalBlock } from "./blocks/content/legal-block.svelte";
 export { default as LegalLayout } from "./blocks/content/legal-layout.svelte";
 export { default as LegalSection } from "./blocks/content/legal-section.svelte";
+export { default as MagazineIndex } from "./blocks/content/magazine-index.svelte";
 export { default as NewsletterBand } from "./blocks/content/newsletter-band.svelte";
 export { default as NotFound } from "./blocks/content/not-found.svelte";
 export { default as PastReleases } from "./blocks/content/past-releases.svelte";
+export { default as PostArticle } from "./blocks/content/post-article.svelte";
 export { default as PostCard } from "./blocks/content/post-card.svelte";
 export { default as PostContents } from "./blocks/content/post-contents.svelte";
 export { default as PostHeader } from "./blocks/content/post-header.svelte";

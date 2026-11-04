@@ -1155,6 +1155,33 @@
       "astroItem": "not yet"
     },
     {
+      "name": "MagazineIndex",
+      "group": "content",
+      "svelte": "content-blog-magazine-index--blog-hmziq-rs",
+      "astro": "not yet",
+      "svelteFile": "blocks/content/magazine-index.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "PostArticle",
+      "group": "content",
+      "svelte": "content-blog-post-article--main-blog",
+      "astro": "not yet",
+      "svelteFile": "blocks/content/post-article.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "BlogIndex",
+      "group": "content",
+      "svelte": "content-blog-blog-index--claude-multi",
+      "astro": "not yet",
+      "svelteFile": "blocks/content/blog-index.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
       "name": "DocsLayout",
       "group": "content",
       "svelte": "content-docs-layout--default",
