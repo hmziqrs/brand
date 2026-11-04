@@ -114,7 +114,7 @@ function packCore(): string {
 }
 
 async function spawnServer(extraArgs: string[]): Promise<Server> {
-  const child = spawn("bun", [join(root, "scripts/serve-registries.ts"), ...extraArgs], {
+  const child = spawn("bun", [join(root, "scripts/serve-registries.ts"), "--quiet", ...extraArgs], {
     cwd: root,
     stdio: ["ignore", "pipe", "inherit"],
   });
