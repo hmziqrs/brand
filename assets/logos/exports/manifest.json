@@ -1,7 +1,7 @@
 {
   "target": "logos",
   "command": "bun run render-assets --only logos",
-  "digest": "f5cb3f0f8dd315418f64664575c5fb9e5366e5671a264b35b85d3a377f883be2",
+  "digest": "f865a1e15b6b3d1b7c469f1942e493b490afbe55af4ddf79df376e4a7329517f",
   "renderers": {
     "@resvg/resvg-js": "2.6.2",
     "opentype.js": "2.0.0",
@@ -115,6 +115,10 @@
     {
       "path": "packages/brand-core/src/motion/dither-name.ts",
       "sha256": "2d8baf4ed17227515713d5b58c19d07a5a586284b2877544e36f0b6c421d7401"
+    },
+    {
+      "path": "packages/brand-core/src/motion/dot-field.ts",
+      "sha256": "a3b5aaa104f2e4c0b09be1c24d3af80a1b056c5595fa27e38e084fedf9ca72f3"
     },
     {
       "path": "packages/brand-core/src/motion/dot-name.ts",
