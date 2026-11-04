@@ -327,5 +327,32 @@ export function buildItems(config: BuildConfig): Item[] {
     });
   }
   built.sort((a, b) => a.name.localeCompare(b.name));
+  const cycle = findCycle(built);
+  if (cycle) throw new Error(`registry dependency cycle: ${cycle.join(" -> ")}. The registry CLIs never finish installing a cycle; move the piece that owns the shared file earlier in scripts/pieces.json, or roster the shared file as its own piece.`);
   return built;
+}
+
+/** The first registryDependencies cycle among `items`, as names from the start back to it, or null. */
+export function findCycle(items: Item[]): string[] | null {
+  const deps = new Map(items.map((i) => [i.name, i.registryDependencies]));
+  const done = new Set<string>();
+  const path: string[] = [];
+  const visit = (name: string): string[] | null => {
+    const at = path.indexOf(name);
+    if (at > -1) return [...path.slice(at), name];
+    if (done.has(name)) return null;
+    path.push(name);
+    for (const d of deps.get(name) ?? []) {
+      const found = visit(d);
+      if (found) return found;
+    }
+    path.pop();
+    done.add(name);
+    return null;
+  };
+  for (const name of deps.keys()) {
+    const found = visit(name);
+    if (found) return found;
+  }
+  return null;
 }

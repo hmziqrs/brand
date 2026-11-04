@@ -1515,6 +1515,15 @@
       "astroItem": "not yet"
     },
     {
+      "name": "RichBlocks",
+      "group": "content",
+      "svelte": "content-rich-blocks--default",
+      "astro": "rich-blocks",
+      "svelteFile": "blocks/content/rich-blocks.svelte",
+      "svelteItem": "rich-blocks",
+      "astroItem": "rich-blocks"
+    },
+    {
       "name": "FaqPage",
       "group": "content",
       "svelte": "content-faq-page--claude-multi",
@@ -3533,15 +3542,6 @@
       "svelteFile": "blocks/content/legal-page.svelte",
       "svelteItem": "legal-page",
       "astroItem": "legal-page"
-    },
-    {
-      "name": "RichBlocks",
-      "group": "content",
-      "svelte": "content-rich-blocks--default",
-      "astro": "rich-blocks",
-      "svelteFile": "blocks/content/rich-blocks.svelte",
-      "svelteItem": "rich-blocks",
-      "astroItem": "rich-blocks"
     },
     {
       "name": "CvPage",
