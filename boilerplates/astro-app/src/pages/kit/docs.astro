@@ -1,0 +1,51 @@
+---
+import Container from "$brand/blocks/site/container.astro";
+import PageIntro from "$brand/blocks/site/page-intro.astro";
+import SiteLayout from "$brand/blocks/site/site-layout.astro";
+import Prose from "$brand/blocks/site/prose.astro";
+import DocsReference from "$brand/blocks/content/docs-reference.astro";
+import DocsNav from "$brand/blocks/content/docs-nav.astro";
+import DocsBlocks from "$brand/blocks/content/docs-blocks.astro";
+import ThemeInit from "../../components/theme-init.astro";
+import ThemeToggle from "../../components/theme-toggle.astro";
+import { claudeMultiDocs, gpuiQueryDocs } from "../../components/kit/docs-data";
+
+const same = (s: string) => s;
+---
+
+<SiteLayout site="example" maker="the kit" layout="page" mainClassName="gap-14 pt-12 pb-20 md:pt-20" head={{ site: "blog", title: "Docs pages — the kit", description: "The docs reference page and its parts from the Astro kit.", url: "https://example.com/kit/docs" }}>
+  <ThemeInit slot="head" />
+  <ThemeToggle slot="extra" />
+
+  <Container>
+    <PageIntro class="max-w-2xl">
+      <Fragment slot="kicker">The kit · docs pages</Fragment>
+      <Fragment slot="title">Docs pages</Fragment>
+      <Fragment slot="lede">A product's whole docs in three columns across the whole width, then the menu and the blocks it is made of.</Fragment>
+    </PageIntro>
+  </Container>
+
+  <section id="piece-docs-reference" class="flex flex-col gap-4 border-t pt-8">
+    <Container size="wide"><h2 class="text-lg font-medium">DocsReference</h2></Container>
+    <DocsReference site={gpuiQueryDocs} prefix="gpui-query" />
+    <Container size="wide"><p class="text-[0.8125rem] text-muted-foreground">gpui-query: the menu, the pager and the links between pages switch pages in place; the search filters the menu.</p></Container>
+    <DocsReference site={claudeMultiDocs} prefix="claude-multi" />
+  </section>
+
+  <section id="piece-docs-nav" class="flex flex-col gap-4 border-t pt-8">
+    <Container size="wide">
+      <h2 class="mb-4 text-lg font-medium">DocsNav</h2>
+      <div class="w-56"><DocsNav menu={gpuiQueryDocs.menu} current="getting-started/installation" go={(key) => `#${key}`} /></div>
+    </Container>
+  </section>
+
+  <section id="piece-docs-blocks" class="flex flex-col gap-4 border-t pt-8">
+    <Container size="wide">
+      <h2 class="mb-4 text-lg font-medium">DocsBlocks</h2>
+      <Prose class="max-w-[46rem] text-[0.9375rem]">
+        <DocsBlocks blocks={gpuiQueryDocs.pages["getting-started/installation"].blocks} prefix="blocks" html={same} />
+        <DocsBlocks blocks={claudeMultiDocs.pages["getting-started"].blocks} prefix="blocks-install" html={same} />
+      </Prose>
+    </Container>
+  </section>
+</SiteLayout>

@@ -1,0 +1,116 @@
+---
+import CodeBlock from "$brand/components/code-block.astro";
+import Notice from "$brand/components/notice.astro";
+import Marker from "$brand/components/marker.astro";
+import CheckList from "$brand/blocks/site/check-list.astro";
+import Table from "$brand/starwind/table";
+import { cn } from "$brand/utils";
+import Self from "./docs-blocks.astro";
+import type { CodeLanguage } from "$brand/components/code-tokenize";
+import type { DocsBlock, DocsItem, DocsTone } from "@hmziq/brand-core/docs-reference";
+
+/*
+ * A docs page's blocks, rendered with the kit's own pieces: paragraphs and
+ * headings, code samples with tabs, lists with the orange marker, tables,
+ * callouts, the install commands and quotes. A callout holds more blocks, a
+ * list item may hold a code sample, and links inside the text are the
+ * page's own.
+ */
+
+interface Props {
+  blocks: DocsBlock[];
+  /** The id prefix the headings carry. */
+  prefix: string;
+  /** Rewrites the links in the page's HTML for where the docs sit. */
+  html: (s: string) => string;
+  codeClass?: string;
+}
+
+const { blocks, prefix, html, codeClass } = Astro.props;
+const tones: Record<DocsTone, "info" | "success" | "warning" | "destructive"> = { note: "info", tip: "success", caution: "warning", danger: "destructive" };
+const simple = (items: DocsItem[]) => items.every((i) => i.html && !i.sub && !i.blocks);
+---
+
+{
+  blocks.map((b) => {
+    if (b.kind === "p") return <p set:html={html(b.html)} />;
+    if (b.kind === "h2") return <h2 id={`${prefix}-${b.id}`} style="scroll-margin-top: var(--docs-top, 1rem)">{b.text}</h2>;
+    if (b.kind === "h3" || b.kind === "h4") return <h3 id={`${prefix}-${b.id}`} style="scroll-margin-top: var(--docs-top, 1rem)" class="mt-3 text-[1.0625rem] font-medium tracking-[-0.01em]">{b.text}</h3>;
+    if (b.kind === "code")
+      return (
+        <div class={codeClass}>
+          {b.files.length > 1 ? <CodeBlock files={b.files.map((f) => ({ ...f, lang: f.lang as CodeLanguage }))} /> : <CodeBlock code={b.files[0].code} lang={b.files[0].lang as CodeLanguage} label={b.files[0].label || undefined} />}
+        </div>
+      );
+    if (b.kind === "list") {
+      const ordered = b.ordered;
+      const Tag = ordered ? "ol" : "ul";
+      return (
+        <Tag class="flex flex-col gap-2.5">
+          {b.items.map((it, i) => (
+            <li class={ordered ? "grid grid-cols-[1.75rem_minmax(0,1fr)] items-baseline gap-2" : "grid grid-cols-[0.5rem_minmax(0,1fr)] items-baseline gap-3"}>
+              {ordered ? <span class="text-xs font-medium text-primary tabular-nums">{String(i + 1).padStart(2, "0")}</span> : <Marker class="-translate-y-[0.1em] text-primary" />}
+              <div class="flex min-w-0 flex-col gap-3">
+                {it.html && <span set:html={html(it.html)} />}
+                {it.blocks && <Self blocks={it.blocks} prefix={prefix} html={html} />}
+                {it.sub && (
+                  <ul class="flex flex-col gap-2.5">
+                    {it.sub.map((sub) => (
+                      <li class="grid grid-cols-[0.5rem_minmax(0,1fr)] items-baseline gap-3">
+                        <Marker class="-translate-y-[0.1em] text-primary" />
+                        <span set:html={html(sub.html ?? "")} />
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </li>
+          ))}
+        </Tag>
+      );
+    }
+    if (b.kind === "table")
+      return (
+        <div class="-mx-1 overflow-x-auto px-1">
+          <div data-slot="data-table">
+            <Table.Root class="text-[0.84rem]">
+              <Table.Header class="[&_tr]:border-foreground">
+                <Table.Row class="hover:bg-transparent">
+                  {b.head.map((h) => (
+                    <Table.Head class="h-auto px-3 py-2.5 font-medium text-foreground"><Fragment set:html={h} /></Table.Head>
+                  ))}
+                </Table.Row>
+              </Table.Header>
+              <Table.Body>
+                {b.rows.map((row) => (
+                  <Table.Row class="hover:bg-transparent">
+                    {row.map((cell, i) => (
+                      <Table.Cell class={cn("px-3 py-3 align-top leading-relaxed", i < 1 ? "whitespace-nowrap text-foreground" : "min-w-36 whitespace-normal text-muted-foreground")}><Fragment set:html={html(cell)} /></Table.Cell>
+                    ))}
+                  </Table.Row>
+                ))}
+              </Table.Body>
+            </Table.Root>
+          </div>
+        </div>
+      );
+    if (b.kind === "aside")
+      return (
+        <Notice tone={tones[b.tone]} title={b.title} data-mine={b.mine ? "" : undefined}>
+          <div class="flex flex-col gap-3 text-foreground/85">
+            <Self blocks={b.blocks} prefix={prefix} html={html} />
+          </div>
+        </Notice>
+      );
+    if (b.kind === "install")
+      return (
+        <div data-slot="install-block" class="flex max-w-[52rem] flex-col gap-3.5">
+          <CodeBlock files={b.commands.map(([manager, command]) => ({ label: manager, lang: "bash" as CodeLanguage, code: command }))} />
+          <CheckList items={b.items} />
+        </div>
+      );
+    if (b.kind === "quote") return <blockquote class="border-l-2 border-primary pl-4" set:html={html(b.html)} />;
+    if (b.kind === "hr") return <hr class="my-2 border-border" />;
+    return null;
+  })
+}

@@ -17,14 +17,16 @@ interface Props {
   trail?: string[];
   /** The rings' seed: the site's or the product's name. */
   seed?: string;
+  /** Hairline rings, for a page that wants the rings quieter. */
+  thin?: boolean;
   class?: string;
 }
 
-const { title, lede, trail = [], seed, class: className } = Astro.props;
+const { title, lede, trail = [], seed, thin = false, class: className } = Astro.props;
 ---
 
 <div class={cn("relative", className)}>
-  {seed && <Rings seed={seed} aria-hidden="true" class="pointer-events-none absolute -top-10 -right-4 w-60 max-w-[40%] opacity-90" />}
+  {seed && <Rings seed={seed} thin={thin} aria-hidden="true" class="pointer-events-none absolute -top-10 -right-4 w-60 max-w-[40%] opacity-90" />}
   <div class="relative">
     {
       trail.length > 0 && (
