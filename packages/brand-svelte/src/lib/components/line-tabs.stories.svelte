@@ -1,7 +1,6 @@
 <script module lang="ts">
 	import { defineMeta } from '@storybook/addon-svelte-csf'
 	import LineTabs from './line-tabs.svelte'
-	import ReleaseCard from './release-card.svelte'
 	import { releases } from '$brand/blocks/content/stories-data.js'
 
 	const { Story } = defineMeta({
@@ -12,7 +11,7 @@
 </script>
 
 {#snippet overview()}<p class="max-w-prose leading-relaxed text-muted-foreground">claude-multi gives each provider its own claude-&lt;name&gt; command and its own config directory. All of them run the normal, unmodified claude binary.</p>{/snippet}
-{#snippet notes()}<div class="grid gap-4 md:grid-cols-2">{#each releases.slice(0, 2) as r (r.v)}<ReleaseCard product="claude-multi" symbol="Cm" release={r} />{/each}</div>{/snippet}
+{#snippet notes()}<ul class="grid gap-2 text-sm">{#each releases.slice(0, 2) as r (r.v)}<li class="flex items-baseline gap-3"><span class="font-mono">{r.v}</span><span class="text-muted-foreground">{r.date}</span></li>{/each}</ul>{/snippet}
 {#snippet docs()}<p class="text-muted-foreground">Installation, providers and the menu, step by step.</p>{/snippet}
 
 <Story name="Default" asChild>
