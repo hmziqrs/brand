@@ -1,6 +1,6 @@
 import type { Tone } from '@hmziq/brand-core/tones';
+import type { PostArtKind } from '@hmziq/brand-core/motion/line-art';
 import type { PostItem } from '$brand/blocks/content/types.js';
-import type { BlogArtKind } from './blog-art.svelte';
 
 export type Category = 'Engineering' | 'Projects' | 'Notes';
 
@@ -14,7 +14,7 @@ export type BlogPost = {
 	minutes?: number;
 	updated?: string;
 	tags: string[];
-	art?: BlogArtKind;
+	art?: PostArtKind;
 	real?: boolean;
 };
 
@@ -125,13 +125,17 @@ const shared = (p: BlogPost) => p.tags.filter((t) => real.tags.includes(t)).leng
 
 export const related = newer.filter((p) => shared(p) > 0).sort((a, b) => shared(b) - shared(a) || posts.indexOf(a) - posts.indexOf(b));
 
-export const item = (p: BlogPost, full = false): PostItem => ({
+export const item = (p: BlogPost, href: string): PostItem => ({
 	title: p.title,
 	summary: p.summary,
 	date: p.date,
 	readingTime: p.minutes ? `${p.minutes} min read` : undefined,
-	updated: full ? p.updated : undefined,
-	topic: p.category
+	updated: p.updated,
+	topic: p.category,
+	href,
+	art: p.art,
+	tags: p.tags,
+	minutes: p.minutes
 });
 
 export const shelf = categories.map((c) => {
