@@ -1,8 +1,6 @@
 import type { Component } from 'svelte';
 import ContactDirect from '$moves/review/company/contact-direct.svelte';
-import ContactBrief from '$moves/review/company/contact-brief.svelte';
 import AboutEssay from '$moves/review/company/about-essay.svelte';
-import AboutBento from '$moves/review/company/about-bento.svelte';
 
 export type CompanyKind = 'contact' | 'about';
 
@@ -45,18 +43,6 @@ export const companyCandidates: CompanyCandidate[] = [
 		props: { here: here('contact-direct') }
 	},
 	{
-		id: 'contact-brief',
-		kind: 'contact',
-		pick: 'alternative',
-		name: 'Contact · project brief',
-		line: '“Tell us what you’re building.” beside a short brief in the kit’s Input, Textarea, toggles and Button that writes the email for you and opens it in your mail app. The same 3D book and steps follow, then the same four channel cards in a row, and the questions.',
-		from: book,
-		invented: 'The form: its labels, placeholders and the drafted email (the live site has no form), and the “Rather write it yourself?” heading.',
-		src: `${dir}/contact-brief.svelte`,
-		component: ContactBrief,
-		props: { here: here('contact-brief') }
-	},
-	{
 		id: 'about-essay',
 		kind: 'about',
 		pick: 'recommended',
@@ -68,18 +54,6 @@ export const companyCandidates: CompanyCandidate[] = [
 		src: `${dir}/about-essay.svelte`,
 		component: AboutEssay,
 		props: { here: here('about-essay') }
-	},
-	{
-		id: 'about-bento',
-		kind: 'about',
-		pick: 'alternative',
-		name: 'About · belief bento',
-		line: 'The headline and lede on the page, then what we believe split into separate bento tiles: the first belief in solid oxide, staying small on a material card with glass, nine years and four disciplines as stat tiles, the workshop and writing beliefs with a tag pair and a line drawing. The same commitments, stack and who follow.',
-		from: about,
-		invented: 'Nothing; the PostgreSQL and Rust tags repeat words from the belief beside them.',
-		src: `${dir}/about-bento.svelte`,
-		component: AboutBento,
-		props: { here: here('about-bento') }
 	}
 ];
 

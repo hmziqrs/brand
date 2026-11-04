@@ -1,6 +1,5 @@
 import type { Component } from 'svelte';
 import DocsReference from '$moves/review/docs/docs-reference.svelte';
-import DocsGuide from '$moves/review/docs/docs-guide.svelte';
 import { docsSites } from '$moves/review/docs/content';
 
 export type DocsProduct = keyof typeof docsSites;
@@ -27,7 +26,6 @@ const dir = 'src/lib/moves/review/docs';
 const here = (id: string) => `#/c/docs/${id}`;
 const props = (id: string, product: DocsProduct) => ({ site: docsSites[product], here: here(id), prefix: id });
 const kit = 'the kit’s Docs - gpui-query page (DocsLayout’s three columns, DocsTitle, CodeBlock, Notice, DocsPager) and content/docs-1, which you kept';
-const guide = 'the kit’s docs pieces in a guide layout: DocsSearch grown into a search over every heading, PostContents’ rail inside the menu, and each section’s code pinned beside its words';
 
 export const docsCandidates: DocsCandidate[] = [
 	{
@@ -43,17 +41,6 @@ export const docsCandidates: DocsCandidate[] = [
 		props: props('claude-multi-reference', 'claude-multi')
 	},
 	{
-		id: 'claude-multi-guide',
-		product: 'claude-multi',
-		pick: 'alternative',
-		name: 'claude-multi · guide with code beside',
-		line: 'A search bar that stays under the header and finds any page or heading, the menu with this page’s contents folded under it, and each section’s commands pinned beside its words on wide screens. Same pages, same pieces.',
-		from: guide,
-		src: `${dir}/docs-guide.svelte`,
-		component: DocsGuide,
-		props: props('claude-multi-guide', 'claude-multi')
-	},
-	{
 		id: 'gpui-query-reference',
 		product: 'gpui-query',
 		pick: 'recommended',
@@ -64,17 +51,6 @@ export const docsCandidates: DocsCandidate[] = [
 		src: `${dir}/docs-reference.svelte`,
 		component: DocsReference,
 		props: props('gpui-query-reference', 'gpui-query')
-	},
-	{
-		id: 'gpui-query-guide',
-		product: 'gpui-query',
-		pick: 'alternative',
-		name: 'gpui-query · guide with code beside',
-		line: 'The guide layout for gpui-query: the sticky search over all 20 pages, contents under the current page, and the Rust beside each section, which suits an API with this much code.',
-		from: guide,
-		src: `${dir}/docs-guide.svelte`,
-		component: DocsGuide,
-		props: props('gpui-query-guide', 'gpui-query')
 	}
 ];
 
