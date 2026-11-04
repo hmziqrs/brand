@@ -1,30 +1,17 @@
 import type { CodeLanguage } from '$brand/components/code-tokenize.js';
+import type { DocsBlock as Block, DocsItem as Item, DocsCodeFile as CodeFile, DocsTone as Tone, DocsPageData, DocsSiteData } from '@hmziq/brand-core/docs-reference';
 import claudeMultiData from './claude-multi.json';
 import gpuiQueryData from './gpui-query.json';
 
-export type Item = { html?: string; sub?: Item[]; blocks?: Block[] };
-export type CodeFile = { label: string; lang: CodeLanguage; code: string };
-export type Tone = 'note' | 'tip' | 'caution' | 'danger';
-export type Block =
-	| { kind: 'p'; html: string }
-	| { kind: 'h2' | 'h3' | 'h4'; id: string; text: string }
-	| { kind: 'code'; files: CodeFile[] }
-	| { kind: 'list'; ordered: boolean; items: Item[] }
-	| { kind: 'table'; head: string[]; rows: string[][] }
-	| { kind: 'aside'; tone: Tone; title: string; blocks: Block[]; mine?: boolean }
-	| { kind: 'install'; commands: [string, string][]; items: string[] }
-	| { kind: 'quote'; html: string }
-	| { kind: 'hr' };
+export type { DocsItem as Item, DocsCodeFile as CodeFile, DocsTone as Tone, DocsBlock as Block } from '@hmziq/brand-core/docs-reference';
 
 type RawCode = { kind: 'code'; lang: string; title?: string; terminal: boolean; code: string };
 type RawBlock = Exclude<Block, { kind: 'code' }> | RawCode;
 type RawPage = { title: string; desc?: string; updated?: string; edit?: string; blocks: RawBlock[] };
 type RawSite = { base: string; menu: { group: string | null; pages: { title: string; key?: string; href?: string }[] }[]; pages: Record<string, RawPage> };
 
-export type MenuLink = { title: string; key?: string; href?: string };
-export type MenuGroup = { group: string | null; pages: MenuLink[] };
-export type DocsPage = { key: string; title: string; group: string | null; desc?: string; updated?: string; edit?: string; applies?: string; reviewed?: string; blocks: Block[] };
-export type DocsSite = { product: 'claude-multi' | 'gpui-query'; base: string; github: string; start: string; menu: MenuGroup[]; pages: Record<string, DocsPage>; order: string[] };
+export type DocsPage = DocsPageData;
+export type DocsSite = DocsSiteData & { product: 'claude-multi' | 'gpui-query' };
 
 const langs: Record<string, CodeLanguage> = { bash: 'bash', sh: 'bash', json: 'json', toml: 'toml', rust: 'rust', ts: 'typescript', typescript: 'typescript' };
 const names: Record<string, string> = { rust: 'Rust', toml: 'TOML', json: 'JSON', batch: 'Batch', powershell: 'PowerShell', ts: 'TypeScript' };
@@ -135,57 +122,3 @@ export const docsSites = {
 	'claude-multi': build('claude-multi', claudeMultiData as RawSite, 'https://github.com/hmziqrs/claude-multi', 'getting-started', callouts),
 	'gpui-query': build('gpui-query', gpuiQueryData as RawSite, 'https://github.com/freeoxide/gpui-query', 'getting-started/installation')
 } satisfies Record<string, DocsSite>;
-
-export type Heading = { id: string; label: string; level: 2 | 3 };
-
-export function headings(p: DocsPage, prefix: string): Heading[] {
-	return p.blocks.flatMap((b) => (b.kind === 'h2' || b.kind === 'h3' ? [{ id: `${prefix}-${b.id}`, label: b.text, level: b.kind === 'h2' ? 2 : 3 } as Heading] : []));
-}
-
-export const neighbours = (site: DocsSite, key: string) => {
-	const i = site.order.indexOf(key);
-	return { prev: i > 0 ? site.pages[site.order[i - 1]] : undefined, next: i >= 0 && i < site.order.length - 1 ? site.pages[site.order[i + 1]] : undefined };
-};
-
-export type Link = { href: string; page?: string; anchor?: string; external?: boolean };
-
-export function linker(site: DocsSite, here: string, prefix: string) {
-	const go = (key: string, anchor?: string) => `${here}#~${key}${anchor ? `~${prefix}-${anchor}` : ''}`;
-	const resolve = (href: string): { href: string; external: boolean } => {
-		if (href.startsWith('#')) return { href: `#${prefix}-${href.slice(1)}`, external: false };
-		const m = href.match(/^\/docs\/?([^#]*?)\/?(?:#(.*))?$/);
-		if (m) {
-			const key = m[1] || 'index';
-			if (site.pages[key]) return { href: go(key, m[2]), external: false };
-		}
-		if (href.startsWith('/')) return { href: site.base + href, external: true };
-		return { href, external: /^https?:/.test(href) };
-	};
-	const html = (s: string) =>
-		s.replace(/<a href="([^"]*)">/g, (_, h: string) => {
-			const r = resolve(h.replace(/&amp;/g, '&'));
-			return r.external ? `<a href="${r.href}" target="_blank" rel="noreferrer">` : `<a href="${r.href}">`;
-		});
-	return { go, resolve, html };
-}
-
-export function follow(event: MouseEvent, here: string, open: (key: string, anchor?: string) => void) {
-	if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-	const a = (event.target as Element | null)?.closest?.('a');
-	const href = a?.getAttribute('href');
-	if (!a || !href || a.target === '_blank') return;
-	if (href.startsWith(`${here}#~`)) {
-		event.preventDefault();
-		const [key, anchor] = href.slice(here.length + 2).split('~');
-		open(key, anchor);
-	} else if (href.startsWith('#') && !href.startsWith('#/')) {
-		event.preventDefault();
-		jump(decodeURIComponent(href.slice(1)));
-	}
-}
-
-export function jump(id: string) {
-	const el = document.getElementById(id);
-	if (!el) return;
-	el.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
-}

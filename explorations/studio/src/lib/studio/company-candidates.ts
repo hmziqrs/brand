@@ -1,6 +1,7 @@
 import type { Component } from 'svelte';
-import ContactDirect from '$moves/review/company/contact-direct.svelte';
-import AboutEssay from '$moves/review/company/about-essay.svelte';
+import ContactDirect from '$brand/blocks/site/contact-direct.svelte';
+import AboutEssay from '$brand/blocks/site/about-essay.svelte';
+import { aboutData, contactData } from '$moves/review/company/content';
 
 export type CompanyKind = 'contact' | 'about';
 
@@ -23,7 +24,7 @@ export const companySites: Record<CompanyKind, { label: string; footer: string; 
 	about: { label: 'oxlabs.dev/about', footer: 'material', current: 'About' }
 };
 
-const dir = 'src/lib/moves/review/company';
+const kitDir = 'packages/brand-svelte/src/lib/blocks/site';
 const here = (id: string) => `#/c/company/${id}`;
 const book = 'site-dovetail/contact (the 3D book, extracted), site-northflank/contact (the channels on the right, now separate cards), site-framer and site-hex/contact (separate cards, never one card in a grid) and the kit’s Contact - oxlabs-dev story, ContactChannels, OutlineCard, StatTile and SectionHead';
 const about = 'site-northflank/about (starred: the hero, the backing rail, no grey band), site-hex/about (the bento cards, never one card in a grid), site-dovetail/about (accent colour, a real team section, no square in a ring) and the kit’s About - claude-multi story, PersonCard, PictureCard, StatTile and SectionHead';
@@ -38,9 +39,9 @@ export const companyCandidates: CompanyCandidate[] = [
 		why: 'It keeps the live site’s promise, no form to fill out, and the separate channel cards on the right you liked on northflank.',
 		from: book,
 		invented: 'No words; the book’s three covers are the documents oxlabs.dev/about names, and its back is that page’s “We write things down.”',
-		src: `${dir}/contact-direct.svelte`,
+		src: `${kitDir}/contact-direct.svelte`,
 		component: ContactDirect,
-		props: { here: here('contact-direct') }
+		props: { data: contactData, href: here('contact-direct') }
 	},
 	{
 		id: 'about-essay',
@@ -51,9 +52,9 @@ export const companyCandidates: CompanyCandidate[] = [
 		why: 'oxlabs.dev/about has the most real material (hmziq.rs has no about page), and this keeps the northflank hero and backing rail you starred without the grey band.',
 		from: about,
 		invented: 'Nothing; the rail is hmziqrs’ experience from hmziq.rs, word for word.',
-		src: `${dir}/about-essay.svelte`,
+		src: `${kitDir}/about-essay.svelte`,
 		component: AboutEssay,
-		props: { here: here('about-essay') }
+		props: { data: aboutData, href: here('about-essay') }
 	}
 ];
 

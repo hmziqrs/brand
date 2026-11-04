@@ -1,5 +1,5 @@
 import type { Component } from 'svelte';
-import DocsReference from '$moves/review/docs/docs-reference.svelte';
+import DocsReference from '$brand/blocks/content/docs-reference.svelte';
 import { docsSites } from '$moves/review/docs/content';
 
 export type DocsProduct = keyof typeof docsSites;
@@ -22,10 +22,10 @@ export const docsProducts: Record<DocsProduct, { label: string; footer: string; 
 	'gpui-query': { label: 'gpui-query.freeoxide.com/docs', footer: 'current', current: 'Docs' }
 };
 
-const dir = 'src/lib/moves/review/docs';
+const kitFile = 'packages/brand-svelte/src/lib/blocks/content/docs-reference.svelte';
 const here = (id: string) => `#/c/docs/${id}`;
 const props = (id: string, product: DocsProduct) => ({ site: docsSites[product], here: here(id), prefix: id });
-const kit = 'the kit’s Docs - gpui-query page (DocsLayout’s three columns, DocsTitle, CodeBlock, Notice, DocsPager) and content/docs-1, which you kept';
+const kit = 'the kit’s DocsReference (DocsLayout’s three columns with DocsNav, DocsSearch, DocsTitle, DocsBlocks, DocsPager and PostContents), which you kept';
 
 export const docsCandidates: DocsCandidate[] = [
 	{
@@ -36,7 +36,7 @@ export const docsCandidates: DocsCandidate[] = [
 		line: 'The kit’s docs page under claude-multi’s header: the line menu with its search on the left, the page in the middle, the contents rail on the right. All seven live pages, word for word; the menu, the pager and the links between pages switch pages here.',
 		why: 'It is the kit’s own docs page, the Starlight shape both live sites already use, with the thin rings you asked for on docs-1.',
 		from: kit,
-		src: `${dir}/docs-reference.svelte`,
+		src: kitFile,
 		component: DocsReference,
 		props: props('claude-multi-reference', 'claude-multi')
 	},
@@ -48,7 +48,7 @@ export const docsCandidates: DocsCandidate[] = [
 		line: 'The same reference page for gpui-query, opening on Installation like the kit’s story, with all 20 live pages and their notes, cautions and tips word for word.',
 		why: 'The same design as claude-multi’s pick, so every product’s docs read alike; only the header, the pages and the footer change.',
 		from: kit,
-		src: `${dir}/docs-reference.svelte`,
+		src: kitFile,
 		component: DocsReference,
 		props: props('gpui-query-reference', 'gpui-query')
 	}
