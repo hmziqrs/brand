@@ -193,7 +193,8 @@ image, never a soft gradient. Reduced transparency gets a solid card.
 Materials (shader images in the brand's palette; `brandMaterials` and
 `materialFor(seed)` in `@hmziq/brand-core/shaders/materials` pick one by
 name; `materials.css` keeps metal drawn into shapes readable in both modes):
-`MaterialCard` (cover, panel, side, frame), `MaterialStage` (a product
+`MaterialCard` (words on a smoke-glass panel over the material; the
+material is a surface, never a picture), `MaterialStage` (a product
 screen or code on metal), `MaterialTabs`, `MaterialFrame`, `MaterialGauge`, `MaterialSparkline`,
 `MaterialBar`, `MaterialSlider`, `MaterialRule`, `MaterialTag`,
 `MaterialTile`, `MaterialRings`, and `AnnouncePill` / `AnnounceBar`. Code has
