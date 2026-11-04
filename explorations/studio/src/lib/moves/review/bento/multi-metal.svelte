@@ -4,9 +4,7 @@
 	import { Button } from '$brand/ui/button/index.js';
 	import Container from '$brand/blocks/site/container.svelte';
 	import MaterialStage from '$brand/components/material-stage.svelte';
-	import ShaderMaterial from '$brand/components/shader-material.svelte';
 	import MixedHeadline from '$moves/dovetail/mixed-headline.svelte';
-	import InlineGlyph from '$moves/dovetail/inline-glyph.svelte';
 	import MonoChip from '$moves/dovetail/mono-chip.svelte';
 	import { providers } from '$moves/dovetail/providers';
 	import MetalTile from './metal-tile.svelte';
@@ -45,7 +43,7 @@
 		</div>
 
 		<div class="mt-24 flex flex-col gap-8 sm:mt-32 lg:flex-row lg:items-end lg:justify-between">
-			<MixedHeadline size="lg" alt="dot" tint="primary" class="max-w-[16ch]">Switch <InlineGlyph kind="stack" preset="lava-fissures" /> without <em>re-exporting</em> a key</MixedHeadline>
+			<MixedHeadline size="lg" alt="dot" tint="primary" class="max-w-[16ch]">Switch without <em class="whitespace-nowrap">re-exporting</em> a key</MixedHeadline>
 			<p class="max-w-[27rem] text-[1.15rem] leading-snug text-foreground">Each claude-&lt;name&gt; runs the normal claude binary with its own config directory, so history, login and bill stay apart.</p>
 		</div>
 
@@ -75,13 +73,14 @@
 					<span class="text-[0.8125rem] leading-snug text-muted-foreground">Anthropic, GLM, Kimi, DeepSeek, Qwen, MiniMax, MiMo and local.</span>
 				</div>
 			</article>
-			<article class="relative isolate col-span-2 flex min-h-[15rem] flex-col justify-end overflow-hidden rounded-2xl p-2 ring-1 ring-foreground/10 sm:col-span-1">
-				<ShaderMaterial preset="hammered-copper" rendering="image" controls={false} sizes="(min-width: 1024px) 25vw, 50vw" class="absolute inset-0 -z-10" />
-				<div class="flex flex-col gap-3 rounded-xl bg-background p-5">
-					<p class="text-[0.95rem] font-medium">Per-project overrides</p>
-					<p class="-mt-2 text-[0.8125rem] leading-snug text-muted-foreground">Pin a repo to the provider it should use.</p>
-					<p class="text-[0.95rem] font-medium">Your own gateway</p>
-					<p class="-mt-2 text-[0.8125rem] leading-snug text-muted-foreground">Point an instance at your gateway or a local model.</p>
+			<article class={cn(outline, 'col-span-2 flex min-h-[12rem] flex-col justify-end gap-4 p-5 sm:col-span-1 sm:min-h-[15rem] sm:p-7')}>
+				<div class="flex flex-col gap-1">
+					<span class="text-[0.95rem] font-medium">Per-project overrides</span>
+					<span class="text-[0.8125rem] leading-snug text-muted-foreground">Pin a repo to the provider it should use.</span>
+				</div>
+				<div class="flex flex-col gap-1">
+					<span class="text-[0.95rem] font-medium">Your own gateway</span>
+					<span class="text-[0.8125rem] leading-snug text-muted-foreground">Point an instance at your gateway or a local model.</span>
 				</div>
 			</article>
 		</div>

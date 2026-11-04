@@ -2,7 +2,6 @@
 	import { cn } from '$brand/utils.js';
 	import Container from '$brand/blocks/site/container.svelte';
 	import RollingNumber from '$brand/components/rolling-number.svelte';
-	import MaterialSparkline from '$brand/components/material-sparkline.svelte';
 	import CornerRings from '$brand/components/corner-rings.svelte';
 	import SectionHead from './section-head.svelte';
 	import ProjectRows, { type OpenProject } from './project-rows.svelte';
@@ -104,6 +103,16 @@ match pulls.status() {
 	});
 	const lo = Math.min(...series);
 	const span = Math.max(...series) - lo || 1;
+	const pts = series.map((v, i): [number, number] => [(i / (series.length - 1)) * 300, 100 - 6 - ((v - lo) / span) * 88]);
+	const curve = pts
+		.map(([x1, y1], i) => {
+			if (i === 0) return `M${x1.toFixed(1)} ${y1.toFixed(1)}`;
+			const [x0, y0] = pts[i - 1];
+			const [xa, ya] = pts[Math.max(0, i - 2)];
+			const [xb, yb] = pts[Math.min(pts.length - 1, i + 1)];
+			return `C${(x0 + (x1 - xa) / 6).toFixed(1)} ${(y0 + (y1 - ya) / 6).toFixed(1)} ${(x1 - (xb - x0) / 6).toFixed(1)} ${(y1 - (yb - y0) / 6).toFixed(1)} ${x1.toFixed(1)} ${y1.toFixed(1)}`;
+		})
+		.join('');
 	const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 	const when = (i: number) => {
 		const m = Math.round((i / 39) * 22);
@@ -160,7 +169,11 @@ match pulls.status() {
 					</div>
 					<div class="flex min-w-0 flex-col gap-2">
 						<div role="presentation" class="relative cursor-crosshair" onpointermove={scrub} onpointerleave={() => (at = null)}>
-							<MaterialSparkline values={series} preset="copper-sweep" label="Downloads, January 2025 to today, rising" class="block" />
+							<svg viewBox="0 0 300 100" role="img" aria-label="Downloads, January 2025 to today, rising" class="block h-auto w-full overflow-visible">
+								<line x1="0" x2="300" y1="94" y2="94" class="stroke-foreground/20" stroke-width="1" />
+								<path d={`${curve} L300 100 L0 100 Z`} class="fill-primary/10" />
+								<path d={curve} fill="none" class="stroke-primary" stroke-width="1.75" vector-effect="non-scaling-stroke" />
+							</svg>
 							{#if dot && at !== null}
 								<span aria-hidden="true" class="pointer-events-none absolute inset-y-0 w-px bg-foreground/40" style:left={`${dot.x}%`}></span>
 								<span aria-hidden="true" class="pointer-events-none absolute size-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary ring-2 ring-background" style:left={`${dot.x}%`} style:top={`${dot.y}%`}></span>

@@ -11,9 +11,9 @@
 	const work: Work[] = [
 		{ name: 'gpui-query', kind: 'Library', dek: 'Data loading for GPUI apps: typed keys, one shared cache and refetch in the background.', meta: 'freeoxide · Rust', art: 'lanes' },
 		{ name: 'claude-multi', kind: 'CLI', dek: 'A separate Claude Code for each provider, with its own command and config directory.', meta: 'Open source · npm', art: 'rings' },
-		{ name: 'gpui-starter', kind: 'Starter', dek: 'One repo for the whole desktop app, from routing and themes to signed updates.', meta: 'freeoxide · Rust', art: 'material:copper-sweep' },
+		{ name: 'gpui-starter', kind: 'Starter', dek: 'One repo for the whole desktop app, from routing and themes to signed updates.', meta: 'freeoxide · Rust', art: 'window' },
 		{ name: 'tunnel', kind: 'CLI', dek: 'Share a folder on your computer at a public link, and take it down with Ctrl+C.', meta: 'freeoxide · Rust', art: 'fan' },
-		{ name: 'oxlabs', kind: 'Studio', dek: 'Apps for phones, desktops and the web, for teams who want the code and the people who wrote it.', meta: 'Client work', art: 'material:hammered-copper' },
+		{ name: 'oxlabs', kind: 'Studio', dek: 'Apps for phones, desktops and the web, for teams who want the code and the people who wrote it.', meta: 'Client work', art: 'surfaces' },
 		{ name: 'The blog', kind: 'Writing', dek: 'Long notes on how things were built: Rust, desktop apps, small tools and the process behind them.', meta: 'blog.hmziq.rs', art: 'bars' }
 	];
 </script>

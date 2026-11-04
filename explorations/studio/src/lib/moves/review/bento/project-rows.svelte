@@ -19,7 +19,7 @@
 	import FileCode from '@lucide/svelte/icons/file-code';
 	import { cn } from '$brand/utils.js';
 	import { Button } from '$brand/ui/button/index.js';
-	import MaterialTile from '$brand/components/material-tile.svelte';
+	import Mark from '$brand/components/mark.svelte';
 	import ShaderMaterial from '$brand/components/shader-material.svelte';
 	import TerminalWindow from '$brand/components/terminal-window.svelte';
 	import TerminalBody from '$brand/components/terminal-body.svelte';
@@ -29,7 +29,7 @@
 	let { projects, here = '#', class: className }: { projects: OpenProject[]; here?: string; class?: string } = $props();
 
 	let active = $state(0);
-	let seen = $state<boolean[]>([]);
+	let seen = $state<boolean[]>([true]);
 	let rows: HTMLElement[] = $state([]);
 	let still = $state(false);
 	let px = $state(0);
@@ -97,9 +97,7 @@
 							active === i ? 'text-foreground ring-primary/60 lg:bg-transparent lg:ring-1 lg:ring-foreground/15' : 'text-muted-foreground ring-foreground/10 hover:text-foreground'
 						)}
 					>
-						<MaterialTile preset={p.preset} size={28} class={cn('transition-[opacity,filter]', active === i ? 'opacity-100' : 'opacity-60 grayscale group-hover:opacity-100 group-hover:grayscale-0')}>
-							<span class="text-[0.7em] font-semibold">{p.symbol}</span>
-						</MaterialTile>
+						<Mark symbol={p.symbol} size={28} class={cn('transition-opacity', active === i ? 'opacity-100' : 'opacity-60 group-hover:opacity-100')} />
 						<span class="font-medium">{p.name}</span>
 						{#if active === i}<span aria-hidden="true" class="ml-auto hidden size-1.5 bg-mark-square lg:block"></span>{/if}
 					</button>
@@ -124,7 +122,7 @@
 					<span aria-hidden="true" class="absolute -inset-[7%] -z-10 transition-transform duration-700 ease-[cubic-bezier(.2,.7,.2,1)]" style:transform={over === i ? `translate3d(${(-px * 2.5).toFixed(2)}%, ${(-py * 2.5).toFixed(2)}%, 0) scale(1.04)` : 'none'}>
 						<ShaderMaterial preset={p.preset} rendering="image" controls={false} sizes="(min-width: 1280px) 40vw, 100vw" class="absolute inset-0" />
 					</span>
-					<div class={cn('dark w-full max-w-[34rem] shadow-[0_30px_80px_-20px_color-mix(in_oklab,black_70%,transparent)] transition-[translate,opacity] duration-700 ease-[cubic-bezier(.2,.7,.2,1)] motion-reduce:transition-none', seen[i] || still ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0')}>
+					<div class="dark w-full max-w-[34rem] shadow-[0_30px_80px_-20px_color-mix(in_oklab,black_70%,transparent)]">
 						{#if p.panel.kind === 'terminal'}
 							<TerminalWindow title={p.panel.title} class="bg-[color-mix(in_oklab,var(--background)_90%,transparent)] backdrop-blur-md">
 								<TerminalBody class="min-h-0">

@@ -74,7 +74,7 @@ export const bentos: BentoCandidate[] = [
 	{
 		id: 'multi-metal',
 		name: 'Pick your metal · claude-multi',
-		line: 'The loud half of claude-multi-3: mega headline with a Doto word, eight provider tiles cut from metal that shift under the cursor, the instance switcher on lava (click a tile or use the arrow keys, then Launch), and big Doto numbers on oxide and outline cards.',
+		line: 'The loud half of claude-multi-3: mega headline with a Doto word, eight provider tiles cut from metal (each provider is its metal, so the words sit on it), the instance switcher on lava (click a tile or use the arrow keys, then Launch), and big Doto numbers on oxide and outline cards.',
 		use: 'Real use: claude-multi, under the centred hero; any CLI that turns many accounts or providers into one command each.',
 		src: `${dir}/multi-metal.svelte`,
 		component: MultiMetal,
@@ -94,7 +94,7 @@ export const bentos: BentoCandidate[] = [
 	{
 		id: 'oxlabs-process',
 		name: 'Steps and playbooks · oxlabs',
-		line: 'The site-flora home step cards (a picker you point at, a build with comments and drifting cursors, one repo fanning out to six platforms) and the techniques playbook cards as starting points, with filter pills and material that zooms under the cursor.',
+		line: 'The site-flora home step cards (a picker you point at, a build with comments and drifting cursors, one repo fanning out to six platforms) and six starting points as picture cards, the same card as the hmziq.rs work grid, each with a line drawing of the project type that follows the cursor, with filter pills.',
 		use: 'Real use: oxlabs.dev, as the how-we-work section; any service page that lists ways to start.',
 		src: `${dir}/oxlabs-process.svelte`,
 		component: OxlabsProcess,
@@ -114,7 +114,7 @@ export const bentos: BentoCandidate[] = [
 	{
 		id: 'hmziq-work',
 		name: 'Work cards · hmziq.rs',
-		line: 'The site-linear blog cards as a work grid: six projects, each with a line drawing that follows the cursor (cache lanes, instance rings, a share fan, writing lines) or a material that drifts under it.',
+		line: 'The site-linear blog cards as a work grid: six projects, each with a line drawing that follows the cursor (cache lanes, instance rings, the starter modules, a share fan, four surfaces, writing lines).',
 		use: 'Real use: hmziq.rs, under the hatch and dot-name hero; any personal site with a body of work.',
 		src: `${dir}/hmziq-work.svelte`,
 		component: HmziqWork,

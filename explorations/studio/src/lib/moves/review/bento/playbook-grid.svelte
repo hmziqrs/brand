@@ -1,18 +1,17 @@
 <script lang="ts">
 	import { flip } from 'svelte/animate';
-	import ArrowUpRight from '@lucide/svelte/icons/arrow-up-right';
 	import { cn } from '$brand/utils.js';
-	import ShaderMaterial from '$brand/components/shader-material.svelte';
+	import WorkCard, { type Work } from './work-card.svelte';
 
 	let { here = '#', class: className }: { here?: string; class?: string } = $props();
 
-	const playbooks = [
-		{ cat: 'Phone', name: 'Phone app that works offline', line: 'iPhone and Android from one Flutter codebase, still useful with no signal.', stack: ['Flutter'], preset: 'sediment' },
-		{ cat: 'Desktop', name: 'Desktop app with Tauri', line: 'Your web UI in a native window on Mac, Windows and Linux, signed and updating.', stack: ['Tauri', 'Svelte', 'Rust'], preset: 'copper-sweep' },
-		{ cat: 'Desktop', name: 'Native desktop in Rust', line: 'GPUI and gpui-starter, for apps that open fast and stay small.', stack: ['Rust', 'GPUI'], preset: 'hammered-copper' },
-		{ cat: 'Web', name: 'Web app on the edge', line: 'Svelte and TypeScript on Cloudflare, quick on a bad connection.', stack: ['Svelte', 'TypeScript', 'Cloudflare'], preset: 'etched-silk' },
-		{ cat: 'Web', name: 'API and database', line: 'Node and Postgres behind your app, with tests that run in CI.', stack: ['Node', 'Postgres'], preset: 'mineral-fault' },
-		{ cat: 'Terminal', name: 'Command-line tool', line: 'A Rust binary your team installs with one command.', stack: ['Rust'], preset: 'oxide-bloom' }
+	const playbooks: (Work & { cat: string })[] = [
+		{ cat: 'Phone', kind: 'Phone', name: 'Phone app that works offline', dek: 'iPhone and Android from one Flutter codebase, still useful with no signal.', meta: 'Flutter', art: 'phone' },
+		{ cat: 'Desktop', kind: 'Desktop', name: 'Desktop app with Tauri', dek: 'Your web UI in a native window on Mac, Windows and Linux, signed and updating.', meta: 'Tauri · Svelte · Rust', art: 'webview' },
+		{ cat: 'Desktop', kind: 'Desktop', name: 'Native desktop in Rust', dek: 'GPUI and gpui-starter, for apps that open fast and stay small.', meta: 'Rust · GPUI', art: 'native' },
+		{ cat: 'Web', kind: 'Web', name: 'Web app on the edge', dek: 'Svelte and TypeScript on Cloudflare, quick on a bad connection.', meta: 'Svelte · TypeScript · Cloudflare', art: 'edge' },
+		{ cat: 'Web', kind: 'Web', name: 'API and database', dek: 'Node and Postgres behind your app, with tests that run in CI.', meta: 'Node · Postgres', art: 'database' },
+		{ cat: 'Terminal', kind: 'Terminal', name: 'Command-line tool', dek: 'A Rust binary your team installs with one command.', meta: 'Rust', art: 'terminal' }
 	];
 	const cats = ['All', 'Phone', 'Desktop', 'Web', 'Terminal'];
 
@@ -43,22 +42,11 @@
 			</button>
 		{/each}
 	</div>
-	<div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+	<div class="grid gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
 		{#each shown as p (p.name)}
-			<a animate:flip={{ duration: still ? 0 : 300 }} href={here} class="group flex min-w-0 flex-col rounded-2xl p-2 ring-1 ring-foreground/10 transition-shadow hover:ring-foreground/30 focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none">
-				<div class="relative aspect-[3/2] overflow-hidden rounded-xl">
-					<ShaderMaterial preset={p.preset} rendering="image" loading="lazy" controls={false} sizes="(min-width: 1024px) 25vw, 50vw" class="absolute inset-0 h-full w-full transition-transform duration-700 ease-[cubic-bezier(.2,.7,.2,1)] group-hover:scale-110 motion-reduce:transition-none motion-reduce:group-hover:scale-100" />
-					<span class="absolute top-2 left-2 rounded-full bg-background px-2 py-0.5 font-mono text-[10px] tracking-wide text-foreground uppercase">{p.cat}</span>
-					<span class="absolute top-2 right-2 grid size-7 place-items-center rounded-full bg-background text-foreground transition-[background-color,color,rotate] duration-300 group-hover:rotate-45 group-hover:bg-primary group-hover:text-primary-foreground motion-reduce:transition-none"><ArrowUpRight class="lucide size-3.5" /></span>
-				</div>
-				<div class="flex flex-1 flex-col px-2 pt-3 pb-2">
-					<h4 class="text-[17px] font-medium tracking-[-0.01em] text-foreground">{p.name}</h4>
-					<p class="mt-1 text-[14px] leading-snug text-foreground/80">{p.line}</p>
-					<p class="mt-auto flex flex-wrap gap-1.5 pt-4">
-						{#each p.stack as t (t)}<span class="rounded-md px-1.5 py-0.5 font-mono text-[11px] text-foreground ring-1 ring-foreground/15">{t}</span>{/each}
-					</p>
-				</div>
-			</a>
+			<div animate:flip={{ duration: still ? 0 : 300 }} class="flex min-w-0">
+				<WorkCard work={p} href={here} class="w-full" />
+			</div>
 		{/each}
 	</div>
 </div>
