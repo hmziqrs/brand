@@ -497,6 +497,42 @@
       "astroItem": "pricing-plans"
     },
     {
+      "name": "PricingPage",
+      "group": "site",
+      "svelte": "site-pricing-pricing-page--torii-tools",
+      "astro": "pricing-page",
+      "svelteFile": "blocks/site/pricing-page.svelte",
+      "svelteItem": "pricing-page",
+      "astroItem": "pricing-page"
+    },
+    {
+      "name": "PricingCard",
+      "group": "site",
+      "svelte": "site-pricing-pricing-card--default",
+      "astro": "pricing-card",
+      "svelteFile": "blocks/site/pricing-card.svelte",
+      "svelteItem": "pricing-card",
+      "astroItem": "pricing-card"
+    },
+    {
+      "name": "PricingCompare",
+      "group": "site",
+      "svelte": "site-pricing-pricing-compare--torii-tools",
+      "astro": "pricing-compare",
+      "svelteFile": "blocks/site/pricing-compare.svelte",
+      "svelteItem": "pricing-compare",
+      "astroItem": "pricing-compare"
+    },
+    {
+      "name": "FaqSection",
+      "group": "site",
+      "svelte": "site-pricing-faq-section--default",
+      "astro": "faq-section",
+      "svelteFile": "blocks/site/faq-section.svelte",
+      "svelteItem": "faq-section",
+      "astroItem": "faq-section"
+    },
+    {
       "name": "Price",
       "group": "site",
       "svelte": "site-pricing-pricing-plans--default",
@@ -2726,6 +2762,15 @@
       "svelteFile": "components/pixel-name.svelte",
       "svelteItem": "pixel-name",
       "astroItem": "pixel-name"
+    },
+    {
+      "name": "DotField",
+      "group": "brand",
+      "svelte": "custom-dot-field--default",
+      "astro": "dot-field",
+      "svelteFile": "components/dot-field.svelte",
+      "svelteItem": "dot-field",
+      "astroItem": "dot-field"
     },
     {
       "name": "HeatField",

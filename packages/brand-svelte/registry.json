@@ -1476,6 +1476,25 @@
 			]
 		},
 		{
+			"name": "dot-field",
+			"type": "registry:lib",
+			"title": "dot-field",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/components/dot-field.svelte",
+					"type": "registry:file",
+					"target": "components/dot-field.svelte"
+				}
+			]
+		},
+		{
 			"name": "dot-footer",
 			"type": "registry:lib",
 			"title": "dot-footer",
@@ -1639,6 +1658,26 @@
 					"path": "src/lib/blocks/content/faq-list.svelte",
 					"type": "registry:file",
 					"target": "blocks/content/faq-list.svelte"
+				}
+			]
+		},
+		{
+			"name": "faq-section",
+			"type": "registry:lib",
+			"title": "faq-section",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:question",
+				"local:questions",
+				"local:section-head",
+				"local:site-blocks-shared"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/site/faq-section.svelte",
+					"type": "registry:file",
+					"target": "blocks/site/faq-section.svelte"
 				}
 			]
 		},
@@ -2280,6 +2319,7 @@
 				"local:docs-pager",
 				"local:docs-search",
 				"local:docs-title",
+				"local:dot-field",
 				"local:dot-footer",
 				"local:dot-name",
 				"local:drag-window",
@@ -2288,6 +2328,7 @@
 				"local:empty-state",
 				"local:error-state",
 				"local:faq-list",
+				"local:faq-section",
 				"local:feature-cards",
 				"local:feature-grid",
 				"local:filter-chip",
@@ -2360,6 +2401,9 @@
 				"local:post-list",
 				"local:post-meta",
 				"local:price",
+				"local:pricing-card",
+				"local:pricing-compare",
+				"local:pricing-page",
 				"local:pricing-plans",
 				"local:product-hero",
 				"local:product-window",
@@ -3420,6 +3464,78 @@
 					"path": "src/lib/blocks/site/price.svelte",
 					"type": "registry:file",
 					"target": "blocks/site/price.svelte"
+				}
+			]
+		},
+		{
+			"name": "pricing-card",
+			"type": "registry:lib",
+			"title": "pricing-card",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:button-link",
+				"local:check-list",
+				"local:corner-rings",
+				"local:line-art",
+				"local:site-blocks-shared",
+				"local:tag",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/site/pricing-card.svelte",
+					"type": "registry:file",
+					"target": "blocks/site/pricing-card.svelte"
+				}
+			]
+		},
+		{
+			"name": "pricing-compare",
+			"type": "registry:lib",
+			"title": "pricing-compare",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@lucide/svelte@^1.52.0"
+			],
+			"registryDependencies": [
+				"local:button-link",
+				"local:section-head",
+				"local:segmented",
+				"local:site-blocks-shared",
+				"local:ui-switch",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/site/pricing-compare.svelte",
+					"type": "registry:file",
+					"target": "blocks/site/pricing-compare.svelte"
+				}
+			]
+		},
+		{
+			"name": "pricing-page",
+			"type": "registry:lib",
+			"title": "pricing-page",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:container",
+				"local:dot-field",
+				"local:faq-section",
+				"local:pricing-card",
+				"local:pricing-compare",
+				"local:segmented",
+				"local:site-blocks-shared",
+				"local:tag",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/site/pricing-page.svelte",
+					"type": "registry:file",
+					"target": "blocks/site/pricing-page.svelte"
 				}
 			]
 		},
@@ -4626,13 +4742,20 @@
 			"type": "registry:lib",
 			"title": "site-blocks-shared",
 			"description": "Files from \"site-blocks-shared\" the pieces roster does not list yet; they become their own items when their plan finishes and this script is re-run.",
-			"dependencies": [],
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
 			"registryDependencies": [],
 			"files": [
 				{
 					"path": "src/lib/blocks/site/plan.ts",
 					"type": "registry:file",
 					"target": "blocks/site/plan.ts"
+				},
+				{
+					"path": "src/lib/blocks/site/pricing-types.ts",
+					"type": "registry:file",
+					"target": "blocks/site/pricing-types.ts"
 				}
 			]
 		},

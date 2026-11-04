@@ -86,6 +86,15 @@ picture, as `ReleaseTimeline` does for each line. A picture's parts carry a
 spot (`data-lit`) inside the block, and the block sends `spot-change` for
 anything the picture redraws itself.
 
+The pricing pages (`PricingPage`, `PricingCard`, `PricingCompare`,
+`FaqSection`, `DotField`) are the Svelte kit's. Every billing mode's words
+render and `blocks/site/pricing-mode.ts` shows the one the page's `Segmented`
+(`data-pricing-mode`) asks for, inside the nearest `[data-pricing-root]`.
+`PricingCompare` narrows its rows in place (`data-differs`), lights the column
+under the cursor with `data-lit`, and shows one plan at a time on a phone with
+`data-show`; its differences switch is Starwind's, sized to the Svelte one.
+`PricingPlans` takes a `lifetime` price on a `Plan` the same way.
+
 `$brand` points at `src/` here, and at the folder the kit is installed into
 in a copied project (`src/components/brand`). Kit files import each other
 through `$brand`, never through long relative paths.
