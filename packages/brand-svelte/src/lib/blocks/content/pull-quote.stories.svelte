@@ -40,3 +40,9 @@
 		<PullQuote variant="tldr">Zero-admin blog on Astro + Cloudflare Pages. AI handled implementation, I handled architecture.</PullQuote>
 	</div>
 </Story>
+
+<Story name="Oxide" asChild>
+	<div class="max-w-[40rem] px-6">
+		<PullQuote variant="oxide" repeated>{goal}</PullQuote>
+	</div>
+</Story>

@@ -75,6 +75,7 @@ export type { Plan } from "./blocks/site/plan.js";
 
 // Content-page blocks (content-blocks.md).
 export { default as BlogLayout } from "./blocks/content/blog-layout.svelte";
+export { default as Byline } from "./blocks/content/byline.svelte";
 export { default as CodeEditor } from "./blocks/content/code-editor.svelte";
 export { default as ContactChannels } from "./blocks/content/contact-channels.svelte";
 export { default as DocsLayout } from "./blocks/content/docs-layout.svelte";
@@ -100,6 +101,7 @@ export { default as ReleaseHead } from "./blocks/content/release-head.svelte";
 export { default as ReleaseNotes } from "./blocks/content/release-notes.svelte";
 export { default as ReleaseTimeline } from "./blocks/content/release-timeline.svelte";
 export { default as ShareBar } from "./blocks/content/share-bar.svelte";
+export { default as TopicCards } from "./blocks/content/topic-cards.svelte";
 export { default as TypingTerminal } from "./blocks/content/typing-terminal.svelte";
 export type { PostBlock, PostItem, PostSection, TopicShelf, TopicTone } from "./blocks/content/types.js";
 

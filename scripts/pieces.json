@@ -1137,6 +1137,24 @@
       "astroItem": "post-meta"
     },
     {
+      "name": "Byline",
+      "group": "content",
+      "svelte": "content-blog-byline--default",
+      "astro": "not yet",
+      "svelteFile": "blocks/content/byline.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "TopicCards",
+      "group": "content",
+      "svelte": "content-blog-topic-cards--default",
+      "astro": "not yet",
+      "svelteFile": "blocks/content/topic-cards.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
       "name": "DocsLayout",
       "group": "content",
       "svelte": "content-docs-layout--default",

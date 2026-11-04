@@ -59,3 +59,15 @@
 		</div>
 	</div>
 </Story>
+
+<Story name="Rail" asChild>
+	<div class="grid grid-cols-[12rem_minmax(0,1fr)] gap-x-16 px-6 py-8">
+		<aside><PostContents items={items} variant="rail" class="sticky top-24" /></aside>
+		<div class="min-w-0">
+			{#each items as item (item.id)}
+				<h2 id={item.id} class="mt-14 scroll-mt-28 text-[1.75rem] leading-tight font-medium tracking-[-0.025em]">{item.label}</h2>
+				<p class="mt-5 max-w-[40rem] text-[1.125rem] leading-[1.75]">The section the contents list links to. Scroll, and the line beside the one you're reading turns oxide.</p>
+			{/each}
+		</div>
+	</div>
+</Story>
