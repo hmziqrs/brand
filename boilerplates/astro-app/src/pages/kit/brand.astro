@@ -63,6 +63,7 @@ import CatalogCard from "$brand/components/catalog-card.astro";
 import FlowSteps from "$brand/components/flow-steps.astro";
 import LineArt from "$brand/components/line-art.astro";
 import PictureCard from "$brand/components/picture-card.astro";
+import PostMeta from "$brand/blocks/content/post-meta.astro";
 import PictureGrid from "$brand/components/picture-grid.astro";
 import ProjectRows from "$brand/components/project-rows.astro";
 import ReleaseLoop from "$brand/components/release-loop.astro";
@@ -73,6 +74,7 @@ import { lineArtKinds } from "@hmziq/brand-core/motion/line-art";
 import FlowContent from "../../components/kit/flow-content.astro";
 import StepDemo from "../../components/kit/step-demo.astro";
 import { flow, playbooks, projects, providers, steps, work } from "../../components/kit/features-data";
+import { blogPosts, blogTone, productPosts } from "../../components/kit/blog-data";
 import ThemeInit from "../../components/theme-init.astro";
 import ThemeToggle from "../../components/theme-toggle.astro";
 
@@ -624,7 +626,9 @@ const windowCode = `pub fn users(cx: &mut App) -> Query<Vec<User>> {
           ))
         }
       </div>
-      <p class="text-[0.8125rem] text-muted-foreground">The twelve drawings at rest; the part nearest the cursor lights in oxide.</p>
+      <p class="text-[0.8125rem] text-muted-foreground">The twenty drawings at rest; the part nearest the cursor lights in oxide. The last eight are the post drawings, whose line stays 1.25px at any size.</p>
+      <div class="relative aspect-[16/10] overflow-hidden rounded-2xl ring-1 ring-foreground/10 sm:aspect-[2/1] lg:aspect-[5/2]"><LineArt kind="laptop" fit /></div>
+      <p class="text-[0.8125rem] text-muted-foreground">A post drawing as a cover, letterboxed in a wider frame: with fit, the cursor maps onto the drawing itself.</p>
     </section>
 
     <section id="piece-picture-card" class="flex flex-col gap-4 border-t pt-8">
@@ -634,6 +638,43 @@ const windowCode = `pub fn users(cx: &mut App) -> Query<Vec<User>> {
         <PictureCard title="Command-line tool" tag="Terminal" dek="A Rust binary your team installs with one command." meta="Rust" art="terminal" />
       </div>
       <p class="text-[0.8125rem] text-muted-foreground">A line drawing with a Tag, the title, a dek and the meta; the drawing follows the cursor across the card.</p>
+      <div class="grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          blogPosts.slice(2, 5).map((p) => (
+            <PictureCard title={p.title} dek={p.summary} art={p.art} as="h3">
+              <PostMeta slot="head" post={{ ...p, updated: undefined }} tone={blogTone} />
+            </PictureCard>
+          ))
+        }
+      </div>
+      <p class="text-[0.8125rem] text-muted-foreground">The post card: the post's PostMeta in the head slot over a heading title.</p>
+      <PictureCard title={blogPosts[7].title} dek={blogPosts[7].summary} art={blogPosts[7].art} as="h2" size="xl" layout="split" more="Read the post">
+        <Fragment slot="head">
+          <span class="font-mono text-[11px] tracking-[0.14em] text-primary uppercase">Start here</span>
+          <PostMeta post={blogPosts[7]} tone={blogTone} />
+        </Fragment>
+      </PictureCard>
+      <p class="text-[0.8125rem] text-muted-foreground">The lead: xl, split beside its drawing from lg up, with a Read the post line.</p>
+      <div class="grid gap-x-8 gap-y-14 md:grid-cols-2">
+        {
+          blogPosts.slice(0, 2).map((p) => (
+            <PictureCard title={p.title} dek={p.summary} art={p.art} as="h3" size="lg">
+              <PostMeta slot="head" post={p} tone={blogTone} />
+            </PictureCard>
+          ))
+        }
+      </div>
+      <p class="text-[0.8125rem] text-muted-foreground">A pair of leads at lg.</p>
+      <div class="grid gap-x-6 gap-y-6 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          productPosts.slice(1, 4).map((p) => (
+            <PictureCard title={p.title} dek={p.summary} as="h3">
+              <PostMeta slot="head" post={p} tone={blogTone} />
+            </PictureCard>
+          ))
+        }
+      </div>
+      <p class="text-[0.8125rem] text-muted-foreground">Without a drawing, the card wears the thin ring itself.</p>
     </section>
 
     <section id="piece-picture-grid" class="flex flex-col gap-4 border-t pt-8">

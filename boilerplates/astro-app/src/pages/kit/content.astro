@@ -13,6 +13,8 @@ import SiteLayout from "$brand/blocks/site/site-layout.astro";
 import ButtonLink from "$brand/blocks/site/button-link.astro";
 import Kicker from "$brand/blocks/site/kicker.astro";
 import Prose from "$brand/blocks/site/prose.astro";
+import Byline from "$brand/blocks/content/byline.astro";
+import TopicCards from "$brand/blocks/content/topic-cards.astro";
 import PostCard from "$brand/blocks/content/post-card.astro";
 import PostContents from "$brand/blocks/content/post-contents.astro";
 import PostHeader from "$brand/blocks/content/post-header.astro";
@@ -39,6 +41,7 @@ import CodeEditor from "$brand/blocks/content/code-editor.astro";
 import ThemeInit from "../../components/theme-init.astro";
 import ThemeToggle from "../../components/theme-toggle.astro";
 import { channels, faq, releases, topicTone } from "../../lib/example";
+import { blogAuthor, blogPosts, blogTone, blogTopics } from "../../components/kit/blog-data";
 
 const posts = [
   { title: "The example post, using every Markdown element", summary: "One post that renders every row of the Markdown table.", date: "September 18, 2026", readingTime: "3 min read", topic: "Engineering", href: "/blog/example-every-element" },
@@ -52,6 +55,13 @@ const toc = [
   { id: "piece-post-contents", label: "PostContents" },
   { id: "piece-share-bar", label: "ShareBar" },
 ];
+
+const lead = blogPosts[7];
+const rows = blogPosts.map((p, i) => ({ ...p, number: blogPosts.length - i, updated: undefined }));
+const shelf = blogTopics.map((topic) => {
+  const mine = blogPosts.filter((p) => p.topic === topic);
+  return { topic, count: mine.length, minutes: mine.reduce((sum, p) => sum + (p.minutes ?? 0), 0), latest: mine[0]?.title };
+});
 ---
 
 <SiteLayout site="example" maker="the kit" layout="page" mainClassName="gap-14 pt-12 pb-20 md:pt-20" head={{ site: "freeoxide", title: "Content blocks — the kit", description: "Every content-page block the Astro kit ships.", url: "https://example.com/kit/content" }}>
@@ -83,6 +93,24 @@ const toc = [
           <Kicker>Without one, the larger title</Kicker>
           <PostHeader title="The example post, without a cover" summary="No cover, so the title takes the page-intro size." date="September 2, 2026" readingTime="2 min read" topic="Notes" tone={topicTone} />
         </div>
+        <div class="flex flex-col gap-3">
+          <Kicker>Wide, the post page's own header, its drawing the cover</Kicker>
+          <PostHeader
+            layout="wide"
+            title={lead.title}
+            summary={lead.summary}
+            date={lead.date}
+            readingTime={lead.readingTime}
+            updated={lead.updated}
+            topic={lead.topic}
+            tone={blogTone}
+            author={blogAuthor}
+            back={{ label: "All posts", href: "#" }}
+            tags={(lead.tags ?? []).map((label) => ({ label, href: "#" }))}
+            art={lead.art}
+            class="-mx-6 w-auto"
+          />
+        </div>
       </div>
     </section>
 
@@ -99,6 +127,10 @@ const toc = [
               landmark-unique violation, and the gallery shows both variants. */}
           <PostContents items={toc} variant="float" label="On this page, floating" />
         </div>
+        <div class="flex flex-col gap-3">
+          <Kicker>Rail, the wide post page's sticky column</Kicker>
+          <PostContents items={toc} variant="rail" label="On this page, as a rail" class="max-w-[12rem]" />
+        </div>
       </div>
     </section>
 
@@ -109,6 +141,7 @@ const toc = [
         <PullQuote variant="ring">Hanging ring: a line pulled out of the text, on an orange ring.</PullQuote>
         <PullQuote variant="signed" sign="the lab's README">Signed, for quoting someone else, with their name under it.</PullQuote>
         <PullQuote variant="tldr" sign="the plan">The TL;DR-style box, when the line is the whole point of the section.</PullQuote>
+        <PullQuote variant="oxide" repeated class="max-w-[40rem]">My personal goal is to never outsource the thinking.</PullQuote>
       </div>
     </section>
 
@@ -157,6 +190,10 @@ const toc = [
         <Kicker>Archive</Kicker>
         <PostList posts={posts} tone={topicTone} variant="archive" />
       </div>
+      <div class="flex flex-col gap-3">
+        <Kicker>Rows, numbered, each one floating its drawing beside the cursor</Kicker>
+        <PostList posts={rows} tone={blogTone} variant="rows" />
+      </div>
     </section>
 
     <section id="piece-post-card" class="flex flex-col gap-4 border-t pt-8">
@@ -169,6 +206,24 @@ const toc = [
     <section id="piece-post-meta" class="flex flex-col gap-4 border-t pt-8">
       <h2 class="text-lg font-medium">PostMeta</h2>
       <PostMeta post={posts[2]} tone={topicTone} />
+    </section>
+
+    <section id="piece-byline" class="flex flex-col gap-8 border-t pt-8">
+      <h2 class="text-lg font-medium">Byline</h2>
+      <div class="flex flex-col gap-3">
+        <Kicker>Under the title</Kicker>
+        <Byline name={blogAuthor.name} symbol={blogAuthor.symbol} />
+      </div>
+      <div class="flex flex-col gap-3">
+        <Kicker>At the end of the post, with where to find them</Kicker>
+        <Byline name={blogAuthor.name} symbol={blogAuthor.symbol} links={blogAuthor.links} />
+      </div>
+    </section>
+
+    <section id="piece-topic-cards" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">TopicCards</h2>
+      <TopicCards items={shelf} value="All" tone={blogTone} />
+      <p class="text-[0.8125rem] text-muted-foreground">Pick a topic, then pick it again to clear it; each pick sends a topic-change event, as TopicChips does.</p>
     </section>
 
     <section id="piece-docs-layout" class="flex flex-col gap-4 border-t pt-8">

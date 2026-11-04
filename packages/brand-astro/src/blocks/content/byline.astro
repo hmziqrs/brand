@@ -1,0 +1,46 @@
+---
+import { Link } from "@lucide/astro";
+import { siGithub, siX } from "simple-icons";
+import { cn } from "$brand/utils";
+import Mark from "$brand/components/mark.astro";
+import BrandIcon from "$brand/components/brand-icon.astro";
+
+/*
+ * Who wrote a post: their mark, a mono Written by over the name, and with
+ * links a hairline and the places to find them, X and GitHub by their logos.
+ */
+
+interface Props {
+  name: string;
+  /** Their two-letter mark. */
+  symbol: string;
+  /** Where to find them, each named by its label: X and GitHub show their logos. */
+  links?: { label: string; href: string }[];
+  /** The words over the name. */
+  label?: string;
+  class?: string;
+}
+
+const { name, symbol, links = [], label = "Written by", class: className } = Astro.props;
+const logos: Record<string, { path: string }> = { X: siX, GitHub: siGithub };
+---
+
+<div data-slot="byline" class={cn("flex items-center gap-3", className)}>
+  <Mark symbol={symbol} size={36} />
+  <div class="flex min-w-0 flex-col leading-tight">
+    <span class="font-mono text-[11px] tracking-[0.14em] text-muted-foreground uppercase">{label}</span>
+    <span class="mt-1 text-[0.9375rem] font-medium text-foreground">{name}</span>
+  </div>
+  {
+    links.length > 0 && (
+      <Fragment>
+        <span class="mx-1 h-6 w-px bg-border" aria-hidden="true" />
+        {links.map((l) => (
+          <a href={l.href} target="_blank" rel="noopener" aria-label={`${name} on ${l.label}`} class="grid size-8 place-items-center rounded-full text-foreground/75 hover:text-foreground">
+            {logos[l.label] ? <BrandIcon icon={logos[l.label]} class={l.label === "X" ? "size-3.5" : "size-4"} /> : <Link class="lucide size-4" />}
+          </a>
+        ))}
+      </Fragment>
+    )
+  }
+</div>

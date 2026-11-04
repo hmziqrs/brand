@@ -78,7 +78,9 @@ export { default as TopicChips } from "./blocks/site/topic-chips.astro";
 export type { Plan } from "./blocks/site/plan";
 
 // Content-page blocks (content-blocks.md).
+export { default as BlogIndex } from "./blocks/content/blog-index.astro";
 export { default as BlogLayout } from "./blocks/content/blog-layout.astro";
+export { default as Byline } from "./blocks/content/byline.astro";
 export { default as CodeEditor } from "./blocks/content/code-editor.astro";
 export { default as ContactChannels } from "./blocks/content/contact-channels.astro";
 export { default as DocsLayout } from "./blocks/content/docs-layout.astro";
@@ -91,9 +93,11 @@ export { default as KindTag } from "./blocks/content/kind-tag.astro";
 export { default as LegalBlock } from "./blocks/content/legal-block.astro";
 export { default as LegalLayout } from "./blocks/content/legal-layout.astro";
 export { default as LegalSection } from "./blocks/content/legal-section.astro";
+export { default as MagazineIndex } from "./blocks/content/magazine-index.astro";
 export { default as NewsletterBand } from "./blocks/content/newsletter-band.astro";
 export { default as NotFound } from "./blocks/content/not-found.astro";
 export { default as PastReleases } from "./blocks/content/past-releases.astro";
+export { default as PostArticle } from "./blocks/content/post-article.astro";
 export { default as PostCard } from "./blocks/content/post-card.astro";
 export { default as PostContents } from "./blocks/content/post-contents.astro";
 export { default as PostHeader } from "./blocks/content/post-header.astro";
@@ -104,7 +108,9 @@ export { default as ReleaseHead } from "./blocks/content/release-head.astro";
 export { default as ReleaseNotes } from "./blocks/content/release-notes.astro";
 export { default as ReleaseTimeline } from "./blocks/content/release-timeline.astro";
 export { default as ShareBar } from "./blocks/content/share-bar.astro";
+export { default as TopicCards } from "./blocks/content/topic-cards.astro";
 export { default as TypingTerminal } from "./blocks/content/typing-terminal.astro";
+export type { PostBlock, PostItem, PostSection, TopicShelf, TopicTone } from "./blocks/content/types";
 
 // App blocks (app-blocks.md).
 export { default as AppPage } from "./blocks/app/shell/app-page.astro";

@@ -57,6 +57,20 @@ that the classes read. Picking bubbles events, the Starwind way:
 `catalog-pick` (a `CatalogCard`, with its id) and `picture-filter` (a
 `PictureGrid` pill, with its group).
 
+The blog pages (`MagazineIndex`, `PostArticle`, `BlogIndex`) and their parts
+(`Byline`, `TopicCards`) sit in `blocks/content/`; `PictureCard` takes the
+post's meta in a `head` slot, `PostHeader` a `wide` layout, `PostContents` a
+`rail` and `PullQuote` an `oxide` card, as in the Svelte kit. What Svelte
+renders again on a pick is rendered ahead of time here: `MagazineIndex`
+renders the latest once per topic and shows one, and `PostList` with
+`promote` renders every post as the featured card too, so `BlogIndex` can
+feature the first post its search and topic leave. `TopicCards` bubble the
+same `topic-change` event as `TopicChips`. `PostList`'s `rows` keep one
+`held` `LineArt` per post in the floating preview, all following the list,
+and show the one you point at. `SearchBox` takes the Svelte kit's input size
+through classes on Starwind's input (h-9, px-2.5, text-sm from md) and a
+rounded-md frame.
+
 `$brand` points at `src/` here, and at the folder the kit is installed into
 in a copied project (`src/components/brand`). Kit files import each other
 through `$brand`, never through long relative paths.

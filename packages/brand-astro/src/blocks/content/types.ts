@@ -1,4 +1,5 @@
 import type { Tone } from "@hmziq/brand-core/tones";
+import type { LineArtKind } from "@hmziq/brand-core/motion/line-art";
 
 /*
  * The shapes the content blocks take; the kits keep them next to the blocks
@@ -21,7 +22,28 @@ export type PostItem = {
   /** The post's category, as a colored tag. */
   topic?: string;
   href?: string;
+  /** The post's line drawing: its picture on cards, its cover and its preview in a row. */
+  art?: LineArtKind;
+  /** Its tags, without the #. */
+  tags?: string[];
+  /** Its reading time in minutes, for a topic's total. */
+  minutes?: number;
+  /** Its number on the blog, oldest first. */
+  number?: number;
 };
+
+/** One block of a post's text: a paragraph, a list, code, or links out with a line each. */
+export type PostBlock =
+  | { kind: "p"; text: string }
+  | { kind: "list"; items: string[] }
+  | { kind: "code"; text: string; lang?: "bash" | "json" | "python" | "rust" | "toml" | "typescript" | "text" }
+  | { kind: "links"; items: { label: string; href: string; text: string }[] };
+
+/** A part of a post: its heading's id and title, then its blocks. */
+export type PostSection = { id: string; title: string; blocks: PostBlock[] };
+
+/** A post's topic on a front page: how many posts, their minutes and the newest one's title. */
+export type TopicShelf = { topic: string; count: number; minutes?: number; latest?: string };
 
 /** A page in the docs menu. */
 export type DocsPage = { title: string; href: string };

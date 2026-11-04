@@ -1,0 +1,56 @@
+---
+// The blog pages, each block across the whole width as a page wears it:
+// the magazine index of blog.hmziq.rs, a post article and the product blog
+// index of claude-multi, with the real posts. ?post=product shows the
+// product blog's post instead of the main blog's: one article per page,
+// so its contents rail is the page's only "On this page". The section ids
+// are the pieces' anchors in scripts/pieces.json.
+import Container from "$brand/blocks/site/container.astro";
+import PageIntro from "$brand/blocks/site/page-intro.astro";
+import SiteLayout from "$brand/blocks/site/site-layout.astro";
+import BlogIndex from "$brand/blocks/content/blog-index.astro";
+import MagazineIndex from "$brand/blocks/content/magazine-index.astro";
+import PostArticle from "$brand/blocks/content/post-article.astro";
+import ThemeInit from "../../components/theme-init.astro";
+import ThemeToggle from "../../components/theme-toggle.astro";
+import { blogArticle, blogAuthor, blogLead, blogLede, blogPosts, blogTone, blogTopics, productArticle, productPosts, productTopics } from "../../components/kit/blog-data";
+
+const product = Astro.url.searchParams.get("post") === "product";
+const article = product ? productArticle : blogArticle;
+---
+
+<SiteLayout site="example" maker="the kit" layout="page" mainClassName="gap-14 pt-12 pb-20 md:pt-20" head={{ site: "blog", title: "Blog pages — the kit", description: "The blog's magazine index, post article and product blog index from the Astro kit.", url: "https://example.com/kit/blog" }}>
+  <ThemeInit slot="head" />
+  <ThemeToggle slot="extra" />
+
+  <Container>
+    <PageIntro class="max-w-2xl">
+      <Fragment slot="kicker">The kit · blog pages</Fragment>
+      <Fragment slot="title">Blog pages</Fragment>
+      <Fragment slot="lede">The three blog blocks, each across the whole width: the magazine index, a post article and a product blog index, with the real posts.</Fragment>
+    </PageIntro>
+  </Container>
+
+  <section id="piece-magazine-index" class="flex flex-col gap-4 border-t pt-8">
+    <Container size="wide"><h2 class="text-lg font-medium">MagazineIndex</h2></Container>
+    <MagazineIndex posts={blogPosts} lead={blogLead} topics={blogTopics} tone={blogTone} title="Notes from building software." accent="software." lede={blogLede} />
+    <Container size="wide"><p class="text-[0.8125rem] text-muted-foreground">blog.hmziq.rs: the chips and the topic cards filter the latest; point at a row further back to float its drawing.</p></Container>
+  </section>
+
+  <section id="piece-post-article" class="flex flex-col gap-4 border-t pt-8">
+    <Container size="wide">
+      <h2 class="text-lg font-medium">PostArticle</h2>
+      <p class="text-[0.8125rem] text-muted-foreground">{product ? "The product blog's post, with no drawing: " : "The main blog's post, its drawing the cover: "}<a href={product ? "/kit/blog#piece-post-article" : "/kit/blog?post=product#piece-post-article"} class="text-primary underline underline-offset-3">{product ? "show the main blog's" : "show the product blog's"}</a></p>
+    </Container>
+    <PostArticle {...article} tone={blogTone} author={blogAuthor} back={{ label: "All posts", href: "#" }} tagHref={() => "#"} relatedTitle={product ? "Related posts" : "More from the blog"} />
+  </section>
+
+  <section id="piece-blog-index" class="flex flex-col gap-4 border-t pt-8">
+    <Container size="wide"><h2 class="text-lg font-medium">BlogIndex</h2></Container>
+    <BlogIndex posts={productPosts} topics={productTopics} tone={blogTone}>
+      <Fragment slot="title">The <span class="whitespace-nowrap">claude-multi</span> blog</Fragment>
+      <Fragment slot="lede">Provider notes, model mappings and setup guides for running Claude Code on any provider.</Fragment>
+    </BlogIndex>
+    <Container size="wide"><p class="text-[0.8125rem] text-muted-foreground">claude-multi's blog: type to search the titles, summaries and tags, or pick a topic; the first post left takes the featured card.</p></Container>
+  </section>
+</SiteLayout>
