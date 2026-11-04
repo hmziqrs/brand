@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest"
 import { flowWires } from "../src/motion/flow-wires"
-import { lineArt, lineArtKinds } from "../src/motion/line-art"
+import { followLineArt, lineArt, lineArtKinds, lineArtStroke, postArtKinds } from "../src/motion/line-art"
 import { advanceLoop, bumpPatch, fillVersion, installerState, loopPoint, loopStage, loopStart, loopStops, nearestOnLoop } from "../src/motion/release-loop"
 
 describe("line art", () => {
@@ -17,6 +17,39 @@ describe("line art", () => {
     const lit = (x: number) => lineArt("webview", { x, y: 0.5, on: true, still: false }).findIndex((s) => s.class?.includes("fill-primary"))
     expect(lit(0.05)).not.toBe(lit(0.95))
     expect(lineArt("fan", { x: 0.1, y: 0.9, on: true, still: true })).toEqual(lineArt("fan", { x: 0.5, y: 0.5, on: false, still: true }))
+  })
+
+  it("keeps a post drawing's line thin at any size and the rest scaling with their box", () => {
+    for (const kind of postArtKinds) {
+      expect(lineArtStroke(kind)).toEqual({ "stroke-width": 1.25, "stroke-linecap": "round", "stroke-linejoin": "round" })
+      expect(lineArt(kind, { x: 0.3, y: 0.7, on: true, still: false }).every((s) => s.attrs["vector-effect"] === "non-scaling-stroke")).toBe(true)
+    }
+    expect(lineArtStroke("lanes")).toEqual({ "stroke-width": 1 })
+    expect(lineArt("lanes", { x: 0.3, y: 0.7, on: true, still: false }).some((s) => "vector-effect" in s.attrs)).toBe(false)
+  })
+
+  it("shows one caret on the laptop's lit line and ticks the plan's steps before the lit one", () => {
+    const carets = (y: number) => lineArt("laptop", { x: 0.5, y, on: true, still: false }).filter((s) => s.class?.includes("animate-pulse"))
+    for (const y of [0.1, 0.4, 0.9]) expect(carets(y).filter((s) => s.attrs.display === undefined)).toHaveLength(1)
+    expect(carets(0.2).length).toBe(carets(0.8).length)
+    const ticks = (y: number) => lineArt("plan", { x: 0.5, y, on: true, still: false }).filter((s) => s.class === "stroke-foreground/70" && s.attrs.display === undefined)
+    expect(ticks(0.1)).toHaveLength(0)
+    expect(ticks(0.95)).toHaveLength(3)
+  })
+
+  it("maps the cursor onto a letterboxed drawing with fit, and onto the whole host without", () => {
+    const listeners: Record<string, (e: PointerEvent) => void> = {}
+    const host = { addEventListener: (t: string, f: (e: PointerEvent) => void) => (listeners[t] = f), removeEventListener: () => {}, getBoundingClientRect: () => ({ left: 0, top: 0, width: 500, height: 200 }) }
+    const el = { closest: () => null, parentElement: host, getBoundingClientRect: () => ({ left: 0, top: 0, width: 500, height: 200 }) } as unknown as Element
+    const seen: number[][] = []
+    followLineArt(el, (x, y) => seen.push([x, y]), { fit: true })
+    listeners.pointermove({ clientX: 250, clientY: 100 } as PointerEvent)
+    listeners.pointermove({ clientX: 90, clientY: 0 } as PointerEvent)
+    expect(seen[0]).toEqual([0.5, 0.5])
+    expect(seen[1]).toEqual([0, 0])
+    followLineArt(el, (x, y) => seen.push([x, y]))
+    listeners.pointermove({ clientX: 125, clientY: 50 } as PointerEvent)
+    expect(seen[2]).toEqual([0.25, 0.25])
   })
 })
 

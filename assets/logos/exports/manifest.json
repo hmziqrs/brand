@@ -1,7 +1,7 @@
 {
   "target": "logos",
   "command": "bun run render-assets --only logos",
-  "digest": "2c09f801cd0d3f2e3a6cc796ef1752edab55c50c4c531b35da77e16b713e45ba",
+  "digest": "f5cb3f0f8dd315418f64664575c5fb9e5366e5671a264b35b85d3a377f883be2",
   "renderers": {
     "@resvg/resvg-js": "2.6.2",
     "opentype.js": "2.0.0",
@@ -138,7 +138,7 @@
     },
     {
       "path": "packages/brand-core/src/motion/line-art.ts",
-      "sha256": "aa727da19cf770b8b7ad4e74697a692b68e0a5bb86ec5dafacc1afcc65b43bd3"
+      "sha256": "fd6ef00be3379aa30daf10926421aa60a9ded3b4c8fb85a6c5939222bc6d00b0"
     },
     {
       "path": "packages/brand-core/src/motion/pixel-name.ts",
