@@ -1,5 +1,6 @@
 import type { Component } from 'svelte';
 import IndexMagazine from '$moves/review/blog/index-magazine.svelte';
+import IndexGrid from '$moves/review/blog/index-grid.svelte';
 
 export type BlogCandidate = {
 	id: string;
@@ -27,6 +28,16 @@ export const blogs: BlogCandidate[] = [
 		src: `${dir}/index-magazine.svelte`,
 		component: IndexMagazine,
 		props: { here: here('index-magazine') }
+	},
+	{
+		id: 'index-grid',
+		page: 'index',
+		name: 'Index · interactive grid',
+		line: 'The site-linear blog you starred: a big Posts title, category switch and search that really filter, a three-column grid of the interactive picture cards, the blog’s real changelog as a rail, then the earlier posts.',
+		from: 'site-linear/blog',
+		src: `${dir}/index-grid.svelte`,
+		component: IndexGrid,
+		props: { here: here('index-grid') }
 	}
 ];
 
