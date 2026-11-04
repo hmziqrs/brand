@@ -39,7 +39,7 @@ export type PricingCompareData = {
 	foot: string;
 };
 
-export type PricingFaqData = { title: string; lede: string; items: { q: string; a: string }[] };
+export type PricingFaqData = { title: string; lede?: string; items: { q: string; a: string }[] };
 
 export type PricingHeroData = { kicker: string; title: string; accent: string; lede: string };
 
