@@ -19,6 +19,8 @@ export type LabEntry = {
 /** A labs page's words, numbers and repositories. */
 export type LabsIndexData = {
   kicker: string
+  /** Seeds the rings on the first stat tile. */
+  seed: string
   title: [string, string]
   lede: string
   github: string
