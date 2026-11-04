@@ -31,7 +31,7 @@ import {
 } from 'simple-icons';
 
 export const brand = 'Contextline';
-export const base = '#/p/site-dovetail';
+export const base = '#';
 export const to = (slug: string) => `${base}/${slug}`;
 
 export type Tool = { name: string; icon: { path: string } };

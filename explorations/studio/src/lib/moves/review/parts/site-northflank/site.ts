@@ -1,5 +1,5 @@
 export const BRAND = 'ferrous';
-export const ROOT = '#/p/site-northflank';
+export const ROOT = '#';
 export const to = (slug: string) => `${ROOT}/${slug}`;
 
 export type NavLink = { label: string; href: string; line?: string };

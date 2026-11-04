@@ -5,7 +5,7 @@
 	import TerminalChip from '$moves/review/parts/northflank/terminal-chip.svelte';
 	import MonoLabel from '$moves/review/parts/northflank/mono-label.svelte';
 
-	const here = '#/p/northflank/gpui-starter-1';
+	const here = '#';
 	const heroStack: IsoCluster[] = [
 		{ at: [0, 0], size: [9, 9], height: 1, tone: 'steel', rust: true, bumps: 16, label: 'src/ · your app' },
 		{ at: [2, -8], size: [3, 3], height: 4, tone: 'ink', label: 'gpui-starter' },

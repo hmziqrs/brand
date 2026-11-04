@@ -1,4 +1,4 @@
-export const base = '#/p/site-clicky';
+export const base = '#';
 export const href = (slug: string) => `${base}/${slug}`;
 
 export const links = [

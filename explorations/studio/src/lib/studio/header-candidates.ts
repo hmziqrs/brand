@@ -16,7 +16,7 @@ export type HeaderCandidate = {
 	props: Record<string, unknown>;
 };
 
-const gq = '#/p/bento/gpui-query-1';
+const gq = '#';
 
 export const headers: HeaderCandidate[] = [
 	{

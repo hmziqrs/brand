@@ -8,7 +8,7 @@
 	import RustGridField from '$moves/review/parts/flora/rust-grid-field.svelte';
 	import SerifItalicHeadline from '$moves/review/parts/flora/serif-italic-headline.svelte';
 
-	const here = '#/p/flora/oxlabs-3';
+	const here = '#';
 	let playing = $state(true);
 </script>
 
