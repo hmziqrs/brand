@@ -51,7 +51,7 @@
 			</li>
 		{/each}
 	</ul>
-	{#if fine && current}
+	{#if fine && current && current.art}
 		<div
 			aria-hidden="true"
 			class="pointer-events-none absolute top-0 left-0 z-10 hidden aspect-[16/10] w-72 overflow-hidden rounded-xl bg-background shadow-xl ring-1 ring-foreground/15 md:block"

@@ -8,21 +8,21 @@ export type BlogPost = {
 	slug: string;
 	title: string;
 	summary: string;
-	category: Category;
+	category: string;
 	date: string;
 	month: string;
-	minutes: number;
+	minutes?: number;
 	updated?: string;
 	tags: string[];
-	art: BlogArtKind;
+	art?: BlogArtKind;
 	real?: boolean;
 };
 
 export const categories: Category[] = ['Engineering', 'Projects', 'Notes'];
 
-const tones: Record<Category, Tone> = { Engineering: 'blue', Projects: 'green', Notes: 'orange' };
+const tones: Record<string, Tone> = { Engineering: 'blue', Projects: 'green', Notes: 'orange', Providers: 'blue', Workflow: 'green', Releases: 'orange', 'Deep dives': 'purple' };
 
-export const topicTone = (topic: string): Tone | undefined => tones[topic as Category];
+export const topicTone = (topic: string): Tone | undefined => tones[topic];
 
 export const posts: BlogPost[] = [
 	{
@@ -129,14 +129,14 @@ export const item = (p: BlogPost, full = false): PostItem => ({
 	title: p.title,
 	summary: p.summary,
 	date: p.date,
-	readingTime: `${p.minutes} min read`,
+	readingTime: p.minutes ? `${p.minutes} min read` : undefined,
 	updated: full ? p.updated : undefined,
 	topic: p.category
 });
 
 export const shelf = categories.map((c) => {
 	const list = posts.filter((p) => p.category === c);
-	return { category: c, count: list.length, minutes: list.reduce((a, p) => a + p.minutes, 0), latest: list[0] };
+	return { category: c, count: list.length, minutes: list.reduce((a, p) => a + (p.minutes ?? 0), 0), latest: list[0] };
 });
 
 export const updatedOn = posts[0].date;
@@ -182,7 +182,7 @@ export const releases: Release[] = [
 	}
 ];
 
-export type Block = { kind: 'p'; text: string } | { kind: 'links'; items: { label: string; href: string; text: string }[] };
+export type Block = { kind: 'p'; text: string } | { kind: 'list'; items: string[] } | { kind: 'code'; text: string } | { kind: 'links'; items: { label: string; href: string; text: string }[] };
 
 export type Section = { id: string; title: string; blocks: Block[] };
 
@@ -273,3 +273,27 @@ export const toc = (prefix: string) => sections.map((s) => ({ id: `${prefix}-${s
 export function scrollToId(id: string) {
 	document.getElementById(id)?.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
 }
+
+export type PostContent = {
+	post: BlogPost;
+	intro: string;
+	tldr?: string;
+	sections: Section[];
+	quote?: { text: string; section: string; after: number };
+	url: string;
+	related: BlogPost[];
+	relatedTitle: string;
+	back: string;
+};
+
+export const mainContent: PostContent = {
+	post: real,
+	intro,
+	tldr,
+	sections,
+	quote: { text: pulled, section: 'vibe-coding', after: 3 },
+	url: postUrl,
+	related: related.slice(0, 3),
+	relatedTitle: 'More from the blog',
+	back: 'All posts'
+};
