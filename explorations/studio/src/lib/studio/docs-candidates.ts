@@ -1,0 +1,81 @@
+import type { Component } from 'svelte';
+import DocsReference from '$moves/review/docs/docs-reference.svelte';
+import DocsGuide from '$moves/review/docs/docs-guide.svelte';
+import { docsSites } from '$moves/review/docs/content';
+
+export type DocsProduct = keyof typeof docsSites;
+
+export type DocsCandidate = {
+	id: string;
+	product: DocsProduct;
+	pick: 'recommended' | 'alternative';
+	name: string;
+	line: string;
+	why?: string;
+	from: string;
+	src: string;
+	component: Component<any>;
+	props: Record<string, unknown>;
+};
+
+export const docsProducts: Record<DocsProduct, { label: string; footer: string; current: string }> = {
+	'claude-multi': { label: 'claude-multi.hmziq.xyz/docs', footer: 'heat', current: 'Docs' },
+	'gpui-query': { label: 'gpui-query.freeoxide.com/docs', footer: 'current', current: 'Docs' }
+};
+
+const dir = 'src/lib/moves/review/docs';
+const here = (id: string) => `#/c/docs/${id}`;
+const props = (id: string, product: DocsProduct) => ({ site: docsSites[product], here: here(id), prefix: id });
+const kit = 'the kit’s Docs - gpui-query page (DocsLayout’s three columns, DocsTitle, CodeBlock, Notice, DocsPager) and content/docs-1, which you kept';
+const guide = 'the kit’s docs pieces in a guide layout: DocsSearch grown into a search over every heading, PostContents’ rail inside the menu, and each section’s code pinned beside its words';
+
+export const docsCandidates: DocsCandidate[] = [
+	{
+		id: 'claude-multi-reference',
+		product: 'claude-multi',
+		pick: 'recommended',
+		name: 'claude-multi · three-column reference',
+		line: 'The kit’s docs page under claude-multi’s header: the line menu with its search on the left, the page in the middle, the contents rail on the right. All seven live pages, word for word; the menu, the pager and the links between pages switch pages here.',
+		why: 'It is the kit’s own docs page, the Starlight shape both live sites already use, with the thin rings you asked for on docs-1.',
+		from: kit,
+		src: `${dir}/docs-reference.svelte`,
+		component: DocsReference,
+		props: props('claude-multi-reference', 'claude-multi')
+	},
+	{
+		id: 'claude-multi-guide',
+		product: 'claude-multi',
+		pick: 'alternative',
+		name: 'claude-multi · guide with code beside',
+		line: 'A search bar that stays under the header and finds any page or heading, the menu with this page’s contents folded under it, and each section’s commands pinned beside its words on wide screens. Same pages, same pieces.',
+		from: guide,
+		src: `${dir}/docs-guide.svelte`,
+		component: DocsGuide,
+		props: props('claude-multi-guide', 'claude-multi')
+	},
+	{
+		id: 'gpui-query-reference',
+		product: 'gpui-query',
+		pick: 'recommended',
+		name: 'gpui-query · three-column reference',
+		line: 'The same reference page for gpui-query, opening on Installation like the kit’s story, with all 20 live pages and their notes, cautions and tips word for word.',
+		why: 'The same design as claude-multi’s pick, so every product’s docs read alike; only the header, the pages and the footer change.',
+		from: kit,
+		src: `${dir}/docs-reference.svelte`,
+		component: DocsReference,
+		props: props('gpui-query-reference', 'gpui-query')
+	},
+	{
+		id: 'gpui-query-guide',
+		product: 'gpui-query',
+		pick: 'alternative',
+		name: 'gpui-query · guide with code beside',
+		line: 'The guide layout for gpui-query: the sticky search over all 20 pages, contents under the current page, and the Rust beside each section, which suits an API with this much code.',
+		from: guide,
+		src: `${dir}/docs-guide.svelte`,
+		component: DocsGuide,
+		props: props('gpui-query-guide', 'gpui-query')
+	}
+];
+
+export const docsCandidate = (id: string) => docsCandidates.find((c) => c.id === id);
