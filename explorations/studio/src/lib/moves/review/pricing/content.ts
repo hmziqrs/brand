@@ -1,36 +1,15 @@
-import type { LineArtKind } from '@hmziq/brand-core/motion/line-art';
+import type { PricingBilling, PricingCompareData, PricingFaqData, PricingHeroData, PricingTier } from '$brand/blocks/site/pricing-types.js';
 
 export type PricingKind = 'studio' | 'product';
 
-export type Cell = boolean | string;
-
-export type Tier = {
-	name: string;
-	tab: string;
-	for: string;
-	art: LineArtKind;
-	amount: [string, string];
-	unit: string;
-	short: [string, string];
-	note: [string, string];
-	cta: string;
-	act: string;
-	pick?: boolean;
-	badge?: string;
-	items: string[];
-};
-
-export type Group = { name: string; rows: [string, ...Cell[]][] };
-
 export type Pricing = {
 	kind: PricingKind;
-	hero: { kicker: string; title: string; accent: string; lede: string };
-	alt: { title: string; accent: string; lede: string; cta: string };
-	billing: { label: string; options: [string, string] };
+	hero: PricingHeroData;
+	billing: PricingBilling;
 	example: string;
-	tiers: Tier[];
-	compare: { title: string; accent: string; lede: string; corner: string; groups: Group[]; foot: string };
-	faq: { title: string; lede: string; items: { q: string; a: string }[] };
+	tiers: PricingTier[];
+	compare: PricingCompareData;
+	faq: PricingFaqData;
 };
 
 export const pricing: Record<PricingKind, Pricing> = {
@@ -42,12 +21,6 @@ export const pricing: Record<PricingKind, Pricing> = {
 			accent: 'before any code.',
 			lede: 'Fixed projects or retainer, from one small studio across the stack. Every engagement starts with a written plan and a number we both sign.'
 		},
-		alt: {
-			title: 'Pick the work. See the number.',
-			accent: 'See the number.',
-			lede: 'Choose the disciplines and the weeks. The estimate is what the written plan would say, give or take a week, priced three ways.',
-			cta: 'Start a project'
-		},
 		billing: { label: 'Commitment', options: ['Month to month', 'A quarter, 10% off'] },
 		example: 'oxlabs.dev publishes no prices yet. Every number on this page is an example.',
 		tiers: [
@@ -57,7 +30,7 @@ export const pricing: Record<PricingKind, Pricing> = {
 				for: 'One week of focused work: calls with your team, a read of the codebase, a written plan we both sign off on.',
 				art: 'plan',
 				amount: ['$2,400', '$2,400'],
-				unit: 'fixed',
+				unit: ['fixed', 'fixed'],
 				short: ['fixed · about a week', 'fixed · about a week'],
 				note: ['About a week, paid up front', 'About a week, paid up front'],
 				cta: 'Book a discovery week',
@@ -70,7 +43,7 @@ export const pricing: Record<PricingKind, Pricing> = {
 				for: 'A build with its scope and price agreed in writing. Production from week one, behind a flag.',
 				art: 'modules',
 				amount: ['$12,000', '$12,000'],
-				unit: 'from, per project',
+				unit: ['from, per project', 'from, per project'],
 				short: ['from · per project', 'from · per project'],
 				note: ['Fixed price, paid in milestones', 'Fixed price, paid in milestones'],
 				cta: 'Start a project',
@@ -85,7 +58,7 @@ export const pricing: Record<PricingKind, Pricing> = {
 				for: 'A standing slice of the studio for a product that keeps moving: features, fixes, upgrades.',
 				art: 'queue',
 				amount: ['$9,600', '$8,640'],
-				unit: 'a month',
+				unit: ['a month', 'a month'],
 				short: ['a month', 'a month · billed quarterly'],
 				note: ['Month to month, 30 days’ notice', 'Billed quarterly, 10% off'],
 				cta: 'Talk about a retainer',
@@ -98,7 +71,7 @@ export const pricing: Record<PricingKind, Pricing> = {
 				for: 'Single-discipline work with a clear edge: an audit, a migration, a stubborn bug.',
 				art: 'tools',
 				amount: ['$650', '$585'],
-				unit: 'a day',
+				unit: ['a day', 'a day'],
 				short: ['a day', 'a day · 10-day block'],
 				note: ['Booked two days or more at a time', 'Booked as a ten-day block, 10% off'],
 				cta: 'Book days',
@@ -186,13 +159,7 @@ export const pricing: Record<PricingKind, Pricing> = {
 			accent: 'Pro when it’s work.',
 			lede: 'torii.tools is a native request client for the desktop, built in Rust on GPUI. Everything that runs on your machine is free; pay for sync, tests in CI and a shared workspace.'
 		},
-		alt: {
-			title: 'One price per person. Requests stay free.',
-			accent: 'Requests stay free.',
-			lede: 'Send as many requests as you like on every plan. Pick how many people need sync and shared workspaces, and see what it costs.',
-			cta: 'Download free'
-		},
-		billing: { label: 'Billing', options: ['Monthly', 'Yearly, 2 months free'] },
+		billing: { label: 'Billing', options: ['Monthly', 'Yearly, 2 months free', 'Lifetime'] },
 		example: 'torii.tools has no paid plans yet. Plans, prices and features here are examples.',
 		tiers: [
 			{
@@ -200,10 +167,10 @@ export const pricing: Record<PricingKind, Pricing> = {
 				tab: 'Free',
 				for: 'For one person on one machine. Everything that runs locally, for good.',
 				art: 'laptop',
-				amount: ['$0', '$0'],
-				unit: 'forever',
-				short: ['forever', 'forever'],
-				note: ['No account, no card', 'No account, no card'],
+				amount: ['$0', '$0', '$0'],
+				unit: ['forever', 'forever', 'forever'],
+				short: ['forever', 'forever', 'forever'],
+				note: ['No account, no card', 'No account, no card', 'No account, no card'],
 				cta: 'Download free',
 				act: 'Download',
 				items: ['Unlimited requests and collections', 'HTTP, GraphQL and WebSocket', 'Environments kept on your machine', 'Collections as plain files in Git']
@@ -213,10 +180,10 @@ export const pricing: Record<PricingKind, Pricing> = {
 				tab: 'Pro',
 				for: 'For people who live in it: sync across machines, scripts and runs in CI.',
 				art: 'request',
-				amount: ['$9', '$7.50'],
-				unit: 'a month',
-				short: ['a month', 'a month · billed yearly'],
-				note: ['Billed monthly', 'Billed yearly, $90'],
+				amount: ['$9', '$7.50', '$149'],
+				unit: ['a month', 'a month', 'once'],
+				short: ['a month', 'a month · billed yearly', 'once · one payment'],
+				note: ['Billed monthly', 'Billed yearly, $90', 'One payment, updates for a year'],
 				cta: 'Start 14 days free',
 				act: 'Try Pro',
 				pick: true,
@@ -228,10 +195,10 @@ export const pricing: Record<PricingKind, Pricing> = {
 				tab: 'Team',
 				for: 'For teams that share collections, review each other’s changes and need SSO.',
 				art: 'endpoints',
-				amount: ['$15', '$12.50'],
-				unit: 'per person / month',
-				short: ['per person / month', 'per person / month · yearly'],
-				note: ['Billed monthly', 'Billed yearly, $150 per person'],
+				amount: ['$15', '$12.50', '$299'],
+				unit: ['per person / month', 'per person / month', 'once per seat'],
+				short: ['per person / month', 'per person / month · yearly', 'once per seat'],
+				note: ['Billed monthly', 'Billed yearly, $150 per person', 'One payment per seat, updates for a year'],
 				cta: 'Start a team trial',
 				act: 'Try Team',
 				items: ['Everything in Pro', 'Shared workspaces with roles', 'Comments and review on changes', 'SSO and an audit log']
@@ -301,6 +268,7 @@ export const pricing: Record<PricingKind, Pricing> = {
 				{ q: 'Where does synced data live?', a: 'Collections and environments are encrypted on your machine before they sync, and the key never leaves your devices.' },
 				{ q: 'What counts as a person on Team?', a: 'Anyone who opens a shared workspace. A CI job that runs collections with the CLI does not need a seat.' },
 				{ q: 'Can I switch plans or cancel?', a: 'Any time. Upgrades start now and are prorated; downgrades and cancellations take effect at the end of the period, and your local files stay yours.' },
+				{ q: 'What does a lifetime licence include?', a: 'You keep the version you bought for good and get every update for a year. After that you can renew updates at a discount, or stay on what you have.' },
 				{ q: 'Do you discount for open source and students?', a: 'Yes. Maintainers of open-source projects and students get Pro free; write in from the project’s repository or a school address.' }
 			]
 		}
