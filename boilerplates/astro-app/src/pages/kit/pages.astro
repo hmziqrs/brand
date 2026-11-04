@@ -7,11 +7,10 @@ import LegalPage from "$brand/blocks/content/legal-page.astro";
 import FaqPage from "$brand/blocks/content/faq-page.astro";
 import RichBlocks from "$brand/blocks/content/rich-blocks.astro";
 import CvPage from "$brand/blocks/site/cv-page.astro";
-import LabsIndex from "$brand/blocks/site/labs-index.astro";
 import type { RichBlock } from "@hmziq/brand-core/rich-blocks";
 import ThemeInit from "../../components/theme-init.astro";
 import ThemeToggle from "../../components/theme-toggle.astro";
-import { cvData, faqData, labsData, legalDocs, notFoundData } from "../../components/kit/pages-data";
+import { cvData, faqData, legalDocs, notFoundData } from "../../components/kit/pages-data";
 
 const rich: RichBlock[] = [
   ["p", "claude-multi is a CLI that runs **several Claude Code instances** at once, each with its own `~/.claude-<name>/` directory. See the [docs](https://claude-multi.hmziq.xyz/docs/)."],
@@ -30,7 +29,7 @@ const rich: RichBlock[] = [
 ];
 ---
 
-<SiteLayout site="example" maker="the kit" layout="page" mainClassName="gap-14 pt-12 pb-20 md:pt-20" head={{ site: "blog", title: "Pages — the kit", description: "The 404, legal, FAQ, CV and labs pages from the Astro kit.", url: "https://example.com/kit/pages" }}>
+<SiteLayout site="example" maker="the kit" layout="page" mainClassName="gap-14 pt-12 pb-20 md:pt-20" head={{ site: "blog", title: "Pages — the kit", description: "The 404, legal, FAQ and CV pages from the Astro kit.", url: "https://example.com/kit/pages" }}>
   <ThemeInit slot="head" />
   <ThemeToggle slot="extra" />
 
@@ -38,7 +37,7 @@ const rich: RichBlock[] = [
     <PageIntro class="max-w-2xl">
       <Fragment slot="kicker">The kit · pages</Fragment>
       <Fragment slot="title">Pages</Fragment>
-      <Fragment slot="lede">The 404, the legal documents, the FAQ, the résumé and the labs index across the whole width, and the rich answer blocks they are set in.</Fragment>
+      <Fragment slot="lede">The 404, the legal documents, the FAQ and the résumé across the whole width, and the rich answer blocks they are set in.</Fragment>
     </PageIntro>
   </Container>
 
@@ -78,8 +77,4 @@ const rich: RichBlock[] = [
     <CvPage data={cvData} />
   </section>
 
-  <section id="piece-labs-index" class="flex flex-col gap-4 border-t pt-8">
-    <Container size="wide"><h2 class="text-lg font-medium">LabsIndex</h2></Container>
-    <LabsIndex data={labsData} />
-  </section>
 </SiteLayout>
