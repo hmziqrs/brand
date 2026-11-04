@@ -1,7 +1,7 @@
 {
   "target": "social",
   "command": "bun run render-assets --only social",
-  "digest": "b50b55b2fd4e92faef810fa4227e3d67a7e1f842eecea8d98490cba369c070ae",
+  "digest": "b7d2c069bf2e6baa379bee77db709749cf811fff82bf48abb0b06ced1a783348",
   "renderers": {
     "@resvg/resvg-js": "2.6.2",
     "opentype.js": "2.0.0",
@@ -184,7 +184,7 @@
     },
     {
       "path": "packages/brand-core/src/motion/line-art.ts",
-      "sha256": "aa727da19cf770b8b7ad4e74697a692b68e0a5bb86ec5dafacc1afcc65b43bd3"
+      "sha256": "fd6ef00be3379aa30daf10926421aa60a9ded3b4c8fb85a6c5939222bc6d00b0"
     },
     {
       "path": "packages/brand-core/src/motion/pixel-name.ts",

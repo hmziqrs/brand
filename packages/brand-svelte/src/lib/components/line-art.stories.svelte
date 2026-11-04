@@ -20,3 +20,9 @@
 		{/each}
 	</div>
 </Story>
+
+<Story name="Cover" asChild>
+	<div class="mx-auto max-w-[82rem] px-6 py-12">
+		<div class="relative aspect-[16/10] overflow-hidden rounded-2xl ring-1 ring-foreground/10 sm:aspect-[2/1] lg:aspect-[5/2]"><LineArt kind="laptop" fit /></div>
+	</div>
+</Story>

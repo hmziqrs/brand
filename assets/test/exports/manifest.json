@@ -1,7 +1,7 @@
 {
   "target": "test-card",
   "command": "bun run render-assets --only test-card",
-  "digest": "799e75684c79c32c9e5a82682258e82846aa833c50aa9321287613f57875acc9",
+  "digest": "be91a38b4a0ed49ecb9445acf5ba8e97e5360235d101497576bfda75da37751b",
   "renderers": {
     "@resvg/resvg-js": "2.6.2",
     "opentype.js": "2.0.0",
@@ -92,7 +92,7 @@
     },
     {
       "path": "packages/brand-core/src/motion/line-art.ts",
-      "sha256": "aa727da19cf770b8b7ad4e74697a692b68e0a5bb86ec5dafacc1afcc65b43bd3"
+      "sha256": "fd6ef00be3379aa30daf10926421aa60a9ded3b4c8fb85a6c5939222bc6d00b0"
     },
     {
       "path": "packages/brand-core/src/motion/pixel-name.ts",
