@@ -3,6 +3,7 @@ import IndexMagazine from '$moves/review/blog/index-magazine.svelte';
 import IndexGrid from '$moves/review/blog/index-grid.svelte';
 import IndexRows from '$moves/review/blog/index-rows.svelte';
 import PostClean from '$moves/review/blog/post-clean.svelte';
+import PostMargins from '$moves/review/blog/post-margins.svelte';
 
 export type BlogCandidate = {
 	id: string;
@@ -60,6 +61,16 @@ export const blogs: BlogCandidate[] = [
 		src: `${dir}/post-clean.svelte`,
 		component: PostClean,
 		props: { here: here('post-clean') }
+	},
+	{
+		id: 'post-margins',
+		page: 'post',
+		name: 'Post · margins',
+		line: 'The content/post-1 components without the italic: numbered contents on the left, numbered sections, the fixes as a numbered list and an oxide quote in the column, and the site-dovetail read-next rail on the right, sticky, with two picture cards.',
+		from: 'content/post-1, site-dovetail/post',
+		src: `${dir}/post-margins.svelte`,
+		component: PostMargins,
+		props: { here: here('post-margins') }
 	}
 ];
 
