@@ -17,6 +17,7 @@
 <script lang="ts">
 	import ArrowUpRight from '@lucide/svelte/icons/arrow-up-right';
 	import FileCode from '@lucide/svelte/icons/file-code';
+	import Tag from '$brand/components/tag.svelte';
 	import { cn } from '$brand/utils.js';
 	import { Button } from '$brand/ui/button/index.js';
 	import Mark from '$brand/components/mark.svelte';
@@ -115,7 +116,7 @@
 					<p class="max-w-[46ch] text-lg leading-relaxed text-foreground/85">{p.body}</p>
 					<div><Button href={here} variant="outline" size="lg">Explore {p.name}<ArrowUpRight class="lucide" data-icon="inline-end" /></Button></div>
 					<ul class="mt-auto flex flex-wrap gap-1.5 pt-4">
-						{#each p.facts as f (f)}<li class="rounded-md px-2 py-0.5 font-mono text-[11px] text-foreground ring-1 ring-foreground/15">{f}</li>{/each}
+						{#each p.facts as f (f)}<li><Tag>{f}</Tag></li>{/each}
 					</ul>
 				</div>
 				<div role="presentation" class="relative isolate flex min-h-[22rem] items-center justify-center overflow-hidden p-6 sm:p-10" onpointermove={(e) => move(e, i)} onpointerleave={() => (over = -1)}>
