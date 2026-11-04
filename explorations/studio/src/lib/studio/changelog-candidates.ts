@@ -19,7 +19,7 @@ export type ChangelogCandidate = {
 };
 
 export const changelogSites: Record<ChangelogKind, { label: string; footer: string; current: string | null }> = {
-	main: { label: 'blog.hmziq.rs/changelog', footer: 'calm', current: null },
+	main: { label: 'blog.hmziq.rs/changelog', footer: 'calm', current: 'Changelog' },
 	product: { label: 'claude-multi.hmziq.xyz/changelog', footer: 'heat', current: 'Changelog' }
 };
 
