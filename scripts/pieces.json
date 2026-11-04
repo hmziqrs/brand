@@ -2298,7 +2298,7 @@
     {
       "name": "MaterialCard",
       "group": "brand",
-      "svelte": "custom-material-card--cover",
+      "svelte": "custom-material-card--default",
       "astro": "not yet",
       "svelteFile": "components/material-card.stories.svelte",
       "svelteItem": "not yet",

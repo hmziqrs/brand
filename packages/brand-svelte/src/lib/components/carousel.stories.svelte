@@ -2,11 +2,11 @@
 	import { defineMeta } from '@storybook/addon-svelte-csf'
 	import CardCarousel from './card-carousel.svelte'
 	import FeatureCarousel from './feature-carousel.svelte'
-	import MaterialCard from './material-card.svelte'
+	import PostCard from '$brand/blocks/content/post-card.svelte'
 	import MaterialStage from './material-stage.svelte'
 	import StatusRing from './status-ring.svelte'
 	import QuoteCard from '$brand/blocks/saas/quote-card.svelte'
-	import { posts } from '$brand/blocks/content/stories-data.js'
+	import { posts, topicTone } from '$brand/blocks/content/stories-data.js'
 
 	const { Story } = defineMeta({
 		title: 'Custom/Carousel',
@@ -43,7 +43,7 @@
 
 <Story name="Posts" asChild>
 	<CardCarousel label="From the blog" items={posts} class="max-w-6xl">
-		{#snippet card(p)}<MaterialCard title={p.title} eyebrow={p.topic} body={p.summary} href={p.href} class="w-full">{#snippet footer()}{p.date}{/snippet}</MaterialCard>{/snippet}
+		{#snippet card(p)}<PostCard post={p} tone={topicTone} class="w-full" />{/snippet}
 	</CardCarousel>
 </Story>
 

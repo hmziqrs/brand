@@ -302,7 +302,7 @@
 	{:else if title === "Navigation"}
 		<div class="flex flex-wrap items-center gap-3 rounded-full border py-1.5 pr-1.5 pl-4 text-sm"><Wordmark name="freeoxide" /><span class="ml-4 text-muted-foreground">Projects</span><span class="text-muted-foreground">Writing</span><span class="ml-auto flex items-center gap-1 text-muted-foreground"><Kbd>⌘</Kbd><Kbd>K</Kbd></span><Button size="sm" class="rounded-full">Browse</Button></div>
 	{:else if title === "Cards"}
-		<div class="grid max-w-md grid-cols-2 gap-3"><MaterialCard title="tunnel" preset="copper-sweep" body="A public link." sizes="200px" /><MaterialCard variant="panel" title="oxiwake" preset="liquid-chrome" class="min-h-0" sizes="200px" /></div>
+		<div class="grid max-w-md grid-cols-2 gap-3"><MaterialCard title="tunnel" preset="copper-sweep" body="A public link." class="min-h-0" sizes="200px" /><MaterialCard title="oxiwake" preset="liquid-chrome" class="min-h-0" sizes="200px" /></div>
 	{:else if title === "Data and status"}
 		<div class="flex flex-wrap items-center gap-8"><RingMeter size={84} label="This release" items={[{ label: "Tests", value: 0.97 }, { label: "Covered", value: 0.91 }]} /><MaterialGauge value={0.72} preset="brushed-alloy" class="size-14" /></div>
 	{:else if title === "Input and choices"}
