@@ -1,17 +1,18 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import NavBar from '$brand/components/nav-bar.svelte';
-	import { blog, blogSite } from '$studio/blog-candidates';
+	import { blog, blogSites } from '$studio/blog-candidates';
 	import { footer } from '$studio/footer-candidates';
 
 	const b = $derived(blog(page.params.id ?? ''));
-	const f = footer(blogSite.footer);
+	const site = $derived(blogSites[b?.kind ?? 'main']);
+	const f = $derived(footer(site.footer));
 	const self = $derived(`#/c/blog/${page.params.id ?? ''}`);
 	const links = $derived(
 		(f?.site.nav.links ?? []).map((l) => ({
 			label: l.label,
 			href: self,
-			current: l.label === 'Posts',
+			current: l.label === site.current,
 			children: l.children?.map((c) => ({ label: c.label, description: c.description, href: self }))
 		}))
 	);
@@ -23,7 +24,7 @@
 	<div class="border-b border-border bg-muted/40 text-xs">
 		<div class="mx-auto flex h-9 w-full max-w-[82rem] items-center justify-between gap-4 px-6 text-muted-foreground">
 			<a href="#/review/blog" class="hover:text-foreground">← Back to the blog review</a>
-			<span class="hidden font-mono sm:inline">{b ? `${blogSite.label} · ${b.name}` : ''}</span>
+			<span class="hidden font-mono sm:inline">{b ? `${site.label} · ${b.name}` : ''}</span>
 		</div>
 	</div>
 	{#if b}

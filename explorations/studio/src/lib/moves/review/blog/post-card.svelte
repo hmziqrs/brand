@@ -67,6 +67,7 @@
 	data-layout={layout}
 	class={cn(
 		'group flex min-w-0 flex-col gap-4 outline-none',
+		!post.art && 'rounded-2xl p-6 ring-1 ring-foreground/10 transition-shadow duration-300 hover:ring-foreground/25 focus-visible:ring-3 focus-visible:ring-ring/60 motion-reduce:transition-none',
 		layout === 'split' && 'lg:grid lg:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)] lg:items-center lg:gap-14',
 		row && 'grid grid-cols-[minmax(0,1fr)_7rem] items-start gap-x-5 sm:grid-cols-[minmax(0,1fr)_12rem] md:grid-cols-[minmax(0,1fr)_16rem] md:gap-x-12',
 		wideRow && 'md:grid md:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] md:items-center md:gap-14',
@@ -75,6 +76,7 @@
 	onpointermove={move}
 	onpointerleave={() => (on = false)}
 >
+	{#if post.art}
 	<div
 		class={cn(
 			'relative isolate block aspect-[16/10] overflow-hidden rounded-xl ring-1 ring-foreground/10 transition-shadow duration-300 group-hover:ring-foreground/25 group-focus-visible:ring-3 group-focus-visible:ring-ring/60 motion-reduce:transition-none',
@@ -85,6 +87,7 @@
 	>
 		<BlogArt kind={post.art} x={px} y={py} {on} {still} />
 	</div>
+	{/if}
 	<div class={cn('flex min-w-0 flex-col gap-3', (row || wideRow) && 'md:col-start-1 md:row-start-1', row && 'col-start-1 row-start-1 md:gap-3.5', big && 'gap-5')}>
 		{#if kicker}<span class="font-mono text-[11px] tracking-[0.14em] text-primary uppercase">{kicker}</span>{/if}
 		<PostMeta post={item(post, big)} tone={topicTone} />

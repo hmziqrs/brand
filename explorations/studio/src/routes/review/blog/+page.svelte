@@ -8,8 +8,8 @@
 	import { blogs } from '$studio/blog-candidates';
 
 	const groups = [
-		{ page: 'index', title: 'Blog index', note: 'The posts list. The live blog has one post; the other seven are placeholders built from what that post and the changelog name: torii.tools, vibekit.link, nutter.tools, the newsletter worker, the R2 media pipeline, the markdown endpoints and never outsourcing the thinking.' },
-		{ page: 'post', title: 'Post page', note: 'The live blog’s one post, word for word: “Vibe Coding My Blog in Astro, Deployed on Cloudflare”.' }
+		{ kind: 'main', title: 'Main blog · blog.hmziq.rs', note: 'A blog of its own, with its own header, footer and changelog page. The live blog has one post; the other seven are placeholders built from what that post and its changelog name.' },
+		{ kind: 'product', title: 'Product blog · part of a product', note: 'A blog inside a product site, under that product’s header and footer: claude-multi here, with its live posts. Same post template as the main blog.' }
 	] as const;
 
 	let open = $state<Record<string, boolean>>({});
@@ -22,15 +22,15 @@
 		<div>
 			<a href="#/" class="font-mono text-xs text-muted-foreground hover:text-foreground">← studio</a>
 			<h1 class="mt-2 text-4xl font-medium tracking-tight">Blog</h1>
-			<p class="mt-2 max-w-2xl text-foreground/80">{blogs.length} whole pages for blog.hmziq.rs, each grown from a blog study you kept. Each shows its top part first and runs live: point at the drawings, filter, search. Open one alone to see it between the blog’s NavBar and footer.</p>
+			<p class="mt-2 max-w-2xl text-foreground/80">Two kinds of blog, one post template: the main blog at blog.hmziq.rs, and the blog inside a product. Each shows its top part first and runs live. Open one alone to see it under its own site’s header and footer.</p>
 		</div>
 		<button type="button" aria-label="Toggle theme" class="grid size-9 shrink-0 place-items-center rounded-md border border-border" onclick={() => prefs.toggleTheme()}>
 			{#if prefs.dark}<Sun class="lucide size-4" />{:else}<Moon class="lucide size-4" />{/if}
 		</button>
 	</div>
 
-	{#each groups as g (g.page)}
-		{@const list = blogs.filter((b) => b.page === g.page)}
+	{#each groups as g (g.kind)}
+		{@const list = blogs.filter((b) => b.kind === g.kind)}
 		{#if list.length}
 			<div class="mx-auto max-w-[1400px] px-4 pt-6 pb-4 sm:px-8">
 				<h2 class="font-mono text-xs tracking-widest text-primary uppercase">{g.title}</h2>
