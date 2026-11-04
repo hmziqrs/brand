@@ -336,6 +336,19 @@ changes it per step. `ContactChannels` has a `cards` variant (one card each,
 in oxide, `ExperienceRail` is a career as a line of years. `--company-top`
 is the height of a sticky header the sticky titles sit under.
 
+Pages (also in the Astro kit): `NotFoundPage`, `LegalPage` and `FaqPage` in
+`blocks/content/`, `CvPage` and `LabsIndex` in `blocks/site/`. Each takes its
+words as one data object (core's `not-found-page`, `legal-page`, `faq-search`,
+`cv-page` and `labs-index` types). `NotFoundPage` draws the status in
+`DotName`, which scatters and heats under the cursor. `LegalPage` switches
+documents under `LineTabs` and its "other document" button, with numbered
+`Toc` contents and a sticky closing rail. `FaqPage` narrows its questions with
+core's `faqMatches`, opens what matches and keeps topic contents beside them;
+answers are `RichBlocks` (paragraphs, lists, code, caps notes, definitions;
+`RichText` sets `**bold**`, `code` and links). `CvPage` sets the career on
+`ReleaseTimeline`'s rail and prints black on white with the chrome hidden.
+`--pages-top` is the height of a sticky header the sticky columns sit under.
+
 ## Registry
 
 `registry.json` is generated, never hand-edited: `bun run registry:generate`

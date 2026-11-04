@@ -945,11 +945,6 @@
 					"target": "components/glass-dock.svelte"
 				},
 				{
-					"path": "src/lib/components/line-tabs.svelte",
-					"type": "registry:file",
-					"target": "components/line-tabs.svelte"
-				},
-				{
 					"path": "src/lib/components/liquid-glass.svelte",
 					"type": "registry:file",
 					"target": "components/liquid-glass.svelte"
@@ -1272,6 +1267,36 @@
 					"path": "src/lib/blocks/site/cta-band.svelte",
 					"type": "registry:file",
 					"target": "blocks/site/cta-band.svelte"
+				}
+			]
+		},
+		{
+			"name": "cv-page",
+			"type": "registry:lib",
+			"title": "cv-page",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0",
+				"@lucide/svelte@^1.52.0",
+				"simple-icons@16.32.0"
+			],
+			"registryDependencies": [
+				"local:brand-icon",
+				"local:button-link",
+				"local:container",
+				"local:content-blocks-shared",
+				"local:marker",
+				"local:picture-grid",
+				"local:release-timeline",
+				"local:tag",
+				"local:ui-button",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/site/cv-page.svelte",
+					"type": "registry:file",
+					"target": "blocks/site/cv-page.svelte"
 				}
 			]
 		},
@@ -1869,6 +1894,41 @@
 					"path": "src/lib/blocks/content/faq-list.svelte",
 					"type": "registry:file",
 					"target": "blocks/content/faq-list.svelte"
+				}
+			]
+		},
+		{
+			"name": "faq-page",
+			"type": "registry:lib",
+			"title": "faq-page",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0",
+				"@lucide/svelte@^1.52.0",
+				"simple-icons@16.32.0"
+			],
+			"registryDependencies": [
+				"local:brand-icon",
+				"local:button-link",
+				"local:container",
+				"local:empty-note",
+				"local:question",
+				"local:questions",
+				"local:rich-blocks",
+				"local:search-box",
+				"local:toc",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/content/faq-page.svelte",
+					"type": "registry:file",
+					"target": "blocks/content/faq-page.svelte"
+				},
+				{
+					"path": "src/lib/blocks/content/rich-text.svelte",
+					"type": "registry:file",
+					"target": "blocks/content/rich-text.svelte"
 				}
 			]
 		},
@@ -2523,6 +2583,7 @@
 				"local:copy-button",
 				"local:corner-rings",
 				"local:cta-band",
+				"local:cv-page",
 				"local:data-state",
 				"local:data-table",
 				"local:detail-list",
@@ -2549,6 +2610,7 @@
 				"local:error-state",
 				"local:experience-rail",
 				"local:faq-list",
+				"local:faq-page",
 				"local:faq-section",
 				"local:feature-cards",
 				"local:feature-grid",
@@ -2579,8 +2641,10 @@
 				"local:install-steps",
 				"local:kicker",
 				"local:kind-tag",
+				"local:labs-index",
 				"local:legal-block",
 				"local:legal-layout",
+				"local:legal-page",
 				"local:legal-section",
 				"local:line-art",
 				"local:link-bar",
@@ -2604,6 +2668,7 @@
 				"local:newsletter-band",
 				"local:no-results",
 				"local:not-found",
+				"local:not-found-page",
 				"local:notice",
 				"local:outline-card",
 				"local:page-intro",
@@ -2646,6 +2711,7 @@
 				"local:release-timeline-page",
 				"local:reset-password-form",
 				"local:resolve-title",
+				"local:rich-blocks",
 				"local:ring-field",
 				"local:ring-gauge",
 				"local:ring-stats",
@@ -2796,6 +2862,32 @@
 			]
 		},
 		{
+			"name": "labs-index",
+			"type": "registry:lib",
+			"title": "labs-index",
+			"description": "Site block from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0",
+				"@lucide/svelte@^1.52.0",
+				"simple-icons@16.32.0"
+			],
+			"registryDependencies": [
+				"local:brand-icon",
+				"local:button-link",
+				"local:container",
+				"local:picture-grid",
+				"local:stat-tile",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/site/labs-index.svelte",
+					"type": "registry:file",
+					"target": "blocks/site/labs-index.svelte"
+				}
+			]
+		},
+		{
 			"name": "legal-block",
 			"type": "registry:lib",
 			"title": "legal-block",
@@ -2834,6 +2926,40 @@
 					"path": "src/lib/blocks/content/legal-layout.svelte",
 					"type": "registry:file",
 					"target": "blocks/content/legal-layout.svelte"
+				}
+			]
+		},
+		{
+			"name": "legal-page",
+			"type": "registry:lib",
+			"title": "legal-page",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0",
+				"@lucide/svelte@^1.52.0",
+				"bits-ui@^2.18.0",
+				"simple-icons@16.32.0"
+			],
+			"registryDependencies": [
+				"local:brand-icon",
+				"local:button-link",
+				"local:container",
+				"local:legal-section",
+				"local:rich-blocks",
+				"local:toc",
+				"local:ui-button",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/content/legal-page.svelte",
+					"type": "registry:file",
+					"target": "blocks/content/legal-page.svelte"
+				},
+				{
+					"path": "src/lib/components/line-tabs.svelte",
+					"type": "registry:file",
+					"target": "components/line-tabs.svelte"
 				}
 			]
 		},
@@ -3316,6 +3442,31 @@
 					"path": "src/lib/blocks/content/not-found.svelte",
 					"type": "registry:file",
 					"target": "blocks/content/not-found.svelte"
+				}
+			]
+		},
+		{
+			"name": "not-found-page",
+			"type": "registry:lib",
+			"title": "not-found-page",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0",
+				"@lucide/svelte@^1.52.0"
+			],
+			"registryDependencies": [
+				"local:button-link",
+				"local:container",
+				"local:dot-name",
+				"local:inline-code",
+				"local:picture-card",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/content/not-found-page.svelte",
+					"type": "registry:file",
+					"target": "blocks/content/not-found-page.svelte"
 				}
 			]
 		},
@@ -4216,6 +4367,28 @@
 					"path": "src/lib/components/resolve-title.svelte",
 					"type": "registry:file",
 					"target": "components/resolve-title.svelte"
+				}
+			]
+		},
+		{
+			"name": "rich-blocks",
+			"type": "registry:lib",
+			"title": "rich-blocks",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
+			"registryDependencies": [
+				"local:code-block",
+				"local:faq-page",
+				"local:marker",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/content/rich-blocks.svelte",
+					"type": "registry:file",
+					"target": "blocks/content/rich-blocks.svelte"
 				}
 			]
 		},
