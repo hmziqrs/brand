@@ -1518,6 +1518,27 @@
 			]
 		},
 		{
+			"name": "drag-window",
+			"type": "registry:lib",
+			"title": "drag-window",
+			"description": "Brand piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0",
+				"@lucide/svelte@^1.52.0"
+			],
+			"registryDependencies": [
+				"local:glass",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/components/drag-window.svelte",
+					"type": "registry:file",
+					"target": "components/drag-window.svelte"
+				}
+			]
+		},
+		{
 			"name": "element-card",
 			"type": "registry:lib",
 			"title": "element-card",
@@ -2261,6 +2282,7 @@
 				"local:docs-title",
 				"local:dot-footer",
 				"local:dot-name",
+				"local:drag-window",
 				"local:element-card",
 				"local:empty-note",
 				"local:empty-state",
@@ -2349,10 +2371,14 @@
 				"local:question",
 				"local:questions",
 				"local:record-sheet",
+				"local:release-desk",
+				"local:release-filters",
 				"local:release-head",
 				"local:release-loop",
 				"local:release-notes",
+				"local:release-picture",
 				"local:release-timeline",
+				"local:release-timeline-page",
 				"local:reset-password-form",
 				"local:resolve-title",
 				"local:ring-field",
@@ -3627,11 +3653,66 @@
 			]
 		},
 		{
+			"name": "release-desk",
+			"type": "registry:lib",
+			"title": "release-desk",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0",
+				"@lucide/svelte@^1.52.0"
+			],
+			"registryDependencies": [
+				"local:big-numbers",
+				"local:button-link",
+				"local:container",
+				"local:content-blocks-shared",
+				"local:drag-window",
+				"local:material-wash",
+				"local:product-hero",
+				"local:release-filters",
+				"local:release-head",
+				"local:release-notes",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/content/release-desk.svelte",
+					"type": "registry:file",
+					"target": "blocks/content/release-desk.svelte"
+				}
+			]
+		},
+		{
+			"name": "release-filters",
+			"type": "registry:lib",
+			"title": "release-filters",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0",
+				"@lucide/svelte@^1.52.0"
+			],
+			"registryDependencies": [
+				"local:content-blocks-shared",
+				"local:search-box",
+				"local:topic-chips",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/content/release-filters.svelte",
+					"type": "registry:file",
+					"target": "blocks/content/release-filters.svelte"
+				}
+			]
+		},
+		{
 			"name": "release-head",
 			"type": "registry:lib",
 			"title": "release-head",
 			"description": "Content piece from the hmziq brand kit (BRAND.md section 9).",
-			"dependencies": [],
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0"
+			],
 			"registryDependencies": [
 				"local:content-blocks-shared",
 				"local:kicker",
@@ -3674,11 +3755,13 @@
 			"title": "release-notes",
 			"description": "Content piece from the hmziq brand kit (BRAND.md section 9).",
 			"dependencies": [
+				"@hmziq/brand-core@0.0.0",
 				"@lucide/svelte@^1.52.0"
 			],
 			"registryDependencies": [
 				"local:code-block",
 				"local:content-blocks-shared",
+				"local:inline-code",
 				"local:kind-tag",
 				"local:utils"
 			],
@@ -3687,6 +3770,24 @@
 					"path": "src/lib/blocks/content/release-notes.svelte",
 					"type": "registry:file",
 					"target": "blocks/content/release-notes.svelte"
+				}
+			]
+		},
+		{
+			"name": "release-picture",
+			"type": "registry:lib",
+			"title": "release-picture",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [],
+			"registryDependencies": [
+				"local:tag",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/content/release-picture.svelte",
+					"type": "registry:file",
+					"target": "blocks/content/release-picture.svelte"
 				}
 			]
 		},
@@ -3706,6 +3807,35 @@
 					"path": "src/lib/blocks/content/release-timeline.svelte",
 					"type": "registry:file",
 					"target": "blocks/content/release-timeline.svelte"
+				}
+			]
+		},
+		{
+			"name": "release-timeline-page",
+			"type": "registry:lib",
+			"title": "release-timeline-page",
+			"description": "Content piece from the hmziq brand kit (BRAND.md section 9).",
+			"dependencies": [
+				"@hmziq/brand-core@0.0.0",
+				"@lucide/svelte@^1.52.0"
+			],
+			"registryDependencies": [
+				"local:big-numbers",
+				"local:button-link",
+				"local:container",
+				"local:content-blocks-shared",
+				"local:page-intro",
+				"local:past-releases",
+				"local:release-filters",
+				"local:release-picture",
+				"local:release-timeline",
+				"local:utils"
+			],
+			"files": [
+				{
+					"path": "src/lib/blocks/content/release-timeline-page.svelte",
+					"type": "registry:file",
+					"target": "blocks/content/release-timeline-page.svelte"
 				}
 			]
 		},

@@ -1,0 +1,79 @@
+---
+import { Move } from "@lucide/astro";
+import { cn } from "$brand/utils";
+import Glass from "./glass.astro";
+
+/*
+ * A frosted glass window you drag by its title bar: three dots, a title and
+ * a drag hint over what it holds (the default slot). It stays inside the
+ * closest `bounds` element, lifts its shadow while held, and goes back home
+ * on a double click. Off `drag`, it is the same window, held still.
+ */
+
+interface Props {
+  title: string;
+  /** Let the title bar drag the window. */
+  drag?: boolean;
+  /** A selector for the element the window stays inside; its parent when none matches. */
+  bounds?: string;
+  class?: string;
+}
+
+const { title, drag = true, bounds = "[data-window-bounds]", class: className } = Astro.props;
+---
+
+<figure data-slot="drag-window" data-bounds={bounds} class={cn("group/window relative m-0 data-[held]:z-30", className)}>
+  <Glass
+    variant="frost"
+    class="overflow-hidden rounded-xl border border-background/25 shadow-[0_1px_0_0_color-mix(in_oklab,white_30%,transparent)_inset,0_30px_70px_-28px_color-mix(in_oklab,black_55%,transparent)] transition-shadow duration-200 group-data-[held]/window:shadow-[0_1px_0_0_color-mix(in_oklab,white_30%,transparent)_inset,0_44px_90px_-30px_color-mix(in_oklab,black_70%,transparent)] motion-reduce:transition-none dark:border-foreground/25"
+  >
+    <div role="presentation" data-drag-handle={drag || undefined} class={cn("relative flex h-11 items-center border-b border-foreground/10 px-4 select-none", drag && "cursor-grab touch-none active:cursor-grabbing")}>
+      <span aria-hidden="true" class="flex gap-2"><i class="size-3 rounded-full bg-red"></i><i class="size-3 rounded-full bg-yellow"></i><i class="size-3 rounded-full bg-green"></i></span>
+      <span class="absolute inset-x-20 truncate text-center font-mono text-[13px] text-foreground/75 sm:inset-x-24">{title}</span>
+      {drag && <span class="ml-auto inline-flex items-center gap-1.5 font-mono text-[11px] text-foreground/70"><Move class="lucide size-3.5" /><span class="hidden sm:inline">drag</span></span>}
+    </div>
+    <slot />
+  </Glass>
+</figure>
+
+<script>
+  import { dragClamp, dragRoom } from "@hmziq/brand-core/changelog";
+
+  type Hold = { box: HTMLElement; px: number; py: number; x: number; y: number; room: ReturnType<typeof dragRoom> };
+  let hold: Hold | null = null;
+
+  const at = (box: HTMLElement) => ({ x: Number(box.dataset.x ?? 0), y: Number(box.dataset.y ?? 0) });
+  const place = (box: HTMLElement, x: number, y: number) => {
+    box.dataset.x = String(x);
+    box.dataset.y = String(y);
+    box.style.translate = x || y ? `${x}px ${y}px` : "";
+  };
+  const release = () => {
+    hold?.box.removeAttribute("data-held");
+    hold = null;
+  };
+
+  document.addEventListener("pointerdown", (event) => {
+    const handle = (event.target as Element | null)?.closest?.<HTMLElement>("[data-drag-handle]");
+    const box = handle?.closest<HTMLElement>("[data-slot='drag-window']");
+    if (!handle || !box || event.button !== 0) return;
+    const host = box.closest<HTMLElement>(box.dataset.bounds ?? "[data-window-bounds]") ?? box.parentElement;
+    if (!host) return;
+    const now = at(box);
+    hold = { box, px: event.clientX, py: event.clientY, ...now, room: dragRoom(host.getBoundingClientRect(), box.getBoundingClientRect(), now) };
+    box.setAttribute("data-held", "");
+    handle.setPointerCapture(event.pointerId);
+  });
+  document.addEventListener("pointermove", (event) => {
+    if (!hold) return;
+    const { box, px, py, x, y, room } = hold;
+    place(box, dragClamp(x + event.clientX - px, room.left, room.right), dragClamp(y + event.clientY - py, room.top, room.bottom));
+  });
+  document.addEventListener("pointerup", release);
+  document.addEventListener("pointercancel", release);
+  document.addEventListener("dblclick", (event) => {
+    const handle = (event.target as Element | null)?.closest?.<HTMLElement>("[data-drag-handle]");
+    const box = handle?.closest<HTMLElement>("[data-slot='drag-window']");
+    if (box) place(box, 0, 0);
+  });
+</script>

@@ -1,0 +1,118 @@
+---
+import { ArrowUpRight } from "@lucide/astro";
+import { dateLabel, dateTime } from "@hmziq/brand-core/changelog";
+import { cn } from "$brand/utils";
+import ProductHero from "$brand/blocks/sections/product-hero.astro";
+import MaterialWash from "$brand/components/material-wash.astro";
+import DragWindow from "$brand/components/drag-window.astro";
+import Container from "$brand/blocks/site/container.astro";
+import BigNumbers from "$brand/blocks/site/big-numbers.astro";
+import ButtonLink from "$brand/blocks/site/button-link.astro";
+import ReleaseHead from "./release-head.astro";
+import ReleaseNotes from "./release-notes.astro";
+import ReleaseFilters from "./release-filters.astro";
+import type { ChangeSpots, Release, ReleaseLink } from "./types";
+
+/*
+ * A changelog page as a desk, on the wide Container: the kit's ProductHero
+ * on the site's material with the latest release beside the words in a
+ * DragWindow (the default slot: what the release made; give its parts a
+ * `data-spot` to link them to the release's changes), then every release
+ * with its head sticky in a column beside its title and changes. Big
+ * numbers, ReleaseFilters and folding the older releases come with
+ * `numbers`, `filters` and `open`.
+ */
+
+interface Props {
+  /** Every release, newest first. */
+  releases: Release[];
+  title: string;
+  /** The part of the title in oxide. */
+  accent?: string;
+  lede: string;
+  /** The site's material behind the hero. */
+  preset?: string;
+  /** The window's title: the address or file it shows. */
+  windowTitle: string;
+  /** Big numbers over the list: `[value, label]`. */
+  numbers?: [string, string][];
+  /** Search and kind chips over the list. */
+  filters?: boolean;
+  /** How many releases stay open; the rest fold to their first change. */
+  open?: number;
+  /** The parts of the window the latest release's changes name. */
+  spots?: ChangeSpots;
+  /** The closing buttons. */
+  links?: ReleaseLink[];
+  /** The search box's label. */
+  search?: string;
+  class?: string;
+}
+
+const { releases, title, accent, lede, preset = "copper-sweep", windowTitle, numbers, filters = false, open = 4, spots, links, search, class: className } = Astro.props;
+
+const latest = releases[0];
+const folds = Math.max(0, releases.length - open);
+---
+
+<div data-slot="release-desk" data-releases data-spots data-keep={open} class={cn("pb-24 md:pb-32", className)}>
+  <ProductHero title={title} accent={accent} lede={lede}>
+    {latest && <p slot="eyebrow" class="text-[0.8125rem] text-muted-foreground">Latest <span class="font-mono font-semibold text-foreground">v{latest.v}</span> · <time datetime={dateTime(latest.date)}>{dateLabel(latest.date)}</time></p>}
+    <MaterialWash slot="stage" preset={preset} />
+    <DragWindow slot="visual" title={windowTitle} bounds="[data-slot=product-hero]" class="lg:ml-auto lg:max-w-[40rem]">
+      <slot />
+    </DragWindow>
+  </ProductHero>
+
+  <Container size="wide" class="mt-14 md:mt-20">
+    {numbers && <BigNumbers items={numbers} class="mb-16 md:mb-20" />}
+    {filters && <ReleaseFilters releases={releases} folds={folds} search={search} />}
+
+    <ol class={cn(filters ? "mt-8" : "mt-0")}>
+      {releases.map((r, i) => {
+        const top = r.v === latest?.v;
+        const folded = i >= open;
+        return (
+          <li
+            data-release={r.v}
+            data-folded={folded || undefined}
+            data-shut={folded || undefined}
+            class="group/release grid gap-x-12 gap-y-4 border-t border-border pt-8 pb-12 data-[shut]:pt-6 data-[shut]:pb-8 md:grid-cols-[13rem_minmax(0,1fr)] md:pb-16 md:data-[shut]:pb-8 lg:grid-cols-[15rem_minmax(0,1fr)]"
+          >
+            <div class="md:sticky md:top-24 md:self-start">
+              {top && <p class="mb-2 text-[0.8125rem] font-medium text-primary">Latest release</p>}
+              <ReleaseHead release={r} level={top ? 2 : 3} longDate class="md:flex-col md:items-start md:gap-2" />
+            </div>
+            <div class="min-w-0">
+              {r.title && <p class="text-[1.375rem] leading-snug font-medium tracking-[-0.02em] text-balance text-foreground md:text-[1.625rem]">{r.title}</p>}
+              <ReleaseNotes release={r} variant={folded ? "summary" : "grouped"} full={r} spots={top ? spots : undefined} class={r.title ? undefined : "mt-0"} />
+            </div>
+          </li>
+        );
+      })}
+    </ol>
+    <p data-release-empty hidden class="border-t border-border pt-8 text-lg text-foreground">No change matches “<span data-q></span>”<span data-in></span>.</p>
+
+    {
+      links && links.length > 0 && (
+        <div class="flex flex-wrap gap-3 border-t border-border pt-10">
+          {links.map((l, i) => (
+            <ButtonLink href={l.href} size="lg" variant={i ? "outline" : undefined} target={l.external ? "_blank" : undefined} rel={l.external ? "noopener" : undefined}>
+              {l.label}
+              {l.external && <ArrowUpRight class="lucide" />}
+            </ButtonLink>
+          ))}
+        </div>
+      )
+    }
+  </Container>
+</div>
+
+<script>
+  import { applyReleases, wireReleases } from "./release-list";
+
+  const run = () => document.querySelectorAll<HTMLElement>("[data-slot='release-desk'][data-releases]").forEach(applyReleases);
+  wireReleases();
+  document.addEventListener("astro:page-load", run);
+  run();
+</script>

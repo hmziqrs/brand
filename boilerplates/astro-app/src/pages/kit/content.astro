@@ -41,6 +41,7 @@ import CodeEditor from "$brand/blocks/content/code-editor.astro";
 import ThemeInit from "../../components/theme-init.astro";
 import ThemeToggle from "../../components/theme-toggle.astro";
 import { channels, faq, releases, topicTone } from "../../lib/example";
+import { multiReleases } from "../../components/kit/changelog-data";
 import { blogAuthor, blogPosts, blogTone, blogTopics } from "../../components/kit/blog-data";
 
 const posts = [
@@ -252,6 +253,8 @@ const shelf = blogTopics.map((topic) => {
     <section id="piece-release-timeline" class="flex flex-col gap-4 border-t pt-8">
       <h2 class="text-lg font-medium">ReleaseTimeline</h2>
       <ReleaseTimeline releases={releases} class="max-w-[52rem]" />
+      <Kicker class="mt-4">Rail: thin rings, the latest filled, a line that fills as you scroll</Kicker>
+      <ReleaseTimeline releases={releases} rail latest={releases[0].v} class="max-w-[52rem]" />
     </section>
 
     <section id="piece-past-releases" class="flex flex-col gap-4 border-t pt-8">
@@ -262,6 +265,7 @@ const shelf = blogTopics.map((topic) => {
     <section id="piece-release-head" class="flex flex-col gap-4 border-t pt-8">
       <h2 class="text-lg font-medium">ReleaseHead</h2>
       <ReleaseHead release={releases[0]} level={2} />
+      <ReleaseHead release={releases[0]} level={2} longDate />
     </section>
 
     <section id="piece-kind-tag" class="flex flex-col gap-4 border-t pt-8">
@@ -291,6 +295,10 @@ const shelf = blogTopics.map((topic) => {
       <div class="flex flex-col gap-3">
         <Kicker>Tabs</Kicker>
         <ReleaseNotes release={releases[2]} variant="tabs" class="max-w-[52rem]" />
+      </div>
+      <div class="flex flex-col gap-3">
+        <Kicker>Rich changes: bold leads, code, links and nested lines</Kicker>
+        <ReleaseNotes release={multiReleases[0]} class="max-w-[52rem]" />
       </div>
     </section>
 

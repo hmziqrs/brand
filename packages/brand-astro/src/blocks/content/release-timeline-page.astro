@@ -1,0 +1,117 @@
+---
+import { ArrowUpRight } from "@lucide/astro";
+import { dateLabel, dateTime } from "@hmziq/brand-core/changelog";
+import { cn } from "$brand/utils";
+import Container from "$brand/blocks/site/container.astro";
+import PageIntro from "$brand/blocks/site/page-intro.astro";
+import BigNumbers from "$brand/blocks/site/big-numbers.astro";
+import ButtonLink from "$brand/blocks/site/button-link.astro";
+import PastReleases from "./past-releases.astro";
+import ReleaseFilters from "./release-filters.astro";
+import ReleasePicture from "./release-picture.astro";
+import ReleaseTimeline from "./release-timeline.astro";
+import type { ChangeSpots, Release, ReleaseLink, ReleasePictureInfo } from "./types";
+
+/*
+ * A changelog page as a timeline, on the wide Container: the page intro
+ * with the latest release over the title, big numbers and ReleaseFilters,
+ * then ReleaseTimeline's rail with each release's PastReleases. A release
+ * with a picture (`pictures` for its Tag and caption; a function child,
+ * `(v) => markup`, for what it shows, its parts given a `data-spot` to link
+ * them to the changes) keeps it in view beside its changes. The first
+ * `open` releases show every change; the rest fold, and their pictures
+ * with them.
+ */
+
+interface Props {
+  /** Every release, newest first. */
+  releases: Release[];
+  title: string;
+  /** The part of the title in oxide. */
+  accent?: string;
+  lede: string;
+  /** Big numbers under the intro: `[value, label]`. */
+  numbers?: [string, string][];
+  /** Search and kind chips over the timeline. */
+  filters?: boolean;
+  /** How many releases stay open; the rest fold to their first change. */
+  open?: number;
+  /** The parts of each picture the changes name. */
+  spots?: ChangeSpots;
+  /** The releases with a picture, by version: its Tag and caption. */
+  pictures?: Record<string, ReleasePictureInfo>;
+  /** The closing buttons. */
+  links?: ReleaseLink[];
+  /** The search box's label. */
+  search?: string;
+  class?: string;
+}
+
+const { releases, title, accent, lede, numbers, filters = false, open = 4, spots, pictures = {}, links, search, class: className } = Astro.props;
+
+const latest = releases[0];
+const folds = Math.max(0, releases.length - open);
+const at = accent ? title.indexOf(accent) : -1;
+const parts = at < 0 || !accent ? [title, "", ""] : [title.slice(0, at), accent, title.slice(at + accent.length)];
+const custom = Astro.slots.has("default");
+const shown = Object.keys(pictures).filter((v) => custom && releases.findIndex((r) => r.v === v) >= 0);
+const art: Record<string, string> = Object.fromEntries(await Promise.all(shown.map(async (v) => [v, await Astro.slots.render("default", [v])])));
+---
+
+<div data-slot="release-timeline-page" data-releases data-spots data-keep={open} class={cn("pt-14 pb-24 md:pt-20 md:pb-32", className)}>
+  <Container size="wide">
+    <PageIntro class="max-w-3xl">
+      {latest && <Fragment slot="kicker">Latest <span class="font-mono font-semibold text-foreground">v{latest.v}</span> · <time datetime={dateTime(latest.date)}>{dateLabel(latest.date)}</time></Fragment>}
+      <Fragment slot="title">{parts[0]}{parts[1] && <span class="text-primary">{parts[1]}</span>}{parts[2]}</Fragment>
+      <Fragment slot="lede"><span class="text-foreground/90">{lede}</span></Fragment>
+    </PageIntro>
+    {numbers && <BigNumbers items={numbers} class="mt-14 md:mt-20" />}
+    {filters && <ReleaseFilters releases={releases} folds={folds} search={search} class="mt-14 md:mt-16" />}
+  </Container>
+
+  <Container size="wide" class={filters ? "mt-12" : "mt-14 md:mt-20"}>
+    <ReleaseTimeline releases={releases} rail latest={latest?.v}>
+      {(r: Release, i: number) => {
+        const folded = i >= open;
+        const pic = art[r.v] !== undefined ? pictures[r.v] : undefined;
+        return (
+          <div class={cn(pic && "grid items-start gap-x-14 gap-y-8 group-data-[folded]/release:block lg:grid-cols-[minmax(0,1fr)_minmax(0,1.08fr)]")}>
+            <div class="min-w-0">
+              <PastReleases release={r} level={r.v === latest?.v ? 2 : 3} longDate fold={folded} spots={spots} full={r} />
+            </div>
+            {pic && (
+              <div data-release-picture hidden={folded} class="contents">
+                <ReleasePicture tag={pic.tag} caption={pic.caption} drawing={pic.drawing} class="lg:sticky lg:top-24">
+                  <Fragment set:html={art[r.v]} />
+                </ReleasePicture>
+              </div>
+            )}
+          </div>
+        );
+      }}
+    </ReleaseTimeline>
+    <p data-release-empty hidden class="text-lg text-foreground">No change matches “<span data-q></span>”<span data-in></span>.</p>
+
+    {
+      links && links.length > 0 && (
+        <div class="mt-16 flex flex-wrap gap-3 pl-9 md:mt-20 md:pl-12">
+          {links.map((l, i) => (
+            <ButtonLink href={l.href} size="lg" variant={i ? "outline" : undefined} target={l.external ? "_blank" : undefined} rel={l.external ? "noopener" : undefined}>
+              {l.label}
+              {l.external && <ArrowUpRight class="lucide" />}
+            </ButtonLink>
+          ))}
+        </div>
+      )
+    }
+  </Container>
+</div>
+
+<script>
+  import { applyReleases, wireReleases } from "./release-list";
+
+  const run = () => document.querySelectorAll<HTMLElement>("[data-slot='release-timeline-page'][data-releases]").forEach(applyReleases);
+  wireReleases();
+  document.addEventListener("astro:page-load", run);
+  run();
+</script>

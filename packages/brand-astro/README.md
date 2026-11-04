@@ -71,6 +71,21 @@ and show the one you point at. `SearchBox` takes the Svelte kit's input size
 through classes on Starwind's input (h-9, px-2.5, text-sm from md) and a
 rounded-md frame.
 
+The changelog pages (`ReleaseDesk`, `ReleaseTimelinePage`) and their parts
+(`ReleaseFilters`, `ReleasePicture`, `DragWindow`, `ReleaseTimeline`'s
+`rail`) are the Svelte kit's. Everything renders in full and a script
+narrows it in place (`blocks/content/release-list.ts`): each release is a
+`[data-release]`, each change a `[data-change]` with its words, so the
+search and the kind chip hide changes, kinds and releases, recount the head's
+tags, refold the releases past `open` and swap their first line, and hide a
+folded release's picture. Grouped and summary `ReleaseNotes` share one
+markup for that. The window and the pictures come in as slots; the
+timeline page takes a function child, `(v) => markup`, for each release's
+picture, as `ReleaseTimeline` does for each line. A picture's parts carry a
+`data-spot`: pointing at a change or a part lights every element with that
+spot (`data-lit`) inside the block, and the block sends `spot-change` for
+anything the picture redraws itself.
+
 `$brand` points at `src/` here, and at the folder the kit is installed into
 in a copied project (`src/components/brand`). Kit files import each other
 through `$brand`, never through long relative paths.
