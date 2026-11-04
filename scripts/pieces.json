@@ -3443,6 +3443,87 @@
       "svelteFile": "blocks/micro/motion-ui.stories.svelte",
       "svelteItem": "not yet",
       "astroItem": "not yet"
+    },
+    {
+      "name": "DocsReference",
+      "group": "content",
+      "svelte": "content-docs-reference--gpui-query",
+      "astro": "docs-reference",
+      "svelteFile": "blocks/content/docs-reference.svelte",
+      "svelteItem": "docs-reference",
+      "astroItem": "docs-reference"
+    },
+    {
+      "name": "DocsNav",
+      "group": "content",
+      "svelte": "content-docs-nav--default",
+      "astro": "docs-nav",
+      "svelteFile": "blocks/content/docs-nav.svelte",
+      "svelteItem": "docs-nav",
+      "astroItem": "docs-nav"
+    },
+    {
+      "name": "DocsBlocks",
+      "group": "content",
+      "svelte": "content-docs-blocks--default",
+      "astro": "docs-blocks",
+      "svelteFile": "blocks/content/docs-blocks.svelte",
+      "svelteItem": "docs-blocks",
+      "astroItem": "docs-blocks"
+    },
+    {
+      "name": "ContactDirect",
+      "group": "site",
+      "svelte": "site-company-contact-page--oxlabs-dev",
+      "astro": "contact-direct",
+      "svelteFile": "blocks/site/contact-direct.svelte",
+      "svelteItem": "contact-direct",
+      "astroItem": "contact-direct"
+    },
+    {
+      "name": "AboutEssay",
+      "group": "site",
+      "svelte": "site-company-about-page--oxlabs-dev",
+      "astro": "about-essay",
+      "svelteFile": "blocks/site/about-essay.svelte",
+      "svelteItem": "about-essay",
+      "astroItem": "about-essay"
+    },
+    {
+      "name": "BookSteps",
+      "group": "site",
+      "svelte": "sections-book-steps--default",
+      "astro": "book-steps",
+      "svelteFile": "blocks/sections/book-steps.svelte",
+      "svelteItem": "book-steps",
+      "astroItem": "book-steps"
+    },
+    {
+      "name": "CommitmentCards",
+      "group": "site",
+      "svelte": "sections-commitment-cards--default",
+      "astro": "commitment-cards",
+      "svelteFile": "blocks/sections/commitment-cards.svelte",
+      "svelteItem": "commitment-cards",
+      "astroItem": "commitment-cards"
+    },
+    {
+      "name": "Book",
+      "group": "brand",
+      "svelte": "custom-book--default",
+      "astro": "book",
+      "svelteFile": "components/book.svelte",
+      "svelteItem": "book",
+      "astroItem": "book"
+    },
+    {
+      "name": "ExperienceRail",
+      "group": "brand",
+      "svelte": "custom-experience-rail--default",
+      "astro": "experience-rail",
+      "svelteFile": "components/experience-rail.svelte",
+      "svelteItem": "experience-rail",
+      "astroItem": "experience-rail"
     }
   ]
 }

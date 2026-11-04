@@ -316,6 +316,26 @@ plan at a time. `PricingPlans` takes a `lifetime` price on a `Plan` and adds a
 Lifetime option to its switch. Example prices live in the stories and in the
 studio, never in the pieces.
 
+Docs reference page (also in the Astro kit), `DocsReference` in
+`blocks/content/`: a product's whole docs in `DocsLayout`'s three columns. It
+takes a `DocsSiteData` (core's `docs-reference` types: a menu, pages of blocks
+in reading order, the start page) and renders the blocks with the kit's own
+pieces through `DocsBlocks` (`CodeBlock`, `Notice`, `DataTable`, `Bullets`,
+`InstallBlock`), the menu through `DocsNav`, the title with `DocsTitle thin`.
+The menu, the pager and links between pages switch pages in place
+(`<here>#~<key>`, core's `docsLinker` rewrites `/docs/...` links), the search
+filters the menu and the contents rail follows the page. The site's words live
+in the studio and the stories, never in the pieces.
+
+Company pages (also in the Astro kit), `ContactDirect` and `AboutEssay` in
+`blocks/site/`. The `Book` is a closed 3D book whose tilt toward a mouse
+(never touch, never reduced motion) is core's `motion/book` pose, not hover
+movement; a click or tap turns it over. `BookSteps` puts steps beside it and
+changes it per step. `ContactChannels` has a `cards` variant (one card each,
+`oxide` for the first), `CommitmentCards` is the numbered cards with the first
+in oxide, `ExperienceRail` is a career as a line of years. `--company-top`
+is the height of a sticky header the sticky titles sit under.
+
 ## Registry
 
 `registry.json` is generated, never hand-edited: `bun run registry:generate`

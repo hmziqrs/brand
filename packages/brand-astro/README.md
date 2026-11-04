@@ -95,6 +95,17 @@ under the cursor with `data-lit`, and shows one plan at a time on a phone with
 `data-show`; its differences switch is Starwind's, sized to the Svelte one.
 `PricingPlans` takes a `lifetime` price on a `Plan` the same way.
 
+The docs reference page (`DocsReference`, `DocsNav`, `DocsBlocks`) and the
+company pages (`ContactDirect`, `AboutEssay`, `Book`, `BookSteps`,
+`CommitmentCards`, `ExperienceRail`, and `ContactChannels`' cards) are the
+Svelte kit's. `DocsReference` puts every page in the HTML and a script shows
+one (the menu, the pager and `<here>#~<key>` links switch pages; headings need
+ids that are unique across the product's pages); the install block is a
+`CodeBlock` with tabs and a `CheckList`, as `InstallBlock` has no Astro twin.
+`Book` is run by core's `mountBooks` from its own script, and `BookSteps` shows
+one book per step. The about page's person card is inline, as `PersonCard` has
+no Astro twin.
+
 `$brand` points at `src/` here, and at the folder the kit is installed into
 in a copied project (`src/components/brand`). Kit files import each other
 through `$brand`, never through long relative paths.
