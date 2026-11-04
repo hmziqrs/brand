@@ -54,6 +54,7 @@
 		<br /><a href="#/review/docs" class="mt-1 inline-flex items-center gap-2 text-lg font-medium hover:text-primary">Product docs — pick what stays →</a>
 		<br /><a href="#/review/pricing" class="mt-1 inline-flex items-center gap-2 text-lg font-medium hover:text-primary">Pricing — pick what stays →</a>
 		<br /><a href="#/review/company" class="mt-1 inline-flex items-center gap-2 text-lg font-medium hover:text-primary">Company pages: contact and about — pick what stays →</a>
+		<br /><a href="#/review/pages" class="mt-1 inline-flex items-center gap-2 text-lg font-medium hover:text-primary">Remaining pages: 404, legal, FAQ, CV and Labs — pick what stays →</a>
 	</section>
 
 	<header class="flex flex-wrap items-end justify-between gap-6 border-b border-border pb-8">
