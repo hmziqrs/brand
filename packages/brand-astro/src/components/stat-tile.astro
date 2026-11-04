@@ -1,0 +1,55 @@
+---
+import "@fontsource/doto";
+import { cn } from "$brand/utils";
+import CornerRings from "./corner-rings.astro";
+
+/*
+ * One number that matters, big at the top of a card, with what it counts at
+ * the foot. Oxide is the solid orange card (one per row), outline the thin
+ * ring. The dot flavour sets the number in the dot face, taller, with a
+ * detail line under the label.
+ */
+
+interface Props {
+  value: string;
+  label: string;
+  /** A line under the label. */
+  detail?: string;
+  tone?: "outline" | "oxide";
+  /** The number's face: the sans, or the dot face. */
+  digits?: "sans" | "dot";
+  /** The number in oxide, on an outline card. */
+  accent?: boolean;
+  /** Corner rings drawn from this name, on an oxide card. */
+  rings?: string;
+  class?: string;
+}
+
+const { value, label, detail, tone = "outline", digits = "sans", accent = false, rings, class: className } = Astro.props;
+const oxide = tone === "oxide";
+const dot = digits === "dot";
+---
+
+<article
+  data-slot="stat-tile"
+  data-tone={tone}
+  class={cn(
+    "relative isolate flex min-w-0 flex-col justify-between gap-6 overflow-hidden rounded-2xl p-5",
+    dot ? "min-h-[12rem] sm:min-h-[15rem] sm:gap-8 sm:p-7" : "min-h-40 sm:min-h-52 sm:p-8",
+    oxide ? "band-orange" : "ring-1 ring-foreground/10",
+    className,
+  )}
+>
+  {oxide && rings && <CornerRings seed={rings} color="var(--on-orange)" class="pointer-events-none -z-10 w-1/2 opacity-60 [&_circle]:[stroke-width:0.5]" />}
+  <p
+    data-display={accent ? "" : undefined}
+    class={cn(
+      dot ? "[font-family:Doto,ui-monospace,monospace] text-[clamp(3.5rem,6.5vw,5.75rem)] leading-[0.85] font-bold tracking-[-0.04em]" : "text-[clamp(2.5rem,9vw,4.5rem)] leading-none font-medium tracking-[-0.045em]",
+      !oxide && (accent ? "text-primary" : dot && "text-foreground"),
+    )}
+  >{value}</p>
+  <div class="flex flex-col gap-1">
+    <p class={cn("text-[0.95rem]", detail ? "font-medium" : !oxide && "text-foreground/85")}>{label}</p>
+    {detail && <p class={cn("text-[0.8125rem] leading-snug", oxide ? "opacity-85" : "text-muted-foreground")}>{detail}</p>}
+  </div>
+</article>

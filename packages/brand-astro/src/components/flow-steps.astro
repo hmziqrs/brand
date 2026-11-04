@@ -1,0 +1,156 @@
+---
+import { cn, type AstroPiece } from "$brand/utils";
+
+/*
+ * A flowchart of steps in order: each step a small card (an icon, its name,
+ * when it happens, then what it hands on) with a line under it, staggered on
+ * wide screens and joined by running wires. Pointing at a step lights it,
+ * its neighbours and the wires between them. The wires hold still for
+ * reduced motion. Each step's content goes in the slot named for its place:
+ * content-1, content-2, …
+ */
+
+export type FlowStep = {
+  name: string;
+  /** When it happens, at the right of the card's header. */
+  when: string;
+  icon: AstroPiece;
+  /** The line under the card. */
+  caption: string;
+};
+
+interface Props {
+  steps: FlowStep[];
+  class?: string;
+}
+
+const { steps, class: className } = Astro.props;
+const offsets = ["lg:mt-0", "lg:mt-24", "lg:mt-6", "lg:mt-32"];
+---
+
+<div data-slot="flow-steps" class={cn("relative grid gap-12 sm:grid-cols-2 lg:grid-cols-4 lg:gap-14", className)}>
+  <svg data-flow-wires aria-hidden="true" class="pointer-events-none absolute inset-0 h-full w-full overflow-visible" viewBox="0 0 1 1"></svg>
+  {
+    steps.map((s, i) => {
+      const Icon = s.icon;
+      return (
+        <div class={cn("relative pl-5 lg:pl-0", offsets[i % offsets.length])}>
+          <article
+            data-flow-node={i}
+            class="relative rounded-2xl bg-background shadow-[0_24px_48px_-28px_color-mix(in_oklab,black_70%,transparent)] ring-1 ring-foreground/10 transition-[box-shadow] duration-500 ease-[cubic-bezier(.2,.7,.2,1)] data-hot:ring-primary data-near:ring-primary/45 motion-reduce:transition-none"
+          >
+            <header class="flex h-11 items-center gap-2 border-b border-foreground/10 px-4">
+              <Icon class="lucide size-4 text-primary" />
+              <span class="text-sm font-medium text-foreground">{s.name}</span>
+              <span class="ml-auto font-mono text-[11px] text-foreground/80">{s.when}</span>
+            </header>
+            <div class="p-4">
+              <slot name={`content-${i + 1}`} />
+            </div>
+          </article>
+          <p class="mt-4 max-w-[30ch] text-[17px] leading-snug text-foreground">{s.caption}</p>
+        </div>
+      );
+    })
+  }
+</div>
+
+<style is:global>
+  .flow-dash {
+    animation: flow-dash 1.2s linear infinite;
+  }
+  @keyframes flow-dash {
+    to {
+      stroke-dashoffset: -24;
+    }
+  }
+</style>
+
+<script>
+  import { reducedMotion } from "@hmziq/brand-core/motion/canvas";
+  import { observeFlowWires, type FlowWire } from "@hmziq/brand-core/motion/flow-wires";
+
+  const NS = "http://www.w3.org/2000/svg";
+  const boards = new WeakMap<HTMLElement, () => void>();
+
+  function el(tag: string, attrs: Record<string, string | number>) {
+    const node = document.createElementNS(NS, tag);
+    for (const [k, v] of Object.entries(attrs)) node.setAttribute(k, String(v));
+    return node;
+  }
+
+  function mount(board: HTMLElement) {
+    const svg = board.querySelector<SVGSVGElement>("[data-flow-wires]");
+    const nodes = [...board.querySelectorAll<HTMLElement>("[data-flow-node]")];
+    if (!svg) return;
+    const moving = !reducedMotion();
+    let hot = -1;
+    let lit: SVGPathElement[] = [];
+
+    const light = () => {
+      nodes.forEach((n, i) => {
+        n.toggleAttribute("data-hot", hot === i);
+        n.toggleAttribute("data-near", hot !== -1 && Math.abs(hot - i) === 1);
+      });
+      lit.forEach((p, i) => {
+        const on = hot === i || hot === i + 1;
+        p.setAttribute("stroke-width", on ? "2" : "1.5");
+        p.setAttribute("opacity", hot === -1 || on ? "1" : "0.35");
+      });
+    };
+
+    const draw = (wires: FlowWire[], size: { w: number; h: number }) => {
+      svg.setAttribute("viewBox", `0 0 ${size.w || 1} ${size.h || 1}`);
+      svg.replaceChildren();
+      lit = [];
+      wires.forEach((p, i) => {
+        svg.append(el("path", { d: p.d, fill: "none", stroke: "var(--border)", "stroke-width": 6, "stroke-linecap": "round" }));
+        const wire = el("path", { d: p.d, fill: "none", stroke: "var(--primary)", "stroke-width": 1.5, "stroke-dasharray": "5 7", class: moving ? "transition-[stroke-width,opacity] duration-300 flow-dash" : "transition-[stroke-width,opacity] duration-300", opacity: 1 }) as SVGPathElement;
+        lit.push(wire);
+        svg.append(wire);
+        svg.append(el("circle", { cx: p.a[0], cy: p.a[1], r: 4.5, fill: "var(--background)", stroke: "var(--primary)", "stroke-width": 1.5 }));
+        svg.append(el("circle", { cx: p.b[0], cy: p.b[1], r: 4.5, fill: "var(--primary)" }));
+        if (moving) {
+          const dot = el("circle", { r: 3.5, fill: "var(--primary)" });
+          dot.append(el("animateMotion", { dur: "2.8s", begin: `${i * 0.7}s`, repeatCount: "indefinite", path: p.d }));
+          svg.append(dot);
+        }
+      });
+      light();
+    };
+
+    const enter = nodes.map((_, i) => () => {
+      hot = i;
+      light();
+    });
+    const leave = () => {
+      hot = -1;
+      light();
+    };
+    nodes.forEach((n, i) => {
+      n.addEventListener("pointerenter", enter[i]);
+      n.addEventListener("pointerleave", leave);
+    });
+    const stop = observeFlowWires(board, nodes, draw);
+    boards.set(board, () => {
+      stop();
+      nodes.forEach((n, i) => {
+        n.removeEventListener("pointerenter", enter[i]);
+        n.removeEventListener("pointerleave", leave);
+      });
+    });
+  }
+
+  function initAll() {
+    for (const board of document.querySelectorAll<HTMLElement>("[data-slot='flow-steps']")) if (!boards.has(board)) mount(board);
+  }
+
+  initAll();
+  document.addEventListener("astro:page-load", initAll);
+  document.addEventListener("astro:before-swap", () => {
+    for (const board of document.querySelectorAll<HTMLElement>("[data-slot='flow-steps']")) {
+      boards.get(board)?.();
+      boards.delete(board);
+    }
+  });
+</script>

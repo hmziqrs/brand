@@ -1,0 +1,37 @@
+---
+import { cn } from "$brand/utils";
+import Container from "$brand/blocks/site/container.astro";
+import ProjectRows, { type ProjectRow } from "$brand/components/project-rows.astro";
+import SectionHead from "./section-head.astro";
+
+/*
+ * An open-source section: a SectionHead, then ProjectRows (a sticky rail of
+ * Marks beside one row per project, its terminal on its material), on the
+ * wide Container. Slots: actions (beside the lede) and the default slot,
+ * which follows the rows inside the same section.
+ */
+
+interface Props {
+  kicker?: string;
+  title: string;
+  /** The part of the title in oxide. */
+  accent?: string;
+  lede?: string;
+  projects: ProjectRow[];
+  /** Where each row's button goes. */
+  href?: string;
+  class?: string;
+}
+
+const { kicker, title, accent, lede, projects, href = "#", class: className } = Astro.props;
+---
+
+<section data-slot="projects-section" class={cn("py-24 sm:py-32", className)}>
+  <Container size="wide">
+    <SectionHead kicker={kicker} title={title} accent={accent} lede={lede}>
+      {Astro.slots.has("actions") && <slot name="actions" slot="aside" />}
+    </SectionHead>
+    <ProjectRows projects={projects} href={href} class="mt-12 md:mt-16" />
+    <slot />
+  </Container>
+</section>

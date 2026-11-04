@@ -58,6 +58,21 @@ import Toc from "$brand/components/toc.astro";
 import VoxelField from "$brand/components/voxel-field.astro";
 import WashGlow from "$brand/components/wash-glow.astro";
 import Wordmark from "$brand/components/wordmark.astro";
+import AppMock from "$brand/components/app-mock.astro";
+import CatalogCard from "$brand/components/catalog-card.astro";
+import FlowSteps from "$brand/components/flow-steps.astro";
+import LineArt from "$brand/components/line-art.astro";
+import PictureCard from "$brand/components/picture-card.astro";
+import PictureGrid from "$brand/components/picture-grid.astro";
+import ProjectRows from "$brand/components/project-rows.astro";
+import ReleaseLoop from "$brand/components/release-loop.astro";
+import StatTile from "$brand/components/stat-tile.astro";
+import StepCards from "$brand/components/step-cards.astro";
+import SurfaceTile from "$brand/components/surface-tile.astro";
+import { lineArtKinds } from "@hmziq/brand-core/motion/line-art";
+import FlowContent from "../../components/kit/flow-content.astro";
+import StepDemo from "../../components/kit/step-demo.astro";
+import { flow, playbooks, projects, providers, steps, work } from "../../components/kit/features-data";
 import ThemeInit from "../../components/theme-init.astro";
 import ThemeToggle from "../../components/theme-toggle.astro";
 
@@ -595,6 +610,119 @@ const windowCode = `pub fn users(cx: &mut App) -> Query<Vec<User>> {
         }
       </div>
       <p class="text-[0.8125rem] text-muted-foreground">Chalk and copper, faded almost to the page and brighter around the cursor.</p>
+    </section>
+
+    <section id="piece-line-art" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">LineArt</h2>
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          lineArtKinds.map((kind) => (
+            <figure class="flex flex-col gap-2">
+              <div data-line-art-host class="relative isolate aspect-[16/10] overflow-hidden rounded-xl ring-1 ring-foreground/10"><LineArt kind={kind} /></div>
+              <figcaption class="font-mono text-xs text-muted-foreground">{kind}</figcaption>
+            </figure>
+          ))
+        }
+      </div>
+      <p class="text-[0.8125rem] text-muted-foreground">The twelve drawings at rest; the part nearest the cursor lights in oxide.</p>
+    </section>
+
+    <section id="piece-picture-card" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">PictureCard</h2>
+      <div class="grid gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+        <PictureCard title="gpui-query" tag="Library" dek="Data loading for GPUI apps: typed keys, one shared cache and refetch in the background." meta="freeoxide · Rust" art="lanes" />
+        <PictureCard title="Command-line tool" tag="Terminal" dek="A Rust binary your team installs with one command." meta="Rust" art="terminal" />
+      </div>
+      <p class="text-[0.8125rem] text-muted-foreground">A line drawing with a Tag, the title, a dek and the meta; the drawing follows the cursor across the card.</p>
+    </section>
+
+    <section id="piece-picture-grid" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">PictureGrid</h2>
+      <div class="flex flex-col gap-16">
+        <PictureGrid items={work} />
+        <PictureGrid items={playbooks} filter="Where it runs" />
+      </div>
+      <p class="text-[0.8125rem] text-muted-foreground">A body of work, then starting points with filter pills.</p>
+    </section>
+
+    <section id="piece-step-cards" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">StepCards</h2>
+      <StepCards steps={steps}>
+        <StepDemo slot="demo-1" i={0} />
+        <StepDemo slot="demo-2" i={1} />
+        <StepDemo slot="demo-3" i={2} />
+      </StepCards>
+      <p class="text-[0.8125rem] text-muted-foreground">Three steps, each with a live demo: a picker you point at, a build with comments, one repo fanning out to six platforms.</p>
+    </section>
+
+    <section id="piece-flow-steps" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">FlowSteps</h2>
+      <FlowSteps steps={flow}>
+        <FlowContent slot="content-1" i={0} />
+        <FlowContent slot="content-2" i={1} />
+        <FlowContent slot="content-3" i={2} />
+        <FlowContent slot="content-4" i={3} />
+      </FlowSteps>
+      <p class="text-[0.8125rem] text-muted-foreground">Brief to ship, joined by running wires; point at a step to light it and its neighbours.</p>
+    </section>
+
+    <section id="piece-app-mock" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">AppMock</h2>
+      <div class="grid items-center gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <AppMock kind="phone" class="mx-auto max-w-[220px] bg-background" />
+        <AppMock kind="desktop" title="Ledgerline" class="mx-auto max-w-[440px] bg-background" />
+        <AppMock kind="web" class="mx-auto max-w-[300px] bg-background" />
+        <AppMock kind="terminal" class="mx-auto max-w-[300px]" />
+      </div>
+      <p class="text-[0.8125rem] text-muted-foreground">Phone, desktop, web and terminal, each showing real UI.</p>
+    </section>
+
+    <section id="piece-surface-tile" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">SurfaceTile</h2>
+      <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-[2fr_1fr]">
+        <SurfaceTile preset="copper-sweep" title="Desktop apps" body="Mac, Windows and Linux, signed and updating." tag="Desktop" class="min-h-[19rem]">
+          <AppMock kind="desktop" title="Ledgerline" class="mx-auto max-w-[440px] bg-background" />
+        </SurfaceTile>
+        <SurfaceTile preset="oxide-bloom" title="CLI tools" body="Installed with one command." tag="Terminal" class="min-h-[19rem]">
+          <AppMock kind="terminal" class="mx-auto max-w-[300px]" />
+        </SurfaceTile>
+      </div>
+      <p class="text-[0.8125rem] text-muted-foreground">The app tips toward the cursor and the material shifts under it.</p>
+    </section>
+
+    <section id="piece-project-rows" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">ProjectRows</h2>
+      <ProjectRows projects={projects} />
+      <p class="text-[0.8125rem] text-muted-foreground">A sticky rail of Marks beside one row per tool, its terminal or code on its material.</p>
+    </section>
+
+    <section id="piece-catalog-card" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">CatalogCard</h2>
+      <div data-catalog class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        {providers.slice(0, 4).map((item) => <CatalogCard item={item} picked={item.id === "ds"} />)}
+      </div>
+      <p class="text-[0.8125rem] text-muted-foreground">Four entries, one picked; click another to pick it.</p>
+    </section>
+
+    <section id="piece-stat-tile" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">StatTile</h2>
+      <div class="grid grid-cols-2 gap-3 lg:grid-cols-3">
+        <StatTile tone="oxide" value="5" label="Review rounds before a version number" rings="freeoxide-rounds" class="col-span-2 lg:col-span-1" />
+        <StatTile value=">90%" label="Test coverage floor on every project" />
+        <StatTile value="100%" label="Open source, MIT or Apache-2.0" />
+      </div>
+      <div class="grid grid-cols-2 gap-3 lg:grid-cols-4">
+        <StatTile tone="oxide" digits="dot" value="0" label="Changes to your ~/.claude" detail="Remove claude-multi and everything is as it was." class="col-span-2 sm:col-span-1" />
+        <StatTile digits="dot" value="1" label="Command per provider" detail="claude-glm, claude-ds, claude-kimi, each with its own folder." />
+        <StatTile digits="dot" accent value="8" label="Provider templates" detail="Anthropic, GLM, Kimi, DeepSeek, Qwen, MiniMax, MiMo and local." />
+      </div>
+      <p class="text-[0.8125rem] text-muted-foreground">Oxide and outline, then the dot digits.</p>
+    </section>
+
+    <section id="piece-release-loop" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">ReleaseLoop</h2>
+      <ReleaseLoop />
+      <p class="text-[0.8125rem] text-muted-foreground">Point at the loop to steer the dot; the installers follow the stop it last passed.</p>
     </section>
 
     <section id="piece-toc" class="flex flex-col gap-4 border-t pt-8">
