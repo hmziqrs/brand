@@ -21,7 +21,7 @@
 		<h1 class="mt-6 max-w-[14ch] text-[clamp(3rem,7.6vw,7rem)] leading-[0.98] font-medium tracking-[-0.045em] text-balance">Free Rust tools, finished before they ship.</h1>
 		<p class="mt-6 max-w-[46ch] text-xl leading-relaxed text-foreground/85">Open-source building blocks for desktop apps and the command line. Each one ships with docs, tests and five rounds of review, or it waits.</p>
 		<div class="mt-8 flex flex-wrap justify-center gap-3">
-			<Button href="#/p/voidzero/freeoxide-1" size="lg" class="px-5">Browse the tools<ArrowRight class="lucide" data-icon="inline-end" /></Button>
+			<Button href="#" size="lg" class="px-5">Browse the tools<ArrowRight class="lucide" data-icon="inline-end" /></Button>
 			<Button href="https://github.com/freeoxide" size="lg" variant="outline" class="px-5"><BrandIcon icon={siGithub} data-icon="inline-start" />View on GitHub</Button>
 		</div>
 	</div>

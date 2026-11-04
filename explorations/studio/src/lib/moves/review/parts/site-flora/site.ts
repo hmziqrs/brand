@@ -1,4 +1,4 @@
-export const base = '#/p/site-flora';
+export const base = '#';
 export const to = (slug: string) => `${base}/${slug}`;
 export const brand = 'canvasworks';
 
