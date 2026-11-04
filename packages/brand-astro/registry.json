@@ -1444,11 +1444,6 @@
 					"path": "src/blocks/content/faq-page.astro",
 					"target": "src/components/brand/blocks/content/faq-page.astro",
 					"type": "registry:file"
-				},
-				{
-					"path": "src/blocks/content/rich-text.astro",
-					"target": "src/components/brand/blocks/content/rich-text.astro",
-					"type": "registry:file"
 				}
 			]
 		},
@@ -3795,7 +3790,6 @@
 			],
 			"registryDependencies": [
 				"@hmziq/code-block",
-				"@hmziq/faq-page",
 				"@hmziq/marker",
 				"@hmziq/utils"
 			],
@@ -3803,6 +3797,11 @@
 				{
 					"path": "src/blocks/content/rich-blocks.astro",
 					"target": "src/components/brand/blocks/content/rich-blocks.astro",
+					"type": "registry:file"
+				},
+				{
+					"path": "src/blocks/content/rich-text.astro",
+					"target": "src/components/brand/blocks/content/rich-text.astro",
 					"type": "registry:file"
 				}
 			]

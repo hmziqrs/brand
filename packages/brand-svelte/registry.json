@@ -1924,11 +1924,6 @@
 					"path": "src/lib/blocks/content/faq-page.svelte",
 					"type": "registry:file",
 					"target": "blocks/content/faq-page.svelte"
-				},
-				{
-					"path": "src/lib/blocks/content/rich-text.svelte",
-					"type": "registry:file",
-					"target": "blocks/content/rich-text.svelte"
 				}
 			]
 		},
@@ -4380,7 +4375,6 @@
 			],
 			"registryDependencies": [
 				"local:code-block",
-				"local:faq-page",
 				"local:marker",
 				"local:utils"
 			],
@@ -4389,6 +4383,11 @@
 					"path": "src/lib/blocks/content/rich-blocks.svelte",
 					"type": "registry:file",
 					"target": "blocks/content/rich-blocks.svelte"
+				},
+				{
+					"path": "src/lib/blocks/content/rich-text.svelte",
+					"type": "registry:file",
+					"target": "blocks/content/rich-text.svelte"
 				}
 			]
 		},
