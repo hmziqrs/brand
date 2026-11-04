@@ -1,7 +1,7 @@
 {
   "target": "test-card",
   "command": "bun run render-assets --only test-card",
-  "digest": "fe0041f4f695f93c72e159ff4f62eab83285267fe1598cefd0c72f495aba485b",
+  "digest": "56f45a282d6dc4472706508950bbeb4ab48b59551b02a7a06048b2082e902532",
   "renderers": {
     "@resvg/resvg-js": "2.6.2",
     "opentype.js": "2.0.0",
@@ -57,6 +57,10 @@
     {
       "path": "packages/brand-core/src/logo.ts",
       "sha256": "0296e083a118b24f656c842bd10ba5e85ac01fb7152876b28d4aec9e57df346f"
+    },
+    {
+      "path": "packages/brand-core/src/motion/book.ts",
+      "sha256": "fadff677e02cfa6a3c1e27efbd1a9f25adbe23d5916173fa37aa30a20f06cfed"
     },
     {
       "path": "packages/brand-core/src/motion/canvas.ts",
