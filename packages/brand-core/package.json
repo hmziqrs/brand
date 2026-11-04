@@ -96,10 +96,6 @@
       "types": "./dist/legal-page.d.ts",
       "default": "./dist/legal-page.js"
     },
-    "./labs-index": {
-      "types": "./dist/labs-index.d.ts",
-      "default": "./dist/labs-index.js"
-    },
     "./cv-page": {
       "types": "./dist/cv-page.d.ts",
       "default": "./dist/cv-page.js"
