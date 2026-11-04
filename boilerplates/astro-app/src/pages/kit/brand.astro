@@ -47,9 +47,6 @@ import SceneStage from "$brand/components/scene-stage.astro";
 import ShaderMaterial from "$brand/components/shader-material.astro";
 import Segmented from "$brand/components/segmented.astro";
 import StatusRing from "$brand/components/status-ring.astro";
-import Step from "$brand/components/step.astro";
-import StepNumber from "$brand/components/step-number.astro";
-import Stepper from "$brand/components/stepper.astro";
 import Tag from "$brand/components/tag.astro";
 import TerminalBody from "$brand/components/terminal-body.astro";
 import TerminalLine from "$brand/components/terminal-line.astro";
@@ -382,34 +379,6 @@ const windowCode = `pub fn users(cx: &mut App) -> Query<Vec<User>> {
     <section id="piece-segmented" class="flex flex-col gap-4 border-t pt-8">
       <h2 class="text-lg font-medium">Segmented</h2>
       <Segmented label="Package manager" value="bun" options={[{ value: "bun", label: "Bun" }, { value: "npm", label: "npm" }, { value: "yarn", label: "yarn" }]} />
-    </section>
-
-    <section id="piece-stepper" class="flex flex-col gap-4 border-t pt-8">
-      <h2 class="text-lg font-medium">Stepper</h2>
-      <Stepper class="max-w-md">
-        <Step n={1} done>
-          <h3 class="text-[1.0625rem] font-medium">Done</h3>
-          <p class="text-[0.9rem] leading-relaxed text-muted-foreground">Its ring is filled and the line below it is orange.</p>
-        </Step>
-        <Step n={2}>
-          <h3 class="text-[1.0625rem] font-medium">Not yet</h3>
-          <p class="text-[0.9rem] leading-relaxed text-muted-foreground">A grey ring, a grey line.</p>
-        </Step>
-      </Stepper>
-    </section>
-
-    <section id="piece-step" class="flex flex-col gap-4 border-t pt-8">
-      <h2 class="text-lg font-medium">Step</h2>
-      <p class="text-[0.8125rem] text-muted-foreground">One step of a stepper; shown above inside Stepper.</p>
-    </section>
-
-    <section id="piece-step-number" class="flex flex-col gap-4 border-t pt-8">
-      <h2 class="text-lg font-medium">StepNumber</h2>
-      <p class="flex items-center gap-4">
-        <StepNumber n={1} />
-        <StepNumber n={2} done />
-        <StepNumber n={3} done />
-      </p>
     </section>
 
     <section id="piece-question" class="flex flex-col gap-4 border-t pt-8">
