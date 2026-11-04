@@ -169,7 +169,7 @@ export const claudeMulti: FooterSite = {
 	maker: 'by hmziq',
 	tagline: 'A separate Claude Code for each provider. Your existing ~/.claude stays untouched.',
 	command: 'npm install -g claude-multi',
-	status: 'Latest release 0.9.2',
+	status: 'Latest release 0.13.2',
 	columns: [
 		{ title: 'Product', links: [{ label: 'Install' }, { label: 'Providers' }, { label: 'Changelog' }, { label: 'Roadmap' }] },
 		{ title: 'Guides', links: [{ label: 'Add a provider' }, { label: 'Per-project overrides' }, { label: 'Your own gateway' }, { label: 'Troubleshooting' }] },
@@ -257,7 +257,7 @@ export const blog: FooterSite = {
 	socials: [gh('hmziqrs'), x, { label: 'LinkedIn', href: 'https://linkedin.com/in/hmziqrs' }],
 	legal: '© 2026 hmziq · Words CC BY 4.0, code MIT',
 	aside: 'Edit this page on GitHub',
-	nav: { links: [{ label: 'Posts' }, { label: 'Topics' }, { label: 'About' }], cta: 'Subscribe', github: 'https://github.com/hmziqrs' },
+	nav: { links: [{ label: 'Posts' }, { label: 'Topics' }, { label: 'Changelog' }, { label: 'About' }], cta: 'Subscribe', github: 'https://github.com/hmziqrs' },
 	page: {
 		kicker: 'Process · Oct 14, 2026 · 6 min read',
 		title: 'Five review rounds before anything ships',
