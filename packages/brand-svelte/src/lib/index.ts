@@ -100,13 +100,17 @@ export { default as PostHeader } from "./blocks/content/post-header.svelte";
 export { default as PostList } from "./blocks/content/post-list.svelte";
 export { default as PostMeta } from "./blocks/content/post-meta.svelte";
 export { default as PullQuote } from "./blocks/content/pull-quote.svelte";
+export { default as ReleaseDesk } from "./blocks/content/release-desk.svelte";
+export { default as ReleaseFilters } from "./blocks/content/release-filters.svelte";
 export { default as ReleaseHead } from "./blocks/content/release-head.svelte";
 export { default as ReleaseNotes } from "./blocks/content/release-notes.svelte";
+export { default as ReleasePicture } from "./blocks/content/release-picture.svelte";
 export { default as ReleaseTimeline } from "./blocks/content/release-timeline.svelte";
+export { default as ReleaseTimelinePage } from "./blocks/content/release-timeline-page.svelte";
 export { default as ShareBar } from "./blocks/content/share-bar.svelte";
 export { default as TopicCards } from "./blocks/content/topic-cards.svelte";
 export { default as TypingTerminal } from "./blocks/content/typing-terminal.svelte";
-export type { PostBlock, PostItem, PostSection, TopicShelf, TopicTone } from "./blocks/content/types.js";
+export type { ChangeItem, ChangeSpots, PostBlock, PostItem, PostSection, Release, ReleaseLink, ReleasePictureInfo, SpotState, TopicShelf, TopicTone } from "./blocks/content/types.js";
 
 // App blocks (app-blocks.md), the same 45 the Astro barrel exports. The
 // folder's small sub-parts stay internal, as they do there: `AuthField`,
@@ -165,6 +169,7 @@ export { default as DotName } from "./components/dot-name.svelte";
 export { default as MaterialGrid } from "./components/material-grid.svelte";
 export { default as MaterialWash } from "./components/material-wash.svelte";
 export { default as ProductWindow } from "./components/product-window.svelte";
+export { default as DragWindow } from "./components/drag-window.svelte";
 export { default as ResolveTitle } from "./components/resolve-title.svelte";
 export { default as RingField } from "./components/ring-field.svelte";
 export { default as SceneStage } from "./components/scene-stage.svelte";

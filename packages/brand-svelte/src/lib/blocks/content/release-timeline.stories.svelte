@@ -14,3 +14,9 @@
 		<ReleaseTimeline releases={releases} skip={1} />
 	</div>
 </Story>
+
+<Story name="Rail" asChild>
+	<div class="max-w-[52rem] px-6">
+		<ReleaseTimeline releases={releases} rail latest={releases[0].v} />
+	</div>
+</Story>
