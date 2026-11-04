@@ -1,0 +1,45 @@
+---
+import { cn } from "$brand/utils";
+import Tag from "$brand/components/tag.astro";
+import LineArt from "$brand/components/line-art.astro";
+import CornerRings from "$brand/components/corner-rings.astro";
+import ButtonLink from "./button-link.astro";
+import CheckList from "./check-list.astro";
+import type { PricingTier } from "./pricing-types";
+
+interface Props {
+  tier: PricingTier;
+  /** Which billing mode's price shows first: an index into the tier's lists. Every mode is rendered; the page's switch shows the one it asks for. */
+  mode?: number;
+  href?: string;
+  class?: string;
+}
+
+const { tier, mode = 0, href = "#", class: className } = Astro.props;
+---
+
+<article
+  data-slot="pricing-card"
+  data-line-art-host
+  class={cn("relative isolate flex min-w-0 flex-col overflow-hidden rounded-2xl", tier.pick ? "band-orange" : "bg-background ring-1 ring-foreground/10", className)}
+>
+  {tier.pick && <CornerRings seed={`pricing ${tier.name}`} color="var(--on-orange)" class="-z-10 w-1/2 opacity-60 [&_circle]:[stroke-width:0.5]" />}
+  <div class="relative h-36 border-b border-border">
+    <div class="absolute inset-x-8 inset-y-4"><LineArt kind={tier.art} /></div>
+    {tier.badge && <Tag marker class="absolute top-4 left-4 bg-(--on-orange) text-(--orange)">{tier.badge}</Tag>}
+  </div>
+  <div class="flex flex-1 flex-col p-6">
+    <h3 class="text-[1.375rem] leading-tight font-medium tracking-[-0.02em]">{tier.name}</h3>
+    <p class="mt-2 text-[0.95rem] leading-snug text-foreground/85 lg:min-h-[4.1em]">{tier.for}</p>
+    <p class="mt-6 text-5xl leading-none font-medium tracking-[-0.045em] tabular-nums">{tier.amount.map((a, i) => <span data-at={String(i)} hidden={i !== mode}>{a}</span>)}</p>
+    <p class="mt-2.5 text-[0.875rem] leading-snug lg:min-h-[2.7em]">
+      {tier.unit.map((u, i) => <span data-at={String(i)} hidden={i !== mode}><span class="text-foreground">{u}</span> <span class="text-muted-foreground">· {tier.note[i]}</span></span>)}
+    </p>
+    <ButtonLink {href} size="lg" variant={tier.pick ? "primary" : "outline"} class="mt-6 w-full">{tier.cta}</ButtonLink>
+    <CheckList items={tier.items} class="mt-6 border-t border-border pt-6 [&>li]:text-[0.9375rem] [&>li]:text-foreground/85" />
+  </div>
+</article>
+
+<script>
+  import "./pricing-mode";
+</script>
