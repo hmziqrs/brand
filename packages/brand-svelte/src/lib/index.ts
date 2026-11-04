@@ -212,3 +212,11 @@ export type { StepCard } from "./components/step-cards.svelte";
 export { default as SurfaceTile } from "./components/surface-tile.svelte";
 export { default as GlassBand } from "./blocks/sections/glass-band.svelte";
 export { default as SectionHead } from "./blocks/sections/section-head.svelte";
+
+// Feature sections.
+export { default as CatalogSection } from "./blocks/sections/catalog-section.svelte";
+export { default as PictureSection } from "./blocks/sections/picture-section.svelte";
+export { default as ProjectsSection } from "./blocks/sections/projects-section.svelte";
+export { default as StepsSection } from "./blocks/sections/steps-section.svelte";
+export { default as SurfaceBento } from "./blocks/sections/surface-bento.svelte";
+export type { Surface } from "./blocks/sections/surface-bento.svelte";

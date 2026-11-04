@@ -3061,6 +3061,51 @@
       "astroItem": "calm-footer"
     },
     {
+      "name": "StepsSection",
+      "group": "site",
+      "svelte": "sections-steps-section--how-we-work",
+      "astro": "not yet",
+      "svelteFile": "blocks/sections/steps-section.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "PictureSection",
+      "group": "site",
+      "svelte": "sections-picture-section--work",
+      "astro": "not yet",
+      "svelteFile": "blocks/sections/picture-section.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "SurfaceBento",
+      "group": "site",
+      "svelte": "sections-surface-bento--four-surfaces",
+      "astro": "not yet",
+      "svelteFile": "blocks/sections/surface-bento.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "ProjectsSection",
+      "group": "site",
+      "svelte": "sections-projects-section--open-source",
+      "astro": "not yet",
+      "svelteFile": "blocks/sections/projects-section.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
+      "name": "CatalogSection",
+      "group": "site",
+      "svelte": "sections-catalog-section--providers",
+      "astro": "not yet",
+      "svelteFile": "blocks/sections/catalog-section.stories.svelte",
+      "svelteItem": "not yet",
+      "astroItem": "not yet"
+    },
+    {
       "name": "FeatureBento",
       "group": "site",
       "svelte": "sections-feature-bento--a-speed",
