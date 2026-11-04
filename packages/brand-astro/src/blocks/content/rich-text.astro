@@ -1,0 +1,21 @@
+---
+import { changeSegments, type ChangeSegment } from "@hmziq/brand-core/changelog";
+import { cn } from "$brand/utils";
+
+/*
+ * A line of a rich answer or document: `code`, **bold** and [links](href)
+ * set in the page's own type. Links to a heading on the page stay in the
+ * tab; the rest open in a new one.
+ */
+
+interface Props {
+  text?: string;
+  /** The runs of a line already cut, for the bold and links that hold more. */
+  segments?: ChangeSegment[];
+}
+
+const { text = "", segments } = Astro.props;
+const list = segments ?? changeSegments(text);
+---
+
+{list.map((s) => s.kind === "code" ? <code class={cn("rounded-[5px] bg-muted px-1.5 py-0.5 font-mono text-[0.88em] text-foreground [font-variant-ligatures:none]", s.value.length <= 28 ? "whitespace-nowrap" : "break-words")}>{s.value}</code> : s.kind === "bold" ? <strong class="font-medium text-foreground"><Astro.self segments={s.inner ?? []} /></strong> : s.kind === "link" ? <a href={s.href} target={s.href?.startsWith("#") ? undefined : "_blank"} rel={s.href?.startsWith("#") ? undefined : "noreferrer"} class="text-primary underline decoration-primary/45 underline-offset-3 hover:decoration-primary"><Astro.self segments={changeSegments(s.value)} /></a> : s.value)}

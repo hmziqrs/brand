@@ -1,0 +1,161 @@
+---
+import { ArrowUpRight } from "@lucide/astro";
+import { siGithub } from "simple-icons";
+import { faqCount, faqNumber, faqTopics, faqWords, type FaqPageData } from "@hmziq/brand-core/faq-search";
+import { cn } from "$brand/utils";
+import Container from "$brand/blocks/site/container.astro";
+import ButtonLink from "$brand/blocks/site/button-link.astro";
+import SearchBox from "$brand/blocks/site/search-box.astro";
+import EmptyNote from "$brand/blocks/site/empty-note.astro";
+import Questions from "$brand/components/questions.astro";
+import Question from "$brand/components/question.astro";
+import Toc from "$brand/components/toc.astro";
+import BrandIcon from "$brand/components/brand-icon.astro";
+import RichText from "./rich-text.astro";
+import RichBlocks from "./rich-blocks.astro";
+
+/*
+ * A product's FAQ on one page: the title and lede beside a search that
+ * narrows the questions and opens what matches, the topics as sticky
+ * contents on the left and each topic's numbered questions on the right with
+ * their full rich answers, then a card to ask on GitHub. Every question is in
+ * the HTML and a script narrows them.
+ */
+
+interface Props {
+  data: FaqPageData;
+  class?: string;
+}
+
+const { data, class: className } = Astro.props;
+const { intro, entries } = data;
+const topics = faqTopics(entries);
+---
+
+<div data-slot="faq-page" data-top="96" data-total={entries.length} class={cn("pt-14 pb-24 md:pt-20 md:pb-32", className)}>
+  <Container size="wide">
+    <p class="font-mono text-xs tracking-[0.14em] text-primary uppercase">{intro.kicker} · Reviewed <time datetime={intro.reviewed}>{intro.reviewed}</time></p>
+    <h1 class="mt-6 max-w-[14ch] text-[clamp(3rem,7.4vw,6.75rem)] leading-[0.94] font-semibold tracking-[-0.05em] text-foreground">{intro.title[0]}<span class="text-primary">{intro.title[1]}</span></h1>
+    <div class="mt-8 flex flex-wrap items-end justify-between gap-x-12 gap-y-8">
+      <p class="max-w-[38rem] text-[clamp(1.125rem,1.6vw,1.375rem)] leading-snug text-pretty text-foreground"><RichText text={intro.lede} /></p>
+      <div class="flex w-full max-w-[26rem] flex-col gap-2">
+        <SearchBox label="Search questions" class="h-11" />
+        <p data-faq-count class="font-mono text-[11px] tracking-[0.08em] text-foreground/70" aria-live="polite">{faqCount(entries, entries.length, "")}</p>
+      </div>
+    </div>
+  </Container>
+
+  <Container size="wide" class="mt-16 md:mt-20">
+    <div class="grid gap-12 lg:grid-cols-[13rem_minmax(0,1fr)] xl:gap-16">
+      <aside aria-label="Topics" class="sticky top-[calc(var(--pages-top,0px)+2rem)] hidden self-start text-[0.875rem] lg:block">
+        <p class="mb-3 font-mono text-[11px] tracking-[0.14em] text-foreground/70 uppercase">Topics</p>
+        <Toc items={topics.map((t) => ({ id: t.id, label: t.topic }))} current={topics[0]?.id} />
+      </aside>
+
+      <div class="flex min-w-0 flex-col gap-14">
+        {
+          topics.map((t) => (
+            <section id={t.id} data-faq-topic aria-labelledby={`${t.id}-h`} class="scroll-mt-28">
+              <h2 id={`${t.id}-h`} class="flex items-baseline gap-3 border-b border-border pb-3 font-mono text-xs tracking-[0.14em] text-primary uppercase">
+                {t.topic}
+                <span data-faq-topic-count class="text-foreground/60">{t.items.length}</span>
+              </h2>
+              <Questions class="max-w-none">
+                {t.items.map((e) => (
+                  <div data-faq-question data-words={faqWords(e)} data-first={e.id === entries[0].id ? "" : undefined}>
+                    <Question id={e.id} number={faqNumber(entries, e.id)} open={e.id === entries[0].id} class="scroll-mt-28 [&>div]:max-w-[46rem] max-sm:[&>div]:pr-0 max-sm:[&>div]:pl-0">
+                      <span slot="question" class="text-[1.125rem] leading-snug text-foreground">{e.q}</span>
+                      <RichBlocks blocks={e.blocks} class="pt-1" />
+                    </Question>
+                  </div>
+                ))}
+              </Questions>
+            </section>
+          ))
+        }
+        <div data-faq-empty hidden>
+          <EmptyNote>No questions match “<span data-faq-query></span>”. Try another word.</EmptyNote>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-between gap-x-10 gap-y-6 rounded-2xl p-6 ring-1 ring-foreground/10 sm:p-10">
+          <div class="max-w-[34rem]">
+            <h2 class="text-[clamp(1.75rem,3vw,2.5rem)] leading-[1.05] font-medium tracking-[-0.035em] text-foreground">{intro.close.title}</h2>
+            <p class="mt-3 text-lg leading-snug text-foreground/85">{intro.close.line}</p>
+          </div>
+          <div class="flex flex-wrap gap-3">
+            <ButtonLink href={intro.close.primary.href} size="lg" class="px-5" target="_blank" rel="noreferrer"><BrandIcon icon={siGithub} data-icon="inline-start" />{intro.close.primary.label}<ArrowUpRight class="lucide" data-icon="inline-end" /></ButtonLink>
+            <ButtonLink href={intro.close.secondary.href} size="lg" variant="outline" class="px-5">{intro.close.secondary.label}</ButtonLink>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Container>
+</div>
+
+<script>
+  import { scrollSpy } from "@hmziq/brand-core/scroll-spy";
+  import { inPage } from "@hmziq/brand-core/rich-blocks";
+  import { faqNeedle } from "@hmziq/brand-core/faq-search";
+
+  const stop = new WeakMap<HTMLElement, () => void>();
+
+  function spy(root: HTMLElement) {
+    stop.get(root)?.();
+    const links = [...root.querySelectorAll<HTMLAnchorElement>("[data-slot='toc'] a")].filter((a) => !a.closest("li")?.hidden);
+    const ids = links.map((a) => decodeURIComponent(a.hash.slice(1)));
+    const mark = (id: string) => {
+      for (const a of links) {
+        if (decodeURIComponent(a.hash.slice(1)) === id) a.setAttribute("aria-current", "location");
+        else a.removeAttribute("aria-current");
+      }
+    };
+    for (const a of root.querySelectorAll("[data-slot='toc'] a")) a.removeAttribute("aria-current");
+    if (ids.length) mark(ids[0]);
+    stop.set(root, scrollSpy(ids, mark));
+  }
+
+  function narrow(root: HTMLElement, query: string) {
+    const needle = faqNeedle(query);
+    const total = Number(root.dataset.total ?? 0);
+    let shown = 0;
+    const topics = [...root.querySelectorAll<HTMLElement>("[data-faq-topic]")];
+    for (const topic of topics) {
+      let mine = 0;
+      for (const q of topic.querySelectorAll<HTMLElement>("[data-faq-question]")) {
+        const hit = !needle || (q.dataset.words ?? "").includes(needle);
+        q.hidden = !hit;
+        if (hit) mine++;
+        const details = q.querySelector("details");
+        if (details) details.open = hit && (!!needle || q.dataset.first !== undefined);
+      }
+      shown += mine;
+      topic.hidden = mine === 0;
+      const count = topic.querySelector("[data-faq-topic-count]");
+      if (count) count.textContent = String(mine);
+      const link = root.querySelector<HTMLAnchorElement>(`[data-slot='toc'] a[href='#${CSS.escape(topic.id)}']`);
+      if (link?.closest("li")) link.closest("li")!.hidden = mine === 0;
+    }
+    const topicCount = new Set(topics.map((t) => t.id)).size;
+    const line = root.querySelector("[data-faq-count]");
+    if (line) line.textContent = needle ? `${shown} of ${total} questions` : `${total} questions · ${topicCount} topics`;
+    const empty = root.querySelector<HTMLElement>("[data-faq-empty]");
+    if (empty) empty.hidden = shown > 0;
+    const echo = root.querySelector("[data-faq-query]");
+    if (echo) echo.textContent = query.trim();
+    spy(root);
+  }
+
+  function init(root: HTMLElement) {
+    if (root.dataset.ready) return;
+    root.dataset.ready = "true";
+    const top = Number(root.dataset.top ?? 0);
+    spy(root);
+    root.addEventListener("input", (event) => {
+      const field = (event.target as HTMLElement).closest<HTMLInputElement>("input[type='search']");
+      if (field) narrow(root, field.value);
+    });
+    root.addEventListener("click", (event) => inPage(event, top));
+  }
+
+  for (const root of document.querySelectorAll<HTMLElement>("[data-slot='faq-page']")) init(root);
+</script>

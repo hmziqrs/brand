@@ -1,7 +1,7 @@
 import { plainText } from "./changelog"
 
 /** The languages a rich code block can carry. */
-export type RichLang = "bash" | "css" | "json" | "python" | "rust" | "svelte" | "toml" | "typescript" | "text"
+export type RichLang = "bash" | "json" | "python" | "rust" | "toml" | "typescript" | "text"
 
 /** One term of a definition list: its name, its words and an optional link on the name. */
 export type RichDef = readonly [term: string, text: string, href?: string]
