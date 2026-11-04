@@ -7,6 +7,7 @@
 
 <script lang="ts">
 	import { releases } from './stories-data.js'
+	import { multiReleases } from './stories-data-changelog.js'
 </script>
 
 <Story name="Grouped" asChild>
@@ -36,5 +37,11 @@
 <Story name="Summary" asChild>
 	<div class="max-w-[52rem] px-6">
 		<ReleaseNotes release={releases[1]} variant="summary" />
+	</div>
+</Story>
+
+<Story name="Rich changes" asChild>
+	<div class="max-w-[52rem] px-6">
+		<ReleaseNotes release={multiReleases[0]} />
 	</div>
 </Story>

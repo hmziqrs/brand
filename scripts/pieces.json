@@ -1263,6 +1263,42 @@
       "astroItem": "past-releases"
     },
     {
+      "name": "ReleaseFilters",
+      "group": "content",
+      "svelte": "content-changelog-release-filters--default",
+      "astro": "release-filters",
+      "svelteFile": "blocks/content/release-filters.svelte",
+      "svelteItem": "release-filters",
+      "astroItem": "release-filters"
+    },
+    {
+      "name": "ReleasePicture",
+      "group": "content",
+      "svelte": "content-changelog-release-picture--settings-json",
+      "astro": "release-picture",
+      "svelteFile": "blocks/content/release-picture.svelte",
+      "svelteItem": "release-picture",
+      "astroItem": "release-picture"
+    },
+    {
+      "name": "ReleaseDesk",
+      "group": "content",
+      "svelte": "content-changelog-release-desk--blog-hmziq-rs",
+      "astro": "release-desk",
+      "svelteFile": "blocks/content/release-desk.svelte",
+      "svelteItem": "release-desk",
+      "astroItem": "release-desk"
+    },
+    {
+      "name": "ReleaseTimelinePage",
+      "group": "content",
+      "svelte": "content-changelog-release-timeline-page--claude-multi",
+      "astro": "release-timeline-page",
+      "svelteFile": "blocks/content/release-timeline-page.svelte",
+      "svelteItem": "release-timeline-page",
+      "astroItem": "release-timeline-page"
+    },
+    {
       "name": "FaqList",
       "group": "content",
       "svelte": "content-faq-list--default",
@@ -2573,6 +2609,15 @@
       "svelteFile": "components/product-window.svelte",
       "svelteItem": "product-window",
       "astroItem": "product-window"
+    },
+    {
+      "name": "DragWindow",
+      "group": "brand",
+      "svelte": "custom-drag-window--on-a-material",
+      "astro": "drag-window",
+      "svelteFile": "components/drag-window.svelte",
+      "svelteItem": "drag-window",
+      "astroItem": "drag-window"
     },
     {
       "name": "MaterialWash",

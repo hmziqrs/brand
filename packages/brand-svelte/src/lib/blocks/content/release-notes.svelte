@@ -5,57 +5,103 @@
   change. `columns` gives each kind a column. `tabs` puts the kinds in the
   code block's tabs. And `summary` shows the first change only, with a
   button that shows the rest — the one the past releases on a timeline use.
+  A change keeps its **bold** lead, `code` and links, and its nested lines.
+  With `spots`, a change that names a part of the release's picture lights
+  its dot and sets `spot` while you point at it.
 -->
 <script lang="ts">
 	import ChevronDown from "@lucide/svelte/icons/chevron-down";
 	import ChevronUp from "@lucide/svelte/icons/chevron-up";
+	import { changeCount, changeSegments, itemText, releaseSummary, spotFor, type ChangeSegment } from "@hmziq/brand-core/changelog";
 	import { cn } from "$brand/utils.js";
+	import InlineCode from "$brand/components/inline-code.svelte";
 	import KindTag from "./kind-tag.svelte";
 	import { nextCodeId } from "$brand/components/code-id.js";
-	import type { Release } from "./types.js";
+	import type { ChangeItem, ChangeSpots, Release } from "./types.js";
 
-	let { release, variant = "grouped", class: className }: { release: Release; variant?: "grouped" | "tagged" | "columns" | "tabs" | "summary"; class?: string } = $props();
+	let {
+		release,
+		variant = "grouped",
+		spots,
+		full,
+		spot = $bindable(null),
+		open = $bindable(),
+		class: className,
+	}: {
+		release: Release;
+		variant?: "grouped" | "tagged" | "columns" | "tabs" | "summary";
+		/** The parts of the picture the changes name, for the whole changelog. */
+		spots?: ChangeSpots;
+		/** The release before a search or kind filter narrowed it, so each change keeps its spot. */
+		full?: Release;
+		/** The part the pointer is on, shared with the picture. */
+		spot?: string | null;
+		/** The summary variant's rest, shown. */
+		open?: boolean;
+		class?: string;
+	} = $props();
 
-	const dots = "absolute top-[0.6em] left-0 size-1.5 rounded-full border border-muted-foreground";
-	const count = $derived(release.groups.reduce((n, [, items]) => n + items.length, 0));
+	const dots = "absolute top-[0.6em] left-0 size-1.5 rounded-full border transition-colors motion-reduce:transition-none";
+	const count = $derived(changeCount(release));
 
 	/** The tabs variant's picked kind. */
 	let tab = $state(0);
-	/** The summary variant's folded rest. */
-	let open = $state(false);
 	const id = nextCodeId();
-	const first = $derived(release.groups[0]?.[1][0] ?? "");
-	const short = $derived(first.length > 150 ? `${first.slice(0, 150).replace(/\s\S*$/, "")}…` : first);
+	const short = $derived(releaseSummary(release));
+	const partOf = (kind: string, item: ChangeItem) => spotFor(spots, full ?? release, kind, item);
 </script>
+
+{#snippet words(segments: ChangeSegment[])}{#each segments as s, i (i)}{#if s.kind === "code"}<InlineCode>{s.value}</InlineCode>{:else if s.kind === "bold"}<strong class="font-semibold text-foreground">{@render words(s.inner ?? [])}</strong>{:else if s.kind === "link"}<a href={s.href} target="_blank" rel="noopener" class="font-medium text-foreground underline decoration-primary/60 decoration-1 underline-offset-4 hover:decoration-primary">{s.value}</a>{:else}{s.value}{/if}{/each}{/snippet}
+
+{#snippet body(item: ChangeItem)}
+	{@render words(changeSegments(itemText(item)))}
+	{#if typeof item !== "string"}
+		<ul class="mt-1.5 flex flex-col gap-1 border-l border-border pl-3 text-[0.8125rem] leading-relaxed text-foreground/85">
+			{#each item.sub as line, k (k)}<li>{@render words(changeSegments(line))}</li>{/each}
+		</ul>
+	{/if}
+{/snippet}
+
+{#snippet change(kind: string, item: ChangeItem)}
+	{@const part = partOf(kind, item)}
+	<li
+		data-spot={part ?? undefined}
+		class={cn("relative pl-4 text-[0.9rem] leading-relaxed [overflow-wrap:anywhere]", part && "cursor-default")}
+		onpointerenter={part ? () => (spot = part) : undefined}
+		onpointerleave={part ? () => (spot = null) : undefined}
+	>
+		<i aria-hidden="true" class={cn(dots, part && spot === part ? "border-primary bg-primary" : "border-muted-foreground")}></i>
+		{@render body(item)}
+	</li>
+{/snippet}
+
+{#snippet rows(extra?: string)}
+	{#each release.groups as [kind, items] (kind)}
+		<div class={cn("grid items-start gap-x-4 gap-y-2 md:grid-cols-[6rem_minmax(0,1fr)]", extra)}>
+			<span class="pt-0.5">
+				<KindTag {kind} />
+			</span>
+			<ul class="flex max-w-[46rem] min-w-0 flex-col gap-2">
+				{#each items as item, i (i)}{@render change(kind, item)}{/each}
+			</ul>
+		</div>
+	{/each}
+{/snippet}
 
 {#if variant === "grouped"}
 	<div data-slot="release-notes" data-variant={variant} class={cn("mt-4 flex flex-col gap-4", className)}>
-		{#each release.groups as [kind, items] (kind)}
-			<div class="grid items-start gap-x-4 gap-y-2 md:grid-cols-[6rem_minmax(0,1fr)]">
-				<span class="pt-0.5">
-					<KindTag {kind} />
-				</span>
-				<ul class="flex max-w-[46rem] flex-col gap-2">
-					{#each items as item (item)}
-						<li class="relative pl-4 text-[0.9rem] leading-relaxed">
-							<i aria-hidden="true" class={dots}></i>
-							{item}
-						</li>
-					{/each}
-				</ul>
-			</div>
-		{/each}
+		{@render rows()}
 	</div>
 {:else if variant === "tagged"}
 	<ul data-slot="release-notes" data-variant={variant} class={cn("mt-4 flex max-w-[46rem] flex-col gap-2", className)}>
 		{#each release.groups as [kind, items] (kind)}
-			{#each items as item (item)}
-				<li class="relative grid items-start gap-x-3 gap-y-1 pl-4 text-[0.9rem] leading-relaxed md:grid-cols-[auto_minmax(0,1fr)]">
-					<i aria-hidden="true" class={dots}></i>
+			{#each items as item, i (i)}
+				<li class="relative grid items-start gap-x-3 gap-y-1 pl-4 text-[0.9rem] leading-relaxed [overflow-wrap:anywhere] md:grid-cols-[auto_minmax(0,1fr)]">
+					<i aria-hidden="true" class={cn(dots, "border-muted-foreground")}></i>
 					<span class="justify-self-start">
 						<KindTag {kind} />
 					</span>
-					<span>{item}</span>
+					<span class="min-w-0">{@render body(item)}</span>
 				</li>
 			{/each}
 		{/each}
@@ -66,12 +112,7 @@
 			<div class="flex flex-col gap-3 border-t pt-4">
 				<KindTag {kind} count={items.length} />
 				<ul class="flex flex-col gap-2">
-					{#each items as item (item)}
-						<li class="relative pl-4 text-[0.9rem] leading-relaxed">
-							<i aria-hidden="true" class={dots}></i>
-							{item}
-						</li>
-					{/each}
+					{#each items as item, i (i)}{@render change(kind, item)}{/each}
 				</ul>
 			</div>
 		{/each}
@@ -93,15 +134,10 @@
 				</button>
 			{/each}
 		</div>
-		{#each release.groups as [, items], i (i)}
+		{#each release.groups as [kind, items], i (i)}
 			<div id={`${id}-panel-${i}`} role="tabpanel" aria-labelledby={`${id}-tab-${i}`} hidden={i !== tab}>
 				<ul class="flex flex-col gap-2 px-5 py-4">
-					{#each items as item (item)}
-						<li class="relative pl-4 text-[0.9rem] leading-relaxed">
-							<i aria-hidden="true" class={dots}></i>
-							{item}
-						</li>
-					{/each}
+					{#each items as item, k (k)}{@render change(kind, item)}{/each}
 				</ul>
 			</div>
 		{/each}
@@ -109,29 +145,15 @@
 {:else}
 	<div data-slot="release-notes" data-variant={variant} class={cn("mt-3", className)}>
 		{#if open}
-			{#each release.groups as [kind, items] (kind)}
-				<div class="mt-4 grid items-start gap-x-4 gap-y-2 md:grid-cols-[6rem_minmax(0,1fr)]">
-					<span class="pt-0.5">
-						<KindTag {kind} />
-					</span>
-					<ul class="flex max-w-[46rem] flex-col gap-2">
-						{#each items as item (item)}
-							<li class="relative pl-4 text-[0.9rem] leading-relaxed">
-								<i aria-hidden="true" class={dots}></i>
-								{item}
-							</li>
-						{/each}
-					</ul>
-				</div>
-			{/each}
+			{@render rows("mt-4")}
 		{:else}
-			<p class="max-w-[46rem] text-[0.9rem] leading-relaxed text-muted-foreground">{short}</p>
+			<p class="max-w-[46rem] text-[0.9rem] leading-relaxed text-foreground/80 [overflow-wrap:anywhere]">{short}</p>
 		{/if}
 		<button
 			type="button"
-			aria-expanded={open}
+			aria-expanded={!!open}
 			onclick={() => (open = !open)}
-			class="mt-3.5 inline-flex items-center gap-1.5 rounded-full border py-1.5 pr-3 pl-2 text-[0.8125rem] font-medium transition-colors outline-none hover:border-primary/55 focus-visible:ring-3 focus-visible:ring-ring/50"
+			class="mt-3.5 inline-flex items-center gap-1.5 rounded-full border py-1.5 pr-3 pl-2 text-[0.8125rem] font-medium transition-colors outline-none hover:border-primary/55 focus-visible:ring-3 focus-visible:ring-ring/50 motion-reduce:transition-none"
 		>
 			{#if open}<ChevronUp class="lucide size-3.5" />{:else}<ChevronDown class="lucide size-3.5" />{/if}
 			{open ? "Hide the changes" : `Show all ${count} change${count === 1 ? "" : "s"}`}

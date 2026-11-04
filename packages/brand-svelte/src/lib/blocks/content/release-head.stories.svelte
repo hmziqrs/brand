@@ -20,3 +20,9 @@
 		<ReleaseHead release={releases[0]} level={2} />
 	</div>
 </Story>
+
+<Story name="Long date" asChild>
+	<div class="px-6">
+		<ReleaseHead release={releases[0]} level={2} longDate />
+	</div>
+</Story>
