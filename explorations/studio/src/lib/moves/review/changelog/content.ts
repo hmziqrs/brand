@@ -1,14 +1,14 @@
 import type { Component } from 'svelte';
+import { kindCount, type ChangeSpots } from '@hmziq/brand-core/changelog';
+import type { ReleaseLink, ReleasePictureInfo } from '$brand/blocks/content/types.js';
 import SettingsSketch from './settings-sketch.svelte';
 import EndpointsSketch from './endpoints-sketch.svelte';
 import TemplatesSketch from './templates-sketch.svelte';
-import StackDrawing from './stack-drawing.svelte';
-import { kindCount, type Spots } from './parts';
 import { blogReleases, multiReleases, type Release } from './releases';
 
 export type ChangelogKind = 'main' | 'product';
 
-export type Picture = { sketch: Component<any>; tag: string; caption: string; drawing?: boolean };
+export type Picture = ReleasePictureInfo & { sketch: Component<any> };
 
 export type Changelog = {
 	kind: ChangelogKind;
@@ -16,14 +16,14 @@ export type Changelog = {
 	title: string;
 	accent?: string;
 	lede: string;
-	preset: string;
-	window: { title: string; sketch: Component<any> };
+	preset?: string;
+	window?: { title: string; sketch: Component<any> };
 	numbers?: [string, string][];
 	filters: boolean;
 	open: number;
 	pictures: Record<string, Picture>;
-	spots: Spots;
-	more?: { primary: { label: string; href: string }; secondary?: { label: string } };
+	spots: ChangeSpots;
+	links?: ReleaseLink[];
 };
 
 export const changelogs: Record<ChangelogKind, Changelog> = {
@@ -36,14 +36,8 @@ export const changelogs: Record<ChangelogKind, Changelog> = {
 		window: { title: 'blog.hmziq.rs', sketch: EndpointsSketch },
 		filters: false,
 		open: 2,
-		pictures: {
-			'0.0.2': { sketch: EndpointsSketch, tag: 'Endpoints', caption: 'The addresses 0.0.2 added, with what each returns on the live blog. Point at a change to open its address.' },
-			'0.0.1': { sketch: StackDrawing, tag: 'Line drawing', caption: 'The first release, part by part. Point at a part to find its line, or at a line to find its part.', drawing: true }
-		},
-		spots: {
-			'0.0.2': { Added: ['docs', 'docs', 'md', 'json'] },
-			'0.0.1': { Added: ['site', 'content', 'pages', 'native', 'api', 'media', 'cicd'] }
-		}
+		pictures: {},
+		spots: { '0.0.2': { Added: ['docs', 'docs', 'md', 'json'] } }
 	},
 	product: {
 		kind: 'product',
@@ -51,8 +45,6 @@ export const changelogs: Record<ChangelogKind, Changelog> = {
 		title: 'claude-multi changelog for Claude Code.',
 		accent: 'changelog',
 		lede: 'This page tracks claude-multi CLI releases for Claude Code. Entries come from CHANGELOG.md and cover CLI behavior, provider templates, installs, and migrations. Day-to-day website CSS and CI changes are not listed unless they shipped with a release.',
-		preset: 'white-sweep',
-		window: { title: '~/.claude-<name>/settings.json', sketch: SettingsSketch },
 		numbers: [
 			[String(multiReleases.length), 'releases'],
 			[String(kindCount(multiReleases, 'Added')), 'features added'],
@@ -68,6 +60,9 @@ export const changelogs: Record<ChangelogKind, Changelog> = {
 			'0.13.2': { Changed: ['fable', 'effort', 'fable'], Fixed: [null, 'env', null, null] },
 			'0.13.0': { Changed: ['lineup', 'qwen'] }
 		},
-		more: { primary: { label: 'View on GitHub', href: 'https://github.com/hmziqrs/claude-multi/releases' }, secondary: { label: 'Get started' } }
+		links: [
+			{ label: 'View on GitHub', href: 'https://github.com/hmziqrs/claude-multi/releases', external: true },
+			{ label: 'Get started', href: '#' }
+		]
 	}
 };

@@ -23,7 +23,7 @@
 		<div>
 			<a href="#/" class="font-mono text-xs text-muted-foreground hover:text-foreground">← studio</a>
 			<h1 class="mt-2 text-4xl font-medium tracking-tight">Changelog</h1>
-			<p class="mt-2 max-w-2xl text-foreground/80">Two kinds of changelog, each with one recommended design and one alternative. Versions, dates and kind tags are the same kit pieces in all four. Each shows its top part first and runs live; open one alone to see it under its own site’s header and footer.</p>
+			<p class="mt-2 max-w-2xl text-foreground/80">Two kinds of changelog, each with its approved design, now the kit’s ReleaseDesk and ReleaseTimelinePage. Each shows its top part first and runs live; open one alone to see it under its own site’s header and footer.</p>
 		</div>
 		<button type="button" aria-label="Toggle theme" class="grid size-9 shrink-0 place-items-center rounded-md border border-border" onclick={() => prefs.toggleTheme()}>
 			{#if prefs.dark}<Sun class="lucide size-4" />{:else}<Moon class="lucide size-4" />{/if}
