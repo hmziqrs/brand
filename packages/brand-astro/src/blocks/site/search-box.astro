@@ -21,9 +21,9 @@ interface Props {
 const { label, value, name, class: className } = Astro.props;
 ---
 
-<InputGroup.Root class={cn("h-10 w-full max-w-[26rem] shadow-none dark:bg-transparent", className)}>
-  <InputGroup.Addon>
+<InputGroup.Root class={cn("h-10 w-full max-w-[26rem] rounded-md shadow-none dark:bg-transparent", className)}>
+  <InputGroup.Addon align="inline-start" class="py-1.5 pl-2">
     <Search />
   </InputGroup.Addon>
-  <InputGroup.Input type="search" aria-label={label} placeholder={label} name={name} value={value} />
+  <InputGroup.Input type="search" aria-label={label} placeholder={label} name={name} value={value} class="h-9 min-w-0 px-2.5 py-1 text-base md:text-sm" />
 </InputGroup.Root>

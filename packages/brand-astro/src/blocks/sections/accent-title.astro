@@ -1,0 +1,19 @@
+---
+import { cn } from "$brand/utils";
+
+/* A headline with one phrase of it in oxide (the display shade in light mode). */
+
+interface Props {
+  title: string;
+  /** The part of the title to color; it must appear in the title. */
+  accent?: string;
+  as?: "h1" | "h2" | "p";
+  class?: string;
+}
+
+const { title, accent, as: Tag = "h1", class: className } = Astro.props;
+const at = accent ? title.indexOf(accent) : -1;
+const parts = !accent || at < 0 ? { lead: title, hit: "", tail: "" } : { lead: title.slice(0, at), hit: accent, tail: title.slice(at + accent.length) };
+---
+
+<Tag data-slot="accent-title" class={cn("text-balance", className)}>{parts.lead}{parts.hit && <span class="text-primary">{parts.hit}</span>}{parts.tail}</Tag>

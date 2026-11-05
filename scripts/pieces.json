@@ -217,33 +217,6 @@
       "astroItem": "terminal-line"
     },
     {
-      "name": "Stepper",
-      "group": "brand",
-      "svelte": "custom-stepper--done",
-      "astro": "stepper",
-      "svelteFile": "components/stepper.svelte",
-      "svelteItem": "stepper",
-      "astroItem": "stepper"
-    },
-    {
-      "name": "Step",
-      "group": "brand",
-      "svelte": "custom-stepper--done",
-      "astro": "step",
-      "svelteFile": "components/step.svelte",
-      "svelteItem": "step",
-      "astroItem": "step"
-    },
-    {
-      "name": "StepNumber",
-      "group": "brand",
-      "svelte": "custom-stepper--done",
-      "astro": "step-number",
-      "svelteFile": "components/step-number.svelte",
-      "svelteItem": "step-number",
-      "astroItem": "step-number"
-    },
-    {
       "name": "Segmented",
       "group": "brand",
       "svelte": "custom-segmented--default",
@@ -323,16 +296,6 @@
       "svelteFile": "tweakers/ring-motion.stories.svelte",
       "svelteItem": "not yet",
       "astroItem": "not yet"
-    },
-    {
-      "name": "SiteShell",
-      "group": "site",
-      "svelte": "site-structure-site-shell--landing",
-      "astro": "site-shell",
-      "svelteFile": "blocks/site/site-shell.svelte",
-      "svelteItem": "site-shell",
-      "astroItem": "site-shell",
-      "astroFile": "blocks/site/site-layout.astro"
     },
     {
       "name": "SiteHead",
@@ -425,24 +388,6 @@
       "astroItem": "page-intro"
     },
     {
-      "name": "RingStats",
-      "group": "site",
-      "svelte": "site-sections-ring-stats--default",
-      "astro": "ring-stats",
-      "svelteFile": "blocks/site/ring-stats.svelte",
-      "svelteItem": "ring-stats",
-      "astroItem": "ring-stats"
-    },
-    {
-      "name": "Section",
-      "group": "site",
-      "svelte": "site-sections-section--default",
-      "astro": "section",
-      "svelteFile": "blocks/site/section.svelte",
-      "svelteItem": "section",
-      "astroItem": "section"
-    },
-    {
       "name": "OutlineCard",
       "group": "site",
       "svelte": "site-cards-outline-card--default",
@@ -452,85 +397,40 @@
       "astroItem": "outline-card"
     },
     {
-      "name": "ElementCard",
+      "name": "PricingPage",
       "group": "site",
-      "svelte": "site-cards-element-card--default",
-      "astro": "element-card",
-      "svelteFile": "blocks/site/element-card.svelte",
-      "svelteItem": "element-card",
-      "astroItem": "element-card"
+      "svelte": "site-pricing-pricing-page--torii-tools",
+      "astro": "pricing-page",
+      "svelteFile": "blocks/site/pricing-page.svelte",
+      "svelteItem": "pricing-page",
+      "astroItem": "pricing-page"
     },
     {
-      "name": "FeatureCards",
+      "name": "PricingCard",
       "group": "site",
-      "svelte": "site-cards-feature-cards--default",
-      "astro": "feature-cards",
-      "svelteFile": "blocks/site/feature-cards.svelte",
-      "svelteItem": "feature-cards",
-      "astroItem": "feature-cards"
+      "svelte": "site-pricing-pricing-card--default",
+      "astro": "pricing-card",
+      "svelteFile": "blocks/site/pricing-card.svelte",
+      "svelteItem": "pricing-card",
+      "astroItem": "pricing-card"
     },
     {
-      "name": "FeatureGrid",
+      "name": "PricingCompare",
       "group": "site",
-      "svelte": "site-cards-feature-grid--default",
-      "astro": "feature-grid",
-      "svelteFile": "blocks/site/feature-grid.svelte",
-      "svelteItem": "feature-grid",
-      "astroItem": "feature-grid"
+      "svelte": "site-pricing-pricing-compare--torii-tools",
+      "astro": "pricing-compare",
+      "svelteFile": "blocks/site/pricing-compare.svelte",
+      "svelteItem": "pricing-compare",
+      "astroItem": "pricing-compare"
     },
     {
-      "name": "Steps",
+      "name": "FaqSection",
       "group": "site",
-      "svelte": "site-sections-steps--default",
-      "astro": "steps",
-      "svelteFile": "blocks/site/steps.svelte",
-      "svelteItem": "steps",
-      "astroItem": "steps"
-    },
-    {
-      "name": "PricingPlans",
-      "group": "site",
-      "svelte": "site-pricing-pricing-plans--default",
-      "astro": "pricing-plans",
-      "svelteFile": "blocks/site/pricing-plans.svelte",
-      "svelteItem": "pricing-plans",
-      "astroItem": "pricing-plans"
-    },
-    {
-      "name": "Price",
-      "group": "site",
-      "svelte": "site-pricing-pricing-plans--default",
-      "astro": "price",
-      "svelteFile": "blocks/site/price.svelte",
-      "svelteItem": "price",
-      "astroItem": "price"
-    },
-    {
-      "name": "BeforeAfter",
-      "group": "site",
-      "svelte": "site-cards-before-after--default",
-      "astro": "before-after",
-      "svelteFile": "blocks/site/before-after.svelte",
-      "svelteItem": "before-after",
-      "astroItem": "before-after"
-    },
-    {
-      "name": "CtaBand",
-      "group": "site",
-      "svelte": "site-sections-cta-band--default",
-      "astro": "cta-band",
-      "svelteFile": "blocks/site/cta-band.svelte",
-      "svelteItem": "cta-band",
-      "astroItem": "cta-band"
-    },
-    {
-      "name": "ProvidersTable",
-      "group": "site",
-      "svelte": "site-pricing-providers-table--default",
-      "astro": "not yet",
-      "svelteFile": "blocks/site/providers-table.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "svelte": "site-pricing-faq-section--default",
+      "astro": "faq-section",
+      "svelteFile": "blocks/site/faq-section.svelte",
+      "svelteItem": "faq-section",
+      "astroItem": "faq-section"
     },
     {
       "name": "Prose",
@@ -1056,15 +956,6 @@
       "astroItem": "record-sheet"
     },
     {
-      "name": "BlogLayout",
-      "group": "content",
-      "svelte": "content-blog-layout--default",
-      "astro": "blog-layout",
-      "svelteFile": "blocks/content/blog-layout.svelte",
-      "svelteItem": "blog-layout",
-      "astroItem": "blog-layout"
-    },
-    {
       "name": "PostHeader",
       "group": "content",
       "svelte": "content-blog-post-header--with-cover",
@@ -1101,15 +992,6 @@
       "astroItem": "share-bar"
     },
     {
-      "name": "NewsletterBand",
-      "group": "content",
-      "svelte": "content-blog-newsletter-band--default",
-      "astro": "newsletter-band",
-      "svelteFile": "blocks/content/newsletter-band.svelte",
-      "svelteItem": "newsletter-band",
-      "astroItem": "newsletter-band"
-    },
-    {
       "name": "PostList",
       "group": "content",
       "svelte": "content-blog-post-list--cards",
@@ -1137,13 +1019,49 @@
       "astroItem": "post-meta"
     },
     {
-      "name": "DocsLayout",
+      "name": "Byline",
       "group": "content",
-      "svelte": "content-docs-layout--default",
-      "astro": "docs-layout",
-      "svelteFile": "blocks/content/docs-layout.svelte",
-      "svelteItem": "docs-layout",
-      "astroItem": "docs-layout"
+      "svelte": "content-blog-byline--default",
+      "astro": "byline",
+      "svelteFile": "blocks/content/byline.svelte",
+      "svelteItem": "byline",
+      "astroItem": "byline"
+    },
+    {
+      "name": "TopicCards",
+      "group": "content",
+      "svelte": "content-blog-topic-cards--default",
+      "astro": "topic-cards",
+      "svelteFile": "blocks/content/topic-cards.svelte",
+      "svelteItem": "topic-cards",
+      "astroItem": "topic-cards"
+    },
+    {
+      "name": "MagazineIndex",
+      "group": "content",
+      "svelte": "content-blog-magazine-index--blog-hmziq-rs",
+      "astro": "magazine-index",
+      "svelteFile": "blocks/content/magazine-index.svelte",
+      "svelteItem": "magazine-index",
+      "astroItem": "magazine-index"
+    },
+    {
+      "name": "PostArticle",
+      "group": "content",
+      "svelte": "content-blog-post-article--main-blog",
+      "astro": "post-article",
+      "svelteFile": "blocks/content/post-article.svelte",
+      "svelteItem": "post-article",
+      "astroItem": "post-article"
+    },
+    {
+      "name": "BlogIndex",
+      "group": "content",
+      "svelte": "content-blog-blog-index--claude-multi",
+      "astro": "blog-index",
+      "svelteFile": "blocks/content/blog-index.svelte",
+      "svelteItem": "blog-index",
+      "astroItem": "blog-index"
     },
     {
       "name": "DocsSearch",
@@ -1218,22 +1136,40 @@
       "astroItem": "past-releases"
     },
     {
-      "name": "FaqList",
+      "name": "ReleaseFilters",
       "group": "content",
-      "svelte": "content-faq-list--default",
-      "astro": "faq-list",
-      "svelteFile": "blocks/content/faq-list.svelte",
-      "svelteItem": "faq-list",
-      "astroItem": "faq-list"
+      "svelte": "content-changelog-release-filters--default",
+      "astro": "release-filters",
+      "svelteFile": "blocks/content/release-filters.svelte",
+      "svelteItem": "release-filters",
+      "astroItem": "release-filters"
     },
     {
-      "name": "LegalLayout",
+      "name": "ReleasePicture",
       "group": "content",
-      "svelte": "content-legal-layout--side",
-      "astro": "legal-layout",
-      "svelteFile": "blocks/content/legal-layout.svelte",
-      "svelteItem": "legal-layout",
-      "astroItem": "legal-layout"
+      "svelte": "content-changelog-release-picture--settings-json",
+      "astro": "release-picture",
+      "svelteFile": "blocks/content/release-picture.svelte",
+      "svelteItem": "release-picture",
+      "astroItem": "release-picture"
+    },
+    {
+      "name": "ReleaseDesk",
+      "group": "content",
+      "svelte": "content-changelog-release-desk--blog-hmziq-rs",
+      "astro": "release-desk",
+      "svelteFile": "blocks/content/release-desk.svelte",
+      "svelteItem": "release-desk",
+      "astroItem": "release-desk"
+    },
+    {
+      "name": "ReleaseTimelinePage",
+      "group": "content",
+      "svelte": "content-changelog-release-timeline-page--claude-multi",
+      "astro": "release-timeline-page",
+      "svelteFile": "blocks/content/release-timeline-page.svelte",
+      "svelteItem": "release-timeline-page",
+      "astroItem": "release-timeline-page"
     },
     {
       "name": "LegalSection",
@@ -1245,15 +1181,6 @@
       "astroItem": "legal-section"
     },
     {
-      "name": "LegalBlock",
-      "group": "content",
-      "svelte": "content-legal-block--default",
-      "astro": "legal-block",
-      "svelteFile": "blocks/content/legal-block.svelte",
-      "svelteItem": "legal-block",
-      "astroItem": "legal-block"
-    },
-    {
       "name": "ContactChannels",
       "group": "content",
       "svelte": "content-contact-channels--default",
@@ -1261,42 +1188,6 @@
       "svelteFile": "blocks/content/contact-channels.svelte",
       "svelteItem": "contact-channels",
       "astroItem": "contact-channels"
-    },
-    {
-      "name": "NotFound",
-      "group": "content",
-      "svelte": "content-not-found--default",
-      "astro": "not-found",
-      "svelteFile": "blocks/content/not-found.svelte",
-      "svelteItem": "not-found",
-      "astroItem": "not-found"
-    },
-    {
-      "name": "InstallSteps",
-      "group": "content",
-      "svelte": "content-docs-install-steps--default",
-      "astro": "install-steps",
-      "svelteFile": "blocks/content/install-steps.svelte",
-      "svelteItem": "install-steps",
-      "astroItem": "install-steps"
-    },
-    {
-      "name": "TypingTerminal",
-      "group": "content",
-      "svelte": "content-docs-typing-terminal--default",
-      "astro": "typing-terminal",
-      "svelteFile": "blocks/content/typing-terminal.svelte",
-      "svelteItem": "typing-terminal",
-      "astroItem": "typing-terminal"
-    },
-    {
-      "name": "CodeEditor",
-      "group": "content",
-      "svelte": "content-docs-code-editor--default",
-      "astro": "code-editor",
-      "svelteFile": "blocks/content/code-editor.svelte",
-      "svelteItem": "code-editor",
-      "astroItem": "code-editor"
     },
     {
       "name": "Checks",
@@ -1317,157 +1208,31 @@
       "astroItem": "not yet"
     },
     {
-      "name": "MenuDemo",
+      "name": "RichBlocks",
       "group": "content",
-      "svelte": "content-docs-menu-demo--default",
-      "astro": "not yet",
-      "svelteFile": "blocks/content/menu-demo.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "InstanceGraph",
-      "group": "content",
-      "svelte": "content-docs-instance-graph--default",
-      "astro": "not yet",
-      "svelteFile": "blocks/content/instance-graph.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "Sightline",
-      "group": "site",
-      "svelte": "templates-saas-landing-pages--sightline-analytics",
-      "astro": "not yet",
-      "svelteFile": "templates/templates.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "Hookline",
-      "group": "site",
-      "svelte": "templates-saas-landing-pages--hookline-developer-api",
-      "astro": "not yet",
-      "svelteFile": "templates/templates.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "Groundwork",
-      "group": "site",
-      "svelte": "templates-saas-landing-pages--groundwork-team-planning",
-      "astro": "not yet",
-      "svelteFile": "templates/templates.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "Parley",
-      "group": "site",
-      "svelte": "templates-saas-landing-pages--parley-ai-support",
-      "astro": "not yet",
-      "svelteFile": "templates/templates.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "Openslot",
-      "group": "site",
-      "svelte": "templates-saas-landing-pages--openslot-scheduling",
-      "astro": "not yet",
-      "svelteFile": "templates/templates.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "AboutPage",
-      "group": "site",
-      "svelte": "sites-pages--about-claude-multi",
-      "astro": "not yet",
-      "svelteFile": "blocks/content/pages.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "ProvidersPage",
-      "group": "site",
-      "svelte": "sites-pages--providers-claude-multi",
-      "astro": "not yet",
-      "svelteFile": "blocks/content/pages.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "svelte": "content-rich-blocks--default",
+      "astro": "rich-blocks",
+      "svelteFile": "blocks/content/rich-blocks.svelte",
+      "svelteItem": "rich-blocks",
+      "astroItem": "rich-blocks"
     },
     {
       "name": "FaqPage",
-      "group": "site",
-      "svelte": "sites-pages--faq-claude-multi",
-      "astro": "not yet",
-      "svelteFile": "blocks/content/pages.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "ChangelogPage",
-      "group": "site",
-      "svelte": "sites-pages--changelog-claude-multi",
-      "astro": "not yet",
-      "svelteFile": "blocks/content/pages.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "BlogIndexPage",
-      "group": "site",
-      "svelte": "sites-pages--blog-index-claude-multi",
-      "astro": "not yet",
-      "svelteFile": "blocks/content/pages.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "PrivacyPage",
-      "group": "site",
-      "svelte": "sites-pages--privacy-claude-multi",
-      "astro": "not yet",
-      "svelteFile": "blocks/content/pages.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "TermsPage",
-      "group": "site",
-      "svelte": "sites-pages--terms-claude-multi",
-      "astro": "not yet",
-      "svelteFile": "blocks/content/pages.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "group": "content",
+      "svelte": "content-faq-page--claude-multi",
+      "astro": "faq-page",
+      "svelteFile": "blocks/content/faq-page.svelte",
+      "svelteItem": "faq-page",
+      "astroItem": "faq-page"
     },
     {
       "name": "NotFoundPage",
-      "group": "site",
-      "svelte": "sites-pages--not-found-claude-multi",
-      "astro": "not yet",
-      "svelteFile": "blocks/content/pages.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "ComponentsPage",
-      "group": "site",
-      "svelte": "sites-pages--components-hmziq-rs",
-      "astro": "not yet",
-      "svelteFile": "blocks/content/pages.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "ContactPage",
-      "group": "site",
-      "svelte": "sites-pages--contact-oxlabs-dev",
-      "astro": "not yet",
-      "svelteFile": "blocks/content/pages.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "group": "content",
+      "svelte": "content-not-found-page--claude-multi",
+      "astro": "not-found-page",
+      "svelteFile": "blocks/content/not-found-page.svelte",
+      "svelteItem": "not-found-page",
+      "astroItem": "not-found-page"
     },
     {
       "name": "Radius",
@@ -1768,96 +1533,6 @@
       "svelte": "ui-base-datepicker--with-popover",
       "astro": "not yet",
       "svelteFile": "ui/date-picker/date-picker.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "DocsPage",
-      "group": "site",
-      "svelte": "sites-pages--docs-gpui-query",
-      "astro": "not yet",
-      "svelteFile": "blocks/content/pages.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "BlogPostPage",
-      "group": "site",
-      "svelte": "sites-pages--blog-post-blog-hmziq-rs",
-      "astro": "not yet",
-      "svelteFile": "blocks/content/pages.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "HmziqLanding",
-      "group": "site",
-      "svelte": "sites-landing-pages--hmziq-rs",
-      "astro": "not yet",
-      "svelteFile": "blocks/site/sites.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "BlogLanding",
-      "group": "site",
-      "svelte": "sites-landing-pages--blog-hmziq-rs",
-      "astro": "not yet",
-      "svelteFile": "blocks/site/sites.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "LabsLanding",
-      "group": "site",
-      "svelte": "sites-landing-pages--hmziq-xyz-labs",
-      "astro": "not yet",
-      "svelteFile": "blocks/site/sites.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "FreeoxideLanding",
-      "group": "site",
-      "svelte": "sites-landing-pages--freeoxide-com",
-      "astro": "not yet",
-      "svelteFile": "blocks/site/sites.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "GpuiStarterLanding",
-      "group": "site",
-      "svelte": "sites-landing-pages--gpui-starter",
-      "astro": "not yet",
-      "svelteFile": "blocks/site/sites.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "GpuiQueryLanding",
-      "group": "site",
-      "svelte": "sites-landing-pages--gpui-query",
-      "astro": "not yet",
-      "svelteFile": "blocks/site/sites.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "ClaudeMultiLanding",
-      "group": "site",
-      "svelte": "sites-landing-pages--claude-multi",
-      "astro": "not yet",
-      "svelteFile": "blocks/site/sites.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "OxlabsLanding",
-      "group": "site",
-      "svelte": "sites-landing-pages--oxlabs-dev",
-      "astro": "not yet",
-      "svelteFile": "blocks/site/sites.stories.svelte",
       "svelteItem": "not yet",
       "astroItem": "not yet"
     },
@@ -2224,33 +1899,6 @@
       "astroItem": "not yet"
     },
     {
-      "name": "ShaderPages",
-      "group": "site",
-      "svelte": "templates-shader-pages--product",
-      "astro": "not yet",
-      "svelteFile": "templates/shader-pages.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "ShaderSections",
-      "group": "site",
-      "svelte": "templates-shader-sections--complete-catalog",
-      "astro": "not yet",
-      "svelteFile": "templates/shader-sections.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "OxideSaasPages",
-      "group": "site",
-      "svelte": "templates-oxide-saas-pages--analytics",
-      "astro": "not yet",
-      "svelteFile": "templates/oxide-saas.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
       "name": "Glass",
       "group": "brand",
       "svelte": "custom-glass--over-a-shader",
@@ -2278,101 +1926,11 @@
       "astroItem": "status-ring"
     },
     {
-      "name": "GlassSections",
-      "group": "site",
-      "svelte": "templates-glass-sections--complete-catalog",
-      "astro": "not yet",
-      "svelteFile": "templates/glass-sections.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "ToolPages",
-      "group": "site",
-      "svelte": "sites-freeoxide-tools--tunnel",
-      "astro": "not yet",
-      "svelteFile": "templates/freeoxide-tools.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
       "name": "MaterialCard",
       "group": "brand",
-      "svelte": "custom-material-card--cover",
+      "svelte": "custom-material-card--default",
       "astro": "not yet",
       "svelteFile": "components/material-card.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "MaterialTile",
-      "group": "brand",
-      "svelte": "custom-material-tile--with-icons",
-      "astro": "not yet",
-      "svelteFile": "components/material-tile.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "MaterialRings",
-      "group": "brand",
-      "svelte": "custom-material-rings--chrome",
-      "astro": "not yet",
-      "svelteFile": "components/material-rings.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "MaterialBar",
-      "group": "brand",
-      "svelte": "custom-material-bar--usage",
-      "astro": "not yet",
-      "svelteFile": "components/material-bar.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "RingLoader",
-      "group": "brand",
-      "svelte": "custom-ring-loader--default",
-      "astro": "not yet",
-      "svelteFile": "components/ring-loader.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "RingDivider",
-      "group": "brand",
-      "svelte": "custom-ring-divider--default",
-      "astro": "not yet",
-      "svelteFile": "components/ring-divider.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "RingMeter",
-      "group": "brand",
-      "svelte": "custom-ring-meter--usage",
-      "astro": "not yet",
-      "svelteFile": "components/ring-meter.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "GlassDock",
-      "group": "brand",
-      "svelte": "custom-glass-dock--reading",
-      "astro": "not yet",
-      "svelteFile": "components/glass-dock.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "MaterialFrame",
-      "group": "brand",
-      "svelte": "custom-material-frame--pricing",
-      "astro": "not yet",
-      "svelteFile": "components/material-frame.stories.svelte",
       "svelteItem": "not yet",
       "astroItem": "not yet"
     },
@@ -2382,69 +1940,6 @@
       "svelte": "custom-material-stage--product-screen",
       "astro": "not yet",
       "svelteFile": "components/material-stage.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "MaterialTabs",
-      "group": "brand",
-      "svelte": "custom-material-tabs--default",
-      "astro": "not yet",
-      "svelteFile": "components/material-tabs.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "MaterialGauge",
-      "group": "brand",
-      "svelte": "custom-material-gauge--numbers",
-      "astro": "not yet",
-      "svelteFile": "components/material-gauge.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "MaterialRule",
-      "group": "brand",
-      "svelte": "custom-material-rule--between-sections",
-      "astro": "not yet",
-      "svelteFile": "components/material-rule.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "Announce",
-      "group": "brand",
-      "svelte": "custom-announce--pill",
-      "astro": "not yet",
-      "svelteFile": "components/announce.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "MaterialSlider",
-      "group": "brand",
-      "svelte": "custom-material-slider--pricing",
-      "astro": "not yet",
-      "svelteFile": "components/material-slider.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "MaterialSparkline",
-      "group": "brand",
-      "svelte": "custom-material-sparkline--in-a-card",
-      "astro": "not yet",
-      "svelteFile": "components/material-sparkline.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "MaterialTag",
-      "group": "brand",
-      "svelte": "custom-material-tag--default",
-      "astro": "not yet",
-      "svelteFile": "components/material-tag.stories.svelte",
       "svelteItem": "not yet",
       "astroItem": "not yet"
     },
@@ -2467,15 +1962,6 @@
       "astroItem": "not yet"
     },
     {
-      "name": "Cards",
-      "group": "brand",
-      "svelte": "custom-cards--release",
-      "astro": "not yet",
-      "svelteFile": "components/cards.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
       "name": "RollingNumber",
       "group": "brand",
       "svelte": "custom-rolling-number--price",
@@ -2494,49 +1980,310 @@
       "astroItem": "not yet"
     },
     {
-      "name": "ScrollRings",
-      "group": "brand",
-      "svelte": "custom-scroll-rings--on-scroll",
-      "astro": "not yet",
-      "svelteFile": "components/scroll-rings.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "LiquidGlass",
-      "group": "brand",
-      "svelte": "custom-liquid-glass--over-a-material",
-      "astro": "not yet",
-      "svelteFile": "components/liquid-glass.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
       "name": "NavBar",
       "group": "brand",
-      "svelte": "custom-nav-bar--bar",
-      "astro": "not yet",
+      "svelte": "custom-nav-bar--with-dropdowns",
+      "astro": "nav-bar",
       "svelteFile": "components/nav-bar.stories.svelte",
       "svelteItem": "not yet",
       "astroItem": "not yet"
     },
     {
+      "name": "ProductWindow",
+      "group": "brand",
+      "svelte": "custom-product-window--with-chrome",
+      "astro": "product-window",
+      "svelteFile": "components/product-window.svelte",
+      "svelteItem": "product-window",
+      "astroItem": "product-window"
+    },
+    {
+      "name": "DragWindow",
+      "group": "brand",
+      "svelte": "custom-drag-window--on-a-material",
+      "astro": "drag-window",
+      "svelteFile": "components/drag-window.svelte",
+      "svelteItem": "drag-window",
+      "astroItem": "drag-window"
+    },
+    {
+      "name": "MaterialWash",
+      "group": "brand",
+      "svelte": "custom-material-wash--copper",
+      "astro": "material-wash",
+      "svelteFile": "components/material-wash.svelte",
+      "svelteItem": "material-wash",
+      "astroItem": "material-wash"
+    },
+    {
+      "name": "MaterialGrid",
+      "group": "brand",
+      "svelte": "custom-material-grid--live",
+      "astro": "material-grid",
+      "svelteFile": "components/material-grid.svelte",
+      "svelteItem": "material-grid",
+      "astroItem": "material-grid"
+    },
+    {
+      "name": "DiagonalHatch",
+      "group": "brand",
+      "svelte": "custom-diagonal-hatch--corner",
+      "astro": "diagonal-hatch",
+      "svelteFile": "components/diagonal-hatch.svelte",
+      "svelteItem": "diagonal-hatch",
+      "astroItem": "diagonal-hatch"
+    },
+    {
+      "name": "RingField",
+      "group": "brand",
+      "svelte": "custom-ring-field--default",
+      "astro": "ring-field",
+      "svelteFile": "components/ring-field.svelte",
+      "svelteItem": "ring-field",
+      "astroItem": "ring-field"
+    },
+    {
+      "name": "SceneStage",
+      "group": "brand",
+      "svelte": "custom-scene-stage--lattice",
+      "astro": "scene-stage",
+      "svelteFile": "components/scene-stage.svelte",
+      "svelteItem": "scene-stage",
+      "astroItem": "scene-stage"
+    },
+    {
+      "name": "DotName",
+      "group": "brand",
+      "svelte": "custom-dot-name--default",
+      "astro": "dot-name",
+      "svelteFile": "components/dot-name.svelte",
+      "svelteItem": "dot-name",
+      "astroItem": "dot-name"
+    },
+    {
+      "name": "ResolveTitle",
+      "group": "brand",
+      "svelte": "custom-resolve-title--default",
+      "astro": "resolve-title",
+      "svelteFile": "components/resolve-title.svelte",
+      "svelteItem": "resolve-title",
+      "astroItem": "resolve-title"
+    },
+    {
       "name": "SiteFooter",
       "group": "brand",
       "svelte": "custom-site-footer--columns",
-      "astro": "not yet",
-      "svelteFile": "components/site-footer.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "astro": "site-footer",
+      "svelteFile": "components/site-footer.svelte",
+      "svelteItem": "site-footer",
+      "astroItem": "site-footer"
     },
     {
-      "name": "Roadmap",
+      "name": "FooterColumns",
       "group": "brand",
-      "svelte": "custom-roadmap--board",
-      "astro": "not yet",
-      "svelteFile": "components/roadmap.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "svelte": "custom-footer-columns--default",
+      "astro": "footer-columns",
+      "svelteFile": "components/footer-columns.svelte",
+      "svelteItem": "footer-columns",
+      "astroItem": "footer-columns"
+    },
+    {
+      "name": "FooterFamily",
+      "group": "brand",
+      "svelte": "custom-footer-family--default",
+      "astro": "footer-family",
+      "svelteFile": "components/footer-family.svelte",
+      "svelteItem": "footer-family",
+      "astroItem": "footer-family"
+    },
+    {
+      "name": "FooterSocials",
+      "group": "brand",
+      "svelte": "custom-footer-socials--default",
+      "astro": "footer-socials",
+      "svelteFile": "components/footer-socials.svelte",
+      "svelteItem": "footer-socials",
+      "astroItem": "footer-socials"
+    },
+    {
+      "name": "PixelName",
+      "group": "brand",
+      "svelte": "custom-pixel-name--dots",
+      "astro": "pixel-name",
+      "svelteFile": "components/pixel-name.svelte",
+      "svelteItem": "pixel-name",
+      "astroItem": "pixel-name"
+    },
+    {
+      "name": "DotField",
+      "group": "brand",
+      "svelte": "custom-dot-field--default",
+      "astro": "dot-field",
+      "svelteFile": "components/dot-field.svelte",
+      "svelteItem": "dot-field",
+      "astroItem": "dot-field"
+    },
+    {
+      "name": "HeatField",
+      "group": "brand",
+      "svelte": "custom-heat-field--default",
+      "astro": "heat-field",
+      "svelteFile": "components/heat-field.svelte",
+      "svelteItem": "heat-field",
+      "astroItem": "heat-field"
+    },
+    {
+      "name": "FitWordmark",
+      "group": "brand",
+      "svelte": "custom-fit-wordmark--default",
+      "astro": "fit-wordmark",
+      "svelteFile": "components/fit-wordmark.svelte",
+      "svelteItem": "fit-wordmark",
+      "astroItem": "fit-wordmark"
+    },
+    {
+      "name": "DitherName",
+      "group": "brand",
+      "svelte": "custom-dither-name--drifting",
+      "astro": "dither-name",
+      "svelteFile": "components/dither-name.svelte",
+      "svelteItem": "dither-name",
+      "astroItem": "dither-name"
+    },
+    {
+      "name": "VoxelField",
+      "group": "brand",
+      "svelte": "custom-voxel-field--quiet",
+      "astro": "voxel-field",
+      "svelteFile": "components/voxel-field.svelte",
+      "svelteItem": "voxel-field",
+      "astroItem": "voxel-field"
+    },
+    {
+      "name": "WashGlow",
+      "group": "brand",
+      "svelte": "custom-wash-glow--chalk",
+      "astro": "wash-glow",
+      "svelteFile": "components/wash-glow.svelte",
+      "svelteItem": "wash-glow",
+      "astroItem": "wash-glow"
+    },
+    {
+      "name": "SectionHead",
+      "group": "site",
+      "svelte": "sections-section-head--split",
+      "astro": "section-head",
+      "svelteFile": "blocks/sections/section-head.svelte",
+      "svelteItem": "section-head",
+      "astroItem": "section-head"
+    },
+    {
+      "name": "LineArt",
+      "group": "brand",
+      "svelte": "custom-line-art--kinds",
+      "astro": "line-art",
+      "svelteFile": "components/line-art.svelte",
+      "svelteItem": "line-art",
+      "astroItem": "line-art"
+    },
+    {
+      "name": "PictureCard",
+      "group": "brand",
+      "svelte": "custom-picture-card--default",
+      "astro": "picture-card",
+      "svelteFile": "components/picture-card.svelte",
+      "svelteItem": "picture-card",
+      "astroItem": "picture-card"
+    },
+    {
+      "name": "PictureGrid",
+      "group": "brand",
+      "svelte": "custom-picture-grid--work",
+      "astro": "picture-grid",
+      "svelteFile": "components/picture-grid.svelte",
+      "svelteItem": "picture-grid",
+      "astroItem": "picture-grid"
+    },
+    {
+      "name": "StepCards",
+      "group": "brand",
+      "svelte": "custom-step-cards--with-demos",
+      "astro": "step-cards",
+      "svelteFile": "components/step-cards.svelte",
+      "svelteItem": "step-cards",
+      "astroItem": "step-cards"
+    },
+    {
+      "name": "FlowSteps",
+      "group": "brand",
+      "svelte": "custom-flow-steps--brief-to-ship",
+      "astro": "flow-steps",
+      "svelteFile": "components/flow-steps.svelte",
+      "svelteItem": "flow-steps",
+      "astroItem": "flow-steps"
+    },
+    {
+      "name": "AppMock",
+      "group": "brand",
+      "svelte": "custom-app-mock--kinds",
+      "astro": "app-mock",
+      "svelteFile": "components/app-mock.svelte",
+      "svelteItem": "app-mock",
+      "astroItem": "app-mock"
+    },
+    {
+      "name": "SurfaceTile",
+      "group": "brand",
+      "svelte": "custom-surface-tile--desktop",
+      "astro": "surface-tile",
+      "svelteFile": "components/surface-tile.svelte",
+      "svelteItem": "surface-tile",
+      "astroItem": "surface-tile"
+    },
+    {
+      "name": "ProjectRows",
+      "group": "brand",
+      "svelte": "custom-project-rows--four-tools",
+      "astro": "project-rows",
+      "svelteFile": "components/project-rows.svelte",
+      "svelteItem": "project-rows",
+      "astroItem": "project-rows"
+    },
+    {
+      "name": "CatalogCard",
+      "group": "brand",
+      "svelte": "custom-catalog-card--default-and-picked",
+      "astro": "catalog-card",
+      "svelteFile": "components/catalog-card.svelte",
+      "svelteItem": "catalog-card",
+      "astroItem": "catalog-card"
+    },
+    {
+      "name": "StatTile",
+      "group": "brand",
+      "svelte": "custom-stat-tile--oxide-and-outline",
+      "astro": "stat-tile",
+      "svelteFile": "components/stat-tile.svelte",
+      "svelteItem": "stat-tile",
+      "astroItem": "stat-tile"
+    },
+    {
+      "name": "ReleaseLoop",
+      "group": "brand",
+      "svelte": "custom-release-loop--desktop-release",
+      "astro": "release-loop",
+      "svelteFile": "components/release-loop.svelte",
+      "svelteItem": "release-loop",
+      "astroItem": "release-loop"
+    },
+    {
+      "name": "GlassBand",
+      "group": "site",
+      "svelte": "sections-glass-band--etched-silk",
+      "astro": "glass-band",
+      "svelteFile": "blocks/sections/glass-band.svelte",
+      "svelteItem": "glass-band",
+      "astroItem": "glass-band"
     },
     {
       "name": "PersonCard",
@@ -2544,15 +2291,6 @@
       "svelte": "custom-person-card--team",
       "astro": "not yet",
       "svelteFile": "components/person-card.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "Gallery",
-      "group": "brand",
-      "svelte": "custom-gallery--materials",
-      "astro": "not yet",
-      "svelteFile": "components/gallery.stories.svelte",
       "svelteItem": "not yet",
       "astroItem": "not yet"
     },
@@ -2602,15 +2340,6 @@
       "astroItem": "not yet"
     },
     {
-      "name": "CardCarousel",
-      "group": "brand",
-      "svelte": "custom-carousel--posts",
-      "astro": "not yet",
-      "svelteFile": "components/carousel.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
       "name": "SystemOverview",
       "group": "site",
       "svelte": "system-overview--all-components",
@@ -2622,101 +2351,155 @@
     {
       "name": "ProductVisuals",
       "group": "site",
-      "svelte": "showcase-product-visuals--retention-grid",
+      "svelte": "showcase-product-visuals--trend-chart",
       "astro": "not yet",
       "svelteFile": "blocks/showcase/showcase.stories.svelte",
       "svelteItem": "not yet",
       "astroItem": "not yet"
     },
     {
-      "name": "BentoSection",
+      "name": "ProductHero",
       "group": "site",
-      "svelte": "sections-bento--a-analytics",
-      "astro": "not yet",
-      "svelteFile": "blocks/sections/bento-section.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "svelte": "sections-product-hero--split",
+      "astro": "product-hero",
+      "svelteFile": "blocks/sections/product-hero.svelte",
+      "svelteItem": "product-hero",
+      "astroItem": "product-hero"
     },
     {
-      "name": "BandSection",
+      "name": "BrandHero",
       "group": "site",
-      "svelte": "sections-band--call-to-action",
-      "astro": "not yet",
-      "svelteFile": "blocks/sections/band-section.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "svelte": "sections-brand-hero--left-over-the-material-grid",
+      "astro": "brand-hero",
+      "svelteFile": "blocks/sections/brand-hero.svelte",
+      "svelteItem": "brand-hero",
+      "astroItem": "brand-hero"
     },
     {
-      "name": "ShowcaseSection",
+      "name": "PersonalHero",
       "group": "site",
-      "svelte": "sections-showcase--a-over-a-material",
-      "astro": "not yet",
-      "svelteFile": "blocks/sections/showcase-section.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "svelte": "sections-personal-hero--dot-name-over-the-hatch",
+      "astro": "personal-hero",
+      "svelteFile": "blocks/sections/personal-hero.svelte",
+      "svelteItem": "personal-hero",
+      "astroItem": "personal-hero"
     },
     {
-      "name": "OrbitSection",
+      "name": "AccentTitle",
       "group": "site",
-      "svelte": "sections-orbit--how-it-fits-together",
-      "astro": "not yet",
-      "svelteFile": "blocks/sections/orbit-section.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "svelte": "sections-product-hero--split",
+      "astro": "accent-title",
+      "svelteFile": "blocks/sections/accent-title.svelte",
+      "svelteItem": "accent-title",
+      "astroItem": "accent-title"
     },
     {
-      "name": "FlowSection",
+      "name": "MaterialFooter",
       "group": "site",
-      "svelte": "sections-flow--visitors",
-      "astro": "not yet",
-      "svelteFile": "blocks/sections/flow-section.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "svelte": "sections-material-footer--with-a-closing-line",
+      "astro": "material-footer",
+      "svelteFile": "blocks/sections/material-footer.svelte",
+      "svelteItem": "material-footer",
+      "astroItem": "material-footer"
     },
     {
-      "name": "WaveHero",
+      "name": "DotFooter",
       "group": "site",
-      "svelte": "sections-wave-hero--centered",
-      "astro": "not yet",
-      "svelteFile": "blocks/sections/wave-hero.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "svelte": "sections-dot-footer--default",
+      "astro": "dot-footer",
+      "svelteFile": "blocks/sections/dot-footer.svelte",
+      "svelteItem": "dot-footer",
+      "astroItem": "dot-footer"
     },
     {
-      "name": "BackdropHero",
+      "name": "GlyphFooter",
       "group": "site",
-      "svelte": "sections-backdrop-hero--aurora",
-      "astro": "not yet",
-      "svelteFile": "blocks/sections/backdrop-hero.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "svelte": "sections-glyph-footer--default",
+      "astro": "glyph-footer",
+      "svelteFile": "blocks/sections/glyph-footer.svelte",
+      "svelteItem": "glyph-footer",
+      "astroItem": "glyph-footer"
     },
     {
-      "name": "FeatureBento",
+      "name": "HeatFooter",
       "group": "site",
-      "svelte": "sections-feature-bento--a-speed",
-      "astro": "not yet",
-      "svelteFile": "blocks/sections/feature-bento.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "svelte": "sections-heat-footer--default",
+      "astro": "heat-footer",
+      "svelteFile": "blocks/sections/heat-footer.svelte",
+      "svelteItem": "heat-footer",
+      "astroItem": "heat-footer"
     },
     {
-      "name": "TestimonialWall",
+      "name": "VoxelFooter",
       "group": "site",
-      "svelte": "sections-testimonial-wall--a-marquee",
-      "astro": "not yet",
-      "svelteFile": "blocks/sections/testimonial-wall.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "svelte": "sections-voxel-footer--default",
+      "astro": "voxel-footer",
+      "svelteFile": "blocks/sections/voxel-footer.svelte",
+      "svelteItem": "voxel-footer",
+      "astroItem": "voxel-footer"
     },
     {
-      "name": "Eyebrow",
-      "group": "brand",
-      "svelte": "custom-eyebrow--ring",
-      "astro": "not yet",
-      "svelteFile": "components/eyebrow.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "name": "HatchFooter",
+      "group": "site",
+      "svelte": "sections-hatch-footer--default",
+      "astro": "hatch-footer",
+      "svelteFile": "blocks/sections/hatch-footer.svelte",
+      "svelteItem": "hatch-footer",
+      "astroItem": "hatch-footer"
+    },
+    {
+      "name": "CalmFooter",
+      "group": "site",
+      "svelte": "sections-calm-footer--default",
+      "astro": "calm-footer",
+      "svelteFile": "blocks/sections/calm-footer.svelte",
+      "svelteItem": "calm-footer",
+      "astroItem": "calm-footer"
+    },
+    {
+      "name": "StepsSection",
+      "group": "site",
+      "svelte": "sections-steps-section--how-we-work",
+      "astro": "steps-section",
+      "svelteFile": "blocks/sections/steps-section.svelte",
+      "svelteItem": "steps-section",
+      "astroItem": "steps-section"
+    },
+    {
+      "name": "PictureSection",
+      "group": "site",
+      "svelte": "sections-picture-section--work",
+      "astro": "picture-section",
+      "svelteFile": "blocks/sections/picture-section.svelte",
+      "svelteItem": "picture-section",
+      "astroItem": "picture-section"
+    },
+    {
+      "name": "SurfaceBento",
+      "group": "site",
+      "svelte": "sections-surface-bento--four-surfaces",
+      "astro": "surface-bento",
+      "svelteFile": "blocks/sections/surface-bento.svelte",
+      "svelteItem": "surface-bento",
+      "astroItem": "surface-bento"
+    },
+    {
+      "name": "ProjectsSection",
+      "group": "site",
+      "svelte": "sections-projects-section--open-source",
+      "astro": "projects-section",
+      "svelteFile": "blocks/sections/projects-section.svelte",
+      "svelteItem": "projects-section",
+      "astroItem": "projects-section"
+    },
+    {
+      "name": "CatalogSection",
+      "group": "site",
+      "svelte": "sections-catalog-section--providers",
+      "astro": "catalog-section",
+      "svelteFile": "blocks/sections/catalog-section.svelte",
+      "svelteItem": "catalog-section",
+      "astroItem": "catalog-section"
     },
     {
       "name": "LiveActivity",
@@ -2797,24 +2580,6 @@
       "astroItem": "not yet"
     },
     {
-      "name": "WaveTweaker",
-      "group": "brand",
-      "svelte": "tweakers-wave--page",
-      "astro": "not yet",
-      "svelteFile": "tweakers/wave.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
-      "name": "BackdropTweaker",
-      "group": "brand",
-      "svelte": "tweakers-backdrops--page",
-      "astro": "not yet",
-      "svelteFile": "tweakers/backdrops.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
-    },
-    {
       "name": "MicroInputs",
       "group": "app",
       "svelte": "micro-inputs--copy-field",
@@ -2869,31 +2634,103 @@
       "astroItem": "not yet"
     },
     {
-      "name": "MicroMotionCanvas",
-      "group": "app",
-      "svelte": "micro-motion-canvas--dot-swarm",
-      "astro": "not yet",
-      "svelteFile": "blocks/micro/motion-canvas.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "name": "DocsReference",
+      "group": "content",
+      "svelte": "content-docs-reference--gpui-query",
+      "astro": "docs-reference",
+      "svelteFile": "blocks/content/docs-reference.svelte",
+      "svelteItem": "docs-reference",
+      "astroItem": "docs-reference"
     },
     {
-      "name": "MicroMotionDrag",
-      "group": "app",
-      "svelte": "micro-motion-drag--option-wheel",
-      "astro": "not yet",
-      "svelteFile": "blocks/micro/motion-drag.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "name": "DocsNav",
+      "group": "content",
+      "svelte": "content-docs-nav--default",
+      "astro": "docs-nav",
+      "svelteFile": "blocks/content/docs-nav.svelte",
+      "svelteItem": "docs-nav",
+      "astroItem": "docs-nav"
     },
     {
-      "name": "MicroMotionUi",
-      "group": "app",
-      "svelte": "micro-motion-ui--line-sidebar",
-      "astro": "not yet",
-      "svelteFile": "blocks/micro/motion-ui.stories.svelte",
-      "svelteItem": "not yet",
-      "astroItem": "not yet"
+      "name": "DocsBlocks",
+      "group": "content",
+      "svelte": "content-docs-blocks--default",
+      "astro": "docs-blocks",
+      "svelteFile": "blocks/content/docs-blocks.svelte",
+      "svelteItem": "docs-blocks",
+      "astroItem": "docs-blocks"
+    },
+    {
+      "name": "ContactDirect",
+      "group": "site",
+      "svelte": "site-company-contact-page--oxlabs-dev",
+      "astro": "contact-direct",
+      "svelteFile": "blocks/site/contact-direct.svelte",
+      "svelteItem": "contact-direct",
+      "astroItem": "contact-direct"
+    },
+    {
+      "name": "AboutEssay",
+      "group": "site",
+      "svelte": "site-company-about-page--oxlabs-dev",
+      "astro": "about-essay",
+      "svelteFile": "blocks/site/about-essay.svelte",
+      "svelteItem": "about-essay",
+      "astroItem": "about-essay"
+    },
+    {
+      "name": "BookSteps",
+      "group": "site",
+      "svelte": "sections-book-steps--default",
+      "astro": "book-steps",
+      "svelteFile": "blocks/sections/book-steps.svelte",
+      "svelteItem": "book-steps",
+      "astroItem": "book-steps"
+    },
+    {
+      "name": "CommitmentCards",
+      "group": "site",
+      "svelte": "sections-commitment-cards--default",
+      "astro": "commitment-cards",
+      "svelteFile": "blocks/sections/commitment-cards.svelte",
+      "svelteItem": "commitment-cards",
+      "astroItem": "commitment-cards"
+    },
+    {
+      "name": "Book",
+      "group": "brand",
+      "svelte": "custom-book--default",
+      "astro": "book",
+      "svelteFile": "components/book.svelte",
+      "svelteItem": "book",
+      "astroItem": "book"
+    },
+    {
+      "name": "ExperienceRail",
+      "group": "brand",
+      "svelte": "custom-experience-rail--default",
+      "astro": "experience-rail",
+      "svelteFile": "components/experience-rail.svelte",
+      "svelteItem": "experience-rail",
+      "astroItem": "experience-rail"
+    },
+    {
+      "name": "LegalPage",
+      "group": "content",
+      "svelte": "content-legal-page--claude-multi",
+      "astro": "legal-page",
+      "svelteFile": "blocks/content/legal-page.svelte",
+      "svelteItem": "legal-page",
+      "astroItem": "legal-page"
+    },
+    {
+      "name": "CvPage",
+      "group": "site",
+      "svelte": "site-cv-page--cv-hmziq-rs",
+      "astro": "cv-page",
+      "svelteFile": "blocks/site/cv-page.svelte",
+      "svelteItem": "cv-page",
+      "astroItem": "cv-page"
     }
   ]
 }

@@ -6,13 +6,13 @@
 // this page shows the blocks on their own. The section ids are the pieces'
 // anchors in scripts/pieces.json, which `bun run check:parity` reads, so they
 // are written out in full.
-import { actions } from "astro:actions";
 import Container from "$brand/blocks/site/container.astro";
 import PageIntro from "$brand/blocks/site/page-intro.astro";
 import SiteLayout from "$brand/blocks/site/site-layout.astro";
-import ButtonLink from "$brand/blocks/site/button-link.astro";
 import Kicker from "$brand/blocks/site/kicker.astro";
 import Prose from "$brand/blocks/site/prose.astro";
+import Byline from "$brand/blocks/content/byline.astro";
+import TopicCards from "$brand/blocks/content/topic-cards.astro";
 import PostCard from "$brand/blocks/content/post-card.astro";
 import PostContents from "$brand/blocks/content/post-contents.astro";
 import PostHeader from "$brand/blocks/content/post-header.astro";
@@ -20,7 +20,6 @@ import PostList from "$brand/blocks/content/post-list.astro";
 import PostMeta from "$brand/blocks/content/post-meta.astro";
 import PullQuote from "$brand/blocks/content/pull-quote.astro";
 import ShareBar from "$brand/blocks/content/share-bar.astro";
-import NewsletterBand from "$brand/blocks/content/newsletter-band.astro";
 import DocsTitle from "$brand/blocks/content/docs-title.astro";
 import DocsPager from "$brand/blocks/content/docs-pager.astro";
 import DocsSearch from "$brand/blocks/content/docs-search.astro";
@@ -28,18 +27,17 @@ import KindTag from "$brand/blocks/content/kind-tag.astro";
 import ReleaseHead from "$brand/blocks/content/release-head.astro";
 import ReleaseNotes from "$brand/blocks/content/release-notes.astro";
 import ReleaseTimeline from "$brand/blocks/content/release-timeline.astro";
-import FaqList from "$brand/blocks/content/faq-list.astro";
 import LegalSection from "$brand/blocks/content/legal-section.astro";
-import LegalBlock from "$brand/blocks/content/legal-block.astro";
 import ContactChannels from "$brand/blocks/content/contact-channels.astro";
-import NotFound from "$brand/blocks/content/not-found.astro";
-import InstallSteps from "$brand/blocks/content/install-steps.astro";
-import TypingTerminal from "$brand/blocks/content/typing-terminal.astro";
-import CodeEditor from "$brand/blocks/content/code-editor.astro";
 import ThemeInit from "../../components/theme-init.astro";
 import ThemeToggle from "../../components/theme-toggle.astro";
-import { channels, faq, releases, topicTone } from "../../lib/example";
+import { releases, topicTone } from "../../lib/example";
+import { contactData } from "../../components/kit/company-data";
 
+import { multiReleases } from "../../components/kit/changelog-data";
+import { blogAuthor, blogPosts, blogTone, blogTopics } from "../../components/kit/blog-data";
+
+const cardChannels = contactData.channels;
 const posts = [
   { title: "The example post, using every Markdown element", summary: "One post that renders every row of the Markdown table.", date: "September 18, 2026", readingTime: "3 min read", topic: "Engineering", href: "/blog/example-every-element" },
   { title: "The second example post, shorter", summary: "A post without a cover, so its title takes the larger size.", date: "September 2, 2026", readingTime: "2 min read", topic: "Notes", href: "/blog/example-second-post" },
@@ -52,6 +50,13 @@ const toc = [
   { id: "piece-post-contents", label: "PostContents" },
   { id: "piece-share-bar", label: "ShareBar" },
 ];
+
+const lead = blogPosts[7];
+const rows = blogPosts.map((p, i) => ({ ...p, number: blogPosts.length - i, updated: undefined }));
+const shelf = blogTopics.map((topic) => {
+  const mine = blogPosts.filter((p) => p.topic === topic);
+  return { topic, count: mine.length, minutes: mine.reduce((sum, p) => sum + (p.minutes ?? 0), 0), latest: mine[0]?.title };
+});
 ---
 
 <SiteLayout site="example" maker="the kit" layout="page" mainClassName="gap-14 pt-12 pb-20 md:pt-20" head={{ site: "freeoxide", title: "Content blocks — the kit", description: "Every content-page block the Astro kit ships.", url: "https://example.com/kit/content" }}>
@@ -67,10 +72,6 @@ const toc = [
   </Container>
 
   <Container size="wide" class="flex flex-col gap-14">
-    <section id="piece-blog-layout" class="flex flex-col gap-4 border-t pt-8">
-      <h2 class="text-lg font-medium">BlogLayout</h2>
-      <p class="text-[0.9375rem]">The blog's shell: the wordmark with "by hmziq", the posts nav, a Subscribe button and the reading rhythm. The blog's example pages wear it.</p>
-    </section>
 
     <section id="piece-post-header" class="flex flex-col gap-8 border-t pt-8">
       <h2 class="text-lg font-medium">PostHeader</h2>
@@ -82,6 +83,24 @@ const toc = [
         <div class="flex flex-col gap-3">
           <Kicker>Without one, the larger title</Kicker>
           <PostHeader title="The example post, without a cover" summary="No cover, so the title takes the page-intro size." date="September 2, 2026" readingTime="2 min read" topic="Notes" tone={topicTone} />
+        </div>
+        <div class="flex flex-col gap-3">
+          <Kicker>Wide, the post page's own header, its drawing the cover</Kicker>
+          <PostHeader
+            layout="wide"
+            title={lead.title}
+            summary={lead.summary}
+            date={lead.date}
+            readingTime={lead.readingTime}
+            updated={lead.updated}
+            topic={lead.topic}
+            tone={blogTone}
+            author={blogAuthor}
+            back={{ label: "All posts", href: "#" }}
+            tags={(lead.tags ?? []).map((label) => ({ label, href: "#" }))}
+            art={lead.art}
+            class="-mx-6 w-auto"
+          />
         </div>
       </div>
     </section>
@@ -99,6 +118,10 @@ const toc = [
               landmark-unique violation, and the gallery shows both variants. */}
           <PostContents items={toc} variant="float" label="On this page, floating" />
         </div>
+        <div class="flex flex-col gap-3">
+          <Kicker>Rail, the wide post page's sticky column</Kicker>
+          <PostContents items={toc} variant="rail" label="On this page, as a rail" class="max-w-[12rem]" />
+        </div>
       </div>
     </section>
 
@@ -109,6 +132,7 @@ const toc = [
         <PullQuote variant="ring">Hanging ring: a line pulled out of the text, on an orange ring.</PullQuote>
         <PullQuote variant="signed" sign="the lab's README">Signed, for quoting someone else, with their name under it.</PullQuote>
         <PullQuote variant="tldr" sign="the plan">The TL;DR-style box, when the line is the whole point of the section.</PullQuote>
+        <PullQuote variant="oxide" repeated class="max-w-[40rem]">My personal goal is to never outsource the thinking.</PullQuote>
       </div>
     </section>
 
@@ -134,15 +158,6 @@ const toc = [
       </div>
     </section>
 
-    <section id="piece-newsletter-band" class="flex flex-col gap-4 border-t pt-8">
-      <h2 class="text-lg font-medium">NewsletterBand</h2>
-      <div class="overflow-hidden rounded-xl border">
-        {/* The band posts to the page's own address by default; this one
-            posts to the starter's subscribe action, the example receiver. */}
-        <NewsletterBand action={actions.subscribe} />
-      </div>
-    </section>
-
     <section id="piece-post-list" class="flex flex-col gap-8 border-t pt-8">
       <h2 class="text-lg font-medium">PostList</h2>
       <div class="flex flex-col gap-3">
@@ -156,6 +171,10 @@ const toc = [
       <div class="flex flex-col gap-3">
         <Kicker>Archive</Kicker>
         <PostList posts={posts} tone={topicTone} variant="archive" />
+      </div>
+      <div class="flex flex-col gap-3">
+        <Kicker>Rows, numbered, each one floating its drawing beside the cursor</Kicker>
+        <PostList posts={rows} tone={blogTone} variant="rows" />
       </div>
     </section>
 
@@ -171,9 +190,22 @@ const toc = [
       <PostMeta post={posts[2]} tone={topicTone} />
     </section>
 
-    <section id="piece-docs-layout" class="flex flex-col gap-4 border-t pt-8">
-      <h2 class="text-lg font-medium">DocsLayout</h2>
-      <p class="text-[0.9375rem]">The docs' shell: the line menu on the left, the page in the middle, "On this page" sticky on the right, and a menu button below md. The docs' example pages wear it, with the search in the header.</p>
+    <section id="piece-byline" class="flex flex-col gap-8 border-t pt-8">
+      <h2 class="text-lg font-medium">Byline</h2>
+      <div class="flex flex-col gap-3">
+        <Kicker>Under the title</Kicker>
+        <Byline name={blogAuthor.name} symbol={blogAuthor.symbol} />
+      </div>
+      <div class="flex flex-col gap-3">
+        <Kicker>At the end of the post, with where to find them</Kicker>
+        <Byline name={blogAuthor.name} symbol={blogAuthor.symbol} links={blogAuthor.links} />
+      </div>
+    </section>
+
+    <section id="piece-topic-cards" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">TopicCards</h2>
+      <TopicCards items={shelf} value="All" tone={blogTone} />
+      <p class="text-[0.8125rem] text-muted-foreground">Pick a topic, then pick it again to clear it; each pick sends a topic-change event, as TopicChips does.</p>
     </section>
 
     <section id="piece-docs-search" class="flex flex-col gap-4 border-t pt-8">
@@ -197,6 +229,8 @@ const toc = [
     <section id="piece-release-timeline" class="flex flex-col gap-4 border-t pt-8">
       <h2 class="text-lg font-medium">ReleaseTimeline</h2>
       <ReleaseTimeline releases={releases} class="max-w-[52rem]" />
+      <Kicker class="mt-4">Rail: thin rings, the latest filled, a line that fills as you scroll</Kicker>
+      <ReleaseTimeline releases={releases} rail latest={releases[0].v} class="max-w-[52rem]" />
     </section>
 
     <section id="piece-past-releases" class="flex flex-col gap-4 border-t pt-8">
@@ -207,6 +241,7 @@ const toc = [
     <section id="piece-release-head" class="flex flex-col gap-4 border-t pt-8">
       <h2 class="text-lg font-medium">ReleaseHead</h2>
       <ReleaseHead release={releases[0]} level={2} />
+      <ReleaseHead release={releases[0]} level={2} longDate />
     </section>
 
     <section id="piece-kind-tag" class="flex flex-col gap-4 border-t pt-8">
@@ -237,84 +272,33 @@ const toc = [
         <Kicker>Tabs</Kicker>
         <ReleaseNotes release={releases[2]} variant="tabs" class="max-w-[52rem]" />
       </div>
-    </section>
-
-    <section id="piece-faq-list" class="flex flex-col gap-4 border-t pt-8">
-      <h2 class="text-lg font-medium">FaqList</h2>
-      <FaqList items={faq.slice(0, 3)} class="max-w-[52rem]" />
-    </section>
-
-    <section id="piece-legal-layout" class="flex flex-col gap-4 border-t pt-8">
-      <h2 class="text-lg font-medium">LegalLayout</h2>
-      <p class="text-[0.9375rem]">The legal page around the sections: contents in a side column that follows you down (or a wrapped row on top), the title, the short version and the numbered sections. The privacy example page wears the side column, the terms example the top row.</p>
+      <div class="flex flex-col gap-3">
+        <Kicker>Rich changes: bold leads, code, links and nested lines</Kicker>
+        <ReleaseNotes release={multiReleases[0]} class="max-w-[52rem]" />
+      </div>
     </section>
 
     <section id="piece-legal-section" class="flex flex-col gap-4 border-t pt-8">
       <h2 class="text-lg font-medium">LegalSection</h2>
       <Prose class="max-w-[46rem] gap-3.5">
         <LegalSection n={1} title="Data we collect">
-          <LegalBlock block={["p", "Example copy: introduce the list."]} />
-          <LegalBlock block={["ul", ["The pages visited on this site", "Approximate location, derived from IP"]]} />
+          <p>Example copy: introduce the list.</p>
+          <ul>
+            <li>The pages visited on this site</li>
+            <li>Approximate location, derived from IP</li>
+          </ul>
         </LegalSection>
         <LegalSection n={2} title="Your rights">
-          <LegalBlock block={["p", "Example copy: the rights a reader has."]} />
+          <p>Example copy: the rights a reader has.</p>
         </LegalSection>
       </Prose>
     </section>
 
-    <section id="piece-legal-block" class="flex flex-col gap-4 border-t pt-8">
-      <h2 class="text-lg font-medium">LegalBlock</h2>
-      <p class="text-[0.8125rem] text-muted-foreground">One block of a legal section: a paragraph, a list, definitions or small caps; shown above inside LegalSection.</p>
-    </section>
-
     <section id="piece-contact-channels" class="flex flex-col gap-4 border-t pt-8">
       <h2 class="text-lg font-medium">ContactChannels</h2>
-      <ContactChannels channels={channels} note="Replies from a person, on weekdays. Example copy." class="max-w-xl" />
+      <ContactChannels channels={cardChannels} note="Replies from a person, on weekdays. Example copy." class="max-w-xl" />
+      <ContactChannels variant="cards" channels={cardChannels} note="Replies from a person · weekdays" class="max-w-3xl" />
     </section>
 
-    <section id="piece-not-found" class="flex flex-col gap-4 border-t pt-8">
-      <h2 class="text-lg font-medium">NotFound</h2>
-      <div class="rounded-xl border py-10">
-        <NotFound title="Page not found" lede="This URL doesn't point to anything. The page probably moved, or the link was wrong.">
-          <ButtonLink href="/" size="lg" class="px-5">Back to home</ButtonLink>
-        </NotFound>
-      </div>
-    </section>
-
-    <section id="piece-install-steps" class="flex flex-col gap-4 border-t pt-8">
-      <h2 class="text-lg font-medium">InstallSteps</h2>
-      <InstallSteps
-        class="max-w-[52rem]"
-        steps={[
-          { title: "Install the example", body: "Use the package manager you already have. Example copy.", commands: [["bun", "bun add -g example-tool"], ["npm", "npm install -g example-tool"]] },
-          { title: "Run your new command", body: "Example copy: copy a step and its ring fills in.", command: "example-one" },
-        ]}
-      />
-    </section>
-
-    <section id="piece-typing-terminal" class="flex flex-col gap-4 border-t pt-8">
-      <h2 class="text-lg font-medium">TypingTerminal</h2>
-      <TypingTerminal
-        rows={5}
-        lines={[
-          ["cmd", "bun add -g example-tool"],
-          ["note", "Installs the example-tool command."],
-          ["cmd", "example-one"],
-          ["note", "The example, running."],
-        ]}
-      />
-      <p class="text-[0.8125rem] text-muted-foreground">Press the replay button to watch it type; with reduced motion it stays finished.</p>
-    </section>
-
-    <section id="piece-code-editor" class="flex flex-col gap-4 border-t pt-8">
-      <h2 class="text-lg font-medium">CodeEditor</h2>
-      <CodeEditor
-        class="max-w-[52rem]"
-        files={[
-          { name: "By hand", lang: "rust", code: "struct UserView {\n    user: Option<User>,\n    loading: bool,\n    // Must be stored so unmount can cancel the in-flight task.\n    _task: Option<gpui::Task<()>>,\n}" },
-          { name: "With the example", lang: "rust", code: "struct UserView {\n    user: gpui::Entity<Example<User>>,\n    _subscription: gpui::Subscription,\n}" },
-        ]}
-      />
-    </section>
   </Container>
 </SiteLayout>

@@ -1,6 +1,8 @@
 import { slug } from '@hmziq/brand-core/scroll-spy';
+import type { LineArtKind } from '@hmziq/brand-core/motion/line-art';
 import type { Component } from 'svelte';
-import type { DocsMenu } from '$brand/blocks/content/types.js';
+import type { DocsPageData, DocsSiteData } from '@hmziq/brand-core/docs-reference';
+import { docsBlocks } from './docs-blocks.js';
 
 /*
  * The site's content: posts and docs written in Markdown, compiled by mdsvex
@@ -24,11 +26,8 @@ export type Post = {
 	updated?: string;
 	/** The post's category, as a colored tag. */
 	topic?: string;
-	/** The post's cover image, from static/. */
-	cover?: string;
-	coverAlt?: string;
-	/** Line art drawn for dark pages, inverted on light ones. */
-	lineArt?: boolean;
+	/** The post's line drawing: its picture on cards and its cover. */
+	art?: LineArtKind;
 	/** Who wrote it. hmziq by default. */
 	author?: string;
 };
@@ -88,17 +87,32 @@ export async function doc(slugOf: string): Promise<(Entry<Docs> & { href: string
 	return (await docs()).find((p) => p.slug === slugOf);
 }
 
-/** The docs menu: groups in the order they first appear, the pages in theirs. */
-export async function docsMenu(): Promise<DocsMenu> {
-	const pages = await docs();
-	const groups: [string | null, { title: string; href: string }[]][] = [];
+/** The docs as DocsReference takes them: the menu groups in the order they first appear, every page's blocks and the order they read in. */
+export async function docsSite(): Promise<DocsSiteData> {
+	const list = await docs();
+	const pages: DocsPageData[] = list.map((p) => ({
+		key: p.slug,
+		title: p.metadata.title,
+		group: p.metadata.section ?? null,
+		desc: p.metadata.lede,
+		blocks: docsBlocks(p.body)
+	}));
+	const menu: DocsSiteData['menu'] = [];
 	for (const page of pages) {
-		const section = page.metadata.section ?? null;
-		const group = groups.find(([title]) => title === section);
-		if (group) group[1].push({ title: page.metadata.title, href: page.href });
-		else groups.push([section, [{ title: page.metadata.title, href: page.href }]]);
+		const entry = { title: page.title, key: page.key };
+		const group = menu.find((g) => g.group === page.group);
+		if (group) group.pages.push(entry);
+		else menu.push({ group: page.group, pages: [entry] });
 	}
-	return groups;
+	return {
+		product: 'example',
+		base: 'https://example.com',
+		github: 'https://github.com',
+		start: pages[0].key,
+		menu,
+		pages: Object.fromEntries(pages.map((p) => [p.key, p])),
+		order: pages.map((p) => p.key)
+	};
 }
 
 /*

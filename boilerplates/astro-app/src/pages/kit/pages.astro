@@ -1,0 +1,80 @@
+---
+import Container from "$brand/blocks/site/container.astro";
+import PageIntro from "$brand/blocks/site/page-intro.astro";
+import SiteLayout from "$brand/blocks/site/site-layout.astro";
+import NotFoundPage from "$brand/blocks/content/not-found-page.astro";
+import LegalPage from "$brand/blocks/content/legal-page.astro";
+import FaqPage from "$brand/blocks/content/faq-page.astro";
+import RichBlocks from "$brand/blocks/content/rich-blocks.astro";
+import CvPage from "$brand/blocks/site/cv-page.astro";
+import type { RichBlock } from "@hmziq/brand-core/rich-blocks";
+import ThemeInit from "../../components/theme-init.astro";
+import ThemeToggle from "../../components/theme-toggle.astro";
+import { cvData, faqData, legalDocs, notFoundData } from "../../components/kit/pages-data";
+
+const rich: RichBlock[] = [
+  ["p", "claude-multi is a CLI that runs **several Claude Code instances** at once, each with its own `~/.claude-<name>/` directory. See the [docs](https://claude-multi.hmziq.xyz/docs/)."],
+  ["h", "The problem it solves"],
+  ["ul", ["Settings, history and MCP servers stay apart per provider.", "Your normal `~/.claude` setup is left alone."]],
+  ["ol", ["Install the CLI.", "Add a provider with `claude-multi add`.", "Launch the wrapper it prints."]],
+  ["code", "bash", "npm install -g claude-multi\nclaude-multi add glm"],
+  ["caps", "NO WARRANTY", "THE SOFTWARE IS PROVIDED AS IS, WITHOUT WARRANTY OF ANY KIND."],
+  [
+    "defs",
+    [
+      ["Instance", "One provider configuration with its own directory."],
+      ["Wrapper", "The command that launches an instance.", "https://claude-multi.hmziq.xyz/docs/usage/"],
+    ],
+  ],
+];
+---
+
+<SiteLayout site="example" maker="the kit" layout="page" mainClassName="gap-14 pt-12 pb-20 md:pt-20" head={{ site: "blog", title: "Pages — the kit", description: "The 404, legal, FAQ and CV pages from the Astro kit.", url: "https://example.com/kit/pages" }}>
+  <ThemeInit slot="head" />
+  <ThemeToggle slot="extra" />
+
+  <Container>
+    <PageIntro class="max-w-2xl">
+      <Fragment slot="kicker">The kit · pages</Fragment>
+      <Fragment slot="title">Pages</Fragment>
+      <Fragment slot="lede">The 404, the legal documents, the FAQ and the résumé across the whole width, and the rich answer blocks they are set in.</Fragment>
+    </PageIntro>
+  </Container>
+
+  <section id="piece-not-found-page" class="flex flex-col gap-4 border-t pt-8">
+    <Container size="wide"><h2 class="text-lg font-medium">NotFoundPage</h2></Container>
+    <NotFoundPage data={notFoundData} />
+  </section>
+
+  <section id="piece-legal-page" class="flex flex-col gap-4 border-t pt-8">
+    <Container size="wide">
+      <h2 class="text-lg font-medium">LegalPage</h2>
+      <p class="text-[0.8125rem] text-muted-foreground">The tabs and the button in the rail switch documents in place; the contents follow the reader.</p>
+    </Container>
+    <LegalPage docs={legalDocs} />
+  </section>
+
+  <section id="piece-faq-page" class="flex flex-col gap-4 border-t pt-8">
+    <Container size="wide">
+      <h2 class="text-lg font-medium">FaqPage</h2>
+      <p class="text-[0.8125rem] text-muted-foreground">The search narrows the questions and opens what matches; the topics follow the reader.</p>
+    </Container>
+    <FaqPage data={faqData} />
+  </section>
+
+  <section id="piece-rich-blocks" class="flex flex-col gap-4 border-t pt-8">
+    <Container size="wide">
+      <h2 class="mb-4 text-lg font-medium">RichBlocks</h2>
+      <div class="max-w-[46rem]"><RichBlocks blocks={rich} /></div>
+    </Container>
+  </section>
+
+  <section id="piece-cv-page" class="flex flex-col gap-4 border-t pt-8">
+    <Container size="wide">
+      <h2 class="text-lg font-medium">CvPage</h2>
+      <p class="text-[0.8125rem] text-muted-foreground">Print it: the chrome, the drawings and the buttons drop away and it sets black on white.</p>
+    </Container>
+    <CvPage data={cvData} />
+  </section>
+
+</SiteLayout>

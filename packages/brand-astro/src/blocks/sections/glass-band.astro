@@ -1,0 +1,98 @@
+---
+import { cn } from "$brand/utils";
+import Container from "$brand/blocks/site/container.astro";
+import Glass from "$brand/components/glass.astro";
+import ShaderMaterial from "$brand/components/shader-material.astro";
+
+/*
+ * A full-width band of material that drifts slowly and shifts under the
+ * cursor, with a frosted panel of words on it: a kicker, a title, a lede,
+ * square-bulleted points and the actions slot. The default slot adds
+ * anything else to the panel. The panel sits right or left in the wide
+ * Container; the material holds still for reduced motion.
+ */
+
+interface Props {
+  preset?: string;
+  align?: "left" | "right";
+  kicker?: string;
+  title?: string;
+  lede?: string;
+  /** Short lines, each after an oxide square. */
+  points?: string[];
+  class?: string;
+}
+
+const { preset = "etched-silk", align = "right", kicker, title, lede, points, class: className } = Astro.props;
+---
+
+<div data-slot="glass-band" role="presentation" class={cn("relative isolate flex min-h-[40rem] items-center overflow-hidden", className)}>
+  <div aria-hidden="true" class="glass-band-drift absolute -inset-[6%] -z-10">
+    <div data-glass-band-shift class="absolute inset-0 transition-transform duration-[1200ms] ease-[cubic-bezier(.2,.7,.2,1)]" style="transform: translate3d(0.00%, 0.00%, 0);">
+      <ShaderMaterial preset={preset} rendering="image" controls={false} loading="lazy" sizes="100vw" class="absolute inset-0 h-full w-full" />
+    </div>
+  </div>
+  <div aria-hidden="true" class="absolute inset-0 -z-10 bg-[linear-gradient(to_bottom,color-mix(in_oklab,var(--background)_55%,transparent),transparent_22%,transparent_78%,color-mix(in_oklab,var(--background)_70%,transparent))]"></div>
+  <Container size="wide" class={cn("flex py-24", align === "right" ? "justify-end" : "justify-start")}>
+    <Glass variant="frost" grain class="w-full max-w-[560px] rounded-3xl p-7 sm:p-10">
+      {kicker && <p class="font-mono text-[11px] tracking-[0.14em] text-primary uppercase">{kicker}</p>}
+      {title && <h3 class={cn("text-[clamp(2rem,3.6vw,3rem)] leading-[1.02] font-medium tracking-[-0.035em] text-balance", kicker && "mt-4")}>{title}</h3>}
+      {lede && <p class="mt-5 text-xl leading-snug text-foreground">{lede}</p>}
+      {
+        points?.length ? (
+          <ul class="mt-7 space-y-3 text-lg text-foreground">
+            {points.map((l) => (
+              <li class="flex items-start gap-3"><span class="mt-2.5 size-2.5 shrink-0 bg-primary"></span>{l}</li>
+            ))}
+          </ul>
+        ) : null
+      }
+      {Astro.slots.has("actions") && <div class="mt-8"><slot name="actions" /></div>}
+      <slot />
+    </Glass>
+  </Container>
+</div>
+
+<style>
+  .glass-band-drift {
+    animation: glass-band-drift 38s ease-in-out infinite alternate;
+  }
+  @keyframes glass-band-drift {
+    from {
+      transform: scale(1.02) translate3d(0, 0, 0);
+    }
+    to {
+      transform: scale(1.1) translate3d(-2%, 1.5%, 0);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .glass-band-drift {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  import { reducedMotion } from "@hmziq/brand-core/motion/canvas";
+
+  const shift = (band: HTMLElement, x: number, y: number) => {
+    const layer = band.querySelector<HTMLElement>("[data-glass-band-shift]");
+    if (layer) layer.style.transform = `translate3d(${(-x * 2).toFixed(2)}%, ${(-y * 2).toFixed(2)}%, 0)`;
+  };
+
+  document.addEventListener("pointermove", (e) => {
+    const band = (e.target as Element | null)?.closest<HTMLElement>("[data-slot='glass-band']");
+    if (!band || reducedMotion()) return;
+    const r = band.getBoundingClientRect();
+    shift(band, ((e.clientX - r.left) / r.width - 0.5) * 2, ((e.clientY - r.top) / r.height - 0.5) * 2);
+  });
+
+  document.addEventListener(
+    "pointerleave",
+    (e) => {
+      const band = e.target;
+      if (band instanceof HTMLElement && band.dataset.slot === "glass-band") shift(band, 0, 0);
+    },
+    true,
+  );
+</script>

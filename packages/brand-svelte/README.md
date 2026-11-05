@@ -152,17 +152,8 @@ Svelte exposes `onstatus`, `ontime`, and `bind:exportPng`. The Astro adapter
 emits bubbling `shader:status` / `shader:time` events and exposes `exportPng`
 on the mounted root element while its live renderer is ready.
 
-Storybook includes `Custom/Shaders`, `Tweakers/Shader studio`,
-`Templates/Shader sections` (six section treatments), and
-`Templates/Shader pages/Usage guide` (image/live comparisons, tradeoffs, and
-copyable implementation recipes). The Svelte starter's `/shaders` route
-opens the guide; separate product, editorial, and showcase variants remain.
-
-`Templates/Oxide SaaS pages` copies the complete Sightline, Groundwork, and
-Hookline examples with oxide-only materials. The originals stay unchanged.
-Static stories create no GPU devices; animated variants use one live field.
-The starter exposes `/shaders/saas/analytics`, `/shaders/saas/team-planning`,
-and `/shaders/saas/developer-api`. Enable motion explicitly with `?motion=on`.
+Storybook includes `Custom/Shaders` and `Tweakers/Shader studio`. Static
+stories create no GPU devices; a live preview uses one field.
 
 Framework-free recipes and uniforms live in `@hmziq/brand-core/shaders/catalog`.
 `/shaders/posters` is the Vite asset URL module used by both kits; it serves
@@ -193,29 +184,152 @@ image, never a soft gradient. Reduced transparency gets a solid card.
 Materials (shader images in the brand's palette; `brandMaterials` and
 `materialFor(seed)` in `@hmziq/brand-core/shaders/materials` pick one by
 name; `materials.css` keeps metal drawn into shapes readable in both modes):
-`MaterialCard` (cover, panel, side, frame), `MaterialStage` (a product
-screen or code on metal), `MaterialTabs`, `MaterialFrame`, `MaterialGauge`, `MaterialSparkline`,
-`MaterialBar`, `MaterialSlider`, `MaterialRule`, `MaterialTag`,
-`MaterialTile`, `MaterialRings`, and `AnnouncePill` / `AnnounceBar`. Code has
+`MaterialCard` (words on a smoke-glass panel over the material; the
+material is a surface, never a picture), `MaterialStage` (a product
+screen or code on metal). Code has
 no fill of its own: on a material, give `CodeBlock` `bg-background`.
 
-Rings: `RingLoader` (`tone="current"` inside buttons), `RingDivider`,
-`RingMeter`, `ScrollRings` (draw themselves on scroll), `HorizonRings`,
-`StatusRing`. Glass: `GlassDock`, `LiquidGlass` (edge refraction, Chromium
-only, frosted elsewhere), `CommandPalette` (⌘K, glass, actions panel).
-Layout: `Bento` + `BentoTile`. Cards: `ReleaseCard`,
-`ProjectCard`, `EndpointCard`, `PlanCard`. Motion that answers data or a mode,
-never hover: `RollingNumber`, `ThemeToggle` (view-transition reveal).
+Rings: `HorizonRings`, `StatusRing`. Glass: `CommandPalette` (⌘K, glass,
+actions panel). Layout: `Bento` + `BentoTile`. Motion that answers data or a
+mode, never hover: `RollingNumber`, `ThemeToggle` (view-transition reveal).
 
-Pages and navigation: `NavBar` (bar, floating, centered; menus; a phone
-sheet), `SiteFooter` (columns, simple, minimal), `CardCarousel`,
-`FeatureCarousel`, `LineTabs`, `Roadmap`, `PersonCard`, `Gallery`,
-`CommentThread`, `NotificationList`, `FileDrop`, `ConsentBanner`.
+Pages and navigation: `NavBar` (the default header: bar, floating,
+centered; hover menus with a line per page; a closable shader-poster
+announcement; a phone sheet; also in the Astro kit), `SiteFooter` (columns, simple, minimal, over an optional `stage`),
+`LineTabs`, `PersonCard`, `CommentThread`, `NotificationList`, `FileDrop`, `ConsentBanner`.
 `System/Overview` in Storybook lists every piece by what it's for.
 
 These pieces are Svelte-only until picked (roster: `astro: "not yet"`).
-Storybook: everything under `Custom/` named Material…, Ring…, Glass… and
-Announce, plus `Templates/Glass sections` and `Sites/freeoxide tools`.
+
+Heroes (also in the Astro kit): `ProductHero` (one tool: words, an install
+command and the product working, split or centered), `BrandHero` (a studio
+or lab: one big statement, left or centered, optional smoke panel) and
+`PersonalHero` (a person: a dot-matrix or plain name, role, line, buttons,
+icon links). Each puts a full-width `stage` behind its contents, which sit in
+the wide Container, with a reading layer of the page color behind the words.
+Stages: `MaterialWash` (a still material under a veil), `MaterialGrid` (a
+live material under a veil of cells the cursor opens: oxide-bloom at 0.8 in
+dark, copper at 0.95 with oxide stains in light), `DiagonalHatch` (corner or
+frame), `RingField`, `SceneStage`. Parts: `ProductWindow` (frosted glass,
+optional title bar), `DotName`, `ResolveTitle`, `AccentTitle`. The hero's
+section is the `data-pointer-host` the fields follow; every field is still
+for reduced motion, and the framework-free halves live in
+`@hmziq/brand-core/motion/*`.
+
+Footers (also in the Astro kit), each on the wide Container: `SiteFooter`
+with a `stage` (`WashGlow`: the hero's material faded almost to the page,
+drifting, brighter around the cursor), `MaterialFooter` (always dark over a
+blurred copper material, a closing line and a dithered name), `DotFooter`
+(the name as a dot matrix), `GlyphFooter` (the name in ■ □ ○ ◎ glyphs),
+`HeatFooter` (an install command, then an oxide dither field with the name
+standing in it), `VoxelFooter` (a voxel ridge carrying the last call to
+install), `HatchFooter` (the hatch frame around a dot name) and `CalmFooter`
+(an email box over a faint hatch, for reading). They share `FooterColumns`
+(mono oxide labels, optional tags), `FooterFamily` (the "More from hmziq"
+row) and `FooterSocials` (logo icon links), and the fields `PixelName`,
+`HeatField`, `FitWordmark`, `DitherName`, `VoxelField` and `WashGlow`, whose
+framework-free halves live in `@hmziq/brand-core/motion/*` too.
+
+Feature sections (also in the Astro kit), the parts between a hero and a
+footer, each on the wide Container: `SectionHead` (a mono oxide kicker, a big
+title with an optional oxide phrase and a lede; split, stack or center, lg or
+the md head of a part), `StepsSection` (numbered `StepCards`, each step's demo
+a snippet), `PictureSection` (a `PictureGrid` of `PictureCard`s: one card
+anatomy, a `LineArt` drawing that follows the cursor with a Tag on it, then the
+title, dek and meta; optional filter pills), `SurfaceBento` (four
+`SurfaceTile`s, each an `AppMock` on its material, beside one oxide card),
+`ProjectsSection` (`ProjectRows`: a sticky rail of Marks beside one row per
+project, its terminal on its material) and `CatalogSection` (a mega title with
+a dot-face word, then `CatalogCard`s you pick from). Beside them: `FlowSteps`
+(a flowchart with running wires, a content snippet per step), `GlassBand` (a
+frosted panel on a drifting material band), `StatTile` (a big number on an
+oxide or outline card, with a dot-face flavour) and `ReleaseLoop` (the release
+as a loop you can steer, driving the installers beside it). Material is only
+ever a surface behind a product or a band behind glass; pictures are line
+drawings or real UI. The framework-free halves (`line-art`, `flow-wires`,
+`release-loop`) live in `@hmziq/brand-core/motion/*`. Nothing moves on hover:
+the cards change color, while drawings, tilts and materials follow the
+cursor's position, and all of it holds still for reduced motion.
+
+Blog pages (also in the Astro kit), three blocks in `blocks/content/` on the
+wide Container: `MagazineIndex` (a blog's front page: a facts line, a display
+title, the post to start with beside its drawing, the latest as picture cards
+at two sizes with topic chips that filter them, the ones further back as
+numbered `PostList` rows that float a post's drawing, and `TopicCards` that
+filter too), `PostArticle` (the post page: `PostHeader`'s wide layout with the
+post's drawing as the cover, `PostContents`' sticky rail, the reading column
+with a TL;DR `SummaryBox`, paragraphs, lists, code and links out, one line on
+`PullQuote`'s oxide card, the `ShareBar`, a `Byline` with its links, then
+related posts) and `BlogIndex` (a product's blog: `PageIntro`, `SearchBox`
+and toned `TopicChips` over the `PostList`). A post's picture is one of
+`LineArt`'s eight post drawings (laptop, request, modules, plan, queue, tools,
+pipeline, endpoints), which keep a 1.25px line at any size; a post card is a
+`PictureCard` with a `head` snippet (the post's `PostMeta`, a kicker), at md,
+lg or xl, xl split beside its drawing, and a post without a drawing gets the
+same card wearing the thin ring itself. The contents links are plain `#id`
+links; an app whose router owns the hash catches them itself.
+
+Changelog pages (also in the Astro kit), two blocks in `blocks/content/` on
+the wide Container: `ReleaseDesk` (the `ProductHero` on the site's material
+with the latest release in a `DragWindow`, a frosted window you drag by its
+title bar inside the hero, then each release's `ReleaseHead` sticky in a
+column beside its title and `ReleaseNotes`) and `ReleaseTimelinePage` (the
+page intro with the latest release, `BigNumbers`, `ReleaseFilters` (search,
+one chip per kind in its `KindTag` color, open all), then `ReleaseTimeline`'s
+`rail`: thin rings, the latest filled, a line that fills with oxide down to
+where you read, each release a `PastReleases` with its picture kept beside it
+in a `ReleasePicture`). The first `open` releases show every change; the rest
+fold to their first. A change keeps its **bold** lead, `code`, links and
+nested lines; `spots` link a change to the part of its picture it names, and
+the picture comes in as a snippet that binds the shared `SpotState`
+(`spot.current`), so a product's own sketch lights with its changes. The
+filter, the dates and the change marks are core's `changelog` module.
+
+Pricing pages (also in the Astro kit), `PricingPage` in `blocks/site/`: the
+`DotField` hero (dots that swell, push and heat under the cursor; its canvas
+logic is core's `motion/dot-field`) with a billing switch, a row of
+`PricingCard`s, `PricingCompare` and `FaqSection`. The switch is any list of
+modes (monthly, yearly, lifetime; or a commitment): every `PricingTier` carries
+its `amount`, `unit`, `short` and `note` per mode, and the cards and the
+compare table's plan headers follow it. `PricingCompare` keeps its plan row
+sticky under `--pricing-top`, tints the column under the cursor, hides the
+rows that don't differ on "Only show differences", and on a phone shows one
+plan at a time. Example prices live in the stories and in the
+studio, never in the pieces.
+
+Docs reference page (also in the Astro kit), `DocsReference` in
+`blocks/content/`: a product's whole docs in three columns. It
+takes a `DocsSiteData` (core's `docs-reference` types: a menu, pages of blocks
+in reading order, the start page) and renders the blocks with the kit's own
+pieces through `DocsBlocks` (`CodeBlock`, `Notice`, `DataTable`, `Bullets`,
+`InstallBlock`), the menu through `DocsNav`, the title with `DocsTitle thin`.
+The menu, the pager and links between pages switch pages in place
+(`<here>#~<key>`, core's `docsLinker` rewrites `/docs/...` links), the search
+filters the menu and the contents rail follows the page. The site's words live
+in the studio and the stories, never in the pieces.
+
+Company pages (also in the Astro kit), `ContactDirect` and `AboutEssay` in
+`blocks/site/`. The `Book` is a closed 3D book whose tilt toward a mouse
+(never touch, never reduced motion) is core's `motion/book` pose, not hover
+movement; a click or tap turns it over. `BookSteps` puts steps beside it and
+changes it per step. `ContactChannels` has a `cards` variant (one card each,
+`oxide` for the first), `CommitmentCards` is the numbered cards with the first
+in oxide, `ExperienceRail` is a career as a line of years. `--company-top`
+is the height of a sticky header the sticky titles sit under.
+
+Pages (also in the Astro kit): `NotFoundPage`, `LegalPage` and `FaqPage` in
+`blocks/content/`, `CvPage` in `blocks/site/`. Each takes its
+words as one data object (core's `not-found-page`, `legal-page`, `faq-search`
+and `cv-page` types). The Labs page has no block of its own: it is
+`PictureGrid` with `LineArt` drawings. `NotFoundPage` draws the status in
+`DotName`, which scatters and heats under the cursor. `LegalPage` switches
+documents under `LineTabs` and its "other document" button, with numbered
+`Toc` contents and a sticky closing rail. `FaqPage` narrows its questions with
+core's `faqMatches`, opens what matches and keeps topic contents beside them;
+answers are `RichBlocks` (paragraphs, lists, code, caps notes, definitions;
+`RichText` sets `**bold**`, `code` and links). `CvPage` sets the career on
+`ReleaseTimeline`'s rail and prints black on white with the chrome hidden.
+`--pages-top` is the height of a sticky header the sticky columns sit under.
 
 ## Registry
 

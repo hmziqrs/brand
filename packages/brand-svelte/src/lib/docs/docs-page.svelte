@@ -116,7 +116,7 @@
 		margin-top: 0;
 	}
 	:global(:where(article.docs-page) a:not(:where([data-panel], [data-preview]) *)) {
-		color: var(--primary);
+		color: var(--primary-ink);
 		text-decoration: underline;
 		text-decoration-thickness: 0.5px;
 		text-underline-offset: 0.11em;

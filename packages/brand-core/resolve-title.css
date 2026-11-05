@@ -1,0 +1,68 @@
+/* The letters of a resolve title ([data-slot="resolve-title"], motion/resolve-title.ts):
+   each [data-ch] resolves in from a blur, centre out, then shimmers in the accent; --g
+   (0–1, set by the cursor) lights it. [data-wait] holds them hidden until the title is
+   in view. Reduced motion shows the letters still. */
+
+@property --resolve-title-s {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+
+[data-slot="resolve-title"] [data-ch] {
+  --g: 0;
+  color: color-mix(in oklab, var(--primary) calc(max(var(--g), var(--resolve-title-s) * 0.55) * 100%), var(--foreground));
+  text-shadow: 0 0 calc(var(--g) * 32px) color-mix(in oklab, var(--primary) calc(var(--g) * 60%), transparent);
+  transition:
+    color 0.3s ease,
+    text-shadow 0.3s ease;
+  animation:
+    resolve-title-in 1.5s cubic-bezier(0.2, 0.7, 0.2, 1) both,
+    resolve-title-shimmer 7s ease-in-out infinite;
+  animation-delay: calc(var(--d) * 80ms + 120ms), calc(var(--i) * 70ms + 2.4s);
+}
+
+[data-slot="resolve-title"]:not(.dark *) [data-ch] {
+  color: color-mix(in oklab, var(--primary-display) calc(max(var(--g), var(--resolve-title-s)) * 100%), var(--foreground));
+}
+
+[data-slot="resolve-title"][data-wait] [data-ch] {
+  opacity: 0;
+  animation: none;
+}
+
+@keyframes resolve-title-in {
+  from {
+    opacity: 0;
+    filter: blur(16px);
+    transform: translateX(calc(var(--o) * 0.4em)) scale(1.15);
+  }
+  60% {
+    opacity: 1;
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: none;
+  }
+}
+
+@keyframes resolve-title-shimmer {
+  0%,
+  16%,
+  100% {
+    --resolve-title-s: 0;
+  }
+  7% {
+    --resolve-title-s: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-slot="resolve-title"] [data-ch],
+  [data-slot="resolve-title"][data-wait] [data-ch] {
+    opacity: 1;
+    animation: none;
+    transition: none;
+  }
+}

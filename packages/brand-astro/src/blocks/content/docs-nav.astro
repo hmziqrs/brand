@@ -1,0 +1,54 @@
+---
+import { ArrowUpRight } from "@lucide/astro";
+import { cn } from "$brand/utils";
+import type { DocsMenuGroup } from "@hmziq/brand-core/docs-reference";
+
+/*
+ * The docs' line menu: groups of the product's pages down a thin line that
+ * lights orange at the page you are on, and links out with an arrow. The
+ * docs search hides the pages whose title lacks its words, and the groups
+ * that run empty.
+ */
+
+interface Props {
+  menu: DocsMenuGroup[];
+  /** The key of the page you are on. */
+  current: string;
+  /** A page's link, from its key. */
+  go: (key: string) => string;
+  class?: string;
+}
+
+const { menu, current, go, class: className } = Astro.props;
+---
+
+<nav data-slot="docs-menu" aria-label="Docs" class={cn("flex flex-col gap-6 text-sm", className)}>
+  {
+    menu.map((g) => (
+      <div data-docs-group class="flex flex-col gap-2">
+        {g.group && <h2 class="text-xs font-medium text-muted-foreground">{g.group}</h2>}
+        <ul class="flex flex-col border-l">
+          {g.pages.map((p) => (
+            <li data-docs-page data-title={p.title.toLowerCase()}>
+              {p.key ? (
+                <a
+                  href={go(p.key)}
+                  data-docs-key={p.key}
+                  aria-current={p.key === current ? "page" : undefined}
+                  class="-ml-px flex border-l border-transparent py-1.5 pl-3.5 text-muted-foreground no-underline transition-colors hover:text-foreground aria-[current=page]:border-primary aria-[current=page]:font-medium aria-[current=page]:text-foreground motion-reduce:transition-none"
+                >
+                  {p.title}
+                </a>
+              ) : (
+                <a href={p.href} target="_blank" rel="noreferrer" class="-ml-px flex items-center gap-1 border-l border-transparent py-1.5 pl-3.5 text-muted-foreground no-underline transition-colors hover:text-foreground motion-reduce:transition-none">
+                  {p.title}
+                  <ArrowUpRight class="size-3.5 opacity-70" />
+                </a>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))
+  }
+</nav>

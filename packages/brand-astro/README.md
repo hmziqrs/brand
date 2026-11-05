@@ -16,6 +16,7 @@ packages/brand-astro/
 │   ├── starwind/                Starwind stock components, with the brand's changes
 │   ├── components/              brand pieces (ported from apps/lab/src/components/brand)
 │   ├── blocks/site/             site blocks, content pieces, SiteLayout, SiteHead
+│   ├── blocks/sections/         the heroes (ProductHero, BrandHero, PersonalHero, AccentTitle), the footers and the feature sections
 │   ├── blocks/content/          content-page blocks (content-blocks.md)
 │   ├── blocks/app/              app blocks (app-blocks.md, phase 10)
 │   └── styles/kit.css           Starwind's stylesheet + the BRAND.md 3.1 adapter
@@ -23,6 +24,94 @@ packages/brand-astro/
 ├── astro.config.ts             the `$brand` alias, so `astro check` resolves the kit
 └── package.json
 ```
+
+The heroes' stages (`MaterialWash`, `MaterialGrid`, `DiagonalHatch`,
+`RingField`, `SceneStage`) and parts (`ProductWindow`, `DotName`,
+`ResolveTitle`) are in `components/`. The moving ones mount from a module
+script the Starwind way (found by `data-slot`, rerun on `astro:page-load`,
+torn down on `astro:before-swap`) and call the same `@hmziq/brand-core/motion/*`
+functions as the Svelte kit. `MaterialGrid` swaps its material with the theme
+by setting the inner `ShaderMaterial`'s `data-preset`, which that piece follows.
+
+The footers (`MaterialFooter`, `DotFooter`, `GlyphFooter`, `HeatFooter`,
+`VoxelFooter`, `HatchFooter`, `CalmFooter`) sit in `blocks/sections/` next to
+the heroes; `SiteFooter` is in `components/` and takes a `stage` slot. Their
+parts are in `components/`: `FooterColumns`, `FooterFamily`, `FooterSocials`
+and the fields `PixelName`, `HeatField`, `FitWordmark`, `DitherName`,
+`VoxelField` and `WashGlow`, which mount the same way as the hero fields.
+The newsletter inputs take the Svelte kit's input size through classes on
+Starwind's `Input` (h-9, px-2.5, text-sm from md).
+
+The feature sections (`StepsSection`, `PictureSection`, `SurfaceBento`,
+`ProjectsSection`, `CatalogSection`) and `SectionHead` and `GlassBand` sit in
+`blocks/sections/`; their parts (`StepCards`, `FlowSteps`, `PictureCard`,
+`PictureGrid`, `LineArt`, `SurfaceTile`, `AppMock`, `ProjectRows`,
+`CatalogCard`, `StatTile`, `ReleaseLoop`) are in `components/`. Where the
+Svelte kit takes a snippet per step, the Astro twin takes a named slot per
+step: `demo-1`, `demo-2`, … for `StepCards` and `content-1`, … for
+`FlowSteps`; the sections forward them. `LineArt` draws its server picture
+from core's `lineArt()` and patches the same elements on pointer moves;
+`FlowSteps` measures and draws its wires with core's `observeFlowWires()`;
+`ReleaseLoop` runs core's loop and writes the stage into `data-*` attributes
+that the classes read. Picking bubbles events, the Starwind way:
+`catalog-pick` (a `CatalogCard`, with its id) and `picture-filter` (a
+`PictureGrid` pill, with its group).
+
+The blog pages (`MagazineIndex`, `PostArticle`, `BlogIndex`) and their parts
+(`Byline`, `TopicCards`) sit in `blocks/content/`; `PictureCard` takes the
+post's meta in a `head` slot, `PostHeader` a `wide` layout, `PostContents` a
+`rail` and `PullQuote` an `oxide` card, as in the Svelte kit. What Svelte
+renders again on a pick is rendered ahead of time here: `MagazineIndex`
+renders the latest once per topic and shows one, and `PostList` with
+`promote` renders every post as the featured card too, so `BlogIndex` can
+feature the first post its search and topic leave. `TopicCards` bubble the
+same `topic-change` event as `TopicChips`. `PostList`'s `rows` keep one
+`held` `LineArt` per post in the floating preview, all following the list,
+and show the one you point at. `SearchBox` takes the Svelte kit's input size
+through classes on Starwind's input (h-9, px-2.5, text-sm from md) and a
+rounded-md frame.
+
+The changelog pages (`ReleaseDesk`, `ReleaseTimelinePage`) and their parts
+(`ReleaseFilters`, `ReleasePicture`, `DragWindow`, `ReleaseTimeline`'s
+`rail`) are the Svelte kit's. Everything renders in full and a script
+narrows it in place (`blocks/content/release-list.ts`): each release is a
+`[data-release]`, each change a `[data-change]` with its words, so the
+search and the kind chip hide changes, kinds and releases, recount the head's
+tags, refold the releases past `open` and swap their first line, and hide a
+folded release's picture. Grouped and summary `ReleaseNotes` share one
+markup for that. The window and the pictures come in as slots; the
+timeline page takes a function child, `(v) => markup`, for each release's
+picture, as `ReleaseTimeline` does for each line. A picture's parts carry a
+`data-spot`: pointing at a change or a part lights every element with that
+spot (`data-lit`) inside the block, and the block sends `spot-change` for
+anything the picture redraws itself.
+
+The pricing pages (`PricingPage`, `PricingCard`, `PricingCompare`,
+`FaqSection`, `DotField`) are the Svelte kit's. Every billing mode's words
+render and `blocks/site/pricing-mode.ts` shows the one the page's `Segmented`
+(`data-pricing-mode`) asks for, inside the nearest `[data-pricing-root]`.
+`PricingCompare` narrows its rows in place (`data-differs`), lights the column
+under the cursor with `data-lit`, and shows one plan at a time on a phone with
+`data-show`; its differences switch is Starwind's, sized to the Svelte one.
+
+The docs reference page (`DocsReference`, `DocsNav`, `DocsBlocks`) and the
+company pages (`ContactDirect`, `AboutEssay`, `Book`, `BookSteps`,
+`CommitmentCards`, `ExperienceRail`, and `ContactChannels`' cards) are the
+Svelte kit's. `DocsReference` puts every page in the HTML and a script shows
+one (the menu, the pager and `<here>#~<key>` links switch pages; headings need
+ids that are unique across the product's pages); the install block is a
+`CodeBlock` with tabs and a `CheckList`, as `InstallBlock` has no Astro twin.
+`Book` is run by core's `mountBooks` from its own script, and `BookSteps` shows
+one book per step. The about page's person card is inline, as `PersonCard` has
+no Astro twin.
+
+The pages (`NotFoundPage`, `LegalPage`, `FaqPage`, `CvPage`) and
+`RichBlocks` are the Svelte kit's. `LegalPage` puts every document in the HTML
+under inline line tabs and a script shows one; `FaqPage` puts every question in
+the HTML and a script narrows them and opens the matches with core's
+`faqNeedle`; `CvPage`'s print button is a script. `LineTabs` has no Astro twin,
+so the tabs are inline. `Question` takes its words as a `question` slot as well
+as a prop.
 
 `$brand` points at `src/` here, and at the folder the kit is installed into
 in a copied project (`src/components/brand`). Kit files import each other
@@ -177,18 +266,12 @@ is one of these:
   - `Segmented` and `TopicChips` set `aria-pressed` in their group and
     bubble a `segmented-change` / `topic-change` CustomEvent with the value
     — the Astro stand-in for the lab's `onValueChange` / `onChange` props.
-    `PricingPlans` listens for the first and shows the matching
-    `[data-billing]` price (both periods are rendered).
   - `Scene` mounts through core's `mountScene` in a dynamic import, so
     three.js only downloads when a scene is on the page. **A project using
     Scene installs `three` itself** (core's optional peer; the lab and the
     boilerplates carry it).
-- **Item props take components.** `FeatureCards` / `FeatureGrid` items carry
-  `icon` as an imported component (a `@lucide/astro` icon renders fine);
-  `DataTable` cells and `BeforeAfter` rows are strings. `PricingPlans` has
-  no per-plan `price` render prop — draw a custom price with `Price` and the
-  pieces around it instead.
-- **`SiteShell` is `SiteLayout` here**: it renders the whole document
+- **Item props take components.** `DataTable` cells are strings.
+- **`SiteLayout` is the page shell here**: it renders the whole document
   (`<html>` dark by default, `<head>` with `SiteHead` through the `head`
   prop, then the shell) because an Astro page needs a layout, not a wrapper
   div. Nav is the lab's `nav: string[]` rendered as `href="#"` links;

@@ -17,31 +17,114 @@ import CommandBox from "$brand/components/command-box.astro";
 import CopyButton from "$brand/components/copy-button.astro";
 import CornerRings from "$brand/components/corner-rings.astro";
 import DataTable from "$brand/components/data-table.astro";
+import DiagonalHatch from "$brand/components/diagonal-hatch.astro";
+import DitherName from "$brand/components/dither-name.astro";
+import DotName from "$brand/components/dot-name.astro";
+import FitWordmark from "$brand/components/fit-wordmark.astro";
+import FooterColumns from "$brand/components/footer-columns.astro";
+import FooterFamily from "$brand/components/footer-family.astro";
+import FooterSocials from "$brand/components/footer-socials.astro";
 import Glass from "$brand/components/glass.astro";
+import HeatField from "$brand/components/heat-field.astro";
 import HorizonRings from "$brand/components/horizon-rings.astro";
 import IconTile from "$brand/components/icon-tile.astro";
 import InlineCode from "$brand/components/inline-code.astro";
 import Mark from "$brand/components/mark.astro";
+import NavBar, { type NavLink } from "$brand/components/nav-bar.astro";
+import PixelName from "$brand/components/pixel-name.astro";
 import Marker from "$brand/components/marker.astro";
+import MaterialGrid from "$brand/components/material-grid.astro";
+import MaterialWash from "$brand/components/material-wash.astro";
 import Notice from "$brand/components/notice.astro";
+import ProductWindow from "$brand/components/product-window.astro";
 import Question from "$brand/components/question.astro";
+import ResolveTitle from "$brand/components/resolve-title.astro";
+import RingField from "$brand/components/ring-field.astro";
 import RingGauge from "$brand/components/ring-gauge.astro";
 import Rings from "$brand/components/rings.astro";
 import Scene from "$brand/components/scene.astro";
+import SceneStage from "$brand/components/scene-stage.astro";
 import ShaderMaterial from "$brand/components/shader-material.astro";
 import Segmented from "$brand/components/segmented.astro";
 import StatusRing from "$brand/components/status-ring.astro";
-import Step from "$brand/components/step.astro";
-import StepNumber from "$brand/components/step-number.astro";
-import Stepper from "$brand/components/stepper.astro";
 import Tag from "$brand/components/tag.astro";
 import TerminalBody from "$brand/components/terminal-body.astro";
 import TerminalLine from "$brand/components/terminal-line.astro";
 import TerminalWindow from "$brand/components/terminal-window.astro";
 import Toc from "$brand/components/toc.astro";
+import VoxelField from "$brand/components/voxel-field.astro";
+import WashGlow from "$brand/components/wash-glow.astro";
 import Wordmark from "$brand/components/wordmark.astro";
+import AppMock from "$brand/components/app-mock.astro";
+import CatalogCard from "$brand/components/catalog-card.astro";
+import FlowSteps from "$brand/components/flow-steps.astro";
+import LineArt from "$brand/components/line-art.astro";
+import PictureCard from "$brand/components/picture-card.astro";
+import PostMeta from "$brand/blocks/content/post-meta.astro";
+import PictureGrid from "$brand/components/picture-grid.astro";
+import ProjectRows from "$brand/components/project-rows.astro";
+import ReleaseLoop from "$brand/components/release-loop.astro";
+import StatTile from "$brand/components/stat-tile.astro";
+import StepCards from "$brand/components/step-cards.astro";
+import SurfaceTile from "$brand/components/surface-tile.astro";
+import { lineArtKinds } from "@hmziq/brand-core/motion/line-art";
+import FlowContent from "../../components/kit/flow-content.astro";
+import StepDemo from "../../components/kit/step-demo.astro";
+import { flow, playbooks, projects, providers, steps, work } from "../../components/kit/features-data";
+import { blogPosts, blogTone, productPosts } from "../../components/kit/blog-data";
 import ThemeInit from "../../components/theme-init.astro";
 import ThemeToggle from "../../components/theme-toggle.astro";
+
+const footerColumns = [
+  { title: "Docs", links: [{ label: "Quickstart", href: "#" }, { label: "Guides", href: "#" }, { label: "Reference", href: "#", tag: "New" }, { label: "Examples", href: "#" }] },
+  { title: "Project", links: [{ label: "Changelog", href: "#" }, { label: "Roadmap", href: "#" }, { label: "Releases", href: "#" }, { label: "FAQ", href: "#" }] },
+  { title: "Community", links: [{ label: "Discussions", href: "#" }, { label: "Report a bug", href: "#" }, { label: "Security", href: "#" }, { label: "Sponsor", href: "#" }] },
+];
+
+const socialLinks = [
+  { label: "GitHub", href: "https://github.com/" },
+  { label: "X", href: "https://x.com/" },
+  { label: "YouTube", href: "https://youtube.com/" },
+  { label: "RSS", href: "#" },
+  { label: "LinkedIn", href: "https://linkedin.com/" },
+  { label: "Email", href: "mailto:hello@example.com" },
+];
+
+const navPlain: NavLink[] = [
+  { label: "Projects", href: "#" },
+  { label: "How I work", href: "#" },
+  { label: "Writing", href: "#" },
+  { label: "About", href: "#", current: true },
+];
+
+const navLinks: NavLink[] = [
+  {
+    label: "Guide",
+    children: [
+      { label: "Quickstart", href: "#", description: "Your first cached query in five minutes." },
+      { label: "Queries", href: "#", description: "Typed keys, stale times, background refetch." },
+      { label: "Mutations", href: "#", description: "Optimistic writes that roll back on error." },
+      { label: "Devtools", href: "#", description: "Watch the cache live while the app runs." },
+    ],
+  },
+  {
+    label: "Resources",
+    children: [
+      { label: "Examples", href: "#", description: "Small apps that use one feature each." },
+      { label: "Recipes", href: "#", description: "Pagination, polling and offline, step by step." },
+      { label: "Migration", href: "#", description: "Moving over from hand-rolled caches." },
+    ],
+  },
+  { label: "Changelog", href: "#" },
+];
+
+const announcement = { text: "gpui-query 0.3 tries again on its own when the network drops", href: "#", preset: "copper-sweep" };
+
+const windowCode = `pub fn users(cx: &mut App) -> Query<Vec<User>> {
+    use_query("users", |signal| async move {
+        fetch_users(&signal).await
+    }, cx)
+}`;
 ---
 
 <SiteLayout site="example" maker="the kit" layout="page" mainClassName="gap-14 pt-12 pb-20 md:pt-20" head={{ site: "freeoxide", title: "Brand pieces — the kit", description: "Every brand piece the Astro kit ships.", url: "https://example.com/kit/brand" }}>
@@ -298,34 +381,6 @@ import ThemeToggle from "../../components/theme-toggle.astro";
       <Segmented label="Package manager" value="bun" options={[{ value: "bun", label: "Bun" }, { value: "npm", label: "npm" }, { value: "yarn", label: "yarn" }]} />
     </section>
 
-    <section id="piece-stepper" class="flex flex-col gap-4 border-t pt-8">
-      <h2 class="text-lg font-medium">Stepper</h2>
-      <Stepper class="max-w-md">
-        <Step n={1} done>
-          <h3 class="text-[1.0625rem] font-medium">Done</h3>
-          <p class="text-[0.9rem] leading-relaxed text-muted-foreground">Its ring is filled and the line below it is orange.</p>
-        </Step>
-        <Step n={2}>
-          <h3 class="text-[1.0625rem] font-medium">Not yet</h3>
-          <p class="text-[0.9rem] leading-relaxed text-muted-foreground">A grey ring, a grey line.</p>
-        </Step>
-      </Stepper>
-    </section>
-
-    <section id="piece-step" class="flex flex-col gap-4 border-t pt-8">
-      <h2 class="text-lg font-medium">Step</h2>
-      <p class="text-[0.8125rem] text-muted-foreground">One step of a stepper; shown above inside Stepper.</p>
-    </section>
-
-    <section id="piece-step-number" class="flex flex-col gap-4 border-t pt-8">
-      <h2 class="text-lg font-medium">StepNumber</h2>
-      <p class="flex items-center gap-4">
-        <StepNumber n={1} />
-        <StepNumber n={2} done />
-        <StepNumber n={3} done />
-      </p>
-    </section>
-
     <section id="piece-question" class="flex flex-col gap-4 border-t pt-8">
       <h2 class="text-lg font-medium">Question</h2>
       <div class="max-w-[52rem] border-t">
@@ -341,6 +396,343 @@ import ThemeToggle from "../../components/theme-toggle.astro";
     <section id="piece-questions" class="flex flex-col gap-4 border-t pt-8">
       <h2 class="text-lg font-medium">Questions</h2>
       <p class="text-[0.8125rem] text-muted-foreground">The list around the questions; shown above as the border-t wrapper.</p>
+    </section>
+
+    <section id="piece-nav-bar" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">NavBar</h2>
+      <div class="flex flex-col gap-6">
+        <div class="overflow-hidden rounded-xl border">
+          <NavBar site="freeoxide" maker="by hmziq" links={navPlain} cta={{ label: "Browse projects", href: "#" }} github="https://github.com/hmziqrs" />
+        </div>
+        <div class="min-h-80 overflow-hidden rounded-xl border">
+          <NavBar site="gpui-query" maker="by hmziq" links={navLinks} cta={{ label: "Get started", href: "#" }} github="https://github.com/hmziqrs" />
+        </div>
+        <div class="min-h-80 overflow-hidden rounded-xl border">
+          <NavBar site="gpui-query" maker="by hmziq" links={navLinks} cta={{ label: "Get started", href: "#" }} github="https://github.com/hmziqrs" announcement={announcement} announcementKey="hmziq-announce-gallery" />
+        </div>
+      </div>
+      <p class="text-[0.8125rem] text-muted-foreground">Plain, with hover menus, and with a closable announcement. Below md the links fold into a menu sheet.</p>
+    </section>
+
+    <section id="piece-product-window" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">ProductWindow</h2>
+      <div class="flex flex-col gap-6">
+        <div data-pointer-host class="relative isolate overflow-hidden rounded-xl border px-6 py-16">
+          <MaterialWash preset="chalk-dunes" class="-z-10" />
+          <ProductWindow title="src/users.rs" live class="mx-auto max-w-2xl"><CodeLines code={windowCode} /></ProductWindow>
+        </div>
+        <div data-pointer-host class="relative isolate overflow-hidden rounded-xl border px-6 py-16">
+          <MaterialWash preset="copper-sweep" class="-z-10" />
+          <ProductWindow chrome={false} class="mx-auto max-w-2xl"><CodeLines code={windowCode} /></ProductWindow>
+        </div>
+        <div class="px-6 py-4">
+          <ProductWindow panel title="src/users.rs" class="mx-auto max-w-2xl"><CodeLines code={windowCode} /></ProductWindow>
+        </div>
+      </div>
+      <p class="text-[0.8125rem] text-muted-foreground">With its title bar and a Live mark over a stage, bare over a stage, and on its own still material panel.</p>
+    </section>
+
+    <section id="piece-material-wash" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">MaterialWash</h2>
+      <div class="flex flex-col gap-6">
+        {
+          ["copper-sweep", "chalk-dunes", "white-sweep"].map((preset) => (
+            <div class="relative isolate overflow-hidden rounded-xl border">
+              <MaterialWash preset={preset} class="-z-10" />
+              <div class="relative mx-auto max-w-[82rem] px-6 py-24">
+                <p data-display class="max-w-[14ch] text-5xl leading-[0.98] font-semibold tracking-[-0.04em]">Words read over the <span class="text-primary">material.</span></p>
+                <p class="mt-6 max-w-[34rem] text-lg text-foreground/90">A still poster under a veil of the page color. No canvas, no animation.</p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+      <p class="text-[0.8125rem] text-muted-foreground">Copper, chalk and silver: a still poster under a veil of the page color. No canvas, no animation.</p>
+    </section>
+
+    <section id="piece-material-grid" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">MaterialGrid</h2>
+      <div class="flex flex-col gap-6">
+        <div data-pointer-host class="relative isolate min-h-[30rem] overflow-hidden rounded-xl border">
+          <MaterialGrid class="-z-10" />
+          <div class="pointer-events-none relative px-6 py-28"><p data-display class="max-w-[14ch] text-5xl leading-[0.95] font-semibold tracking-[-0.045em]">Move the cursor over the <span class="text-primary">grid.</span></p></div>
+        </div>
+        <div data-pointer-host class="relative isolate min-h-[30rem] overflow-hidden rounded-xl border">
+          <MaterialGrid live={false} class="-z-10" />
+          <div class="pointer-events-none relative px-6 py-28"><p data-display class="max-w-[14ch] text-5xl leading-[0.95] font-semibold tracking-[-0.045em]">A still material under the <span class="text-primary">grid.</span></p></div>
+        </div>
+      </div>
+      <p class="text-[0.8125rem] text-muted-foreground">Live and still. Dark: oxide-bloom under a 0.8 veil with teal stains; light: copper-sweep under a 0.95 veil with oxide stains.</p>
+    </section>
+
+    <section id="piece-diagonal-hatch" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">DiagonalHatch</h2>
+      <div class="flex flex-col gap-6">
+        <div data-pointer-host class="relative isolate min-h-[30rem] overflow-hidden rounded-xl border">
+          <DiagonalHatch class="-z-10" />
+          <div class="px-6 py-28"><p data-display class="max-w-[14ch] text-5xl leading-[0.95] font-semibold tracking-[-0.045em]">Lines grow from the <span class="text-primary">corner.</span></p></div>
+        </div>
+        <div data-pointer-host class="relative isolate flex min-h-[30rem] items-center justify-center overflow-hidden rounded-xl border px-6 text-center">
+          <DiagonalHatch variant="frame" class="-z-10" />
+          <p data-display class="max-w-[16ch] text-5xl leading-[0.95] font-semibold tracking-[-0.045em]">Two corners, a clear <span class="text-primary">middle.</span></p>
+        </div>
+      </div>
+      <p class="text-[0.8125rem] text-muted-foreground">corner and frame. The lines bend toward the cursor inside the frame around them.</p>
+    </section>
+
+    <section id="piece-ring-field" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">RingField</h2>
+      <div class="relative isolate flex min-h-[30rem] items-center justify-center overflow-hidden rounded-xl border px-6 text-center">
+        <RingField class="-z-10" />
+        <p class="max-w-[16ch] text-5xl leading-[0.95] font-semibold tracking-[-0.045em]">Rings drift against the pointer.</p>
+      </div>
+    </section>
+
+    <section id="piece-scene-stage" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">SceneStage</h2>
+      <div class="relative isolate min-h-[30rem] overflow-hidden rounded-xl border">
+        <SceneStage seed="scene-stage" class="-z-10" />
+        <div class="px-6 py-28"><p data-display class="max-w-[14ch] text-5xl leading-[0.95] font-semibold tracking-[-0.045em]">A scene beside the <span class="text-primary">words.</span></p></div>
+      </div>
+    </section>
+
+    <section id="piece-dot-name" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">DotName</h2>
+      <div data-pointer-host class="flex min-h-[24rem] flex-col items-center justify-center gap-10 rounded-xl border px-6 py-10">
+        <div data-display class="w-full"><DotName word="hmziq" class="mx-auto w-[min(100%,560px)]" /></div>
+        <div data-display class="w-full"><DotName word="example■" label="example" class="mx-auto w-[min(100%,560px)]" /></div>
+      </div>
+      <p class="text-[0.8125rem] text-muted-foreground">A word, and a word with the mark. The dots fly in when the name scrolls into view.</p>
+    </section>
+
+    <section id="piece-resolve-title" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">ResolveTitle</h2>
+      <div data-pointer-host class="flex min-h-[24rem] items-center justify-center rounded-xl border px-6 text-center">
+        <ResolveTitle as="p" text="EXAMPLE LABS" class="text-[clamp(34px,8.6vw,128px)] leading-[1] font-light tracking-[0.16em] text-foreground uppercase [text-indent:0.16em]" />
+      </div>
+    </section>
+
+    <section id="piece-footer-columns" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">FooterColumns</h2>
+      <div class="py-16"><FooterColumns columns={footerColumns} /></div>
+      <p class="text-[0.8125rem] text-muted-foreground">A mono oxide label over each column, an oxide underline on hover, and a small tag after a link.</p>
+    </section>
+
+    <section id="piece-footer-family" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">FooterFamily</h2>
+      <div class="py-16"><FooterFamily site="freeoxide" /></div>
+      <p class="text-[0.8125rem] text-muted-foreground">Every other site in the family with its mark; this one, freeoxide, is left out.</p>
+    </section>
+
+    <section id="piece-footer-socials" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">FooterSocials</h2>
+      <div class="py-16"><FooterSocials links={socialLinks} /></div>
+      <p class="text-[0.8125rem] text-muted-foreground">GitHub, X, YouTube, RSS and LinkedIn logos, and the mail icon for anything else.</p>
+    </section>
+
+    <section id="piece-pixel-name" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">PixelName</h2>
+      <div data-pointer-host class="py-16"><PixelName text="example" look="dots" pitch={9} min={5} cols={140} reach={130} class="aspect-[5.4/1]" /></div>
+      <div data-pointer-host class="py-16"><PixelName text="example" look="glyphs" pitch={14} min={6} cols={90} reach={120} class="aspect-[2.4/1] sm:aspect-[3.6/1]" /></div>
+      <p class="text-[0.8125rem] text-muted-foreground">dots and glyphs. Run the cursor through the name.</p>
+    </section>
+
+    <section id="piece-heat-field" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">HeatField</h2>
+      <div class="relative overflow-hidden rounded-xl border pt-24">
+        <div class="relative h-[clamp(150px,21vw,300px)]"><HeatField class="[mask-image:linear-gradient(to_bottom,black_58%,transparent)]" /></div>
+        <div class="relative -mt-[clamp(52px,9.6vw,136px)] px-6 pb-16"><FitWordmark name="example" max={250} /></div>
+      </div>
+      <p class="text-[0.8125rem] text-muted-foreground">Rising from the bottom edge with a name standing in it. The cursor heats it from anywhere within reach.</p>
+    </section>
+
+    <section id="piece-fit-wordmark" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">FitWordmark</h2>
+      <div class="py-16"><FitWordmark name="example" max={250} /></div>
+      <p class="text-[0.8125rem] text-muted-foreground">The wordmark across the box's width, up to 250px type.</p>
+    </section>
+
+    <section id="piece-dither-name" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">DitherName</h2>
+      <div class="py-16"><DitherName name="example" animate /></div>
+      <div class="py-16"><DitherName name="example" /></div>
+      <p class="text-[0.8125rem] text-muted-foreground">Drifting and still. The cursor rusts the blocks near it.</p>
+    </section>
+
+    <section id="piece-voxel-field" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">VoxelField</h2>
+      <div class="flex flex-col gap-6">
+        <div data-pointer-host class="relative isolate min-h-[26rem] overflow-hidden rounded-xl border"><VoxelField size={22} reach={150} lift={72} quiet class="-z-10" /></div>
+        <div data-pointer-host class="relative isolate min-h-[26rem] overflow-hidden rounded-xl border"><VoxelField class="-z-10" /></div>
+      </div>
+      <p class="text-[0.8125rem] text-muted-foreground">Quiet and edged. The columns rise into an oxide ridge under the cursor.</p>
+    </section>
+
+    <section id="piece-wash-glow" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">WashGlow</h2>
+      <div class="flex flex-col gap-6">
+        {
+          ["chalk-dunes", "copper-sweep"].map((preset) => (
+            <div data-pointer-host class="relative isolate flex min-h-[26rem] items-center overflow-hidden rounded-xl border">
+              <WashGlow preset={preset} class="-z-10" />
+              <p data-display class="flex-1 px-6 text-5xl leading-[0.95] font-semibold tracking-[-0.045em]">Move the cursor over the wash.</p>
+            </div>
+          ))
+        }
+      </div>
+      <p class="text-[0.8125rem] text-muted-foreground">Chalk and copper, faded almost to the page and brighter around the cursor.</p>
+    </section>
+
+    <section id="piece-line-art" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">LineArt</h2>
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          lineArtKinds.map((kind) => (
+            <figure class="flex flex-col gap-2">
+              <div data-line-art-host class="relative isolate aspect-[16/10] overflow-hidden rounded-xl ring-1 ring-foreground/10"><LineArt kind={kind} /></div>
+              <figcaption class="font-mono text-xs text-muted-foreground">{kind}</figcaption>
+            </figure>
+          ))
+        }
+      </div>
+      <p class="text-[0.8125rem] text-muted-foreground">The twenty drawings at rest; the part nearest the cursor lights in oxide. The last eight are the post drawings, whose line stays 1.25px at any size.</p>
+      <div class="relative aspect-[16/10] overflow-hidden rounded-2xl ring-1 ring-foreground/10 sm:aspect-[2/1] lg:aspect-[5/2]"><LineArt kind="laptop" fit /></div>
+      <p class="text-[0.8125rem] text-muted-foreground">A post drawing as a cover, letterboxed in a wider frame: with fit, the cursor maps onto the drawing itself.</p>
+    </section>
+
+    <section id="piece-picture-card" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">PictureCard</h2>
+      <div class="grid gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+        <PictureCard title="gpui-query" tag="Library" dek="Data loading for GPUI apps: typed keys, one shared cache and refetch in the background." meta="freeoxide · Rust" art="lanes" />
+        <PictureCard title="Command-line tool" tag="Terminal" dek="A Rust binary your team installs with one command." meta="Rust" art="terminal" />
+      </div>
+      <p class="text-[0.8125rem] text-muted-foreground">A line drawing with a Tag, the title, a dek and the meta; the drawing follows the cursor across the card.</p>
+      <div class="grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          blogPosts.slice(2, 5).map((p) => (
+            <PictureCard title={p.title} dek={p.summary} art={p.art} as="h3">
+              <PostMeta slot="head" post={{ ...p, updated: undefined }} tone={blogTone} />
+            </PictureCard>
+          ))
+        }
+      </div>
+      <p class="text-[0.8125rem] text-muted-foreground">The post card: the post's PostMeta in the head slot over a heading title.</p>
+      <PictureCard title={blogPosts[7].title} dek={blogPosts[7].summary} art={blogPosts[7].art} as="h2" size="xl" layout="split" more="Read the post">
+        <Fragment slot="head">
+          <span class="font-mono text-[11px] tracking-[0.14em] text-primary uppercase">Start here</span>
+          <PostMeta post={blogPosts[7]} tone={blogTone} />
+        </Fragment>
+      </PictureCard>
+      <p class="text-[0.8125rem] text-muted-foreground">The lead: xl, split beside its drawing from lg up, with a Read the post line.</p>
+      <div class="grid gap-x-8 gap-y-14 md:grid-cols-2">
+        {
+          blogPosts.slice(0, 2).map((p) => (
+            <PictureCard title={p.title} dek={p.summary} art={p.art} as="h3" size="lg">
+              <PostMeta slot="head" post={p} tone={blogTone} />
+            </PictureCard>
+          ))
+        }
+      </div>
+      <p class="text-[0.8125rem] text-muted-foreground">A pair of leads at lg.</p>
+      <div class="grid gap-x-6 gap-y-6 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          productPosts.slice(1, 4).map((p) => (
+            <PictureCard title={p.title} dek={p.summary} as="h3">
+              <PostMeta slot="head" post={p} tone={blogTone} />
+            </PictureCard>
+          ))
+        }
+      </div>
+      <p class="text-[0.8125rem] text-muted-foreground">Without a drawing, the card wears the thin ring itself.</p>
+    </section>
+
+    <section id="piece-picture-grid" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">PictureGrid</h2>
+      <div class="flex flex-col gap-16">
+        <PictureGrid items={work} />
+        <PictureGrid items={playbooks} filter="Where it runs" />
+      </div>
+      <p class="text-[0.8125rem] text-muted-foreground">A body of work, then starting points with filter pills.</p>
+    </section>
+
+    <section id="piece-step-cards" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">StepCards</h2>
+      <StepCards steps={steps}>
+        <StepDemo slot="demo-1" i={0} />
+        <StepDemo slot="demo-2" i={1} />
+        <StepDemo slot="demo-3" i={2} />
+      </StepCards>
+      <p class="text-[0.8125rem] text-muted-foreground">Three steps, each with a live demo: a picker you point at, a build with comments, one repo fanning out to six platforms.</p>
+    </section>
+
+    <section id="piece-flow-steps" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">FlowSteps</h2>
+      <FlowSteps steps={flow}>
+        <FlowContent slot="content-1" i={0} />
+        <FlowContent slot="content-2" i={1} />
+        <FlowContent slot="content-3" i={2} />
+        <FlowContent slot="content-4" i={3} />
+      </FlowSteps>
+      <p class="text-[0.8125rem] text-muted-foreground">Brief to ship, joined by running wires; point at a step to light it and its neighbours.</p>
+    </section>
+
+    <section id="piece-app-mock" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">AppMock</h2>
+      <div class="grid items-center gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <AppMock kind="phone" class="mx-auto max-w-[220px] bg-background" />
+        <AppMock kind="desktop" title="Ledgerline" class="mx-auto max-w-[440px] bg-background" />
+        <AppMock kind="web" class="mx-auto max-w-[300px] bg-background" />
+        <AppMock kind="terminal" class="mx-auto max-w-[300px]" />
+      </div>
+      <p class="text-[0.8125rem] text-muted-foreground">Phone, desktop, web and terminal, each showing real UI.</p>
+    </section>
+
+    <section id="piece-surface-tile" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">SurfaceTile</h2>
+      <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-[2fr_1fr]">
+        <SurfaceTile preset="copper-sweep" title="Desktop apps" body="Mac, Windows and Linux, signed and updating." tag="Desktop" class="min-h-[19rem]">
+          <AppMock kind="desktop" title="Ledgerline" class="mx-auto max-w-[440px] bg-background" />
+        </SurfaceTile>
+        <SurfaceTile preset="oxide-bloom" title="CLI tools" body="Installed with one command." tag="Terminal" class="min-h-[19rem]">
+          <AppMock kind="terminal" class="mx-auto max-w-[300px]" />
+        </SurfaceTile>
+      </div>
+      <p class="text-[0.8125rem] text-muted-foreground">The app tips toward the cursor and the material shifts under it.</p>
+    </section>
+
+    <section id="piece-project-rows" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">ProjectRows</h2>
+      <ProjectRows projects={projects} />
+      <p class="text-[0.8125rem] text-muted-foreground">A sticky rail of Marks beside one row per tool, its terminal or code on its material.</p>
+    </section>
+
+    <section id="piece-catalog-card" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">CatalogCard</h2>
+      <div data-catalog class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        {providers.slice(0, 4).map((item) => <CatalogCard item={item} picked={item.id === "ds"} />)}
+      </div>
+      <p class="text-[0.8125rem] text-muted-foreground">Four entries, one picked; click another to pick it.</p>
+    </section>
+
+    <section id="piece-stat-tile" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">StatTile</h2>
+      <div class="grid grid-cols-2 gap-3 lg:grid-cols-3">
+        <StatTile tone="oxide" value="5" label="Review rounds before a version number" rings="freeoxide-rounds" class="col-span-2 lg:col-span-1" />
+        <StatTile value=">90%" label="Test coverage floor on every project" />
+        <StatTile value="100%" label="Open source, MIT or Apache-2.0" />
+      </div>
+      <div class="grid grid-cols-2 gap-3 lg:grid-cols-4">
+        <StatTile tone="oxide" digits="dot" value="0" label="Changes to your ~/.claude" detail="Remove claude-multi and everything is as it was." class="col-span-2 sm:col-span-1" />
+        <StatTile digits="dot" value="1" label="Command per provider" detail="claude-glm, claude-ds, claude-kimi, each with its own folder." />
+        <StatTile digits="dot" accent value="8" label="Provider templates" detail="Anthropic, GLM, Kimi, DeepSeek, Qwen, MiniMax, MiMo and local." />
+      </div>
+      <p class="text-[0.8125rem] text-muted-foreground">Oxide and outline, then the dot digits.</p>
+    </section>
+
+    <section id="piece-release-loop" class="flex flex-col gap-4 border-t pt-8">
+      <h2 class="text-lg font-medium">ReleaseLoop</h2>
+      <ReleaseLoop />
+      <p class="text-[0.8125rem] text-muted-foreground">Point at the loop to steer the dot; the installers follow the stop it last passed.</p>
     </section>
 
     <section id="piece-toc" class="flex flex-col gap-4 border-t pt-8">

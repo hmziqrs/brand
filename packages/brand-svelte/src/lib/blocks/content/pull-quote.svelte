@@ -4,7 +4,8 @@
   screens. `left` puts it in the left margin instead. `ring` hangs it off an
   orange ring in the text column. `signed` is one for quoting someone else,
   with their name under it. `tldr` is the box, when the line is the whole
-  point of the section.
+  point of the section. `oxide` is the one line a post pulls out big on an
+  oxide card, with a mono caption under it.
 
   A pull quote that repeats a line the reader just read (or is about to) is
   `repeated`: decoration, so screen readers skip it and it is never
@@ -18,11 +19,11 @@
 		variant = "margin",
 		/** The quote repeats a line from the text, so screen readers skip it. */
 		repeated = false,
-		/** For `signed` and `tldr`: who said it, e.g. "the lab's README". */
+		/** For `signed` and `tldr`: who said it, e.g. "the lab's README". For `oxide`: the caption, From this post when left out. */
 		sign,
 		class: className,
 		children,
-	}: { variant?: "margin" | "left" | "ring" | "signed" | "tldr"; repeated?: boolean; sign?: string; class?: string; children: import("svelte").Snippet } = $props();
+	}: { variant?: "margin" | "left" | "ring" | "signed" | "tldr" | "oxide"; repeated?: boolean; sign?: string; class?: string; children: import("svelte").Snippet } = $props();
 
 	/* Out in the margin from xl up: which side changes, nothing else. Both are
 	   written out in full, so Tailwind can see every class. */
@@ -55,6 +56,11 @@
 			{@render children()}
 		</blockquote>
 		{#if sign}<figcaption class="mt-2 text-[0.8125rem] text-muted-foreground">— {sign}</figcaption>{/if}
+	</figure>
+{:else if variant === "oxide"}
+	<figure aria-hidden={repeated || undefined} class={cn("rounded-2xl bg-primary px-6 py-7 text-primary-foreground sm:px-9 sm:py-9", className)}>
+		<blockquote class="text-[clamp(1.5rem,2.6vw,2.15rem)] leading-[1.12] font-medium tracking-[-0.03em] text-balance">{@render children()}</blockquote>
+		<figcaption class="mt-5 flex items-center gap-2 font-mono text-[11px] tracking-[0.14em] uppercase"><i class="size-1.5 bg-current"></i>{sign ?? "From this post"}</figcaption>
 	</figure>
 {:else}
 	<div aria-hidden={repeated || undefined} class={cn("rounded-xl border border-primary/45 px-5 py-4.5", className)}>

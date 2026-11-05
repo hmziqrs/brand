@@ -1,0 +1,54 @@
+---
+import { cn } from "$brand/utils";
+
+/*
+ * An oxide dither field rising from the bottom of its box in slow waves. The
+ * cursor, anywhere on the page within reach, heats the cells around it into
+ * the hot color: display oxide in light mode, yellow in dark. Fills its
+ * positioned parent. Still for reduced motion.
+ */
+
+interface Props {
+  /** Cell size in pixels. */
+  cell?: number;
+  /** The cursor's reach in pixels. */
+  lens?: number;
+  /** How much the cursor lifts the field, 0–1. */
+  lift?: number;
+  class?: string;
+}
+
+const { cell = 8, lens = 170, lift = 0.9, class: className } = Astro.props;
+---
+
+<span data-slot="heat-field" data-options={JSON.stringify({ cell, lens, lift })} class={cn("pointer-events-none absolute inset-0 block", className)} aria-hidden="true">
+  <canvas class="block h-full w-full"></canvas>
+  <span data-heat-base class="hidden text-(--orange)"></span>
+  <span data-heat-hot class="hidden text-(--orange-display) dark:text-yellow"></span>
+</span>
+
+<script>
+  import { mountHeatField } from "@hmziq/brand-core/motion/heat-field";
+
+  const fields = new WeakMap<HTMLElement, () => void>();
+
+  function init(root: HTMLElement) {
+    const canvas = root.querySelector("canvas");
+    const base = root.querySelector("[data-heat-base]");
+    const hot = root.querySelector("[data-heat-hot]");
+    if (canvas && base && hot) fields.set(root, mountHeatField(canvas, { base, hot, ...JSON.parse(root.dataset.options ?? "{}") }));
+  }
+
+  function initAll() {
+    for (const root of document.querySelectorAll<HTMLElement>("[data-slot='heat-field']")) if (!fields.has(root)) init(root);
+  }
+
+  initAll();
+  document.addEventListener("astro:page-load", initAll);
+  document.addEventListener("astro:before-swap", () => {
+    for (const root of document.querySelectorAll<HTMLElement>("[data-slot='heat-field']")) {
+      fields.get(root)?.();
+      fields.delete(root);
+    }
+  });
+</script>

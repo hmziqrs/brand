@@ -1,0 +1,10 @@
+---
+// The pricing page: a billing switch, plan cards, the compare table and the questions. Every number is an example (lib/example.ts).
+import Site from "../layouts/Site.astro";
+import PricingPage from "$brand/blocks/site/pricing-page.astro";
+import { pricing } from "../lib/example";
+---
+
+<Site head={{ site: "freeoxide", title: "Pricing — astro-app", description: "Plans side by side. Example content.", url: "https://example.com/pricing" }}>
+  <PricingPage {...pricing} class="[--pricing-top:4rem]" />
+</Site>

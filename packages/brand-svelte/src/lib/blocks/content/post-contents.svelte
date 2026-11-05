@@ -4,7 +4,9 @@
   the lab's bordered box under the cover, its links in two columns on wide
   screens. `float` is the pill that follows the reader: the current section
   on it, the whole list a keypress away. `left` and `right` are the sticky
-  columns, for pages that give the contents a margin of its own.
+  columns, for pages that give the contents a margin of its own. `rail` is
+  the wide post page's column: a mono label, then a line per section on its
+  own rule, the one you're reading in oxide; the page makes it sticky.
 
   Every variant watches the page with core's scroll spy and moves the
   orange ring to the heading you're reading.
@@ -21,7 +23,7 @@
 		/** The list's name, for the box heading and screen readers. */
 		label = "On this page",
 		class: className,
-	}: { items: { id: string; label: string }[]; variant?: "inline" | "float" | "left" | "right"; label?: string; class?: string } = $props();
+	}: { items: { id: string; label: string }[]; variant?: "inline" | "float" | "left" | "right" | "rail"; label?: string; class?: string } = $props();
 
 	let current = $state<string>();
 	/** The float pill's list, open or closed. */
@@ -61,6 +63,23 @@
 				<span class="min-w-0 truncate">{pill}</span>
 			</button>
 		</div>
+	</nav>
+{:else if variant === "rail"}
+	<nav data-slot="post-contents" data-variant={variant} aria-label={label} class={cn("text-[0.9375rem]", className)}>
+		<p class="mb-3 font-mono text-[11px] tracking-[0.14em] text-muted-foreground uppercase">{label}</p>
+		<ul class="flex flex-col">
+			{#each items as item (item.id)}
+				<li>
+					<a
+						href={`#${item.id}`}
+						aria-current={current === item.id ? "location" : undefined}
+						class="flex items-baseline gap-3 border-l border-border py-1.5 pl-3.5 text-foreground/75 transition-colors outline-none hover:text-foreground focus-visible:text-foreground aria-[current=location]:border-primary aria-[current=location]:text-foreground motion-reduce:transition-none"
+					>
+						<span>{item.label}</span>
+					</a>
+				</li>
+			{/each}
+		</ul>
 	</nav>
 {:else}
 	<aside

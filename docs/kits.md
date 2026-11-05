@@ -18,15 +18,15 @@ The two kits are separate ports of the lab's React pieces. Neither depends on th
 | Base components | shadcn-svelte (Bits UI) | Starwind UI |
 | Component files | `.svelte` (Svelte 5) | `.astro` |
 | Interaction | Svelte state | Starwind's own way (its component scripts or `@starwind-ui/runtime`, whichever the installed version uses) |
-| Brand pieces (BRAND.md section 9) | Wordmark, Mark, Marker, Rings, CornerRings, BandArcs, RingGauge, Scene, Tag, IconTile, Notice, CodeBlock, CodeLines, CopyButton, CommandBar, TerminalWindow, Stepper, Segmented, Question, Toc, DataTable, BrandIcon | The same |
-| Site blocks | SiteShell, Hero and its parts, PageIntro, RingStats, Section, OutlineCard, ElementCard, FeatureCards, FeatureGrid, Steps, PricingPlans, Price, BeforeAfter, CtaBand, and a new SiteHead | The same; SiteShell is a layout (`SiteLayout`) |
+| Brand pieces (BRAND.md section 9) | Wordmark, Mark, Marker, Rings, CornerRings, BandArcs, RingGauge, Scene, Tag, IconTile, Notice, CodeBlock, CodeLines, CopyButton, CommandBar, TerminalWindow, Segmented, Question, Toc, DataTable, BrandIcon | The same |
+| Site blocks | Hero and its parts, PageIntro, OutlineCard, and a new SiteHead | The same, plus a page layout (`SiteLayout`) |
 | Content pieces | Prose, Bullets, CheckList, LinkBar, SummaryBox, BigNumbers, SearchBox, TopicChips, EmptyNote | The same |
 | Previewed in | Its own Storybook | A `/kit` gallery in `astro-app` |
 | Matched against | — (the reference) | The Svelte kit's Storybook |
 
 **SiteHead** is new (the lab was a single-page app, so it had none). It renders the page head for one site: title, description, canonical URL, OG and X tags, icon links and `theme-color`. It uses the same tags as the `head.html` in assets.md, from the site's id in `family.ts`.
 
-The lab's SaaS-only blocks (AppWindow, LogoCloud, Person, QuoteCard, IntegrationGrid, Faq, InverseBand) were ported too, with the rest of the lab content (see [lab-to-svelte-migration-plan.md](./lab-to-svelte-migration-plan.md)).
+The lab's SaaS-only blocks AppWindow and Person were ported too, with the rest of the lab content (see [lab-to-svelte-migration-plan.md](./lab-to-svelte-migration-plan.md)).
 
 ## Porting rules (both kits)
 

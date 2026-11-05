@@ -27,6 +27,7 @@ When driving a browser, also read and follow `/Users/hmziq/.zcode/skills/agent-b
 
 - Svelte 5 runes; stock ui comes from the shadcn-svelte CLI (Bits UI); lucide class on icons; `motion-reduce` on animations; the kit is never published (registry only).
 - `packages/brand-svelte/src/lib/ui/button/button.svelte` must keep both brand changes: `data-variant` present, no `translate-y-px`. The CLI can revert them — re-verify after any CLI add.
+- Materials are surfaces, never pictures: behind a real product visual, a full-width band behind frosted glass, or a whole `MaterialCard` with words on glass. Never a material cover, thumbnail or fake screen; a card that needs a picture gets a real one (UI sketch, line drawing, icon) or none.
 - Every Svelte story file must belong to a roster entry in `scripts/pieces.json` (`scripts/check-parity.ts` fails on any story outside the roster). Read `scripts/pieces.schema.json` before editing the roster.
 - Kit rules: `docs/kits.md` and `packages/brand-svelte/README.md`. The port behavior contract (shared localStorage keys `hmziq-lattice-tweaks` / `hmziq-ring-tweaks` / `hmziq-logo-tweaks`, paste clamping, merge-only paste semantics, `CSS.supports('color', …)` validation, browser-guarded canvas probes, `URL.createObjectURL` downloads, pause/seed controls) is 1:1 with what the old lab shipped — keep it that way.
 

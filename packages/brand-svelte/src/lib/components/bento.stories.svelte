@@ -3,16 +3,12 @@
 	import Bento from './bento.svelte'
 	import BentoTile from './bento-tile.svelte'
 	import Rings from './rings.svelte'
-	import RingMeter from './ring-meter.svelte'
 	import CommandBar from './command-bar.svelte'
 	import CodeBlock from './code-block.svelte'
 	import StatusRing from './status-ring.svelte'
-	import MaterialSparkline from './material-sparkline.svelte'
-	import MaterialTile from './material-tile.svelte'
 	import HorizonRings from './horizon-rings.svelte'
 	import CommandPalette, { type PaletteGroup } from './command-palette.svelte'
 	import { Kbd } from '$brand/ui/kbd/index.js'
-	import { brandMaterials } from '@hmziq/brand-core/shaders/materials'
 	import { querySamples } from '$brand/blocks/content/stories-data.js'
 
 	const { Story } = defineMeta({
@@ -39,9 +35,7 @@
 			{#snippet media()}<div class="absolute inset-0 overflow-hidden"><Rings seed="freeoxide" class="absolute top-1/2 -right-10 w-[30rem] max-w-none -translate-y-1/2" /></div>{/snippet}
 		</BentoTile>
 
-		<BentoTile cols={2} title="Checked every release">
-			<RingMeter size={96} label="This release" items={[{ label: 'Tests passing', value: 0.97 }, { label: 'Code covered', value: 0.91 }]} class="mt-2 gap-5" />
-		</BentoTile>
+		<BentoTile cols={2} title="Checked every release" body="Tests pass and the code is covered before a version ships." />
 
 		<BentoTile cols={2} title="Add it to your app" body="One command in your crate.">
 			<CommandBar command="cargo add gpui-query" class="mt-3 max-w-full" />
@@ -52,7 +46,7 @@
 		</BentoTile>
 
 		<BentoTile cols={2} title="Downloads a week" eyebrow="Example numbers">
-			<MaterialSparkline values={downloads} label="Downloads a week, rising from 320 to 640" preset="copper-sweep" class="mt-3" />
+			<p class="mt-3 text-4xl font-medium tracking-tight">{downloads[downloads.length - 1]}</p>
 		</BentoTile>
 
 		<BentoTile cols={2} title="Live links">
@@ -72,9 +66,7 @@
 			{/snippet}
 		</BentoTile>
 
-		<BentoTile cols={3} title="Materials" body="Sixteen shader looks in oxide, copper and quiet greys.">
-			<div class="mt-3 flex flex-wrap gap-2">{#each brandMaterials as preset (preset)}<MaterialTile {preset} size={28} shape="circle" />{/each}</div>
-		</BentoTile>
+		<BentoTile cols={3} title="Materials" body="Sixteen shader looks in oxide, copper and quiet greys." />
 
 		<BentoTile cols={3} title="Find anything" body="Projects, pages and commands from the keyboard.">
 			<button type="button" onclick={() => (open = true)} class="mt-3 flex items-center gap-2 self-start rounded-lg border px-3 py-2 text-sm text-muted-foreground transition-colors outline-none hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50">Search<span class="flex gap-1"><Kbd>⌘</Kbd><Kbd>K</Kbd></span></button>

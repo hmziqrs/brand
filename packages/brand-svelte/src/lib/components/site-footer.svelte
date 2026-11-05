@@ -1,11 +1,13 @@
 <!-- A site's footer in three sizes: columns (links, an optional newsletter, the family, the giant
-     signature), simple (one row of links) and minimal (one line). -->
+     signature), simple (one row of links) and minimal (one line), over an optional full-width stage. -->
 <script lang="ts">
+	import type { Snippet } from "svelte";
 	import { siGithub, siX } from "simple-icons";
 	import { family } from "@hmziq/brand-core/family";
 	import { cn } from "$brand/utils.js";
 	import { Button } from "$brand/ui/button/index.js";
 	import { Input } from "$brand/ui/input/index.js";
+	import Container from "$brand/blocks/site/container.svelte";
 	import BrandIcon from "./brand-icon.svelte";
 	import Mark from "./mark.svelte";
 	import Wordmark from "./wordmark.svelte";
@@ -25,6 +27,10 @@
 		github,
 		x,
 		legal = "© 2026 hmziq. Free and open source where it says so.",
+		/** The kit Container width for the contents: default for most sites, wide to line up with a wide NavBar and wide page sections. */
+		size = "default",
+		/** A full-width background behind the contents: WashGlow, … The footer is the [data-pointer-host] it follows. */
+		stage,
 		class: className,
 	}: {
 		site: string;
@@ -37,6 +43,8 @@
 		github?: string;
 		x?: string;
 		legal?: string;
+		size?: "default" | "wide";
+		stage?: Snippet;
 		class?: string;
 	} = $props();
 
@@ -51,8 +59,9 @@
 	</div>
 {/snippet}
 
-<footer data-slot="site-footer" data-variant={variant} class={cn("border-t", className)}>
-	<div class="mx-auto flex max-w-5xl flex-col gap-8 px-6 py-10">
+<footer data-slot="site-footer" data-variant={variant} data-pointer-host={stage ? "" : undefined} class={cn("border-t", stage && "relative isolate overflow-hidden", className)}>
+	{#if stage}<div class="absolute inset-0 -z-10">{@render stage()}</div>{/if}
+	<Container {size} class="flex flex-col gap-8 py-10">
 		{#if variant === "columns"}
 			<div class="grid gap-10 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,2fr)]">
 				<div class="flex flex-col gap-4">
@@ -106,5 +115,5 @@
 				{@render social()}
 			</div>
 		{/if}
-	</div>
+	</Container>
 </footer>

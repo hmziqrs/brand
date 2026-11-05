@@ -1,0 +1,158 @@
+---
+import { ArrowUpRight } from "@lucide/astro";
+import { siGithub } from "simple-icons";
+import { legalIds, legalOther, type LegalDoc } from "@hmziq/brand-core/legal-page";
+import { cn } from "$brand/utils";
+import Container from "$brand/blocks/site/container.astro";
+import ButtonLink from "$brand/blocks/site/button-link.astro";
+import { Button } from "$brand/starwind/button";
+import Toc from "$brand/components/toc.astro";
+import BrandIcon from "$brand/components/brand-icon.astro";
+import LegalSection from "./legal-section.astro";
+import RichBlocks from "./rich-blocks.astro";
+
+/*
+ * A site's legal documents on one page: a line-tab switch between them, then
+ * the title, the short version, the numbered contents (sticky, following the
+ * reader), the sections in one reading column and a sticky rail with the
+ * document's closing lines and a button to the other document. Every
+ * document is in the HTML and a script shows one.
+ */
+
+interface Props {
+  docs: LegalDoc[];
+  class?: string;
+}
+
+const { docs, class: className } = Astro.props;
+---
+
+<div data-slot="legal-page" data-top="96" class={cn("pt-10 pb-24 md:pt-14 md:pb-32", className)}>
+  <Container size="wide">
+    <div data-slot="line-tabs" class="flex flex-col gap-6">
+      <div role="tablist" aria-label="Legal documents" class="flex gap-6 overflow-x-auto border-b">
+        {
+          docs.map((d, i) => (
+            <button
+              type="button"
+              role="tab"
+              id={`legal-tab-${d.id}`}
+              data-legal-tab={d.id}
+              aria-selected={i === 0 ? "true" : "false"}
+              aria-controls={`legal-doc-${d.id}`}
+              tabindex={i === 0 ? 0 : -1}
+              class="-mb-px flex shrink-0 items-center gap-2 border-b-2 border-transparent py-3 text-sm text-muted-foreground transition-colors outline-none hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50 aria-selected:border-primary aria-selected:text-foreground"
+            >
+              {d.tab}
+            </button>
+          ))
+        }
+      </div>
+      {
+        docs.map((p, di) => {
+          const ids = legalIds(p);
+          const other = legalOther(docs, p.id);
+          return (
+            <div role="tabpanel" id={`legal-doc-${p.id}`} data-legal-doc={p.id} aria-labelledby={`legal-tab-${p.id}`} hidden={di !== 0} class="outline-none">
+              <div class="pt-8 md:pt-12">
+                <p class="font-mono text-xs tracking-[0.14em] text-primary uppercase">Legal · Last updated <time datetime={p.updated}>{p.updated}</time></p>
+                <h1 class="mt-6 text-[clamp(3rem,7.4vw,6.75rem)] leading-[0.94] font-semibold tracking-[-0.05em] text-foreground">{p.title[0]}<span class="text-primary">{p.title[1]}</span></h1>
+                <p class="mt-8 max-w-[40rem] text-[clamp(1.125rem,1.6vw,1.375rem)] leading-snug text-pretty text-foreground">{p.short}</p>
+              </div>
+
+              <div class="mt-16 grid gap-12 md:mt-20 lg:grid-cols-[13rem_minmax(0,46rem)] xl:grid-cols-[12rem_minmax(0,46rem)_minmax(13rem,1fr)] xl:gap-14">
+                <aside aria-label="Contents" class="sticky top-[calc(var(--pages-top,0px)+2rem)] hidden self-start text-[0.875rem] lg:block">
+                  <p class="mb-3 font-mono text-[11px] tracking-[0.14em] text-foreground/70 uppercase">Contents</p>
+                  <Toc items={ids} current={ids[0]?.id} numbered />
+                </aside>
+
+                <article class="flex min-w-0 flex-col gap-10">
+                  {
+                    p.sections.map((s, i) => (
+                      <LegalSection n={i + 1} title={s.title} prefix={p.id} class="scroll-mt-28 [&>h2]:text-[1.5rem]! [&>h2]:font-medium [&>h2]:tracking-[-0.02em] [&>h2]:text-foreground">
+                        <RichBlocks blocks={s.blocks} class="text-[1.0625rem]" />
+                      </LegalSection>
+                    ))
+                  }
+                </article>
+
+                <aside aria-label="Questions" class="flex min-w-0 flex-col gap-5 self-start border-t border-border pt-8 lg:col-start-2 xl:sticky xl:top-[calc(var(--pages-top,0px)+2rem)] xl:col-start-auto xl:border-t-0 xl:pt-0">
+                  <p class="font-mono text-[11px] tracking-[0.14em] text-foreground/70 uppercase">Questions</p>
+                  <p class="text-base leading-snug text-foreground">{p.ask}</p>
+                  <div class="flex flex-wrap gap-2.5 xl:flex-col xl:items-start">
+                    <ButtonLink href={p.close.href} target="_blank" rel="noreferrer"><BrandIcon icon={siGithub} data-icon="inline-start" />{p.close.label}</ButtonLink>
+                    <Button variant="outline" type="button" data-legal-swap={other.id}>{p.other}</Button>
+                  </div>
+                  <a href={p.history} target="_blank" rel="noreferrer" class="text-sm text-foreground/75 hover:text-foreground hover:underline">Every change is in the GitHub history<ArrowUpRight class="lucide ml-1 inline size-3.5 align-[-2px]" /></a>
+                </aside>
+              </div>
+            </div>
+          );
+        })
+      }
+    </div>
+  </Container>
+</div>
+
+<script>
+  import { scrollSpy } from "@hmziq/brand-core/scroll-spy";
+  import { inPage } from "@hmziq/brand-core/rich-blocks";
+
+  const stop = new WeakMap<HTMLElement, () => void>();
+
+  function spy(root: HTMLElement) {
+    stop.get(root)?.();
+    const doc = root.querySelector<HTMLElement>("[data-legal-doc]:not([hidden])");
+    if (!doc) return;
+    const links = [...doc.querySelectorAll<HTMLAnchorElement>("[data-slot='toc'] a")];
+    const ids = links.map((a) => decodeURIComponent(a.hash.slice(1)));
+    const mark = (id: string) => {
+      for (const a of links) {
+        if (decodeURIComponent(a.hash.slice(1)) === id) a.setAttribute("aria-current", "location");
+        else a.removeAttribute("aria-current");
+      }
+    };
+    mark(ids[0]);
+    stop.set(root, scrollSpy(ids, mark));
+  }
+
+  function show(root: HTMLElement, id: string, focus = false) {
+    for (const tab of root.querySelectorAll<HTMLElement>("[data-legal-tab]")) {
+      const mine = tab.dataset.legalTab === id;
+      tab.setAttribute("aria-selected", String(mine));
+      tab.tabIndex = mine ? 0 : -1;
+      if (mine && focus) tab.focus();
+    }
+    for (const doc of root.querySelectorAll<HTMLElement>("[data-legal-doc]")) doc.hidden = doc.dataset.legalDoc !== id;
+    spy(root);
+  }
+
+  function init(root: HTMLElement) {
+    if (root.dataset.ready) return;
+    root.dataset.ready = "true";
+    const top = Number(root.dataset.top ?? 0);
+    spy(root);
+    root.addEventListener("click", (event) => {
+      const target = event.target as HTMLElement;
+      const tab = target.closest<HTMLElement>("[data-legal-tab]");
+      if (tab?.dataset.legalTab) return show(root, tab.dataset.legalTab);
+      const swap = target.closest<HTMLElement>("[data-legal-swap]");
+      if (swap?.dataset.legalSwap) {
+        show(root, swap.dataset.legalSwap);
+        return window.scrollTo({ top: root.getBoundingClientRect().top + window.scrollY - 80, behavior: "auto" });
+      }
+      inPage(event, top);
+    });
+    root.addEventListener("keydown", (event) => {
+      const tab = (event.target as HTMLElement).closest<HTMLElement>("[data-legal-tab]");
+      if (!tab || (event.key !== "ArrowRight" && event.key !== "ArrowLeft" && event.key !== "Home" && event.key !== "End")) return;
+      const tabs = [...root.querySelectorAll<HTMLElement>("[data-legal-tab]")];
+      const i = tabs.indexOf(tab);
+      const next = event.key === "Home" ? 0 : event.key === "End" ? tabs.length - 1 : (i + (event.key === "ArrowRight" ? 1 : -1) + tabs.length) % tabs.length;
+      event.preventDefault();
+      show(root, tabs[next].dataset.legalTab ?? "", true);
+    });
+  }
+
+  for (const root of document.querySelectorAll<HTMLElement>("[data-slot='legal-page']")) init(root);
+</script>

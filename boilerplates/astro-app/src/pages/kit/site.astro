@@ -4,21 +4,16 @@
 // `bun run check:parity` reads, so they are written out in full. SiteShell is
 // SiteLayout in this kit (it renders the whole document), and SiteHead is
 // the head above this page.
-import { FolderTree, ScanSearch, ListChecks } from "@lucide/astro";
+import { ArrowDown, ArrowRight, ArrowUpRight, Mail } from "@lucide/astro";
+import { siApple, siGithub, siLinux, siX } from "simple-icons";
 import Container from "$brand/blocks/site/container.astro";
 import PageIntro from "$brand/blocks/site/page-intro.astro";
-import Section from "$brand/blocks/site/section.astro";
 import SiteLayout from "$brand/blocks/site/site-layout.astro";
-import BeforeAfter from "$brand/blocks/site/before-after.astro";
 import BigNumbers from "$brand/blocks/site/big-numbers.astro";
 import Bullets from "$brand/blocks/site/bullets.astro";
 import ButtonLink from "$brand/blocks/site/button-link.astro";
 import CheckList from "$brand/blocks/site/check-list.astro";
-import CtaBand from "$brand/blocks/site/cta-band.astro";
-import ElementCard from "$brand/blocks/site/element-card.astro";
 import EmptyNote from "$brand/blocks/site/empty-note.astro";
-import FeatureCards from "$brand/blocks/site/feature-cards.astro";
-import FeatureGrid from "$brand/blocks/site/feature-grid.astro";
 import Hero from "$brand/blocks/site/hero.astro";
 import HeroActions from "$brand/blocks/site/hero-actions.astro";
 import HeroLede from "$brand/blocks/site/hero-lede.astro";
@@ -28,23 +23,114 @@ import HeroTitle from "$brand/blocks/site/hero-title.astro";
 import Kicker from "$brand/blocks/site/kicker.astro";
 import LinkBar from "$brand/blocks/site/link-bar.astro";
 import OutlineCard from "$brand/blocks/site/outline-card.astro";
-import Price from "$brand/blocks/site/price.astro";
-import PricingPlans from "$brand/blocks/site/pricing-plans.astro";
 import Prose from "$brand/blocks/site/prose.astro";
-import RingStats from "$brand/blocks/site/ring-stats.astro";
 import SearchBox from "$brand/blocks/site/search-box.astro";
-import Steps from "$brand/blocks/site/steps.astro";
 import SummaryBox from "$brand/blocks/site/summary-box.astro";
 import TopicChips from "$brand/blocks/site/topic-chips.astro";
 import Rings from "$brand/components/rings.astro";
+import { Button } from "$brand/starwind/button";
+import BrandIcon from "$brand/components/brand-icon.astro";
+import CodeLines from "$brand/components/code-lines.astro";
+import DiagonalHatch from "$brand/components/diagonal-hatch.astro";
+import DotName from "$brand/components/dot-name.astro";
+import Glass from "$brand/components/glass.astro";
+import MaterialGrid from "$brand/components/material-grid.astro";
+import MaterialWash from "$brand/components/material-wash.astro";
+import ProductWindow from "$brand/components/product-window.astro";
+import ResolveTitle from "$brand/components/resolve-title.astro";
+import RingField from "$brand/components/ring-field.astro";
+import SceneStage from "$brand/components/scene-stage.astro";
+import Tag from "$brand/components/tag.astro";
+import TerminalBody from "$brand/components/terminal-body.astro";
+import TerminalLine from "$brand/components/terminal-line.astro";
+import TerminalWindow from "$brand/components/terminal-window.astro";
+import SiteFooter from "$brand/components/site-footer.astro";
+import WashGlow from "$brand/components/wash-glow.astro";
+import AccentTitle from "$brand/blocks/sections/accent-title.astro";
+import BrandHero from "$brand/blocks/sections/brand-hero.astro";
+import CalmFooter from "$brand/blocks/sections/calm-footer.astro";
+import DotFooter from "$brand/blocks/sections/dot-footer.astro";
+import GlyphFooter from "$brand/blocks/sections/glyph-footer.astro";
+import HatchFooter from "$brand/blocks/sections/hatch-footer.astro";
+import HeatFooter from "$brand/blocks/sections/heat-footer.astro";
+import MaterialFooter from "$brand/blocks/sections/material-footer.astro";
+import VoxelFooter from "$brand/blocks/sections/voxel-footer.astro";
+import PersonalHero from "$brand/blocks/sections/personal-hero.astro";
+import ProductHero from "$brand/blocks/sections/product-hero.astro";
+import CatalogSection from "$brand/blocks/sections/catalog-section.astro";
+import GlassBand from "$brand/blocks/sections/glass-band.astro";
+import PictureSection from "$brand/blocks/sections/picture-section.astro";
+import ProjectsSection from "$brand/blocks/sections/projects-section.astro";
+import SectionHead from "$brand/blocks/sections/section-head.astro";
+import StepsSection from "$brand/blocks/sections/steps-section.astro";
+import SurfaceBento from "$brand/blocks/sections/surface-bento.astro";
+import PictureGrid from "$brand/components/picture-grid.astro";
+import StepDemo from "../../components/kit/step-demo.astro";
+import { glassPoints, playbooks, projects, providers, steps, surfaceCard, surfaces, work } from "../../components/kit/features-data";
 import ThemeInit from "../../components/theme-init.astro";
 import ThemeToggle from "../../components/theme-toggle.astro";
-import type { Tone } from "@hmziq/brand-core/tones";
 
-const kinds = {
-  library: { label: "Library", color: "var(--blue)", tone: "blue" as Tone },
-  cli: { label: "Command-line tool", color: "var(--teal)", tone: "teal" as Tone },
-};
+const heroCode = `pub fn users(cx: &mut App) -> Query<Vec<User>> {
+    use_query("users", |signal| async move {
+        fetch_users(&signal).await
+    }, cx)
+}
+
+pub fn view(users: &Query<Vec<User>>) -> impl IntoElement {
+    match users.state() {
+        State::Ready(list) => list_view(list),
+        State::Loading => spinner(),
+        State::Failed(err) => error_view(err),
+    }
+}`;
+const platforms = [
+  { name: "macOS", icon: siApple },
+  { name: "Linux", icon: siLinux },
+];
+const stack = ["Svelte", "TypeScript", "Rust", "Postgres", "Tauri"];
+const socials = [
+  { label: "GitHub", href: "https://github.com/", icon: siGithub },
+  { label: "X", href: "https://x.com/", icon: siX },
+  { label: "Email", href: "mailto:hello@example.com", icon: Mail },
+];
+
+const siteFooterColumns = [
+  { title: "Projects", links: [{ label: "gpui-query", href: "#" }, { label: "gpui-starter", href: "#" }, { label: "tunnel", href: "#" }, { label: "oxiwake", href: "#" }] },
+  { title: "Read", links: [{ label: "Writing", href: "#" }, { label: "How I work", href: "#" }, { label: "Changelog", href: "#" }] },
+  { title: "About", links: [{ label: "hmziq", href: "#" }, { label: "Contact", href: "#" }, { label: "Privacy", href: "#" }] },
+];
+const footerColumns = [
+  { title: "Docs", links: [{ label: "Quickstart", href: "#" }, { label: "Guides", href: "#" }, { label: "Reference", href: "#", tag: "New" }, { label: "Examples", href: "#" }] },
+  { title: "Project", links: [{ label: "Changelog", href: "#" }, { label: "Roadmap", href: "#" }, { label: "Releases", href: "#" }, { label: "FAQ", href: "#" }] },
+  { title: "Community", links: [{ label: "Discussions", href: "#" }, { label: "Report a bug", href: "#" }, { label: "Security", href: "#" }, { label: "Sponsor", href: "#" }] },
+];
+const studioColumns = [
+  { title: "Services", links: [{ label: "Phone apps", href: "#" }, { label: "Desktop apps", href: "#" }, { label: "Web apps", href: "#" }, { label: "CLI tools", href: "#" }] },
+  { title: "Studio", links: [{ label: "Work", href: "#" }, { label: "Process", href: "#" }, { label: "Pricing", href: "#" }, { label: "About", href: "#" }] },
+  { title: "Contact", links: [{ label: "Start a project", href: "#" }, { label: "Book a call", href: "#" }, { label: "hello@example.com", href: "mailto:hello@example.com" }] },
+  { title: "Elsewhere", links: [{ label: "GitHub", href: "https://github.com/" }, { label: "X", href: "https://x.com/" }, { label: "LinkedIn", href: "https://linkedin.com/" }] },
+];
+const personalColumns = [
+  { title: "Site", links: [{ label: "Work", href: "#" }, { label: "Blog", href: "#" }, { label: "CV", href: "#" }, { label: "Uses", href: "#" }] },
+  { title: "Elsewhere", links: [{ label: "GitHub", href: "https://github.com/" }, { label: "LinkedIn", href: "https://linkedin.com/" }, { label: "X", href: "https://x.com/" }, { label: "Email", href: "mailto:hello@example.com" }] },
+];
+const readingColumns = [
+  { title: "Read", links: [{ label: "Latest posts", href: "#" }, { label: "Series", href: "#" }, { label: "Archive", href: "#" }, { label: "RSS feed", href: "#" }] },
+  { title: "Topics", links: [{ label: "Process", href: "#" }, { label: "Rust", href: "#" }, { label: "Tools", href: "#" }, { label: "Design", href: "#" }, { label: "Web", href: "#" }] },
+  { title: "About", links: [{ label: "About me", href: "#" }, { label: "Now", href: "#" }, { label: "Uses", href: "#" }, { label: "Contact", href: "#" }] },
+];
+const footerSocials = [
+  { label: "GitHub", href: "https://github.com/" },
+  { label: "X", href: "https://x.com/" },
+  { label: "RSS", href: "#" },
+];
+const personalSocials = [
+  { label: "GitHub", href: "https://github.com/" },
+  { label: "LinkedIn", href: "https://linkedin.com/" },
+  { label: "X", href: "https://x.com/" },
+  { label: "Email", href: "mailto:hello@example.com" },
+];
+
 ---
 
 <SiteLayout site="example" maker="the kit" layout="page" mainClassName="gap-14 pt-12 pb-20 md:pt-20" head={{ site: "freeoxide", title: "Site blocks — the kit", description: "Every site block and content piece the Astro kit ships.", url: "https://example.com/kit/site" }}>
@@ -55,15 +141,11 @@ const kinds = {
     <PageIntro class="max-w-2xl">
       <Fragment slot="kicker">The kit · site blocks</Fragment>
       <Fragment slot="title">Site blocks</Fragment>
-      <Fragment slot="lede">The shell, the hero and its parts, sections and cards, steps, pricing and the closing band — then the content pieces that dress long-form text. Example content throughout.</Fragment>
+      <Fragment slot="lede">The hero and its parts, the summary and link blocks — then the content pieces that dress long-form text. Example content throughout.</Fragment>
     </PageIntro>
   </Container>
 
   <Container size="wide" class="flex flex-col gap-14">
-    <section id="piece-site-shell" class="flex flex-col gap-4 border-t pt-8">
-      <h2 class="text-lg font-medium">SiteShell</h2>
-      <p class="text-[0.9375rem]">SiteLayout in this kit: it renders the whole document — the header above, the page's rhythm, the footer below with the family row and the signature. This page is one.</p>
-    </section>
 
     <section id="piece-site-head" class="flex flex-col gap-4 border-t pt-8">
       <h2 class="text-lg font-medium">SiteHead</h2>
@@ -137,37 +219,6 @@ const kinds = {
       </PageIntro>
     </section>
 
-    <section id="piece-section" class="flex flex-col gap-4 border-t pt-8">
-      <h2 class="text-lg font-medium">Section</h2>
-      <div class="rounded-xl border py-8">
-        <Section>
-          <Fragment slot="caption">Example caption</Fragment>
-          <Fragment slot="title">A section</Fragment>
-          <Fragment slot="intro">One sentence on what the section holds.</Fragment>
-          <p class="text-[0.9375rem]">The section's content, in the page's own column.</p>
-        </Section>
-      </div>
-    </section>
-
-    <section id="piece-ring-stats" class="flex flex-col gap-4 border-t pt-8">
-      <h2 class="text-lg font-medium">RingStats</h2>
-      <div class="rounded-xl border py-8">
-        <RingStats items={[{ value: "100%", label: "example number, filled ring", ring: 1 }, { value: "90%+", label: "example number, most of a ring", ring: 0.9 }, { value: "5", label: "example count, five segments", ring: 5 }]} />
-      </div>
-    </section>
-
-    <section id="piece-element-card" class="flex flex-col gap-4 border-t pt-8">
-      <h2 class="text-lg font-medium">ElementCard</h2>
-      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <ElementCard n={1} symbol="Ex" name="Example one" kind={kinds.library} status={{ label: "Shipped", tone: "success" }}>
-          One line on what it does and who it is for.
-        </ElementCard>
-        <ElementCard n={2} symbol="Tw" name="Example two" kind={kinds.cli} status={{ label: "Planned" }}>
-          One line on what it does and who it is for.
-        </ElementCard>
-      </div>
-    </section>
-
     <section id="piece-outline-card" class="flex flex-col gap-4 border-t pt-8">
       <h2 class="text-lg font-medium">OutlineCard</h2>
       <div class="grid gap-4 sm:grid-cols-2">
@@ -179,78 +230,6 @@ const kinds = {
           <h3 class="text-lg font-medium">A linked card</h3>
           <p class="text-[0.9rem] leading-relaxed text-muted-foreground">Hovering tints the line orange.</p>
         </OutlineCard>
-      </div>
-    </section>
-
-    <section id="piece-feature-cards" class="flex flex-col gap-4 border-t pt-8">
-      <h2 class="text-lg font-medium">FeatureCards</h2>
-      <FeatureCards
-        items={[
-          { icon: FolderTree, title: "Structure by hand", body: "Example copy for a feature." },
-          { icon: ScanSearch, title: "Five review rounds", body: "Example copy for a feature." },
-          { icon: ListChecks, title: "Five rounds of tests", body: "Example copy for a feature." },
-        ]}
-      />
-    </section>
-
-    <section id="piece-feature-grid" class="flex flex-col gap-4 border-t pt-8">
-      <h2 class="text-lg font-medium">FeatureGrid</h2>
-      <FeatureGrid
-        items={[
-          { icon: FolderTree, title: "Structure by hand", body: "Example copy for a feature." },
-          { icon: ScanSearch, title: "Five review rounds", body: "Example copy for a feature." },
-          { icon: ListChecks, title: "Five rounds of tests", body: "Example copy for a feature." },
-        ]}
-      />
-    </section>
-
-    <section id="piece-steps" class="flex flex-col gap-4 border-t pt-8">
-      <h2 class="text-lg font-medium">Steps</h2>
-      <Steps items={[{ title: "Sketch the post", body: "Example copy for a step." }, { title: "Ship it", body: "Example copy for a step." }, { title: "Fix the typos live", body: "Example copy for a step." }]} />
-    </section>
-
-    <section id="piece-before-after" class="flex flex-col gap-4 border-t pt-8">
-      <h2 class="text-lg font-medium">BeforeAfter</h2>
-      <BeforeAfter
-        before="By hand"
-        after="With the example"
-        rows={[
-          ["Showing that data is loading", "A flag you set and clear by hand", "Built in"],
-          ["Showing errors", "A field you fill by hand", "Built in, with typed errors"],
-          ["Going back to a screen", "It loads again", "Instant, from the cache"],
-        ]}
-      />
-    </section>
-
-    <section id="piece-pricing-plans" class="flex flex-col gap-4 border-t pt-8">
-      <h2 class="text-lg font-medium">PricingPlans</h2>
-      <PricingPlans
-        plans={[
-          { name: "Free", price: 0, blurb: "For trying it out.", features: ["One project", "Help from the community"], cta: "Choose Free" },
-          { name: "Pro", price: 12, yearly: 120, blurb: "For one person shipping real work.", features: ["Unlimited projects", "Email help within a day"], cta: "Choose Pro", pick: true },
-          { name: "Team", price: 39, yearly: 390, per: "per person", blurb: "For a small team working together.", features: ["Up to 10 people", "Shared settings"], cta: "Choose Team" },
-        ]}
-      />
-    </section>
-
-    <section id="piece-price" class="flex flex-col gap-4 border-t pt-8">
-      <h2 class="text-lg font-medium">Price</h2>
-      <div class="flex flex-wrap items-end gap-10">
-        <Price plan={{ price: 0 }} />
-        <Price plan={{ price: 12, yearly: 120, per: "per person" }} />
-      </div>
-      <p class="text-[0.8125rem] text-muted-foreground">Both billing periods are rendered; the switch on PricingPlans shows the one you pick.</p>
-    </section>
-
-    <section id="piece-cta-band" class="flex flex-col gap-4 border-t pt-8">
-      <h2 class="text-lg font-medium">CtaBand</h2>
-      <div class="overflow-hidden rounded-xl border">
-        <CtaBand compact title="One person. All of it.">
-          <Fragment slot="body">Example closing copy for the compact band, the size a newsletter under a post uses.</Fragment>
-          <Fragment slot="actions">
-            <ButtonLink href="/kit/site" size="lg" class="px-5">Read the full story</ButtonLink>
-          </Fragment>
-        </CtaBand>
       </div>
     </section>
 
@@ -322,4 +301,335 @@ const kinds = {
       </p>
     </section>
   </Container>
+
+  <section id="piece-accent-title" class="flex flex-col gap-4 border-t pt-8">
+    <Container size="wide" class="flex flex-col gap-4">
+      <h2 class="text-lg font-medium">AccentTitle</h2>
+      <AccentTitle as="p" title="Data in, views out. Nothing in between." accent="Nothing in between." class="max-w-[13ch] text-[clamp(44px,5.8vw,80px)] leading-[0.98] font-semibold tracking-[-0.04em]" />
+      <p class="text-[0.8125rem] text-muted-foreground">The headline the heroes use: one phrase in oxide, the display shade inside an h1 or h2.</p>
+    </Container>
+  </section>
+
+  <section id="piece-product-hero" class="flex flex-col gap-4 border-t pt-8">
+    <Container size="wide"><h2 class="text-lg font-medium">ProductHero</h2></Container>
+    <div data-hero="split">
+      <ProductHero title="Data in, views out. Nothing in between." accent="Nothing in between." lede="One small API wires the network, the cache, retries and revalidation together, so every view asks once and the rest stays fast." install="cargo add example-query">
+        <Tag slot="eyebrow" tone="orange" marker class="font-mono uppercase">Async state</Tag>
+        <Fragment slot="actions">
+          <Button href="#" size="lg">Get started<ArrowRight class="lucide" data-icon="inline-end" /></Button>
+          <Button href="#" size="lg" variant="outline"><BrandIcon icon={siGithub} data-icon="inline-start" />GitHub</Button>
+        </Fragment>
+        <MaterialWash slot="stage" preset="chalk-dunes" />
+        <ProductWindow slot="visual" chrome={false}><CodeLines code={heroCode} class="min-h-[23rem]" /></ProductWindow>
+      </ProductHero>
+    </div>
+    <div data-hero="split-terminal">
+      <ProductHero title="One repo for the whole app." accent="whole" lede="Routing, themes, storage, a tray and signed updates are already wired. Run it, then delete what you don't need." install="git clone https://example.com/starter.git" installLabel="Clone it">
+        <a slot="eyebrow" href="#release" class="inline-flex items-center gap-2 text-sm text-foreground hover:text-primary"><Tag tone="orange" class="font-mono uppercase">New</Tag>v0.3.0 released<ArrowRight class="lucide size-3.5" /></a>
+        <Fragment slot="actions">
+          <Button href="#" size="lg">Get started<ArrowRight class="lucide" data-icon="inline-end" /></Button>
+          <Button href="#" size="lg" variant="outline">Read the docs</Button>
+        </Fragment>
+        <div slot="note" class="flex flex-wrap items-center gap-2.5">
+          <ul aria-label="Platforms" class="flex flex-wrap gap-2.5">
+            {platforms.map((p) => <Glass as="li" variant="clear" class="flex h-10 items-center gap-2.5 rounded-full px-4 text-[15px] font-medium text-foreground"><BrandIcon icon={p.icon} class="size-4" />{p.name}</Glass>)}
+          </ul>
+          <Button href="#" variant="link" size="sm" class="px-1">Build requirements<ArrowUpRight class="lucide" data-icon="inline-end" /></Button>
+        </div>
+        <MaterialWash slot="stage" preset="copper-sweep" />
+        <TerminalWindow slot="visual" title="cargo run" class="max-w-[38rem]">
+          <TerminalBody>
+            <TerminalLine line={["cmd", "cargo run"]} />
+            <TerminalLine line={["note", "Compiling starter v0.3.0"]} />
+            <TerminalLine line={["step", "Themes", "24 loaded"]} />
+            <TerminalLine line={["step", "Storage", "app support dir"]} />
+            <TerminalLine line={["ok", "Window ready in 1.4s"]} />
+          </TerminalBody>
+        </TerminalWindow>
+      </ProductHero>
+    </div>
+    <div data-hero="centered">
+      <ProductHero layout="centered" title="A separate command for every account." accent="for every account." lede="Each account gets its own command and config directory. That command runs the tool you already have, and your existing settings stay untouched." install="bun add -g example-multi">
+        <Fragment slot="actions">
+          <Button href="#" size="lg">Get started<ArrowRight class="lucide" data-icon="inline-end" /></Button>
+          <Button href="#" size="lg" variant="outline"><BrandIcon icon={siGithub} data-icon="inline-start" />GitHub</Button>
+        </Fragment>
+        <MaterialWash slot="stage" preset="white-sweep" />
+        <TerminalWindow slot="visual" title="example-multi setup">
+          <TerminalBody>
+            <TerminalLine line={["cmd", "example-multi add work"]} />
+            <TerminalLine line={["step", "Config directory", "~/.example-work"]} />
+            <TerminalLine line={["step", "Command", "example-work"]} />
+            <TerminalLine line={["ok", "Added work"]} />
+          </TerminalBody>
+        </TerminalWindow>
+      </ProductHero>
+    </div>
+    <Container size="wide"><p class="text-[0.8125rem] text-muted-foreground">Split over chalk, split with a terminal over copper, and centered over silver.</p></Container>
+  </section>
+
+  <section id="piece-brand-hero" class="flex flex-col gap-4 border-t pt-8">
+    <Container size="wide"><h2 class="text-lg font-medium">BrandHero</h2></Container>
+    <div data-hero="material-grid">
+      <BrandHero title="Software that ships. Not demos." accent="ships. Not demos." lede="A small studio. We build web, mobile and desktop software, carefully." panel>
+        <MaterialGrid slot="stage" />
+        <span slot="eyebrow" class="inline-flex items-center gap-2 rounded-md bg-background px-3 py-1.5 font-mono text-xs tracking-[0.12em] text-foreground uppercase"><span class="text-primary">›</span>example.dev · studio</span>
+        <Fragment slot="actions">
+          <Button href="#" size="lg">Start a project<ArrowRight class="lucide" data-icon="inline-end" /></Button>
+          <Button href="#" size="lg" variant="outline">What we do</Button>
+        </Fragment>
+        <Glass slot="meta" variant="smoke" class="inline-flex max-w-full flex-wrap items-center gap-x-5 gap-y-2 rounded-xl px-4 py-3 font-mono text-xs text-foreground">
+          <span class="flex items-center gap-2"><span class="size-1.5 rounded-full bg-success"></span>Available for new projects</span>
+          <span class="hidden h-4 w-px bg-border sm:block"></span>
+          <span class="flex flex-wrap gap-x-3 gap-y-1 text-foreground/75">{stack.map((s) => <span>{s}</span>)}</span>
+        </Glass>
+      </BrandHero>
+    </div>
+    <div data-hero="scene">
+      <BrandHero title="Open-source tools, built to a standard." lede="Every project gets real tests and real audits before it ships. What ships is finished." scrim titleClass="max-w-[17ch] text-[clamp(34px,4.4vw,60px)] leading-[1.02] tracking-[-0.035em]">
+        <SceneStage slot="stage" seed="example" />
+        <DotName slot="wordmark" word="example" class="w-[min(100%,540px)]" />
+        <Fragment slot="actions">
+          <Button href="#" size="lg">Browse the work<ArrowRight class="lucide" data-icon="inline-end" /></Button>
+          <Button href="#" size="lg" variant="outline"><BrandIcon icon={siGithub} data-icon="inline-start" />GitHub</Button>
+        </Fragment>
+      </BrandHero>
+    </div>
+    <div data-hero="hatch">
+      <BrandHero title="Free tools, finished before they ship." accent="finished" lede="Open-source building blocks for desktop apps and the command line, each with docs and tests.">
+        <DiagonalHatch slot="stage" />
+        <Tag slot="eyebrow" tone="orange" marker class="font-mono uppercase">Open source</Tag>
+        <Fragment slot="actions">
+          <Button href="#" size="lg">Browse the work<ArrowRight class="lucide" data-icon="inline-end" /></Button>
+          <Button href="#" size="lg" variant="outline"><BrandIcon icon={siGithub} data-icon="inline-start" />GitHub</Button>
+        </Fragment>
+      </BrandHero>
+    </div>
+    <div data-hero="rings">
+      <BrandHero align="center" title="EXAMPLE LABS" lede="Experiments in four languages: UI challenges, small games, command-line tools and what grew out of them.">
+        <RingField slot="stage" />
+        <ResolveTitle slot="heading" text="EXAMPLE LABS" class="text-[clamp(34px,8.6vw,128px)] leading-[1] font-light tracking-[0.16em] text-foreground uppercase [text-indent:0.16em]" />
+        <span slot="eyebrow" class="font-mono text-xs tracking-[0.4em] text-muted-foreground uppercase">Experiments</span>
+        <Fragment slot="actions">
+          <Button href="#" size="lg">Explore<ArrowDown class="lucide" data-icon="inline-end" /></Button>
+          <Button href="#" size="lg" variant="outline"><BrandIcon icon={siGithub} data-icon="inline-start" />View on GitHub</Button>
+        </Fragment>
+      </BrandHero>
+    </div>
+    <Container size="wide"><p class="text-[0.8125rem] text-muted-foreground">Left over the material grid with a smoke panel, left over a scene with a dot wordmark, left over the hatch, and centered over the rings with a resolving title.</p></Container>
+  </section>
+
+  <section id="piece-personal-hero" class="flex flex-col gap-4 border-t pt-8">
+    <Container size="wide"><h2 class="text-lg font-medium">PersonalHero</h2></Container>
+    <div data-hero="dot">
+      <PersonalHero name="example" role="Software engineer" line="I build tools for the command line, the desktop and the web." socials={socials}>
+        <DiagonalHatch slot="stage" variant="frame" />
+        <Fragment slot="actions">
+          <Button href="#" size="lg">See my work</Button>
+          <Button href="#" size="lg" variant="outline">Read CV<ArrowUpRight class="lucide" data-icon="inline-end" /></Button>
+        </Fragment>
+      </PersonalHero>
+    </div>
+    <div data-hero="plain">
+      <PersonalHero name="example" treatment="plain" role="Software engineer" line="I build tools for the command line, the desktop and the web.">
+        <Fragment slot="actions">
+          <Button href="#" size="lg">See my work</Button>
+          <Button href="#" size="lg" variant="outline">Read CV<ArrowUpRight class="lucide" data-icon="inline-end" /></Button>
+        </Fragment>
+      </PersonalHero>
+    </div>
+    <Container size="wide"><p class="text-[0.8125rem] text-muted-foreground">The dot name over the hatch frame, and a plain name.</p></Container>
+  </section>
+  <section id="piece-site-footer" class="flex flex-col gap-4 border-t pt-8">
+    <Container size="wide"><h2 class="text-lg font-medium">SiteFooter</h2></Container>
+    <div data-footer="columns"><SiteFooter site="freeoxide" tagline="Free Rust tools, finished before they ship." columns={siteFooterColumns} newsletter github="#" x="#" /></div>
+    <div data-footer="simple"><SiteFooter variant="simple" site="freeoxide" columns={siteFooterColumns} github="#" x="#" /></div>
+    <div data-footer="minimal"><SiteFooter variant="minimal" site="freeoxide" github="#" /></div>
+    <div data-footer="wash">
+      <SiteFooter site="example" tagline="Data loading for desktop apps: typed keys, one shared cache, refetch in the background." columns={siteFooterColumns} size="wide" github="#" x="#">
+        <WashGlow slot="stage" preset="chalk-dunes" />
+      </SiteFooter>
+    </div>
+    <Container size="wide"><p class="text-[0.8125rem] text-muted-foreground">Columns with a newsletter, simple and minimal, then wide over a faded wash of the hero material that brightens around the cursor.</p></Container>
+  </section>
+
+  <section id="piece-material-footer" class="flex flex-col gap-4 border-t pt-8">
+    <Container size="wide"><h2 class="text-lg font-medium">MaterialFooter</h2></Container>
+    <div data-footer="closing">
+      <MaterialFooter
+        site="example"
+        maker="studio"
+        href="#"
+        tagline="A small studio. We build web, mobile, and desktop software, carefully."
+        columns={studioColumns}
+        cta={{ title: "Got an app in mind?", primary: { label: "Start a project", href: "#" }, secondary: { label: "See our work", href: "#" } }}
+        status="Available for new projects"
+        legal="© 2026 example. A small studio."
+        aside="Remote · replies within a working day"
+      />
+    </div>
+    <div data-footer="plain"><MaterialFooter site="example" maker="studio" href="#" tagline="A small studio. We build web, mobile, and desktop software, carefully." columns={studioColumns} legal="© 2026 example. A small studio." /></div>
+    <Container size="wide"><p class="text-[0.8125rem] text-muted-foreground">With a closing line, and plain. Always dark; the dithered name rusts under the cursor.</p></Container>
+  </section>
+
+  <section id="piece-dot-footer" class="flex flex-col gap-4 border-t pt-8">
+    <Container size="wide"><h2 class="text-lg font-medium">DotFooter</h2></Container>
+    <DotFooter
+      site="example"
+      maker="by example"
+      href="#"
+      tagline="Open-source tools, one person at the keyboard. Every project gets real tests before it ships."
+      columns={footerColumns}
+      status="All checks green"
+      socials={footerSocials}
+      legal="© 2026 example · MIT / Apache-2.0"
+    />
+  </section>
+
+  <section id="piece-glyph-footer" class="flex flex-col gap-4 border-t pt-8">
+    <Container size="wide"><h2 class="text-lg font-medium">GlyphFooter</h2></Container>
+    <GlyphFooter
+      site="example"
+      maker="by example"
+      href="#"
+      tagline="Experiments in four languages: UI challenges, small games, command-line tools and what grew out of them."
+      columns={footerColumns}
+      eyebrow="example labs · a new experiment most weeks"
+      socials={footerSocials}
+      legal="© 2026 example · Code MIT unless a repo says otherwise"
+    />
+  </section>
+
+  <section id="piece-heat-footer" class="flex flex-col gap-4 border-t pt-8">
+    <Container size="wide"><h2 class="text-lg font-medium">HeatFooter</h2></Container>
+    <HeatFooter
+      site="example"
+      maker="by example"
+      href="#"
+      tagline="A separate command for every account. Your existing settings stay untouched."
+      columns={footerColumns}
+      command="bun add -g example-multi"
+      status={{ label: "Latest release 0.9.2", href: "#" }}
+      socials={footerSocials}
+      legal="© 2026 example · MIT licensed"
+      aside="Not affiliated with any provider"
+    />
+  </section>
+
+  <section id="piece-voxel-footer" class="flex flex-col gap-4 border-t pt-8">
+    <Container size="wide"><h2 class="text-lg font-medium">VoxelFooter</h2></Container>
+    <VoxelFooter
+      site="example"
+      maker="by example"
+      href="#"
+      tagline="One repo for the whole desktop app. Run it, then start deleting what you don’t need."
+      columns={footerColumns}
+      eyebrow="Release 0.3.0 · signed updates"
+      cta={{ title: "Start with the whole app.", primary: { label: "Get started", href: "#" }, secondary: { label: "Read the docs", href: "#" } }}
+      command="git clone https://example.com/starter.git"
+      socials={footerSocials}
+      legal="© 2026 example · MIT licensed"
+    />
+  </section>
+
+  <section id="piece-hatch-footer" class="flex flex-col gap-4 border-t pt-8">
+    <Container size="wide"><h2 class="text-lg font-medium">HatchFooter</h2></Container>
+    <HatchFooter
+      site="example"
+      href="#"
+      tagline="Software engineer. I build tools for the command line, the desktop and the web."
+      columns={personalColumns}
+      contact={{ label: "Get in touch", href: "mailto:hello@example.com" }}
+      socials={personalSocials}
+      legal="© 2026 example"
+    />
+  </section>
+
+  <section id="piece-calm-footer" class="flex flex-col gap-4 border-t pt-8">
+    <Container size="wide"><h2 class="text-lg font-medium">CalmFooter</h2></Container>
+    <CalmFooter
+      site="example"
+      maker="by example"
+      href="#"
+      tagline="Long notes on building software in the open: tools, desktop apps and the process behind them."
+      columns={readingColumns}
+      rss="#"
+      socials={[
+        { label: "GitHub", href: "https://github.com/" },
+        { label: "X", href: "https://x.com/" },
+        { label: "LinkedIn", href: "https://linkedin.com/" },
+      ]}
+      edit={{ label: "Edit this page on GitHub", href: "https://github.com/" }}
+      legal="© 2026 example · Words CC BY 4.0, code MIT"
+    />
+  </section>
+  <section id="piece-section-head" class="flex flex-col gap-4 border-t pt-8">
+    <Container size="wide" class="flex flex-col gap-10">
+      <h2 class="text-lg font-medium">SectionHead</h2>
+      <SectionHead kicker="What it does" title="Four chores your app stops doing by hand." lede="Every tile runs the real state machine. Drag across the timeline, point at the refetch rings, approve the pull request and click through the cache." />
+      <SectionHead kicker="Work" title="Things I've built lately." lede="Open-source tools, client apps and long notes on how they were made. Run the cursor across a card, then pick a thread and follow it.">
+        <Button slot="aside" href="#" variant="outline" size="lg">All work<ArrowRight class="lucide" data-icon="inline-end" /></Button>
+      </SectionHead>
+      <SectionHead kicker="In numbers" title="Fewer requests. No spinners on the way back." accent="No spinners" lede="Measured in the example inbox app, built twice: once with gpui-query, once with a fetch in every render." />
+      <SectionHead size="md" kicker="Starting points" title="Pick the project closest to yours." lede="Each one names the stack we reach for first. Filter by where it runs." />
+      <SectionHead layout="center" kicker="Release" title="Push a tag. Get five installers." lede="One workflow builds every installer on native runners and signs it with your keys." />
+      <p class="text-[0.8125rem] text-muted-foreground">Split, with an aside, with an oxide phrase, as the md head of a part, and centered.</p>
+    </Container>
+  </section>
+
+  <section id="piece-glass-band" class="flex flex-col gap-4 border-t pt-8">
+    <Container size="wide"><h2 class="text-lg font-medium">GlassBand</h2></Container>
+    <GlassBand preset="etched-silk" kicker="Working from day one" title="Small team, no hand-offs." lede="The people on the first call write the code, and you can reach them the whole way through." points={glassPoints}>
+      <Button slot="actions" href="#" size="lg">Book a call<ArrowRight class="lucide" data-icon="inline-end" /></Button>
+    </GlassBand>
+    <Container size="wide"><p class="text-[0.8125rem] text-muted-foreground">A frosted panel on drifting etched silk that shifts under the cursor.</p></Container>
+  </section>
+
+  <section id="piece-steps-section" class="flex flex-col gap-4 border-t pt-8">
+    <Container size="wide"><h2 class="text-lg font-medium">StepsSection</h2></Container>
+    <StepsSection kicker="How we work" title="From the first call to the store review." lede="Three steps, and the same people the whole way through. Point at the first card to pick what you need." steps={steps}>
+      <Button slot="actions" href="#" size="lg">Start a project<ArrowRight class="lucide" data-icon="inline-end" /></Button>
+      <StepDemo slot="demo-1" i={0} />
+      <StepDemo slot="demo-2" i={1} />
+      <StepDemo slot="demo-3" i={2} />
+      <SectionHead size="md" kicker="Starting points" title="Pick the project closest to yours." lede="Each one names the stack we reach for first. Filter by where it runs." class="mt-28 md:mt-36" />
+      <PictureGrid items={playbooks} filter="Where it runs" class="mt-10" />
+    </StepsSection>
+    <Container size="wide"><p class="text-[0.8125rem] text-muted-foreground">Three steps with live demos, then starting points as filterable picture cards.</p></Container>
+  </section>
+
+  <section id="piece-picture-section" class="flex flex-col gap-4 border-t pt-8">
+    <Container size="wide"><h2 class="text-lg font-medium">PictureSection</h2></Container>
+    <PictureSection kicker="Work" title="Things I've built lately." lede="Open-source tools, client apps and long notes on how they were made. Run the cursor across a card, then pick a thread and follow it." items={work}>
+      <Button slot="actions" href="#" variant="outline" size="lg">All work<ArrowRight class="lucide" data-icon="inline-end" /></Button>
+    </PictureSection>
+    <Container size="wide"><p class="text-[0.8125rem] text-muted-foreground">A body of work: six picture cards whose drawings follow the cursor.</p></Container>
+  </section>
+
+  <section id="piece-surface-bento" class="flex flex-col gap-4 border-t pt-8">
+    <Container size="wide"><h2 class="text-lg font-medium">SurfaceBento</h2></Container>
+    <SurfaceBento kicker="What we build" title="Phones, desktops, the web and the terminal." lede="One codebase when it fits, two when it does not. Move the cursor over a surface to tip the app toward you." size="md" surfaces={surfaces} card={surfaceCard}>
+      <Button slot="card-actions" href="#" variant="outline" size="lg">Start a project<ArrowRight class="lucide" data-icon="inline-end" /></Button>
+    </SurfaceBento>
+    <Container size="wide"><p class="text-[0.8125rem] text-muted-foreground">Four surfaces with real apps on their materials, beside one oxide card.</p></Container>
+  </section>
+
+  <section id="piece-projects-section" class="flex flex-col gap-4 border-t pt-8">
+    <Container size="wide"><h2 class="text-lg font-medium">ProjectsSection</h2></Container>
+    <ProjectsSection kicker="Open source" title="Every line, in the open." lede="I build the tools I wish I had, finish them properly and give them away. Pick one to see what it does and how it starts." projects={projects} />
+    <Container size="wide"><p class="text-[0.8125rem] text-muted-foreground">The rail follows the row in the middle of the screen.</p></Container>
+  </section>
+
+  <section id="piece-catalog-section" class="flex flex-col gap-4 border-t pt-8">
+    <Container size="wide"><h2 class="text-lg font-medium">CatalogSection</h2></Container>
+    <CatalogSection
+      title="Pick your provider"
+      accent="provider"
+      tags={[{ label: "claude-multi", tone: "orange" }, { label: "8 templates" }, { label: "One instance per key" }]}
+      lede="Every template maps a provider's models into Claude Code's Opus and fast slots. Bring a key, get an instance. Click a provider, then find it in the switcher below."
+      items={providers}
+      picked="ds"
+    />
+    <Container size="wide"><p class="text-[0.8125rem] text-muted-foreground">A mega title with a dot word, Tags beside the lede, then eight cards; click one to pick it.</p></Container>
+  </section>
 </SiteLayout>

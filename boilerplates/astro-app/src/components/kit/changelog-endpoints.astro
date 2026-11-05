@@ -1,0 +1,166 @@
+---
+import { cn } from "$brand/utils";
+
+// The addresses blog.hmziq.rs 0.0.2 added, with what each returns on the
+// live blog. Each tab is a spot; pointing at a tab previews it, and a change
+// that names a tab shows it.
+
+type Tab = { path: string; spot: string; kind: "md" | "json" | "docs" };
+
+const tabs: Tab[] = [
+  { path: "/posts/vibe-coding-astro-cloudflare.md", spot: "md", kind: "md" },
+  { path: "/readme.md", spot: "md", kind: "md" },
+  { path: "/api/readme.json", spot: "json", kind: "json" },
+  { path: "/api-docs", spot: "docs", kind: "docs" },
+];
+
+const label = (t: Tab) => (t.path.startsWith("/posts/") ? "/posts/{slug}.md" : t.path);
+
+const post = [
+  "Third attempt at a personal blog. The first was Next.js on GitHub Pages. The second was full-stack Rust in Dioxus. Burned out, parked it permanently. Finally got this one built.",
+  "",
+  "> **TL;DR:** Zero-admin blog on Astro + Cloudflare Pages. Hono worker for newsletters with D1, KV, Queues, and an R2 media pipeline. AI handled implementation, I handled architecture. No JS bloat, free tier everything, auto-deploys on content changes.",
+  "",
+  "## Framework",
+  "",
+  "I wanted this to be absolutely minimal. React wasn't an option because of its huge bundle size, and Astro feels close to React. I didn't want to use Svelte because I wanted to try Cloudflare, and Astro has first-class support for it.",
+  "",
+  "## Architecture",
+];
+
+const readme = [
+  "# blog",
+  "",
+  "Reusable blog monorepo with an Astro web app, a Cloudflare Worker API, and an Expo native app.",
+  "",
+  "## Features",
+  "",
+  "- **TypeScript** — Strict type safety across the monorepo",
+  "- **Astro 6** — Static SSG with Content Layer API",
+  "- **Cloudflare Workers** — Hono API with D1, KV, Queues, and Email Sending",
+  "- **React Native + Expo** — Mobile app sharing the same site contract",
+  "- **TailwindCSS v4** — Config-in-CSS, no JS config file",
+  "- **Turborepo** — Optimized monorepo build system",
+];
+
+const json: [string, string][] = [
+  ["title", "blog"],
+  ["source", "https://github.com/hmziqrs/blog/blob/main/README.md"],
+  ["content", "# blog\\n\\nReusable blog monorepo with an Astro web app, a Cloudflare Worker API, and an Expo native app.\\n\\n## Features\\n\\n- **TypeScript** — Strict type safety across the monorepo\\n- **Astro 6** — Static SSG with Content Layer API\\n- **Cloudflare Workers** — Hono API with D1, KV, Queues, and Email Sending…"],
+];
+
+const api: [string, string][] = [
+  ["/api/index.json", "List all posts"],
+  ["/api/posts/{slug}.json", "Get a single post"],
+  ["/api/categories.json", "List categories"],
+  ["/api/category/{category}.json", "Posts in a category"],
+  ["/api/tags/index.json", "List tags"],
+  ["/api/tags/{tag}.json", "Posts by tag"],
+  ["/api/readme.json", "README content"],
+  ["/api/v1/author.json", "Author profile"],
+  ["/api/{page}.json", "Page configuration"],
+];
+
+const id = `endpoints-${Math.random().toString(36).slice(2, 8)}`;
+const md = (line: string) => cn("whitespace-pre-wrap [overflow-wrap:anywhere]", line.startsWith("#") ? "font-semibold text-foreground" : line.startsWith(">") ? "border-l-2 border-primary/50 pl-3 text-foreground/85" : "text-foreground/85");
+---
+
+<div data-slot="endpoints-sketch" data-picked="0" class="flex flex-col">
+  <div role="tablist" aria-label="Endpoints added in 0.0.2" class="flex gap-1 overflow-x-auto border-b border-foreground/10 px-2 py-1.5">
+    {tabs.map((t, i) => (
+      <button
+        type="button"
+        role="tab"
+        id={`${id}-tab-${i}`}
+        data-tab={i}
+        data-spot={t.spot}
+        data-path={t.path}
+        aria-selected={i === 0 ? "true" : "false"}
+        aria-controls={`${id}-panel`}
+        class="h-7 shrink-0 rounded-md px-2.5 font-mono text-[11.5px] whitespace-nowrap text-foreground/70 transition-colors outline-none hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50 aria-selected:bg-foreground/8 aria-selected:text-foreground motion-reduce:transition-none"
+      >{label(t)}</button>
+    ))}
+  </div>
+  <div class="flex items-center gap-2 border-b border-foreground/10 px-4 py-2 font-mono text-[11.5px]">
+    <span class="rounded-sm bg-green/15 px-1.5 py-px text-[10.5px] font-medium text-green">GET</span>
+    <span data-url class="min-w-0 truncate text-foreground">blog.hmziq.rs{tabs[0].path}</span>
+  </div>
+  <div id={`${id}-panel`} role="tabpanel" aria-labelledby={`${id}-tab-0`} class="relative h-[19rem] overflow-hidden px-4 py-3.5 font-mono text-[12px] leading-[1.7] sm:h-[20rem] sm:text-[12.5px]">
+    {[post, readme].map((lines, k) => (
+      <div data-panel={k === 0 ? "post" : "readme"} hidden={k !== 0}>
+        {lines.map((line) => (line === "" ? <div class="h-[0.85em]" /> : <p class={md(line)}>{line}</p>))}
+      </div>
+    ))}
+    <div data-panel="json" hidden>
+      <p class="text-foreground/60">{"{"}</p>
+      {json.map(([k, v], i) => (
+        <p class="pl-4 [overflow-wrap:anywhere]"><span class="text-foreground/60">"</span><span class="text-primary">{k}</span><span class="text-foreground/60">": "</span><span class="text-foreground/85">{v}</span><span class="text-foreground/60">{`"${i < json.length - 1 ? "," : ""}`}</span></p>
+      ))}
+      <p class="text-foreground/60">{"}"}</p>
+    </div>
+    <div data-panel="docs" hidden>
+      <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1 font-sans">
+        <p class="text-[1.05rem] font-semibold tracking-[-0.01em] text-foreground">Hmziq blog API</p>
+        <span class="font-mono text-[11px] text-foreground/70">1.0.0 · OAS 3.1</span>
+      </div>
+      <p class="mt-1.5 font-sans text-[0.8125rem] leading-snug text-foreground/85">JSON API for Hmziq blog. All endpoints are statically generated at build time.</p>
+      <ul class="mt-3 flex flex-col gap-1.5">
+        {api.map(([path, what]) => (
+          <li class="flex min-w-0 items-baseline gap-2.5">
+            <span class="w-8 shrink-0 text-[10.5px] font-medium text-green">GET</span>
+            <span class="min-w-0 flex-1 truncate text-foreground">{path}</span>
+            <span class="hidden shrink-0 font-sans text-[12px] text-foreground/75 sm:inline">{what}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+    <div aria-hidden="true" class="pointer-events-none absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-background/90 to-transparent"></div>
+  </div>
+</div>
+
+<script>
+  const panelOf = (tab: HTMLElement) => (tab.dataset.path === "/readme.md" ? "readme" : tab.dataset.path?.endsWith(".md") ? "post" : tab.dataset.spot === "json" ? "json" : "docs");
+
+  function show(sketch: HTMLElement, spot: string | null) {
+    const tabs = [...sketch.querySelectorAll<HTMLElement>("[data-tab]")];
+    const picked = Number(sketch.dataset.picked ?? 0);
+    const hovered = sketch.dataset.hovered;
+    const pointed = spot ? tabs.findIndex((t) => t.dataset.spot === spot) : -1;
+    const showing = hovered !== undefined ? Number(hovered) : pointed >= 0 && tabs[picked].dataset.spot !== spot ? pointed : picked;
+    tabs.forEach((t, i) => t.setAttribute("aria-selected", String(i === showing)));
+    const tab = tabs[showing];
+    const panel = panelOf(tab);
+    for (const el of sketch.querySelectorAll<HTMLElement>("[data-panel]")) el.hidden = el.dataset.panel !== panel;
+    const url = sketch.querySelector("[data-url]");
+    if (url) url.textContent = `blog.hmziq.rs${tab.dataset.path}`;
+    sketch.querySelector("[role='tabpanel']")?.setAttribute("aria-labelledby", tab.id);
+  }
+
+  const spotOf = (sketch: HTMLElement) => sketch.closest<HTMLElement>("[data-spots]")?.dataset.spot ?? null;
+
+  document.addEventListener("spot-change", (event) => {
+    const spot = (event as CustomEvent<{ spot: string | null }>).detail.spot;
+    for (const sketch of (event.target as HTMLElement).querySelectorAll<HTMLElement>("[data-slot='endpoints-sketch']")) show(sketch, spot);
+  });
+  document.addEventListener("pointerover", (event) => {
+    const tab = (event.target as Element | null)?.closest?.<HTMLElement>("[data-slot='endpoints-sketch'] [data-tab]");
+    const sketch = tab?.closest<HTMLElement>("[data-slot='endpoints-sketch']");
+    if (!tab || !sketch || sketch.dataset.hovered === tab.dataset.tab) return;
+    sketch.dataset.hovered = tab.dataset.tab;
+    show(sketch, spotOf(sketch));
+  });
+  document.addEventListener("pointerout", (event) => {
+    const tab = (event.target as Element | null)?.closest?.<HTMLElement>("[data-slot='endpoints-sketch'] [data-tab]");
+    const sketch = tab?.closest<HTMLElement>("[data-slot='endpoints-sketch']");
+    if (!tab || !sketch || (event.relatedTarget instanceof Node && tab.contains(event.relatedTarget))) return;
+    delete sketch.dataset.hovered;
+    show(sketch, spotOf(sketch));
+  });
+  document.addEventListener("click", (event) => {
+    const tab = (event.target as Element | null)?.closest?.<HTMLElement>("[data-slot='endpoints-sketch'] [data-tab]");
+    const sketch = tab?.closest<HTMLElement>("[data-slot='endpoints-sketch']");
+    if (!tab || !sketch) return;
+    sketch.dataset.picked = tab.dataset.tab;
+    show(sketch, spotOf(sketch));
+  });
+</script>

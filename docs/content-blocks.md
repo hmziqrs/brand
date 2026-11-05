@@ -21,7 +21,7 @@ The lab already has finished designs for every kind of content page: blog post, 
 | 404 | `claude-multi/not-found.tsx` | 404 · claude-multi |
 | Interactive landing pieces | `hmziq/components.tsx`, `gpui-query/blocks.tsx` | Components · hmziq.rs |
 
-Product-only parts stay in the lab: claude-multi's MenuDemo, InstanceGraph, ProvidersTable and Checks, and its Providers page.
+Product-only parts stay out of the kit: claude-multi's menu demo, instance graph, providers table and checks, and its Providers page.
 
 ## Blocks
 
@@ -29,14 +29,11 @@ Names are generic, not site names. Props follow the lab's page code, turned into
 
 | Group | Block | What it is |
 | --- | --- | --- |
-| Blog | BlogLayout | The blog's shell (the lab's `BlogShell`): header, centered column, footer |
 | Blog | PostHeader | Title, date, reading time. A cover image, which inverts in light mode when it's line art (`invert dark:invert-0`); a big title when there's no image |
 | Blog | PostContents | On-this-page links: inline after the cover (default), a floating pill with scroll spy, or a left or right column |
 | Blog | PullQuote | Margin note (default); also left margin, hanging ring, signed, and a TL;DR-style box. Hidden from screen readers when it repeats a line from the text |
 | Blog | ShareBar | Link bar (default), logo tiles, ring buttons, or a sentence. X, LinkedIn, Hacker News, Reddit, Facebook, Telegram and copy link. Icons are in the text color; on hover, text color (default) or the theme tone nearest each network — the brand's colors come only from core's theme.css, so X keeps the text color |
-| Blog | NewsletterBand | The orange band with an email field. Its form posts to the page's own action; no mailing service is built in |
 | Blog | PostList, PostCard, PostMeta | A featured card plus cards (default), a list, or an archive, with TopicChips and SearchBox for filtering |
-| Docs | DocsLayout | Line menu on the left, content, TOC on the right (`Toc`); a menu button on mobile |
 | Docs | DocsSearch | Filters the menu's pages |
 | Docs | DocsTitle | The page title with its rings art |
 | Docs | DocsPager | Previous and next pages as cards |
@@ -44,15 +41,16 @@ Names are generic, not site names. Props follow the lab's page code, turned into
 | Changelog | ReleaseHead, KindTag | Version, date and release kind |
 | Changelog | ReleaseNotes | Grouped, tagged, columns, tabs, or a summary with show/hide |
 | Changelog | PastReleases | Older releases, collapsed |
-| FAQ | FaqList | Numbered questions (01, 02… in orange) with the topic as a grey tag, built on `Question` |
-| Legal | LegalLayout, LegalSection | A side or top TOC, numbered sections, and a "short version" box (`SummaryBox`) |
+| Legal | LegalSection | A side or top TOC, numbered sections, and a "short version" box (`SummaryBox`) |
+| Blog | MagazineIndex, BlogIndex, PostArticle | A blog's front page, a product's blog index with search and topic chips, and a post page with its header, contents rail and related posts |
+| Docs | DocsReference | A product's whole docs in three columns: the menu, the page and the contents rail |
+| Changelog | ReleaseDesk, ReleaseTimelinePage | A changelog page with the latest release in a window, or a long one with counts, search and a filling rail |
+| FAQ | FaqPage | A search that narrows the questions, topic contents beside numbered questions with rich answers |
+| Legal | LegalPage | Privacy and terms under a line-tab switch, numbered contents and one reading column |
+| 404 | NotFoundPage | The status in dots beside the words, and the docs that answer most of what brings people here |
 | Contact | ContactChannels | The channel list. Email opens the mail app, and the address never appears in the page text |
-| 404 | NotFound | The lab's 404 design |
-| Landing | InstallSteps | Numbered steps with commands; a step's ring fills when its command is copied |
-| Landing | TypingTerminal | `TerminalWindow` replaying typed lines, at a fixed height. Reduced motion shows the finished text |
-| Landing | CodeEditor | The editor mock from gpui-query, with file tabs |
 
-The About page needs no new block. It's built from PageIntro, BigNumbers, Section, StepNumber, CommandBar, Mark and CtaBand, and the boilerplates include it as an example page.
+The About page needs no new block. It's `AboutEssay` with PageIntro, BigNumbers, CommandBar and Mark, and the boilerplates include it as an example page.
 
 ## Markdown
 
@@ -101,13 +99,11 @@ step's checks — the compare match, and the axe pass — have run; see the
 list at the end of this status. Done:
 
 - Every block in the table is in `packages/brand-svelte/src/lib/blocks/content/`:
-  the blog group (`BlogLayout`, `PostHeader`, `PostContents`, `PullQuote`,
-  `ShareBar`, `NewsletterBand`, `PostList`, `PostCard`, `PostMeta`), docs
-  (`DocsLayout`, `DocsSearch`, `DocsTitle`, `DocsPager`), changelog
+  the blog group (`PostHeader`, `PostContents`, `PullQuote`,
+  `ShareBar`, `PostList`, `PostCard`, `PostMeta`), docs
+  (`DocsSearch`, `DocsTitle`, `DocsPager`), changelog
   (`ReleaseTimeline`, `PastReleases`, `ReleaseHead`, `KindTag`,
-  `ReleaseNotes`), `FaqList`, legal (`LegalLayout`, `LegalSection`,
-  `LegalBlock`), `ContactChannels`, `NotFound`, and the landing pieces
-  (`InstallSteps`, `TypingTerminal`, `CodeEditor`). The shared prop shapes
+  `ReleaseNotes`), legal (`LegalSection`), and `ContactChannels`. The shared prop shapes
   live in `blocks/content/types.ts`, the share network data in
   `blocks/content/share-icons.ts` — the same files the Astro kit reads,
   kept in step with them.
@@ -224,13 +220,11 @@ checks that waited on step 2's Svelte blocks and the roster entries have
 run. Done:
 
 - Every block in the table is in `packages/brand-astro/src/blocks/content/`:
-  the blog group (`BlogLayout`, `PostHeader`, `PostContents`, `PullQuote`,
-  `ShareBar`, `NewsletterBand`, `PostList`, `PostCard`, `PostMeta`), docs
-  (`DocsLayout`, `DocsSearch`, `DocsTitle`, `DocsPager`), changelog
+  the blog group (`PostHeader`, `PostContents`, `PullQuote`,
+  `ShareBar`, `PostList`, `PostCard`, `PostMeta`), docs
+  (`DocsSearch`, `DocsTitle`, `DocsPager`), changelog
   (`ReleaseTimeline`, `PastReleases`, `ReleaseHead`, `KindTag`,
-  `ReleaseNotes`), `FaqList`, legal (`LegalLayout`, `LegalSection`, and
-  `LegalBlock`, the lab's four block kinds), `ContactChannels`, `NotFound`,
-  and the landing pieces (`InstallSteps`, `TypingTerminal`, `CodeEditor`).
+  `ReleaseNotes`), legal (`LegalSection`), and `ContactChannels`.
   The shared prop shapes live in `blocks/content/types.ts`, the share
   network data in `blocks/content/share-icons.ts`.
 - `boilerplates/astro-app` exists: the node adapter (on demand), the theme

@@ -142,9 +142,13 @@ describe("bands", () => {
       // The mode's tokens are still there, under the overrides.
       expect(color(band, "blue")).toEqual(color(theme[mode], "blue"))
     }
-    // The band's orange is the mode's orange: dark and light bands differ.
-    expect(color(inBand(theme, "dark", "band-orange"), "background").rgb).not.toEqual(
+    // The band's quiet surface mixes the mode's own text color into the
+    // orange: the same vivid fill, but dark and light bands differ.
+    expect(color(inBand(theme, "dark", "band-orange"), "background").rgb).toEqual(
       color(inBand(theme, "light", "band-orange"), "background").rgb,
+    )
+    expect(color(inBand(theme, "dark", "band-orange"), "muted").rgb).not.toEqual(
+      color(inBand(theme, "light", "band-orange"), "muted").rgb,
     )
   })
 

@@ -5,6 +5,7 @@ date: July 30, 2026
 pubDate: 2026-07-30
 readingTime: 6 min read
 topic: Deep dive
+art: pipeline
 ---
 
 ## The dive

@@ -36,12 +36,12 @@
 		],
 		[
 			"components",
-			"Small brand pieces: Wordmark, Mark, Marker, Rings, Scene, Tag, IconTile, Notice, CodeBlock, CommandBar, TerminalWindow, Stepper, Segmented, Question, Toc, DataTable, BrandIcon",
+			"Small brand pieces: Wordmark, Mark, Marker, Rings, Scene, Tag, IconTile, Notice, CodeBlock, CommandBar, TerminalWindow, Segmented, Question, Toc, DataTable, BrandIcon",
 			"Tokens only. Install from the registry; the logic comes from @hmziq/brand-core, never copied.",
 		],
 		[
 			"blocks/site",
-			"Page blocks: SiteShell, Hero and its parts, PageIntro, RingStats, Section, OutlineCard, ElementCard, FeatureGrid, Steps, PricingPlans, BeforeAfter, CtaBand, and content pieces",
+			"Page blocks: Hero and its parts, PageIntro, OutlineCard, BigNumbers, and content pieces",
 			"Same on every site.",
 		],
 		[

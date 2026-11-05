@@ -1,8 +1,8 @@
 <script module lang="ts">
 	import { defineMeta } from '@storybook/addon-svelte-csf'
 	import RollingNumber from './rolling-number.svelte'
-	import MaterialSlider from './material-slider.svelte'
 	import { Button } from '$brand/ui/button/index.js'
+	import { Slider } from '$brand/ui/slider/index.js'
 
 	const { Story } = defineMeta({
 		title: 'Custom/Rolling number',
@@ -23,7 +23,7 @@
 <Story name="Price" asChild>
 	<div class="flex max-w-md flex-col gap-4 rounded-xl p-6 ring-1 ring-foreground/10">
 		<div class="flex items-baseline justify-between text-sm"><span class="text-muted-foreground">People on your team</span><RollingNumber value={seats} class="font-medium" /></div>
-		<MaterialSlider label="People on your team" bind:value={seats} min={1} max={50} preset="copper-sweep" />
+		<Slider type="single" bind:value={seats} min={1} max={50} step={1} aria-label="People on your team" />
 		<p class="flex items-baseline gap-2"><RollingNumber value={seats * 8} format={{ style: 'currency', currency: 'USD', maximumFractionDigits: 0 }} class="text-5xl font-medium tracking-tight" /><span class="text-sm text-muted-foreground">a month</span></p>
 	</div>
 </Story>

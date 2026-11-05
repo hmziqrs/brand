@@ -5,9 +5,7 @@ date: September 18, 2026
 pubDate: 2026-09-18
 readingTime: 3 min read
 topic: Engineering
-cover: /covers/example.svg
-coverAlt: "Example cover: a placeholder grid of rings"
-lineArt: true
+art: laptop
 ---
 
 Every row of the Markdown table in docs/content-blocks.md, in one post. The

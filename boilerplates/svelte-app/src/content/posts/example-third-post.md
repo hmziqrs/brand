@@ -6,6 +6,7 @@ pubDate: 2026-08-21
 readingTime: 4 min read
 updated: August 25, 2026
 topic: Design
+art: tools
 ---
 
 ## The note

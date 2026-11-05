@@ -1,6 +1,7 @@
 ---
 import { cn } from "$brand/utils";
 import EmptyNote from "$brand/blocks/site/empty-note.astro";
+import LineArt from "$brand/components/line-art.astro";
 import type { Tone } from "@hmziq/brand-core/tones";
 import PostCard from "./post-card.astro";
 import PostMeta from "./post-meta.astro";
@@ -10,31 +11,57 @@ import type { PostItem } from "./types";
  * A blog's posts. `cards` (the default) is the lab's blog index: the newest
  * post large with its own rings, the rest as cards in a grid. `list` is a
  * row per post, `archive` a compact line per post, for pages with many.
+ * `rows` numbers each post in a big row with its meta at the end; pointing
+ * at a row floats its drawing beside the cursor.
  *
- * The list ships no script: it renders every post, each carrying its topic
- * and its searchable text, and an empty note that starts hidden. The page
- * that adds a SearchBox or TopicChips listens to them and shows, hides and
- * filters the posts — the way the lab's blog index filters in React.
+ * The list ships no script but the rows' preview: it renders every post,
+ * each carrying its topic and its searchable text, and an empty note that
+ * starts hidden. The page that adds a SearchBox or TopicChips listens to
+ * them and shows, hides and filters the posts — the way the lab's blog
+ * index filters in React. With `promote`, `cards` also renders every post
+ * as the featured card, all hidden but the first, so a page's filter can
+ * feature the first post it leaves, as the Svelte list does by rendering
+ * again.
  */
 
 interface Props {
   posts: PostItem[];
-  /** `cards` (default), `list` or `archive`. */
-  variant?: "cards" | "list" | "archive";
+  /** `cards` (default), `list`, `archive` or `rows`. */
+  variant?: "cards" | "list" | "archive" | "rows";
   /** The topic's color, for the tags and the featured card's rings. */
   tone?: (topic: string) => Tone | undefined;
   /** The empty note's words, when a search or a topic finds nothing. */
   empty?: string;
+  /** For `cards`: every post ready as the featured card too, for a page that filters. */
+  promote?: boolean;
   class?: string;
 }
 
-const { posts, variant = "cards", tone, empty = "No posts match that. Try another word or topic.", class: className } = Astro.props;
+const { posts, variant = "cards", tone, empty = "No posts match that. Try another word or topic.", promote = false, class: className } = Astro.props;
 
 const searchable = (post: PostItem) => `${post.title} ${post.summary ?? ""}`.toLowerCase();
 ---
 
 {
-  variant === "cards" ? (
+  variant === "cards" && promote ? (
+    <div data-slot="post-list" data-variant={variant} data-promote class={cn("flex flex-col", className)}>
+      {posts.map((post, i) => (
+        <div data-lead={i} data-topic={post.topic} data-search={`${post.title} ${post.summary ?? ""} ${(post.tags ?? []).join(" ")}`.toLowerCase()} hidden={i !== 0} class="contents">
+          <PostCard post={post} featured tone={tone} />
+        </div>
+      ))}
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {posts.map((post, i) => (
+          <div data-rest={i} hidden={i === 0} class="contents">
+            <PostCard post={post} tone={tone} />
+          </div>
+        ))}
+      </div>
+      <div data-empty hidden>
+        <EmptyNote>{empty}</EmptyNote>
+      </div>
+    </div>
+  ) : variant === "cards" ? (
     <div data-slot="post-list" data-variant={variant} class={cn("flex flex-col", className)}>
       <PostCard post={posts[0]} featured tone={tone} />
       {posts.length > 1 && (
@@ -44,6 +71,42 @@ const searchable = (post: PostItem) => `${post.title} ${post.summary ?? ""}`.toL
           ))}
         </div>
       )}
+      <div data-empty hidden>
+        <EmptyNote>{empty}</EmptyNote>
+      </div>
+    </div>
+  ) : variant === "rows" ? (
+    <div data-slot="post-list" data-variant={variant} data-line-art-host role="presentation" class={cn("relative", className)}>
+      <ul class="border-t border-border">
+        {posts.map((post, i) => (
+          <li data-post data-topic={post.topic} data-search={searchable(post)}>
+            <a
+              href={post.href}
+              data-row={i}
+              class="group grid grid-cols-[2.75rem_minmax(0,1fr)] items-baseline gap-x-4 gap-y-2 border-b border-border py-5 outline-none focus-visible:ring-3 focus-visible:ring-ring/50 md:grid-cols-[3.5rem_minmax(0,1fr)_auto] md:gap-x-8"
+            >
+              <span class="font-mono text-sm text-primary tabular-nums">{String(post.number ?? i + 1).padStart(2, "0")}</span>
+              <span class="text-[1.25rem] leading-snug font-medium tracking-[-0.02em] text-balance text-foreground group-hover:underline group-hover:decoration-primary group-hover:decoration-1 group-hover:underline-offset-4 sm:text-[1.5rem]">{post.title}</span>
+              <PostMeta post={post} tone={tone} class="col-start-2 md:col-start-3 md:justify-end md:self-center" />
+            </a>
+          </li>
+        ))}
+      </ul>
+      <div
+        data-preview
+        aria-hidden="true"
+        hidden
+        class="pointer-events-none absolute top-0 left-0 z-10 hidden aspect-[16/10] w-72 overflow-hidden rounded-xl bg-background shadow-xl ring-1 ring-foreground/15 md:block"
+        style="transform: translate3d(0px, 0px, 0); transition: transform 240ms cubic-bezier(0.2, 0.7, 0.1, 1);"
+      >
+        {posts.map((post, i) =>
+          post.art ? (
+            <span data-art={i} hidden>
+              <LineArt kind={post.art} held />
+            </span>
+          ) : null,
+        )}
+      </div>
       <div data-empty hidden>
         <EmptyNote>{empty}</EmptyNote>
       </div>
@@ -79,3 +142,44 @@ const searchable = (post: PostItem) => `${post.title} ${post.summary ?? ""}`.toL
     </div>
   )
 }
+
+<script>
+  import { reducedMotion } from "@hmziq/brand-core/motion/canvas";
+
+  const ready = new WeakSet<HTMLElement>();
+
+  function init(root: HTMLElement) {
+    if (ready.has(root)) return;
+    ready.add(root);
+    const preview = root.querySelector<HTMLElement>("[data-preview]");
+    if (!preview) return;
+    if (reducedMotion()) preview.style.transition = "none";
+    const fine = matchMedia("(hover: hover) and (pointer: fine)").matches;
+    const show = (row: string | undefined) => {
+      let any = false;
+      for (const art of preview.querySelectorAll<HTMLElement>("[data-art]")) {
+        const on = art.dataset.art === row;
+        art.hidden = !on;
+        any ||= on;
+      }
+      preview.hidden = !(fine && any);
+    };
+    root.addEventListener("pointermove", (event) => {
+      if (event.pointerType === "touch") return;
+      const r = root.getBoundingClientRect();
+      preview.style.transform = `translate3d(${Math.min(event.clientX - r.left + 28, r.width - 300)}px, ${event.clientY - r.top - 196}px, 0)`;
+    });
+    root.addEventListener("pointerleave", () => show(undefined));
+    for (const a of root.querySelectorAll<HTMLElement>("a[data-row]")) {
+      a.addEventListener("pointerenter", () => show(a.dataset.row));
+      a.addEventListener("focus", () => show(a.dataset.row));
+      a.addEventListener("blur", () => show(undefined));
+    }
+  }
+
+  const initAll = () => {
+    for (const root of document.querySelectorAll<HTMLElement>("[data-slot='post-list'][data-variant='rows']")) init(root);
+  };
+  initAll();
+  document.addEventListener("astro:page-load", initAll);
+</script>

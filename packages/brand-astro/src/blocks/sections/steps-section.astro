@@ -1,0 +1,37 @@
+---
+import { cn } from "$brand/utils";
+import Container from "$brand/blocks/site/container.astro";
+import StepCards, { type StepCard } from "$brand/components/step-cards.astro";
+import SectionHead from "./section-head.astro";
+
+/*
+ * A how-it-works section: a SectionHead, then numbered StepCards, each with
+ * a live demo, on the wide Container. Slots: actions (beside the lede),
+ * demo-1, demo-2, … (each step's demo) and the default slot, which follows
+ * the steps inside the same section.
+ */
+
+interface Props {
+  kicker?: string;
+  title: string;
+  /** The part of the title in oxide. */
+  accent?: string;
+  lede?: string;
+  steps: StepCard[];
+  class?: string;
+}
+
+const { kicker, title, accent, lede, steps, class: className } = Astro.props;
+---
+
+<section data-slot="steps-section" class={cn("py-24 sm:py-32", className)}>
+  <Container size="wide">
+    <SectionHead kicker={kicker} title={title} accent={accent} lede={lede}>
+      {Astro.slots.has("actions") && <slot name="actions" slot="aside" />}
+    </SectionHead>
+    <StepCards steps={steps} class="mt-12 md:mt-16">
+      {steps.map((_, i) => <slot name={`demo-${i + 1}`} slot={`demo-${i + 1}`} />)}
+    </StepCards>
+    <slot />
+  </Container>
+</section>

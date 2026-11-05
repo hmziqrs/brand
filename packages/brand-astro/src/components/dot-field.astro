@@ -1,0 +1,39 @@
+---
+import { cn } from "$brand/utils";
+
+interface Props {
+  /** Distance between dots in pixels. */
+  gap?: number;
+  /** The cursor's reach in pixels. */
+  reach?: number;
+  class?: string;
+}
+
+const { gap = 22, reach = 140, class: className } = Astro.props;
+---
+
+<div data-slot="dot-field" data-options={JSON.stringify({ gap, reach })} aria-hidden="true" class={cn("pointer-events-none absolute inset-0 -z-10 overflow-hidden text-foreground", className)}>
+  <canvas class="h-full w-full"></canvas>
+</div>
+
+<script>
+  import { mountDotField } from "@hmziq/brand-core/motion/dot-field";
+
+  const fields = new WeakMap<HTMLElement, () => void>();
+
+  function initAll() {
+    for (const root of document.querySelectorAll<HTMLElement>("[data-slot='dot-field']")) {
+      const canvas = root.querySelector("canvas");
+      if (canvas && !fields.has(root)) fields.set(root, mountDotField(root, canvas, JSON.parse(root.dataset.options ?? "{}")));
+    }
+  }
+
+  initAll();
+  document.addEventListener("astro:page-load", initAll);
+  document.addEventListener("astro:before-swap", () => {
+    for (const root of document.querySelectorAll<HTMLElement>("[data-slot='dot-field']")) {
+      fields.get(root)?.();
+      fields.delete(root);
+    }
+  });
+</script>

@@ -1,0 +1,47 @@
+---
+import { ChevronsUpDown } from "@lucide/astro";
+import { kindsOf } from "@hmziq/brand-core/changelog";
+import { cn } from "$brand/utils";
+import SearchBox from "$brand/blocks/site/search-box.astro";
+import TopicChips from "$brand/blocks/site/topic-chips.astro";
+import { kindTone, type Release } from "./types";
+
+/*
+ * A changelog's filters: a search over every change, one chip per kind in
+ * its KindTag color, and, when older releases are folded, a button that
+ * opens or folds them all. Inside a ReleaseDesk or ReleaseTimelinePage the
+ * block narrows its releases as you type and pick; the search box sits in
+ * `[data-release-search]` and the button is `[data-release-open-all]`.
+ */
+
+interface Props {
+  /** Every release, for the kinds. */
+  releases: Release[];
+  /** How many releases are folded; the button shows when there are any. */
+  folds?: number;
+  /** The search box's label and placeholder. */
+  search?: string;
+  class?: string;
+}
+
+const { releases, folds = 0, search = "Search the changes", class: className } = Astro.props;
+
+const kinds = ["All", ...kindsOf(releases)];
+---
+
+<div data-slot="release-filters" class={cn("flex flex-wrap items-center gap-3", className)}>
+  <div data-release-search class="contents">
+    <SearchBox label={search} class="w-full sm:w-auto sm:min-w-72" />
+  </div>
+  <TopicChips items={kinds} value="All" tone={(t) => (t === "All" ? undefined : kindTone[t])} />
+  <button
+    type="button"
+    data-release-open-all
+    hidden={folds === 0}
+    aria-pressed="false"
+    class="inline-flex h-8 items-center gap-1.5 rounded-full border px-3 text-[0.8125rem] font-medium text-muted-foreground transition-colors outline-none hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50 aria-pressed:border-foreground aria-pressed:text-foreground motion-reduce:transition-none sm:ml-auto"
+  >
+    <ChevronsUpDown class="lucide size-3.5" />
+    <span data-label>{`Open all ${folds} older releases`}</span>
+  </button>
+</div>

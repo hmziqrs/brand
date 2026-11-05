@@ -1,7 +1,10 @@
 ---
+import { ChevronDown, ChevronUp } from "@lucide/astro";
+import { changeCount, itemText, itemWords, plainText, releaseSummary, spotFor } from "@hmziq/brand-core/changelog";
 import { cn } from "$brand/utils";
 import KindTag from "./kind-tag.astro";
-import type { Release } from "./types";
+import { changeHtml } from "./release-list";
+import type { ChangeItem, ChangeSpots, Release } from "./types";
 
 /*
  * A release's changes. `grouped` (the default) is the lab's: one row per
@@ -9,50 +12,83 @@ import type { Release } from "./types";
  * runs them into one list with the tag before each change. `columns` gives
  * each kind a column. `tabs` puts the kinds in the code block's tabs. And
  * `summary` shows the first change only, with a button that shows the rest —
- * the one the past releases on a timeline use.
+ * the one the past releases on a timeline use. A change keeps its **bold**
+ * lead, `code` and links, and its nested lines. With `spots`, a change that
+ * names a part of the release's picture lights its dot while you point at
+ * it, and the parts that share its spot light with it (`data-lit`) inside
+ * the closest `[data-spots]` element. Grouped and summary notes share one
+ * markup, so a changelog block can fold and unfold them in place.
  */
 
 interface Props {
   release: Release;
   variant?: "grouped" | "tagged" | "columns" | "tabs" | "summary";
+  /** The parts of the picture the changes name, for the whole changelog. */
+  spots?: ChangeSpots;
+  /** The release before a filter narrowed it, so each change keeps its spot. */
+  full?: Release;
+  /** The summary variant's rest, shown. */
+  open?: boolean;
   class?: string;
 }
 
-const { release, variant = "grouped", class: className } = Astro.props;
+const { release, variant = "grouped", spots, full, open = false, class: className } = Astro.props;
 
-const dots = "absolute top-[0.6em] left-0 size-1.5 rounded-full border border-muted-foreground";
-const count = release.groups.reduce((n, [, items]) => n + items.length, 0);
+const dots = "absolute top-[0.6em] left-0 size-1.5 rounded-full border transition-colors motion-reduce:transition-none";
+const count = changeCount(release);
+const partOf = (kind: string, item: ChangeItem) => spotFor(spots, full ?? release, kind, item);
+const foldable = variant === "grouped" || variant === "summary";
+const grouped = cn("group/notes mt-4 flex flex-col gap-4", className);
+const folded = cn("group/notes mt-3", className);
+const summary = variant === "summary";
 ---
 
 {
-  variant === "grouped" ? (
-    <div data-slot="release-notes" data-variant={variant} class={cn("mt-4 flex flex-col gap-4", className)}>
-      {release.groups.map(([kind, items]) => (
-        <div class="grid items-start gap-x-4 gap-y-2 md:grid-cols-[6rem_minmax(0,1fr)]">
-          <span class="pt-0.5">
-            <KindTag kind={kind} />
-          </span>
-          <ul class="flex max-w-[46rem] flex-col gap-2">
-            {items.map((item) => (
-              <li class="relative pl-4 text-[0.9rem] leading-relaxed">
-                <i aria-hidden="true" class={dots} />
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
+  foldable ? (
+    <div data-slot="release-notes" data-variant={variant} data-open={open || undefined} data-grouped-class={grouped} data-summary-class={folded} class={summary ? folded : grouped}>
+      <p data-release-summary hidden={!summary || open} class="max-w-[46rem] text-[0.9rem] leading-relaxed text-foreground/80 [overflow-wrap:anywhere]">{releaseSummary(release)}</p>
+      <div data-release-rest hidden={summary && !open} class="contents">
+        {release.groups.map(([kind, items]) => (
+          <div data-group={kind} class="grid items-start gap-x-4 gap-y-2 group-data-[variant=summary]/notes:mt-4 md:grid-cols-[6rem_minmax(0,1fr)]">
+            <span class="pt-0.5">
+              <KindTag kind={kind} />
+            </span>
+            <ul class="flex max-w-[46rem] min-w-0 flex-col gap-2">
+              {items.map((item) => {
+                const part = partOf(kind, item);
+                return (
+                  <li data-change data-words={itemWords(item).toLowerCase()} data-plain={plainText(itemText(item))} data-spot={part ?? undefined} class={cn("group/change relative pl-4 text-[0.9rem] leading-relaxed [overflow-wrap:anywhere]", part && "cursor-default")}>
+                    <i aria-hidden="true" class={cn(dots, "border-muted-foreground group-data-[lit]/change:border-primary group-data-[lit]/change:bg-primary")} />
+                    <Fragment set:html={changeHtml(item)} />
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        ))}
+      </div>
+      <button
+        type="button"
+        data-release-toggle
+        hidden={!summary}
+        aria-expanded={open ? "true" : "false"}
+        class="mt-3.5 inline-flex items-center gap-1.5 rounded-full border py-1.5 pr-3 pl-2 text-[0.8125rem] font-medium transition-colors outline-none hover:border-primary/55 focus-visible:ring-3 focus-visible:ring-ring/50 motion-reduce:transition-none"
+      >
+        <span data-icon="down" hidden={open} class="contents"><ChevronDown class="lucide size-3.5" /></span>
+        <span data-icon="up" hidden={!open} class="contents"><ChevronUp class="lucide size-3.5" /></span>
+        <span data-label>{open ? "Hide the changes" : `Show all ${count} change${count === 1 ? "" : "s"}`}</span>
+      </button>
     </div>
   ) : variant === "tagged" ? (
     <ul data-slot="release-notes" data-variant={variant} class={cn("mt-4 flex max-w-[46rem] flex-col gap-2", className)}>
       {release.groups.flatMap(([kind, items]) =>
         items.map((item) => (
-          <li class="relative grid items-start gap-x-3 gap-y-1 pl-4 text-[0.9rem] leading-relaxed md:grid-cols-[auto_minmax(0,1fr)]">
-            <i aria-hidden="true" class={dots} />
+          <li class="relative grid items-start gap-x-3 gap-y-1 pl-4 text-[0.9rem] leading-relaxed [overflow-wrap:anywhere] md:grid-cols-[auto_minmax(0,1fr)]">
+            <i aria-hidden="true" class={cn(dots, "border-muted-foreground")} />
             <span class="justify-self-start">
               <KindTag kind={kind} />
             </span>
-            <span>{item}</span>
+            <span class="min-w-0" set:html={changeHtml(item)} />
           </li>
         )),
       )}
@@ -64,16 +100,16 @@ const count = release.groups.reduce((n, [, items]) => n + items.length, 0);
           <KindTag kind={kind} count={items.length} />
           <ul class="flex flex-col gap-2">
             {items.map((item) => (
-              <li class="relative pl-4 text-[0.9rem] leading-relaxed">
-                <i aria-hidden="true" class={dots} />
-                {item}
+              <li class="relative pl-4 text-[0.9rem] leading-relaxed [overflow-wrap:anywhere]">
+                <i aria-hidden="true" class={cn(dots, "border-muted-foreground")} />
+                <Fragment set:html={changeHtml(item)} />
               </li>
             ))}
           </ul>
         </div>
       ))}
     </div>
-  ) : variant === "tabs" ? (
+  ) : (
     <div data-slot="release-notes" data-variant={variant} data-releases-tabs class={cn("mt-4 overflow-hidden rounded-xl border", className)}>
       <div role="tablist" aria-label="Kinds of change" class="-ml-2 flex h-10 items-center gap-1 border-b pr-1.5 pl-3.5">
         {release.groups.map(([kind], i) => (
@@ -91,49 +127,21 @@ const count = release.groups.reduce((n, [, items]) => n + items.length, 0);
       {release.groups.map(([, items], i) => (
         <ul data-release-panel hidden={i !== 0} class="flex flex-col gap-2 px-5 py-4">
           {items.map((item) => (
-            <li class="relative pl-4 text-[0.9rem] leading-relaxed">
-              <i aria-hidden="true" class={dots} />
-              {item}
+            <li class="relative pl-4 text-[0.9rem] leading-relaxed [overflow-wrap:anywhere]">
+              <i aria-hidden="true" class={cn(dots, "border-muted-foreground")} />
+              <Fragment set:html={changeHtml(item)} />
             </li>
           ))}
         </ul>
       ))}
     </div>
-  ) : (
-    <div data-slot="release-notes" data-variant={variant} class={cn("mt-3", className)}>
-      <p data-release-summary class="max-w-[46rem] text-[0.9rem] leading-relaxed text-muted-foreground">{release.groups[0]?.[1][0]}</p>
-      <div data-release-rest hidden>
-        {release.groups.map(([kind, items]) => (
-          <div class="mt-4 grid items-start gap-x-4 gap-y-2 md:grid-cols-[6rem_minmax(0,1fr)]">
-            <span class="pt-0.5">
-              <KindTag kind={kind} />
-            </span>
-            <ul class="flex max-w-[46rem] flex-col gap-2">
-              {items.map((item) => (
-                <li class="relative pl-4 text-[0.9rem] leading-relaxed">
-                  <i aria-hidden="true" class={dots} />
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
-      <button
-        type="button"
-        data-release-toggle
-        aria-expanded="false"
-        class="mt-3.5 inline-flex items-center gap-1.5 rounded-full border py-1.5 pr-3 pl-2 text-[0.8125rem] font-medium outline-none transition-colors hover:border-primary/55 focus-visible:ring-3 focus-visible:ring-ring/50"
-      >
-        Show all {count} change{count === 1 ? "" : "s"}
-      </button>
-    </div>
   )
 }
 
 <script>
-  // Tabs and show/hide, the way the kit's other interactive pieces run:
-  // delegated listeners on data attributes, so they survive view transitions.
+  import { paintNotes, wireSpots } from "./release-list";
+
+  wireSpots();
   document.addEventListener("click", (event) => {
     const target = event.target as HTMLElement | null;
 
@@ -150,18 +158,10 @@ const count = release.groups.reduce((n, [, items]) => n + items.length, 0);
     }
 
     const toggle = target?.closest<HTMLElement>("[data-release-toggle]");
-    if (toggle) {
-      const notes = toggle.closest<HTMLElement>("[data-slot='release-notes']");
-      const rest = notes?.querySelector<HTMLElement>("[data-release-rest]");
-      const summary = notes?.querySelector<HTMLElement>("[data-release-summary]");
-      if (!rest || !summary) return;
-      const open = rest.hasAttribute("hidden");
-      rest.toggleAttribute("hidden", !open);
-      summary.toggleAttribute("hidden", open);
-      toggle.setAttribute("aria-expanded", String(open));
-      // The words the button starts with ("Show all 12 changes"), kept for the way back.
-      toggle.dataset.closed ??= toggle.textContent ?? "";
-      toggle.textContent = open ? "Hide the changes" : toggle.dataset.closed;
-    }
+    const notes = toggle?.closest<HTMLElement>("[data-slot='release-notes']");
+    if (!notes) return;
+    notes.toggleAttribute("data-open");
+    paintNotes(notes);
+    notes.dispatchEvent(new CustomEvent("release-toggle", { bubbles: true }));
   });
 </script>

@@ -1,0 +1,33 @@
+---
+import { ArrowRight, X } from "@lucide/astro";
+import { shaderPosters } from "@hmziq/brand-core/shaders/posters";
+import Container from "$brand/blocks/site/container.astro";
+import type { NavAnnouncement } from "./nav-bar.astro";
+
+/*
+ * NavBar's strip above the header: one line on a glass pill over a shader
+ * poster, and a close button. nav-bar.astro's script hides it once closed.
+ */
+
+interface Props {
+  announcement: NavAnnouncement;
+  storageKey: string;
+  size?: "default" | "wide";
+}
+
+const { announcement, storageKey, size = "default" } = Astro.props;
+const poster = (shaderPosters[announcement.preset ?? "copper-sweep"] ?? shaderPosters["copper-sweep"]).src;
+---
+
+<div data-slot="nav-bar-announcement" data-key={storageKey} data-text={announcement.text} class="relative bg-cover bg-center" style={`background-image: url(${poster})`}>
+  <Container size={size} class="relative flex h-10 items-center justify-center pr-14">
+    <a href={announcement.href} class="dark inline-flex max-w-full items-center gap-2 rounded-full bg-background/85 px-3 py-1 text-xs text-foreground backdrop-blur-md hover:underline">
+      <span aria-hidden="true" class="size-1.5 shrink-0 bg-primary"></span>
+      <span class="truncate">{announcement.text}</span>
+      <ArrowRight class="lucide size-3.5 shrink-0" />
+    </a>
+    <button type="button" aria-label="Close the announcement" data-nav-bar-dismiss class="dark absolute right-6 grid size-7 place-items-center rounded-full bg-background/70 text-foreground backdrop-blur-md hover:bg-background/90">
+      <X class="lucide size-3.5" />
+    </button>
+  </Container>
+</div>

@@ -1,0 +1,82 @@
+---
+import Container from "$brand/blocks/site/container.astro";
+import PageIntro from "$brand/blocks/site/page-intro.astro";
+import SiteLayout from "$brand/blocks/site/site-layout.astro";
+import ContactDirect from "$brand/blocks/site/contact-direct.astro";
+import AboutEssay from "$brand/blocks/site/about-essay.astro";
+import BookSteps from "$brand/blocks/sections/book-steps.astro";
+import CommitmentCards from "$brand/blocks/sections/commitment-cards.astro";
+import Book from "$brand/components/book.astro";
+import ExperienceRail from "$brand/components/experience-rail.astro";
+import LineArt from "$brand/components/line-art.astro";
+import ThemeInit from "../../components/theme-init.astro";
+import ThemeToggle from "../../components/theme-toggle.astro";
+import { aboutData, contactData } from "../../components/kit/company-data";
+---
+
+<SiteLayout site="example" maker="the kit" layout="page" mainClassName="gap-14 pt-12 pb-20 md:pt-20" head={{ site: "blog", title: "Company pages — the kit", description: "The contact and about page blocks and their parts from the Astro kit.", url: "https://example.com/kit/company" }}>
+  <ThemeInit slot="head" />
+  <ThemeToggle slot="extra" />
+
+  <Container>
+    <PageIntro class="max-w-2xl">
+      <Fragment slot="kicker">The kit · company pages</Fragment>
+      <Fragment slot="title">Company pages</Fragment>
+      <Fragment slot="lede">The contact page and the about page across the whole width, then the 3D book, the steps beside it, the commitment cards, and the experience rail they are made of.</Fragment>
+    </PageIntro>
+  </Container>
+
+  <section id="piece-contact-direct" class="flex flex-col gap-4 border-t pt-8">
+    <Container size="wide"><h2 class="text-lg font-medium">ContactDirect</h2></Container>
+    <ContactDirect data={contactData} class="[--company-top:0px]" />
+  </section>
+
+  <section id="piece-about-essay" class="flex flex-col gap-4 border-t pt-8">
+    <Container size="wide"><h2 class="text-lg font-medium">AboutEssay</h2></Container>
+    <AboutEssay data={aboutData} class="[--company-top:0px]" />
+  </section>
+
+  <section id="piece-book" class="flex flex-col gap-4 border-t pt-8">
+    <Container size="wide">
+      <h2 class="text-lg font-medium">Book</h2>
+      <div class="mt-4 grid grid-cols-1 gap-16 py-8 sm:grid-cols-3" data-line-art-host>
+        <Book title="The discovery doc" eyebrow="oxlabs.dev" note="~1 week · written plan" tone="oxide">
+          <span slot="art" class="relative block aspect-[16/10]"><LineArt kind="plan" /></span>
+          <Fragment slot="back">
+            <span class="block font-mono text-[max(0.5rem,3.4cqw)] leading-none tracking-[0.14em] uppercase">oxlabs.dev</span>
+            <span class="mt-[14%] block text-[max(0.95rem,8cqw)] leading-[1.05] font-medium tracking-[-0.03em] text-balance">We write things down.</span>
+          </Fragment>
+        </Book>
+        <Book title="The architecture spec" eyebrow="oxlabs.dev" note="RFC-style · in-repo" tone="ink">
+          <span slot="art" class="relative block aspect-[16/10]"><LineArt kind="modules" /></span>
+        </Book>
+        <Book title="The runbook" eyebrow="oxlabs.dev" note="weekly · handoff" tone="paper">
+          <span slot="art" class="relative block aspect-[16/10]"><LineArt kind="pipeline" /></span>
+        </Book>
+      </div>
+      <p class="text-[0.8125rem] text-muted-foreground">Point at a book to tilt it toward the cursor; click or tap to turn it over.</p>
+    </Container>
+  </section>
+
+  <section id="piece-book-steps" class="flex flex-col gap-4 border-t pt-8">
+    <Container size="wide">
+      <h2 class="mb-4 text-lg font-medium">BookSteps</h2>
+      <BookSteps data={contactData.how} />
+    </Container>
+  </section>
+
+  <section id="piece-commitment-cards" class="flex flex-col gap-4 border-t pt-8">
+    <Container size="wide">
+      <h2 class="mb-4 text-lg font-medium">CommitmentCards</h2>
+      <CommitmentCards data={aboutData.commitments} />
+    </Container>
+  </section>
+
+  <section id="piece-experience-rail" class="flex flex-col gap-4 border-t pt-8">
+    <Container size="wide">
+      <h2 class="mb-4 text-lg font-medium">ExperienceRail</h2>
+      <ExperienceRail roles={aboutData.who.roles} kicker={aboutData.who.rail.kicker} />
+    </Container>
+  </section>
+
+</SiteLayout>

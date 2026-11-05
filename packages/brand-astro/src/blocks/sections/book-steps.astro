@@ -1,0 +1,132 @@
+---
+import { RotateCcw } from "@lucide/astro";
+import { cn } from "$brand/utils";
+import { Button } from "$brand/starwind/button";
+import Tag from "$brand/components/tag.astro";
+import LineArt from "$brand/components/line-art.astro";
+import CornerRings from "$brand/components/corner-rings.astro";
+import Book from "$brand/components/book.astro";
+import SectionHead from "./section-head.astro";
+import type { BookStepsData } from "$brand/blocks/site/company-types";
+
+/*
+ * A process in steps beside a 3D book of what each step writes down: pick a
+ * step and the book changes to that document, point at the book to tilt it,
+ * click it (or the button) to turn it over to its back.
+ */
+
+interface Props {
+  data: BookStepsData;
+  class?: string;
+}
+
+const { data, class: className } = Astro.props;
+---
+
+<section data-slot="book-steps" class={className}>
+  <SectionHead kicker={data.kicker} title={data.title} accent={data.accent} layout="stack" />
+  <div class="mt-12 grid gap-4 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] lg:gap-6">
+    <div class="relative isolate flex min-h-[30rem] flex-col items-center justify-center overflow-hidden rounded-2xl px-6 pt-12 pb-6 ring-1 ring-foreground/10 sm:min-h-[36rem]">
+      <CornerRings seed={data.seed} quiet class="-z-10 w-[55%] opacity-70" />
+      <div class="my-auto w-[min(62%,17rem)]" data-line-art-host>
+        {
+          data.steps.map((s, i) => (
+            <div data-book-step={i} class={cn(i !== 0 && "hidden")}>
+              <Book title={s.doc.title} eyebrow={data.eyebrow} note={s.meta.join(" · ")} tone={s.doc.tone} label="Turn it over">
+                <span slot="art" class="relative block aspect-[16/10]">
+                  <LineArt kind={s.doc.art} />
+                </span>
+                <Fragment slot="back">
+                  <span class="block font-mono text-[max(0.5rem,3.4cqw)] leading-none tracking-[0.14em] uppercase">{data.eyebrow}</span>
+                  <span class="mt-[14%] block text-[max(0.95rem,8cqw)] leading-[1.05] font-medium tracking-[-0.03em] text-balance">{data.back.title}</span>
+                  <span class="mt-[8%] block text-[max(0.7rem,4.6cqw)] leading-snug opacity-90">{data.back.body}</span>
+                </Fragment>
+              </Book>
+            </div>
+          ))
+        }
+      </div>
+      <div class="flex w-full flex-wrap items-center justify-between gap-3 pt-14">
+        {
+          data.steps.map((s, i) => (
+            <p data-book-line={i} class={cn("font-mono text-xs tracking-[0.12em] text-muted-foreground uppercase", i !== 0 && "hidden")}>
+              {s.n} / {s.label} · {s.doc.title}
+            </p>
+          ))
+        }
+        <Button variant="outline" size="sm" aria-pressed="false" data-book-turn>
+          <RotateCcw data-icon="inline-start" />
+          <span data-book-turn-label>Turn it over</span>
+        </Button>
+      </div>
+    </div>
+    <ol class="grid gap-4">
+      {
+        data.steps.map((s, i) => (
+          <li class="min-w-0">
+            <button
+              type="button"
+              data-book-pick={i}
+              aria-pressed={i === 0}
+              class="group/pick flex h-full w-full flex-col gap-3 rounded-2xl p-6 text-left ring-1 ring-foreground/10 transition-shadow outline-none hover:ring-primary/50 focus-visible:ring-3 focus-visible:ring-ring/60 motion-reduce:transition-none aria-pressed:ring-primary aria-pressed:hover:ring-primary sm:p-7"
+            >
+              <span class="font-mono text-xs tracking-[0.14em] text-primary uppercase">
+                {s.n} / {s.label}
+              </span>
+              <span class="text-[clamp(1.35rem,2vw,1.75rem)] leading-tight font-medium tracking-[-0.025em] text-foreground">{s.title}</span>
+              <span class="text-[1.0625rem] leading-snug text-foreground/85">{s.body}</span>
+              <span class="mt-1 flex flex-wrap items-center gap-1.5">
+                {s.meta.map((m) => (
+                  <>
+                    <Tag class="group-aria-pressed/pick:hidden">{m}</Tag>
+                    <Tag tone="orange" class="hidden group-aria-pressed/pick:inline-flex">
+                      {m}
+                    </Tag>
+                  </>
+                ))}
+                <span class="ml-auto text-sm text-muted-foreground">{s.doc.title}</span>
+              </span>
+            </button>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<script>
+  const show = (root: HTMLElement, at: number) => {
+    root.querySelectorAll<HTMLElement>("[data-book-step]").forEach((el) => {
+      const on = Number(el.dataset.bookStep) === at;
+      el.classList.toggle("hidden", !on);
+      el.querySelector<HTMLElement>("[data-book]")?.setAttribute("aria-pressed", "false");
+    });
+    root.querySelectorAll<HTMLElement>("[data-book-line]").forEach((el) => el.classList.toggle("hidden", Number(el.dataset.bookLine) !== at));
+    root.querySelectorAll<HTMLElement>("[data-book-pick]").forEach((el) => {
+      const on = Number(el.dataset.bookPick) === at;
+      el.setAttribute("aria-pressed", String(on));
+    });
+    syncTurn(root);
+  };
+  const active = (root: HTMLElement) => root.querySelector<HTMLElement>("[data-book-step]:not(.hidden) [data-book]");
+  const syncTurn = (root: HTMLElement) => {
+    const turned = active(root)?.getAttribute("aria-pressed") === "true";
+    const turn = root.querySelector<HTMLElement>("[data-book-turn]");
+    turn?.setAttribute("aria-pressed", String(turned));
+    const label = root.querySelector("[data-book-turn-label]");
+    if (label) label.textContent = turned ? "Show the cover" : "Turn it over";
+  };
+
+  for (const root of document.querySelectorAll<HTMLElement>("[data-slot='book-steps']")) {
+    root.addEventListener("click", (event) => {
+      const target = event.target as HTMLElement;
+      const pick = target.closest<HTMLElement>("[data-book-pick]");
+      if (pick) return show(root, Number(pick.dataset.bookPick));
+      if (target.closest("[data-book-turn]")) {
+        const book = active(root);
+        book?.setAttribute("aria-pressed", String(book.getAttribute("aria-pressed") !== "true"));
+      }
+      queueMicrotask(() => syncTurn(root));
+    });
+  }
+</script>

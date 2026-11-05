@@ -26,7 +26,7 @@
 
 <article data-post data-topic={post.topic} class={cn(featured && "mb-6", className)}>
 	<OutlineCard href={post.href} class={cn(featured && "p-6 sm:p-10")}>
-		{#if featured}<CornerRings seed={post.title} color={topicTone ? `var(--${topicTone})` : undefined} quiet class="w-[38%]" />{/if}
+		{#if featured}<CornerRings seed={post.title} color={topicTone ? `var(--${topicTone})` : undefined} quiet class="w-[38%] [&_circle]:[stroke-width:0.5]" />{/if}
 		<PostMeta post={post} {tone} />
 		<h2 class={cn("relative", featured ? "max-w-xl text-2xl leading-[1.15] font-medium tracking-[-0.03em] sm:text-[2.1rem]" : "text-lg leading-[1.35] font-medium")}>{post.title}</h2>
 		{#if post.summary}

@@ -7,19 +7,13 @@
 
 <script lang="ts">
 	import Prose from '$brand/blocks/site/prose.svelte'
-	import LegalBlock from './legal-block.svelte'
-	import { privacy } from './stories-data.js'
-
-	const [, ...blocks] = privacy.sections[1]
 </script>
 
 <Story name="Default" asChild>
 	<Prose class="max-w-[46rem] gap-3.5 px-6">
 		<LegalSection n={1} title="Data we collect">
 			{#snippet children()}
-				{#each blocks as block, j (j)}
-					<LegalBlock {block} />
-				{/each}
+				<p>We collect the email you sign up with and the pages you open on this site. Nothing else is stored, and nothing is sold.</p>
 			{/snippet}
 		</LegalSection>
 	</Prose>

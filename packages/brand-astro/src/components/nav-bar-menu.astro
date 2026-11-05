@@ -1,0 +1,77 @@
+---
+import { ChevronDown } from "@lucide/astro";
+import { cn } from "$brand/utils";
+import type { NavLink } from "./nav-bar.astro";
+
+/*
+ * NavBar's row of links on wide screens: a plain link, or a trigger that
+ * opens a menu of pages with a line on each, on hover, click or keyboard.
+ * The script lives in nav-bar.astro.
+ */
+
+interface Props {
+  links: NavLink[];
+  align?: "start" | "end";
+  label?: string;
+}
+
+const { links, align = "start", label = "Main" } = Astro.props;
+const uid = Math.random().toString(36).slice(2, 8);
+const linkClass =
+  "flex h-8 items-center justify-center gap-1.5 rounded-md bg-transparent p-2 px-3 text-sm font-normal text-muted-foreground transition-all outline-none hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-1 aria-[current=page]:text-foreground motion-reduce:transition-none";
+---
+
+<nav data-slot="navigation-menu" aria-label={label} class="group/navigation-menu relative hidden max-w-max flex-1 items-center justify-center md:flex">
+  <ul class={cn("group flex flex-1 list-none items-center justify-center gap-0.5", align === "end" && "justify-end")}>
+    {
+      links.map((link, i) => (
+        <li data-slot="navigation-menu-item" data-nav-bar-item class="relative">
+          {link.children?.length ? (
+            <>
+              <button
+                type="button"
+                data-slot="navigation-menu-trigger"
+                data-nav-bar-trigger
+                aria-expanded="false"
+                aria-controls={`nav-bar-${uid}-${i}`}
+                class="group/navigation-menu-trigger inline-flex h-8 w-max items-center justify-center rounded-md bg-transparent px-3 py-2 text-sm font-normal text-muted-foreground transition-all outline-none hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-1 aria-expanded:text-foreground aria-expanded:hover:bg-muted aria-expanded:focus:bg-muted motion-reduce:transition-none"
+              >
+                {link.label}
+                <ChevronDown class="lucide relative top-px ml-1 size-3 transition duration-300 group-aria-expanded/navigation-menu-trigger:rotate-180 motion-reduce:transition-none" aria-hidden="true" />
+              </button>
+              <div
+                id={`nav-bar-${uid}-${i}`}
+                data-slot="navigation-menu-content"
+                data-state="closed"
+                hidden
+                class="absolute top-full left-1/2 mt-2 w-auto -translate-x-1/2 overflow-hidden rounded-xl border bg-popover p-2 text-popover-foreground shadow-xl duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95 motion-reduce:animate-none"
+              >
+                <ul class={cn("grid gap-1", link.children.length > 3 ? "w-[440px] grid-cols-2" : "w-[300px]")}>
+                  {link.children.map((child) => (
+                    <li>
+                      <a
+                        href={child.href}
+                        data-slot="navigation-menu-link"
+                        class="block rounded-sm p-3 text-sm transition-all outline-none hover:bg-foreground/5 focus:bg-foreground/5 motion-reduce:transition-none"
+                      >
+                        <span class="flex items-center gap-2 text-sm text-foreground">
+                          {child.icon ? <child.icon class="lucide size-4 shrink-0 text-primary" /> : <i class="size-1.5 shrink-0 bg-primary" aria-hidden="true" />}
+                          {child.label}
+                        </span>
+                        {child.description && <span class="mt-1 block text-[0.8125rem] leading-snug text-muted-foreground">{child.description}</span>}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </>
+          ) : (
+            <a href={link.href ?? "#"} data-slot="navigation-menu-link" aria-current={link.current ? "page" : undefined} class={linkClass}>
+              {link.label}
+            </a>
+          )}
+        </li>
+      ))
+    }
+  </ul>
+</nav>

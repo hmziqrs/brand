@@ -1,0 +1,26 @@
+---
+import type { SceneKind } from "@hmziq/brand-core/motion/scenes";
+import { cn } from "$brand/utils";
+import Scene from "./scene.astro";
+
+/*
+ * A hero stage: a kit Scene on the right, fading out behind the words on the
+ * left. Below lg it spans the stage at lower strength.
+ */
+
+interface Props {
+  /** Beside the words in a hero: lattice, network, layers. */
+  kind?: SceneKind;
+  /** The site or project name. The same name always draws the same scene. */
+  seed?: string;
+  /** The scene's own settings, as exported from its tweaker. */
+  settings?: Record<string, unknown>;
+  class?: string;
+}
+
+const { kind = "lattice", seed, settings, class: className } = Astro.props;
+---
+
+<div data-slot="scene-stage" class={cn("absolute inset-0 overflow-hidden", className)}>
+  <Scene kind={kind} seed={seed} settings={settings} class="absolute inset-y-0 right-0 w-full opacity-60 [mask-image:linear-gradient(to_right,transparent,black_45%)] lg:w-[64%] lg:opacity-100" />
+</div>

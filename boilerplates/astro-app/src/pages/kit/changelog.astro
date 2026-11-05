@@ -1,0 +1,82 @@
+---
+// The changelog pages, each block across the whole width as a page wears
+// it: the release desk of blog.hmziq.rs and claude-multi's release timeline
+// page, with the real releases, then their parts on their own. The
+// pictures are the sites' own, from components/kit. The section ids are the
+// pieces' anchors in scripts/pieces.json.
+import Container from "$brand/blocks/site/container.astro";
+import PageIntro from "$brand/blocks/site/page-intro.astro";
+import SiteLayout from "$brand/blocks/site/site-layout.astro";
+import MaterialWash from "$brand/components/material-wash.astro";
+import DragWindow from "$brand/components/drag-window.astro";
+import ReleaseDesk from "$brand/blocks/content/release-desk.astro";
+import ReleaseFilters from "$brand/blocks/content/release-filters.astro";
+import ReleasePicture from "$brand/blocks/content/release-picture.astro";
+import ReleaseTimelinePage from "$brand/blocks/content/release-timeline-page.astro";
+import ThemeInit from "../../components/theme-init.astro";
+import ThemeToggle from "../../components/theme-toggle.astro";
+import ChangelogEndpoints from "../../components/kit/changelog-endpoints.astro";
+import ChangelogSettings from "../../components/kit/changelog-settings.astro";
+import ChangelogTemplates from "../../components/kit/changelog-templates.astro";
+import { blogChangelog, blogReleases, multiChangelog, multiReleases } from "../../components/kit/changelog-data";
+
+const pic = multiChangelog.pictures["0.13.2"];
+---
+
+<SiteLayout site="example" maker="the kit" layout="page" mainClassName="gap-14 pt-12 pb-20 md:pt-20" head={{ site: "blog", title: "Changelog pages — the kit", description: "The release desk and the release timeline page from the Astro kit.", url: "https://example.com/kit/changelog" }}>
+  <ThemeInit slot="head" />
+  <ThemeToggle slot="extra" />
+
+  <Container>
+    <PageIntro class="max-w-2xl">
+      <Fragment slot="kicker">The kit · changelog pages</Fragment>
+      <Fragment slot="title">Changelog pages</Fragment>
+      <Fragment slot="lede">The two changelog blocks, each across the whole width with the real releases, then the window, the filters and the picture frame they are built from.</Fragment>
+    </PageIntro>
+  </Container>
+
+  <section id="piece-release-desk" class="flex flex-col gap-4 border-t pt-8">
+    <Container size="wide"><h2 class="text-lg font-medium">ReleaseDesk</h2></Container>
+    <ReleaseDesk releases={blogReleases} {...blogChangelog}>
+      <ChangelogEndpoints />
+    </ReleaseDesk>
+    <Container size="wide"><p class="text-[0.8125rem] text-muted-foreground">blog.hmziq.rs: drag the window by its title bar (a double click sends it home); point at a 0.0.2 change to open its address, or at a tab to light its change; each head stays beside its changes.</p></Container>
+  </section>
+
+  <section id="piece-release-timeline-page" class="flex flex-col gap-4 border-t pt-8">
+    <Container size="wide"><h2 class="text-lg font-medium">ReleaseTimelinePage</h2></Container>
+    <ReleaseTimelinePage releases={multiReleases} {...multiChangelog} filters>
+      {(v: string) => (v === "0.13.2" ? <ChangelogSettings /> : <ChangelogTemplates />)}
+    </ReleaseTimelinePage>
+    <Container size="wide"><p class="text-[0.8125rem] text-muted-foreground">claude-multi: search the changes, pick a kind, open the folded releases; the rail fills as you read, and the pictures stay beside their release.</p></Container>
+  </section>
+
+  <section id="piece-release-filters" class="flex flex-col gap-4 border-t pt-8">
+    <Container size="wide">
+      <h2 class="text-lg font-medium">ReleaseFilters</h2>
+      <ReleaseFilters releases={multiReleases} folds={26} class="mt-4" />
+      <p class="mt-4 text-[0.8125rem] text-muted-foreground">On its own; inside a changelog block it narrows the releases.</p>
+    </Container>
+  </section>
+
+  <section id="piece-release-picture" class="flex flex-col gap-4 border-t pt-8">
+    <Container size="wide">
+      <h2 class="text-lg font-medium">ReleasePicture</h2>
+      <div data-spots class="mt-4 max-w-[38rem]">
+        <ReleasePicture tag={pic.tag} caption={pic.caption}>
+          <ChangelogSettings />
+        </ReleasePicture>
+      </div>
+    </Container>
+  </section>
+
+  <section id="piece-drag-window" class="flex flex-col gap-4 border-t pt-8">
+    <Container size="wide"><h2 class="text-lg font-medium">DragWindow</h2></Container>
+    <div data-window-bounds data-spots class="relative isolate overflow-hidden px-6 py-16 sm:px-12">
+      <MaterialWash preset="copper-sweep" />
+      <DragWindow title="blog.hmziq.rs" class="mx-auto max-w-[40rem]">
+        <ChangelogEndpoints />
+      </DragWindow>
+    </div>
+  </section>
+</SiteLayout>

@@ -3,7 +3,7 @@
 // `bun run check:fresh-copy` does, and handy when testing registry changes by
 // hand:
 //
-//   bun scripts/serve-registries.ts [--without-core]
+//   bun scripts/serve-registries.ts [--without-core] [--quiet]
 //
 // --without-core drops the `@hmziq/brand-core@…` dependency from every served
 // item. check:fresh-copy sets it while core is only a local `bun pm pack`
@@ -12,7 +12,9 @@
 // version from npm.
 //
 // The server logs every request to stdout and prints `LISTENING <port>`
-// first, so a wrapper can read the port it picked.
+// first, so a wrapper can read the port it picked. --quiet prints only that
+// line: a wrapper that stops reading the pipe would otherwise stall the server
+// once a full kit install's few thousand requests fill it.
 
 import { createServer } from "node:http";
 import { readFile, stat } from "node:fs/promises";
@@ -22,6 +24,10 @@ import { fileURLToPath } from "node:url";
 const root = fileURLToPath(new URL("..", import.meta.url));
 const dir = join(root, "dist/registries");
 const withoutCore = process.argv.includes("--without-core");
+const quiet = process.argv.includes("--quiet");
+const log = (line: string): void => {
+  if (!quiet) console.log(line);
+};
 
 const types: Record<string, string> = { ".json": "application/json", ".css": "text/css" };
 
@@ -47,11 +53,11 @@ async function handle(req: Request, res: Response): Promise<void> {
     }
     res.writeHead(200, { "content-type": types[path.slice(path.lastIndexOf("."))] ?? "application/octet-stream" });
     res.end(body);
-    console.log(`${req.method} ${req.url} -> 200`);
+    log(`${req.method} ${req.url} -> 200`);
   } catch {
     res.writeHead(404);
     res.end("not found");
-    console.log(`${req.method} ${req.url} -> 404`);
+    log(`${req.method} ${req.url} -> 404`);
   }
 }
 

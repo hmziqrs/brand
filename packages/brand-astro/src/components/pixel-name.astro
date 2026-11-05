@@ -1,0 +1,55 @@
+---
+import { cn } from "$brand/utils";
+
+/*
+ * A name as a full grid of cells, the size of its box: dots draws a dot per
+ * cell that swells and heats to oxide around the cursor; glyphs draws ■ □ ○ ◎
+ * glyphs the cursor pushes apart. The cursor is read over the nearest
+ * [data-pointer-host]. Still for reduced motion.
+ */
+
+interface Props {
+  text: string;
+  /** What screen readers hear; the text itself by default. */
+  label?: string;
+  look?: "dots" | "glyphs";
+  /** The largest cell, in pixels. */
+  pitch?: number;
+  /** The smallest cell, in pixels. */
+  min?: number;
+  /** How many cells across at most, before the cells shrink toward `min`. */
+  cols?: number;
+  /** How far the cursor reaches, in pixels. */
+  reach?: number;
+  /** The box's shape: an aspect ratio, a height. */
+  class?: string;
+}
+
+const { text, label, look = "dots", pitch = 9, min = 5, cols = 140, reach = 120, class: className = "aspect-[5/1]" } = Astro.props;
+---
+
+<div data-slot="pixel-name" data-look={look} data-options={JSON.stringify({ text, look, pitch, min, cols, reach })} class={cn("relative w-full", className)} role="img" aria-label={label ?? text}>
+  <canvas aria-hidden="true" class="block h-full w-full"></canvas>
+</div>
+
+<script>
+  import { mountPixelName } from "@hmziq/brand-core/motion/pixel-name";
+
+  const names = new WeakMap<HTMLElement, () => void>();
+
+  function initAll() {
+    for (const root of document.querySelectorAll<HTMLElement>("[data-slot='pixel-name']")) {
+      const canvas = root.querySelector("canvas");
+      if (canvas && !names.has(root)) names.set(root, mountPixelName(canvas, JSON.parse(root.dataset.options ?? "{}")));
+    }
+  }
+
+  initAll();
+  document.addEventListener("astro:page-load", initAll);
+  document.addEventListener("astro:before-swap", () => {
+    for (const root of document.querySelectorAll<HTMLElement>("[data-slot='pixel-name']")) {
+      names.get(root)?.();
+      names.delete(root);
+    }
+  });
+</script>

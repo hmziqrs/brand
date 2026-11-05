@@ -12,7 +12,7 @@ Live reference: the Storybook in the `hmziq/brand` repo (`bun run storybook`), w
 | --- | --- |
 | Stack | Tailwind CSS v4 + shadcn/ui, **Base UI** primitives, **Vega** style (`base-vega`). |
 | Typeface | **Onest** for everything people read. **JetBrains Mono** for code only. Self-hosted with Fontsource. |
-| Weights | 400 text, 500 headings, 600 wordmark. Never heavier than 600. |
+| Weights | 400 text, 500 headings, 600 wordmark. Never heavier than 600. Light mode sets each a step heavier (450, 600, 680) so black type on white reads as solid (`theme.css` part 5). |
 | Color | shadcn **neutral** greys (no tint), **oxide orange** as the brand color (`--primary`), and seven supporting colors (red, yellow, green, teal, blue, purple, pink) for status, categories, charts and code. |
 | Mode | **Dark by default** (`<html class="dark">`). Light mode must also work. |
 | Radius | `--radius: 0.625rem`. |
@@ -158,7 +158,7 @@ The real file lives at `packages/brand-core/theme.css` in the brand repo. This b
  *
  * Dark is the default: ship <html class="dark"> and remove the class for light.
  *
- * The file has three parts:
+ * The file has five parts:
  *   1. shadcn's tokens, in shadcn's layout. Greys are shadcn "neutral" (zero
  *      chroma, no tint). A theme tool's output can replace these two blocks.
  *   2. The colors: oxide orange plus seven supporting colors, tuned per mode
@@ -166,10 +166,18 @@ The real file lives at `packages/brand-core/theme.css` in the brand repo. This b
  *   3. Roles that point at those colors: status, code, icons, the logo
  *      square and the faint line used by ring art.
  *   4. Bands: full-width sections that change the colors inside them.
+ *   5. Type weight: light mode sets every weight a step heavier.
  *
- * --primary points at --orange. To try another brand color, point it at
- * another color (e.g. var(--blue)) in both blocks; everything that follows
- * the brand (ring, chart-1, sidebar, code keywords) follows it.
+ * Light mode is a pure white page with near-black type. Oxide fills (the
+ * main button, the orange band) are the vivid orange with near-black text
+ * on them; small oxide text (text-primary, text-orange) is the deep ink
+ * --primary-ink, and oxide words in a headline (h1, h2, [data-display]) are
+ * the brighter --primary-display. Dark mode uses the vivid orange for all three.
+ *
+ * --primary points at --orange. To try another brand color, point --primary,
+ * --primary-ink and --primary-display at another color (e.g. var(--blue)) in
+ * both blocks; everything that follows the brand (ring, chart-1, sidebar,
+ * code keywords) follows it.
  * `bun run check:contrast` measures every pair after a change.
  */
 
@@ -183,26 +191,27 @@ The real file lives at `packages/brand-core/theme.css` in the brand repo. This b
   --radius: 0.625rem;
 
   --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+  --foreground: oklch(0.08 0 0);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
+  --card-foreground: oklch(0.08 0 0);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
+  --popover-foreground: oklch(0.08 0 0);
 
   --primary: var(--orange);
-  --primary-foreground: oklch(0.985 0 0);
+  --primary-foreground: oklch(0.08 0 0);
+  --primary-ink: var(--orange-ink);
+  --primary-display: var(--orange-display);
 
   --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
+  --secondary-foreground: oklch(0.12 0 0);
   --muted: oklch(0.97 0 0);
-  /* shadcn ships 0.556; 0.54 keeps grey text readable on muted surfaces too (4.6:1) */
-  --muted-foreground: oklch(0.54 0 0);
+  --muted-foreground: oklch(0.3 0 0);
   --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+  --accent-foreground: oklch(0.12 0 0);
   --destructive: var(--red);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: var(--primary);
+  --border: oklch(0.86 0 0);
+  --input: oklch(0.86 0 0);
+  --ring: var(--primary-display);
 
   --chart-1: var(--primary);
   --chart-2: var(--blue);
@@ -211,13 +220,13 @@ The real file lives at `packages/brand-core/theme.css` in the brand repo. This b
   --chart-5: var(--yellow);
 
   --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-foreground: oklch(0.08 0 0);
   --sidebar-primary: var(--primary);
   --sidebar-primary-foreground: var(--primary-foreground);
   --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: var(--primary);
+  --sidebar-accent-foreground: oklch(0.12 0 0);
+  --sidebar-border: oklch(0.86 0 0);
+  --sidebar-ring: var(--ring);
 }
 
 .dark {
@@ -230,6 +239,8 @@ The real file lives at `packages/brand-core/theme.css` in the brand repo. This b
 
   --primary: var(--orange);
   --primary-foreground: oklch(0.145 0 0);
+  --primary-ink: var(--orange-ink);
+  --primary-display: var(--orange-display);
 
   --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);
@@ -255,7 +266,7 @@ The real file lives at `packages/brand-core/theme.css` in the brand repo. This b
   --sidebar-accent: oklch(0.269 0 0);
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: var(--primary);
+  --sidebar-ring: var(--ring);
 }
 
 /* 2. Colors ----------------------------------------------------------------
@@ -265,26 +276,32 @@ The real file lives at `packages/brand-core/theme.css` in the brand repo. This b
  * (bg-green/10 text-green dark:bg-green/20).
  * Light shades sit around L 0.53 and dark shades around L 0.72–0.80, so
  * every color passes AA as text on a card and on its own soft fill.
+ * Orange is the exception: the vivid shade fills in both modes, and light
+ * mode writes it as text in --orange-ink (small) or --orange-display (large).
  * --band is the gray of a full-width band; --on-orange is text on orange.
  */
 
 :root,
 .light {
   --red: oklch(0.54 0.21 26);
-  --orange: oklch(0.54 0.135 52);
+  --orange: oklch(0.72 0.165 52);
+  --orange-ink: oklch(0.42 0.11 48);
+  --orange-display: oklch(0.66 0.18 48);
   --yellow: oklch(0.53 0.11 75);
   --green: oklch(0.51 0.14 150);
   --teal: oklch(0.515 0.09 185);
   --blue: oklch(0.53 0.175 255);
   --purple: oklch(0.55 0.2 300);
   --pink: oklch(0.55 0.19 350);
-  --band: oklch(0.97 0 0);
-  --on-orange: oklch(0.985 0 0);
+  --band: oklch(0.955 0 0);
+  --on-orange: oklch(0.08 0 0);
 }
 
 .dark {
   --red: oklch(0.704 0.191 22.216);
   --orange: oklch(0.72 0.165 52);
+  --orange-ink: var(--orange);
+  --orange-display: var(--orange);
   --yellow: oklch(0.8 0.14 85);
   --green: oklch(0.75 0.15 150);
   --teal: oklch(0.75 0.12 185);
@@ -311,7 +328,7 @@ The real file lives at `packages/brand-core/theme.css` in the brand repo. This b
   /* Code highlighting: Shiki's css-variables theme with variablePrefix "--code-". */
   --code-foreground: var(--foreground);
   --code-background: var(--card);
-  --code-token-keyword: var(--primary);
+  --code-token-keyword: var(--primary-ink);
   --code-token-function: var(--blue);
   --code-token-string: var(--green);
   --code-token-string-expression: var(--green);
@@ -352,6 +369,8 @@ The real file lives at `packages/brand-core/theme.css` in the brand repo. This b
   --muted-foreground: var(--on-orange);
   --primary: var(--on-orange);
   --primary-foreground: var(--orange);
+  --primary-ink: var(--on-orange);
+  --primary-display: var(--on-orange);
   --border: color-mix(in oklab, var(--on-orange) 22%, transparent);
   --input: color-mix(in oklab, var(--on-orange) 45%, transparent);
   --ring: var(--on-orange);
@@ -441,6 +460,31 @@ The real file lives at `packages/brand-core/theme.css` in the brand repo. This b
   --color-on-orange: var(--on-orange);
   --color-mark-square: var(--mark-square);
   --color-line: var(--line);
+
+  /* Oxide as text: text-primary and text-orange print the ink, bg-* the fill. */
+  --text-color-primary: var(--primary-ink);
+  --text-color-orange: var(--orange-ink);
+}
+
+/* 5. Type weight -------------------------------------------------------------
+ * Black type on white reads lighter than white type on black, so light mode
+ * sets every weight a step heavier. A .dark island inside a light page goes
+ * back to the dark weights, and a .light band in a dark page takes the light ones.
+ */
+
+:root,
+.light {
+  --font-weight-light: 360;
+  --font-weight-normal: 450;
+  --font-weight-medium: 600;
+  --font-weight-semibold: 680;
+}
+
+.dark {
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
 }
 
 @layer base {
@@ -452,6 +496,16 @@ The real file lives at `packages/brand-core/theme.css` in the brand repo. This b
   }
   body {
     @apply bg-background text-foreground font-sans;
+    font-weight: var(--font-weight-normal);
+  }
+  .light,
+  .dark {
+    font-weight: var(--font-weight-normal);
+  }
+  /* Oxide words in a headline are large text: the brighter display shade. */
+  :is(h1, h2, [data-display]) {
+    --primary-ink: var(--primary-display);
+    --orange-ink: var(--orange-display);
   }
   /* Every lucide icon uses the brand line weight. Change one with stroke-[2]. */
   .lucide {
@@ -468,7 +522,7 @@ Starwind uses shadcn's names plus a few of its own. Add this after `theme.css`. 
 ```css
 :root,
 .dark {
-  --primary-accent: var(--primary); /* links and accents on the page background */
+  --primary-accent: var(--primary-ink); /* links and accents on the page background */
   --secondary-accent: var(--foreground);
   --error: var(--destructive);
   --outline: var(--ring);
@@ -491,7 +545,15 @@ Starwind uses shadcn's names plus a few of its own. Add this after `theme.css`. 
 
 ### Oxide orange, the brand
 
-`--primary` points at `--orange`, which has two tuned shades: `oklch(0.72 0.165 52)` · `#F38230` in dark mode and `oklch(0.54 0.135 52)` · `#AA530A` in light mode. Text on it is `--primary-foreground`: near-black in dark mode, white in light mode.
+`--primary` points at `--orange`, the vivid `oklch(0.72 0.165 52)` · `#F38230` in both modes. Text on it is `--primary-foreground`, near-black in both modes. In dark mode that one shade is also the text color. Light mode writes oxide as text in two more shades:
+
+| Token | Light mode | For |
+| --- | --- | --- |
+| `--primary` / `--orange` | `oklch(0.72 0.165 52)` · `#F38230` | Fills: the main button, the orange band, the wordmark square, chart lines |
+| `--primary-ink` / `--orange-ink` | `oklch(0.42 0.11 48)` · `#7B3606` | Small oxide text: `text-primary`, `text-orange`, links, code keywords (AA, 8.8:1) |
+| `--primary-display` / `--orange-display` | `oklch(0.66 0.18 48)` · `#E66700` | Oxide words in a headline (`h1`, `h2`, `[data-display]`) and the focus ring (large text, 3.3:1) |
+
+`text-primary` and `text-orange` print the ink, `bg-primary` and `bg-orange` the fill; inside a headline the ink switches to the display shade by itself. In dark mode all three are the vivid orange.
 
 Use `primary` for: the one main action on a view, links, the focus ring, and small highlights (an icon in an icon tile, a hovered card border at `/50`).
 
@@ -507,7 +569,7 @@ Orange plus seven supporting colors, each tuned per mode so it passes AA as text
 | Color | Dark mode | Light mode | Role | For |
 | --- | --- | --- | --- | --- |
 | `red` | `oklch(0.704 0.191 22.216)` · `#FF6467` | `oklch(0.54 0.21 26)` · `#CD1622` | `destructive` | Errors, and buttons that delete things. |
-| `orange` | `oklch(0.72 0.165 52)` · `#F38230` | `oklch(0.54 0.135 52)` · `#AA530A` | `primary` | The brand: the main button, links, focus rings, code keywords. |
+| `orange` | `oklch(0.72 0.165 52)` · `#F38230` | `oklch(0.72 0.165 52)` · `#F38230` | `primary` | The brand: the main button, links, focus rings, code keywords. |
 | `yellow` | `oklch(0.8 0.14 85)` · `#E7B643` | `oklch(0.53 0.11 75)` · `#906106` | `warning` | Warnings and work in progress. |
 | `green` | `oklch(0.75 0.15 150)` · `#5DC879` | `oklch(0.51 0.14 150)` · `#017B37` | `success` | Done, shipped, available, saved. |
 | `teal` | `oklch(0.75 0.12 185)` · `#36C6B8` | `oklch(0.515 0.09 185)` · `#04786E` |  | Categories and charts. |
@@ -545,21 +607,21 @@ A change in a number (a metric trend) is colored by whether it's good or bad new
 
 ### Code and charts
 
-- Code: keywords in `--primary`, function and type names in blue, strings in green, numbers and constants in purple, comments and punctuation in `--muted-foreground`. Set up in section 2 ("Code highlighting").
+- Code: keywords in `--primary-ink`, function and type names in blue, strings in green, numbers and constants in purple, comments and punctuation in `--muted-foreground`. Set up in section 2 ("Code highlighting").
 - Charts: `chart-1` to `chart-5` are orange, blue, green, purple, yellow. Label lines and bars; don't rely on color alone.
 
 ### Neutrals
 
-shadcn neutral with zero chroma. The only change: light `--muted-foreground` is `0.54` (shadcn ships `0.556`), so grey text stays readable on grey surfaces.
+shadcn neutral with zero chroma. Light mode is pushed toward black: a pure white page, near-black text (`0.08`), darker secondary text (`0.3`, shadcn ships `0.556`) and firmer lines (`0.86`), so light pages read as solid as dark ones.
 
 | Token | Dark | Light | Use |
 | --- | --- | --- | --- |
 | `background` | `#0A0A0A` | `#FFFFFF` | page |
 | `card` / `popover` | `#171717` | `#FFFFFF` | raised surfaces, code blocks |
 | `muted` / `secondary` / `accent` | `#262626` | `#F5F5F5` | quiet surfaces, hover states, inline code |
-| `foreground` | `#FAFAFA` | `#0A0A0A` | main text |
-| `muted-foreground` | `#A1A1A1` | `#6F6F6F` | secondary text, captions, dates |
-| `border` / `input` | white 10% / 15% | `#E5E5E5` | lines and fields |
+| `foreground` | `#FAFAFA` | `#020202` | main text |
+| `muted-foreground` | `#A1A1A1` | `#2E2E2E` | secondary text, captions, dates |
+| `border` / `input` | white 10% / 15% | `#D1D1D1` | lines and fields |
 
 ### Measured contrast
 
@@ -568,22 +630,23 @@ Generated from `theme.css`. `bun run check:contrast` fails the build if any pair
 <!-- contrast:start -->
 | Pair | Dark | Light | Needs |
 | --- | --- | --- | --- |
-| Body text on the page | 19.0:1 | 19.8:1 | 4.5:1 |
-| Secondary text on the page | 7.6:1 | 5.1:1 | 4.5:1 |
-| Secondary text on a card | 6.9:1 | 5.1:1 | 4.5:1 |
-| Secondary text on a muted surface | 5.8:1 | 4.6:1 | 4.5:1 |
-| Button text on oxide | 7.6:1 | 5.1:1 | 4.5:1 |
-| Oxide links on the page | 7.6:1 | 5.3:1 | 4.5:1 |
-| Oxide text on a card | 6.9:1 | 5.3:1 | 4.5:1 |
-| Focus ring on the page | 7.6:1 | 5.3:1 | 3:1 |
-| Text on the orange band | 7.6:1 | 5.1:1 | 4.5:1 |
-| Code and hover on the orange band | 8.6:1 | 6.2:1 | 4.5:1 |
-| Text on a gray band | 17.2:1 | 18.1:1 | 4.5:1 |
-| Secondary text on a gray band | 6.9:1 | 4.6:1 | 4.5:1 |
+| Body text on the page | 19.0:1 | 20.8:1 | 4.5:1 |
+| Secondary text on the page | 7.6:1 | 13.6:1 | 4.5:1 |
+| Secondary text on a card | 6.9:1 | 13.6:1 | 4.5:1 |
+| Secondary text on a muted surface | 5.8:1 | 12.5:1 | 4.5:1 |
+| Button text on oxide | 7.6:1 | 8.0:1 | 4.5:1 |
+| Oxide links on the page | 7.6:1 | 8.8:1 | 4.5:1 |
+| Oxide text on a card | 6.9:1 | 8.8:1 | 4.5:1 |
+| Oxide headline words (large text) | 7.6:1 | 3.3:1 | 3:1 |
+| Focus ring on the page | 7.6:1 | 3.3:1 | 3:1 |
+| Text on the orange band | 7.6:1 | 8.0:1 | 4.5:1 |
+| Code and hover on the orange band | 8.6:1 | 6.0:1 | 4.5:1 |
+| Text on a gray band | 17.2:1 | 18.2:1 | 4.5:1 |
+| Secondary text on a gray band | 6.9:1 | 12.0:1 | 4.5:1 |
 | Red text on a card | 6.2:1 | 5.6:1 | 4.5:1 |
 | Red text on its soft fill | 4.6:1 | 4.8:1 | 4.5:1 |
-| Orange text on a card | 6.9:1 | 5.3:1 | 4.5:1 |
-| Orange text on its soft fill | 5.0:1 | 4.6:1 | 4.5:1 |
+| Orange text on a card | 6.9:1 | 8.8:1 | 4.5:1 |
+| Orange text on its soft fill | 5.0:1 | 8.1:1 | 4.5:1 |
 | Yellow text on a card | 9.5:1 | 5.4:1 | 4.5:1 |
 | Yellow text on its soft fill | 6.2:1 | 4.7:1 | 4.5:1 |
 | Green text on a card | 8.5:1 | 5.4:1 | 4.5:1 |
@@ -597,12 +660,12 @@ Generated from `theme.css`. `bun run check:contrast` fails the build if any pair
 | Pink text on a card | 6.9:1 | 5.4:1 | 4.5:1 |
 | Pink text on its soft fill | 5.0:1 | 4.7:1 | 4.5:1 |
 | Error text on its soft fill | 4.6:1 | 4.8:1 | 4.5:1 |
-| Code keywords | 6.9:1 | 5.3:1 | 4.5:1 |
+| Code keywords | 6.9:1 | 8.8:1 | 4.5:1 |
 | Code function and type names | 7.2:1 | 5.4:1 | 4.5:1 |
 | Code strings | 8.5:1 | 5.4:1 | 4.5:1 |
 | Code numbers and constants | 6.8:1 | 5.3:1 | 4.5:1 |
-| Code comments | 6.9:1 | 5.1:1 | 4.5:1 |
-| Code punctuation | 6.9:1 | 5.1:1 | 4.5:1 |
+| Code comments | 6.9:1 | 13.6:1 | 4.5:1 |
+| Code punctuation | 6.9:1 | 13.6:1 | 4.5:1 |
 <!-- contrast:end -->
 
 ### Changing colors
@@ -630,7 +693,7 @@ Do not add: background tints, gradients, glows, per-site color schemes, colored 
 
 Rules:
 
-- Nothing above weight 600. Headings are 500.
+- Nothing above weight 600. Headings are 500. Light mode maps each weight a step heavier (`--font-weight-normal` 450, `-medium` 600, `-semibold` 680); write the same classes, the theme does the rest.
 - Normal-width type only. No wide, condensed, stencil, display or handwriting fonts.
 - **No spaced-out uppercase labels** (`uppercase tracking-widest` eyebrows). Small labels are sentence case in `text-muted-foreground`.
 - Body text lines stay around 60–75 characters (`max-w-prose` or `max-w-2xl`).
@@ -840,17 +903,8 @@ What each kind of page uses. Each one is in the explorations file, working, and 
 | Contact | Words on the left, channels on the right · who replies in an outline card. |
 | Docs | A thin line down the side menu that the current page lights orange · "On this page" in a right column with markers · quiet notes (a thin line in the note color and a colored icon) · outline code blocks · the page's own rings faintly beside the title · previous and next as two outline cards. |
 | 404 | The rings beside the words. |
-| SaaS landing (templates) | The sites' own `SiteShell`: the same header, rhythm, orange close and signature footer, signed with the product's name, with the product's mark and one line in place of the "More from hmziq" row · the kit's hero parts, so headlines stay at the landing size · a product demo you can click in the hero or right under it, at a fixed height · customers as plain grey wordmarks · quotes in outline cards with a hollow ring for the person · plans in outline cards (the recommended one with its fingerprint) or as an accent table · at most one orange band: a terminal or a second band goes on grey. Five of them in the Storybook under **Templates → SaaS landing pages**, all with example content. |
 
-The five SaaS templates, so a new product can start from the closest one (in the Storybook under **Templates → SaaS landing pages**, source in `packages/brand-svelte/src/lib/templates/`):
-
-| Template | Product | What makes it different |
-| --- | --- | --- |
-| Sightline | Analytics | Announcement strip · centered hero with the app underneath, wider than the text (four screens, a date switch, charts) · bento grid of outline cards · set-up steps beside the code · privacy on a grey band |
-| Hookline | Developer API | The kit's own landing layout: hero rings, ring gauges, install switch, SDK tabs · a delivery log you can play · terminal on grey · before and after · a usage slider with the price, and the plans as an accent table |
-| Groundwork | Team planning | Split hero with a board you can use · four views picked from a list · templates as element cards · integrations in a grid of hairlines · per-person pricing with a team-size counter · security on grey |
-| Parley | AI support | Hero on a grey band with a chat you can try · set-up steps beside an answer check · before and after as two outline columns · the same answer per channel · guardrails as notices · a customer story with its numbers · plans as an accent table · numbered FAQ |
-| Openslot | Scheduling | Editorial hero: the headline across the page, then a line, then the words and buttons side by side · the booking page on a band in the other mode (white on dark pages, dark on light ones) · time zones · use cases in tabs · integrations grouped by kind · a wall of short quotes · two plans |
+The demo products Sightline, Hookline, Groundwork, Parley, Openslot, Tunnel and Oxiwake keep their app screens in the kit (source in `packages/brand-svelte/src/lib/templates/`). Their landing pages are gone: a product's landing page is a site family below.
 
 ---
 
@@ -860,15 +914,15 @@ Build pages from shadcn components (Button, Card, Badge, Tabs, Table, Accordion,
 
 | Pattern | Recipe |
 | --- | --- |
-| Container | `mx-auto w-full max-w-5xl px-6` |
+| Container | `Container`: `mx-auto w-full px-6`, `narrow` (`max-w-[46rem]`) for reading, `default` (`max-w-5xl`), `wide` (`max-w-[82rem]`) for the header, hero, full-width sections and footer so their edges line up |
 | Page rhythm | `main`: `flex flex-col gap-24 md:gap-32 py-16 md:py-24` |
 | Header | Clean: no line under it, `h-19`. The wordmark (section 7) + small maker line (`by hmziq` / `by freeoxide`), ghost `sm` nav buttons in `text-muted-foreground`, one primary `sm` button |
 | Hero | h1 (`leading-[1.02] font-medium tracking-[-0.035em]`) + lede + primary `lg` button + outline `lg` button + optional one-line note with a ring marker. Hero rings on the right from `md` (a product page may show its product there instead). No code in the hero. |
-| Section | h2 + one-sentence intro (`text-muted-foreground`), then content, `gap-10` |
+| Section | `SectionHead` (kicker, big title and one-sentence lede in `text-muted-foreground`; split, stacked or centered), then content, `gap-10` |
 | Feature grid | 2–3 columns; each item: an icon tile (section 9), `font-medium` title, `text-sm text-muted-foreground` body. All tiles in a grid are the same color. |
 | Cards | shadcn Card as an outline card (`bg-transparent shadow-none`); hover = `hover:ring-primary/50` only. Projects: element cards (section 7). |
 | Stats / facts | Ring gauges: `grid gap-8 sm:grid-cols-3`, each a gauge beside the number and its label (section 7). On an About or Changelog page: big numbers under a strong line. |
-| Steps | Numbered only when the order is real. The stepper: numbered rings (`size-9 rounded-full border-[1.75px]`) joined by a 1px line; a done step fills orange and the line below it turns orange. `Stepper` + `Step` in `components/brand`. |
+| Steps | Numbered only when the order is real. The stepper: numbered rings (`size-9 rounded-full border-[1.75px]`) joined by a 1px line; a done step fills orange and the line below it turns orange. `StepCards` for numbered cards, `FlowSteps` for a flowchart. |
 | Code block | An outline, no fill: `rounded-xl border`. A bar `h-10 border-b` with the file label (`text-xs text-muted-foreground`) or tabs for versions of the same thing (Terminal / Cargo.toml), and the copy button (ghost `icon-sm`, `Copy` → `Check`) on the right. `pre` with `px-4.5 py-4 font-mono text-[0.8125rem] leading-[1.7]`, highlighted with Shiki (section 2). No copy button on code people only read. |
 | Command to copy | `CommandBar`: `w-fit max-w-full rounded-xl border`, as wide as the command, `$` prompt in orange, the program in the function color and flags in the keyword color, an outline `sm` Copy button. Commands people shouldn't paste as they are (an alias they name themselves, an example) get no button. |
 | Terminal | `TerminalWindow`: always dark (`dark` class, even on light pages), `rounded-xl border`, a `h-10` title bar with a terminal icon, mono `text-[0.8125rem] leading-[1.9]` lines: `$ command`, `# note` in grey, `▸ step › answer`, `✓ result`. |
@@ -899,24 +953,53 @@ Icons: see section 6.
 8. The orange closing band
 9. Footer with "More from hmziq" and the signature
 
-The freeoxide page in the Storybook (`Sites/Landing pages`) is the reference.
+The site families below are the reference.
+
+### Site families
+
+Every family below was reviewed against the live sites and kept. Use the kit piece as it ships; each one is a roster piece in both kits and its own registry item, and its Storybook story is the reference. The header, hero, full-width sections and footer sit in `Container size="wide"` (`max-w-[82rem]`) so their edges line up; reading columns stay `narrow`.
+
+| Site | Hero | Under the hero | Footer |
+| --- | --- | --- | --- |
+| hmziq.rs | PersonalHero, DotName over the DiagonalHatch | PictureSection (work as PictureCards with LineArt) | HatchFooter |
+| cv.hmziq.rs | CvPage | n/a | HatchFooter |
+| blog.hmziq.rs | MagazineIndex | PostArticle for posts, ReleaseDesk for its changelog | CalmFooter |
+| hmziq.xyz (Labs) | BrandHero centered over the rings (RingField), ResolveTitle | PictureGrid with LineArt (repositories as PictureCards) | GlyphFooter |
+| freeoxide.com | BrandHero over a scene (SceneStage), DotName wordmark | ProjectsSection (ProjectRows + StatTile) | DotFooter |
+| gpui-query | ProductHero split over MaterialWash, the product in a ProductWindow | SectionHead + the kit's code, command and chart pieces | SiteFooter over MaterialWash + WashGlow |
+| gpui-starter | ProductHero split over MaterialWash, with a terminal | ReleaseLoop | VoxelFooter |
+| claude-multi | ProductHero centered over MaterialWash, with the terminal demo | CatalogSection (CatalogCard pills + StatTile) | HeatFooter |
+| oxlabs.dev | BrandHero over the MaterialGrid, words on Glass | SurfaceBento, GlassBand + FlowSteps, StepsSection (StepCards + PictureGrid) | MaterialFooter |
+
+| Page | Main blog (blog.hmziq.rs) | Product site (blog inside the product) |
+| --- | --- | --- |
+| Blog index | MagazineIndex | BlogIndex |
+| Post | PostArticle with Byline | PostArticle |
+| Changelog | ReleaseDesk (DragWindow, ReleaseFilters) | ReleaseTimelinePage with ReleasePicture |
+| Docs | n/a | DocsReference (DocsNav, DocsBlocks) |
+| Pricing | n/a | PricingPage with PricingCard (subscription and lifetime), PricingCompare, FaqSection |
+| Contact, About | ContactDirect, AboutEssay (Book, BookSteps, CommitmentCards, ExperienceRail) | the same |
+| 404, Legal, FAQ | NotFoundPage, LegalPage, FaqPage | the same |
+
+A new site picks the family closest to it: a tool or app takes a product row, a studio or initiative takes a brand row, a person takes the personal row. The initiative flavour (the footer field, the hero stage, the material) changes; the columns, family row and type do not.
+
+Materials are surfaces, never pictures. A material appears only behind a real product visual, as a full-width band behind frosted glass (GlassBand), or as a whole MaterialCard with the words on glass. Never a material cover, thumbnail or fake screen; a card that needs a picture gets a real one (a UI sketch from AppMock, a LineArt drawing, an icon) or none. Tags are the kit's Tag pills. Cards are outlines with thin rings, never grey fills.
 
 ### Page patterns
 
-Content pages have their own blocks, in `blocks/content` under `$brand`. Each installs from either registry by its kebab name: `blog-layout`, `post-header`, `docs-layout`, `release-timeline`, `faq-list`, `not-found`, …
+Content pages have their own blocks, in `blocks/content` under `$brand`. Each installs from either registry by its kebab name: `post-header`, `docs-reference`, `release-timeline`, `faq-page`, `not-found-page`, …
 
 | Page | Blocks |
 | --- | --- |
-| Blog post | BlogLayout (the shell), PostHeader, PostContents, PullQuote, ShareBar, NewsletterBand |
-| Blog index | PostList, PostCard, PostMeta; SearchBox and TopicChips filter (the page holds the filter state) |
-| Docs | DocsLayout, DocsSearch, DocsTitle, DocsPager |
-| Changelog | ReleaseTimeline, ReleaseHead with KindTag, ReleaseNotes, PastReleases |
-| FAQ | FaqList on Question, questions numbered 01, 02… in orange with the topic as a grey tag |
-| Legal | LegalLayout, LegalSection, LegalBlock; SummaryBox carries the short version |
+| Blog post | PostArticle (PostHeader, PostContents, PullQuote, ShareBar, Byline) |
+| Blog index | MagazineIndex or BlogIndex (PostList, PostCard, PostMeta); SearchBox and TopicChips filter (the page holds the filter state) |
+| Docs | DocsReference (DocsNav, DocsBlocks, DocsSearch, DocsTitle, DocsPager) |
+| Changelog | ReleaseDesk or ReleaseTimelinePage (ReleaseTimeline, ReleaseHead with KindTag, ReleaseNotes, PastReleases) |
+| FAQ | FaqPage on Question, questions numbered 01, 02… in orange with the topic as a grey tag |
+| Legal | LegalPage (LegalSection; SummaryBox carries the short version) |
 | Contact | ContactChannels. Email opens the mail app; the address never appears in the page text |
-| 404 | NotFound |
-| Landing pieces | InstallSteps, TypingTerminal, CodeEditor |
-| About | No block of its own: PageIntro, BigNumbers, Section, StepNumber, CommandBar, Mark, CtaBand |
+| 404 | NotFoundPage |
+| About | AboutEssay (PageIntro, BigNumbers, Book, BookSteps, CommitmentCards, ExperienceRail) |
 
 Blocks never read the URL or navigate. The page passes the current path in and handles navigation (section 9).
 
@@ -961,7 +1044,7 @@ Everything else carries over from the sections above: outline panels, color only
 
 1. Use a shadcn component as it is.
 2. Adjust it with classes.
-3. Put shadcn components together into a page block (Hero, Section, FeatureGrid…).
+3. Put shadcn components together into a page block (Hero, SectionHead, PictureGrid…).
 4. Only then write a new component, with the rules below.
 
 ### Where things live
@@ -971,8 +1054,8 @@ The kits are the source. In a site with a kit installed, `$brand` points at the 
 | Folder (under `$brand`) | What | Rule |
 | --- | --- | --- |
 | `ui` (Svelte) / `starwind` (Astro) | stock components, vendored with the brand's changes | Install from the registry (`ui-*`, `starwind-*` items), don't hand-edit beyond the brand's changes. Updates come from the registry too. |
-| `components` | small brand pieces (Wordmark, Mark, Marker, Rings, Scene, Tag, IconTile, Notice, CodeBlock, CodeLines, CopyButton, CommandBar, TerminalWindow, Stepper, Segmented, Question, Toc, DataTable, BrandIcon) | Tokens only. Install from the registry; the logic (tones, logo recipe, rings, scroll spy, code theme) comes from `@hmziq/brand-core`, never copied. A site using Scene adds `three` itself. |
-| `blocks/site` | page blocks (SiteShell/SiteLayout, Hero and its parts HeroTitle, HeroLede, HeroActions, HeroNotes, HeroNote, PageIntro, RingStats, Section, OutlineCard, ElementCard, FeatureCards, FeatureGrid, Steps, PricingPlans, Price, BeforeAfter, CtaBand) and content pieces (Prose, Bullets, CheckList, LinkBar, SummaryBox, BigNumbers, SearchBox, TopicChips, EmptyNote) | Same on every site. |
+| `components` | small brand pieces (Wordmark, Mark, Marker, Rings, Scene, Tag, IconTile, Notice, CodeBlock, CodeLines, CopyButton, CommandBar, TerminalWindow, Segmented, Question, Toc, DataTable, BrandIcon) | Tokens only. Install from the registry; the logic (tones, logo recipe, rings, scroll spy, code theme) comes from `@hmziq/brand-core`, never copied. A site using Scene adds `three` itself. |
+| `blocks/site` | page blocks (SiteLayout, Hero and its parts HeroTitle, HeroLede, HeroActions, HeroNotes, HeroNote, PageIntro, OutlineCard) and content pieces (Prose, Bullets, CheckList, LinkBar, SummaryBox, BigNumbers, SearchBox, TopicChips, EmptyNote) | Same on every site. |
 | `blocks/content` | content-page blocks (blog, docs, changelog, FAQ, legal, contact, 404) | Same on every site; pages pass the content in. |
 | `blocks/app` | app blocks: the shell (AppShell, AppPage, AppPageHeader, WorkspaceSwitcher, UserMenu), settings (SettingsSection, SettingRow, FormActions), states (EmptyState, NoResults, ErrorState, DataState, the skeletons), lists and tables (CollectionToolbar, FilterChip, SortMenu, BulkActionBar, the table parts), sign-in (AuthLayout, the forms, ProviderButtons, PasswordInput), records (DetailList, DetailSection), metrics (MetricTrend, StatCard, StatGrid, UsageMeter) and actions (ConfirmAction, RecordSheet) | For app screens, on both kits. Their contract is `APP-BLOCKS.md`; follow it. |
 | pages / routes | one per route | Put blocks together; no new styles. |
@@ -1086,7 +1169,7 @@ Maker lines next to the wordmark: `by hmziq` (blog, labs, freeoxide, claude-mult
 
 ## 13. Never do this
 
-These made the old sites look like every other developer site:
+These made the old sites look like every other developer site. The kit's own hero stages, materials and footer fields (section 8, "Site families") are the reviewed exceptions: use them as they ship, where that table places them.
 
 - Near-black page with one neon accent (lime, hot pink, electric blue).
 - Fake terminal or code windows, boot logs or "LIVE" panels in the hero.
@@ -1102,6 +1185,7 @@ These made the old sites look like every other developer site:
 - Solid fills in any color but orange behind text (solid green badges, blue buttons).
 - Colored paragraphs, tinted notice boxes, colored card backgrounds. The only colored section backgrounds are the bands in section 7.
 - Grey-filled cards, tiles or panels sitting in the page.
+- A material used as a picture: a material cover, thumbnail or fake screen. Materials are surfaces (section 8).
 - Rings in a logo or mark, or rings behind text. A solid dot as a bullet.
 - Rings stacked under a hero's words on narrow screens. Rings sit beside the words; when the layout has no room for "beside" (below md), they sit out instead of taking vertical space.
 - Tailwind's numbered palette (`bg-green-500`) or hex values in components.

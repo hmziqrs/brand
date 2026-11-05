@@ -11,9 +11,11 @@
   "files": [
     "theme.css",
     "rings.css",
+    "book.css",
     "logo.css",
     "glass.css",
     "materials.css",
+    "resolve-title.css",
     "src",
     "dist",
     "README.md",
@@ -33,9 +35,11 @@
   "exports": {
     "./theme.css": "./theme.css",
     "./rings.css": "./rings.css",
+    "./book.css": "./book.css",
     "./logo.css": "./logo.css",
     "./glass.css": "./glass.css",
     "./materials.css": "./materials.css",
+    "./resolve-title.css": "./resolve-title.css",
     "./app/nav": {
       "types": "./dist/app/nav.d.ts",
       "default": "./dist/app/nav.js"
@@ -72,6 +76,34 @@
       "types": "./dist/tones.d.ts",
       "default": "./dist/tones.js"
     },
+    "./changelog": {
+      "types": "./dist/changelog.d.ts",
+      "default": "./dist/changelog.js"
+    },
+    "./docs-reference": {
+      "types": "./dist/docs-reference.d.ts",
+      "default": "./dist/docs-reference.js"
+    },
+    "./rich-blocks": {
+      "types": "./dist/rich-blocks.d.ts",
+      "default": "./dist/rich-blocks.js"
+    },
+    "./faq-search": {
+      "types": "./dist/faq-search.d.ts",
+      "default": "./dist/faq-search.js"
+    },
+    "./legal-page": {
+      "types": "./dist/legal-page.d.ts",
+      "default": "./dist/legal-page.js"
+    },
+    "./cv-page": {
+      "types": "./dist/cv-page.d.ts",
+      "default": "./dist/cv-page.js"
+    },
+    "./not-found-page": {
+      "types": "./dist/not-found-page.d.ts",
+      "default": "./dist/not-found-page.js"
+    },
     "./scroll-spy": {
       "types": "./dist/scroll-spy.d.ts",
       "default": "./dist/scroll-spy.js"
@@ -96,6 +128,10 @@
       "types": "./dist/markdown/table.d.ts",
       "default": "./dist/markdown/table.js"
     },
+    "./motion/book": {
+      "types": "./dist/motion/book.d.ts",
+      "default": "./dist/motion/book.js"
+    },
     "./motion/rings": {
       "types": "./dist/motion/rings.d.ts",
       "default": "./dist/motion/rings.js"
@@ -107,6 +143,66 @@
     "./motion/frame": {
       "types": "./dist/motion/frame.d.ts",
       "default": "./dist/motion/frame.js"
+    },
+    "./motion/canvas": {
+      "types": "./dist/motion/canvas.d.ts",
+      "default": "./dist/motion/canvas.js"
+    },
+    "./motion/diagonal-hatch": {
+      "types": "./dist/motion/diagonal-hatch.d.ts",
+      "default": "./dist/motion/diagonal-hatch.js"
+    },
+    "./motion/dot-name": {
+      "types": "./dist/motion/dot-name.d.ts",
+      "default": "./dist/motion/dot-name.js"
+    },
+    "./motion/hover-grid": {
+      "types": "./dist/motion/hover-grid.d.ts",
+      "default": "./dist/motion/hover-grid.js"
+    },
+    "./motion/resolve-title": {
+      "types": "./dist/motion/resolve-title.d.ts",
+      "default": "./dist/motion/resolve-title.js"
+    },
+    "./motion/ring-field": {
+      "types": "./dist/motion/ring-field.d.ts",
+      "default": "./dist/motion/ring-field.js"
+    },
+    "./motion/dither-name": {
+      "types": "./dist/motion/dither-name.d.ts",
+      "default": "./dist/motion/dither-name.js"
+    },
+    "./motion/dot-field": {
+      "types": "./dist/motion/dot-field.d.ts",
+      "default": "./dist/motion/dot-field.js"
+    },
+    "./motion/heat-field": {
+      "types": "./dist/motion/heat-field.d.ts",
+      "default": "./dist/motion/heat-field.js"
+    },
+    "./motion/pixel-name": {
+      "types": "./dist/motion/pixel-name.d.ts",
+      "default": "./dist/motion/pixel-name.js"
+    },
+    "./motion/voxel-field": {
+      "types": "./dist/motion/voxel-field.d.ts",
+      "default": "./dist/motion/voxel-field.js"
+    },
+    "./motion/wash-glow": {
+      "types": "./dist/motion/wash-glow.d.ts",
+      "default": "./dist/motion/wash-glow.js"
+    },
+    "./motion/line-art": {
+      "types": "./dist/motion/line-art.d.ts",
+      "default": "./dist/motion/line-art.js"
+    },
+    "./motion/flow-wires": {
+      "types": "./dist/motion/flow-wires.d.ts",
+      "default": "./dist/motion/flow-wires.js"
+    },
+    "./motion/release-loop": {
+      "types": "./dist/motion/release-loop.d.ts",
+      "default": "./dist/motion/release-loop.js"
     },
     "./motion/scenes": {
       "types": "./dist/motion/scenes/index.d.ts",

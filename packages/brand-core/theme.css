@@ -16,7 +16,7 @@
  *
  * Dark is the default: ship <html class="dark"> and remove the class for light.
  *
- * The file has three parts:
+ * The file has five parts:
  *   1. shadcn's tokens, in shadcn's layout. Greys are shadcn "neutral" (zero
  *      chroma, no tint). A theme tool's output can replace these two blocks.
  *   2. The colors: oxide orange plus seven supporting colors, tuned per mode
@@ -24,10 +24,18 @@
  *   3. Roles that point at those colors: status, code, icons, the logo
  *      square and the faint line used by ring art.
  *   4. Bands: full-width sections that change the colors inside them.
+ *   5. Type weight: light mode sets every weight a step heavier.
  *
- * --primary points at --orange. To try another brand color, point it at
- * another color (e.g. var(--blue)) in both blocks; everything that follows
- * the brand (ring, chart-1, sidebar, code keywords) follows it.
+ * Light mode is a pure white page with near-black type. Oxide fills (the
+ * main button, the orange band) are the vivid orange with near-black text
+ * on them; small oxide text (text-primary, text-orange) is the deep ink
+ * --primary-ink, and oxide words in a headline (h1, h2, [data-display]) are
+ * the brighter --primary-display. Dark mode uses the vivid orange for all three.
+ *
+ * --primary points at --orange. To try another brand color, point --primary,
+ * --primary-ink and --primary-display at another color (e.g. var(--blue)) in
+ * both blocks; everything that follows the brand (ring, chart-1, sidebar,
+ * code keywords) follows it.
  * `bun run check:contrast` measures every pair after a change.
  */
 
@@ -41,26 +49,27 @@
   --radius: 0.625rem;
 
   --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+  --foreground: oklch(0.08 0 0);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
+  --card-foreground: oklch(0.08 0 0);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
+  --popover-foreground: oklch(0.08 0 0);
 
   --primary: var(--orange);
-  --primary-foreground: oklch(0.985 0 0);
+  --primary-foreground: oklch(0.08 0 0);
+  --primary-ink: var(--orange-ink);
+  --primary-display: var(--orange-display);
 
   --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
+  --secondary-foreground: oklch(0.12 0 0);
   --muted: oklch(0.97 0 0);
-  /* shadcn ships 0.556; 0.54 keeps grey text readable on muted surfaces too (4.6:1) */
-  --muted-foreground: oklch(0.54 0 0);
+  --muted-foreground: oklch(0.3 0 0);
   --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+  --accent-foreground: oklch(0.12 0 0);
   --destructive: var(--red);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: var(--primary);
+  --border: oklch(0.86 0 0);
+  --input: oklch(0.86 0 0);
+  --ring: var(--primary-display);
 
   --chart-1: var(--primary);
   --chart-2: var(--blue);
@@ -69,13 +78,13 @@
   --chart-5: var(--yellow);
 
   --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-foreground: oklch(0.08 0 0);
   --sidebar-primary: var(--primary);
   --sidebar-primary-foreground: var(--primary-foreground);
   --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: var(--primary);
+  --sidebar-accent-foreground: oklch(0.12 0 0);
+  --sidebar-border: oklch(0.86 0 0);
+  --sidebar-ring: var(--ring);
 }
 
 .dark {
@@ -88,6 +97,8 @@
 
   --primary: var(--orange);
   --primary-foreground: oklch(0.145 0 0);
+  --primary-ink: var(--orange-ink);
+  --primary-display: var(--orange-display);
 
   --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);
@@ -113,7 +124,7 @@
   --sidebar-accent: oklch(0.269 0 0);
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: var(--primary);
+  --sidebar-ring: var(--ring);
 }
 
 /* 2. Colors ----------------------------------------------------------------
@@ -123,26 +134,32 @@
  * (bg-green/10 text-green dark:bg-green/20).
  * Light shades sit around L 0.53 and dark shades around L 0.72–0.80, so
  * every color passes AA as text on a card and on its own soft fill.
+ * Orange is the exception: the vivid shade fills in both modes, and light
+ * mode writes it as text in --orange-ink (small) or --orange-display (large).
  * --band is the gray of a full-width band; --on-orange is text on orange.
  */
 
 :root,
 .light {
   --red: oklch(0.54 0.21 26);
-  --orange: oklch(0.54 0.135 52);
+  --orange: oklch(0.72 0.165 52);
+  --orange-ink: oklch(0.42 0.11 48);
+  --orange-display: oklch(0.66 0.18 48);
   --yellow: oklch(0.53 0.11 75);
   --green: oklch(0.51 0.14 150);
   --teal: oklch(0.515 0.09 185);
   --blue: oklch(0.53 0.175 255);
   --purple: oklch(0.55 0.2 300);
   --pink: oklch(0.55 0.19 350);
-  --band: oklch(0.97 0 0);
-  --on-orange: oklch(0.985 0 0);
+  --band: oklch(0.955 0 0);
+  --on-orange: oklch(0.08 0 0);
 }
 
 .dark {
   --red: oklch(0.704 0.191 22.216);
   --orange: oklch(0.72 0.165 52);
+  --orange-ink: var(--orange);
+  --orange-display: var(--orange);
   --yellow: oklch(0.8 0.14 85);
   --green: oklch(0.75 0.15 150);
   --teal: oklch(0.75 0.12 185);
@@ -169,7 +186,7 @@
   /* Code highlighting: Shiki's css-variables theme with variablePrefix "--code-". */
   --code-foreground: var(--foreground);
   --code-background: var(--card);
-  --code-token-keyword: var(--primary);
+  --code-token-keyword: var(--primary-ink);
   --code-token-function: var(--blue);
   --code-token-string: var(--green);
   --code-token-string-expression: var(--green);
@@ -210,6 +227,8 @@
   --muted-foreground: var(--on-orange);
   --primary: var(--on-orange);
   --primary-foreground: var(--orange);
+  --primary-ink: var(--on-orange);
+  --primary-display: var(--on-orange);
   --border: color-mix(in oklab, var(--on-orange) 22%, transparent);
   --input: color-mix(in oklab, var(--on-orange) 45%, transparent);
   --ring: var(--on-orange);
@@ -299,6 +318,31 @@
   --color-on-orange: var(--on-orange);
   --color-mark-square: var(--mark-square);
   --color-line: var(--line);
+
+  /* Oxide as text: text-primary and text-orange print the ink, bg-* the fill. */
+  --text-color-primary: var(--primary-ink);
+  --text-color-orange: var(--orange-ink);
+}
+
+/* 5. Type weight -------------------------------------------------------------
+ * Black type on white reads lighter than white type on black, so light mode
+ * sets every weight a step heavier. A .dark island inside a light page goes
+ * back to the dark weights, and a .light band in a dark page takes the light ones.
+ */
+
+:root,
+.light {
+  --font-weight-light: 360;
+  --font-weight-normal: 450;
+  --font-weight-medium: 600;
+  --font-weight-semibold: 680;
+}
+
+.dark {
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
 }
 
 @layer base {
@@ -310,6 +354,16 @@
   }
   body {
     @apply bg-background text-foreground font-sans;
+    font-weight: var(--font-weight-normal);
+  }
+  .light,
+  .dark {
+    font-weight: var(--font-weight-normal);
+  }
+  /* Oxide words in a headline are large text: the brighter display shade. */
+  :is(h1, h2, [data-display]) {
+    --primary-ink: var(--primary-display);
+    --orange-ink: var(--orange-display);
   }
   /* Every lucide icon uses the brand line weight. Change one with stroke-[2]. */
   .lucide {

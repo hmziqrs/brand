@@ -1,4 +1,5 @@
 import type { Tone } from "@hmziq/brand-core/tones";
+import type { LineArtKind } from "@hmziq/brand-core/motion/line-art";
 
 /*
  * The shapes the content blocks take; the kits keep them next to the blocks
@@ -21,7 +22,28 @@ export type PostItem = {
   /** The post's category, as a colored tag. */
   topic?: string;
   href?: string;
+  /** The post's line drawing: its picture on cards, its cover and its preview in a row. */
+  art?: LineArtKind;
+  /** Its tags, without the #. */
+  tags?: string[];
+  /** Its reading time in minutes, for a topic's total. */
+  minutes?: number;
+  /** Its number on the blog, oldest first. */
+  number?: number;
 };
+
+/** One block of a post's text: a paragraph, a list, code, or links out with a line each. */
+export type PostBlock =
+  | { kind: "p"; text: string }
+  | { kind: "list"; items: string[] }
+  | { kind: "code"; text: string; lang?: "bash" | "json" | "python" | "rust" | "toml" | "typescript" | "text" }
+  | { kind: "links"; items: { label: string; href: string; text: string }[] };
+
+/** A part of a post: its heading's id and title, then its blocks. */
+export type PostSection = { id: string; title: string; blocks: PostBlock[] };
+
+/** A post's topic on a front page: how many posts, their minutes and the newest one's title. */
+export type TopicShelf = { topic: string; count: number; minutes?: number; latest?: string };
 
 /** A page in the docs menu. */
 export type DocsPage = { title: string; href: string };
@@ -32,15 +54,31 @@ export type DocsMenu = readonly (readonly [title: string | null, pages: readonly
 /** A kind of change, kept in one color across a whole changelog. */
 export type ChangeKind = string;
 
-/** One release: its version, its date, and its changes grouped by kind. */
+/** One change: a line with **bold**, `code` and [links](href), or such a line with nested lines under it. */
+export type ChangeItem = string | { text: string; sub: readonly string[] };
+
+/** One release: its version, its date ("2026-11-03", or "2026-11-XX" with no day), its title if it has one, and its changes grouped by kind. */
 export type Release = {
   v: string;
   date: string;
-  groups: readonly (readonly [kind: ChangeKind, items: readonly string[]])[];
+  title?: string;
+  groups: readonly (readonly [kind: ChangeKind, items: readonly ChangeItem[]])[];
 };
 
-/** The lab's colors for the kinds of change (claude-multi's changelog). */
-export const kindTone: Record<string, Tone> = { Added: "green", Changed: "blue", Fixed: "yellow", Blog: "pink" };
+/** Which part of a release's picture each change names: version, then kind, then one part (or null) per change, in the release's own order. */
+export type ChangeSpots = Record<string, Record<string, readonly (string | null)[]>>;
+
+/** What a release's picture says under it: a Tag and a caption; `drawing` frames a line drawing at 16:10. */
+export type ReleasePictureInfo = { tag: string; caption: string; drawing?: boolean };
+
+/** A picture's link to the changes: the part the pointer is on, read and set by the picture and the notes. */
+export type SpotState = { current: string | null };
+
+/** A closing link under a changelog: the first is the primary button; `external` opens in a new tab with an arrow. */
+export type ReleaseLink = { label: string; href: string; external?: boolean };
+
+/** The colors for the kinds of change, one per kind on every page. */
+export const kindTone: Record<string, Tone> = { Added: "green", Changed: "blue", Fixed: "yellow", Removed: "red", Blog: "pink", CI: "teal", Tests: "purple", Features: "orange" };
 
 /** One question in a FAQ: its topic, the question and the answer. */
 export type FaqItem = readonly [topic: string | undefined, question: string, answer: string];
@@ -66,6 +104,10 @@ export type Channel = {
   note: string;
   href: string;
   icon?: ChannelIcon;
+  /** The handle to look for, in small mono type under the note (cards only). */
+  handle?: string;
+  /** The card in solid oxide: the channel to use first (cards only). */
+  oxide?: boolean;
 };
 
 /** One step of an install: what to do, and the command that does it. */

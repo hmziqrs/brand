@@ -1,0 +1,30 @@
+---
+import SectionHead from "$brand/blocks/sections/section-head.astro";
+import Questions from "$brand/components/questions.astro";
+import Question from "$brand/components/question.astro";
+import type { PricingFaqData } from "./pricing-types";
+
+interface Props {
+  faq: PricingFaqData;
+  /** The small line over the title. */
+  kicker?: string;
+  class?: string;
+}
+
+const { faq, kicker = "Questions", class: className } = Astro.props;
+---
+
+<section data-slot="faq-section" class={className}>
+  <div class="grid gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-16">
+    <SectionHead kicker={kicker} title={faq.title} lede={faq.lede} layout="stack" titleClass="max-w-[12ch]" class="lg:sticky lg:top-[calc(var(--pricing-top,0px)+2rem)] lg:self-start" />
+    <Questions class="max-w-none">
+      {
+        faq.items.map((item, i) => (
+          <Question number={i + 1} open={i === 0} question={item.q}>
+            <p class="text-[0.95rem] leading-relaxed text-foreground/85">{item.a}</p>
+          </Question>
+        ))
+      }
+    </Questions>
+  </div>
+</section>

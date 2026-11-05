@@ -1,0 +1,55 @@
+---
+import { cn } from "$brand/utils";
+import { dotNameGrid } from "@hmziq/brand-core/motion/dot-name";
+
+/*
+ * A name in a dot font, as a picture with the name as its label. The dots fly
+ * in from a scatter when it scrolls into view; inside a [data-pointer-host]
+ * the dots near the cursor push away and light up in oxide. Still for
+ * reduced motion.
+ */
+
+interface Props {
+  /** Lowercase letters, digits, - . > _ and ■. */
+  word: string;
+  /** What screen readers hear; the word itself by default. */
+  label?: string;
+  class?: string;
+}
+
+const { word, label, class: className } = Astro.props;
+const grid = dotNameGrid(word);
+---
+
+<span data-slot="dot-name" data-display data-word={word} class={cn("relative block", className)} role="img" aria-label={label ?? word}>
+  <canvas class="block h-auto w-full" style={`aspect-ratio: ${grid.cols} / ${grid.rows};`}></canvas>
+  <span data-dot-ink class="hidden text-foreground"></span>
+  <span data-dot-accent class="hidden text-primary"></span>
+</span>
+
+<script>
+  import { mountDotName } from "@hmziq/brand-core/motion/dot-name";
+
+  const names = new WeakMap<HTMLElement, () => void>();
+
+  function init(root: HTMLElement) {
+    const canvas = root.querySelector("canvas");
+    const ink = root.querySelector("[data-dot-ink]");
+    const accent = root.querySelector("[data-dot-accent]");
+    if (!canvas || !ink || !accent) return;
+    names.set(root, mountDotName(canvas, { word: root.dataset.word ?? "", ink, accent }));
+  }
+
+  function initAll() {
+    for (const root of document.querySelectorAll<HTMLElement>("[data-slot='dot-name']")) if (!names.has(root)) init(root);
+  }
+
+  initAll();
+  document.addEventListener("astro:page-load", initAll);
+  document.addEventListener("astro:before-swap", () => {
+    for (const root of document.querySelectorAll<HTMLElement>("[data-slot='dot-name']")) {
+      names.get(root)?.();
+      names.delete(root);
+    }
+  });
+</script>

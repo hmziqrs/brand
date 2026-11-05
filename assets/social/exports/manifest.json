@@ -1,7 +1,7 @@
 {
   "target": "social",
   "command": "bun run render-assets --only social",
-  "digest": "6bf63e0ac52fa313f4e73a31968190b8d9cf3cda979a8fea50591f6a10776538",
+  "digest": "701730b0e5a8d1c10a01effefe30874691825f0e3be5665058f8e3087432c69a",
   "renderers": {
     "@resvg/resvg-js": "2.6.2",
     "opentype.js": "2.0.0",
@@ -132,7 +132,7 @@
     },
     {
       "path": "bun.lock",
-      "sha256": "8b90c90bd8c6b0ef669f625964e38d0299756782b29d2e50fae0041eee71fd3f"
+      "sha256": "db421fe803de3c5495f8be0739b9bf59692d9e3d3e5ba5283b82448351378fed"
     },
     {
       "path": "packages/brand-core/rings.css",
@@ -140,7 +140,7 @@
     },
     {
       "path": "packages/brand-core/src/color.ts",
-      "sha256": "5be3d55566df5747a4743765198780ff833f1015fffa8b8af76bdd43a3004936"
+      "sha256": "5b406c1e1d976fe426c92368c4f998c635bb3510035470dde5d9ea8228cc92bb"
     },
     {
       "path": "packages/brand-core/src/family.ts",
@@ -151,8 +151,64 @@
       "sha256": "0296e083a118b24f656c842bd10ba5e85ac01fb7152876b28d4aec9e57df346f"
     },
     {
+      "path": "packages/brand-core/src/motion/book.ts",
+      "sha256": "fadff677e02cfa6a3c1e27efbd1a9f25adbe23d5916173fa37aa30a20f06cfed"
+    },
+    {
+      "path": "packages/brand-core/src/motion/canvas.ts",
+      "sha256": "7159a2df0b1c373c42d3097e049d810ba7068b8a0adc15dc6fc7afc3db0f67c4"
+    },
+    {
+      "path": "packages/brand-core/src/motion/diagonal-hatch.ts",
+      "sha256": "6a874e4c8d6ed54a71258b813079d960732e22e0863789aefcf0089b43c38d9a"
+    },
+    {
+      "path": "packages/brand-core/src/motion/dither-name.ts",
+      "sha256": "2d8baf4ed17227515713d5b58c19d07a5a586284b2877544e36f0b6c421d7401"
+    },
+    {
+      "path": "packages/brand-core/src/motion/dot-field.ts",
+      "sha256": "a3b5aaa104f2e4c0b09be1c24d3af80a1b056c5595fa27e38e084fedf9ca72f3"
+    },
+    {
+      "path": "packages/brand-core/src/motion/dot-name.ts",
+      "sha256": "77491d9a000bf08c9a0dd347348672eeec3272c050a6c60bfb9e4be83f59b3bd"
+    },
+    {
+      "path": "packages/brand-core/src/motion/flow-wires.ts",
+      "sha256": "b72b1495d98bceb0e94f4838e1fa8bc5d6214437f0086d3fbfd2c34ab4aa27ef"
+    },
+    {
       "path": "packages/brand-core/src/motion/frame.ts",
       "sha256": "feb3426b5bd0bf90ae617fd7cd0b6161c64cda73998c7fdf074a2d5e5b04ddf2"
+    },
+    {
+      "path": "packages/brand-core/src/motion/heat-field.ts",
+      "sha256": "8c4dc81be1c07694b238e4fbb5af6d4530ea82b617537a553ef93d16a6259010"
+    },
+    {
+      "path": "packages/brand-core/src/motion/hover-grid.ts",
+      "sha256": "a7f86cea30e40d0ed415c47e69345394e5e985934ac88a053e04bfc84796bb3a"
+    },
+    {
+      "path": "packages/brand-core/src/motion/line-art.ts",
+      "sha256": "fd6ef00be3379aa30daf10926421aa60a9ded3b4c8fb85a6c5939222bc6d00b0"
+    },
+    {
+      "path": "packages/brand-core/src/motion/pixel-name.ts",
+      "sha256": "54ef1ec808a67ff309af39e7674b23b68bca6a22f3ba286f6b5a102388ee35a2"
+    },
+    {
+      "path": "packages/brand-core/src/motion/release-loop.ts",
+      "sha256": "395f765c0d39c826333c576ad9c551b78d935c764824d25f150eaa359bccdd15"
+    },
+    {
+      "path": "packages/brand-core/src/motion/resolve-title.ts",
+      "sha256": "6d69eecb87f09d37b2bdbf944fcf60b47751b05e758cbbbd87c9643a3c76a148"
+    },
+    {
+      "path": "packages/brand-core/src/motion/ring-field.ts",
+      "sha256": "de2b7b1685d4c24e39d529f68c69f82b8e9740d792139bd321c76c28701c9f37"
     },
     {
       "path": "packages/brand-core/src/motion/ring-shapes.ts",
@@ -199,8 +255,16 @@
       "sha256": "3e3cd9ffbdb91d6fbfc68c13222fe6c562ae412274283e37bb6ba87b1c255b88"
     },
     {
+      "path": "packages/brand-core/src/motion/voxel-field.ts",
+      "sha256": "f9f99a7392da4032497b65bb67ffe0bb669316ecb5c8d4021ef459130a449dd1"
+    },
+    {
+      "path": "packages/brand-core/src/motion/wash-glow.ts",
+      "sha256": "7d4816e511eab037ac7209a4d0397f6a01cd729893ff10a468f4e016667d5e00"
+    },
+    {
       "path": "packages/brand-core/theme.css",
-      "sha256": "70568a10f0ddf35d4164d763081ddb3f548691ece3a46d0c148af66b6d52ed48"
+      "sha256": "58d01d52df850695aaa2b5f8000662fbf51bbe6f1e054e87f80eaa887a3632a6"
     },
     {
       "path": "scripts/assets-lib.ts",

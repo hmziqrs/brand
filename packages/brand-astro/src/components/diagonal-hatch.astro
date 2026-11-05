@@ -1,0 +1,69 @@
+---
+import { cn } from "$brand/utils";
+
+/*
+ * A hero stage of fine diagonal oxide lines, thickening toward a corner.
+ * Inside a [data-pointer-host] they bend toward the cursor, and drift on
+ * their own while it's away. corner: lines from the top right, fading out
+ * behind words on the left. frame: lines from two opposite corners around a
+ * clear middle, for centered words. Still for reduced motion.
+ */
+
+interface Props {
+  variant?: "corner" | "frame";
+  /** Pixels between lines. */
+  spacing?: number;
+  /** The lines' angle in degrees. */
+  angle?: number;
+  /** How far, in pixels, the cursor pulls lines (corner 190, frame 200). */
+  reach?: number;
+  /** How strongly lines bend toward the cursor, 0–1 (corner 0.38, frame 0.4). */
+  bend?: number;
+  class?: string;
+}
+
+const { variant = "corner", spacing = 9, angle = -38, reach, bend, class: className } = Astro.props;
+const frame = variant === "frame";
+const corners = frame ? ["top-right", "bottom-left"] : ["top-right"];
+const options = { spacing, angle, reach: reach ?? (frame ? 200 : 190), bend: bend ?? (frame ? 0.4 : 0.38) };
+---
+
+<div
+  data-slot="diagonal-hatch"
+  data-variant={variant}
+  aria-hidden="true"
+  class={cn(
+    "absolute inset-0 overflow-hidden opacity-75",
+    frame ? "[mask-image:radial-gradient(ellipse_44%_50%_at_50%_50%,transparent_42%,black_100%)]" : "[mask-image:linear-gradient(to_right,transparent_0%,rgb(0_0_0/0.15)_35%,black_80%)]",
+    className,
+  )}
+>
+  {
+    corners.map((from) => (
+      <div class="absolute inset-0">
+        <canvas data-hatch={JSON.stringify({ ...options, from })} class="absolute inset-0 h-full w-full" />
+      </div>
+    ))
+  }
+</div>
+
+<script>
+  import { mountDiagonalHatch } from "@hmziq/brand-core/motion/diagonal-hatch";
+
+  const hatches = new WeakMap<HTMLCanvasElement, () => void>();
+
+  function initAll() {
+    for (const canvas of document.querySelectorAll<HTMLCanvasElement>("[data-slot='diagonal-hatch'] canvas[data-hatch]")) {
+      if (!hatches.has(canvas)) hatches.set(canvas, mountDiagonalHatch(canvas, JSON.parse(canvas.dataset.hatch ?? "{}")));
+    }
+  }
+
+  initAll();
+  document.addEventListener("astro:page-load", initAll);
+  document.addEventListener("astro:before-swap", () => {
+    for (const canvas of document.querySelectorAll<HTMLCanvasElement>("[data-slot='diagonal-hatch'] canvas[data-hatch]")) {
+      hatches.get(canvas)?.();
+      hatches.delete(canvas);
+    }
+  });
+</script>

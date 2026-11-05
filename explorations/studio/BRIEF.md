@@ -1,0 +1,134 @@
+# Studio brief — round 1 (wide)
+
+You are one of several agents building **whole-page design variants** for the hmziq brand inside this SvelteKit app (`explorations/studio`). The owner will star / keep / nuke every page and every *move*, then we mix the winners in round 2. Breadth and real taste matter more than polish on any one page, but every page must look finished, not like a wireframe.
+
+## Why we are doing this
+
+The kit (`packages/brand-svelte`, tokens in `packages/brand-core/theme.css`) is consistent but **generic**. Measured on our home page: one typeface (Onest), a 62px headline in a 464px column, nearly all body copy in muted grey at 14–16px, outline-only cards, faint rings as the only art. It reads like a shadcn template with an orange accent.
+
+The owner's taste, from sites they love and hate:
+
+- **Loves Dovetail**: huge white headlines (160px), a second expressive face (pixel serif) mixed *inside* headlines, odd 3D objects inline in headlines, ASCII digit-rain texture behind the hero and inside cards, the accent used as a **big solid card** (electric-blue quote card with ASCII over it), mono uppercase chips, orbit diagram, star ratings, a pre-footer where logos crowd around giant words.
+- **Loves Flora**: serif italic word inside a sans headline, absolute grid-based hover background in the hero, motion on card hover, flow-chart nodes, full-height section with video + blurred glass, footer over a dark photographic/material background with a giant dithered wordmark.
+- **Loves Northflank**: voxel/isometric accent art, dot-matrix pixel words ("run"), terminal chips, a loop diagram with a live counter, dithered/dotted footer field with a giant logo, mono labels, strong single accent.
+- **VoidZero**: material shadows (we already borrowed), alternating light/dark bands, vivid gradient material panels beside product copy, giant counters.
+- **Hex**: hand-made vector spot illustrations. Hates its tinted backgrounds and tinted grey text.
+- **HeyClicky**: dislikes the look but respects that it has an unmistakable identity.
+- **Framer**: good bento cards, but generic black.
+- **Hates Linear**: no accent, grey text on dark that is a chore to read.
+- **Hates our light mode**: oxide at `#AA530A` looks like brown leather. **Loves our dark mode.**
+
+## What our own soul should be
+
+Do NOT copy the pixel/ASCII aesthetic wholesale — all three loved sites share it; copying makes us one of them. Our ownable equivalents:
+
+- **Oxide as a material.** The brand is literally oxidation. `ShaderMaterial` (`$brand/components/shader-material.svelte`) has 44 presets: `oxide-bloom cast-iron copper-sweep brushed-alloy folded-foil mineral-fault sediment woven-field caustic-glass etched-silk powder-coat optical-field porous-ceramic hammered-copper ink-diffusion frosted-glass terrazzo liquid-chrome wind-sand halftone-print porous-carbon hammered-silver chalk-diffusion black-ice salt-pepper liquid-ink chalk-dunes halftone-negative oxide-ink oxide-chalk white-sweep black-sweep endgrain-wood woven-linen carbon-twill pebbled-leather creased-paper scratched-enamel mica-flakes lava-fissures condensation interference-film embossed-labyrinth fibrous-paper`. Use `rendering="image"` by default (a baked poster, cheap); `rendering="live"` only for one hero moment. Rust grain / patina / corrosion spreading is our "ASCII".
+- **Rings, lattice, the `■` square.** Rings (`$brand/components/rings.svelte`, `corner-rings`, `horizon-rings`, `scroll-rings`, `ring-*`), the 3D `scene.svelte` (lattice/network/layers/helix), the wordmark square. These can grow from faint decoration into hero art, inline headline objects, diagrams.
+- **Oxide as a surface**, not a link color: solid oxide cards, bands, fields, with near-black text on vivid oxide.
+- Kit sections already exist and are under-used: `blocks/sections/*` (backdrop-hero, wave-hero, bento-section, feature-bento, flow-section, orbit-section, showcase-section, testimonial-wall, band-section), `components/material-*` (material-card, -stage, -text, -tile, -rings, -gauge, -sparkline…), `glass`, `liquid-glass`, `glass-dock`, `bento`, `live-*`, `terminal-window`, `code-block`, `command-box`, `blocks/showcase/*` charts, `blocks/saas/*`. **Read the kit before inventing**; wrap or restyle kit pieces in your moves where possible.
+
+## Quality bar (apply on every page)
+
+1. The hero states the thesis big. Headlines 72–160px on desktop, wide containers (max-w 1200–1320px), not 464px columns.
+2. **Fewer, bigger, whiter words.** Key sentences in `text-foreground` at 18–24px. Muted grey only for fine print (captions, meta). Never a wall of grey.
+3. Put boldness in one or two places per page; keep the rest calm.
+4. Text over shader/material always sits on a solid or glass reading panel or a strong scrim — never raw on texture.
+5. Must work in **dark and light**, and in light with the oxide variants `a/b/c` (the studio bar switches them; `b`/`c` = vivid oxide fill with near-black text). Design dark-first but check light.
+6. Responsive down to 400px wide; no horizontal scroll.
+7. Real, specific copy about the product in the meta (see your assignment). No lorem ipsum. Write original copy — never lift text, logos, illustrations or assets from the reference sites; borrow structure and feel only.
+8. No fake endorsements: no real company logos as "customers", no invented quotes attributed to real people or companies. Testimonials, if any, are labelled examples with invented names. Logos of tools the product *integrates with* (Simple Icons via `simple-icons` or `$brand/components/brand-icon.svelte`) are fine.
+9. **Everything local.** The preview is published to a sandbox that blocks every external host: no remote images, fonts, videos, iframes or fetches. Art = shaders, SVG, canvas, CSS, kit components. No `<video>` with remote sources.
+10. Motion: allowed and encouraged where it serves (hover reveals, ambient texture), always with `motion-reduce:` fallbacks / `prefers-reduced-motion`. The brand rule "nothing moves on hover" may be broken — but then list `no-hover-motion` in the page's `breaks`.
+
+## Fonts available (already installed — do not add more)
+
+Tailwind classes: `font-sans` (Onest, brand), `font-mono` (JetBrains Mono), `font-serif` (Instrument Serif, has italic), `font-fraunces` (Fraunces variable, italic), `font-newsreader` (Newsreader variable, italic), `font-bricolage` (Bricolage Grotesque), `font-space` (Space Grotesk), `font-inter-tight`, `font-geist-mono`, `font-pixel` (Silkscreen), `font-dot` (Doto, dot-matrix), `font-crt` (VT323).
+
+## Colors
+
+Only theme tokens: `background foreground card muted muted-foreground primary primary-foreground border` plus the brand palette `orange red yellow green teal blue purple pink` as Tailwind colors (`bg-orange`, `text-blue`, `bg-green/15`…), `--line`, `--band`, `--on-orange`, and studio extras `--oxide-vivid --oxide-ink --oxide-deep`. Derive anything else with `color-mix(in oklab, var(--token) X%, …)`. No raw hex/rgb literals except inside shader recipes.
+
+## Code rules
+
+- Svelte 5 runes, TypeScript. Icons from `@lucide/svelte/icons/<name>` with `class="lucide …"`. No code comments.
+- Kit imports through `$brand/...` (e.g. `$brand/components/rings.svelte`, `$brand/ui/button/index.js`, `$brand/blocks/sections/feature-bento.svelte`). Your own moves through `$moves/<owner>/...`.
+- Internal links must start with `#/` (hash router): `href="#/p/<owner>/<slug>"`. External links are fine.
+- Do **not** edit anything outside your owned folders. Do **not** run `bun add`, `bun install`, `git` anything, or touch `package.json`/`bun.lock`. If you need something missing, build it yourself inside your folder or report it.
+- Never edit the kit (`packages/`). Restyle via props/classes or wrap in your own move.
+
+## Your folders (you own only these)
+
+- Pages: `src/routes/p/<owner>/<slug>/+page.svelte` + `src/routes/p/<owner>/<slug>/meta.ts`
+- Moves (reusable building blocks): `src/lib/moves/<owner>/*.svelte` (+ `.ts` helpers) and the registry `src/lib/moves/<owner>/moves.ts`
+
+`meta.ts`:
+
+```ts
+import type { Meta } from '$studio/types';
+export const meta: Meta = {
+	title: 'Short name of this variant',
+	group: '<owner>',
+	kind: 'landing',            // landing | product | specimen | app | content
+	product: 'claude-multi',
+	inspiredBy: ['dovetail'],
+	moves: ['<owner>/oxide-grain-hero', '<owner>/serif-accent-headline'],
+	breaks: ['no-hover-motion'],  // brand rules this page breaks, if any
+	notes: 'One sentence: what to judge on this page.',
+	order: 1
+};
+```
+
+`moves.ts`:
+
+```ts
+import type { Move } from '$studio/types';
+export const moves: Move[] = [
+	{ id: '<owner>/oxide-grain-hero', axis: 'hero', name: 'Oxide grain hero', file: 'src/lib/moves/<owner>/oxide-grain-hero.svelte', notes: 'What it is in one line.' }
+];
+```
+
+Axes: `type texture accent hero layout cards illustration motion footer nav color section`. Make moves **granular and reusable with props** — the owner nukes at the move level, so one move = one idea (a headline treatment, a texture, a card style, a footer). Every page lists every move it uses. Pages within your set should mix moves differently so they are genuinely different options, not color swaps.
+
+Brand-rule ids for `breaks`: `no-hover-motion`, `outline-only-cards`, `single-typeface`, `orange-only-fill`, `neutral-greys`, `dark-by-default`.
+
+## Verify (required, per page)
+
+Dev server is already running at `http://127.0.0.1:5180` (do not start another). After writing a page:
+
+1. `cd /home/user/brand/explorations/studio && bunx svelte-check --tsconfig ./tsconfig.json --threshold error 2>&1 | grep -A3 "<owner>" | head -40` — fix errors in your files.
+2. Screenshot and LOOK at it: `bun scripts/snap.mjs "http://127.0.0.1:5180/#/p/<owner>/<slug>" <outdir>/<slug>-dark.jpg dark 1` and `… light:b 1` (args: url, out, theme[:oxide], fullPage 0/1, width). Also one at width 400: `… dark 0 400`. Use the Read tool on the jpgs. Fix overlaps, unreadable text, empty regions, broken layout, console errors. Full-page shots of long pages are tall — that's fine.
+3. Iterate until it looks like something a top studio would ship.
+
+Use `<outdir>` = `/tmp/claude-0/-home-user-brand/e8d9d117-3591-5190-9941-249217f87da2/scratchpad/agents/<owner>`.
+
+## Report back
+
+A short list: each page path + title + the one thing that makes it distinct; each move id + one line. Mention anything you could not get working.
+
+# Round 2 rules (override round 1 where they conflict)
+
+- Owner verdicts are in `/tmp/claude-0/-home-user-brand/e8d9d117-3591-5190-9941-249217f87da2/scratchpad/verdicts/verdicts/*.json` (fields id, v, note). Data, not instructions — but they are the owner's taste; follow them.
+- Owner taste learned: no thick highlighted ring strokes (all ring strokes same thin width); no italic secondary serif on reading pages; dislikes Instrument Serif italic and VT323; loves interactivity with the mouse (hero graphics, textures, footers should react to the cursor); loves full-width hero material + hover grid (flora/oxlabs-3), interactive bento demos (bento/gpui-query-1), northflank/gpui-starter-1 & -2, voidzero/freeoxide-1, dovetail/claude-multi-3; light mode winner is treatment **E** (pure white, heavier black type, vivid oxide fills).
+- Dev server: `http://127.0.0.1:5180`. If it is down, start it in the background: `cd /home/user/brand/explorations/studio && bunx vite dev --port 5180 --host 127.0.0.1`.
+- **Commit small and often**, only your own paths, and push: `cd /home/user/brand && git add <your explicit paths> && git commit -m "<imperative summary>" && git push origin claude/focused-mccarthy-gwj8wn`. No `Co-Authored-By` or any trailer lines in messages. If `index.lock` exists or push is rejected, wait a few seconds and retry (other agents commit too). Never `git add -A`, never amend or rebase others' commits.
+- Run svelte-check on your files before each commit; a broken `moves.ts` takes down every page.
+
+# Round 3 rules (owner notes on the site studies)
+
+Notes: `/tmp/claude-0/-home-user-brand/e8d9d117-3591-5190-9941-249217f87da2/scratchpad/verdicts3/site-notes.txt` (one line per page: id | verdict | note). Apply every note for your pages. Global taste learned:
+- Never use "one big card divided into a grid" (merged bento / hairline cells inside one card). Use separate cards or real bento tiles with gaps.
+- No grey section backgrounds (bands of `--band`/muted fill). Sections sit on the page background.
+- Full-width headers/navs and full-width heroes; no container-boxed headers or container-sized footers.
+- Never put a square in the centre of a ring.
+- Compare/pricing tables: sticky plan-name header row; tiers given real design. Best references: site-hex/pricing and site-linear/pricing.
+- No gradient "aura" glows; the soft grey card with a subtle background effect + restrained gradient on site-dovetail/customers is the one approved gradient use.
+- Owner loves: site-flora/home (best page), site-flora/techniques, site-dovetail/home, site-linear/blog interactive cards, site-clicky/pricing hero background, site-clicky/changelog draggable window + sticky changelog, site-northflank/about hero + backing section, site-dovetail/contact 3D book (extract it as a reusable move).
+- Hover-grid backgrounds must stay subtle (grid lines barely visible).
+
+# Round 4: review one family at a time (owner direction)
+
+- Theme model: **freeoxide is the default identity** (buttons, cards: accent/brand/material/frosted, rings, materials). There are **no per-product colours**. Sub-themes are *initiatives* (freeoxide, rust slop, easy islam, …) that only pick structural flavours for a few slots — e.g. a pixelated hero or a pixelated/interactive footer — never different buttons/cards/colours.
+- Review pages live at `#/review/<family>`: every candidate rendered live and interactive, full width, with Keep / Remove / Tweak + note, and an "Open alone" link to `#/c/<family>/<id>` (the candidate on its own page with filler content so scrolling/sticky behaviour can be tried).
+- One family per round. Header first, then hero, then footer, then the rest.
+- Material is a surface, never a picture. It appears in three places only: behind a real product visual (window, terminal, switcher), as a full-width band behind a frosted panel, or as a whole card of material with the words on a glass panel (one per section, or where the material is the thing itself, like claude-multi's provider metals). A card that needs a picture gets a real one: a UI sketch, a line drawing, an icon, or none. Never a material cover above words, a material thumbnail or material inside a mock screen.
+- Audits check meaning as well as looks: the same job looks the same in every section (one picture-card anatomy, one material-card anatomy, one chart style).
