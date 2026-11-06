@@ -33,7 +33,7 @@
 	} = $props();
 
 	// svelte-ignore state_referenced_locally
-	const controller = setQuestionnaire({ defaultItem, item, items, noValidate, onItemChange, onReset: onreset, onSubmit: onsubmit, shortcuts });
+	const controller = setQuestionnaire({ defaultItem, item, items, noValidate, onItemChange, onReset: (onreset ?? undefined) as ((event: Event) => void) | undefined, onSubmit: (onsubmit ?? undefined) as ((event: SubmitEvent) => void) | undefined, shortcuts });
 
 	let form: HTMLFormElement | null = $state(null);
 
@@ -46,7 +46,7 @@
 	});
 
 	$effect(() => {
-		controller.syncProps({ defaultItem, item, items, noValidate, onItemChange, onReset: onreset, onSubmit: onsubmit, shortcuts });
+		controller.syncProps({ defaultItem, item, items, noValidate, onItemChange, onReset: (onreset ?? undefined) as ((event: Event) => void) | undefined, onSubmit: (onsubmit ?? undefined) as ((event: SubmitEvent) => void) | undefined, shortcuts });
 	});
 
 	$effect(() => {

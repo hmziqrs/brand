@@ -34,7 +34,7 @@
 	const controlled = $derived(checked !== undefined);
 	const isDisabled = $derived(item.disabled || disabled);
 	const selected = $derived(item.selectedAnswerIds.includes(id));
-	const isChecked = $derived(controlled ? (item.status === "skipped" ? false : checked) : selected);
+	const isChecked = $derived(controlled ? (item.status === "skipped" ? false : (checked ?? false)) : selected);
 	const type = $derived(item.multiple ? "checkbox" : "radio");
 	const shortcut = $derived(item.shortcutByChoiceValue?.get(value) ?? item.shortcutByAnswerId.get(id) ?? null);
 
@@ -55,13 +55,13 @@
 
 	$effect(() => {
 		void item.resetVersion;
-		if (controlled) item.syncControlledAnswerSelection(id, checked);
+		if (controlled) item.syncControlledAnswerSelection(id, checked ?? false);
 	});
 
 	$effect(() => {
 		const element = inputElement;
 		if (!element) return;
-		element.defaultChecked = controlled ? checked : defaultChecked;
+		element.defaultChecked = controlled ? (checked ?? false) : defaultChecked;
 		if (item.resetVersion > 0) element.checked = isChecked;
 	});
 

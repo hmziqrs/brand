@@ -33,7 +33,7 @@
 	const root = useQuestionnaireController("Questionnaire.Item");
 
 	// svelte-ignore state_referenced_locally
-	const item = setQuestionnaireItem(root, { disabled, invalid, multiple, name, required });
+	const item = setQuestionnaireItem(root, { disabled: disabled ?? false, invalid, multiple, name, required });
 
 	let fieldset: HTMLFieldSetElement | null = $state(null);
 
@@ -46,7 +46,7 @@
 	});
 
 	$effect(() => {
-		item.syncProps({ disabled, invalid, multiple, name, required });
+		item.syncProps({ disabled: disabled ?? false, invalid, multiple, name, required });
 	});
 
 	$effect(() => {

@@ -31,7 +31,7 @@
 	let uncontrolledFilled = $state(initialDefaultFilled);
 	const filled = $derived(controlled ? valueFilled : uncontrolledFilled);
 	const selected = $derived(item.selectedAnswerIds.includes(id));
-	const isDisabled = $derived(item.disabled || disabled);
+	const isDisabled = $derived(item.disabled || !!disabled);
 
 	$effect(() => {
 		return item.registerAnswerSelection(id, initialDefaultFilled);
