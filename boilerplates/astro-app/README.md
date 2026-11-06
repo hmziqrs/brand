@@ -4,7 +4,7 @@ The Astro starter for hmziq sites. The theme from `@hmziq/brand-core`, the
 brand kit through `$brand`, a landing page built from the site blocks, the
 content pages from [docs/content-blocks.md](../../docs/content-blocks.md),
 and the `/kit` gallery that stands in for Storybook (which doesn't support
-Astro components). Start new projects with `bun run new-project astro <folder>`.
+Astro components). Start new projects with `bun run new-project astro <folder> --local`.
 
 ## What's in it
 

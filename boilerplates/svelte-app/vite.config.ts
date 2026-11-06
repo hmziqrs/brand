@@ -58,7 +58,7 @@ export default defineConfig({
 	// bits-ui (under the stock shadcn-svelte components), svelte-sonner and
 	// mode-watcher (under the Toaster) ship .svelte files, which Node's SSR
 	// loader can't read if Vite externalizes them in dev.
-	ssr: { noExternal: ['bits-ui', 'svelte-sonner', 'mode-watcher'] },
+	ssr: { noExternal: ['bits-ui', 'svelte-sonner', 'mode-watcher', '@hmziq/brand-core'] },
 	plugins: [
 		tailwindcss(),
 		sveltekit({

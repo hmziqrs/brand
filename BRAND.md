@@ -33,9 +33,9 @@ Two ways in.
 > **The first release has not shipped yet.** `@hmziq/brand-core` is not on
 > npm and the registry URLs below are not live. Publishing them is a
 > deferred, by-hand release step (docs/kits.md, step 3). Until it runs,
-> work from the brand repo: `bun run check:fresh-copy <svelte|astro>` installs
-> a fresh app from the packed core and a locally served registry — the same
-> bytes the release will ship.
+> work from the brand repo: add `--local` to `new-project` below. It installs
+> from the packed core and a locally served registry, the same bytes the
+> release will ship.
 
 **A new site** starts from a starter, in the brand repo:
 
@@ -44,7 +44,9 @@ bun run new-project svelte ../my-site    # SvelteKit + shadcn-svelte
 bun run new-project astro ../my-site     # Astro + Starwind UI
 ```
 
-It copies the boilerplate, points `@hmziq/brand-core` at npm, installs the whole kit from its registry into the kit folder (`$lib/brand` for SvelteKit, `src/components/brand` for Astro), points `$brand` there, and runs `bun install`. No import in the boilerplate changes.
+Add `--static` for plain files with no server, and `--name "My site"` when the folder's name isn't the project's.
+
+It copies the boilerplate, names it, points `@hmziq/brand-core` at npm, installs the whole kit from its registry into the kit folder (`$lib/brand` for SvelteKit, `src/components/brand` for Astro), points `$brand` there, and runs `bun install`. No import in the boilerplate changes.
 
 **An existing site** gets the theme from npm and the components from its framework's registry (next subsection), then follows the steps below.
 

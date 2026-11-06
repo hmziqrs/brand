@@ -118,16 +118,21 @@ Every plan adds its own pieces to the roster. Two tools read it:
 
 `astro-app` also has a `/kit` gallery: one page per group, showing every piece in every state. It stands in for Storybook, which doesn't support Astro components. `astro-app` renders on demand with the `@astrojs/node` adapter, so Astro Actions, URL params and server islands work.
 
-**Starting a new project:** `bun run new-project <svelte|astro> <folder>` (`scripts/new-project.ts`):
+**Starting a new project:** `bun run new-project <svelte|astro> <folder>` (`scripts/new-project.ts`), with the folder outside this repo:
 
-1. Copies the boilerplate.
-2. Replaces `workspace:*` versions with the published `@hmziq/brand-core` version.
-3. Installs the kit from its registry into the kit folder and points `$brand` there.
-4. Runs `bun install`.
+1. Checks the kit's sources are there, and stops before writing anything if they aren't. Until core is released they aren't, so use `--local`.
+2. Copies the boilerplate and names it from `--name` or the folder: package, README, page titles and a rendered icon pack (`--symbol` sets its two letters).
+3. Points `@hmziq/brand-core` at the published version. With `--local` or a `--core` tarball, the tarball is copied into `vendor/`, so the project outlives the temp folder.
+4. Runs `bun install`, installs the kit from its registry into the kit folder and points `$brand` there.
 
-No import in the boilerplate changes.
+`components.json` always ends up naming the public registry, even after a local install. A failed run removes the folder unless `--keep-failed` is set. No import in the boilerplate changes.
 
-**Fresh-copy check:** `bun run check:fresh-copy <svelte|astro>` runs `new-project` into a temp folder outside the repo, then builds it. A boilerplate, kit or core release happens only when this passes.
+| Flag | What it does |
+| --- | --- |
+| `--local` | Installs from this checkout: core packed, the registries built and served locally |
+| `--static` | Plain files, no server. Astro drops the Node adapter, SvelteKit moves to `adapter-static`, and the demo app, live pages and Astro's `/kit` gallery go |
+
+**Fresh-copy check:** `bun run check:fresh-copy <svelte|astro> [--static]` runs `new-project` into a temp folder outside the repo, then builds and type-checks it. A boilerplate, kit or core release happens only when this passes.
 
 ## Distribution
 
@@ -496,11 +501,13 @@ by-hand release steps below. Done:
   sits inside `src/` in a copy — and the vite config's relative imports of
   core's Markdown plugins, which the config's own comment asks for),
   installs, and adds the whole kit from the registry. No import in the
-  boilerplate changes.
+  boilerplate changes. `--local` and `--static` are described under
+  "Starting a new project".
 - `bun run check:fresh-copy <svelte|astro>` (scripts/check-fresh-copy.ts):
   builds the registries, serves them from `scripts/serve-registries.ts`
   (a separate process — the installs run under `spawnSync`), runs
-  `new-project` into a temp folder outside the repo, and builds the copy.
+  `new-project` into a temp folder outside the repo, then builds and
+  type-checks the copy.
   While core is unreleased it installs the local `bun pm pack` tarball — the
   same bytes publish would upload — and says so. Both pass.
 - BRAND.md: section 2 leads with `bun run new-project` and "The registries"

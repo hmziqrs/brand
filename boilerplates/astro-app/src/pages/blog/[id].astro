@@ -17,7 +17,12 @@ import ShareBar from "$brand/blocks/content/share-bar.astro";
 import { headingsOf } from "../../lib/headings";
 import { author, site, topicTone } from "../../lib/example";
 
-export const prerender = false;
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  return posts.map((post) => ({ params: { id: post.id } }));
+}
 
 const { id } = Astro.params;
 const all = (await getCollection("blog")).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());

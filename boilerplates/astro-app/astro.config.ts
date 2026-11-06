@@ -19,6 +19,9 @@ export default defineConfig({
   adapter: node({ mode: "standalone" }),
   output: "server",
   vite: {
+    // Core imports its shader textures from JavaScript, which only Vite can load.
+    ssr: { noExternal: ["@hmziq/brand-core"] },
+    environments: { prerender: { resolve: { noExternal: ["@hmziq/brand-core"] } } },
     resolve: {
       alias: {
         $brand: brand,
