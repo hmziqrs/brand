@@ -23,6 +23,7 @@ const roots = [
   // boilerplate's pages. Stock shadcn-svelte is exempt.
   "packages/brand-svelte/src/lib",
   "boilerplates/svelte-app/src",
+  "apps/site/src",
 ].map((path) => join(root, path))
 // Stock libraries keep their own colors (they map them to tokens, but write
 // them their own way). The brand files around them do not. The one exception

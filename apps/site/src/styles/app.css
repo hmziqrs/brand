@@ -1,0 +1,8 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "@fontsource-variable/onest";
+@import "@fontsource-variable/jetbrains-mono";
+@import "@hmziq/brand-core/theme.css";
+@import "$brand/styles/kit.css";
+@source "../../../../packages/brand-core/src";
+@source "../../../../packages/brand-astro/src";

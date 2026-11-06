@@ -1,0 +1,83 @@
+---
+import AppMock from "$brand/components/app-mock.astro";
+import Book from "$brand/components/book.astro";
+import CodeLines from "$brand/components/code-lines.astro";
+import CommandBar from "$brand/components/command-bar.astro";
+import DitherName from "$brand/components/dither-name.astro";
+import ProductWindow from "$brand/components/product-window.astro";
+import Question from "$brand/components/question.astro";
+import Questions from "$brand/components/questions.astro";
+import StatTile from "$brand/components/stat-tile.astro";
+import ReleaseLoop from "$brand/components/release-loop.astro";
+import RingGauge from "$brand/components/ring-gauge.astro";
+import SurfaceTile from "$brand/components/surface-tile.astro";
+import TerminalBody from "$brand/components/terminal-body.astro";
+import TerminalLine from "$brand/components/terminal-line.astro";
+import TerminalWindow from "$brand/components/terminal-window.astro";
+import type { TerminalLineData } from "$brand/components/terminal-line";
+import PricingCard from "$brand/blocks/site/pricing-card.astro";
+import LiveDemo from "$brand/blocks/live/live-demo.astro";
+import type { PricingTier } from "$brand/blocks/site/pricing-types";
+import { links } from "../lib/links";
+import roster from "../../../../scripts/pieces.json";
+
+const pieceCount = roster.pieces.filter((p) => p.svelte && p.astro).length;
+
+const walks: PricingTier = {
+  name: "Daily walks",
+  tab: "Daily",
+  for: "One long walk, every day, rain or not.",
+  art: "lanes",
+  amount: ["$18"],
+  unit: ["a walk"],
+  short: ["a walk"],
+  note: ["Cancel any morning"],
+  cta: "Book a walk",
+  act: "Book",
+  pick: true,
+  badge: "Most dogs",
+  items: ["An hour outside", "A photo when it's done", "The same walker every time"],
+};
+
+const terminal: TerminalLineData[] = [
+  ["cmd", "bun run new-project astro ../my-site --local"],
+  ["step", "Theme", "yours"],
+  ["ok", "Ready. Now change everything."],
+];
+
+const code = `const rings = draw("you");
+const color = theme.orange;
+const font = "Onest";`;
+---
+
+<div class="grid gap-4 lg:grid-cols-12">
+  <div class="min-w-0 lg:col-span-5"><LiveDemo kind="downloads" placement="widget" /></div>
+  <div class="min-w-0 lg:col-span-7"><ProductWindow panel title="brand.ts" class="h-full"><CodeLines code={code} lang="typescript" /></ProductWindow></div>
+
+  <div class="min-w-0 rounded-2xl p-6 ring-1 ring-foreground/10 lg:col-span-12" data-pointer-host><DitherName name="hmziq" /></div>
+
+  <PricingCard tier={walks} class="lg:col-span-4" />
+  <div class="flex min-w-0 flex-col gap-4 lg:col-span-4">
+    <div class="rounded-2xl p-6 ring-1 ring-foreground/10">
+      <Questions>
+        <Question question="Can I use your orange?" open>You can, but then it's my orange.</Question>
+        <Question question="Will my site look like yours?">If you copy it, yes. Copy the method instead.</Question>
+        <Question question="Do I need to be a designer?">No. I'm not one.</Question>
+      </Questions>
+    </div>
+    <div class="flex flex-1 items-center justify-around rounded-2xl p-6 ring-1 ring-foreground/10">
+      <RingGauge value={1} /><RingGauge value={0.6} /><RingGauge value={5} />
+    </div>
+  </div>
+  <div class="flex min-w-0 flex-col gap-4 lg:col-span-4">
+    <TerminalWindow title="my-site"><TerminalBody>{terminal.map((line) => <TerminalLine line={line} />)}</TerminalBody></TerminalWindow>
+    <CommandBar command="bun run new-project" class="w-full" />
+    <StatTile value={String(pieceCount)} label="pieces in the kit" accent class="flex-1" />
+  </div>
+
+  <SurfaceTile preset="copper-sweep" title="On a desktop" body="A real window with real numbers." tag="App" href={links.story("custom-app-mock--kinds")} class="lg:col-span-6"><AppMock kind="desktop" title="Ledgerline" class="mx-auto max-w-[440px] bg-background" /></SurfaceTile>
+  <SurfaceTile preset="chalk-dunes" title="On a phone" body="The same parts, smaller." tag="App" href={links.story("custom-app-mock--kinds")} class="lg:col-span-3"><AppMock kind="phone" class="mx-auto max-w-[200px] bg-background" /></SurfaceTile>
+  <div class="grid min-w-0 place-items-center rounded-2xl p-6 ring-1 ring-foreground/10 lg:col-span-3"><Book title="The no list" eyebrow="hmziq" note="Press to turn over" class="w-44" /></div>
+
+  <div class="min-w-0 lg:col-span-12"><ReleaseLoop /></div>
+</div>

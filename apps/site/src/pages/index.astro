@@ -1,0 +1,142 @@
+---
+import { ArrowRight } from "@lucide/astro";
+import PictureGrid from "$brand/components/picture-grid.astro";
+import BigNumbers from "$brand/blocks/site/big-numbers.astro";
+import ButtonLink from "$brand/blocks/site/button-link.astro";
+import Container from "$brand/blocks/site/container.astro";
+import GlassBand from "$brand/blocks/sections/glass-band.astro";
+import SectionHead from "$brand/blocks/sections/section-head.astro";
+import NameRings from "../components/name-rings.astro";
+import PiecesWall from "../components/pieces-wall.astro";
+import SlopPage from "../components/slop-page.astro";
+import Site from "../layouts/Site.astro";
+import { links } from "../lib/links";
+import roster from "../../../../scripts/pieces.json";
+
+const pieceCount = roster.pieces.filter((p) => p.svelte && p.astro).length;
+
+const businesses = [
+  ["invoicing", "glow"],
+  ["dog walking", "saas"],
+  ["bread", "bento"],
+  ["tax law", "editorial"],
+  ["plumbing", "glass"],
+  ["gardening", "brutal"],
+] as const;
+
+const refused = [
+  ["Gradient sections", "classic AI slop"],
+  ["Wide display fonts", "not human-readable"],
+  ["Heavy headlines", "too much bold"],
+  ["Buttons that move when you press them", "we never want position drift"],
+  ["A different color per product", "looks horrible"],
+  ["3D atom art", "horrible"],
+];
+
+const jobs = [
+  { title: "Blog", dek: "Long reads on quiet pages.", art: "laptop", href: links.story("content-blog-post-article--main-blog") },
+  { title: "Docs", dek: "Find the answer, copy the code.", art: "modules", href: links.story("content-docs-reference--gpui-query") },
+  { title: "Product site", dek: "Show the thing working.", art: "window", href: links.story("sections-product-hero--split") },
+  { title: "Pricing", dek: "Plans you can compare at a glance.", art: "bars", href: links.story("site-pricing-pricing-page--oxlabs-dev") },
+  { title: "Admin panel", dek: "Tables, settings, sign-in.", art: "database", href: links.story("app-shell--sidebar") },
+  { title: "CV", dek: "One page that gets read.", art: "lanes", href: links.story("site-cv-page--cv-hmziq-rs") },
+] as const;
+
+const steps = [
+  ["Write down what you hate.", "Screenshots help. Be rude."],
+  ["Pick one color and one typeface.", "Then stop looking."],
+  ["Make one thing nobody else has.", "Mine is rings. Yours could be a drawing, a shape, a joke."],
+  ["Write the rules down.", "Put them where your tools read them first."],
+];
+
+const bigStatement = "text-[clamp(2rem,4.6vw,4rem)] leading-[1.06] font-medium tracking-[-0.035em] text-balance";
+---
+
+<Site title="You have seen this website" description="Ask a machine for a website and you get the same website. Here is how I got out of it, and how you can too.">
+    <div class="flex flex-col gap-28 pb-28 md:gap-40 md:pb-40">
+      <section class="pt-10 md:pt-16">
+        <Container size="wide">
+          <h1 class="text-[clamp(3rem,9vw,8rem)] leading-[0.98] font-medium tracking-[-0.045em] text-balance">You have seen this website.</h1>
+          <p class="mt-6 max-w-[36rem] text-[clamp(18px,1.7vw,22px)] leading-normal">Here is how I got out of it, and how you can too.</p>
+          <div class="mt-12 grid grid-cols-2 gap-2 lg:grid-cols-3 lg:gap-3" role="img" aria-label="Six websites for six different businesses, in different colors and layouts. They all say the same thing.">
+            {businesses.map(([business, skin]) => <SlopPage business={business} skin={skin} />)}
+          </div>
+          <p class="mt-5 text-right text-sm text-muted-foreground">Six businesses. Six looks. One website.</p>
+        </Container>
+      </section>
+
+      <section>
+        <Container size="wide">
+          <p class={`${bigStatement} max-w-[22em]`}>A model gives you the most likely answer. That page is the most likely website. <span class="text-primary">Nobody told it who you are.</span></p>
+        </Container>
+      </section>
+
+      <section>
+        <Container size="wide">
+          <SectionHead title="I made the same mess by hand." layout="stack" />
+          <BigNumbers class="mt-12" items={[["8", "sites"], ["4", "frameworks"], ["7", "typefaces"], ["8", "accent colors"]]} />
+          <p class="mt-10 text-[clamp(18px,1.7vw,22px)]">None of it looked like me.</p>
+        </Container>
+      </section>
+
+      <section>
+        <Container size="wide">
+          <SectionHead title="So I started saying no." lede="Most of what came back got thrown out. These are from my notes." layout="split" />
+          <ul class="mt-12">
+            {
+              refused.map(([thing, note]) => (
+                <li class="grid gap-1 border-t py-5 md:grid-cols-[1fr_auto] md:items-baseline md:gap-8">
+                  <s class="text-[clamp(1.5rem,3vw,2.5rem)] leading-tight tracking-[-0.025em] text-muted-foreground decoration-primary decoration-2">{thing}</s>
+                  <q class="text-sm text-foreground md:text-base">{note}</q>
+                </li>
+              ))
+            }
+          </ul>
+        </Container>
+      </section>
+
+      <section class="overflow-x-clip">
+        <Container size="wide">
+          <SectionHead title="What was left was mine." accent="mine" lede="One orange. One typeface. Rings drawn from a name, so every name gets its own." layout="split" class="mb-12" />
+          <NameRings />
+        </Container>
+      </section>
+
+      <section id="pieces" class="scroll-mt-24">
+        <Container size="wide">
+          <SectionHead title="Then I turned it into parts." lede={`${pieceCount} pieces for Svelte and Astro. These ones are running right here. The words inside are examples.`} layout="split" class="mb-12">
+            <ButtonLink slot="aside" href={links.pieces} variant="outline">Browse all of them<ArrowRight data-icon="inline-end" /></ButtonLink>
+          </SectionHead>
+          <PiecesWall />
+        </Container>
+      </section>
+
+      <section id="uses" class="scroll-mt-24">
+        <Container size="wide">
+          <SectionHead title="One kit, different jobs." layout="stack" class="mb-12" />
+          <PictureGrid items={[...jobs]} />
+        </Container>
+      </section>
+
+      <GlassBand title="Then I told the machine." lede="Every rule went into one file. Agents read it before they touch a page, and the build checks their work." points={["If a button moves on hover, the build fails.", "If a color isn't in the theme, the build fails.", "If text is too faint to read, the build fails."]}>
+        <ButtonLink slot="actions" href="/rules/" variant="outline">Read my rules</ButtonLink>
+      </GlassBand>
+
+      <section>
+        <Container size="wide">
+          <SectionHead title="Now do yours." lede="Or start from how I do it: my rules, my workflow, my stack." layout="split" class="mb-12" />
+          <ol>
+            {
+              steps.map(([step, note], i) => (
+                <li class="grid gap-1 border-t py-6 md:grid-cols-[3rem_1fr_1fr] md:items-baseline md:gap-6">
+                  <span class="text-sm text-primary">{i + 1}</span>
+                  <span class="text-[clamp(1.5rem,3vw,2.5rem)] leading-tight tracking-[-0.025em] text-balance">{step}</span>
+                  <span class="text-muted-foreground md:text-lg">{note}</span>
+                </li>
+              ))
+            }
+          </ol>
+        </Container>
+      </section>
+    </div>
+</Site>

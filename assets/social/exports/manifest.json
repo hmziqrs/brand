@@ -1,7 +1,7 @@
 {
   "target": "social",
   "command": "bun run render-assets --only social",
-  "digest": "701730b0e5a8d1c10a01effefe30874691825f0e3be5665058f8e3087432c69a",
+  "digest": "95bce336490ab294a01e6113266c821219ccbe76375865019ec3f127f5e8f203",
   "renderers": {
     "@resvg/resvg-js": "2.6.2",
     "opentype.js": "2.0.0",
@@ -132,7 +132,7 @@
     },
     {
       "path": "bun.lock",
-      "sha256": "db421fe803de3c5495f8be0739b9bf59692d9e3d3e5ba5283b82448351378fed"
+      "sha256": "0337dff8108ae37e2a8bfb2eeb8206be51e0d4fb16939461c42416fc5c71c82e"
     },
     {
       "path": "packages/brand-core/rings.css",

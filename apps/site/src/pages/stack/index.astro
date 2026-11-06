@@ -1,0 +1,89 @@
+---
+import { siAstro, siBun, siClaude, siCloudflare, siGhostty, siGithub, siGooglegemini, siHelix, siLucide, siOpencode, siOxc, siRust, siStorybook, siSvelte, siTailwindcss, siTauri, siThreedotjs, siTypescript, siXcode, siZedindustries } from "simple-icons";
+import BrandIcon from "$brand/components/brand-icon.astro";
+import Container from "$brand/blocks/site/container.astro";
+import PageTop from "../../components/page-top.astro";
+import Site from "../../layouts/Site.astro";
+
+type Tool = { name: string; icon?: { path: string; title?: string } };
+
+const groups: { name: string; note: string; tools: Tool[] }[] = [
+  {
+    name: "Websites",
+    note: "One stack per kind of site. Astro for reading, SvelteKit when there's an app inside.",
+    tools: [{ name: "Astro", icon: siAstro }, { name: "Starwind UI" }, { name: "SvelteKit", icon: siSvelte }, { name: "shadcn-svelte" }, { name: "Tailwind 4", icon: siTailwindcss }, { name: "three.js", icon: siThreedotjs }],
+  },
+  {
+    name: "Apps",
+    note: "Computers and the terminal.",
+    tools: [{ name: "Rust", icon: siRust }, { name: "GPUI" }, { name: "Dioxus" }, { name: "Tauri", icon: siTauri }],
+  },
+  {
+    name: "AI",
+    note: "Whichever does the job. They all read the same rules.",
+    tools: [{ name: "Claude Code", icon: siClaude }, { name: "Codex" }, { name: "Gemini CLI", icon: siGooglegemini }, { name: "OpenCode", icon: siOpencode }, { name: "ZCode" }],
+  },
+  {
+    name: "Editors",
+    note: "Where I read what the agents wrote.",
+    tools: [{ name: "Zed", icon: siZedindustries }, { name: "VS Code" }, { name: "Xcode", icon: siXcode }, { name: "Helix", icon: siHelix }, { name: "Ghostty", icon: siGhostty }, { name: "Zellij" }],
+  },
+  {
+    name: "Tooling",
+    note: "Bun for everything. One lockfile.",
+    tools: [{ name: "Bun", icon: siBun }, { name: "TypeScript", icon: siTypescript }, { name: "oxlint", icon: siOxc }, { name: "Storybook", icon: siStorybook }, { name: "Playwright" }],
+  },
+  {
+    name: "The look",
+    note: "Normal width, normal weight, one set of icons.",
+    tools: [{ name: "Onest" }, { name: "JetBrains Mono" }, { name: "Lucide", icon: siLucide }, { name: "Simple Icons" }],
+  },
+  {
+    name: "Shipping",
+    note: "Plain files on the edge when a page needs no server.",
+    tools: [{ name: "Cloudflare Workers", icon: siCloudflare }, { name: "GitHub", icon: siGithub }],
+  },
+];
+const past = [
+  ["Flutter", "I don't use it anymore."],
+  ["React", "The design lab started here. SvelteKit and Astro replaced it."],
+  ["pnpm", "This repo started on it. Bun replaced it."],
+];
+---
+
+<Site title="My stack" description="The languages, frameworks, editors and AI tools I use now, and the ones I stopped using.">
+  <PageTop title="What I use now." lede="And what I stopped using, because that says as much." />
+  <Container size="wide" class="pb-28 md:pb-40">
+    {
+      groups.map((group) => (
+        <section class="grid gap-4 border-t py-8 md:grid-cols-[12rem_1fr] md:gap-10 md:py-10">
+          <h2 class="text-[clamp(1.25rem,2.2vw,1.75rem)] leading-tight tracking-[-0.02em]">{group.name}</h2>
+          <div class="min-w-0">
+            <ul class="flex flex-wrap gap-2">
+              {group.tools.map((tool) => (
+                <li class="flex items-center gap-2 rounded-full px-3.5 py-1.5 text-sm ring-1 ring-foreground/10">
+                  {tool.icon && <BrandIcon icon={tool.icon} class="size-4" />}
+                  {tool.name}
+                </li>
+              ))}
+            </ul>
+            <p class="mt-4 text-muted-foreground">{group.note}</p>
+          </div>
+        </section>
+      ))
+    }
+    <section class="mt-20 md:mt-28">
+      <h2 class="text-[clamp(2rem,4vw,3.25rem)] leading-[1.05] font-medium tracking-[-0.035em]">What I used to use.</h2>
+      <ul class="mt-10">
+        {
+          past.map(([tool, why]) => (
+            <li class="grid gap-1 border-t py-5 md:grid-cols-2 md:items-baseline md:gap-8">
+              <s class="text-[clamp(1.5rem,3vw,2.5rem)] leading-tight tracking-[-0.025em] text-muted-foreground decoration-primary decoration-2">{tool}</s>
+              <span class="text-muted-foreground md:text-lg">{why}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </Container>
+</Site>

@@ -1,0 +1,223 @@
+---
+import Rings from "$brand/components/rings.astro";
+import Wordmark from "$brand/components/wordmark.astro";
+import SlopPage from "../slop-page.astro";
+---
+
+<div class="short dark" data-motion role="img" aria-label="A sample short. The hmziq logo opens the video, moves to the top left, and stays there over a run of full-screen shots.">
+  <div class="short-rings"><Rings seed="hmziq" motion="ripple-turn" label="" /></div>
+
+  <div class="short-cut short-text" style="--at:2.4s;--for:2.2s"><p>You have seen this website.</p></div>
+  <div class="short-cut" style="--at:4.6s;--for:0.8s"><div class="short-fill"><SlopPage business="dog walking" skin="glow" /></div></div>
+  <div class="short-cut" style="--at:5.4s;--for:0.8s"><div class="short-fill"><SlopPage business="tax law" skin="editorial" /></div></div>
+  <div class="short-cut" style="--at:6.2s;--for:0.8s"><div class="short-fill"><SlopPage business="plumbing" skin="glass" /></div></div>
+  <div class="short-cut" style="--at:7s;--for:0.8s"><div class="short-fill"><SlopPage business="gardening" skin="brutal" /></div></div>
+  <div class="short-cut short-text band-orange" style="--at:7.8s;--for:2.2s"><p>Four businesses. One website.</p></div>
+  <div class="short-cut short-cut-last short-text" style="--at:10s"><p>Nobody told it <span>who you are.</span></p></div>
+
+  <div class="short-move"><div class="short-rise"><Wordmark name="hmziq" /></div></div>
+
+  <div class="short-safe" aria-hidden="true">
+    <span class="short-safe-top">Platform icons</span>
+    <span class="short-safe-right">Like, comment, share</span>
+    <span class="short-safe-bottom">Channel, title, caption</span>
+  </div>
+</div>
+
+<style>
+  .short {
+    --settle: cubic-bezier(0.16, 1, 0.3, 1);
+    --edge: 5.6cqw;
+    --buttons: 17.8cqw;
+    container-type: inline-size;
+    position: relative;
+    aspect-ratio: 9 / 16;
+    width: 100%;
+    overflow: hidden;
+    background: var(--background);
+    color: var(--foreground);
+  }
+
+  .short-rings {
+    position: absolute;
+    inset: 0 0 auto;
+    height: 62%;
+    overflow: hidden;
+    mask-image: radial-gradient(circle at 62cqw 64.5cqw, black var(--short-reach), transparent calc(var(--short-reach) + 12cqw)), linear-gradient(black 70%, transparent);
+    mask-composite: intersect;
+    animation:
+      short-open 0.9s cubic-bezier(0.3, 0, 0.5, 1) both,
+      short-close 0.8s cubic-bezier(0.4, 0, 0.6, 1) 1.6s forwards;
+  }
+  .short-rings :global(svg) {
+    position: absolute;
+    top: 16cqw;
+    right: 20.8%;
+    width: 112%;
+    overflow: visible;
+  }
+
+  .short-move {
+    position: absolute;
+    top: 19.4cqw;
+    left: var(--edge);
+    z-index: 2;
+    isolation: isolate;
+    font-size: 6.4cqw;
+    transform-origin: top left;
+    animation: short-corner 0.6s var(--settle) 1.7s both;
+  }
+  .short-move::before {
+    position: absolute;
+    z-index: -1;
+    inset: -1.3cqw -1.8cqw;
+    border-radius: 1.6cqw;
+    background: var(--background);
+    content: "";
+    animation: short-in 0.2s linear 2.2s both;
+  }
+  .short-rise {
+    animation: short-rise 0.5s var(--settle) 0.3s both;
+  }
+
+  .short-cut {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    overflow: hidden;
+    background: var(--background);
+    visibility: hidden;
+    animation: short-shot var(--for) linear var(--at) forwards;
+  }
+  .short-cut-last {
+    animation: short-hold 0.01s linear var(--at) forwards;
+  }
+  .short-text {
+    display: flex;
+    align-items: center;
+    padding: 0 var(--edge);
+    font-size: 16.5cqw;
+    font-weight: 500;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    text-wrap: balance;
+  }
+  .short-text span {
+    color: var(--primary);
+  }
+  .short-fill {
+    container-type: inline-size;
+    width: 180cqw;
+  }
+  .short-fill :global(.slop) {
+    container-type: normal;
+    justify-content: center;
+    width: 55.56cqw;
+    height: 98.77cqw;
+    aspect-ratio: auto;
+    border-radius: 0;
+  }
+  .short .short-fill :global(.slop[data-skin="editorial"] .slop-cards) {
+    margin: 5cqw 6cqw 0;
+  }
+  .short-fill :global(.slop-bar) {
+    position: absolute;
+    inset: 0 0 auto;
+  }
+
+  .short-safe {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    display: none;
+    color: var(--foreground);
+    font-size: 2.6cqw;
+  }
+  :global([data-safe]) .short-safe {
+    display: block;
+  }
+  .short-safe span {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: repeating-linear-gradient(135deg, color-mix(in oklab, var(--primary) 32%, transparent) 0 0.6cqw, transparent 0 1.8cqw);
+    text-align: center;
+  }
+  .short-safe-top {
+    inset: 0 0 auto;
+    height: 18.5cqw;
+  }
+  .short-safe-right {
+    top: 18.5cqw;
+    right: 0;
+    bottom: 44.4cqw;
+    width: var(--buttons);
+  }
+  .short-safe-bottom {
+    inset: auto 0 0;
+    height: 44.4cqw;
+  }
+
+  @property --short-reach {
+    syntax: "<length>";
+    inherits: false;
+    initial-value: 0px;
+  }
+  @keyframes short-open {
+    from {
+      --short-reach: 0px;
+    }
+    to {
+      --short-reach: 120cqw;
+    }
+  }
+  @keyframes short-close {
+    from {
+      --short-reach: 120cqw;
+    }
+    to {
+      --short-reach: 0px;
+    }
+  }
+  @keyframes short-in {
+    from {
+      opacity: 0;
+    }
+  }
+  @keyframes short-rise {
+    from {
+      opacity: 0;
+      transform: translateY(0.55cqw);
+    }
+  }
+  @keyframes short-corner {
+    from {
+      transform: translate(2.4cqw, 85.6cqw) scale(2.656);
+    }
+  }
+  @keyframes short-shot {
+    0%,
+    99.9% {
+      visibility: visible;
+    }
+    100% {
+      visibility: hidden;
+    }
+  }
+  @keyframes short-hold {
+    to {
+      visibility: visible;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .short-rings,
+    .short-move,
+    .short-move::before,
+    .short-rise,
+    .short-cut {
+      animation-duration: 0s;
+      animation-delay: 0s;
+    }
+  }
+</style>

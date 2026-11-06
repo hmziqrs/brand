@@ -1,0 +1,62 @@
+---
+import "../styles/app.css";
+import BandArcs from "$brand/components/band-arcs.astro";
+import Rings from "$brand/components/rings.astro";
+import Wordmark from "$brand/components/wordmark.astro";
+
+interface Props {
+  slug: string;
+  title: string;
+  tone?: "orange";
+}
+
+const { slug, title, tone } = Astro.props;
+const html = await Astro.slots.render("default");
+const hasGraphic = html.trim().replace(/<!--.*?-->/g, "") !== "";
+---
+
+<html lang="en" class="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex" />
+    <title>{title}</title>
+  </head>
+  <body class="m-0 bg-background">
+    <div class:list={["og-card relative isolate flex overflow-hidden bg-background text-foreground", tone === "orange" && "band-orange"]}>
+      {tone === "orange" && <BandArcs />}
+      <div class="og-words relative flex h-full flex-col justify-between">
+        <Wordmark name="hmziq" class="text-[44px]" />
+        <h1 class="og-headline font-medium text-balance">{title}</h1>
+        <p class="text-[26px] text-muted-foreground">brand.hmziq.rs</p>
+      </div>
+      {hasGraphic ? <Fragment set:html={html} /> : <div class="og-rings"><Rings seed={slug} /></div>}
+    </div>
+  </body>
+</html>
+
+<style is:global>
+  .og-card {
+    width: 1200px;
+    height: 630px;
+  }
+  .og-words {
+    flex: none;
+    box-sizing: border-box;
+    width: 660px;
+    padding: 64px 0 56px 72px;
+  }
+  .og-headline {
+    font-size: 76px;
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+  .og-rings {
+    position: absolute;
+    top: 47px;
+    left: 560px;
+    width: 620px;
+  }
+  .og-rings svg {
+    overflow: visible;
+  }
+</style>

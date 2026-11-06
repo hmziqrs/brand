@@ -1,0 +1,68 @@
+---
+import "../styles/app.css";
+import BandArcs from "$brand/components/band-arcs.astro";
+import NavBar from "$brand/components/nav-bar.astro";
+import SiteFooter from "$brand/components/site-footer.astro";
+import ButtonLink from "$brand/blocks/site/button-link.astro";
+import Container from "$brand/blocks/site/container.astro";
+import SiteHead from "$brand/blocks/site/site-head.astro";
+import ThemeToggle from "../components/theme-toggle.astro";
+import { links } from "../lib/links";
+
+interface Props {
+  title: string;
+  description: string;
+  /** The closing orange band. The 404 page leaves it out. */
+  closing?: boolean;
+}
+
+const { title, description, closing = true } = Astro.props;
+const path = Astro.url.pathname;
+const url = new URL(path, Astro.site).href;
+const pages = [
+  { label: "Rules", href: "/rules/" },
+  { label: "Workflow", href: "/workflow/" },
+  { label: "Stack", href: "/stack/" },
+  { label: "Media", href: "/media/" },
+];
+---
+
+<html lang="en" class="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <SiteHead site="hmziq" title={title} description={description} url={url} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <script is:inline>
+      (function () {
+        try {
+          if (localStorage.getItem("theme") === "light") document.documentElement.classList.remove("dark");
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body class="bg-background text-foreground">
+    <NavBar site="hmziq" maker="brand" links={[{ label: "Pieces", href: "/#pieces" }, ...pages.map((p) => ({ ...p, current: path === p.href }))]} cta={{ label: "Browse the pieces", href: links.pieces }} github={links.github} size="wide">
+      <ThemeToggle slot="extra" />
+    </NavBar>
+
+    <main><slot /></main>
+
+    {
+      closing && (
+        <section class="band-orange relative overflow-hidden py-16 md:py-24">
+          <BandArcs />
+          <Container size="wide" class="relative">
+            <h2 class="max-w-[14em] text-4xl leading-[1.02] font-medium tracking-[-0.04em] text-balance md:text-[3.25rem]">Your site should look like someone made it.</h2>
+            <div class="mt-9 flex flex-wrap gap-3">
+              <ButtonLink href={links.pieces} size="lg">Browse the pieces</ButtonLink>
+              <ButtonLink href="/rules/" size="lg" variant="outline">Read my rules</ButtonLink>
+            </div>
+          </Container>
+        </section>
+      )
+    }
+
+    <SiteFooter site="hmziq" size="wide" legal="© 2026 hmziq." columns={[{ title: "This site", links: pages }, { title: "The kit", links: [{ label: "Pieces", href: links.pieces }, { label: "Rules file", href: links.rules }, { label: "Source", href: links.github }] }]} />
+  </body>
+</html>

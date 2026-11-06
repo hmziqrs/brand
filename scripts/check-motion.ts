@@ -21,6 +21,7 @@ const roots = [
   // The whole Svelte kit and its boilerplate, stock shadcn-svelte included.
   "packages/brand-svelte/src/lib",
   "boilerplates/svelte-app/src",
+  "apps/site/src",
 ].map((path) => join(root, path))
 const interaction = /(^|-)(hover|active|focus|focus-visible|focus-within|pressed)$/
 const movement = /^-?(translate|scale|rotate)-/

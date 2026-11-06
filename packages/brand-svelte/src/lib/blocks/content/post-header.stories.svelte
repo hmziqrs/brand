@@ -25,7 +25,7 @@
 			topic={post.topic}
 			tone={postTone}
 			author={{ name: 'hmziq', symbol: 'Hq' }}
-			cover={{ src: '/covers/example.svg', alt: 'Monochrome line art of a person working late at a laptop in a dark, minimal room', lineArt: true }}
+			cover={{ src: './covers/example.svg', alt: 'Monochrome line art of a person working late at a laptop in a dark, minimal room', lineArt: true }}
 		/>
 	</div>
 </Story>

@@ -1,0 +1,16 @@
+{
+  "name": "brand-site-deploy",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "description": "Deploys brand.hmziq.rs: the built site at / and the kit's Storybook at /storybook/, as static files on Cloudflare Workers.",
+  "scripts": {
+    "assemble": "bun run --cwd ../site build && bun run --cwd ../../packages/brand-svelte build-storybook && bun scripts/assemble.ts",
+    "deploy:check": "bun run assemble && cf deploy --dry-run",
+    "deploy": "bun run assemble && cf deploy"
+  },
+  "devDependencies": {
+    "cf": "^1.0.0-beta.27",
+    "wrangler": "^4.157.0"
+  }
+}

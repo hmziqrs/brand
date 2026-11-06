@@ -1,0 +1,56 @@
+---
+import Container from "$brand/blocks/site/container.astro";
+import SectionHead from "$brand/blocks/sections/section-head.astro";
+import PageTop from "../../components/page-top.astro";
+import Site from "../../layouts/Site.astro";
+
+const steps = [
+  ["Ask for options, not answers.", "Several versions side by side, with one thing changing at a time."],
+  ["Pick in one line.", "Mine looked like this: square logo, rings hero, soft corners, ring markers."],
+  ["Say what's wrong.", "Voice notes, mostly. \"Horrible\" is useful feedback."],
+  ["Ask for sliders.", "When words run out, I get a tweaker, tune it by hand and paste the settings back."],
+  ["Turn the answer into a rule.", "It goes in the rules file, so nobody has to ask again."],
+  ["Make the build check it.", "A rule the machine can check is a rule that stays."],
+];
+
+const log = [
+  ["24 Sep", "Empty repo. The first round of fonts: \"not human-readable\"."],
+  ["24 Sep", "Round 8. The landing page gets to \"about perfect\"."],
+  ["25 Sep", "Round 12. The logo is final, with no rings in it."],
+  ["27 Sep", "Sliders for the rings and the lattice. The ball-and-stick versions: \"more horrible\"."],
+  ["28 Sep", "React goes. SvelteKit and Astro stay."],
+  ["9 Oct", "The React lab is deleted, once both kits match it piece for piece."],
+  ["13 Oct", "A color per product: \"looks horrible\". Glass stays."],
+  ["6 Nov", "Keep every piece until the live sites move over, then delete what they didn't use."],
+];
+---
+
+<Site title="My workflow" description="How I build with AI agents: see options, react, turn the answer into a rule, make the build check it.">
+  <PageTop title="I don't write briefs." lede="I don't know what I want until I see it. So the agent shows me, I react, and we go again." />
+  <Container size="wide" class="flex flex-col gap-28 pb-28 md:gap-40 md:pb-40">
+    <ol>
+      {
+        steps.map(([step, note], i) => (
+          <li class="grid gap-1 border-t py-6 md:grid-cols-[3rem_1fr_1fr] md:items-baseline md:gap-6">
+            <span class="text-sm text-primary">{i + 1}</span>
+            <span class="text-[clamp(1.5rem,3vw,2.5rem)] leading-tight tracking-[-0.025em] text-balance">{step}</span>
+            <span class="text-muted-foreground md:text-lg">{note}</span>
+          </li>
+        ))
+      }
+    </ol>
+    <section>
+      <SectionHead title="How it actually went." lede="This kit, from my notes." layout="split" class="mb-12" />
+      <ul>
+        {
+          log.map(([date, line]) => (
+            <li class="grid gap-1 border-t py-4 sm:grid-cols-[6rem_1fr] sm:gap-6">
+              <span class="text-sm text-muted-foreground tabular-nums">{date}</span>
+              <span class="text-lg text-pretty">{line}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </Container>
+</Site>

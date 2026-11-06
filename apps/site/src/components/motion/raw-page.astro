@@ -1,0 +1,55 @@
+---
+import "../../styles/app.css";
+
+interface Props {
+  title: string;
+  /** Width over height, for fitting the whole shot in any window. */
+  ratio: number;
+  /** Leaves the page see-through, for laying the graphic over footage. */
+  transparent?: boolean;
+}
+
+const { title, ratio, transparent = false } = Astro.props;
+---
+
+<html lang="en" class="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>{title}</title>
+  </head>
+  <body class:list={["raw-body", transparent && "raw-clear"]} style={`--ratio:${ratio}`}>
+    <div class="raw-fit"><slot /></div>
+    <script>
+      const params = new URLSearchParams(location.search);
+      if (params.has("safe")) document.documentElement.dataset.safe = "";
+      const time = params.get("t");
+      if (time !== null && Number.isFinite(Number(time))) {
+        addEventListener("load", () => {
+          for (const animation of document.getAnimations()) {
+            animation.pause();
+            animation.currentTime = Number(time) * 1000;
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  .raw-body {
+    display: grid;
+    min-height: 100vh;
+    margin: 0;
+    place-items: center;
+    background: var(--background);
+  }
+  html:has(.raw-clear),
+  .raw-body.raw-clear {
+    background: transparent;
+  }
+  .raw-fit {
+    width: min(100vw, calc(100vh * var(--ratio)));
+  }
+</style>

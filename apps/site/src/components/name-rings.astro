@@ -1,0 +1,68 @@
+---
+import Rings from "$brand/components/rings.astro";
+import Wordmark from "$brand/components/wordmark.astro";
+import { Input } from "$brand/starwind/input";
+
+const first = "hmziq";
+---
+
+<div data-slot="name-rings" class="grid items-center gap-10 md:grid-cols-2">
+  <div class="flex min-w-0 flex-col gap-8">
+    <label class="flex max-w-sm flex-col gap-2 text-sm text-muted-foreground">
+      Type your name
+      <Input data-name-input type="text" maxlength={14} autocomplete="off" spellcheck={false} placeholder={first} />
+    </label>
+    <p data-name-mark aria-live="polite" class="min-h-[1.2em] text-[clamp(2.5rem,7vw,5.5rem)]"><Wordmark name={first} /></p>
+    <p class="text-sm text-muted-foreground">Same name, same rings. Every time.</p>
+  </div>
+  <Rings seed={first} label="Rings drawn from the name you typed" class="-mr-6 w-[calc(100%+1.5rem)]" />
+</div>
+
+<script>
+  import { arcs, hash, rng } from "@hmziq/brand-core/motion/rings";
+
+  const ns = "http://www.w3.org/2000/svg";
+  const cx = 440;
+  const cy = 225;
+
+  const circle = (attrs: Record<string, string | number>) => {
+    const node = document.createElementNS(ns, "circle");
+    for (const [name, value] of Object.entries(attrs)) node.setAttribute(name, String(value));
+    return node;
+  };
+
+  const draw = (svg: SVGSVGElement, seed: string) => {
+    const random = rng(hash(seed) + 7);
+    const accent = 3 + Math.floor(random() * 3);
+    const radii = Array.from({ length: 11 }, (_, i) => 34 + i * 34);
+    const list = arcs(random, { cx, cy, radii, accent, accentGap: 0.52, gap: [0.06, 0.3] });
+    const nodes = list.flatMap((arc) => {
+      const ring = circle({
+        cx,
+        cy,
+        r: arc.r,
+        fill: "none",
+        stroke: arc.accent ? "var(--primary)" : "var(--line)",
+        "stroke-width": arc.accent ? 3 : 1.25,
+        "stroke-linecap": "round",
+        "stroke-dasharray": arc.dash,
+        transform: `rotate(${arc.rotate} ${cx} ${cy})`,
+      });
+      return arc.end ? [ring, circle({ cx: arc.end[0], cy: arc.end[1], r: 7, fill: "var(--primary)" })] : [ring];
+    });
+    svg.replaceChildren(...nodes);
+  };
+
+  for (const root of document.querySelectorAll<HTMLElement>("[data-slot='name-rings']")) {
+    const input = root.querySelector<HTMLInputElement>("[data-name-input]");
+    const svg = root.querySelector<SVGSVGElement>("[data-slot='rings']");
+    const mark = root.querySelector<HTMLElement>("[data-name-mark] [data-slot='wordmark']");
+    if (!input || !svg || !mark) continue;
+    const first = input.placeholder;
+    input.addEventListener("input", () => {
+      const name = input.value.trim() || first;
+      mark.firstChild!.textContent = name;
+      draw(svg, name);
+    });
+  }
+</script>

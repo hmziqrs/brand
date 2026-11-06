@@ -7,6 +7,7 @@
   "packageManager": "bun@1.4.3",
   "workspaces": [
     "packages/*",
+    "apps/*",
     "boilerplates/*",
     "assets/video/source",
     "explorations/*"
@@ -20,7 +21,7 @@
     "storybook": "bun run --filter @hmziq/brand-svelte storybook",
     "build": "bun run --filter @hmziq/brand-core build && bun run --filter svelte-app build && bun run --filter astro-app build",
     "build-storybook": "bun run --filter @hmziq/brand-svelte build-storybook",
-    "typecheck": "bun run --filter @hmziq/brand-core build && tsc -b && bun run --filter @hmziq/brand-astro typecheck && bun run --filter astro-app typecheck",
+    "typecheck": "bun run --filter @hmziq/brand-core build && tsc -b && bun run --filter @hmziq/brand-astro typecheck && bun run --filter astro-app typecheck && bun run --filter brand-site typecheck",
     "test": "bun run --filter @hmziq/brand-core test",
     "check:motion": "bun scripts/check-motion.ts",
     "check:colors": "bun scripts/check-colors.ts",

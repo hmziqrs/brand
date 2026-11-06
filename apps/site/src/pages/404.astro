@@ -1,0 +1,30 @@
+---
+import NotFoundPage from "$brand/blocks/content/not-found-page.astro";
+import Site from "../layouts/Site.astro";
+import { links } from "../lib/links";
+
+const data = {
+  status: "404",
+  host: "brand.hmziq.rs",
+  title: "This one got thrown out.",
+  lede: "Or it never existed. Either way, it isn't here.",
+  home: { label: "Back to the start", href: "/" },
+  docs: { label: "Browse the pieces", href: links.pieces },
+  hint: "Point at the dots",
+  next: {
+    title: "Try one of these.",
+    command: "sitemap-index.xml",
+    line: "lists every page.",
+    pages: [
+      { title: "Rules", dek: "What every agent reads first.", meta: "brand.hmziq.rs/rules", href: "/rules/" },
+      { title: "Workflow", dek: "How I work with agents.", meta: "brand.hmziq.rs/workflow", href: "/workflow/" },
+      { title: "Stack", dek: "What I use now, and what I dropped.", meta: "brand.hmziq.rs/stack", href: "/stack/" },
+      { title: "Pieces", dek: "Every component, running.", meta: "Storybook", href: links.pieces },
+    ],
+  },
+};
+---
+
+<Site title="Page not found" description="This page isn't here." closing={false}>
+  <NotFoundPage data={data} />
+</Site>

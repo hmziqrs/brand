@@ -1,0 +1,122 @@
+---
+import { RotateCcw } from "@lucide/astro";
+import Wordmark from "$brand/components/wordmark.astro";
+import Container from "$brand/blocks/site/container.astro";
+import ButtonLink from "$brand/blocks/site/button-link.astro";
+import SectionHead from "$brand/blocks/sections/section-head.astro";
+import { Button } from "$brand/starwind/button";
+import PageTop from "../../components/page-top.astro";
+import ProjectRings from "../../components/motion/project-rings.astro";
+import ShortSample from "../../components/motion/short-sample.astro";
+import Splash from "../../components/motion/splash.astro";
+import Site from "../../layouts/Site.astro";
+import { exampleCards } from "../../lib/og-pages";
+
+const marks = [
+  ["/media/logo/wordmark.svg", "Wordmark, SVG"],
+  ["/media/logo/wordmark-1024.png", "Wordmark, 1024 px"],
+  ["/media/logo/lockup.svg", "Lockup, SVG"],
+  ["/media/logo/tile.svg", "Mark, SVG"],
+  ["/media/logo/mark-1024.png", "Mark, 1024 px"],
+];
+---
+
+<Site title="Media assets" description="The live motion graphics, logos and link images behind every hmziq video.">
+  <PageTop title="The raw files for every video." lede="Live graphics, built like the rest of this site. Open one, record it at any size, and cut it into a video." />
+  <Container size="wide" class="flex flex-col gap-24 pb-28 md:gap-36 md:pb-40">
+    <section>
+      <SectionHead title="Motion" lede="Add ?t=2 to a raw file's address to hold it at two seconds." layout="split" class="mb-10" />
+      <div class="grid items-start gap-6 lg:grid-cols-[1fr_17rem]">
+        <figure class="min-w-0" data-asset>
+          <div class="overflow-hidden rounded-xl ring-1 ring-foreground/10" data-stage><Splash layout="wide" /></div>
+          <figcaption class="mt-3 flex flex-wrap items-center justify-between gap-3">
+            <span class="text-sm"><span class="font-medium">Splash, wide.</span> <span class="text-muted-foreground">For long videos.</span></span>
+            <span class="flex gap-2">
+              <Button variant="outline" size="sm" data-replay><RotateCcw data-icon="inline-start" />Play again</Button>
+              <ButtonLink href="/media/raw/splash-wide/" variant="outline" size="sm">Open raw file</ButtonLink>
+            </span>
+          </figcaption>
+        </figure>
+        <figure class="mx-auto w-full max-w-[17rem] min-w-0" data-asset>
+          <div class="overflow-hidden rounded-xl ring-1 ring-foreground/10" data-stage><Splash layout="tall" /></div>
+          <figcaption class="mt-3 flex flex-col gap-3">
+            <span class="text-sm"><span class="font-medium">Splash, tall.</span> <span class="text-muted-foreground">For shorts.</span></span>
+            <span class="flex flex-wrap gap-2">
+              <Button variant="outline" size="sm" data-replay><RotateCcw data-icon="inline-start" />Play again</Button>
+              <ButtonLink href="/media/raw/splash-tall/" variant="outline" size="sm">Open raw file</ButtonLink>
+            </span>
+          </figcaption>
+        </figure>
+      </div>
+      <figure class="mt-10 grid items-center gap-8 border-t pt-10 md:grid-cols-[1fr_20rem]" data-asset>
+        <figcaption class="flex flex-col items-start gap-3">
+          <span class="text-[clamp(1.5rem,3vw,2.5rem)] leading-tight tracking-[-0.025em]">Sample short</span>
+          <span class="max-w-[30rem] text-muted-foreground">About 12 seconds, no video file. Every shot fills the screen. Only the logo stays clear of the buttons and captions.</span>
+          <span class="mt-2 flex flex-wrap gap-2">
+            <Button variant="outline" size="sm" data-replay><RotateCcw data-icon="inline-start" />Play again</Button>
+            <Button variant="outline" size="sm" data-safe-toggle aria-pressed="false">Show safe areas</Button>
+            <ButtonLink href="/media/raw/short-sample/" variant="outline" size="sm">Open raw file</ButtonLink>
+          </span>
+        </figcaption>
+        <div class="mx-auto w-full max-w-[20rem] overflow-hidden rounded-xl ring-1 ring-foreground/10" data-stage><ShortSample /></div>
+      </figure>
+      <figure class="mt-10 grid items-center gap-6 border-t pt-10 md:grid-cols-[1fr_1.4fr]">
+        <figcaption class="flex flex-col items-start gap-3">
+          <span class="text-[clamp(1.5rem,3vw,2.5rem)] leading-tight tracking-[-0.025em]">Project rings</span>
+          <span class="text-muted-foreground">Drawn from the name "hmziq". The raw file is see-through, so it sits over footage.</span>
+          <ButtonLink href="/media/raw/rings/" variant="outline" size="sm" class="mt-2">Open raw file</ButtonLink>
+        </figcaption>
+        <div class="overflow-hidden rounded-xl ring-1 ring-foreground/10"><ProjectRings /></div>
+      </figure>
+    </section>
+
+    <section>
+      <SectionHead title="Logo" layout="stack" class="mb-10" />
+      <div class="grid gap-4 md:grid-cols-2">
+        <div class="dark grid min-h-52 place-items-center rounded-2xl bg-background text-[clamp(3rem,7vw,5rem)] text-foreground ring-1 ring-foreground/10"><Wordmark name="hmziq" /></div>
+        <div class="light grid min-h-52 place-items-center rounded-2xl bg-background text-[clamp(3rem,7vw,5rem)] text-foreground ring-1 ring-foreground/10"><Wordmark name="hmziq" /></div>
+      </div>
+      <ul class="mt-6 flex flex-wrap gap-2">
+        {marks.map(([href, label]) => <li><ButtonLink href={href} variant="outline" size="sm" download>{label}</ButtonLink></li>)}
+      </ul>
+    </section>
+
+    <section>
+      <SectionHead title="Link image" lede="Every page on this site shares this one. 1200 by 630." layout="split" class="mb-10" />
+      <a href="/og.png" download class="group block max-w-3xl" aria-label="Download the link image">
+        <img src="/og.png" alt="" width="1200" height="630" loading="lazy" class="h-auto w-full rounded-xl ring-1 ring-foreground/10 group-hover:ring-primary/50" />
+      </a>
+    </section>
+
+    <section>
+      <SectionHead title="Other types you could have" lede="The same layout with a different graphic. This site doesn't use them." layout="split" class="mb-10" />
+      <ul class="grid gap-4 sm:grid-cols-2">
+        {
+          exampleCards.map(({ slug, label }) => (
+            <li>
+              <a href={`/og/${slug}.png`} download class="group block" aria-label={`Download the ${label} example`}>
+                <img src={`/og/${slug}.png`} alt="" width="1200" height="630" loading="lazy" class="h-auto w-full rounded-xl ring-1 ring-foreground/10 group-hover:ring-primary/50" />
+                <span class="mt-2 block text-sm text-muted-foreground group-hover:text-foreground">{label}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </Container>
+</Site>
+
+<script>
+  document.addEventListener("click", (event) => {
+    const button = (event.target as Element | null)?.closest("[data-replay]");
+    const stage = button?.closest("[data-asset]")?.querySelector("[data-stage]");
+    if (stage) stage.replaceChildren(...[...stage.children].map((child) => child.cloneNode(true)));
+    const toggle = (event.target as Element | null)?.closest<HTMLElement>("[data-safe-toggle]");
+    const asset = toggle?.closest<HTMLElement>("[data-asset]");
+    if (toggle && asset) {
+      const on = asset.toggleAttribute("data-safe");
+      toggle.setAttribute("aria-pressed", String(on));
+      toggle.textContent = on ? "Hide safe areas" : "Show safe areas";
+    }
+  });
+</script>

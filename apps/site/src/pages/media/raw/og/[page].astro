@@ -1,0 +1,76 @@
+---
+import Splash from "../../../../components/motion/splash.astro";
+import OgCard from "../../../../components/og-card.astro";
+import SlopPage from "../../../../components/slop-page.astro";
+import { exampleCards, siteCard, type OgCard as Card } from "../../../../lib/og-pages";
+
+export function getStaticPaths() {
+  return [siteCard, ...exampleCards].map((card) => ({ params: { page: card.slug }, props: { card } }));
+}
+
+interface Props {
+  card: Card;
+}
+
+const { card } = Astro.props;
+const rules = ["Never invent a fact.", "Nothing moves on hover.", "One orange. No glow."];
+const walls = [
+  ["invoicing", "glow"],
+  ["dog walking", "saas"],
+  ["bread", "bento"],
+  ["tax law", "editorial"],
+  ["plumbing", "glass"],
+  ["gardening", "brutal"],
+] as const;
+---
+
+<OgCard slug={card.slug} title={card.title} tone={card.tone}>
+  {
+    card.graphic === "wall" && (
+      <div class="og-wall grid grid-cols-2 gap-3">
+        {walls.map(([business, skin]) => <SlopPage business={business} skin={skin} />)}
+      </div>
+    )
+  }
+  {
+    card.graphic === "rules" && (
+      <ul class="og-list flex flex-col justify-center gap-5">
+        {rules.map((rule) => <li class="border-t border-foreground/40 pt-5 text-[32px] leading-tight font-medium tracking-[-0.02em]">{rule}</li>)}
+      </ul>
+    )
+  }
+  {
+    card.graphic === "dropped" && (
+      <ul class="og-list flex flex-col justify-center gap-4">
+        {["Flutter", "React", "pnpm"].map((tool) => <li class="text-[76px] leading-none font-medium tracking-[-0.04em] text-muted-foreground line-through decoration-primary decoration-[5px]">{tool}</li>)}
+      </ul>
+    )
+  }
+  {card.graphic === "splash" && <div class="og-phone overflow-hidden rounded-[28px] ring-1 ring-foreground/20"><Splash layout="tall" /></div>}
+</OgCard>
+
+<style is:global>
+  .og-wall {
+    position: absolute;
+    top: -30px;
+    left: 700px;
+    width: 620px;
+    transform: rotate(-4deg);
+  }
+  .og-list {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 760px;
+    width: 380px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .og-phone {
+    position: absolute;
+    top: 64px;
+    left: 830px;
+    width: 300px;
+  }
+</style>

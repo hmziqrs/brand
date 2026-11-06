@@ -1,0 +1,25 @@
+---
+import Rings from "$brand/components/rings.astro";
+---
+
+<div class="project-rings dark" data-motion role="img" aria-label="The rings drawn from the name hmziq, moving slowly">
+  <Rings seed="hmziq" motion="ripple-turn" label="" />
+</div>
+
+<style>
+  .project-rings {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    width: 100%;
+    overflow: hidden;
+    background: transparent;
+  }
+  .project-rings :global(svg) {
+    position: absolute;
+    top: 50%;
+    right: -4%;
+    width: 62%;
+    overflow: visible;
+    translate: 0 -50%;
+  }
+</style>

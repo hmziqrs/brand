@@ -29,6 +29,8 @@ Every consumer lives in its own repo. So the brand has to install from outside t
 | Svelte kit (`brand-svelte`) | Svelte 5 components on shadcn-svelte: brand pieces, site blocks, content-page blocks, app blocks | Copied in from its registry |
 | Astro kit (`brand-astro`) | Astro components on Starwind UI: the same pieces and blocks | Copied in from its registry |
 | `svelte-app`, `astro-app` | Starters with the theme, the kit, a landing page, content pages and the app demo | `bun run new-project` |
+| `apps/site` | brand.hmziq.rs, the brand's own landing page, built from the Astro kit | Static build in `apps/site/dist` |
+| `apps/site-deploy` | Static deploy of brand.hmziq.rs on Cloudflare Workers: the site at `/`, Storybook at `/storybook/`. `bun run deploy:check` is the dry run, `bun run deploy` goes live; run both in this folder | `apps/site-deploy/dist` |
 | Generated assets | Logos, icons, social images, later video | Files per site |
 
 Each kit is built on the library its sites already use: shadcn-svelte for SvelteKit, Starwind UI for Astro. Both share `brand-core`; neither depends on the other.
@@ -111,7 +113,7 @@ Asset decisions are in [assets.md](./assets.md). All others:
 | First sites to move onto the kits | One Astro site and one SvelteKit site, chosen after work item 4 | Migrations |
 | Where hmziq.rs moves | SvelteKit or Astro | Migrating that site |
 | The lab once both kits cover everything | Decided 2026-10-09: delete React once the kits cover everything | — |
-| Deploying sites from this repo | No. Only the Storybooks, the registries and the reference documents deploy from here | — |
+| Deploying sites from this repo | Only `apps/site`, with the kit's Storybook at `/storybook/`, through `apps/site-deploy`. Otherwise only the Storybooks, the registries and the reference documents deploy from here | — |
 
 ## Status
 

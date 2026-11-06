@@ -1,0 +1,74 @@
+---
+import ButtonLink from "$brand/blocks/site/button-link.astro";
+import BrandIcon from "$brand/components/brand-icon.astro";
+import Container from "$brand/blocks/site/container.astro";
+import { siGithub } from "simple-icons";
+import PageTop from "../../components/page-top.astro";
+import Site from "../../layouts/Site.astro";
+import { links } from "../../lib/links";
+
+const groups = [
+  {
+    name: "Feedback",
+    rules: [
+      ["If I might be complaining, assume I am.", "I dictate. \"Bland\" once came through as \"blend\", and an agent kept the thing I hated."],
+      ["Never keep what I rejected as the default.", "I shouldn't have to say it twice."],
+    ],
+  },
+  {
+    name: "Words",
+    rules: [
+      ["Never invent a fact.", "Real numbers and real quotes, or leave them out."],
+      ["Say it in as few words as you can.", "That goes for the agent talking to me, and for the page talking to you."],
+      ["No comments in code by default.", "Only when a name can't carry a contract or a safety reason."],
+    ],
+  },
+  {
+    name: "Design",
+    rules: [
+      ["Nothing moves on hover or press.", "Color changes. Position doesn't."],
+      ["One orange. No tints, no glow.", "Blurred color is the fastest way to look like everyone else."],
+      ["A material is a surface, never a picture.", "It sits behind something real, or it doesn't appear."],
+    ],
+  },
+  {
+    name: "Git and tools",
+    rules: [
+      ["Never commit without asking me.", "I read it first."],
+      ["Name every file you add.", "No git add -A."],
+      ["Never push. Never skip a hook.", "Those two stay mine."],
+      ["Use Bun for everything.", "One tool, one lockfile."],
+    ],
+  },
+  {
+    name: "Checking",
+    rules: [
+      ["\"It renders\" doesn't mean it's done.", "Unstyled but loading is a failure. Compare it to the reference."],
+      ["Never pass --fix to a check.", "A check reports. I decide what changes."],
+      ["Back up my settings before testing.", "My real tweaks live in my browser's storage."],
+    ],
+  },
+];
+---
+
+<Site title="My AI rules" description="The rules every agent reads before it touches my code, and why each one exists.">
+  <PageTop title="The rules I give every agent." lede="They sit in a file the agent reads before it does anything. Most exist because something went wrong once." />
+  <Container size="wide" class="flex flex-col gap-16 pb-28 md:gap-24 md:pb-40">
+    {
+      groups.map((group) => (
+        <section class="grid gap-6 md:grid-cols-[12rem_1fr] md:gap-10">
+          <h2 class="text-lg font-medium text-primary">{group.name}</h2>
+          <ul>
+            {group.rules.map(([rule, why]) => (
+              <li class="grid gap-1 border-t py-5 lg:grid-cols-2 lg:items-baseline lg:gap-8">
+                <span class="text-[clamp(1.25rem,2.2vw,1.75rem)] leading-tight tracking-[-0.02em] text-balance">{rule}</span>
+                <span class="text-muted-foreground">{why}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))
+    }
+    <div><ButtonLink href={links.agentRules} variant="outline"><BrandIcon icon={siGithub} data-icon="inline-start" />Read the real file</ButtonLink></div>
+  </Container>
+</Site>
