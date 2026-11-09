@@ -25,6 +25,7 @@ const pages = [
   { label: "Stack", href: "/stack/" },
   { label: "Media", href: "/media/" },
 ];
+const other = path === "/workflow/" ? { label: "Read my rules", href: "/rules/" } : { label: "See how I work", href: "/workflow/" };
 ---
 
 <html lang="en" class="dark">
@@ -53,10 +54,10 @@ const pages = [
         <section class="band-orange relative overflow-hidden py-16 md:py-24">
           <BandArcs />
           <Container size="wide" class="relative">
-            <h2 class="max-w-[14em] text-4xl leading-[1.02] font-medium tracking-[-0.04em] text-balance md:text-[3.25rem]">Your site should look like someone made it.</h2>
+            <h2 class="max-w-[14em] text-4xl leading-[1.02] font-medium tracking-[-0.04em] text-balance md:text-[3.25rem]">Try the pieces yourself.</h2>
             <div class="mt-9 flex flex-wrap gap-3">
               <ButtonLink href={links.pieces} size="lg">Browse the pieces</ButtonLink>
-              <ButtonLink href="/rules/" size="lg" variant="outline">Read my rules</ButtonLink>
+              <ButtonLink href={other.href} size="lg" variant="outline">{other.label}</ButtonLink>
             </div>
           </Container>
         </section>

@@ -1,7 +1,6 @@
 ---
 import { ArrowRight } from "@lucide/astro";
 import PictureGrid from "$brand/components/picture-grid.astro";
-import BigNumbers from "$brand/blocks/site/big-numbers.astro";
 import ButtonLink from "$brand/blocks/site/button-link.astro";
 import Container from "$brand/blocks/site/container.astro";
 import GlassBand from "$brand/blocks/sections/glass-band.astro";
@@ -34,54 +33,48 @@ const refused = [
 ];
 
 const jobs = [
-  { title: "Blog", dek: "Long reads on quiet pages.", art: "laptop", href: links.story("content-blog-post-article--main-blog") },
-  { title: "Docs", dek: "Find the answer, copy the code.", art: "modules", href: links.story("content-docs-reference--gpui-query") },
-  { title: "Product site", dek: "Show the thing working.", art: "window", href: links.story("sections-product-hero--split") },
-  { title: "Pricing", dek: "Plans you can compare at a glance.", art: "bars", href: links.story("site-pricing-pricing-page--oxlabs-dev") },
-  { title: "Admin panel", dek: "Tables, settings, sign-in.", art: "database", href: links.story("app-shell--sidebar") },
-  { title: "CV", dek: "One page that gets read.", art: "lanes", href: links.story("site-cv-page--cv-hmziq-rs") },
+  { title: "Blog", dek: "Long articles that are easy to read.", art: "laptop", href: links.story("content-blog-post-article--main-blog") },
+  { title: "Docs", dek: "Look something up, copy the code.", art: "modules", href: links.story("content-docs-reference--gpui-query") },
+  { title: "Product site", dek: "A page that shows the product working.", art: "window", href: links.story("sections-product-hero--split") },
+  { title: "Pricing", dek: "Plans side by side.", art: "bars", href: links.story("site-pricing-pricing-page--oxlabs-dev") },
+  { title: "Admin panel", dek: "Tables, settings and a sign-in page.", art: "database", href: links.story("app-shell--sidebar") },
+  { title: "CV", dek: "A single page about you.", art: "lanes", href: links.story("site-cv-page--cv-hmziq-rs") },
 ] as const;
 
 const steps = [
   ["Write down what you hate.", "Screenshots help. Be rude."],
   ["Pick one color and one typeface.", "Then stop looking."],
-  ["Make one thing nobody else has.", "Mine is rings. Yours could be a drawing, a shape, a joke."],
+  ["Make one thing nobody else has.", "Mine is rings. Yours could be a drawing or a shape."],
   ["Write the rules down.", "Put them where your tools read them first."],
 ];
 
 const bigStatement = "text-[clamp(2rem,4.6vw,4rem)] leading-[1.06] font-medium tracking-[-0.035em] text-balance";
+const body = "text-[clamp(18px,1.7vw,22px)] leading-normal text-pretty";
 ---
 
-<Site title="You have seen this website" description="Ask a machine for a website and you get the same website. Here is how I got out of it, and how you can too.">
+<Site title="A design kit and the rules I give AI agents" description="AI builds every website the same way. This is my way out: a kit of my own pieces for Svelte and Astro, and the rules I give the agents that use it.">
     <div class="flex flex-col gap-28 pb-28 md:gap-40 md:pb-40">
       <section class="pt-10 md:pt-16">
         <Container size="wide">
-          <h1 class="text-[clamp(3rem,9vw,8rem)] leading-[0.98] font-medium tracking-[-0.045em] text-balance">You have seen this website.</h1>
-          <p class="mt-6 max-w-[36rem] text-[clamp(18px,1.7vw,22px)] leading-normal">Here is how I got out of it, and how you can too.</p>
-          <div class="mt-12 grid grid-cols-2 gap-2 lg:grid-cols-3 lg:gap-3" role="img" aria-label="Six websites for six different businesses, in different colors and layouts. They all say the same thing.">
+          <h1 class="text-[clamp(3rem,9vw,8rem)] leading-[0.98] font-medium tracking-[-0.045em] text-balance">You must've come across sites like these.</h1>
+          <p class={`${body} mt-6 max-w-[36rem]`}>Ask an AI for a website and this is what you usually get. It's nauseating and it lowers users' trust, so I built my own kit and wrote down rules for the AI to follow.</p>
+          <div class="mt-12 grid grid-cols-2 gap-2 lg:grid-cols-3 lg:gap-3" role="img" aria-label="Six made-up websites for six different businesses, in different colors and layouts, all saying the same things.">
             {businesses.map(([business, skin]) => <SlopPage business={business} skin={skin} />)}
           </div>
-          <p class="mt-5 text-right text-sm text-muted-foreground">Six businesses. Six looks. One website.</p>
+          <p class="mt-5 text-right text-sm text-muted-foreground">I made these up. You've probably landed on the real ones.</p>
         </Container>
       </section>
 
       <section>
         <Container size="wide">
-          <p class={`${bigStatement} max-w-[22em]`}>A model gives you the most likely answer. That page is the most likely website. <span class="text-primary">Nobody told it who you are.</span></p>
+          <p class={`${bigStatement} max-w-[22em]`}>That's the average of every site an AI has read. <span class="text-primary">It knows nothing about you,</span> so nothing in it is yours.</p>
+          <p class={`${body} mt-10 max-w-[36rem]`}>My own sites had the opposite problem. I made eight by hand, each with its own colors and fonts, and nothing tied them together. Neither way gave me something that was mine.</p>
         </Container>
       </section>
 
       <section>
         <Container size="wide">
-          <SectionHead title="I made the same mess by hand." layout="stack" />
-          <BigNumbers class="mt-12" items={[["8", "sites"], ["4", "frameworks"], ["7", "typefaces"], ["8", "accent colors"]]} />
-          <p class="mt-10 text-[clamp(18px,1.7vw,22px)]">None of it looked like me.</p>
-        </Container>
-      </section>
-
-      <section>
-        <Container size="wide">
-          <SectionHead title="So I started saying no." lede="Most of what came back got thrown out. These are from my notes." layout="split" />
+          <SectionHead title="What I threw out." lede="Each of these is a line from my own notes." layout="split" />
           <ul class="mt-12">
             {
               refused.map(([thing, note]) => (
@@ -97,15 +90,15 @@ const bigStatement = "text-[clamp(2rem,4.6vw,4rem)] leading-[1.06] font-medium t
 
       <section class="overflow-x-clip">
         <Container size="wide">
-          <SectionHead title="What was left was mine." accent="mine" lede="One orange. One typeface. Rings drawn from a name, so every name gets its own." layout="split" class="mb-12" />
+          <SectionHead title="What I kept." lede="One orange, one typeface, and rings drawn from a name, so every name gets its own. Try yours." layout="split" class="mb-12" />
           <NameRings />
         </Container>
       </section>
 
       <section id="pieces" class="scroll-mt-24">
         <Container size="wide">
-          <SectionHead title="Then I turned it into parts." lede={`${pieceCount} pieces for Svelte and Astro. These ones are running right here. The words inside are examples.`} layout="split" class="mb-12">
-            <ButtonLink slot="aside" href={links.pieces} variant="outline">Browse all of them<ArrowRight data-icon="inline-end" /></ButtonLink>
+          <SectionHead title="The pieces I made." lede={`${pieceCount} pieces for Svelte and Astro. These ones are running live, and the text inside is just filler.`} layout="split" class="mb-12">
+            <ButtonLink slot="aside" href={links.pieces} variant="outline">Browse them all<ArrowRight data-icon="inline-end" /></ButtonLink>
           </SectionHead>
           <PiecesWall />
         </Container>
@@ -113,18 +106,20 @@ const bigStatement = "text-[clamp(2rem,4.6vw,4rem)] leading-[1.06] font-medium t
 
       <section id="uses" class="scroll-mt-24">
         <Container size="wide">
-          <SectionHead title="One kit, different jobs." layout="stack" class="mb-12" />
+          <SectionHead title="What you can make with them." layout="stack" class="mb-12" />
           <PictureGrid items={[...jobs]} />
         </Container>
       </section>
 
-      <GlassBand title="Then I told the machine." lede="Every rule went into one file. Agents read it before they touch a page, and the build checks their work." points={["If a button moves on hover, the build fails.", "If a color isn't in the theme, the build fails.", "If text is too faint to read, the build fails."]}>
+      <GlassBand title="I wrote the rules down." lede="Every rule lives in one file that AI agents read before they touch anything. Some of them are enforced by checks, so a mistake gets caught instead of shipped." points={["Buttons can't move when you hover or press them.", "Colors have to come from the theme.", "Text has to be readable in light and in dark."]}>
         <ButtonLink slot="actions" href="/rules/" variant="outline">Read my rules</ButtonLink>
       </GlassBand>
 
       <section>
         <Container size="wide">
-          <SectionHead title="Now do yours." lede="Or start from how I do it: my rules, my workflow, my stack." layout="split" class="mb-12" />
+          <SectionHead title="Finding your own look." lede="Four steps. None of them need this kit." layout="split" class="mb-12">
+            <ButtonLink slot="aside" href="/workflow/" variant="outline">How I work<ArrowRight data-icon="inline-end" /></ButtonLink>
+          </SectionHead>
           <ol>
             {
               steps.map(([step, note], i) => (

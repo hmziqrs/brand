@@ -5,12 +5,12 @@ import PageTop from "../../components/page-top.astro";
 import Site from "../../layouts/Site.astro";
 
 const steps = [
-  ["Ask for options, not answers.", "Several versions side by side, with one thing changing at a time."],
+  ["Ask for options.", "Several versions side by side, changing one thing at a time."],
   ["Pick in one line.", "Mine looked like this: square logo, rings hero, soft corners, ring markers."],
   ["Say what's wrong.", "Voice notes, mostly. \"Horrible\" is useful feedback."],
   ["Ask for sliders.", "When words run out, I get a tweaker, tune it by hand and paste the settings back."],
   ["Turn the answer into a rule.", "It goes in the rules file, so nobody has to ask again."],
-  ["Make the build check it.", "A rule the machine can check is a rule that stays."],
+  ["Make the build check it.", "If a script can check a rule, write the script. Reminders get ignored."],
 ];
 
 const log = [
@@ -40,7 +40,7 @@ const log = [
       }
     </ol>
     <section>
-      <SectionHead title="How it actually went." lede="This kit, from my notes." layout="split" class="mb-12" />
+      <SectionHead title="How it went." lede="This kit, from my own notes." layout="split" class="mb-12" />
       <ul>
         {
           log.map(([date, line]) => (
