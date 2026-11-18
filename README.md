@@ -28,6 +28,7 @@ The Svelte and Astro kits (`packages/brand-svelte`, `packages/brand-astro`) and 
 
 ```bash
 bun install
+bun dev                  # landing page (apps/site) at http://localhost:4323
 bun run storybook        # http://localhost:6007
 ```
 
@@ -37,6 +38,7 @@ Root commands. The build ones run through the workspace:
 
 | Command | What it does |
 | --- | --- |
+| `bun dev` | The landing page (`apps/site`, brand.hmziq.rs) at http://localhost:4323 |
 | `bun run storybook` | The Svelte kit's Storybook at http://localhost:6007 |
 | `bun run build-storybook` | Static build of the Svelte kit's Storybook (the Pages site root) |
 | `bun run build` | Production builds of core and both boilerplates (`svelte-app`, `astro-app`) |

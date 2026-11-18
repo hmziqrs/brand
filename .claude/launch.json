@@ -1,0 +1,38 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "dev",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "dev"
+      ],
+      "port": 3000
+    },
+    {
+      "name": "site",
+      "runtimeExecutable": "bun",
+      "runtimeArgs": [
+        "run",
+        "--filter",
+        "./apps/site",
+        "dev"
+      ],
+      "port": 4323
+    },
+    {
+      "name": "site-alt",
+      "runtimeExecutable": "bun",
+      "runtimeArgs": [
+        "--cwd",
+        "apps/site",
+        "astro",
+        "dev",
+        "--port",
+        "4333"
+      ],
+      "port": 4333
+    }
+  ]
+}

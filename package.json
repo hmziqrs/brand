@@ -17,7 +17,7 @@
     "sharp"
   ],
   "scripts": {
-    "dev": "bun run --filter @hmziq/brand-svelte storybook",
+    "dev": "bun run --filter brand-site dev",
     "storybook": "bun run --filter @hmziq/brand-svelte storybook",
     "build": "bun run --filter @hmziq/brand-core build && bun run --filter svelte-app build && bun run --filter astro-app build",
     "build-storybook": "bun run --filter @hmziq/brand-svelte build-storybook",

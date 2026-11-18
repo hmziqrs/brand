@@ -1,16 +1,15 @@
 ---
 import { ArrowRight } from "@lucide/astro";
-import PictureGrid from "$brand/components/picture-grid.astro";
 import ButtonLink from "$brand/blocks/site/button-link.astro";
 import Container from "$brand/blocks/site/container.astro";
-import GlassBand from "$brand/blocks/sections/glass-band.astro";
-import SectionHead from "$brand/blocks/sections/section-head.astro";
-import NameRings from "../components/name-rings.astro";
 import PiecesWall from "../components/pieces-wall.astro";
 import SlopPage from "../components/slop-page.astro";
+import Splash from "../components/motion/splash.astro";
+import StringField from "../components/string-field.astro";
 import Site from "../layouts/Site.astro";
 import { links } from "../lib/links";
 import roster from "../../../../scripts/pieces.json";
+import { cn } from "$brand/utils";
 
 const pieceCount = roster.pieces.filter((p) => p.svelte && p.astro).length;
 
@@ -23,115 +22,66 @@ const businesses = [
   ["gardening", "brutal"],
 ] as const;
 
-const refused = [
-  ["Gradient sections", "classic AI slop"],
-  ["Wide display fonts", "not human-readable"],
-  ["Heavy headlines", "too much bold"],
-  ["Buttons that move when you press them", "we never want position drift"],
-  ["A different color per product", "looks horrible"],
-  ["3D atom art", "horrible"],
-];
-
-const jobs = [
-  { title: "Blog", dek: "Long articles that are easy to read.", art: "laptop", href: links.story("content-blog-post-article--main-blog") },
-  { title: "Docs", dek: "Look something up, copy the code.", art: "modules", href: links.story("content-docs-reference--gpui-query") },
-  { title: "Product site", dek: "A page that shows the product working.", art: "window", href: links.story("sections-product-hero--split") },
-  { title: "Pricing", dek: "Plans side by side.", art: "bars", href: links.story("site-pricing-pricing-page--oxlabs-dev") },
-  { title: "Admin panel", dek: "Tables, settings and a sign-in page.", art: "database", href: links.story("app-shell--sidebar") },
-  { title: "CV", dek: "A single page about you.", art: "lanes", href: links.story("site-cv-page--cv-hmziq-rs") },
-] as const;
-
-const steps = [
-  ["Write down what you hate.", "Screenshots help. Be rude."],
-  ["Pick one color and one typeface.", "Then stop looking."],
-  ["Make one thing nobody else has.", "Mine is rings. Yours could be a drawing or a shape."],
-  ["Write the rules down.", "Put them where your tools read them first."],
-];
-
-const bigStatement = "text-[clamp(2rem,4.6vw,4rem)] leading-[1.06] font-medium tracking-[-0.035em] text-balance";
-const body = "text-[clamp(18px,1.7vw,22px)] leading-normal text-pretty";
+const title = "text-[clamp(1.625rem,2.8vw,2.25rem)] leading-[1.12] font-medium tracking-[-0.025em] text-balance";
+const prose = "max-w-[40rem] text-[clamp(18px,1.4vw,20px)] leading-[1.6] text-pretty";
 ---
 
-<Site title="A design kit and the rules I give AI agents" description="AI builds every website the same way. This is my way out: a kit of my own pieces for Svelte and Astro, and the rules I give the agents that use it.">
-    <div class="flex flex-col gap-28 pb-28 md:gap-40 md:pb-40">
-      <section class="pt-10 md:pt-16">
-        <Container size="wide">
-          <h1 class="text-[clamp(3rem,9vw,8rem)] leading-[0.98] font-medium tracking-[-0.045em] text-balance">You must've come across sites like these.</h1>
-          <p class={`${body} mt-6 max-w-[36rem]`}>Ask an AI for a website and this is what you usually get. It's nauseating and it lowers users' trust, so I built my own kit and wrote down rules for the AI to follow.</p>
-          <div class="mt-12 grid grid-cols-2 gap-2 lg:grid-cols-3 lg:gap-3" role="img" aria-label="Six made-up websites for six different businesses, in different colors and layouts, all saying the same things.">
-            {businesses.map(([business, skin]) => <SlopPage business={business} skin={skin} />)}
-          </div>
-          <p class="mt-5 text-right text-sm text-muted-foreground">I made these up. You've probably landed on the real ones.</p>
-        </Container>
-      </section>
+<Site title="brand by hmziq: a brand identity for my websites, apps, posts and videos" description="One look for everything I make: websites, apps, images, social media posts, changelogs, press releases, blogs and videos. See it, and build your own.">
+  <article class="flex flex-col gap-20 pb-24 md:gap-24 md:pb-32">
+    <header class="relative -mt-16 flex min-h-svh flex-col pt-16">
+      <StringField />
+      <Container size="wide" class="relative flex flex-1 flex-col items-center justify-center py-20 text-center">
+        <h1 class="text-[clamp(2.5rem,5.5vw,4.5rem)] leading-[1.04] font-medium tracking-[-0.035em] text-balance">No more slop<span class="text-primary">.</span></h1>
+        <p class="mt-5 max-w-[34rem] text-[clamp(18px,1.4vw,20px)] leading-[1.55] text-pretty">Learn to make a design identity.<br />Stop getting generic slop from AI.</p>
+      </Container>
+    </header>
 
-      <section>
-        <Container size="wide">
-          <p class={`${bigStatement} max-w-[22em]`}>That's the average of every site an AI has read. <span class="text-primary">It knows nothing about you,</span> so nothing in it is yours.</p>
-          <p class={`${body} mt-10 max-w-[36rem]`}>My own sites had the opposite problem. I made eight by hand, each with its own colors and fonts, and nothing tied them together. Neither way gave me something that was mine.</p>
-        </Container>
-      </section>
+    <section>
+      <Container size="wide">
+        <h2 class={cn(title, "text-center")}>You must've come across sites like these.</h2>
+        <div class="h-8" />
+        <div class="mt-8 grid grid-cols-2 gap-2 lg:grid-cols-3 lg:gap-3" role="img" aria-label="Six made-up websites for six different businesses, in different colors and layouts, all saying the same things.">
+          {businesses.map(([business, skin]) => <SlopPage business={business} skin={skin} />)}
+        </div>
+      </Container>
+    </section>
 
-      <section>
-        <Container size="wide">
-          <SectionHead title="What I threw out." lede="Each of these is a line from my own notes." layout="split" />
-          <ul class="mt-12">
-            {
-              refused.map(([thing, note]) => (
-                <li class="grid gap-1 border-t py-5 md:grid-cols-[1fr_auto] md:items-baseline md:gap-8">
-                  <s class="text-[clamp(1.5rem,3vw,2.5rem)] leading-tight tracking-[-0.025em] text-muted-foreground decoration-primary decoration-2">{thing}</s>
-                  <q class="text-sm text-foreground md:text-base">{note}</q>
-                </li>
-              ))
-            }
-          </ul>
-        </Container>
-      </section>
+    <section>
+      <Container size="wide">
+        <h2 class={title}>The same look on everything I make.</h2>
+        <p class={`${prose} mt-5`}>Websites, images, social media posts, changelogs, press releases, blogs, video intros and outros. They all get the same components and graphics, so if you come across two of them, you'll see the similarities.</p>
+        <div class="same-look mt-10 grid items-end gap-4">
+          <figure class="min-w-0">
+            <img src="/og.png" alt="" width="1200" height="630" loading="lazy" class="h-auto w-full rounded-xl ring-1 ring-foreground/10" />
+            <figcaption class="mt-2 text-sm text-muted-foreground">An image for a social media post</figcaption>
+          </figure>
+          <figure class="min-w-0">
+            <div class="overflow-hidden rounded-xl ring-1 ring-foreground/10"><Splash layout="wide" /></div>
+            <figcaption class="mt-2 text-sm text-muted-foreground">A video intro</figcaption>
+          </figure>
+          <figure class="min-w-0">
+            <div class="overflow-hidden rounded-xl ring-1 ring-foreground/10"><Splash layout="tall" /></div>
+            <figcaption class="mt-2 text-sm text-muted-foreground">A short</figcaption>
+          </figure>
+        </div>
+      </Container>
+    </section>
 
-      <section class="overflow-x-clip">
-        <Container size="wide">
-          <SectionHead title="What I kept." lede="One orange, one typeface, and rings drawn from a name, so every name gets its own. Try yours." layout="split" class="mb-12" />
-          <NameRings />
-        </Container>
-      </section>
-
-      <section id="pieces" class="scroll-mt-24">
-        <Container size="wide">
-          <SectionHead title="The pieces I made." lede={`${pieceCount} pieces for Svelte and Astro. These ones are running live, and the text inside is just filler.`} layout="split" class="mb-12">
-            <ButtonLink slot="aside" href={links.pieces} variant="outline">Browse them all<ArrowRight data-icon="inline-end" /></ButtonLink>
-          </SectionHead>
-          <PiecesWall />
-        </Container>
-      </section>
-
-      <section id="uses" class="scroll-mt-24">
-        <Container size="wide">
-          <SectionHead title="What you can make with them." layout="stack" class="mb-12" />
-          <PictureGrid items={[...jobs]} />
-        </Container>
-      </section>
-
-      <GlassBand title="I wrote the rules down." lede="Every rule lives in one file that AI agents read before they touch anything. Some of them are enforced by checks, so a mistake gets caught instead of shipped." points={["Buttons can't move when you hover or press them.", "Colors have to come from the theme.", "Text has to be readable in light and in dark."]}>
-        <ButtonLink slot="actions" href="/rules/" variant="outline">Read my rules</ButtonLink>
-      </GlassBand>
-
-      <section>
-        <Container size="wide">
-          <SectionHead title="Finding your own look." lede="Four steps. None of them need this kit." layout="split" class="mb-12">
-            <ButtonLink slot="aside" href="/workflow/" variant="outline">How I work<ArrowRight data-icon="inline-end" /></ButtonLink>
-          </SectionHead>
-          <ol>
-            {
-              steps.map(([step, note], i) => (
-                <li class="grid gap-1 border-t py-6 md:grid-cols-[3rem_1fr_1fr] md:items-baseline md:gap-6">
-                  <span class="text-sm text-primary">{i + 1}</span>
-                  <span class="text-[clamp(1.5rem,3vw,2.5rem)] leading-tight tracking-[-0.025em] text-balance">{step}</span>
-                  <span class="text-muted-foreground md:text-lg">{note}</span>
-                </li>
-              ))
-            }
-          </ol>
-        </Container>
-      </section>
-    </div>
+    <section id="pieces" class="scroll-mt-24">
+      <Container size="wide">
+        <h2 class={title}>It isn't finished.</h2>
+        <p class={`${prose} mt-5`}>It's still raw, and none of my sites use it yet. These are some of the {pieceCount} pieces so far, running live.</p>
+        <ButtonLink href={links.pieces} variant="outline" class="mt-6">Browse all of them<ArrowRight data-icon="inline-end" /></ButtonLink>
+        <div class="mt-10"><PiecesWall /></div>
+      </Container>
+    </section>
+  </article>
 </Site>
+
+<style is:global>
+  @media (min-width: 640px) {
+    .same-look {
+      grid-template-columns: 1.9fr 1.78fr 0.56fr;
+    }
+  }
+</style>

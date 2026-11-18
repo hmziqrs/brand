@@ -1,0 +1,148 @@
+---
+import Container from "$brand/blocks/site/container.astro";
+import NameRings from "../../components/name-rings.astro";
+import PageTop from "../../components/page-top.astro";
+import Site from "../../layouts/Site.astro";
+
+type Step = { title: string; todo: string; mine: string; rings?: boolean };
+
+const ready = [
+  "Claude Code, Claude Desktop, Claude Design. I used Opus 5.5.",
+  "All of your own sites.",
+  "A bunch of websites you love.",
+  "Something you like, to give it as an inspiration.",
+  "A couple of hours.",
+];
+
+const first: Step[] = [
+  {
+    title: "Use Claude, and have it build artifacts.",
+    todo: "This one is essential. Use Claude Code, Claude Desktop, Claude Design, and have it build artifacts. Don't ask it to create your designs in a framework like React or Astro. Let it use its default, because that is the thing it's an expert in.",
+    mine: "I used Opus 5.5 for all of it.",
+  },
+  {
+    title: "Give it all of your sites.",
+    todo: "Do this first, so it can use them as a reference. They are what it's going to build for, and where your kit will be applied. They also give the AI an idea of what types of components it will be building.",
+    mine: "I gave it every site I have before I asked for anything.",
+  },
+  {
+    title: "Give it websites you love.",
+    todo: "Hand it a bunch of sites whose look you love.",
+    mine: "My biggest inspiration was VoidZero.",
+  },
+  {
+    title: "Give it something you like.",
+    todo: "Tell it about an inspiration of yours, or just something you like.",
+    mine: "I really like the Rust language, and my username has the Rust file extension in it. I mentioned that.",
+  },
+  {
+    title: "Ask for landing page variants.",
+    todo: "Ask for a bunch of variants of the landing pages of your sites, made so you can mix and match between them.",
+    mine: "I asked for a blue version, a green version and an orange version.",
+  },
+  {
+    title: "Decide on a color.",
+    todo: "Mix and match the variants, then decide on one color.",
+    mine: "I decided on orange, because it reflects oxide, and oxide symbolizes rust.",
+  },
+  {
+    title: "Ask for light and dark modes.",
+    todo: "Ask it to create a light mode and a dark mode.",
+    mine: "I asked for both.",
+  },
+  {
+    title: "Ask for a simple, unique graphic.",
+    todo: "Ask it to create a simple, unique graphic design, and to make a bunch of variants of it.",
+    mine: "It gave me a bunch. Some were based on icons and some on squares. I decided on the rings, because they looked like fingerprints.",
+    rings: true,
+  },
+  {
+    title: "Ask for variants of sections.",
+    todo: "Ask for variants of sections, where the background of a section changes.",
+    mine: "Mine can use the neutral color, the inverse background color, or the accent color as the background of a section.",
+  },
+];
+
+const second: Step[] = [
+  {
+    title: "Move on to other pages.",
+    todo: "Wait until the color, the sections, the typography, the text colors, the font weights and the fonts are decided. Then shift to different pages.",
+    mine: "I did a changelog and the logo.",
+  },
+  {
+    title: "Create more identity.",
+    todo: "Ask for extra things you can use in a hero or in a section.",
+    mine: "I asked for a bunch of shaders I can use as part of a hero or as part of a section. I also made some frosted glass components. After that the kit had come into somewhat of a shape.",
+  },
+];
+
+const heading = "text-[clamp(1.625rem,2.8vw,2.25rem)] leading-[1.12] font-medium tracking-[-0.025em] text-balance";
+const prose = "max-w-[36rem] text-[clamp(18px,1.4vw,20px)] leading-[1.55] text-pretty";
+---
+
+<Site title="The recipe: how to build your own brand kit" description="The steps I took with Claude to make my design kit, written in the order I did them, so you can make your own.">
+  <PageTop title="How to build your own brand kit." lede="This is the recipe I followed, in the order I did it. Each step says what to do, and then what I did." />
+  <Container size="wide" class="flex flex-col gap-20 pb-24 md:gap-28 md:pb-32">
+    <section class="grid gap-6 md:grid-cols-[12rem_1fr] md:gap-10">
+      <h2 class="text-lg font-medium text-primary">Have these ready</h2>
+      <ul class="text-lg">
+        {ready.map((item) => <li class="border-t py-4 first:border-t-0 first:pt-0">{item}</li>)}
+      </ul>
+    </section>
+
+    <section>
+      <h2 class={heading}>The steps.</h2>
+      <ol class="mt-8">
+        {
+          first.map((step, i) => (
+            <li class="border-t py-8">
+              <div class="grid gap-4 md:grid-cols-[3rem_1fr_1fr] md:gap-6">
+                <span class="text-sm text-primary">{i + 1}</span>
+                <div>
+                  <h3 class="text-[clamp(1.25rem,2vw,1.5rem)] leading-snug tracking-[-0.015em] text-balance">{step.title}</h3>
+                  <p class="mt-3 text-pretty md:text-lg">{step.todo}</p>
+                </div>
+                <div>
+                  <p class="mb-2 text-sm text-muted-foreground">What I did</p>
+                  <p class="text-pretty text-muted-foreground md:text-lg">{step.mine}</p>
+                </div>
+              </div>
+              {step.rings && (
+                <div class="mt-10 overflow-x-clip">
+                  <p class="mb-8 text-sm text-muted-foreground">These are the rings. They're drawn from a name, so type yours.</p>
+                  <NameRings />
+                </div>
+              )}
+            </li>
+          ))
+        }
+      </ol>
+      <p class={`${prose} border-t py-8`}>This was a whole process, and it took me a couple of hours. Opus 5.5 really helped me decide.</p>
+      <ol start={first.length + 1}>
+        {
+          second.map((step, i) => (
+            <li class="border-t py-8 last:border-b">
+              <div class="grid gap-4 md:grid-cols-[3rem_1fr_1fr] md:gap-6">
+                <span class="text-sm text-primary">{first.length + i + 1}</span>
+                <div>
+                  <h3 class="text-[clamp(1.25rem,2vw,1.5rem)] leading-snug tracking-[-0.015em] text-balance">{step.title}</h3>
+                  <p class="mt-3 text-pretty md:text-lg">{step.todo}</p>
+                </div>
+                <div>
+                  <p class="mb-2 text-sm text-muted-foreground">What I did</p>
+                  <p class="text-pretty text-muted-foreground md:text-lg">{step.mine}</p>
+                </div>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+
+    <section>
+      <h2 class={heading}>Is mine finished?</h2>
+      <p class={`${prose} mt-5`}>No. It's still in a very raw shape, and I haven't used it on any of my pages yet. I'm planning to.</p>
+      <p class={`${prose} mt-4`}>It's a very good start, though. I can use it on all of my pages and they will be consistent. If someone comes across two of them, they will see the similarities, and that's how I get a brand identity.</p>
+    </section>
+  </Container>
+</Site>

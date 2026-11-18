@@ -20,12 +20,15 @@ const { title, description, closing = true } = Astro.props;
 const path = Astro.url.pathname;
 const url = new URL(path, Astro.site).href;
 const pages = [
+  { label: "Recipe", href: "/recipe/" },
   { label: "Rules", href: "/rules/" },
-  { label: "Workflow", href: "/workflow/" },
   { label: "Stack", href: "/stack/" },
   { label: "Media", href: "/media/" },
 ];
-const other = path === "/workflow/" ? { label: "Read my rules", href: "/rules/" } : { label: "See how I work", href: "/workflow/" };
+const next = [
+  { label: "Read the recipe", href: "/recipe/" },
+  { label: "Read my rules", href: "/rules/" },
+].filter((n) => n.href !== path);
 ---
 
 <html lang="en" class="dark">
@@ -43,21 +46,20 @@ const other = path === "/workflow/" ? { label: "Read my rules", href: "/rules/" 
     </script>
   </head>
   <body class="bg-background text-foreground">
-    <NavBar site="hmziq" maker="brand" links={[{ label: "Pieces", href: "/#pieces" }, ...pages.map((p) => ({ ...p, current: path === p.href }))]} cta={{ label: "Browse the pieces", href: links.pieces }} github={links.github} size="wide">
+    <NavBar site="hmziq" maker="brand" links={pages.map((p) => ({ ...p, current: path === p.href }))} cta={{ label: "Build your own", href: "/recipe/" }} github={links.github} size="wide" class="fixed inset-x-0 top-0 border-foreground/10 bg-background/70 backdrop-blur-2xl backdrop-saturate-150">
       <ThemeToggle slot="extra" />
     </NavBar>
 
-    <main><slot /></main>
+    <main class="pt-16"><slot /></main>
 
     {
       closing && (
         <section class="band-orange relative overflow-hidden py-16 md:py-24">
           <BandArcs />
           <Container size="wide" class="relative">
-            <h2 class="max-w-[14em] text-4xl leading-[1.02] font-medium tracking-[-0.04em] text-balance md:text-[3.25rem]">Try the pieces yourself.</h2>
+            <h2 class="max-w-[14em] text-4xl leading-[1.02] font-medium tracking-[-0.04em] text-balance md:text-[3.25rem]">Now make yours.</h2>
             <div class="mt-9 flex flex-wrap gap-3">
-              <ButtonLink href={links.pieces} size="lg">Browse the pieces</ButtonLink>
-              <ButtonLink href={other.href} size="lg" variant="outline">{other.label}</ButtonLink>
+              {next.map((n, i) => <ButtonLink href={n.href} size="lg" variant={i === 0 ? undefined : "outline"}>{n.label}</ButtonLink>)}
             </div>
           </Container>
         </section>
