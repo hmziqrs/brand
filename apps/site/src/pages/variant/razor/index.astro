@@ -1,0 +1,59 @@
+---
+import Container from "$brand/blocks/site/container.astro";
+import Razorbill from "../../../components/razorbill.astro";
+import Site from "../../../layouts/Site.astro";
+import type { RazorSketch } from "../../../lib/razor-sketches";
+
+const sketches: { kind: RazorSketch | "blades"; name: string; note: string }[] = [
+  { kind: "blades", name: "Razor blades", note: "The one you liked, for reference." },
+  { kind: "slit", name: "Slit", note: "One razor line that slowly opens a hair wider and closes, like an eye." },
+  { kind: "chevrons", name: "Chevrons", note: "Nested V hairlines; one at a time turns razor-white." },
+  { kind: "ripple", name: "Ripple", note: "Velvet black rippling out in rings; only the crests catch a razor of light." },
+  { kind: "paper", name: "Cut paper", note: "Stacked black sheets cut in a V; their edges catch the light one after another." },
+  { kind: "monolith", name: "Monolith", note: "One tall black pill; a single razor reflection slides across it." },
+  { kind: "barbs", name: "Barbs", note: "Long curved hairlines in a V; a wave turns a few of them razor-white." },
+  { kind: "split", name: "Split", note: "Two blacks divided by one razor line that turns a few degrees." },
+];
+---
+
+<Site title="Razor sketches: brand by hmziq" description="Live sketches of hero graphics with the razorbill's feel.">
+  <Container size="wide" class="py-16">
+    <h1 class="text-3xl font-medium tracking-[-0.03em]">Razor sketches</h1>
+    <p class="mt-3 max-w-[40rem] text-muted-foreground">Eight different directions, each live, each behind the hero text. Tell me which one clicks, even a little.</p>
+    <div class="mt-12 grid gap-x-6 gap-y-12 lg:grid-cols-2">
+      {
+        sketches.map(({ kind, name, note }, i) => (
+          <figure class="min-w-0">
+            <div data-pointer-host class="dark relative aspect-video overflow-hidden rounded-xl bg-background text-foreground ring-1 ring-foreground/10">
+              {kind === "blades" ? (
+                <Razorbill />
+              ) : (
+                <canvas data-razor-sketch={kind} aria-hidden="true" class="absolute inset-0 h-full w-full" />
+              )}
+              <div class="pointer-events-none relative flex h-full flex-col justify-center px-7">
+                <p class="max-w-[10em] text-[1.75rem] leading-[1.05] font-medium tracking-[-0.03em]">
+                  Give AI your own look<span class="text-primary">.</span>
+                </p>
+                <p class="mt-3 max-w-[17rem] text-sm leading-relaxed">AI builds the same site for everyone. Give it your own colors, font and parts, and what it makes starts to look like yours.</p>
+              </div>
+            </div>
+            <figcaption class="mt-3 text-sm text-muted-foreground">
+              <span class="font-medium text-foreground">
+                {i + 1}. {name}
+              </span>{" "}
+              · {note}
+            </figcaption>
+          </figure>
+        ))
+      }
+    </div>
+  </Container>
+</Site>
+
+<script>
+  import { mountRazorSketch, type RazorSketch } from "../../../lib/razor-sketches";
+
+  for (const canvas of document.querySelectorAll<HTMLCanvasElement>("[data-razor-sketch]")) {
+    mountRazorSketch(canvas, canvas.dataset.razorSketch as RazorSketch);
+  }
+</script>

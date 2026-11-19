@@ -1,0 +1,17 @@
+---
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<div data-slot="razor-ripple" aria-hidden="true" class:list={["pointer-events-none absolute inset-0", className]}>
+  <canvas class="absolute inset-0 h-full w-full"></canvas>
+</div>
+
+<script>
+  import { mountRazorSketch } from "../lib/razor-sketches";
+
+  for (const canvas of document.querySelectorAll<HTMLCanvasElement>("[data-slot='razor-ripple'] canvas")) mountRazorSketch(canvas, "ripple");
+</script>

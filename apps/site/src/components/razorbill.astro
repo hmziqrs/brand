@@ -1,0 +1,22 @@
+---
+import type { RazorLook } from "../lib/razorbill";
+
+interface Props {
+  look?: RazorLook;
+  class?: string;
+}
+
+const { look = "blades", class: className } = Astro.props;
+---
+
+<div data-slot="razorbill" aria-hidden="true" class:list={["pointer-events-none absolute inset-0", className]}>
+  <canvas data-look={look} class="absolute inset-0 h-full w-full"></canvas>
+</div>
+
+<script>
+  import { mountRazorbill, type RazorLook } from "../lib/razorbill";
+
+  for (const canvas of document.querySelectorAll<HTMLCanvasElement>("[data-slot='razorbill'] canvas")) {
+    mountRazorbill(canvas, canvas.dataset.look as RazorLook);
+  }
+</script>

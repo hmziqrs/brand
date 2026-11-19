@@ -5,8 +5,8 @@ import Container from "$brand/blocks/site/container.astro";
 import CompareWall from "../../components/compare-wall.astro";
 import PiecesWall from "../../components/pieces-wall.astro";
 import Splash from "../../components/motion/splash.astro";
-import Rings from "$brand/components/rings.astro";
-import Scene from "$brand/components/scene.astro";
+import RazorRipple from "../../components/razor-ripple.astro";
+import RingBlocks from "../../components/ring-blocks.astro";
 import Site from "../../layouts/Site.astro";
 import { links } from "../../lib/links";
 import roster from "../../../../../scripts/pieces.json";
@@ -30,15 +30,11 @@ const caption = "mt-2 text-sm text-muted-foreground";
 
 <Site title="brand by hmziq: learn to make a design identity and stop getting slop from AI" description="AI makes generic pages when it has nothing of yours to go on. Decide your colors, fonts and one graphic once, and what it makes looks like yours. See mine, then follow the steps I took.">
   <article class="flex flex-col gap-32 pb-32 md:gap-48 md:pb-48">
-    <header class="relative -mt-16 flex min-h-[80svh] flex-col pt-16">
-      <Container size="wide" class="relative grid flex-1 items-center gap-12 py-20 lg:grid-cols-[1.05fr_1fr]">
-        <div>
-          <h1 class="max-w-[12em] text-[clamp(2.5rem,5.5vw,4.5rem)] leading-[1.04] font-medium tracking-[-0.035em] text-balance">Give AI your own look<span class="text-primary">.</span></h1>
-          <p class="mt-6 max-w-[32rem] text-[clamp(18px,1.4vw,20px)] leading-[1.55] text-pretty">AI builds the same site for everyone. Give it your own colors, font and parts, and what it makes starts to look like yours.</p>
-        </div>
-        <Scene kind="lattice" seed="hmziq" class="aspect-[520/440] w-full">
-          <Rings slot="fallback" seed="hmziq" label="" />
-        </Scene>
+    <header data-pointer-host class="relative -mt-16 flex min-h-[80svh] flex-col pt-16">
+      <RingBlocks />
+      <Container size="wide" class="relative flex flex-1 flex-col justify-center py-20">
+        <h1 class="max-w-[12em] text-[clamp(2.5rem,5.5vw,4.5rem)] leading-[1.04] font-medium tracking-[-0.035em] text-balance">Give AI your own look<span class="text-primary">.</span></h1>
+        <p class="mt-6 max-w-[32rem] text-[clamp(18px,1.4vw,20px)] leading-[1.55] text-pretty">AI builds the same site for everyone. Give it your own colors, font and parts, and what it makes starts to look like yours.</p>
       </Container>
     </header>
 
@@ -88,8 +84,9 @@ const caption = "mt-2 text-sm text-muted-foreground";
       </Container>
     </section>
 
-    <section>
-      <Container size="wide" class="flex flex-col items-center text-center">
+    <section data-pointer-host class="dark relative -mb-32 flex min-h-[70svh] flex-col overflow-hidden bg-background text-foreground md:-mb-48">
+      <RazorRipple />
+      <Container size="wide" class="relative flex flex-1 flex-col justify-center py-24">
         <h2 class={title}>Making it took a couple of hours.</h2>
         <p class={`${prose} mt-6`}>I built it with Claude and wrote down every step in order, so you can follow along and make your own.</p>
       </Container>

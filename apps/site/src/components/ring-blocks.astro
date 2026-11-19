@@ -1,0 +1,21 @@
+---
+interface Props {
+  /** The name the rings are drawn from. */
+  seed?: string;
+  class?: string;
+}
+
+const { seed = "hmziq", class: className } = Astro.props;
+---
+
+<div data-slot="ring-blocks" aria-hidden="true" class:list={["pointer-events-none absolute inset-0", className]}>
+  <canvas data-seed={seed} class="absolute inset-0 h-full w-full"></canvas>
+</div>
+
+<script>
+  import { mountRingBlocks } from "../lib/ring-blocks";
+
+  for (const canvas of document.querySelectorAll<HTMLCanvasElement>("[data-slot='ring-blocks'] canvas")) {
+    mountRingBlocks(canvas, { seed: canvas.dataset.seed });
+  }
+</script>

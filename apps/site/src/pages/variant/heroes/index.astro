@@ -1,25 +1,22 @@
 ---
 import Container from "$brand/blocks/site/container.astro";
-import StringField from "../../../components/string-field.astro";
+import Razorbill from "../../../components/razorbill.astro";
+import RingBlocks from "../../../components/ring-blocks.astro";
 import Site from "../../../layouts/Site.astro";
 
 const options = [
-  { kind: "strings", name: "Now: strings", note: "The string field the page has today." },
-  { kind: "ring-blocks", name: "New: ring blocks", note: "The brand's rings, laid flat and built from blocks. The orange ring's gap turns; a ripple lifts the gray rings." },
+  { kind: "ring-blocks", name: "Ring blocks", note: "The one in the /variant/ hero now." },
+  { kind: "blades", name: "Razor blades", note: "The one you liked, unchanged." },
+  { kind: "obsidian", name: "Razor blades · obsidian", note: "The same blades as polished black. Their rounded edges reflect a hard studio light, so the razor lines are reflections sliding across the surface." },
+  { kind: "horizon", name: "Razor blades · horizon", note: "The blades lie on a floor that recedes in perspective toward a far light; a razor V travels toward you out of the dark." },
 ] as const;
 ---
 
-<Site title="Hero graphics: brand by hmziq" description="A new hero graphic next to the current one, with the hero text.">
+<Site title="Hero graphics: brand by hmziq" description="Ring blocks next to the razor blades shader.">
   {
     options.map(({ kind, name, note }, i) => (
-      <section data-pointer-host class:list={["relative flex flex-col overflow-hidden border-b border-foreground/10", i === 0 && "-mt-16 pt-16"]} style="min-height: max(88svh, 46rem)">
-        {kind === "strings" ? (
-          <StringField clear="left" />
-        ) : (
-          <div aria-hidden="true" class="pointer-events-none absolute inset-0">
-            <canvas data-ring-blocks class="absolute inset-0 h-full w-full" />
-          </div>
-        )}
+      <section data-pointer-host class:list={["relative flex flex-col overflow-hidden border-b border-foreground/10", i === 0 && "-mt-16 pt-16", kind !== "ring-blocks" && "dark bg-background text-foreground"]} style="min-height: max(88svh, 46rem)">
+        {kind === "ring-blocks" ? <RingBlocks /> : <Razorbill look={kind} />}
         <Container size="wide" class="relative flex flex-1 flex-col justify-center py-20">
           <p class="mb-10 text-sm text-muted-foreground">
             <span class="font-medium text-foreground">{name}</span> · {note}
@@ -33,9 +30,3 @@ const options = [
     ))
   }
 </Site>
-
-<script>
-  import { mountRingBlocks } from "../../../lib/ring-blocks";
-
-  for (const canvas of document.querySelectorAll<HTMLCanvasElement>("[data-ring-blocks]")) mountRingBlocks(canvas);
-</script>

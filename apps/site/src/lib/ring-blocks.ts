@@ -40,7 +40,8 @@ function readDeep(host: Element): RGB {
  * The brand's rings laid flat and built from blocks on an isometric grid, drawn from `seed` like
  * every other set of rings. Each ring keeps its one gap; the orange ring's gap turns, so its blocks
  * rise ahead of the gap and sink behind it. Every few seconds a ripple lifts the gray rings one
- * after another, outward. Blocks near the cursor rise. Still for reduced motion. Returns the cleanup.
+ * after another, outward. Blocks near the cursor rise, and a click sends a ring of risen blocks out
+ * from where it lands. Still for reduced motion. Returns the cleanup.
  */
 export function mountRingBlocks(canvas: HTMLCanvasElement, { seed = "hmziq", size = 12, rings: count = 7, accent = 2 }: RingBlocksOptions = {}) {
   const host = canvas.parentElement!;
@@ -86,11 +87,15 @@ export function mountRingBlocks(canvas: HTMLCanvasElement, { seed = "hmziq", siz
 
   let m: ReturnType<typeof mountCanvas> | undefined;
   const ptr = trackPointer(canvas, () => m?.still && m.redraw());
+  const clicks: { x: number; y: number; t: number }[] = [];
+  let clock = 0;
 
   m = mountCanvas(canvas, {
     animate: true,
     draw: ({ ctx, w, h, t, dt }) => {
       ptr.step(dt, w, h, t, false, 6);
+      clock = t;
+      while (clicks.length && t - clicks[0].t > 3) clicks.shift();
       const { x: px, y: py } = ptr.p;
       const k = dt ? 1 - Math.exp(-dt * 7) : 1;
       const hw = size;
@@ -118,14 +123,20 @@ export function mountRingBlocks(canvas: HTMLCanvasElement, { seed = "hmziq", siz
           const r = ring >= 0 ? rings[ring] : null;
           const body = r ? solid(r, Math.atan2(j - mid, i - mid), r.accent ? turn : 0) : 0;
           const pulse = r && !r.accent ? Math.exp(-((wave - 0.6 - ring * 0.22) ** 2) / 0.06) : 0;
-          const target = body * (r?.accent ? rise * 0.75 : rise * 0.45) + pulse * body * rise * 0.6 + near * lift * (0.35 + body);
+          let shock = 0;
+          for (const c of clicks) {
+            const age = t - c.t;
+            const dist = Math.hypot(sx - c.x, (sy - c.y) * 2);
+            shock += Math.exp(-((dist - age * 240) ** 2) / 1600) * (1 - age / 3) ** 2;
+          }
+          const target = shock * lift * 1.2 + body * (r?.accent ? rise * 0.75 : rise * 0.45) + pulse * body * rise * 0.6 + near * lift * (0.35 + body);
           const q = i + j * span;
           height[q] += (target - height[q]) * k;
           const z = height[q];
           const fade = 1 - smooth(outer - 2.5, outer, d);
           const y = sy - z;
           const hot = r?.accent ? body : 0;
-          const lit = pulse * body;
+          const lit = Math.min(1, pulse * body + shock * 0.6);
           if (z > 0.5) {
             ctx.beginPath();
             ctx.moveTo(sx - hw, y);
@@ -163,11 +174,22 @@ export function mountRingBlocks(canvas: HTMLCanvasElement, { seed = "hmziq", siz
     },
   });
 
+  const press = (e: PointerEvent) => {
+    const box = canvas.getBoundingClientRect();
+    const x = e.clientX - box.left;
+    const y = e.clientY - box.top;
+    if (m?.still || x < 0 || y < 0 || x > box.width || y > box.height) return;
+    clicks.push({ x, y, t: clock });
+    if (clicks.length > 4) clicks.shift();
+  };
+  addEventListener("pointerdown", press);
+
   const off = onThemeChange(() => {
     read();
     if (m?.still) m.redraw();
   });
   return () => {
+    removeEventListener("pointerdown", press);
     off();
     m?.destroy();
     ptr.destroy();
