@@ -1,0 +1,195 @@
+---
+import ButtonLink from "$brand/blocks/site/button-link.astro";
+import CheckList from "$brand/blocks/site/check-list.astro";
+import HeroNote from "$brand/blocks/site/hero-note.astro";
+import OutlineCard from "$brand/blocks/site/outline-card.astro";
+import PricingCard from "$brand/blocks/site/pricing-card.astro";
+import type { PricingTier } from "$brand/blocks/site/pricing-types";
+import BandArcs from "$brand/components/band-arcs.astro";
+import Question from "$brand/components/question.astro";
+import Questions from "$brand/components/questions.astro";
+import RingGauge from "$brand/components/ring-gauge.astro";
+import Rings from "$brand/components/rings.astro";
+import StatTile from "$brand/components/stat-tile.astro";
+import Wordmark from "$brand/components/wordmark.astro";
+
+export type AfterBusiness = "invoicing" | "dog walking" | "bread" | "tax law" | "plumbing" | "gardening";
+
+interface Props {
+  business: AfterBusiness;
+}
+
+type Page = {
+  name: string;
+  ground: "dark" | "light" | "orange";
+  links: [string, string];
+  title: string;
+  lede: string;
+  cta: string;
+  notes: string[];
+};
+
+const pages: Record<AfterBusiness, Page> = {
+  invoicing: {
+    name: "tally",
+    ground: "dark",
+    links: ["Prices", "Sign in"],
+    title: "Send an invoice in one minute.",
+    lede: "Late payers get a reminder every Monday.",
+    cta: "Send one free",
+    notes: ["2% per paid invoice", "No monthly fee"],
+  },
+  "dog walking": {
+    name: "longlead",
+    ground: "light",
+    links: ["Walkers", "Prices"],
+    title: "One long walk, every day.",
+    lede: "Rain or not, with the same walker.",
+    cta: "Book a walk",
+    notes: ["An hour outside", "A photo after"],
+  },
+  bread: {
+    name: "crumb",
+    ground: "dark",
+    links: ["Loaves", "Find us"],
+    title: "We bake at five and open at seven.",
+    lede: "Three loaves on Mill Street, until they run out.",
+    cta: "See today's loaves",
+    notes: ["Sourdough", "Rye", "Seeded"],
+  },
+  "tax law": {
+    name: "hale & orr",
+    ground: "light",
+    links: ["Fees", "Contact"],
+    title: "We answer your tax letters.",
+    lede: "Send us the letter. We write back to the tax office.",
+    cta: "Send a letter",
+    notes: ["Fixed fee", "Since 2004"],
+  },
+  plumbing: {
+    name: "stopcock",
+    ground: "orange",
+    links: ["Prices", "Areas"],
+    title: "A plumber who picks up the phone.",
+    lede: "Call before noon and we come the same day.",
+    cta: "Call 555 0134",
+    notes: [],
+  },
+  gardening: {
+    name: "hedgerow",
+    ground: "dark",
+    links: ["Prices", "Book"],
+    title: "Your hedge, cut every third week.",
+    lede: "We cut it and take the clippings with us.",
+    cta: "Get a price",
+    notes: ["From $40 a visit"],
+  },
+};
+
+const walks: PricingTier = {
+  name: "Daily walks",
+  tab: "Daily",
+  for: "One long walk, every day, rain or not.",
+  art: "lanes",
+  amount: ["$18"],
+  unit: ["a walk"],
+  short: ["a walk"],
+  note: ["Cancel any morning"],
+  cta: "Book a walk",
+  act: "Book",
+  pick: true,
+  badge: "Most dogs",
+  items: ["An hour outside", "The same walker every time"],
+};
+
+const { business } = Astro.props;
+const page = pages[business];
+const orange = page.ground === "orange";
+---
+
+<div class="after" aria-hidden="true" inert>
+  <div class:list={["after-page relative flex flex-col overflow-hidden", orange ? "band-orange" : [page.ground, "bg-background text-foreground"]]}>
+    {orange && <BandArcs />}
+    {business === "bread" && <Rings seed={page.name} label="" class="absolute top-1/2 right-0 w-[62%] -translate-y-1/2" />}
+    <div class="relative flex items-center gap-7 px-12 pt-9 text-base">
+      <Wordmark name={page.name} class="mr-auto text-[1.75rem]" />
+      {page.links.map((link) => <span class="text-muted-foreground">{link}</span>)}
+      <ButtonLink href="#" size="sm" variant="outline">{page.cta}</ButtonLink>
+    </div>
+    <div class="relative grid flex-1 grid-cols-[1.1fr_1fr] items-center gap-10 px-12 pb-8">
+      <div class="flex flex-col items-start gap-6">
+        <p class="text-[3.25rem] leading-[1.02] font-medium tracking-[-0.035em] text-balance">{page.title}</p>
+        <p class="text-xl leading-relaxed text-muted-foreground">{page.lede}</p>
+        <ButtonLink href="#" size="lg" class="mt-2">{page.cta}</ButtonLink>
+        {page.notes.length > 0 && <div class="flex flex-wrap gap-x-5 gap-y-1.5 text-base text-muted-foreground">{page.notes.map((note) => <HeroNote>{note}</HeroNote>)}</div>}
+      </div>
+      <div class="min-w-0">
+        {
+          business === "invoicing" && (
+            <div class="grid grid-cols-2 gap-4">
+              <StatTile value="$4,280" label="Paid this month" tone="oxide" rings="tally" class="col-span-2" />
+              <StatTile value="3" label="Still waiting" />
+              <StatTile value="Mon" label="Next reminder" accent />
+            </div>
+          )
+        }
+        {business === "dog walking" && <PricingCard tier={walks} />}
+        {
+          business === "tax law" && (
+            <Questions>
+              <Question question="Do I have to reply myself?" open>
+                No. You send us the letter and we write the reply.
+              </Question>
+              <Question question="What does it cost?" />
+              <Question question="How long does it take?" />
+            </Questions>
+          )
+        }
+        {
+          business === "plumbing" && (
+            <div class="flex flex-col gap-8 border-t border-(--on-orange) pt-6">
+              <p class="text-[5.25rem] leading-[0.95] font-medium tracking-[-0.05em] tabular-nums">555 0134</p>
+              <CheckList items={["No call-out fee", "Fixed prices", "Open Saturdays"]} class="[&>li]:text-base [&>li]:text-(--on-orange)" />
+            </div>
+          )
+        }
+        {
+          business === "gardening" && (
+            <OutlineCard class="gap-6 p-8">
+              <div class="flex items-center gap-5">
+                <RingGauge value={3} class="w-20" />
+                <p class="text-3xl leading-tight font-medium tracking-[-0.03em]">Every third week</p>
+              </div>
+              <CheckList items={["The same day each time", "April to October", "Clippings taken away"]} class="border-t pt-6 [&>li]:text-base" />
+            </OutlineCard>
+          )
+        }
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .after {
+    container-type: inline-size;
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: 0.75rem;
+    user-select: none;
+  }
+  .after::after {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--foreground) 12%, transparent);
+    content: "";
+    pointer-events: none;
+  }
+  .after-page {
+    width: 60rem;
+    height: 45rem;
+    transform-origin: 0 0;
+    scale: tan(atan2(100cqw, 60rem));
+  }
+</style>

@@ -1,45 +1,147 @@
 ---
 import { Sparkles } from "@lucide/astro";
+import type { AfterBusiness } from "./after-page.astro";
 
 export type SlopSkin = "glow" | "saas" | "bento" | "editorial" | "glass" | "brutal";
 
 interface Props {
-  business: string;
+  business: AfterBusiness;
   skin: SlopSkin;
 }
 
+type Slop = {
+  name: string;
+  links: [string, string];
+  sticker: string;
+  title: [string, string];
+  lede: string;
+  go: string;
+  demo: string;
+  stat: string;
+  cards: [string, string, string][];
+};
+
+const sites: Record<AfterBusiness, Slop> = {
+  invoicing: {
+    name: "tally",
+    links: ["Prices", "Sign in"],
+    sticker: "✨ Now with AI",
+    title: ["Invoicing, ", "reimagined"],
+    lede: "The all-in-one platform that helps you send invoices and get paid faster.",
+    go: "Start free trial →",
+    demo: "Watch demo",
+    stat: "+128%",
+    cards: [
+      ["⚡", "One-minute invoices", "1 min"],
+      ["🔔", "Smart reminders", "Weekly"],
+      ["💸", "No monthly fees", "$0"],
+    ],
+  },
+  "dog walking": {
+    name: "longlead",
+    links: ["Walkers", "Prices"],
+    sticker: "🎉 Now in your city",
+    title: ["Happy dogs, ", "every single day"],
+    lede: "We connect your dog with trusted walkers for seamless daily adventures.",
+    go: "Book now →",
+    demo: "Meet walkers",
+    stat: "+128%",
+    cards: [
+      ["🐾", "Daily adventures", "365"],
+      ["📸", "Photo updates", "24/7"],
+      ["🦮", "Trusted walkers", "100%"],
+    ],
+  },
+  bread: {
+    name: "crumb",
+    links: ["Loaves", "Find us"],
+    sticker: "● Now baking",
+    title: ["Artisan bread, ", "elevated"],
+    lede: "Handmade loaves crafted with passion, from our oven to your table.",
+    go: "Order now →",
+    demo: "Our story",
+    stat: "",
+    cards: [
+      ["🥖", "Baked at dawn", "5am"],
+      ["🌾", "Signature loaves", "3"],
+      ["☕", "Open daily", "7am"],
+    ],
+  },
+  "tax law": {
+    name: "hale & orr",
+    links: ["Fees", "Contact"],
+    sticker: "Tax, made simple",
+    title: ["Navigate your taxes with ", "confidence"],
+    lede: "We empower you to handle every tax letter with expert, stress-free support.",
+    go: "Book a consultation →",
+    demo: "Learn more",
+    stat: "",
+    cards: [
+      ["⚖️", "Expert guidance", "20+"],
+      ["📄", "Fixed-fee pricing", "100%"],
+      ["🏛️", "Trusted since 2004", "2004"],
+    ],
+  },
+  plumbing: {
+    name: "stopcock",
+    links: ["Prices", "Areas"],
+    sticker: "✨ Introducing same-day service",
+    title: ["Plumbing solutions ", "you can trust"],
+    lede: "Fast, reliable plumbing for your home, whenever you need it most.",
+    go: "Get a quote →",
+    demo: "Our services",
+    stat: "",
+    cards: [
+      ["🔧", "Same-day service", "24/7"],
+      ["💧", "Fixed prices", "$0"],
+      ["📞", "Always available", "100%"],
+    ],
+  },
+  gardening: {
+    name: "hedgerow",
+    links: ["Prices", "Book"],
+    sticker: "NEW!!!",
+    title: ["Transform your ", "outdoor space"],
+    lede: "We bring your garden to life with seamless, worry-free hedge care.",
+    go: "Get a free quote →",
+    demo: "See our work",
+    stat: "",
+    cards: [
+      ["🌿", "Regular cuts", "3 wk"],
+      ["🗓️", "Flexible scheduling", "7 days"],
+      ["♻️", "Clippings removed", "100%"],
+    ],
+  },
+};
+
 const { business, skin } = Astro.props;
+const site = sites[business];
 const mode = skin === "saas" || skin === "editorial" ? "light" : "dark";
-const cards = [
-  ["🚀", "Lightning fast", "10x"],
-  ["🔒", "Secure by default", "99.9%"],
-  ["⚡", "Built to scale", "24/7"],
-];
 const bars = [38, 52, 44, 66, 58, 79, 92];
-const sticker = { glow: "✨ Now with AI", saas: "🎉 Series A announced", bento: "● v2.0 is live", editorial: "A new way to work", glass: "✨ Introducing AI", brutal: "NEW!!!" }[skin];
 ---
 
 <div class="slop" class:list={[mode]} data-skin={skin} aria-hidden="true">
   <div class="slop-bar">
     <span class="slop-logo"><Sparkles /></span>
-    <span class="slop-link"></span><span class="slop-link"></span><span class="slop-link"></span>
+    <span class="slop-name">{site.name}</span>
+    {site.links.map((link) => <span class="slop-link">{link}</span>)}
     <span class="slop-cta">Get started</span>
   </div>
   <div class="slop-hero">
-    <span class="slop-pill">{sticker}</span>
-    <p class="slop-title">Build the future of <span>{business}</span></p>
-    <p class="slop-lede">The all-in-one platform that helps you work smarter, not harder.</p>
+    <span class="slop-pill">{site.sticker}</span>
+    <p class="slop-title">{site.title[0]}<span>{site.title[1]}</span></p>
+    <p class="slop-lede">{site.lede}</p>
     <div class="slop-actions">
-      <span class="slop-go">Get started free →</span>
-      <span class="slop-demo">Watch demo</span>
+      <span class="slop-go">{site.go}</span>
+      <span class="slop-demo">{site.demo}</span>
     </div>
   </div>
   <div class="slop-chart">
-    <span class="slop-stat">+128%</span>
+    <span class="slop-stat">{site.stat}</span>
     <div class="slop-bars">{bars.map((h) => <i style={`height:${h}%`}></i>)}</div>
   </div>
   <div class="slop-cards">
-    {cards.map(([icon, name, stat]) => <span class="slop-card"><b>{icon}</b><em>{stat}</em>{name}</span>)}
+    {site.cards.map(([icon, name, stat]) => <span class="slop-card"><b>{icon}</b><em>{stat}</em>{name}</span>)}
   </div>
 </div>
 
@@ -79,14 +181,20 @@ const sticker = { glow: "✨ Now with AI", saas: "🎉 Series A announced", bent
     width: 3.4cqw;
     height: 3.4cqw;
   }
+  .slop-name {
+    margin-left: -1.6cqw;
+    font-size: 2.6cqw;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
   .slop-link {
-    width: 6cqw;
-    height: 0.9cqw;
-    border-radius: 1cqw;
-    background: color-mix(in oklab, currentColor 30%, transparent);
+    opacity: 0.7;
+    font-size: 1.9cqw;
+  }
+  .slop-name + .slop-link {
+    margin-left: auto;
   }
   .slop-cta {
-    margin-left: auto;
     white-space: nowrap;
     border-radius: 9cqw;
     background: var(--go);

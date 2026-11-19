@@ -8,7 +8,7 @@ export default defineConfig({
   output: "static",
   trailingSlash: "always",
   devToolbar: { enabled: false },
-  integrations: [sitemap({ filter: (page) => !page.includes("/media/raw/") })],
+  integrations: [sitemap({ filter: (page) => !page.includes("/media/raw/") && !page.includes("/variant/") })],
   vite: {
     resolve: {
       alias: {

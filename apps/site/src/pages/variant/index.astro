@@ -1,0 +1,99 @@
+---
+import { ArrowRight } from "@lucide/astro";
+import ButtonLink from "$brand/blocks/site/button-link.astro";
+import Container from "$brand/blocks/site/container.astro";
+import CompareWall from "../../components/compare-wall.astro";
+import PiecesWall from "../../components/pieces-wall.astro";
+import Splash from "../../components/motion/splash.astro";
+import StringField from "../../components/string-field.astro";
+import Site from "../../layouts/Site.astro";
+import { links } from "../../lib/links";
+import roster from "../../../../../scripts/pieces.json";
+
+const pieceCount = roster.pieces.filter((p) => p.svelte && p.astro).length;
+
+const businesses = [
+  ["invoicing", "glow"],
+  ["dog walking", "saas"],
+  ["bread", "bento"],
+  ["tax law", "editorial"],
+  ["plumbing", "glass"],
+  ["gardening", "brutal"],
+] as const;
+
+const title = "text-[clamp(1.625rem,2.8vw,2.25rem)] leading-[1.12] font-medium tracking-[-0.025em] text-balance";
+const prose = "max-w-[40rem] text-[clamp(18px,1.4vw,20px)] leading-[1.6] text-pretty";
+const frame = "overflow-hidden rounded-xl ring-1 ring-foreground/10";
+const caption = "mt-2 text-sm text-muted-foreground";
+---
+
+<Site title="brand by hmziq: learn to make a design identity and stop getting slop from AI" description="AI makes generic pages when it has nothing of yours to go on. Decide your colors, fonts and one graphic once, and what it makes looks like yours. See mine, then follow the steps I took.">
+  <article class="flex flex-col gap-32 pb-32 md:gap-48 md:pb-48">
+    <header class="relative -mt-16 flex min-h-[80svh] flex-col pt-16">
+      <StringField clear="left" />
+      <Container size="wide" class="relative flex flex-1 flex-col justify-center py-20">
+        <h1 class="max-w-[12em] text-[clamp(2.5rem,5.5vw,4.5rem)] leading-[1.04] font-medium tracking-[-0.035em] text-balance">Give AI your own look<span class="text-primary">.</span></h1>
+        <p class="mt-6 max-w-[32rem] text-[clamp(18px,1.4vw,20px)] leading-[1.55] text-pretty">AI builds the same site for everyone. Give it your own colors, font and parts, and what it makes starts to look like yours.</p>
+      </Container>
+    </header>
+
+    <section>
+      <Container size="wide">
+        <h2 class={title}>You've seen these sites before.</h2>
+        <p class={`${prose} mt-6`}>This is what AI makes when it has nothing of yours to go on. Switch to after to see the same six sites rebuilt with brand's rules and components.</p>
+        <div class="mt-16"><CompareWall businesses={businesses} /></div>
+      </Container>
+    </section>
+
+    <section>
+      <Container size="wide" class="grid items-start gap-12 lg:grid-cols-[minmax(0,22rem)_1fr] lg:gap-20">
+        <div class="lg:sticky lg:top-32">
+          <h2 class={title}>The same look goes past websites.</h2>
+          <p class={`${prose} mt-6`}>My social posts, video intros and shorts use the same orange, font and rings, so you can tell they're mine at a glance.</p>
+        </div>
+        <div class="grid gap-6">
+          <figure class="min-w-0">
+            <img src="/og.png" alt="" width="1200" height="630" loading="lazy" class="h-auto w-full rounded-xl ring-1 ring-foreground/10" />
+            <figcaption class={caption}>An image for a social media post</figcaption>
+          </figure>
+          <div class="media-pair grid items-end gap-6">
+            <figure class="min-w-0">
+              <div class={frame}><Splash layout="wide" /></div>
+              <figcaption class={caption}>A video intro</figcaption>
+            </figure>
+            <figure class="min-w-0">
+              <div class={frame}><Splash layout="tall" /></div>
+              <figcaption class={caption}>A short</figcaption>
+            </figure>
+          </div>
+        </div>
+      </Container>
+    </section>
+
+    <section id="pieces" class="scroll-mt-24">
+      <Container size="wide">
+        <div class="flex flex-wrap items-end justify-between gap-8">
+          <div>
+            <h2 class={title}>The kit has {pieceCount} components so far.</h2>
+            <p class={`${prose} mt-6`}>Buttons, cards, price tables, charts: the parts a page is made of. The after sites above use them, and here are a few more, running live. It's still early, and none of my real sites run on it yet.</p>
+          </div>
+          <ButtonLink href={links.pieces} variant="outline">Browse all of them<ArrowRight data-icon="inline-end" /></ButtonLink>
+        </div>
+        <div class="mt-16"><PiecesWall /></div>
+      </Container>
+    </section>
+
+    <section>
+      <Container size="wide" class="flex flex-col items-center text-center">
+        <h2 class={title}>Making it took a couple of hours.</h2>
+        <p class={`${prose} mt-6`}>I built it with Claude and wrote down every step in order, so you can follow along and make your own.</p>
+      </Container>
+    </section>
+  </article>
+</Site>
+
+<style is:global>
+  .media-pair {
+    grid-template-columns: 1.78fr 0.56fr;
+  }
+</style>

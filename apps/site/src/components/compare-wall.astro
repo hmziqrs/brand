@@ -1,0 +1,162 @@
+---
+import { ChevronsLeftRight } from "@lucide/astro";
+import Segmented from "$brand/components/segmented.astro";
+import AfterPage, { type AfterBusiness } from "./after-page.astro";
+import SlopPage, { type SlopSkin } from "./slop-page.astro";
+
+interface Props {
+  /** Each business with the skin its slop page wears. */
+  businesses: readonly (readonly [AfterBusiness, SlopSkin])[];
+}
+
+const { businesses } = Astro.props;
+const grid = "grid grid-cols-2 gap-3 lg:grid-cols-3 lg:gap-5";
+---
+
+<div data-slot="compare-wall">
+  <div class="mb-5 flex flex-wrap items-center justify-between gap-3">
+    <Segmented data-compare-switch label="Which sites the wall shows" value="before" options={[{ value: "before", label: "Before" }, { value: "after", label: "After" }]} />
+    <span class="text-sm text-muted-foreground" aria-hidden="true">or drag the line</span>
+  </div>
+  <div class="compare relative select-none" role="img" aria-label="Six made-up businesses, each shown twice. Before, its site is what AI makes for anyone: stock headlines, emoji cards and the same layout in different colors. After, the same site with the same content is rebuilt with the brand kit's rules and pieces.">
+    <div class={grid}>{businesses.map(([business, skin]) => <SlopPage business={business} skin={skin} />)}</div>
+    <div class:list={["compare-after absolute inset-0", grid]}>{businesses.map(([business]) => <AfterPage business={business} />)}</div>
+    <div class="compare-handle" data-compare-handle>
+      <span class="compare-knob"><ChevronsLeftRight /></span>
+    </div>
+  </div>
+  <input data-compare-range type="range" min="0" max="100" value="100" step="1" aria-label="How much of the wall shows the before sites" class="sr-only" />
+</div>
+
+<style>
+  .compare {
+    --split: 100%;
+    --glide: 600ms;
+  }
+  .compare-after {
+    clip-path: inset(0 0 0 var(--split));
+  }
+  .compare-handle {
+    position: absolute;
+    top: -0.5rem;
+    bottom: -0.5rem;
+    left: var(--split);
+    width: 2.75rem;
+    margin-left: -1.375rem;
+    cursor: ew-resize;
+    touch-action: none;
+  }
+  .compare[data-gliding] .compare-after {
+    transition: clip-path var(--glide) cubic-bezier(0.65, 0, 0.35, 1);
+  }
+  .compare[data-gliding] .compare-handle {
+    transition: left var(--glide) cubic-bezier(0.65, 0, 0.35, 1);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .compare[data-gliding] .compare-after,
+    .compare[data-gliding] .compare-handle {
+      transition: none;
+    }
+  }
+  .compare-handle::before {
+    position: absolute;
+    inset: 0 auto 0 50%;
+    width: 2px;
+    margin-left: -1px;
+    background: var(--foreground);
+    content: "";
+  }
+  .compare-knob {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: grid;
+    width: 2.75rem;
+    height: 2.75rem;
+    margin: -1.375rem 0 0 -1.375rem;
+    place-items: center;
+    border-radius: 999px;
+    background: var(--foreground);
+    color: var(--background);
+  }
+  .compare-knob :global(svg) {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+  [data-slot="compare-wall"]:has(input:focus-visible) .compare-knob {
+    outline: 2px solid var(--primary);
+    outline-offset: 3px;
+  }
+</style>
+
+<script>
+  for (const root of document.querySelectorAll<HTMLElement>("[data-slot='compare-wall']")) {
+    const wall = root.querySelector<HTMLElement>(".compare");
+    const handle = root.querySelector<HTMLElement>("[data-compare-handle]");
+    const range = root.querySelector<HTMLInputElement>("[data-compare-range]");
+    const options = root.querySelectorAll<HTMLElement>("[data-compare-switch] [data-segmented-option]");
+    if (!wall || !handle || !range) continue;
+
+    let touched = false;
+    let settle = 0;
+
+    const show = (percent: number) => {
+      const split = Math.max(0, Math.min(100, percent));
+      wall.style.setProperty("--split", `${split}%`);
+      range.value = String(Math.round(split));
+      const side = split >= 99 ? "before" : split <= 1 ? "after" : "";
+      for (const option of options) option.setAttribute("aria-pressed", String(option.dataset.value === side));
+    };
+    const hold = () => {
+      touched = true;
+      clearTimeout(settle);
+      delete wall.dataset.gliding;
+    };
+    const glide = (to: number, ms: number) => {
+      clearTimeout(settle);
+      wall.style.setProperty("--glide", `${ms}ms`);
+      wall.dataset.gliding = "";
+      show(to);
+      settle = window.setTimeout(() => delete wall.dataset.gliding, ms + 80);
+    };
+    const follow = (e: PointerEvent) => {
+      const box = wall.getBoundingClientRect();
+      show(((e.clientX - box.left) / box.width) * 100);
+    };
+
+    handle.addEventListener("pointerdown", (e) => {
+      hold();
+      handle.setPointerCapture(e.pointerId);
+      follow(e);
+    });
+    handle.addEventListener("pointermove", (e) => {
+      if (handle.hasPointerCapture(e.pointerId)) follow(e);
+    });
+    wall.addEventListener("pointerdown", (e) => {
+      if (e.pointerType !== "mouse" || e.target === handle || handle.contains(e.target as Node)) return;
+      hold();
+      follow(e);
+      handle.setPointerCapture(e.pointerId);
+    });
+    range.addEventListener("input", () => {
+      hold();
+      show(Number(range.value));
+    });
+    root.addEventListener("segmented-change", (e) => {
+      touched = true;
+      glide((e as CustomEvent<{ value: string }>).detail.value === "after" ? 0 : 100, 600);
+    });
+
+    const seen = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((entry) => entry.isIntersecting)) return;
+        seen.disconnect();
+        if (touched) return;
+        const columns = getComputedStyle(wall.firstElementChild!).gridTemplateColumns.split(" ").length;
+        glide(columns >= 3 ? 50 : 72, 1400);
+      },
+      { threshold: 0.4 },
+    );
+    seen.observe(wall);
+  }
+</script>
