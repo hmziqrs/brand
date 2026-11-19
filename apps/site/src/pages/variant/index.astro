@@ -5,7 +5,8 @@ import Container from "$brand/blocks/site/container.astro";
 import CompareWall from "../../components/compare-wall.astro";
 import PiecesWall from "../../components/pieces-wall.astro";
 import Splash from "../../components/motion/splash.astro";
-import StringField from "../../components/string-field.astro";
+import Rings from "$brand/components/rings.astro";
+import Scene from "$brand/components/scene.astro";
 import Site from "../../layouts/Site.astro";
 import { links } from "../../lib/links";
 import roster from "../../../../../scripts/pieces.json";
@@ -30,10 +31,14 @@ const caption = "mt-2 text-sm text-muted-foreground";
 <Site title="brand by hmziq: learn to make a design identity and stop getting slop from AI" description="AI makes generic pages when it has nothing of yours to go on. Decide your colors, fonts and one graphic once, and what it makes looks like yours. See mine, then follow the steps I took.">
   <article class="flex flex-col gap-32 pb-32 md:gap-48 md:pb-48">
     <header class="relative -mt-16 flex min-h-[80svh] flex-col pt-16">
-      <StringField clear="left" />
-      <Container size="wide" class="relative flex flex-1 flex-col justify-center py-20">
-        <h1 class="max-w-[12em] text-[clamp(2.5rem,5.5vw,4.5rem)] leading-[1.04] font-medium tracking-[-0.035em] text-balance">Give AI your own look<span class="text-primary">.</span></h1>
-        <p class="mt-6 max-w-[32rem] text-[clamp(18px,1.4vw,20px)] leading-[1.55] text-pretty">AI builds the same site for everyone. Give it your own colors, font and parts, and what it makes starts to look like yours.</p>
+      <Container size="wide" class="relative grid flex-1 items-center gap-12 py-20 lg:grid-cols-[1.05fr_1fr]">
+        <div>
+          <h1 class="max-w-[12em] text-[clamp(2.5rem,5.5vw,4.5rem)] leading-[1.04] font-medium tracking-[-0.035em] text-balance">Give AI your own look<span class="text-primary">.</span></h1>
+          <p class="mt-6 max-w-[32rem] text-[clamp(18px,1.4vw,20px)] leading-[1.55] text-pretty">AI builds the same site for everyone. Give it your own colors, font and parts, and what it makes starts to look like yours.</p>
+        </div>
+        <Scene kind="lattice" seed="hmziq" class="aspect-[520/440] w-full">
+          <Rings slot="fallback" seed="hmziq" label="" />
+        </Scene>
       </Container>
     </header>
 

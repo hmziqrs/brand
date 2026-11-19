@@ -1,0 +1,41 @@
+---
+import Container from "$brand/blocks/site/container.astro";
+import StringField from "../../../components/string-field.astro";
+import Site from "../../../layouts/Site.astro";
+
+const options = [
+  { kind: "strings", name: "Now: strings", note: "The string field the page has today." },
+  { kind: "ring-blocks", name: "New: ring blocks", note: "The brand's rings, laid flat and built from blocks. The orange ring's gap turns; a ripple lifts the gray rings." },
+] as const;
+---
+
+<Site title="Hero graphics: brand by hmziq" description="A new hero graphic next to the current one, with the hero text.">
+  {
+    options.map(({ kind, name, note }, i) => (
+      <section data-pointer-host class:list={["relative flex flex-col overflow-hidden border-b border-foreground/10", i === 0 && "-mt-16 pt-16"]} style="min-height: max(88svh, 46rem)">
+        {kind === "strings" ? (
+          <StringField clear="left" />
+        ) : (
+          <div aria-hidden="true" class="pointer-events-none absolute inset-0">
+            <canvas data-ring-blocks class="absolute inset-0 h-full w-full" />
+          </div>
+        )}
+        <Container size="wide" class="relative flex flex-1 flex-col justify-center py-20">
+          <p class="mb-10 text-sm text-muted-foreground">
+            <span class="font-medium text-foreground">{name}</span> · {note}
+          </p>
+          <h1 class="max-w-[12em] text-[clamp(2.5rem,5.5vw,4.5rem)] leading-[1.04] font-medium tracking-[-0.035em] text-balance">
+            Give AI your own look<span class="text-primary">.</span>
+          </h1>
+          <p class="mt-6 max-w-[32rem] text-[clamp(18px,1.4vw,20px)] leading-[1.55] text-pretty">AI builds the same site for everyone. Give it your own colors, font and parts, and what it makes starts to look like yours.</p>
+        </Container>
+      </section>
+    ))
+  }
+</Site>
+
+<script>
+  import { mountRingBlocks } from "../../../lib/ring-blocks";
+
+  for (const canvas of document.querySelectorAll<HTMLCanvasElement>("[data-ring-blocks]")) mountRingBlocks(canvas);
+</script>
